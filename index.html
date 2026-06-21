@@ -28,8 +28,8 @@ img{display:block;max-width:100%}
 .hero-bg{position:absolute;inset:-3%;z-index:0;background-size:cover;background-position:center;filter:blur(10px) saturate(1.05);opacity:.45;transform:scale(1.06);transition:opacity .12s linear}
 .hero .scrim{position:absolute;inset:0;z-index:1;background:rgba(9,12,18,.72)}
 .media{position:absolute;left:50%;top:50%;z-index:2;margin:0;width:540px;height:330px;transform:translate(-50%,-50%);border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 90px rgba(0,0,0,.5);will-change:width,height}
-.media img{width:100%;height:100%;object-fit:cover}
-.media .mscrim{position:absolute;inset:0;background:rgba(8,11,17,.34);transition:background .12s linear}
+.media img{width:100%;height:100%;object-fit:cover;filter:blur(18px) saturate(1.06);transform:scale(1.08);will-change:filter,transform}
+.media .mscrim{position:absolute;inset:0;background:radial-gradient(125% 105% at 50% 44%,rgba(8,11,17,.50) 0%,rgba(8,11,17,.74) 52%,rgba(8,11,17,.9) 100%);transition:opacity .12s linear}
 .copy{position:relative;z-index:3;max-width:840px}
 .kicker{margin:0 0 18px;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
 .hero h1{margin:0;font-weight:800;letter-spacing:-.02em;font-size:clamp(2.8rem,9vw,6.2rem);line-height:.98}
@@ -122,6 +122,8 @@ html.js.revealed .reveal{opacity:1;transform:none}
     var media=document.getElementById("media");
     var bg=document.querySelector(".hero-bg");
     var mscrim=document.querySelector(".media .mscrim");
+    var mimg=document.querySelector(".media img");
+    var copy=document.querySelector(".copy");
     var tlL=document.getElementById("tlL"),tlR=document.getElementById("tlR");
     var cue=document.getElementById("cue");
     var progress=0,expanded=false,touchStartY=0;
@@ -136,7 +138,9 @@ html.js.revealed .reveal{opacity:1;transform:none}
       media.style.width=(s.bw+p*(s.mw-s.bw))+"px";
       media.style.height=(s.bh+p*(s.mh-s.bh))+"px";
       if(bg)bg.style.opacity=String(0.45*(1-p));
-      if(mscrim)mscrim.style.background="rgba(8,11,17,"+(0.34-p*0.22)+")";
+      if(mimg){mimg.style.filter="blur("+(18*(1-p)).toFixed(2)+"px) saturate(1.06)";mimg.style.transform="scale("+(1.08-p*0.08).toFixed(3)+")";}
+      if(mscrim)mscrim.style.opacity=(1-p*0.82).toFixed(3);
+      if(copy)copy.style.opacity=Math.max(0,1-p*1.35).toFixed(3);
       var x=p*s.spread;
       tlL.style.transform="translateX(-"+x+"vw)";
       tlR.style.transform="translateX("+x+"vw)";
