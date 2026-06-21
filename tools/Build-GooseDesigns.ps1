@@ -9,12 +9,16 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$RepoRoot     = (Split-Path -Parent $PSScriptRoot),
+    [string]$RepoRoot     = "",
     [string]$MocksRoot    = "C:\Users\shyamsridhar\OneDrive - Microsoft\Documents\Microsoft Scout\trending-mocks",
     [string]$VaultProject = "C:\Users\shyamsridhar\code\obsidian-vault\03_projects\github-trending-design"
 )
 
 $ErrorActionPreference = 'Stop'
+if([string]::IsNullOrWhiteSpace($RepoRoot)){
+    $scriptDir = if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
+    $RepoRoot  = Split-Path -Parent $scriptDir
+}
 $emdash = [char]0x2014
 $arrow  = [char]0x2192
 $mid    = [char]0x00B7   # middle dot
@@ -237,13 +241,36 @@ if(Test-Path -LiteralPath $conceptPath){
     Set-Content -Path (Join-Path $RepoRoot 'concept.md') -Value ($out -join "`n") -Encoding UTF8
 }
 
+# ---------- banner (montage hero) ----------
+$bannerRel = "assets/banner.png"
+$bannerAbs = Join-Path $RepoRoot "assets\banner.png"
+try {
+    $attDir = Join-Path $VaultProject "attachments"
+    $mk     = Join-Path $RepoRoot "tools\make_banner.py"
+    if((Test-Path $mk) -and (Test-Path $attDir)){
+        & python $mk --attachments $attDir --out $bannerAbs --count 6 2>$null | Out-Null
+    }
+} catch { Write-Output "WARN: banner generation skipped: $($_.Exception.Message)" }
+$haveBanner = Test-Path $bannerAbs
+
 # ---------- README.md (homepage) ----------
+$pagesUrl = "https://newgoosefactory.github.io/GooseDesigns/"
 $rm = @()
-$rm += "# GooseDesigns"
+$rm += "# GooseDesigns $emdash Daily UI Design Inspiration from Trending GitHub Repos"
 $rm += ""
-$rm += "A **daily design montage**. Each morning an automation reads GitHub Trending, picks the most interesting repos (biased to AI / agents / dev-tools / LLM / PKM), and reimagines each one's hero/landing UI in a rotating visual style. Design practice, captured and made browsable."
+if($haveBanner){
+    $rm += "![GooseDesigns $emdash a daily montage of hero and landing-page UI design mockups for trending GitHub repositories]($bannerRel)"
+    $rm += ""
+}
+$rm += "![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) " +
+       "![$($all.Count) mocks](https://img.shields.io/badge/mocks-$($all.Count)-1f6feb?style=flat-square) " +
+       "![$($dates.Count) days](https://img.shields.io/badge/days-$($dates.Count)-30363d?style=flat-square) " +
+       "[![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)]($pagesUrl) " +
+       "![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)"
 $rm += ""
-$rm += "**$($all.Count) mocks $mid $($dates.Count) days $mid $($families.Count) style families** and counting."
+$rm += "**A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories $emdash AI, autonomous agents, developer tools, local LLMs, and PKM $emdash and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop."
+$rm += ""
+$rm += "Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** $emdash $($all.Count) mockups across $($dates.Count) days and $($families.Count) style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery]($pagesUrl)**."
 $rm += ""
 $rm += "## Browse"
 $rm += ""
@@ -252,6 +279,7 @@ $styleLinks = @()
 foreach($fam in ($families | Sort-Object)){ $styleLinks += "[$fam](styles/$fam.md)" }
 $rm += "- **By style:** " + ($styleLinks -join " $mid ")
 $rm += "- **[Design Taste Ledger](ledger.md)**" + $(if(Test-Path (Join-Path $RepoRoot 'concept.md')){ " $mid **[Concept: Design Taste](concept.md)**" })
+$rm += "- **[Design system & discoverability spec](DESIGN.md)** $emdash palette, type scale, the four style families, and how this repo is built for reach"
 $rm += ""
 
 if($latest){

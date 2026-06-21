@@ -1,14 +1,19 @@
-# GooseDesigns
+﻿# GooseDesigns — Daily UI Design Inspiration from Trending GitHub Repos
 
-A **daily design montage**. Each morning an automation reads GitHub Trending, picks the most interesting repos (biased to AI / agents / dev-tools / LLM / PKM), and reimagines each one's hero/landing UI in a rotating visual style. Design practice, captured and made browsable.
+![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-**42 mocks · 14 days · 4 style families** and counting.
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![42 mocks](https://img.shields.io/badge/mocks-42-1f6feb?style=flat-square) ![14 days](https://img.shields.io/badge/days-14-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+
+**A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
+
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 42 mockups across 14 days and 4 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
 - **[Full catalog](CATALOG.md)** — every mock in one searchable table
 - **By style:** [blueprint](styles/blueprint.md) · [editorial](styles/editorial.md) · [hud](styles/hud.md) · [terminal-dark](styles/terminal-dark.md)
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
+- **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
 ## Latest — Sunday, June 21
 

@@ -1,4 +1,4 @@
-# Design Taste Ledger
+﻿# Design Taste Ledger
 
 Append-only record — one line per mock: date · repo · style · idea tested → verdict.
 

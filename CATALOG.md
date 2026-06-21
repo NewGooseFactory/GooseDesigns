@@ -1,4 +1,4 @@
-# Catalog — every design rep
+﻿# Catalog — every design rep
 
 Searchable master index. **42 mocks** across **14 days**. Newest first.
 

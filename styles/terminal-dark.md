@@ -1,4 +1,4 @@
-# Style — terminal-dark
+﻿# Style — terminal-dark
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 

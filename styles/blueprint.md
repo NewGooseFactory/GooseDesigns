@@ -1,4 +1,4 @@
-# Style — blueprint
+﻿# Style — blueprint
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 

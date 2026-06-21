@@ -1,4 +1,4 @@
-# Style — editorial
+﻿# Style — editorial
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
