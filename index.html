@@ -40,6 +40,9 @@ img{display:block;max-width:100%}
 .cue .chev{display:inline-block;margin-left:6px;color:var(--accent);animation:bob 1.8s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 .content{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:72px 24px 110px}
+.lead{max-width:680px;margin:2px 0 46px;font-size:clamp(1.06rem,2.4vw,1.32rem);line-height:1.5;color:var(--text)}
+.topcat{position:fixed;top:18px;right:20px;z-index:30;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem;color:var(--muted);border:1px solid var(--border);background:rgba(11,14,20,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);padding:7px 13px;border-radius:999px;transition:color .2s,border-color .2s}
+.topcat:hover{color:var(--accent);border-color:var(--accent)}
 .reveal{opacity:1;transform:none}
 html.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
 html.js.revealed .reveal{opacity:1;transform:none}
@@ -71,6 +74,7 @@ html.js.revealed .reveal{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){html.js .reveal{opacity:1;transform:none;transition:none}.cue .chev{animation:none}}</style>
 </head>
 <body>
+<a class="topcat" href="catalog.html">Catalog &rarr;</a>
 <header class="hero">
   <div class="hero-bg" style="background-image:url('assets/hero.png')"></div>
   <div class="scrim"></div>
@@ -78,11 +82,11 @@ html.js.revealed .reveal{opacity:1;transform:none}
   <div class="copy">
     <p class="kicker">Daily Design Montage</p>
     <h1><span class="tl tl-l" id="tlL">Goose</span><span class="tl tl-r" id="tlR">Designs</span></h1>
-    <p class="sub">Hero &amp; landing-page UI, reimagined daily for the most interesting repos on GitHub Trending.</p>
     <p class="cue" id="cue">Scroll to explore <span class="chev">&darr;</span></p>
   </div>
 </header>
 <main class="content">
+  <p class="lead reveal">A fresh set of landing-page &amp; hero-section UI mockups every morning &mdash; AI, agents, dev tools, LLMs &mdash; each reimagined in a rotating visual style.</p>
   <section class="stats reveal">
     <div><b>42</b><span>mocks</span></div>
     <div><b>14</b><span>days</span></div>
@@ -90,7 +94,7 @@ html.js.revealed .reveal{opacity:1;transform:none}
     <div><b>Daily</b><span>updated 6am CT</span></div>
   </section>
   <section class="reveal">
-    <div class="sec-head"><h2>Latest &mdash; Sunday, June 21</h2><a class="more" href="days/2026-06-21/">See the full day &rarr;</a></div>
+    <div class="sec-head"><h2>Latest &mdash; Sunday, June 21</h2><a class="more" href="catalog.html?day=2026-06-21">See all 42 in the catalog &rarr;</a></div>
     <div class="grid">
       <a class="mock" href="days/2026-06-21/01-cognee.html"><span class="shot"><img loading="lazy" src="days/2026-06-21/01-cognee.png" alt="topoteretes/cognee landing-page hero mock, blueprint style"></span><span class="mm"><b>topoteretes/cognee</b><i>blueprint</i></span></a>
       <a class="mock" href="days/2026-06-21/02-deer-flow.html"><span class="shot"><img loading="lazy" src="days/2026-06-21/02-deer-flow.png" alt="bytedance/deer-flow landing-page hero mock, blueprint style"></span><span class="mm"><b>bytedance/deer-flow</b><i>blueprint</i></span></a>
@@ -100,19 +104,17 @@ html.js.revealed .reveal{opacity:1;transform:none}
   <section class="reveal">
     <div class="sec-head"><h2>Browse by style</h2></div>
     <div class="chips">
-      <a class="chip" href="styles/blueprint.md">blueprint</a>
-      <a class="chip" href="styles/editorial.md">editorial</a>
-      <a class="chip" href="styles/hud.md">hud</a>
-      <a class="chip" href="styles/terminal-dark.md">terminal-dark</a>
+      <a class="chip" href="catalog.html?style=blueprint">blueprint</a>
+      <a class="chip" href="catalog.html?style=editorial">editorial</a>
+      <a class="chip" href="catalog.html?style=hud">hud</a>
+      <a class="chip" href="catalog.html?style=terminal-dark">terminal-dark</a>
     </div>
   </section>
   <section class="reveal cta">
-    <a class="btn primary" href="CATALOG.md">Full catalog</a>
-    <a class="btn" href="DESIGN.md">Design system</a>
-    <a class="btn" href="ledger.md">Taste ledger</a>
-    <a class="btn" href="https://github.com/NewGooseFactory/GooseDesigns">View on GitHub</a>
+    <a class="btn primary" href="catalog.html">Browse all 42 mocks &rarr;</a>
+    <a class="btn" href="https://github.com/NewGooseFactory/GooseDesigns">View source on GitHub</a>
   </section>
-  <footer class="foot reveal">An automation reads GitHub Trending each morning, designs hero mocks in a rotating style, and regenerates this gallery &mdash; no generic AI-gradient slop. &middot; <a href="DESIGN.md">design &amp; discoverability spec</a></footer>
+  <footer class="foot reveal">An automation reads GitHub Trending each morning, designs hero mocks in a rotating style, and regenerates this gallery &mdash; no generic AI-gradient slop. &middot; <a href="https://github.com/NewGooseFactory/GooseDesigns/blob/main/DESIGN.md">Design system</a> &middot; <a href="https://github.com/NewGooseFactory/GooseDesigns/blob/main/ledger.md">Taste ledger</a></footer>
 </main>
 <script>(function(){
   var root=document.documentElement;

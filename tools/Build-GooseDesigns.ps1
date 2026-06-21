@@ -348,7 +348,7 @@ foreach($r in $idxLr){
               "<span class=""mm""><b>$cap</b><i>$($r.family)</i></span></a>`n"
 }
 $chips = ""
-foreach($fam in ($families | Sort-Object)){ $chips += "      <a class=""chip"" href=""styles/$fam.md"">$fam</a>`n" }
+foreach($fam in ($families | Sort-Object)){ $chips += "      <a class=""chip"" href=""catalog.html?style=$fam"">$fam</a>`n" }
 $latestLabel = if($latest){ WeekdayLong $latest } else { "" }
 
 $css = @'
@@ -375,6 +375,9 @@ img{display:block;max-width:100%}
 .cue .chev{display:inline-block;margin-left:6px;color:var(--accent);animation:bob 1.8s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 .content{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:72px 24px 110px}
+.lead{max-width:680px;margin:2px 0 46px;font-size:clamp(1.06rem,2.4vw,1.32rem);line-height:1.5;color:var(--text)}
+.topcat{position:fixed;top:18px;right:20px;z-index:30;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem;color:var(--muted);border:1px solid var(--border);background:rgba(11,14,20,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);padding:7px 13px;border-radius:999px;transition:color .2s,border-color .2s}
+.topcat:hover{color:var(--accent);border-color:var(--accent)}
 .reveal{opacity:1;transform:none}
 html.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
 html.js.revealed .reveal{opacity:1;transform:none}
@@ -484,6 +487,7 @@ $ix += "<script>document.documentElement.className='js';</script>"
 $ix += "<style>$css</style>"
 $ix += "</head>"
 $ix += "<body>"
+$ix += "<a class=""topcat"" href=""catalog.html"">Catalog &rarr;</a>"
 $ix += "<header class=""hero"">"
 $ix += "  <div class=""hero-bg"" style=""background-image:url('assets/hero.png')""></div>"
 $ix += "  <div class=""scrim""></div>"
@@ -491,11 +495,11 @@ $ix += "  <figure class=""media"" id=""media""><img src=""assets/hero.png"" alt=
 $ix += "  <div class=""copy"">"
 $ix += "    <p class=""kicker"">Daily Design Montage</p>"
 $ix += "    <h1><span class=""tl tl-l"" id=""tlL"">Goose</span><span class=""tl tl-r"" id=""tlR"">Designs</span></h1>"
-$ix += "    <p class=""sub"">Hero &amp; landing-page UI, reimagined daily for the most interesting repos on GitHub Trending.</p>"
 $ix += "    <p class=""cue"" id=""cue"">Scroll to explore <span class=""chev"">&darr;</span></p>"
 $ix += "  </div>"
 $ix += "</header>"
 $ix += "<main class=""content"">"
+$ix += "  <p class=""lead reveal"">A fresh set of landing-page &amp; hero-section UI mockups every morning &mdash; AI, agents, dev tools, LLMs &mdash; each reimagined in a rotating visual style.</p>"
 $ix += "  <section class=""stats reveal"">"
 $ix += "    <div><b>$($all.Count)</b><span>mocks</span></div>"
 $ix += "    <div><b>$($dates.Count)</b><span>days</span></div>"
@@ -504,7 +508,7 @@ $ix += "    <div><b>Daily</b><span>updated 6am CT</span></div>"
 $ix += "  </section>"
 if($idxLr.Count){
     $ix += "  <section class=""reveal"">"
-    $ix += "    <div class=""sec-head""><h2>Latest &mdash; $latestLabel</h2><a class=""more"" href=""days/$latest/"">See the full day &rarr;</a></div>"
+    $ix += "    <div class=""sec-head""><h2>Latest &mdash; $latestLabel</h2><a class=""more"" href=""catalog.html?day=$latest"">See all $($all.Count) in the catalog &rarr;</a></div>"
     $ix += "    <div class=""grid"">"
     $ix += $cards.TrimEnd()
     $ix += "    </div>"
@@ -517,17 +521,151 @@ $ix += $chips.TrimEnd()
 $ix += "    </div>"
 $ix += "  </section>"
 $ix += "  <section class=""reveal cta"">"
-$ix += "    <a class=""btn primary"" href=""CATALOG.md"">Full catalog</a>"
-$ix += "    <a class=""btn"" href=""DESIGN.md"">Design system</a>"
-$ix += "    <a class=""btn"" href=""ledger.md"">Taste ledger</a>"
-$ix += "    <a class=""btn"" href=""https://github.com/NewGooseFactory/GooseDesigns"">View on GitHub</a>"
+$ix += "    <a class=""btn primary"" href=""catalog.html"">Browse all $($all.Count) mocks &rarr;</a>"
+$ix += "    <a class=""btn"" href=""https://github.com/NewGooseFactory/GooseDesigns"">View source on GitHub</a>"
 $ix += "  </section>"
-$ix += "  <footer class=""foot reveal"">An automation reads GitHub Trending each morning, designs hero mocks in a rotating style, and regenerates this gallery &mdash; no generic AI-gradient slop. &middot; <a href=""DESIGN.md"">design &amp; discoverability spec</a></footer>"
+$ix += "  <footer class=""foot reveal"">An automation reads GitHub Trending each morning, designs hero mocks in a rotating style, and regenerates this gallery &mdash; no generic AI-gradient slop. &middot; <a href=""https://github.com/NewGooseFactory/GooseDesigns/blob/main/DESIGN.md"">Design system</a> &middot; <a href=""https://github.com/NewGooseFactory/GooseDesigns/blob/main/ledger.md"">Taste ledger</a></footer>"
 $ix += "</main>"
 $ix += "<script>$js</script>"
 $ix += "</body>"
 $ix += "</html>"
 Set-Content -Path (Join-Path $RepoRoot 'index.html') -Value ($ix -join "`n") -Encoding UTF8
+
+# ---------- catalog.html (designed, filterable gallery of every mock) ----------
+$catCss = @'
+:root{--bg:#0b0e14;--panel:#0f141d;--border:#1f2733;--text:#e6edf3;--muted:#8b98a9;--accent:#5eead4;--maxw:1160px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 22px;background:rgba(11,14,20,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.bar .wm{font-weight:700;letter-spacing:-.01em;font-size:1rem}
+.bar .wm b{color:var(--accent)}
+.bar .right{display:flex;align-items:center;gap:16px;color:var(--muted);font-size:.88rem}
+.bar .right a{transition:color .2s}
+.bar .right a:hover{color:var(--text)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.head{padding:56px 0 18px}
+.head .kicker{margin:0 0 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.head h1{margin:0;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.02em;line-height:1.04}
+.head p{margin:16px 0 0;color:var(--muted);max-width:660px;font-size:1.02rem}
+.filters{position:sticky;top:53px;z-index:10;display:flex;flex-wrap:wrap;gap:10px;padding:16px 0 14px;background:linear-gradient(var(--bg),var(--bg) 76%,rgba(11,14,20,0))}
+.f{appearance:none;-webkit-appearance:none;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;line-height:1;color:var(--muted);background:var(--panel);border:1px solid var(--border);padding:9px 15px;border-radius:999px;cursor:pointer;transition:border-color .18s,color .18s,background .18s}
+.f:hover{border-color:#34404f;color:var(--text)}
+.f.on{color:#06231f;background:var(--accent);border-color:var(--accent)}
+.day{scroll-margin-top:118px}
+.day h2{display:flex;align-items:baseline;gap:12px;margin:30px 0 16px;font-size:1.16rem;font-weight:700;letter-spacing:-.01em}
+.day h2 span{font-family:ui-monospace,monospace;font-size:.78rem;color:var(--muted);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;margin:0 0 12px}
+.mock{display:block;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform .2s ease,border-color .2s ease}
+.mock:hover{transform:translateY(-3px);border-color:#34404f}
+.mock .shot{display:block;aspect-ratio:16/10;overflow:hidden;background:#0c1118}
+.mock .shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.mock .mm{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px}
+.mock .mm b{font-weight:600;font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mock .mm i{flex:none;font-style:normal;font-family:ui-monospace,monospace;font-size:.7rem;color:var(--accent);border:1px solid var(--border);padding:3px 8px;border-radius:999px}
+.empty{display:none;color:var(--muted);padding:48px 0 80px;text-align:center}
+.foot{color:var(--muted);font-size:.86rem;border-top:1px solid var(--border);padding:26px 0 64px;margin-top:34px}
+.foot a{color:var(--accent)}
+@media (max-width:560px){.head{padding:40px 0 14px}.filters{top:51px}}
+'@
+
+$catJs = @'
+(function(){
+  var qs=new URLSearchParams(location.search);
+  var style=(qs.get("style")||"all").toLowerCase();
+  var fs=[].slice.call(document.querySelectorAll(".f"));
+  var days=[].slice.call(document.querySelectorAll(".day"));
+  var empty=document.querySelector(".empty");
+  function norm(s){return (s||"").toLowerCase();}
+  function apply(){
+    var shown=0;
+    days.forEach(function(d){
+      var vis=0;
+      [].slice.call(d.querySelectorAll(".mock")).forEach(function(c){
+        var ok=style==="all"||norm(c.getAttribute("data-style"))===style;
+        c.style.display=ok?"":"none"; if(ok){vis++;shown++;}
+      });
+      d.style.display=vis?"":"none";
+    });
+    if(empty)empty.style.display=shown?"none":"block";
+    fs.forEach(function(f){ if(norm(f.getAttribute("data-f"))===style){f.classList.add("on");}else{f.classList.remove("on");} });
+  }
+  fs.forEach(function(f){
+    f.addEventListener("click",function(){
+      style=norm(f.getAttribute("data-f"));
+      var u=new URL(location.href);
+      if(style==="all"){u.searchParams.delete("style");}else{u.searchParams.set("style",style);}
+      history.replaceState(null,"",u);
+      apply();
+    });
+  });
+  apply();
+  var day=qs.get("day");
+  if(day){var el=document.querySelector('.day[data-day="'+day+'"]');if(el){el.scrollIntoView();}}
+})();
+'@
+
+$catUrl = $pagesUrl + "catalog.html"
+$cx = @()
+$cx += "<!doctype html>"
+$cx += "<html lang=""en"">"
+$cx += "<head>"
+$cx += "<meta charset=""utf-8"">"
+$cx += "<meta name=""viewport"" content=""width=device-width, initial-scale=1"">"
+$cx += "<title>Catalog &mdash; GooseDesigns &middot; $($all.Count) daily UI hero mockups</title>"
+$cx += "<meta name=""description"" content=""Browse every GooseDesigns hero mock &mdash; $($all.Count) landing-page UI designs across $($dates.Count) days, filterable by visual style. Click any card to open the live mock."">"
+$cx += "<link rel=""canonical"" href=""$catUrl"">"
+$cx += "<meta name=""theme-color"" content=""#0b0e14"">"
+$cx += "<meta property=""og:type"" content=""website"">"
+$cx += "<meta property=""og:title"" content=""GooseDesigns Catalog &mdash; $($all.Count) daily UI hero mockups"">"
+$cx += "<meta property=""og:description"" content=""Every hero mock, newest first &mdash; filterable by visual style."">"
+$cx += "<meta property=""og:image"" content=""$ogImg"">"
+$cx += "<meta property=""og:url"" content=""$catUrl"">"
+$cx += "<meta name=""twitter:card"" content=""summary_large_image"">"
+$cx += "<meta name=""twitter:title"" content=""GooseDesigns Catalog &mdash; $($all.Count) daily UI hero mockups"">"
+$cx += "<meta name=""twitter:image"" content=""$ogImg"">"
+$cx += "<style>$catCss</style>"
+$cx += "</head>"
+$cx += "<body>"
+$cx += "<div class=""bar"">"
+$cx += "  <a class=""wm"" href=""./"">Goose<b>Designs</b></a>"
+$cx += "  <div class=""right""><span>$($all.Count) mocks &middot; $($dates.Count) days</span><a href=""https://github.com/NewGooseFactory/GooseDesigns"">GitHub</a></div>"
+$cx += "</div>"
+$cx += "<header class=""wrap head"">"
+$cx += "  <p class=""kicker"">Catalog</p>"
+$cx += "  <h1>Every mock, newest first</h1>"
+$cx += "  <p>The complete archive of daily hero &amp; landing-page UI mockups &mdash; $($all.Count) designs across $($dates.Count) days in $($families.Count) rotating visual styles. Filter by style, then open any card to view the live mock.</p>"
+$cx += "</header>"
+$cx += "<div class=""wrap"">"
+$cx += "  <nav class=""filters"" aria-label=""Filter by visual style"">"
+$cx += "    <button type=""button"" class=""f on"" data-f=""all"">All</button>"
+foreach($fam in ($families | Sort-Object)){ $cx += "    <button type=""button"" class=""f"" data-f=""$fam"">$fam</button>" }
+$cx += "  </nav>"
+foreach($d in $datesDesc){
+    $drecs = @($all | Where-Object { $_.date -eq $d } | Sort-Object nn)
+    if(-not $drecs.Count){ continue }
+    $cx += "  <section class=""day"" data-day=""$d"">"
+    $cx += "    <h2>$(WeekdayLong $d) <span>$d &middot; $($drecs.Count) mocks</span></h2>"
+    $cx += "    <div class=""grid"">"
+    foreach($r in $drecs){
+        $cap = if($r.owner){ "$($r.owner)/$($r.name)" } else { $r.name }
+        $cx += "      <a class=""mock"" data-style=""$($r.family)"" href=""days/$($r.date)/$($r.nn)-$($r.slug).html"">" +
+               "<span class=""shot""><img loading=""lazy"" src=""days/$($r.date)/$($r.nn)-$($r.slug).png"" alt=""$cap landing-page hero mock, $($r.family) style""></span>" +
+               "<span class=""mm""><b>$cap</b><i>$($r.family)</i></span></a>"
+    }
+    $cx += "    </div>"
+    $cx += "  </section>"
+}
+$cx += "  <p class=""empty"">No mocks in that style yet.</p>"
+$cx += "  <footer class=""foot"">Generated daily by a Goose automation from GitHub Trending. <a href=""./"">&larr; Back to home</a> &middot; <a href=""https://github.com/NewGooseFactory/GooseDesigns/blob/main/DESIGN.md"">Design system</a> &middot; <a href=""https://github.com/NewGooseFactory/GooseDesigns/blob/main/ledger.md"">Taste ledger</a></footer>"
+$cx += "</div>"
+$cx += "<script>$catJs</script>"
+$cx += "</body>"
+$cx += "</html>"
+Set-Content -Path (Join-Path $RepoRoot 'catalog.html') -Value ($cx -join "`n") -Encoding UTF8
 
 Write-Output ("OK: {0} mocks, {1} days, {2} style families -> {3}" -f $all.Count, $dates.Count, $families.Count, $RepoRoot)
 Write-Output ("Families: " + ($families -join ', '))

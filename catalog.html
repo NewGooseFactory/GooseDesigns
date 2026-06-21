@@ -1,0 +1,223 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog &mdash; GooseDesigns &middot; 42 daily UI hero mockups</title>
+<meta name="description" content="Browse every GooseDesigns hero mock &mdash; 42 landing-page UI designs across 14 days, filterable by visual style. Click any card to open the live mock.">
+<link rel="canonical" href="https://newgoosefactory.github.io/GooseDesigns/catalog.html">
+<meta name="theme-color" content="#0b0e14">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GooseDesigns Catalog &mdash; 42 daily UI hero mockups">
+<meta property="og:description" content="Every hero mock, newest first &mdash; filterable by visual style.">
+<meta property="og:image" content="https://newgoosefactory.github.io/GooseDesigns/assets/banner.png">
+<meta property="og:url" content="https://newgoosefactory.github.io/GooseDesigns/catalog.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GooseDesigns Catalog &mdash; 42 daily UI hero mockups">
+<meta name="twitter:image" content="https://newgoosefactory.github.io/GooseDesigns/assets/banner.png">
+<style>:root{--bg:#0b0e14;--panel:#0f141d;--border:#1f2733;--text:#e6edf3;--muted:#8b98a9;--accent:#5eead4;--maxw:1160px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 22px;background:rgba(11,14,20,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.bar .wm{font-weight:700;letter-spacing:-.01em;font-size:1rem}
+.bar .wm b{color:var(--accent)}
+.bar .right{display:flex;align-items:center;gap:16px;color:var(--muted);font-size:.88rem}
+.bar .right a{transition:color .2s}
+.bar .right a:hover{color:var(--text)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.head{padding:56px 0 18px}
+.head .kicker{margin:0 0 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.head h1{margin:0;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.02em;line-height:1.04}
+.head p{margin:16px 0 0;color:var(--muted);max-width:660px;font-size:1.02rem}
+.filters{position:sticky;top:53px;z-index:10;display:flex;flex-wrap:wrap;gap:10px;padding:16px 0 14px;background:linear-gradient(var(--bg),var(--bg) 76%,rgba(11,14,20,0))}
+.f{appearance:none;-webkit-appearance:none;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;line-height:1;color:var(--muted);background:var(--panel);border:1px solid var(--border);padding:9px 15px;border-radius:999px;cursor:pointer;transition:border-color .18s,color .18s,background .18s}
+.f:hover{border-color:#34404f;color:var(--text)}
+.f.on{color:#06231f;background:var(--accent);border-color:var(--accent)}
+.day{scroll-margin-top:118px}
+.day h2{display:flex;align-items:baseline;gap:12px;margin:30px 0 16px;font-size:1.16rem;font-weight:700;letter-spacing:-.01em}
+.day h2 span{font-family:ui-monospace,monospace;font-size:.78rem;color:var(--muted);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;margin:0 0 12px}
+.mock{display:block;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform .2s ease,border-color .2s ease}
+.mock:hover{transform:translateY(-3px);border-color:#34404f}
+.mock .shot{display:block;aspect-ratio:16/10;overflow:hidden;background:#0c1118}
+.mock .shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.mock .mm{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px}
+.mock .mm b{font-weight:600;font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mock .mm i{flex:none;font-style:normal;font-family:ui-monospace,monospace;font-size:.7rem;color:var(--accent);border:1px solid var(--border);padding:3px 8px;border-radius:999px}
+.empty{display:none;color:var(--muted);padding:48px 0 80px;text-align:center}
+.foot{color:var(--muted);font-size:.86rem;border-top:1px solid var(--border);padding:26px 0 64px;margin-top:34px}
+.foot a{color:var(--accent)}
+@media (max-width:560px){.head{padding:40px 0 14px}.filters{top:51px}}</style>
+</head>
+<body>
+<div class="bar">
+  <a class="wm" href="./">Goose<b>Designs</b></a>
+  <div class="right"><span>42 mocks &middot; 14 days</span><a href="https://github.com/NewGooseFactory/GooseDesigns">GitHub</a></div>
+</div>
+<header class="wrap head">
+  <p class="kicker">Catalog</p>
+  <h1>Every mock, newest first</h1>
+  <p>The complete archive of daily hero &amp; landing-page UI mockups &mdash; 42 designs across 14 days in 4 rotating visual styles. Filter by style, then open any card to view the live mock.</p>
+</header>
+<div class="wrap">
+  <nav class="filters" aria-label="Filter by visual style">
+    <button type="button" class="f on" data-f="all">All</button>
+    <button type="button" class="f" data-f="blueprint">blueprint</button>
+    <button type="button" class="f" data-f="editorial">editorial</button>
+    <button type="button" class="f" data-f="hud">hud</button>
+    <button type="button" class="f" data-f="terminal-dark">terminal-dark</button>
+  </nav>
+  <section class="day" data-day="2026-06-21">
+    <h2>Sunday, June 21 <span>2026-06-21 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="blueprint" href="days/2026-06-21/01-cognee.html"><span class="shot"><img loading="lazy" src="days/2026-06-21/01-cognee.png" alt="topoteretes/cognee landing-page hero mock, blueprint style"></span><span class="mm"><b>topoteretes/cognee</b><i>blueprint</i></span></a>
+      <a class="mock" data-style="blueprint" href="days/2026-06-21/02-deer-flow.html"><span class="shot"><img loading="lazy" src="days/2026-06-21/02-deer-flow.png" alt="bytedance/deer-flow landing-page hero mock, blueprint style"></span><span class="mm"><b>bytedance/deer-flow</b><i>blueprint</i></span></a>
+      <a class="mock" data-style="blueprint" href="days/2026-06-21/03-Anthropic-Cybersecurity-Skills.html"><span class="shot"><img loading="lazy" src="days/2026-06-21/03-Anthropic-Cybersecurity-Skills.png" alt="mukul975/Anthropic-Cybersecurity-Skills landing-page hero mock, blueprint style"></span><span class="mm"><b>mukul975/Anthropic-Cybersecurity-Skills</b><i>blueprint</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-20">
+    <h2>Saturday, June 20 <span>2026-06-20 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="hud" href="days/2026-06-20/01-headroom.html"><span class="shot"><img loading="lazy" src="days/2026-06-20/01-headroom.png" alt="chopratejas/headroom landing-page hero mock, hud style"></span><span class="mm"><b>chopratejas/headroom</b><i>hud</i></span></a>
+      <a class="mock" data-style="hud" href="days/2026-06-20/02-turso.html"><span class="shot"><img loading="lazy" src="days/2026-06-20/02-turso.png" alt="tursodatabase/turso landing-page hero mock, hud style"></span><span class="mm"><b>tursodatabase/turso</b><i>hud</i></span></a>
+      <a class="mock" data-style="hud" href="days/2026-06-20/03-jcode.html"><span class="shot"><img loading="lazy" src="days/2026-06-20/03-jcode.png" alt="1jehuang/jcode landing-page hero mock, hud style"></span><span class="mm"><b>1jehuang/jcode</b><i>hud</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-19">
+    <h2>Friday, June 19 <span>2026-06-19 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="editorial" href="days/2026-06-19/01-GLM-5.html"><span class="shot"><img loading="lazy" src="days/2026-06-19/01-GLM-5.png" alt="zai-org/GLM-5 landing-page hero mock, editorial style"></span><span class="mm"><b>zai-org/GLM-5</b><i>editorial</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-19/02-flue.html"><span class="shot"><img loading="lazy" src="days/2026-06-19/02-flue.png" alt="withastro/flue landing-page hero mock, editorial style"></span><span class="mm"><b>withastro/flue</b><i>editorial</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-19/03-kilocode.html"><span class="shot"><img loading="lazy" src="days/2026-06-19/03-kilocode.png" alt="Kilo-Org/kilocode landing-page hero mock, editorial style"></span><span class="mm"><b>Kilo-Org/kilocode</b><i>editorial</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-18">
+    <h2>Thursday, June 18 <span>2026-06-18 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-18/01-codebase-memory-mcp.html"><span class="shot"><img loading="lazy" src="days/2026-06-18/01-codebase-memory-mcp.png" alt="DeusData/codebase-memory-mcp landing-page hero mock, terminal-dark style"></span><span class="mm"><b>DeusData/codebase-memory-mcp</b><i>terminal-dark</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-18/02-superpowers.html"><span class="shot"><img loading="lazy" src="days/2026-06-18/02-superpowers.png" alt="obra/superpowers landing-page hero mock, terminal-dark style"></span><span class="mm"><b>obra/superpowers</b><i>terminal-dark</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-18/03-continue.html"><span class="shot"><img loading="lazy" src="days/2026-06-18/03-continue.png" alt="continuedev/continue landing-page hero mock, terminal-dark style"></span><span class="mm"><b>continuedev/continue</b><i>terminal-dark</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-17">
+    <h2>Wednesday, June 17 <span>2026-06-17 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="hud" href="days/2026-06-17/01-puppeteer.html"><span class="shot"><img loading="lazy" src="days/2026-06-17/01-puppeteer.png" alt="puppeteer/puppeteer landing-page hero mock, hud style"></span><span class="mm"><b>puppeteer/puppeteer</b><i>hud</i></span></a>
+      <a class="mock" data-style="hud" href="days/2026-06-17/02-meshery.html"><span class="shot"><img loading="lazy" src="days/2026-06-17/02-meshery.png" alt="meshery/meshery landing-page hero mock, hud style"></span><span class="mm"><b>meshery/meshery</b><i>hud</i></span></a>
+      <a class="mock" data-style="hud" href="days/2026-06-17/03-teslamate.html"><span class="shot"><img loading="lazy" src="days/2026-06-17/03-teslamate.png" alt="teslamate-org/teslamate landing-page hero mock, hud style"></span><span class="mm"><b>teslamate-org/teslamate</b><i>hud</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-16">
+    <h2>Tuesday, June 16 <span>2026-06-16 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="editorial" href="days/2026-06-16/01-zvec.html"><span class="shot"><img loading="lazy" src="days/2026-06-16/01-zvec.png" alt="alibaba/zvec landing-page hero mock, editorial style"></span><span class="mm"><b>alibaba/zvec</b><i>editorial</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-16/02-voxcpm.html"><span class="shot"><img loading="lazy" src="days/2026-06-16/02-voxcpm.png" alt="OpenBMB/VoxCPM landing-page hero mock, editorial style"></span><span class="mm"><b>OpenBMB/VoxCPM</b><i>editorial</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-16/03-iroh.html"><span class="shot"><img loading="lazy" src="days/2026-06-16/03-iroh.png" alt="n0-computer/iroh landing-page hero mock, editorial style"></span><span class="mm"><b>n0-computer/iroh</b><i>editorial</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-15">
+    <h2>Monday, June 15 <span>2026-06-15 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-15/01-agent-reach.html"><span class="shot"><img loading="lazy" src="days/2026-06-15/01-agent-reach.png" alt="Panniantong/Agent-Reach landing-page hero mock, terminal-dark style"></span><span class="mm"><b>Panniantong/Agent-Reach</b><i>terminal-dark</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-15/02-cua.html"><span class="shot"><img loading="lazy" src="days/2026-06-15/02-cua.png" alt="trycua/cua landing-page hero mock, terminal-dark style"></span><span class="mm"><b>trycua/cua</b><i>terminal-dark</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-15/03-ai-engineering-from-scratch.html"><span class="shot"><img loading="lazy" src="days/2026-06-15/03-ai-engineering-from-scratch.png" alt="rohitg00/ai-engineering-from-scratch landing-page hero mock, terminal-dark style"></span><span class="mm"><b>rohitg00/ai-engineering-from-scratch</b><i>terminal-dark</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-14">
+    <h2>Sunday, June 14 <span>2026-06-14 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="hud" href="days/2026-06-14/01-skillspector.html"><span class="shot"><img loading="lazy" src="days/2026-06-14/01-skillspector.png" alt="NVIDIA/SkillSpector landing-page hero mock, hud style"></span><span class="mm"><b>NVIDIA/SkillSpector</b><i>hud</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-14/02-aisuite.html"><span class="shot"><img loading="lazy" src="days/2026-06-14/02-aisuite.png" alt="andrewyng/aisuite landing-page hero mock, editorial style"></span><span class="mm"><b>andrewyng/aisuite</b><i>editorial</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-14/03-swc.html"><span class="shot"><img loading="lazy" src="days/2026-06-14/03-swc.png" alt="swc-project/swc landing-page hero mock, terminal-dark style"></span><span class="mm"><b>swc-project/swc</b><i>terminal-dark</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-13">
+    <h2>Saturday, June 13 <span>2026-06-13 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="hud" href="days/2026-06-13/01-lmcache.html"><span class="shot"><img loading="lazy" src="days/2026-06-13/01-lmcache.png" alt="LMCache/LMCache landing-page hero mock, hud style"></span><span class="mm"><b>LMCache/LMCache</b><i>hud</i></span></a>
+      <a class="mock" data-style="hud" href="days/2026-06-13/02-aisuite.html"><span class="shot"><img loading="lazy" src="days/2026-06-13/02-aisuite.png" alt="andrewyng/aisuite landing-page hero mock, hud style"></span><span class="mm"><b>andrewyng/aisuite</b><i>hud</i></span></a>
+      <a class="mock" data-style="hud" href="days/2026-06-13/03-agentsview.html"><span class="shot"><img loading="lazy" src="days/2026-06-13/03-agentsview.png" alt="kenn-io/agentsview landing-page hero mock, hud style"></span><span class="mm"><b>kenn-io/agentsview</b><i>hud</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-12">
+    <h2>Friday, June 12 <span>2026-06-12 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="editorial" href="days/2026-06-12/01-agency-agents.html"><span class="shot"><img loading="lazy" src="days/2026-06-12/01-agency-agents.png" alt="msitarzewski/agency-agents landing-page hero mock, editorial style"></span><span class="mm"><b>msitarzewski/agency-agents</b><i>editorial</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-12/02-system-prompts.html"><span class="shot"><img loading="lazy" src="days/2026-06-12/02-system-prompts.png" alt="x1xhlol/system-prompts-and-models-of-ai-tools landing-page hero mock, editorial style"></span><span class="mm"><b>x1xhlol/system-prompts-and-models-of-ai-tools</b><i>editorial</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-12/03-container.html"><span class="shot"><img loading="lazy" src="days/2026-06-12/03-container.png" alt="apple/container landing-page hero mock, editorial style"></span><span class="mm"><b>apple/container</b><i>editorial</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-11">
+    <h2>Thursday, June 11 <span>2026-06-11 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-11/01-skillspector.html"><span class="shot"><img loading="lazy" src="days/2026-06-11/01-skillspector.png" alt="NVIDIA/SkillSpector landing-page hero mock, terminal-dark style"></span><span class="mm"><b>NVIDIA/SkillSpector</b><i>terminal-dark</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-11/02-agentsview.html"><span class="shot"><img loading="lazy" src="days/2026-06-11/02-agentsview.png" alt="kenn-io/agentsview landing-page hero mock, terminal-dark style"></span><span class="mm"><b>kenn-io/agentsview</b><i>terminal-dark</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-11/03-sia.html"><span class="shot"><img loading="lazy" src="days/2026-06-11/03-sia.png" alt="hexo-ai/sia landing-page hero mock, terminal-dark style"></span><span class="mm"><b>hexo-ai/sia</b><i>terminal-dark</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-10">
+    <h2>Wednesday, June 10 <span>2026-06-10 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="hud" href="days/2026-06-10/01-agent-skills.html"><span class="shot"><img loading="lazy" src="days/2026-06-10/01-agent-skills.png" alt="addyosmani/agent-skills landing-page hero mock, hud style"></span><span class="mm"><b>addyosmani/agent-skills</b><i>hud</i></span></a>
+      <a class="mock" data-style="hud" href="days/2026-06-10/02-superpowers.html"><span class="shot"><img loading="lazy" src="days/2026-06-10/02-superpowers.png" alt="obra/superpowers landing-page hero mock, hud style"></span><span class="mm"><b>obra/superpowers</b><i>hud</i></span></a>
+      <a class="mock" data-style="hud" href="days/2026-06-10/03-hivemind.html"><span class="shot"><img loading="lazy" src="days/2026-06-10/03-hivemind.png" alt="activeloopai/hivemind landing-page hero mock, hud style"></span><span class="mm"><b>activeloopai/hivemind</b><i>hud</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-09">
+    <h2>Tuesday, June 9 <span>2026-06-09 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="editorial" href="days/2026-06-09/01-turbovec.html"><span class="shot"><img loading="lazy" src="days/2026-06-09/01-turbovec.png" alt="RyanCodrai/turbovec landing-page hero mock, editorial style"></span><span class="mm"><b>RyanCodrai/turbovec</b><i>editorial</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-09/02-agent-reach.html"><span class="shot"><img loading="lazy" src="days/2026-06-09/02-agent-reach.png" alt="Panniantong/Agent-Reach landing-page hero mock, editorial style"></span><span class="mm"><b>Panniantong/Agent-Reach</b><i>editorial</i></span></a>
+      <a class="mock" data-style="editorial" href="days/2026-06-09/03-goose.html"><span class="shot"><img loading="lazy" src="days/2026-06-09/03-goose.png" alt="aaif-goose/goose landing-page hero mock, editorial style"></span><span class="mm"><b>aaif-goose/goose</b><i>editorial</i></span></a>
+    </div>
+  </section>
+  <section class="day" data-day="2026-06-08">
+    <h2>Monday, June 8 <span>2026-06-08 &middot; 3 mocks</span></h2>
+    <div class="grid">
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-08/01-whichllm.html"><span class="shot"><img loading="lazy" src="days/2026-06-08/01-whichllm.png" alt="Andyyyy64/whichllm landing-page hero mock, terminal-dark style"></span><span class="mm"><b>Andyyyy64/whichllm</b><i>terminal-dark</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-08/02-last30days-skill.html"><span class="shot"><img loading="lazy" src="days/2026-06-08/02-last30days-skill.png" alt="mvanhorn/last30days-skill landing-page hero mock, terminal-dark style"></span><span class="mm"><b>mvanhorn/last30days-skill</b><i>terminal-dark</i></span></a>
+      <a class="mock" data-style="terminal-dark" href="days/2026-06-08/03-mempalace.html"><span class="shot"><img loading="lazy" src="days/2026-06-08/03-mempalace.png" alt="MemPalace/mempalace landing-page hero mock, terminal-dark style"></span><span class="mm"><b>MemPalace/mempalace</b><i>terminal-dark</i></span></a>
+    </div>
+  </section>
+  <p class="empty">No mocks in that style yet.</p>
+  <footer class="foot">Generated daily by a Goose automation from GitHub Trending. <a href="./">&larr; Back to home</a> &middot; <a href="https://github.com/NewGooseFactory/GooseDesigns/blob/main/DESIGN.md">Design system</a> &middot; <a href="https://github.com/NewGooseFactory/GooseDesigns/blob/main/ledger.md">Taste ledger</a></footer>
+</div>
+<script>(function(){
+  var qs=new URLSearchParams(location.search);
+  var style=(qs.get("style")||"all").toLowerCase();
+  var fs=[].slice.call(document.querySelectorAll(".f"));
+  var days=[].slice.call(document.querySelectorAll(".day"));
+  var empty=document.querySelector(".empty");
+  function norm(s){return (s||"").toLowerCase();}
+  function apply(){
+    var shown=0;
+    days.forEach(function(d){
+      var vis=0;
+      [].slice.call(d.querySelectorAll(".mock")).forEach(function(c){
+        var ok=style==="all"||norm(c.getAttribute("data-style"))===style;
+        c.style.display=ok?"":"none"; if(ok){vis++;shown++;}
+      });
+      d.style.display=vis?"":"none";
+    });
+    if(empty)empty.style.display=shown?"none":"block";
+    fs.forEach(function(f){ if(norm(f.getAttribute("data-f"))===style){f.classList.add("on");}else{f.classList.remove("on");} });
+  }
+  fs.forEach(function(f){
+    f.addEventListener("click",function(){
+      style=norm(f.getAttribute("data-f"));
+      var u=new URL(location.href);
+      if(style==="all"){u.searchParams.delete("style");}else{u.searchParams.set("style",style);}
+      history.replaceState(null,"",u);
+      apply();
+    });
+  });
+  apply();
+  var day=qs.get("day");
+  if(day){var el=document.querySelector('.day[data-day="'+day+'"]');if(el){el.scrollIntoView();}}
+})();</script>
+</body>
+</html>
