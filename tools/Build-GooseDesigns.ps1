@@ -41,11 +41,22 @@ function NormStyle([string]$style){
         $base = $Matches[1]; $accent = $Matches[2]
     }
     $b = $base.ToLower().Trim()
-    $fam = $b
-    if($b -match 'terminal'){ $fam = 'terminal-dark' }
-    elseif($b -match 'editorial'){ $fam = 'editorial' }
-    elseif($b -match 'hud'){ $fam = 'hud' }
-    elseif($b -match 'blueprint'){ $fam = 'blueprint' }
+    $fam = ''
+    if($b -match 'terminal|linear|vercel|raycast|warp|dev-?tool|cli'){ $fam = 'terminal-dark' }
+    elseif($b -match 'editorial|essay|stripe|academic|paper|long-?read|nyt|magazine|journal'){ $fam = 'editorial' }
+    elseif($b -match 'hud|aviation|cockpit|instrument|avionic|goose|top ?gun'){ $fam = 'hud' }
+    elseif($b -match 'blueprint|schematic|drafting|technical draw|cad'){ $fam = 'blueprint' }
+    elseif($b -match 'swiss|international|vignelli|brockmann|grid system|helvetic'){ $fam = 'swiss' }
+    elseif($b -match 'brutal'){ $fam = 'brutalist' }
+    elseif($b -match 'glass|frost|acrylic|aurora'){ $fam = 'glass' }
+    elseif($b -match 'notion|warm ?minimal|soft ?minimal|cream|cozy|paper-?warm'){ $fam = 'warm-minimal' }
+    elseif($b -match 'mono|zine|ascii|hacker|teletype|retro-?terminal'){ $fam = 'mono-zine' }
+    elseif($b -match 'bauhaus|geometric|constructivis|memphis'){ $fam = 'bauhaus' }
+    elseif($b -match 'data|dashboard|viz|observ|metric|analytic'){ $fam = 'data-viz' }
+    elseif($b -match 'poster|big ?type|display ?type|type-?driven|typographic'){ $fam = 'poster' }
+    elseif($b -match 'neon|cyberpunk|noir|synthwave|vaporwave|outrun'){ $fam = 'neon-noir' }
+    elseif($b -match 'clay|soft-?3d|3d soft'){ $fam = 'claymorph' }
+    if(-not $fam){ $fam = ($b -replace '[^a-z0-9]+','-').Trim('-') }
     if(-not $fam){ $fam = 'unsorted' }
     $accent = $accent.Trim().TrimEnd(')',' ',',')
     return ,@($fam, $accent)
