@@ -1,0 +1,166 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GooseDesigns &mdash; Daily UI Design Inspiration from Trending GitHub Repos</title>
+<meta name="description" content="A fresh set of landing-page and hero-section UI design mockups every morning - AI, agents, dev tools, LLMs. Browse 42 mocks across 14 days in rotating visual styles.">
+<link rel="canonical" href="https://newgoosefactory.github.io/GooseDesigns/">
+<meta name="theme-color" content="#0b0e14">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GooseDesigns &mdash; Daily UI Design Inspiration">
+<meta property="og:description" content="A fresh set of landing-page and hero-section UI design mockups every morning - AI, agents, dev tools, LLMs. Browse 42 mocks across 14 days in rotating visual styles.">
+<meta property="og:image" content="https://newgoosefactory.github.io/GooseDesigns/assets/banner.png">
+<meta property="og:url" content="https://newgoosefactory.github.io/GooseDesigns/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GooseDesigns &mdash; Daily UI Design Inspiration">
+<meta name="twitter:description" content="A fresh set of landing-page and hero-section UI design mockups every morning - AI, agents, dev tools, LLMs. Browse 42 mocks across 14 days in rotating visual styles.">
+<meta name="twitter:image" content="https://newgoosefactory.github.io/GooseDesigns/assets/banner.png">
+<script>document.documentElement.className='js';</script>
+<style>:root{--bg:#0b0e14;--panel:#0f141d;--border:#1f2733;--text:#e6edf3;--muted:#8b98a9;--accent:#5eead4;--maxw:1120px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.kicker{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;padding:24px}
+.hero-bg{position:absolute;inset:-3%;z-index:0;background-size:cover;background-position:center;filter:blur(10px) saturate(1.05);opacity:.45;transform:scale(1.06);transition:opacity .12s linear}
+.hero .scrim{position:absolute;inset:0;z-index:1;background:rgba(9,12,18,.72)}
+.media{position:absolute;left:50%;top:50%;z-index:2;margin:0;width:540px;height:330px;transform:translate(-50%,-50%);border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 90px rgba(0,0,0,.5);will-change:width,height}
+.media img{width:100%;height:100%;object-fit:cover}
+.media .mscrim{position:absolute;inset:0;background:rgba(8,11,17,.34);transition:background .12s linear}
+.copy{position:relative;z-index:3;max-width:840px}
+.kicker{margin:0 0 18px;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.hero h1{margin:0;font-weight:800;letter-spacing:-.02em;font-size:clamp(2.8rem,9vw,6.2rem);line-height:.98}
+.tl{display:block;will-change:transform}
+.tl-r{color:var(--accent)}
+.sub{margin:22px auto 0;max-width:560px;font-size:clamp(1rem,2.2vw,1.18rem);opacity:.92;text-shadow:0 1px 18px rgba(0,0,0,.5)}
+.cue{margin:34px 0 0;color:var(--muted);font-size:13px;letter-spacing:.04em}
+.cue .chev{display:inline-block;margin-left:6px;color:var(--accent);animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.content{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:72px 24px 110px}
+.reveal{opacity:1;transform:none}
+html.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+html.js.revealed .reveal{opacity:1;transform:none}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 64px}
+.stats div{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 16px;text-align:center}
+.stats b{display:block;font-size:1.7rem;font-weight:800;letter-spacing:-.01em}
+.stats span{display:block;margin-top:4px;color:var(--muted);font-size:.82rem}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 22px}
+.sec-head h2{margin:0;font-size:1.5rem;font-weight:700;letter-spacing:-.01em}
+.more{color:var(--accent);font-size:.92rem;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin:0 0 64px}
+.mock{display:block;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform .2s ease,border-color .2s ease}
+.mock:hover{transform:translateY(-3px);border-color:#34404f}
+.mock .shot{display:block;aspect-ratio:16/10;overflow:hidden;background:#0c1118}
+.mock .shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.mock .mm{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px}
+.mock .mm b{font-weight:600;font-size:.95rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mock .mm i{flex:none;font-style:normal;font-family:ui-monospace,monospace;font-size:.72rem;color:var(--accent);border:1px solid var(--border);padding:3px 8px;border-radius:999px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 64px}
+.chip{font-family:ui-monospace,monospace;font-size:.86rem;background:var(--panel);border:1px solid var(--border);padding:9px 14px;border-radius:999px;transition:border-color .2s,color .2s}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 56px}
+.btn{font-size:.95rem;font-weight:600;background:var(--panel);border:1px solid var(--border);padding:12px 18px;border-radius:10px;transition:border-color .2s,transform .2s}
+.btn:hover{border-color:#34404f;transform:translateY(-1px)}
+.btn.primary{background:var(--accent);color:#06231f;border-color:var(--accent)}
+.foot{color:var(--muted);font-size:.86rem;border-top:1px solid var(--border);padding-top:22px}
+.foot a{color:var(--accent)}
+@media (max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}.media{width:88vw;height:46vh}}
+@media (prefers-reduced-motion:reduce){html.js .reveal{opacity:1;transform:none;transition:none}.cue .chev{animation:none}}</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-bg" style="background-image:url('assets/hero.png')"></div>
+  <div class="scrim"></div>
+  <figure class="media" id="media"><img src="assets/hero.png" alt="GooseDesigns montage &mdash; six landing-page hero mockups for trending GitHub repositories"><span class="mscrim"></span></figure>
+  <div class="copy">
+    <p class="kicker">Daily Design Montage</p>
+    <h1><span class="tl tl-l" id="tlL">Goose</span><span class="tl tl-r" id="tlR">Designs</span></h1>
+    <p class="sub">Hero &amp; landing-page UI, reimagined daily for the most interesting repos on GitHub Trending.</p>
+    <p class="cue" id="cue">Scroll to explore <span class="chev">&darr;</span></p>
+  </div>
+</header>
+<main class="content">
+  <section class="stats reveal">
+    <div><b>42</b><span>mocks</span></div>
+    <div><b>14</b><span>days</span></div>
+    <div><b>4</b><span>style families</span></div>
+    <div><b>Daily</b><span>updated 6am CT</span></div>
+  </section>
+  <section class="reveal">
+    <div class="sec-head"><h2>Latest &mdash; Sunday, June 21</h2><a class="more" href="days/2026-06-21/">See the full day &rarr;</a></div>
+    <div class="grid">
+      <a class="mock" href="days/2026-06-21/01-cognee.html"><span class="shot"><img loading="lazy" src="days/2026-06-21/01-cognee.png" alt="topoteretes/cognee landing-page hero mock, blueprint style"></span><span class="mm"><b>topoteretes/cognee</b><i>blueprint</i></span></a>
+      <a class="mock" href="days/2026-06-21/02-deer-flow.html"><span class="shot"><img loading="lazy" src="days/2026-06-21/02-deer-flow.png" alt="bytedance/deer-flow landing-page hero mock, blueprint style"></span><span class="mm"><b>bytedance/deer-flow</b><i>blueprint</i></span></a>
+      <a class="mock" href="days/2026-06-21/03-Anthropic-Cybersecurity-Skills.html"><span class="shot"><img loading="lazy" src="days/2026-06-21/03-Anthropic-Cybersecurity-Skills.png" alt="mukul975/Anthropic-Cybersecurity-Skills landing-page hero mock, blueprint style"></span><span class="mm"><b>mukul975/Anthropic-Cybersecurity-Skills</b><i>blueprint</i></span></a>
+    </div>
+  </section>
+  <section class="reveal">
+    <div class="sec-head"><h2>Browse by style</h2></div>
+    <div class="chips">
+      <a class="chip" href="styles/blueprint.md">blueprint</a>
+      <a class="chip" href="styles/editorial.md">editorial</a>
+      <a class="chip" href="styles/hud.md">hud</a>
+      <a class="chip" href="styles/terminal-dark.md">terminal-dark</a>
+    </div>
+  </section>
+  <section class="reveal cta">
+    <a class="btn primary" href="CATALOG.md">Full catalog</a>
+    <a class="btn" href="DESIGN.md">Design system</a>
+    <a class="btn" href="ledger.md">Taste ledger</a>
+    <a class="btn" href="https://github.com/NewGooseFactory/GooseDesigns">View on GitHub</a>
+  </section>
+  <footer class="foot reveal">An automation reads GitHub Trending each morning, designs hero mocks in a rotating style, and regenerates this gallery &mdash; no generic AI-gradient slop. &middot; <a href="DESIGN.md">design &amp; discoverability spec</a></footer>
+</main>
+<script>(function(){
+  var root=document.documentElement;
+  try{
+    var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var force=location.search.indexOf("reveal=1")>=0;
+    var media=document.getElementById("media");
+    var bg=document.querySelector(".hero-bg");
+    var mscrim=document.querySelector(".media .mscrim");
+    var tlL=document.getElementById("tlL"),tlR=document.getElementById("tlR");
+    var cue=document.getElementById("cue");
+    var progress=0,expanded=false,touchStartY=0;
+    function vw(){return window.innerWidth} function vh(){return window.innerHeight}
+    function sizes(){var mob=vw()<768;return{
+      bw:mob?Math.min(360,vw()*0.9):Math.min(560,vw()*0.86),
+      bh:mob?Math.min(300,vh()*0.40):Math.min(340,vh()*0.46),
+      mw:mob?vw()*0.94:Math.min(1180,vw()*0.94),
+      mh:mob?vh()*0.74:Math.min(720,vh()*0.86),
+      spread:mob?26:18};}
+    function apply(){var s=sizes(),p=progress;
+      media.style.width=(s.bw+p*(s.mw-s.bw))+"px";
+      media.style.height=(s.bh+p*(s.mh-s.bh))+"px";
+      if(bg)bg.style.opacity=String(0.45*(1-p));
+      if(mscrim)mscrim.style.background="rgba(8,11,17,"+(0.34-p*0.22)+")";
+      var x=p*s.spread;
+      tlL.style.transform="translateX(-"+x+"vw)";
+      tlR.style.transform="translateX("+x+"vw)";
+      if(cue)cue.style.opacity=String(Math.max(0,1-p*2.2));}
+    function setProgress(np){progress=Math.min(1,Math.max(0,np));apply();
+      if(progress>=1){root.classList.add("revealed");expanded=true;document.body.style.overflow="";}}
+    function onWheel(e){
+      if(expanded){if(e.deltaY<0&&window.scrollY<=4){expanded=false;root.classList.remove("revealed");document.body.style.overflow="hidden";setProgress(progress-0.06);e.preventDefault();}return;}
+      e.preventDefault();setProgress(progress+e.deltaY*0.0009);}
+    function onTouchStart(e){touchStartY=e.touches[0].clientY;}
+    function onTouchMove(e){if(!touchStartY)return;var y=e.touches[0].clientY,d=touchStartY-y;
+      if(expanded){if(d<-18&&window.scrollY<=4){expanded=false;root.classList.remove("revealed");document.body.style.overflow="hidden";setProgress(progress-0.08);e.preventDefault();}return;}
+      e.preventDefault();setProgress(progress+d*(d<0?0.008:0.0055));touchStartY=y;}
+    function onScroll(){if(!expanded){window.scrollTo(0,0);}}
+    if(reduce||force){progress=1;apply();root.classList.add("revealed");expanded=true;
+      if(location.search.indexOf("shot=content")>=0){var h=document.querySelector(".hero");if(h)h.style.minHeight="360px";window.scrollTo(0,0);}
+      return;}
+    document.body.style.overflow="hidden";apply();
+    window.addEventListener("wheel",onWheel,{passive:false});
+    window.addEventListener("touchstart",onTouchStart,{passive:false});
+    window.addEventListener("touchmove",onTouchMove,{passive:false});
+    window.addEventListener("scroll",onScroll,{passive:true});
+    window.addEventListener("resize",apply);
+  }catch(err){root.classList.add("revealed");try{document.body.style.overflow="";}catch(e){}}
+})();</script>
+</body>
+</html>

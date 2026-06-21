@@ -48,6 +48,10 @@ def main():
     ap.add_argument("--attachments", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--count", type=int, default=6)
+    ap.add_argument("--no-title", action="store_true",
+                    help="full-bleed montage with no title band (clean hero media)")
+    ap.add_argument("--no-labels", action="store_true",
+                    help="omit per-cell repo-slug labels")
     args = ap.parse_args()
 
     pngs = [f for f in os.listdir(args.attachments) if f.lower().endswith(".png")]
@@ -64,21 +68,25 @@ def main():
     f_kick = find_font(BOLD_CANDIDATES, 19)
     f_label = find_font(MONO_CANDIDATES, 17)
 
-    pad = 40
-    band_h = 196
-
-    # kicker
-    kick = "DAILY DESIGN MONTAGE"
-    d.text((pad, 40), kick, font=f_kick, fill=ACCENT)
-    # title
-    d.text((pad - 2, 66), "GooseDesigns", font=f_title, fill=INK)
-    # tagline
-    tag = "Hero & landing UIs for trending GitHub repos \u2014 AI, agents, dev tools \u2014 reimagined every morning."
-    d.text((pad, 150), tag, font=f_tag, fill=MUTED)
+    if args.no_title:
+        pad = 0
+        gap = 4
+        band_h = 0
+    else:
+        pad = 40
+        gap = 16
+        band_h = 196
+        # kicker
+        kick = "DAILY DESIGN MONTAGE"
+        d.text((pad, 40), kick, font=f_kick, fill=ACCENT)
+        # title
+        d.text((pad - 2, 66), "GooseDesigns", font=f_title, fill=INK)
+        # tagline
+        tag = "Hero & landing UIs for trending GitHub repos \u2014 AI, agents, dev tools \u2014 reimagined every morning."
+        d.text((pad, 150), tag, font=f_tag, fill=MUTED)
 
     # grid 3x2
     cols, rows = 3, 2
-    gap = 16
     grid_top = band_h
     grid_w = W - 2 * pad
     grid_h = H - band_h - pad
@@ -98,15 +106,17 @@ def main():
         # border
         d.rectangle([x, y, x + cw - 1, y + ch - 1], outline=BORDER, width=1)
         # label strip
-        label = slug_of(os.path.splitext(fn)[0])
-        strip_h = 30
-        strip = Image.new("RGBA", (cw, strip_h), (8, 10, 14, 205))
-        img.paste(strip, (x, y + ch - strip_h), strip)
-        d.text((x + 12, y + ch - strip_h + 7), label, font=f_label, fill=(206, 214, 224))
+        if not args.no_labels:
+            label = slug_of(os.path.splitext(fn)[0])
+            strip_h = 30
+            strip = Image.new("RGBA", (cw, strip_h), (8, 10, 14, 205))
+            img.paste(strip, (x, y + ch - strip_h), strip)
+            d.text((x + 12, y + ch - strip_h + 7), label, font=f_label, fill=(206, 214, 224))
 
-    # accent hairline under band
-    d.line([(pad, band_h - 6), (W - pad, band_h - 6)], fill=BORDER, width=1)
-    d.line([(pad, band_h - 6), (pad + 120, band_h - 6)], fill=ACCENT, width=2)
+    if not args.no_title:
+        # accent hairline under band
+        d.line([(pad, band_h - 6), (W - pad, band_h - 6)], fill=BORDER, width=1)
+        d.line([(pad, band_h - 6), (pad + 120, band_h - 6)], fill=ACCENT, width=2)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     img.save(args.out, "PNG", optimize=True)
