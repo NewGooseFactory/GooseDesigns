@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cua — Infrastructure for Computer-Use Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080c;
+    --panel:#0d0d14;
+    --ink:#eceaf3;
+    --muted:#83808f;
+    --violet:#a78bfa;
+    --violet-2:#c4b5fd;
+    --line:rgba(255,255,255,.08);
+    --card:#11111a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(640px 320px at 18% -8%,rgba(167,139,250,.12),transparent 60%);pointer-events:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px;position:relative}
+  header{display:flex;align-items:center;justify-content:space-between;padding:26px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px}
+  .logo{width:27px;height:27px;border-radius:8px;background:linear-gradient(135deg,var(--violet),var(--violet-2));display:grid;place-items:center;color:#1a1030;font-weight:700;font-size:13px}
+  nav{display:flex;gap:28px;align-items:center}
+  nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+  nav a:hover{color:var(--ink)}
+  .star{font-family:'JetBrains Mono',monospace;font-size:13px;border:1px solid var(--line);padding:8px 14px;border-radius:7px;color:var(--ink)}
+  .star:hover{border-color:var(--violet)}
+  .hero{padding:90px 0 56px;text-align:center}
+  .badge{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--violet-2);border:1px solid var(--line);background:var(--panel);padding:7px 15px;border-radius:30px;margin-bottom:30px;letter-spacing:.02em}
+  .badge .d{width:7px;height:7px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet)}
+  h1{font-size:clamp(42px,6.4vw,74px);line-height:1.0;letter-spacing:-.03em;font-weight:700;max-width:16ch;margin:0 auto}
+  h1 em{font-style:normal;background:linear-gradient(120deg,var(--violet),var(--violet-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:18.5px;color:var(--muted);margin:24px auto 0;max-width:52ch;line-height:1.6}
+  .cta{margin-top:36px;display:flex;gap:13px;justify-content:center;align-items:center;flex-wrap:wrap}
+  .btn-p{background:var(--violet);color:#150b2e;font-weight:600;font-size:15px;padding:13px 24px;border-radius:8px;text-decoration:none;transition:transform .15s,box-shadow .25s}
+  .btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 32px -10px rgba(167,139,250,.55)}
+  .term{display:inline-flex;align-items:center;gap:11px;font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);background:var(--card);border:1px solid var(--line);padding:12px 16px;border-radius:8px}
+  .term .p{color:var(--violet)}
+  .os{margin-top:34px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .os span{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--muted);border:1px solid var(--line);padding:7px 14px;border-radius:20px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:74px;text-align:left}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;transition:border-color .2s,transform .2s}
+  .card:hover{border-color:rgba(167,139,250,.45);transform:translateY(-3px)}
+  .card .k{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--violet-2);letter-spacing:.05em;margin-bottom:14px}
+  .card h3{font-size:18.5px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+  .card p{font-size:14.5px;color:var(--muted);line-height:1.58}
+  .strip{margin-top:60px;padding:24px 0 80px;border-top:1px solid var(--line);display:flex;gap:40px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace}
+  .strip div{font-size:12.5px;color:var(--muted)}
+  .strip b{color:var(--ink)}
+  @media(max-width:860px){.grid3{grid-template-columns:1fr}nav a:not(.star){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="logo">c</span>cua</div>
+    <nav><a href="#">Sandboxes</a><a href="#">SDK</a><a href="#">Benchmarks</a><a class="star" href="#">★ Star</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="badge"><span class="d"></span>OPEN-SOURCE · COMPUTER-USE AGENTS</div>
+    <h1>Infrastructure for <em>computer-use</em> agents.</h1>
+    <p class="lede">Open-source infrastructure for Computer-Use Agents. Sandboxes, SDKs, and benchmarks to train and evaluate AI agents that can control full desktops.</p>
+    <div class="cta">
+      <a class="btn-p" href="#">Read the docs →</a>
+      <span class="term"><span class="p">$</span> pip install cua</span>
+    </div>
+    <div class="os"><span>macOS</span><span>Linux</span><span>Windows</span></div>
+  </section>
+
+  <section class="grid3">
+    <div class="card"><div class="k">// SANDBOXES</div><h3>Isolated desktops</h3><p>Spin up full, disposable OS environments where an agent can click, type, and navigate — safely contained.</p></div>
+    <div class="card"><div class="k">// SDK</div><h3>Drive any desktop</h3><p>A single SDK to wire your model into real screen + keyboard + mouse control across macOS, Linux, and Windows.</p></div>
+    <div class="card"><div class="k">// BENCHMARKS</div><h3>Train &amp; evaluate</h3><p>Reproducible tasks to measure whether your computer-use agent actually completes the work — not just demos.</p></div>
+  </section>
+
+  <section class="strip">
+    <div><b>3 OSes</b> macOS · Linux · Windows</div>
+    <div><b>Full desktop</b> screen + keyboard + mouse</div>
+    <div><b>OSS</b> sandboxes, SDKs &amp; benchmarks</div>
+  </section>
+</div>
+</body>
+</html>

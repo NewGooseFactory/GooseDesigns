@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillSpector — Skill Security Scanner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b09;
+    --panel:#0c120e;
+    --grid:rgba(120,180,140,.07);
+    --ink:#dfe9e2;
+    --muted:#7e9387;
+    --amber:#f2b134;
+    --green:#3ad17c;
+    --red:#ff5d5d;
+    --line:rgba(120,180,140,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    min-height:100vh;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:38px 38px;
+    overflow-x:hidden;
+  }
+  .scan{position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(58,209,124,.025) 50%,transparent);background-size:100% 6px;opacity:.5}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 40px 80px}
+  header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.04em}
+  .reticle{width:26px;height:26px;border:1.5px solid var(--green);border-radius:50%;position:relative;display:grid;place-items:center}
+  .reticle::before,.reticle::after{content:'';position:absolute;background:var(--green)}
+  .reticle::before{width:1.5px;height:34px}
+  .reticle::after{height:1.5px;width:34px}
+  .reticle span{width:6px;height:6px;background:var(--amber);border-radius:50%;z-index:1}
+  nav{display:flex;gap:26px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+  nav a{color:var(--muted);text-decoration:none}
+  nav a:hover{color:var(--green)}
+  .status-pill{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);border:1px solid var(--line);padding:6px 12px;border-radius:2px;display:flex;align-items:center;gap:8px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;margin-top:64px;align-items:center}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;margin-bottom:22px}
+  h1{font-size:clamp(38px,5.2vw,62px);line-height:1.02;letter-spacing:-.02em;font-weight:700}
+  h1 em{font-style:normal;color:var(--green)}
+  .lede{margin-top:22px;font-size:18px;line-height:1.6;color:var(--muted);max-width:30ch}
+  .cta{margin-top:34px;display:flex;gap:14px;align-items:center}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;padding:13px 22px;border-radius:3px;text-decoration:none;letter-spacing:.02em;transition:transform .15s ease,box-shadow .2s ease}
+  .btn-p{background:var(--green);color:#06140c;box-shadow:0 0 0 rgba(58,209,124,0)}
+  .btn-p:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(58,209,124,.28)}
+  .btn-s{border:1px solid var(--line);color:var(--ink)}
+  .btn-s:hover{border-color:var(--green);color:var(--green)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;font-family:'JetBrains Mono',monospace;position:relative}
+  .panel::before{content:'';position:absolute;top:10px;left:10px;right:10px;bottom:10px;border:1px solid rgba(120,180,140,.06);border-radius:5px;pointer-events:none}
+  .panel-h{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+  .gauge{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+  .gauge .n{font-size:46px;font-weight:700;color:var(--amber);line-height:1}
+  .gauge .l{font-size:12px;color:var(--muted)}
+  .bar{height:6px;background:rgba(120,180,140,.1);border-radius:3px;overflow:hidden;margin:14px 0 22px}
+  .bar i{display:block;height:100%;width:68%;background:linear-gradient(90deg,var(--green),var(--amber));border-radius:3px}
+  .rows{display:flex;flex-direction:column;gap:11px}
+  .row{display:flex;align-items:center;gap:12px;font-size:13px;padding:9px 12px;border:1px solid var(--line);border-radius:4px;background:rgba(255,255,255,.012)}
+  .row .ic{width:16px;text-align:center}
+  .row .name{flex:1;color:var(--ink)}
+  .sev{font-size:10px;padding:3px 8px;border-radius:2px;letter-spacing:.08em}
+  .sev.h{color:var(--red);border:1px solid rgba(255,93,93,.35)}
+  .sev.m{color:var(--amber);border:1px solid rgba(242,177,52,.35)}
+  .sev.ok{color:var(--green);border:1px solid rgba(58,209,124,.35)}
+  .footnote{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);opacity:.6;margin-top:16px;letter-spacing:.04em}
+  .strip{margin-top:70px;border-top:1px solid var(--line);padding-top:26px;display:flex;gap:48px;font-family:'JetBrains Mono',monospace}
+  .strip div{font-size:12px;color:var(--muted)}
+  .strip b{display:block;font-size:24px;color:var(--ink);font-weight:700;margin-bottom:4px}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:36px}nav,.status-pill{display:none}.strip{flex-wrap:wrap;gap:24px}}
+</style>
+</head>
+<body>
+<div class="scan"></div>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="reticle"><span></span></span>SKILLSPECTOR</div>
+    <nav><a href="#">Scan</a><a href="#">Rules</a><a href="#">Reports</a><a href="#">Docs</a></nav>
+    <div class="status-pill"><span class="dot"></span>SCANNER ARMED</div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="tag">// AGENT SKILL SECURITY</div>
+      <h1>Scan every skill<br>before it gets <em>airborne.</em></h1>
+      <p class="lede">Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, and security risks.</p>
+      <div class="cta">
+        <a class="btn btn-p" href="#">RUN SCAN ▸</a>
+        <a class="btn btn-s" href="#">View on GitHub</a>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-h"><span>THREAT READOUT</span><span>SES//04A · LIVE</span></div>
+      <div class="gauge"><span class="n">7</span><span class="l">findings across 142 skills scanned</span></div>
+      <div class="bar"><i></i></div>
+      <div class="rows">
+        <div class="row"><span class="ic" style="color:var(--red)">▲</span><span class="name">shell.exec → unescaped argv</span><span class="sev h">HIGH</span></div>
+        <div class="row"><span class="ic" style="color:var(--amber)">◆</span><span class="name">fetch() to undeclared host</span><span class="sev m">MED</span></div>
+        <div class="row"><span class="ic" style="color:var(--amber)">◆</span><span class="name">secret-like literal in prompt</span><span class="sev m">MED</span></div>
+        <div class="row"><span class="ic" style="color:var(--green)">●</span><span class="name">manifest signature verified</span><span class="sev ok">PASS</span></div>
+      </div>
+      <div class="footnote">Readout values are illustrative.</div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div><b>SAST</b>static skill analysis</div>
+    <div><b>Patterns</b>malicious-intent heuristics</div>
+    <div><b>CI</b>gate on every commit</div>
+    <div><b>OSS</b>open rule registry</div>
+  </section>
+</div>
+</body>
+</html>

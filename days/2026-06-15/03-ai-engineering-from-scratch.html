@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ai-engineering-from-scratch — Learn it. Build it. Ship it.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060807;
+    --panel:#0b0f0c;
+    --ink:#e8efe9;
+    --muted:#7a8a7e;
+    --lime:#a3e635;
+    --lime-2:#bef264;
+    --line:rgba(255,255,255,.08);
+    --card:#0f140f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(620px 320px at 50% -10%,rgba(163,230,53,.09),transparent 60%);pointer-events:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 40px;position:relative}
+  header{display:flex;align-items:center;justify-content:space-between;padding:26px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px}
+  .logo{width:27px;height:27px;border-radius:7px;border:1.5px solid var(--lime);display:grid;place-items:center;color:var(--lime);font-weight:700;font-size:15px;font-family:'JetBrains Mono',monospace}
+  nav{display:flex;gap:26px;align-items:center}
+  nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+  nav a:hover{color:var(--ink)}
+  .star{font-family:'JetBrains Mono',monospace;font-size:13px;border:1px solid var(--line);padding:8px 14px;border-radius:7px;color:var(--ink)}
+  .star:hover{border-color:var(--lime)}
+  .hero{display:grid;grid-template-columns:1.04fr .96fr;gap:52px;align-items:center;padding:84px 0 58px}
+  .badge{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--lime-2);border:1px solid var(--line);background:var(--panel);padding:7px 14px;border-radius:30px;margin-bottom:26px;letter-spacing:.02em}
+  .badge .d{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime)}
+  h1{font-size:clamp(40px,5.6vw,62px);line-height:1.02;letter-spacing:-.025em;font-weight:700}
+  h1 .l{color:var(--lime)}
+  .lede{font-size:18px;color:var(--muted);margin-top:22px;max-width:34ch;line-height:1.6}
+  .cta{margin-top:34px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .btn-p{background:var(--lime);color:#16210a;font-weight:600;font-size:15px;padding:13px 23px;border-radius:8px;text-decoration:none;transition:transform .15s,box-shadow .25s}
+  .btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px rgba(163,230,53,.5)}
+  .btn-s{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);border:1px solid var(--line);padding:12px 18px;border-radius:8px;text-decoration:none}
+  .btn-s:hover{border-color:var(--lime)}
+  .stages{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:'JetBrains Mono',monospace}
+  .stages .sh{padding:13px 18px;font-size:11.5px;color:var(--muted);letter-spacing:.08em;border-bottom:1px solid var(--line);background:var(--panel)}
+  .stage{display:flex;align-items:center;gap:16px;padding:18px;border-bottom:1px solid rgba(255,255,255,.04)}
+  .stage:last-child{border-bottom:none}
+  .num{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);display:grid;place-items:center;color:var(--lime);font-size:14px;font-weight:700;flex:none}
+  .stage .ti{font-size:15px;color:var(--ink);font-weight:600;font-family:'Inter',sans-serif}
+  .stage .ds{font-size:13px;color:var(--muted);margin-top:3px;font-family:'Inter',sans-serif}
+  .stage .arrow{margin-left:auto;color:var(--lime);font-size:16px}
+  .strip{margin-top:60px;padding:24px 0 80px;border-top:1px solid var(--line);display:flex;gap:40px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace}
+  .strip div{font-size:12.5px;color:var(--muted)}
+  .strip b{color:var(--ink)}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:36px;padding:54px 0}nav a:not(.star){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="logo">/</span>ai-engineering-from-scratch</div>
+    <nav><a href="#">Curriculum</a><a href="#">Projects</a><a href="#">Ship</a><a class="star" href="#">★ Star</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="badge"><span class="d"></span>HANDS-ON AI ENGINEERING</div>
+      <h1>Learn it.<br>Build it.<br><span class="l">Ship it</span> for others.</h1>
+      <p class="lede">Learn it. Build it. Ship it for others.</p>
+      <div class="cta">
+        <a class="btn-p" href="#">Start the path →</a>
+        <a class="btn-s" href="#">git clone</a>
+      </div>
+    </div>
+    <div class="stages">
+      <div class="sh">THE LOOP</div>
+      <div class="stage"><span class="num">1</span><div><div class="ti">Learn it</div><div class="ds">Foundations, from first principles — no black boxes.</div></div><span class="arrow">↓</span></div>
+      <div class="stage"><span class="num">2</span><div><div class="ti">Build it</div><div class="ds">Implement the real thing yourself, end to end.</div></div><span class="arrow">↓</span></div>
+      <div class="stage"><span class="num">3</span><div><div class="ti">Ship it for others</div><div class="ds">Put it in front of real users — that's the proof.</div></div><span class="arrow">✦</span></div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div><b>From scratch</b> first-principles, no hand-waving</div>
+    <div><b>Project-led</b> build the real thing</div>
+    <div><b>Ship</b> for others, not just notebooks</div>
+  </section>
+</div>
+</body>
+</html>

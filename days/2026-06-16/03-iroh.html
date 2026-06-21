@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iroh — Dial keys, not IP addresses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f9faf9;
+    --ink:#152019;
+    --soft:#52605a;
+    --line:#e0e7e2;
+    --accent:#0f766e;
+    --accent-soft:#e6f2f0;
+    --code:#eef3f0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:30px 0;border-bottom:1px solid var(--line)}
+  .brand{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:17px}
+  .brand b{color:var(--accent)}
+  nav{display:flex;gap:30px;align-items:center}
+  nav a{color:var(--soft);text-decoration:none;font-size:14.5px;font-weight:500}
+  nav a:hover{color:var(--ink)}
+  .ghbtn{font-size:14px;border:1px solid var(--line);padding:9px 16px;border-radius:7px;color:var(--ink);background:#fff}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:86px 0 70px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);letter-spacing:.04em;margin-bottom:26px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--accent)}
+  h1{font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:clamp(40px,5.4vw,64px);line-height:1.06;letter-spacing:-.018em}
+  h1 em{font-style:italic;color:var(--accent)}
+  .lede{font-size:19px;color:var(--soft);margin-top:24px;max-width:32ch;line-height:1.62}
+  .cta{margin-top:38px;display:flex;gap:14px;align-items:center}
+  .btn-p{background:var(--ink);color:var(--paper);font-size:15px;font-weight:500;padding:13px 24px;border-radius:8px;text-decoration:none}
+  .btn-t{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;padding:13px 6px;border-bottom:1px solid transparent}
+  .btn-t:hover{border-color:var(--ink)}
+  .diagram{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px -30px rgba(20,50,40,.26);padding:30px 28px}
+  .dlabel{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);letter-spacing:.08em;margin-bottom:24px}
+  .nodes{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .node{display:flex;flex-direction:column;align-items:center;gap:9px;flex:none}
+  .dot{width:54px;height:54px;border-radius:14px;border:1.5px solid var(--accent);background:var(--accent-soft);display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:500}
+  .node .nm{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--soft)}
+  .link{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 6px,transparent 6px 12px);position:relative}
+  .link span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--accent);white-space:nowrap;background:#fff;padding:0 6px}
+  .keyrow{margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink);background:var(--code);border:1px solid var(--line);border-radius:8px;padding:13px 15px;display:flex;align-items:center;gap:10px}
+  .keyrow b{color:var(--accent)}
+  .ill{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);opacity:.7;margin-top:14px}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;padding:18px 0 88px}
+  .pt h3{font-family:'Newsreader',serif;font-weight:600;font-size:21px;margin-bottom:8px}
+  .pt p{font-size:15px;color:var(--soft);line-height:1.6}
+  .pt .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:14px}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:40px;padding:56px 0}.points{grid-template-columns:1fr;gap:28px}nav a:not(.ghbtn){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">ir<b>oh</b></div>
+    <nav><a href="#">Docs</a><a href="#">Protocols</a><a href="#">Blog</a><a class="ghbtn" href="#">GitHub ★</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">MODULAR NETWORKING STACK · RUST</div>
+      <h1>IP addresses break. <em>Dial keys</em> instead.</h1>
+      <p class="lede">IP addresses break, dial keys instead. Modular networking stack in Rust.</p>
+      <div class="cta">
+        <a class="btn-p" href="#">cargo add iroh</a>
+        <a class="btn-t" href="#">Read the docs →</a>
+      </div>
+    </div>
+    <div class="diagram">
+      <div class="dlabel">DIAL BY PUBLIC KEY — NOT ADDRESS</div>
+      <div class="nodes">
+        <div class="node"><div class="dot">node A</div><div class="nm">you</div></div>
+        <div class="link"><span>dial( key )</span></div>
+        <div class="node"><div class="dot">node B</div><div class="nm">peer</div></div>
+      </div>
+      <div class="keyrow"><b>key</b> = ed25519:9f3c…a217 &nbsp;·&nbsp; route resolves itself</div>
+      <div class="ill">Key string is illustrative.</div>
+    </div>
+  </section>
+
+  <section class="points">
+    <div class="pt"><div class="num">01</div><h3>Addressed by identity</h3><p>Connect to a stable public key. When the network path changes, the connection doesn't.</p></div>
+    <div class="pt"><div class="num">02</div><h3>Modular stack</h3><p>Compose the pieces you need — the networking layer is built to be taken apart and reused.</p></div>
+    <div class="pt"><div class="num">03</div><h3>Rust all the way</h3><p>A systems-grade foundation in Rust for builders who want direct, dependable connectivity.</p></div>
+  </section>
+</div>
+</body>
+</html>

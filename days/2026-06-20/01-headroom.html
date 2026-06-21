@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>headroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0c0a; --panel:#0f1410; --line:#23301f; --line-2:#324428;
+    --ink:#eef3e8; --muted:#9aa890; --dim:#5f6f56;
+    --amber:#ffb020; --amber-2:#ffcf6b; --amber-dim:#7a5410;
+    --grid:rgba(255,176,32,.05);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:44px 44px;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 30px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.4px;color:var(--ink)}
+  .brand .tag{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
+  .sys{font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;gap:18px;letter-spacing:.5px}
+  .sys b{color:var(--muted);font-weight:500}
+  .hero{display:grid;grid-template-columns:1.04fr .96fr;gap:46px;align-items:center;padding:64px 0 52px}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11.5px;color:var(--amber-2);
+    letter-spacing:.7px;text-transform:uppercase;border:1px solid var(--amber-dim);border-radius:4px;padding:5px 11px;margin-bottom:24px;
+    background:rgba(255,176,32,.04)}
+  h1{font-size:54px;line-height:1.03;letter-spacing:-1.4px;font-weight:700}
+  h1 .g{color:var(--dim)}
+  .sub{color:var(--muted);font-size:18px;max-width:33ch;margin:22px 0 30px;line-height:1.55}
+  .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .b1{background:var(--amber);color:#241700;font-weight:700;font-size:14px;padding:11px 19px;border-radius:7px;text-decoration:none;font-family:var(--mono)}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13px;border:1px solid var(--line-2);padding:11px 16px;border-radius:7px;text-decoration:none}
+  .deploys{display:flex;gap:24px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+  .deploys b{color:var(--muted);font-weight:500}
+  /* instrument */
+  .instr{background:radial-gradient(120% 120% at 50% 0%,#121810,#0c100b);border:1px solid var(--line-2);border-radius:16px;
+    padding:20px;box-shadow:0 30px 80px -42px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.02)}
+  .ihead{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.5px;margin-bottom:18px}
+  .ihead .live{color:var(--amber-2);display:flex;align-items:center;gap:7px}
+  .ihead .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 9px var(--amber)}
+  .gauge{display:flex;align-items:flex-end;gap:18px;margin-bottom:18px}
+  .dial{flex:none}
+  .bigval{font-family:var(--mono);font-weight:700;font-size:46px;color:var(--amber-2);line-height:1;letter-spacing:-1px}
+  .bigval small{font-size:18px;color:var(--muted);font-weight:500}
+  .blabel{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.5px;margin-top:7px}
+  /* bar gauge */
+  .bar{flex:1}
+  .barrow{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:6px}
+  .track{height:13px;border-radius:3px;background:#0a0d09;border:1px solid var(--line);overflow:hidden;position:relative}
+  .track .fill{height:100%;background:linear-gradient(90deg,var(--amber-dim),var(--amber));border-radius:2px}
+  .track .ghost{position:absolute;inset:0;border-right:2px dashed var(--amber-dim);width:100%}
+  .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--dim);margin-top:5px}
+  .pipe{margin-top:16px;border-top:1px dashed var(--line-2);padding-top:14px;font-family:var(--mono);font-size:12px;line-height:1.9}
+  .pipe .r{display:flex;justify-content:space-between;color:var(--muted)}
+  .pipe .r .v{color:var(--ink)}
+  .pipe .r .v.amb{color:var(--amber-2)}
+  .ill{font-size:10px;color:var(--dim);font-style:italic;font-family:'Inter';margin-top:12px;text-align:right}
+  @media(max-width:880px){.hero{grid-template-columns:1fr;gap:34px;padding:42px 0}h1{font-size:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="tag"></span>HEADROOM</div>
+    <div class="sys"><span><b>MODE</b> proxy · mcp · lib</span><span><b>STATUS</b> nominal</span></div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <span class="kicker">◢ context budget control</span>
+      <h1>Keep your context<br>window <span class="g">in the green.</span></h1>
+      <p class="sub">Compress tool outputs, logs, files, and RAG chunks before they reach the LLM — same answers, a fraction of the tokens.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/chopratejas/headroom">Install headroom →</a>
+        <a class="b2" href="#">$ pip install headroom</a>
+      </div>
+      <div class="deploys">
+        <span><b>library</b></span>
+        <span><b>proxy</b></span>
+        <span><b>MCP server</b></span>
+      </div>
+    </div>
+
+    <div class="instr">
+      <div class="ihead"><span>TOKEN COMPRESSION — INTAKE GAUGE</span><span class="live">LIVE</span></div>
+      <div class="gauge">
+        <div class="dial">
+          <div class="bigval">60–95<small>%</small></div>
+          <div class="blabel">FEWER TOKENS IN</div>
+        </div>
+        <div class="bar">
+          <div class="barrow"><span>raw payload</span><span>compressed</span></div>
+          <div class="track"><div class="fill" style="width:22%"></div><div class="ghost"></div></div>
+          <div class="ticks"><span>0</span><span>headroom recovered →</span><span>100%</span></div>
+        </div>
+      </div>
+      <div class="pipe">
+        <div class="r"><span>tool output · 14.2k tok</span><span class="v amb">→ 1.1k tok</span></div>
+        <div class="r"><span>RAG chunks · 9.8k tok</span><span class="v amb">→ 2.0k tok</span></div>
+        <div class="r"><span>build log · 31.5k tok</span><span class="v amb">→ 1.6k tok</span></div>
+        <div class="r" style="border-top:1px solid var(--line);margin-top:7px;padding-top:9px"><span class="v">answer parity</span><span class="v">preserved ✓</span></div>
+      </div>
+      <div class="ill">Gauge values are illustrative, not measured benchmarks.</div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
+

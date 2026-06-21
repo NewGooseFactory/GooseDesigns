@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIA — a self-improving AI framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #08080a;
+    --panel: #0e0e12;
+    --ink: #ebe9f0;
+    --soft: #8c8a99;
+    --hair: #1b1b22;
+    --violet: #8b7bff;        /* electric indigo — single accent (justified: brand of an "AI improving AI" loop) */
+    --violet-dim: rgba(139,123,255,0.13);
+    --maxw: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Geist", system-ui, sans-serif; line-height: 1.55; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; }
+  .mono { font-family: "Geist Mono", monospace; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; height: 66px; border-bottom: 1px solid var(--hair); }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: 0.02em; }
+  .brand .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--violet-dim); border: 1px solid var(--violet); display: inline-grid; place-items: center; color: var(--violet); font-family: "Geist Mono", monospace; font-size: 12px; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--soft); }
+  .nav-links a { text-decoration: none; } .nav-links a:hover { color: var(--ink); }
+  .nav-cta { font-family: "Geist Mono", monospace; font-size: 13px; border: 1px solid var(--hair); border-radius: 8px; padding: 8px 14px; text-decoration: none; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), border-color 150ms; }
+  .nav-cta:hover { border-color: var(--soft); } .nav-cta:active { transform: scale(0.97); }
+
+  .hero { display: grid; grid-template-columns: 1fr 0.92fr; gap: 56px; align-items: center; padding: 82px 0 72px; }
+  .eyebrow { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--violet); margin: 0 0 22px; }
+  h1 { font-weight: 600; font-size: clamp(40px, 5.4vw, 62px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 22px; }
+  h1 .acc { color: var(--violet); }
+  .lede { color: var(--soft); font-size: 17.5px; max-width: 40ch; margin: 0 0 30px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; }
+  .btn { background: var(--violet); color: #100a26; text-decoration: none; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 9px; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms; }
+  .btn:hover { filter: brightness(1.08); } .btn:active { transform: scale(0.97); }
+  .btn-ghost { font-family: "Geist Mono", monospace; font-size: 13.5px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hair); padding-bottom: 2px; }
+  .btn-ghost:hover { border-color: var(--soft); }
+
+  /* the loop diagram — the product is a loop, so the hero visual is the loop */
+  .loop-card { background: var(--panel); border: 1px solid var(--hair); border-radius: 14px; padding: 26px 24px 22px; box-shadow: 0 34px 76px -40px rgba(0,0,0,0.9); }
+  .loop-head { display: flex; justify-content: space-between; font-family: "Geist Mono", monospace; font-size: 11.5px; color: var(--soft); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 22px; }
+  .ring { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .node { border: 1px solid var(--hair); border-radius: 10px; padding: 16px 16px; background: #0b0b0f; }
+  .node .n { font-family: "Geist Mono", monospace; font-size: 11px; color: var(--violet); letter-spacing: 0.06em; }
+  .node .label { font-weight: 600; font-size: 15px; margin-top: 6px; letter-spacing: -0.01em; }
+  .node .sub { color: var(--soft); font-size: 12.5px; margin-top: 4px; }
+  .node.active { border-color: var(--violet); background: var(--violet-dim); }
+  .loop-foot { margin-top: 20px; display: flex; align-items: center; gap: 10px; font-family: "Geist Mono", monospace; font-size: 11.5px; color: var(--soft); }
+  .loop-foot .bar { flex: 1; height: 4px; border-radius: 2px; background: var(--hair); overflow: hidden; }
+  .loop-foot .bar i { display: block; height: 100%; width: 68%; background: var(--violet); }
+
+  .pillars { border-top: 1px solid var(--hair); padding: 54px 0 72px; }
+  .pillars h2 { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); margin: 0 0 26px; }
+  .p-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; }
+  .cell { background: var(--panel); padding: 24px 22px; }
+  .cell .ic { color: var(--violet); font-family: "Geist Mono", monospace; font-size: 13px; display: block; margin-bottom: 14px; }
+  .cell h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 8px; }
+  .cell p { margin: 0; color: var(--soft); font-size: 13.5px; max-width: 30ch; }
+
+  footer { border-top: 1px solid var(--hair); padding: 24px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; font-family: "Geist Mono", monospace; font-size: 11px; color: var(--soft); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .loop-foot .bar i { animation: grow 3.4s ease-in-out infinite alternate; }
+    @keyframes grow { from { width: 44%; } to { width: 86%; } }
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 700ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1{animation-delay:60ms}.d2{animation-delay:150ms}.d3{animation-delay:250ms}.d4{animation-delay:340ms}
+    @keyframes rise { to { opacity:1; transform:none; } }
+  }
+  .no-anim .loop-foot .bar i { animation: none !important; }
+  .no-anim .reveal { opacity:1 !important; transform:none !important; animation:none !important; }
+
+  @media (max-width: 880px) { .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; } .p-grid { grid-template-columns: 1fr; } .nav-links { display: none; } }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="mark">∞</span> SIA</div>
+      <div class="nav-links"><a href="#">Framework</a><a href="#">Benchmarks</a><a href="#">Docs</a></div>
+      <a class="nav-cta" href="https://github.com/hexo-ai/sia">View on GitHub</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow reveal d1">Self-improving AI · framework</p>
+        <h1 class="reveal d2">An AI system that <span class="acc">improves itself.</span></h1>
+        <p class="lede reveal d3">SIA wraps any model or agent and autonomously raises its performance on a benchmark task, measured, not asserted. The scaffolding learns; you own the direction.</p>
+        <div class="cta-row reveal d4">
+          <a class="btn" href="#">pip install sia</a>
+          <a class="btn-ghost mono" href="#">Read the method →</a>
+        </div>
+      </div>
+
+      <div class="loop-card reveal d3">
+        <div class="loop-head"><span>IMPROVEMENT LOOP</span><span>RUN 14</span></div>
+        <div class="ring">
+          <div class="node active"><span class="n">01</span><div class="label">Evaluate</div><div class="sub">score on the benchmark</div></div>
+          <div class="node"><span class="n">02</span><div class="label">Propose</div><div class="sub">a change to the system</div></div>
+          <div class="node"><span class="n">04</span><div class="label">Keep / revert</div><div class="sub">only if score went up</div></div>
+          <div class="node"><span class="n">03</span><div class="label">Re-test</div><div class="sub">measure the delta</div></div>
+        </div>
+        <div class="loop-foot"><span>BENCH</span><span class="bar"><i></i></span><span>+ illustrative</span></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="pillars">
+    <div class="wrap">
+      <h2>// how it stays honest</h2>
+      <div class="p-grid">
+        <div class="cell"><span class="ic">[bench]</span><h3>Benchmark-gated</h3><p>Every change is kept only if it raises a measured score, no vibes, no self-grading.</p></div>
+        <div class="cell"><span class="ic">[wrap]</span><h3>Model-agnostic</h3><p>Point it at any model or agent. SIA improves the system around it, not the weights.</p></div>
+        <div class="cell"><span class="ic">[auto]</span><h3>Autonomous</h3><p>Runs the propose / test / keep loop on its own until the gains stop coming.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>SIA // SELF-IMPROVING AI FRAMEWORK</span><span>hexo-ai / sia</span></div></footer>
+</body>
+</html>

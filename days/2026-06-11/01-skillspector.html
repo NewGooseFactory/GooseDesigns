@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SkillSpector — security scanner for AI agent skills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #08090b;
+    --panel: #0e0f12;
+    --ink: #e9ecef;
+    --soft: #8a9099;
+    --hair: #1b1d22;
+    --red: #ff4d4d;          /* threat-scan red — single electric accent */
+    --red-dim: rgba(255,77,77,0.12);
+    --ok: #46d18a;
+    --maxw: 1140px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Geist", system-ui, sans-serif; line-height: 1.55; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; }
+  .mono { font-family: "Geist Mono", monospace; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; height: 66px; border-bottom: 1px solid var(--hair); }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--red-dim); border: 1px solid var(--red); display: inline-grid; place-items: center; color: var(--red); font-family: "Geist Mono", monospace; font-size: 12px; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--soft); }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { font-family: "Geist Mono", monospace; font-size: 13px; border: 1px solid var(--hair); border-radius: 8px; padding: 8px 14px; text-decoration: none; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), border-color 150ms; }
+  .nav-cta:hover { border-color: var(--soft); } .nav-cta:active { transform: scale(0.97); }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding: 84px 0 72px; }
+  .eyebrow { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin: 0 0 22px; display: flex; align-items: center; gap: 9px; }
+  .eyebrow .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+  h1 { font-weight: 600; font-size: clamp(38px, 5vw, 60px); line-height: 1.04; letter-spacing: -0.03em; margin: 0 0 22px; }
+  h1 .acc { color: var(--red); }
+  .lede { color: var(--soft); font-size: 17px; max-width: 40ch; margin: 0 0 30px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; }
+  .btn { background: var(--red); color: #1a0606; text-decoration: none; font-weight: 600; font-size: 14px; padding: 12px 20px; border-radius: 9px; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms; }
+  .btn:hover { filter: brightness(1.08); } .btn:active { transform: scale(0.97); }
+  .btn-ghost { font-family: "Geist Mono", monospace; font-size: 13.5px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hair); padding-bottom: 2px; }
+  .btn-ghost:hover { border-color: var(--soft); }
+
+  /* scan terminal */
+  .term { background: var(--panel); border: 1px solid var(--hair); border-radius: 12px; overflow: hidden; box-shadow: 0 30px 70px -36px rgba(0,0,0,0.9); }
+  .term-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--hair); }
+  .d { width: 11px; height: 11px; border-radius: 50%; background: #26282e; }
+  .term-tab { margin-left: 10px; font-family: "Geist Mono", monospace; font-size: 12px; color: var(--soft); }
+  .term pre { margin: 0; padding: 20px 20px 8px; font-family: "Geist Mono", monospace; font-size: 13px; line-height: 1.7; color: var(--ink); }
+  .c-com { color: #5b616b; } .c-cmd { color: var(--ink); } .c-flag { color: #8a9099; }
+  .findings { padding: 4px 20px 18px; font-family: "Geist Mono", monospace; font-size: 12.5px; line-height: 1.95; }
+  .f { display: flex; gap: 10px; align-items: baseline; }
+  .tag { display: inline-block; min-width: 54px; text-align: center; border-radius: 4px; padding: 1px 6px; font-size: 11px; font-weight: 500; }
+  .tag.hi { background: var(--red-dim); color: var(--red); }
+  .tag.lo { background: rgba(138,144,153,0.12); color: var(--soft); }
+  .tag.ok { background: rgba(70,209,138,0.12); color: var(--ok); }
+  .f .path { color: var(--soft); }
+  .term-foot { padding: 12px 20px; border-top: 1px solid var(--hair); font-family: "Geist Mono", monospace; font-size: 11px; color: var(--soft); letter-spacing: 0.04em; }
+
+  .checks { border-top: 1px solid var(--hair); padding: 52px 0 72px; }
+  .checks h2 { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); margin: 0 0 26px; }
+  .check-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; }
+  .cell { background: var(--panel); padding: 24px 22px; }
+  .cell h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 8px; }
+  .cell p { margin: 0; color: var(--soft); font-size: 13.5px; max-width: 30ch; }
+  .cell .ic { color: var(--red); font-family: "Geist Mono", monospace; font-size: 13px; margin-bottom: 14px; display: block; }
+
+  footer { border-top: 1px solid var(--hair); padding: 24px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; font-family: "Geist Mono", monospace; font-size: 11px; color: var(--soft); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pulse { animation: pl 1.5s ease-in-out infinite; }
+    @keyframes pl { 50% { opacity: 0.3; transform: scale(0.85); } }
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 680ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1{animation-delay:60ms}.d2{animation-delay:150ms}.d3{animation-delay:250ms}.d4{animation-delay:340ms}
+    @keyframes rise { to { opacity:1; transform:none; } }
+  }
+  .no-anim .pulse { animation: none !important; }
+  .no-anim .reveal { opacity:1 !important; transform:none !important; animation:none !important; }
+
+  @media (max-width: 880px) { .hero { grid-template-columns: 1fr; gap: 38px; padding: 48px 0; } .check-grid { grid-template-columns: 1fr; } .nav-links { display: none; } }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="mark">⊘</span> SkillSpector</div>
+      <div class="nav-links"><a href="#">Scanner</a><a href="#">Rules</a><a href="#">Docs</a></div>
+      <a class="nav-cta" href="https://github.com/NVIDIA/SkillSpector">View on GitHub</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow reveal d1"><span class="pulse"></span> Security scanner · agent skills</p>
+        <h1 class="reveal d2">Scan a skill <span class="acc">before</span> your agent runs it.</h1>
+        <p class="lede reveal d3">SkillSpector inspects AI agent skills for vulnerabilities, malicious patterns, and security risks, so an untrusted SKILL file never executes unchecked.</p>
+        <div class="cta-row reveal d4">
+          <a class="btn" href="#">skillspector scan ./skill</a>
+          <a class="btn-ghost mono" href="#">See the rules →</a>
+        </div>
+      </div>
+
+      <div class="term reveal d3">
+        <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="term-tab">scan — agent-skill</span></div>
+        <pre><span class="c-com"># inspect a skill before install</span>
+<span class="c-cmd">$ skillspector scan</span> <span class="c-flag">./suspicious-skill</span></pre>
+        <div class="findings">
+          <div class="f"><span class="tag hi">HIGH</span><span class="path">exfil: outbound POST to unknown host</span></div>
+          <div class="f"><span class="tag hi">HIGH</span><span class="path">shell: unscoped rm on $HOME</span></div>
+          <div class="f"><span class="tag lo">LOW</span><span class="path">prompt: hidden instruction override</span></div>
+          <div class="f"><span class="tag ok">PASS</span><span class="path">manifest signature valid</span></div>
+        </div>
+        <div class="term-foot">3 findings · 2 high · illustrative output</div>
+      </div>
+    </section>
+  </div>
+
+  <section class="checks">
+    <div class="wrap">
+      <h2>// what it looks for</h2>
+      <div class="check-grid">
+        <div class="cell"><span class="ic">[vuln]</span><h3>Vulnerabilities</h3><p>Known-risky calls, unsafe file and network access buried in a skill's code.</p></div>
+        <div class="cell"><span class="ic">[mal]</span><h3>Malicious patterns</h3><p>Exfiltration, destructive shell, and obfuscation signatures flagged before they run.</p></div>
+        <div class="cell"><span class="ic">[inj]</span><h3>Prompt risks</h3><p>Hidden instruction overrides and injection bait inside skill text.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>SKILLSPECTOR // SCAN BEFORE YOU TRUST</span><span>NVIDIA / SkillSpector</span></div></footer>
+</body>
+</html>

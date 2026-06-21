@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthropic-Cybersecurity-Skills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a1410; --bg2:#0c1813; --line:#16291f; --line-2:#1f3b2c;
+    --ink:#e7f4ec; --muted:#94b3a1; --dim:#54725f;
+    --grn:#46d68a; --grn-2:#8eecb6; --grn-dim:#13663c;
+    --grid:rgba(70,214,138,.05);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:34px 34px;}
+  .frame{max-width:1180px;margin:0 auto;padding:18px 22px;min-height:100vh}
+  .draw{border:1px solid var(--line-2);border-radius:6px;background:
+    radial-gradient(130% 120% at 82% -10%,rgba(70,214,138,.06),transparent 55%),var(--bg2);position:relative;overflow:hidden}
+  .draw::before,.draw::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--grn-dim);opacity:.6}
+  .draw::before{left:10px;top:10px;border-right:none;border-bottom:none}
+  .draw::after{right:10px;bottom:10px;border-left:none;border-top:none}
+  .top{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;border-bottom:1px dashed var(--line-2);font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.5px}
+  .top .nm{color:var(--ink);font-weight:700;letter-spacing:1px}
+  .top .nm b{color:var(--grn)}
+  .body{display:grid;grid-template-columns:.96fr 1.1fr;gap:30px;padding:42px 30px 30px;align-items:center}
+  .kicker{font-family:var(--mono);font-size:11.5px;color:var(--grn-2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:9px}
+  .kicker::before{content:"";width:22px;height:1px;background:var(--grn)}
+  h1{font-size:46px;line-height:1.05;letter-spacing:-1.2px;font-weight:700}
+  h1 .g{color:var(--dim)}
+  .sub{color:var(--muted);font-size:17px;max-width:36ch;margin:20px 0 24px;line-height:1.55}
+  .nums{display:flex;gap:0;margin:22px 0 26px;border:1px solid var(--line-2);border-radius:8px;overflow:hidden}
+  .num{flex:1;padding:13px 10px;text-align:center;border-right:1px solid var(--line-2)}
+  .num:last-child{border-right:none}
+  .num .v{font-family:var(--mono);font-weight:700;font-size:24px;color:var(--grn-2);letter-spacing:-.5px}
+  .num .l{font-family:var(--mono);font-size:9.5px;color:var(--dim);letter-spacing:.4px;margin-top:4px}
+  .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .b1{background:var(--grn);color:#042417;font-weight:700;font-size:13.5px;padding:11px 18px;border-radius:6px;text-decoration:none;font-family:var(--mono)}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13px;border:1px solid var(--line-2);padding:11px 15px;border-radius:6px;text-decoration:none}
+  /* crosswalk schematic */
+  .schem{border:1px solid var(--line-2);border-radius:8px;background:rgba(10,20,16,.6);padding:16px}
+  .slab{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.6px;display:flex;justify-content:space-between;margin-bottom:14px}
+  .cross{display:grid;grid-template-columns:96px repeat(5,1fr);gap:6px;align-items:stretch}
+  .ch{font-family:var(--mono);font-size:9.5px;color:var(--grn-2);text-align:center;padding-bottom:6px;border-bottom:1px solid var(--line-2);letter-spacing:.2px;line-height:1.3}
+  .rh{font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:flex-end;padding-right:6px;text-align:right}
+  .cell{height:26px;border:1px solid var(--line);border-radius:4px;display:grid;place-items:center;background:rgba(70,214,138,.0)}
+  .cell.x{background:rgba(70,214,138,.12);border-color:var(--grn-dim)}
+  .cell.x::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--grn);box-shadow:0 0 7px var(--grn)}
+  .foot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
+  .ill{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;text-align:right}
+  .tblock{position:absolute;right:14px;bottom:14px;font-family:var(--mono);font-size:9px;color:var(--dim);text-align:right;line-height:1.6;border:1px solid var(--line-2);border-radius:4px;padding:7px 10px;background:rgba(10,20,16,.7)}
+  .tblock b{color:var(--muted);font-weight:500}
+  @media(max-width:880px){.body{grid-template-columns:1fr;gap:24px}h1{font-size:36px}.tblock{display:none}}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="draw">
+    <div class="top">
+      <span class="nm">mukul975 / <b>Anthropic-Cybersecurity-Skills</b></span>
+      <span>DWG · SKILL-CROSSWALK · REV A · SHEET 1/1</span>
+    </div>
+    <div class="body">
+      <div>
+        <div class="kicker">Cybersecurity skills for AI agents</div>
+        <h1>754 skills, mapped<br>to <span class="g">every framework<br>that matters.</span></h1>
+        <p class="sub">Structured cybersecurity skills for AI agents — built to the agentskills.io standard, working across Claude Code, Copilot, Codex, Cursor, Gemini, and 20+ platforms.</p>
+        <div class="nums">
+          <div class="num"><div class="v">754</div><div class="l">SKILLS</div></div>
+          <div class="num"><div class="v">5</div><div class="l">FRAMEWORKS</div></div>
+          <div class="num"><div class="v">26</div><div class="l">DOMAINS</div></div>
+          <div class="num"><div class="v">20+</div><div class="l">PLATFORMS</div></div>
+        </div>
+        <div class="cta">
+          <a class="b1" href="https://github.com/mukul975/Anthropic-Cybersecurity-Skills">Browse the skills →</a>
+          <a class="b2" href="#">Apache 2.0</a>
+        </div>
+      </div>
+
+      <div class="schem">
+        <div class="slab"><span>SCHEMATIC — FRAMEWORK CROSSWALK</span><span>mapping per repo</span></div>
+        <div class="cross">
+          <div></div>
+          <div class="ch">MITRE<br>ATT&amp;CK</div><div class="ch">NIST<br>CSF 2.0</div><div class="ch">MITRE<br>ATLAS</div><div class="ch">D3FEND</div><div class="ch">NIST<br>AI RMF</div>
+          <div class="rh">recon</div>
+          <div class="cell x"></div><div class="cell x"></div><div class="cell"></div><div class="cell x"></div><div class="cell"></div>
+          <div class="rh">access</div>
+          <div class="cell x"></div><div class="cell x"></div><div class="cell"></div><div class="cell x"></div><div class="cell"></div>
+          <div class="rh">ml-attack</div>
+          <div class="cell"></div><div class="cell"></div><div class="cell x"></div><div class="cell"></div><div class="cell x"></div>
+          <div class="rh">detect</div>
+          <div class="cell x"></div><div class="cell x"></div><div class="cell"></div><div class="cell x"></div><div class="cell"></div>
+          <div class="rh">govern</div>
+          <div class="cell"></div><div class="cell x"></div><div class="cell"></div><div class="cell"></div><div class="cell x"></div>
+        </div>
+        <div class="foot"><span>● = skill domain mapped to framework</span><span>illustrative slice</span></div>
+        <div class="ill">Grid is an illustrative slice of the full 754-skill mapping.</div>
+      </div>
+    </div>
+    <div class="tblock"><b>SCALE</b> n.t.s.&nbsp;&nbsp;<b>UNITS</b> skills·frameworks<br><b>DRAWN</b> goose &nbsp; <b>STYLE</b> blueprint</div>
+  </div>
+</div>
+</body>
+</html>

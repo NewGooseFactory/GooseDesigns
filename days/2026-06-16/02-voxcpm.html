@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxCPM2 — Tokenizer-Free TTS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fcfaf9;
+    --ink:#1c1719;
+    --soft:#62595d;
+    --line:#ece4e2;
+    --accent:#a8326b;
+    --accent-soft:#f7ebf1;
+    --code:#f5efed;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 40px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:30px 0;border-bottom:1px solid var(--line)}
+  .brand{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:17px}
+  .brand b{color:var(--accent)}
+  nav{display:flex;gap:30px;align-items:center}
+  nav a{color:var(--soft);text-decoration:none;font-size:14.5px;font-weight:500}
+  nav a:hover{color:var(--ink)}
+  .ghbtn{font-size:14px;border:1px solid var(--line);padding:9px 16px;border-radius:7px;color:var(--ink);background:#fff}
+  .hero{text-align:center;padding:88px 0 24px;max-width:54ch;margin:0 auto}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);letter-spacing:.05em;margin-bottom:26px}
+  h1{font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:clamp(42px,5.8vw,68px);line-height:1.05;letter-spacing:-.018em}
+  h1 em{font-style:italic;color:var(--accent)}
+  .lede{font-size:19px;color:var(--soft);margin:24px auto 0;max-width:42ch;line-height:1.62}
+  .cta{margin-top:36px;display:flex;gap:14px;justify-content:center;align-items:center}
+  .btn-p{background:var(--ink);color:var(--paper);font-size:15px;font-weight:500;padding:13px 24px;border-radius:8px;text-decoration:none}
+  .btn-t{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;padding:13px 6px;border-bottom:1px solid transparent}
+  .btn-t:hover{border-color:var(--ink)}
+  .player{max-width:680px;margin:54px auto 0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px -30px rgba(60,30,45,.28);padding:24px 26px}
+  .ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .ptop .t{font-family:'Newsreader',serif;font-style:italic;font-size:18px;color:var(--ink)}
+  .ptop .tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);padding:5px 10px;border-radius:20px}
+  .wave{display:flex;align-items:center;gap:3px;height:56px}
+  .wave i{flex:1;background:linear-gradient(180deg,var(--accent),#d98bb4);border-radius:2px;opacity:.85}
+  .controls{display:flex;align-items:center;gap:14px;margin-top:18px}
+  .play{width:42px;height:42px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;flex:none}
+  .play::after{content:'';border-left:12px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+  .track{flex:1;height:4px;background:var(--line);border-radius:2px;position:relative}
+  .track::after{content:'';position:absolute;left:0;top:0;height:100%;width:38%;background:var(--accent);border-radius:2px}
+  .time{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft)}
+  .ill{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);opacity:.7;text-align:center;margin-top:14px}
+  .chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .chip{font-size:13.5px;color:var(--ink);background:#fff;border:1px solid var(--line);padding:8px 15px;border-radius:20px;font-weight:500}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;padding:66px 0 88px}
+  .pt h3{font-family:'Newsreader',serif;font-weight:600;font-size:21px;margin-bottom:8px}
+  .pt p{font-size:15px;color:var(--soft);line-height:1.6}
+  .pt .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:14px}
+  @media(max-width:860px){.points{grid-template-columns:1fr;gap:28px}nav a:not(.ghbtn){display:none}.hero{padding:56px 0 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">Vox<b>CPM</b>2</div>
+    <nav><a href="#">Samples</a><a href="#">Model</a><a href="#">Paper</a><a class="ghbtn" href="#">GitHub ★</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">TOKENIZER-FREE TEXT-TO-SPEECH</div>
+    <h1>Speech without a <em>tokenizer</em> in the way.</h1>
+    <p class="lede">VoxCPM2: Tokenizer-Free TTS for Multilingual Speech Generation, Creative Voice Design, and True-to-Life Cloning.</p>
+    <div class="cta">
+      <a class="btn-p" href="#">Try the model</a>
+      <a class="btn-t" href="#">Read the paper →</a>
+    </div>
+  </section>
+
+  <div class="player">
+    <div class="ptop"><span class="t">"Generated, multilingual, true-to-life."</span><span class="tag">illustrative</span></div>
+    <div class="wave">
+      <i style="height:24%"></i><i style="height:52%"></i><i style="height:78%"></i><i style="height:44%"></i><i style="height:90%"></i><i style="height:62%"></i><i style="height:36%"></i><i style="height:72%"></i><i style="height:96%"></i><i style="height:50%"></i><i style="height:30%"></i><i style="height:66%"></i><i style="height:84%"></i><i style="height:40%"></i><i style="height:58%"></i><i style="height:88%"></i><i style="height:46%"></i><i style="height:70%"></i><i style="height:34%"></i><i style="height:60%"></i><i style="height:80%"></i><i style="height:42%"></i><i style="height:54%"></i><i style="height:28%"></i><i style="height:74%"></i>
+    </div>
+    <div class="controls">
+      <span class="play"></span>
+      <span class="track"></span>
+      <span class="time">0:11 / 0:29</span>
+    </div>
+    <div class="ill">Waveform is illustrative — no audio is bundled in this mock.</div>
+  </div>
+
+  <div class="chips">
+    <span class="chip">Multilingual</span><span class="chip">Creative voice design</span><span class="chip">True-to-life cloning</span><span class="chip">Tokenizer-free</span>
+  </div>
+
+  <section class="points">
+    <div class="pt"><div class="num">01</div><h3>No tokenizer step</h3><p>Generates speech without an intermediate text tokenizer — fewer moving parts between text and voice.</p></div>
+    <div class="pt"><div class="num">02</div><h3>Design a voice</h3><p>Shape new voices creatively, not just replay a fixed set of presets.</p></div>
+    <div class="pt"><div class="num">03</div><h3>True-to-life cloning</h3><p>Reproduce a target voice with fidelity for multilingual generation.</p></div>
+  </section>
+</div>
+</body>
+</html>

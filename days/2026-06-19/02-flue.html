@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>flue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf8f4; --paper:#fffdf9; --ink:#1a1714; --body:#46403a; --muted:#857d72; --line:#e8e2d6;
+    --acc:#b4530f; --acc-soft:#fbeede;
+    --serif:'Newsreader',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--body);font-family:var(--sans);line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:26px 0;border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--ink)}
+  .brand span{color:var(--acc)}
+  nav{display:flex;gap:30px;font-size:14px;color:var(--muted)}
+  nav a{color:inherit;text-decoration:none}nav a:hover{color:var(--ink)}
+  .gh{font-family:var(--mono);font-size:13px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--acc);padding-bottom:1px}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:80px 0 70px}
+  .kicker{font-family:var(--mono);font-size:13px;color:var(--acc);letter-spacing:.6px;text-transform:uppercase;margin-bottom:24px}
+  h1{font-family:var(--serif);font-weight:500;font-size:62px;line-height:1.05;letter-spacing:-1.3px;color:var(--ink)}
+  h1 em{font-style:italic;color:var(--acc)}
+  .lede{font-family:var(--serif);font-size:21px;line-height:1.5;color:var(--body);margin-top:26px;max-width:32ch}
+  .cta{display:flex;gap:16px;align-items:center;margin-top:36px}
+  .b1{background:var(--ink);color:#fff;font-size:14.5px;font-weight:500;padding:12px 22px;border-radius:8px;text-decoration:none}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13.5px;text-decoration:none}
+  .b2 .c{color:var(--acc)}
+  /* sandbox card */
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px -40px rgba(60,40,10,.4);overflow:hidden}
+  .ch{display:flex;align-items:center;gap:9px;padding:13px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .ch .d{width:9px;height:9px;border-radius:50%;background:var(--acc-soft);border:1px solid #e3c9a8}
+  .ch .nm{margin-left:6px}
+  .ch .badge{margin-left:auto;font-size:11px;color:var(--acc);background:var(--acc-soft);border-radius:20px;padding:3px 10px}
+  .cb{padding:18px}
+  .row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  .ic{width:26px;height:26px;border-radius:7px;background:var(--acc-soft);display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--acc);flex:none}
+  .rt{font-family:var(--mono);font-size:13px;color:var(--ink)}
+  .rs{font-size:12.5px;color:var(--muted);margin-top:1px}
+  .stat{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .stat.live{color:var(--acc)}
+  .ill{font-size:11px;color:var(--muted);font-style:italic;margin-top:14px;text-align:right}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:40px;padding:48px 0}h1{font-size:43px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">withastro / <span>flue</span></div>
+    <nav><a href="#">Docs</a><a href="#">Sandboxes</a><a href="#">Examples</a><a href="#">Blog</a></nav>
+    <a class="gh" href="https://github.com/withastro/flue">View on GitHub →</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="kicker">The sandbox agent framework</div>
+      <h1>Agents that run<br>in a <em>real sandbox.</em></h1>
+      <p class="lede">Flue gives every agent its own isolated environment to read, run, and revise — so the work happens somewhere safe to fail.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/withastro/flue">Get started</a>
+        <a class="b2" href="#"><span class="c">$</span> npm create flue</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch"><span class="d"></span><span class="d"></span><span class="d"></span><span class="nm">flue · sandbox</span><span class="badge">● isolated</span></div>
+      <div class="cb">
+        <div class="row">
+          <div class="ic">fs</div>
+          <div><div class="rt">filesystem</div><div class="rs">scoped, ephemeral workspace</div></div>
+          <div class="stat">mounted</div>
+        </div>
+        <div class="row">
+          <div class="ic">sh</div>
+          <div><div class="rt">shell</div><div class="rs">run commands, capture output</div></div>
+          <div class="stat live">● running</div>
+        </div>
+        <div class="row">
+          <div class="ic">net</div>
+          <div><div class="rt">network</div><div class="rs">allow-list egress only</div></div>
+          <div class="stat">guarded</div>
+        </div>
+        <div class="row">
+          <div class="ic">⟲</div>
+          <div><div class="rt">snapshot</div><div class="rs">reset to known-good in one call</div></div>
+          <div class="stat">ready</div>
+        </div>
+        <div class="ill">Sandbox capabilities are illustrative.</div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

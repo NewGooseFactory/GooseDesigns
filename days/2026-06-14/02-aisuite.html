@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aisuite — One interface, every provider</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf8f4;
+    --ink:#1a1916;
+    --soft:#5d5a52;
+    --line:#e6e2d8;
+    --accent:#3a5a40;
+    --accent-soft:#eaf0ea;
+    --code:#f3f0e9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:30px 0;border-bottom:1px solid var(--line)}
+  .brand{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:17px;letter-spacing:-.01em}
+  .brand b{color:var(--accent)}
+  nav{display:flex;gap:32px;align-items:center}
+  nav a{color:var(--soft);text-decoration:none;font-size:14.5px;font-weight:500}
+  nav a:hover{color:var(--ink)}
+  .ghbtn{font-size:14px;border:1px solid var(--line);padding:9px 16px;border-radius:7px;color:var(--ink);background:#fff}
+  .ghbtn:hover{border-color:#cfcabb}
+  .hero{display:grid;grid-template-columns:1.08fr .92fr;gap:60px;align-items:center;padding:88px 0 76px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);letter-spacing:.04em;margin-bottom:26px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--accent)}
+  h1{font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:clamp(40px,5.4vw,66px);line-height:1.06;letter-spacing:-.018em}
+  h1 em{font-style:italic;color:var(--accent)}
+  .lede{font-size:19px;color:var(--soft);margin-top:26px;max-width:34ch;line-height:1.62}
+  .cta{margin-top:38px;display:flex;gap:14px;align-items:center}
+  .btn-p{background:var(--ink);color:var(--paper);font-size:15px;font-weight:500;padding:13px 24px;border-radius:8px;text-decoration:none}
+  .btn-p:hover{background:#000}
+  .btn-t{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;padding:13px 6px;border-bottom:1px solid transparent}
+  .btn-t:hover{border-color:var(--ink)}
+  .codecard{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 0 rgba(0,0,0,.02),0 18px 50px -28px rgba(40,40,30,.22);overflow:hidden}
+  .codebar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--code)}
+  .codebar i{width:11px;height:11px;border-radius:50%;background:#d9d4c7;display:inline-block}
+  .codebar span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft);margin-left:8px}
+  pre{font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.85;padding:22px;color:#2b2a26;overflow-x:auto}
+  .c-k{color:#9d4b2b}.c-s{color:var(--accent)}.c-c{color:#a39e90}.c-v{color:#3b4a8c}
+  .providers{padding:30px 0 26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .providers .l{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft);letter-spacing:.06em;margin-bottom:18px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{font-size:13.5px;color:var(--ink);background:#fff;border:1px solid var(--line);padding:8px 15px;border-radius:20px;font-weight:500}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;padding:64px 0 88px}
+  .pt h3{font-family:'Newsreader',serif;font-weight:600;font-size:21px;margin-bottom:8px}
+  .pt p{font-size:15px;color:var(--soft);line-height:1.6}
+  .pt .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:14px}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:40px;padding:56px 0}.points{grid-template-columns:1fr;gap:28px}nav a:not(.ghbtn){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">ai<b>suite</b></div>
+    <nav>
+      <a href="#">Providers</a><a href="#">Docs</a><a href="#">Examples</a>
+      <a class="ghbtn" href="#">GitHub ★</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">UNIFIED GENERATIVE-AI INTERFACE</div>
+      <h1>One interface for <em>every</em> model provider.</h1>
+      <p class="lede">Simple, unified interface to multiple Generative AI providers.</p>
+      <div class="cta">
+        <a class="btn-p" href="#">pip install aisuite</a>
+        <a class="btn-t" href="#">Read the docs →</a>
+      </div>
+    </div>
+    <div class="codecard">
+      <div class="codebar"><i></i><i></i><i></i><span>quickstart.py</span></div>
+<pre><span class="c-k">import</span> aisuite <span class="c-k">as</span> ai
+client = ai.<span class="c-v">Client</span>()
+
+<span class="c-c"># swap providers by changing one string</span>
+models = [<span class="c-s">"openai:gpt-4o"</span>, <span class="c-s">"anthropic:claude"</span>,
+          <span class="c-s">"groq:llama-3"</span>]
+
+<span class="c-k">for</span> m <span class="c-k">in</span> models:
+    r = client.chat.completions.<span class="c-v">create</span>(
+        model=m,
+        messages=msgs,
+    )
+    <span class="c-v">print</span>(r.choices[<span class="c-v">0</span>].message.content)</pre>
+    </div>
+  </section>
+
+  <section class="providers">
+    <div class="l">SWAP ANY PROVIDER WITH A STRING — NO REWRITE</div>
+    <div class="chips">
+      <span class="chip">OpenAI</span><span class="chip">Anthropic</span><span class="chip">Google</span>
+      <span class="chip">Mistral</span><span class="chip">Groq</span><span class="chip">AWS Bedrock</span>
+      <span class="chip">Azure</span><span class="chip">Ollama</span><span class="chip">Hugging Face</span>
+    </div>
+  </section>
+
+  <section class="points">
+    <div class="pt"><div class="num">01</div><h3>One call signature</h3><p>The same <code>chat.completions.create</code> shape across providers. Learn it once.</p></div>
+    <div class="pt"><div class="num">02</div><h3>Provider as a string</h3><p>Switch from a frontier model to a local one by editing a single identifier.</p></div>
+    <div class="pt"><div class="num">03</div><h3>Thin by design</h3><p>A small wrapper over official SDKs — no lock-in, no heavy abstraction tax.</p></div>
+  </section>
+</div>
+</body>
+</html>

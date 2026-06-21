@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLM-5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfaf8; --ink:#16181d; --body:#41454d; --muted:#777d87; --line:#e7e4dd;
+    --acc:#2347d9; --acc-soft:#eef1fe;
+    --serif:'Newsreader',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--body);font-family:var(--sans);line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:26px 0;border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--ink);letter-spacing:.3px}
+  .brand span{color:var(--acc)}
+  nav{display:flex;gap:30px;font-size:14px;color:var(--muted)}
+  nav a{color:inherit;text-decoration:none}nav a:hover{color:var(--ink)}
+  .gh{font-family:var(--mono);font-size:13px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--acc);padding-bottom:1px}
+  .hero{padding:86px 0 28px;max-width:820px}
+  .kicker{font-family:var(--mono);font-size:13px;color:var(--acc);letter-spacing:.6px;text-transform:uppercase;margin-bottom:26px}
+  h1{font-family:var(--serif);font-weight:500;font-size:67px;line-height:1.04;letter-spacing:-1.4px;color:var(--ink)}
+  h1 em{font-style:italic;color:var(--acc)}
+  .lede{font-family:var(--serif);font-size:22px;line-height:1.5;color:var(--body);margin-top:28px;max-width:30ch}
+  .cta{display:flex;gap:16px;align-items:center;margin-top:38px}
+  .b1{background:var(--ink);color:#fff;font-size:14.5px;font-weight:500;padding:12px 22px;border-radius:8px;text-decoration:none}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13.5px;text-decoration:none;display:flex;gap:8px;align-items:center}
+  .b2 .c{color:var(--acc)}
+  /* arc line */
+  .arc{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:78px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .step{padding:30px 26px 30px 0;position:relative}
+  .step:not(:last-child){border-right:1px solid var(--line);padding-right:26px}
+  .step:not(:first-child){padding-left:26px}
+  .step .no{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:12px}
+  .step .ti{font-family:var(--serif);font-size:23px;color:var(--ink);margin-bottom:8px;letter-spacing:-.3px}
+  .step.on .ti{color:var(--acc)}
+  .step .de{font-size:14px;color:var(--muted);line-height:1.5}
+  .step .ar{position:absolute;right:-9px;top:34px;color:var(--line);font-family:var(--mono);font-size:16px;background:var(--bg);padding:2px 0;z-index:2}
+  .foot{display:flex;gap:34px;margin-top:34px;font-family:var(--mono);font-size:13px;color:var(--muted);padding-bottom:70px}
+  .foot b{color:var(--ink);font-weight:500}
+  .ill{font-size:11.5px;color:var(--muted);font-style:italic;margin-top:18px;font-family:var(--sans)}
+  @media(max-width:820px){h1{font-size:44px}.arc{grid-template-columns:1fr}.step{border-right:none!important;border-bottom:1px solid var(--line);padding:24px 0!important}.step .ar{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">zai-org / <span>GLM-5</span></div>
+    <nav><a href="#">Model</a><a href="#">Capabilities</a><a href="#">Weights</a><a href="#">Paper</a></nav>
+    <a class="gh" href="https://github.com/zai-org/GLM-5">View on GitHub →</a>
+  </header>
+
+  <section class="hero">
+    <div class="kicker">Open weights · agentic foundation model</div>
+    <h1>From vibe coding<br>to <em>agentic engineering.</em></h1>
+    <p class="lede">GLM-5 is built for the part of the loop that matters — planning, tool use, and following a task through to a working result.</p>
+    <div class="cta">
+      <a class="b1" href="https://github.com/zai-org/GLM-5">Read the model card</a>
+      <a class="b2" href="#"><span class="c">$</span> pip install glm5</a>
+    </div>
+  </section>
+
+  <section class="arc">
+    <div class="step on">
+      <div class="ar">→</div>
+      <div class="no">01 · INTENT</div>
+      <div class="ti">Vibe</div>
+      <div class="de">A loose prompt. A direction, not a spec — where most coding assistants stop.</div>
+    </div>
+    <div class="step on">
+      <div class="ar">→</div>
+      <div class="no">02 · PLAN</div>
+      <div class="ti">Decompose</div>
+      <div class="de">The model breaks intent into ordered, tool-using steps it can verify as it goes.</div>
+    </div>
+    <div class="step on">
+      <div class="no">03 · OUTCOME</div>
+      <div class="ti">Engineered</div>
+      <div class="de">A checked, working change — not a draft to clean up by hand.</div>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding:0">
+    <div class="foot">
+      <span><b>open</b> weights</span>
+      <span><b>tool-use</b> native</span>
+      <span><b>long-horizon</b> tasks</span>
+    </div>
+  </div>
+  <p class="ill" style="padding-bottom:40px">Stage labels illustrate the model's intended workflow; no benchmark figures shown.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>turbovec — a vector index built on TurboQuant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f7f6f3;
+    --ink: #161513;
+    --ink-soft: #57534e;
+    --hair: #e2dfd9;
+    --accent: #1d4ed8;        /* cobalt — locked accent */
+    --accent-wash: #eef1fb;
+    --code-bg: #16161a;
+    --code-ink: #e8e8ec;
+    --radius: 12px;
+    --maxw: 1180px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    line-height: 1.5;
+  }
+  a { color: inherit; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+  /* nav */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px; border-bottom: 1px solid var(--hair);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand .mark {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--accent);
+    display: inline-grid; place-items: center;
+    color: #fff; font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 500;
+  }
+  .nav-links { display: flex; gap: 30px; font-size: 14px; color: var(--ink-soft); }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-family: "IBM Plex Mono", monospace; font-size: 13px;
+    border: 1px solid var(--ink); border-radius: 8px; padding: 8px 14px;
+    text-decoration: none; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background 160ms;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--paper); }
+  .nav-cta:active { transform: scale(0.97); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center;
+    padding: 96px 0 80px; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 22px;
+  }
+  h1 {
+    font-family: "Newsreader", Georgia, serif; font-weight: 400;
+    font-size: clamp(40px, 5.6vw, 68px); line-height: 1.04; letter-spacing: -0.02em;
+    margin: 0 0 24px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 18px; color: var(--ink-soft); max-width: 30ch; margin: 0 0 32px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; }
+  .btn-primary {
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-weight: 500; font-size: 15px; padding: 12px 22px; border-radius: 10px;
+    transition: transform 160ms cubic-bezier(0.23,1,0.32,1), filter 160ms;
+  }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-ghost {
+    text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 14px;
+    color: var(--ink); border-bottom: 1px solid var(--hair); padding-bottom: 2px;
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  /* code panel */
+  .panel {
+    background: var(--code-bg); border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 24px 60px -24px rgba(20,18,15,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
+  }
+  .panel-bar {
+    display: flex; align-items: center; gap: 8px; padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: #3a3a40; }
+  .panel-tab {
+    margin-left: 10px; font-family: "IBM Plex Mono", monospace; font-size: 12px;
+    color: #9a9aa3;
+  }
+  pre {
+    margin: 0; padding: 22px 22px 26px; font-family: "IBM Plex Mono", monospace;
+    font-size: 13.5px; line-height: 1.75; color: var(--code-ink); overflow-x: auto;
+  }
+  .c-com { color: #6b7280; }
+  .c-key { color: #93b4ff; }
+  .c-str { color: #86c79b; }
+  .c-fn  { color: #e8e8ec; }
+  .c-num { color: #d9a35f; }
+  .latency {
+    display: flex; align-items: baseline; gap: 10px; padding: 14px 22px 20px;
+    border-top: 1px solid rgba(255,255,255,0.07); color: #9a9aa3;
+    font-family: "IBM Plex Mono", monospace; font-size: 12px;
+  }
+  .latency b { color: #86c79b; font-weight: 500; font-size: 13px; }
+  .illus { color: #6b7280; }
+
+  /* facts strip */
+  .facts { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .facts .wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .fact { padding: 36px 0; }
+  .fact + .fact { border-left: 1px solid var(--hair); padding-left: 36px; }
+  .fact h3 {
+    font-family: "Newsreader", serif; font-weight: 400; font-size: 22px; margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .fact p { margin: 0; color: var(--ink-soft); font-size: 14.5px; max-width: 34ch; }
+  .fact .k {
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 14px;
+  }
+
+  footer { padding: 40px 0 56px; color: var(--ink-soft); font-size: 13px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; }
+  .mono { font-family: "IBM Plex Mono", monospace; }
+
+  /* entrance — calm, editorial */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 700ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1 { animation-delay: 60ms; } .d2 { animation-delay: 140ms; }
+    .d3 { animation-delay: 220ms; } .d4 { animation-delay: 320ms; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  }
+
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 56px 0; }
+    .lede { max-width: 48ch; }
+    .facts .wrap { grid-template-columns: 1fr; }
+    .fact + .fact { border-left: none; border-top: 1px solid var(--hair); padding-left: 0; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="mark">tv</span> turbovec</div>
+      <div class="nav-links">
+        <a href="#">Docs</a><a href="#">Benchmarks</a><a href="#">TurboQuant</a><a href="#">PyPI</a>
+      </div>
+      <a class="nav-cta" href="https://github.com/RyanCodrai/turbovec">View on GitHub</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow reveal d1">Rust core · Python bindings</p>
+        <h1 class="reveal d2">A vector index built on <em>TurboQuant.</em></h1>
+        <p class="lede reveal d3">Approximate nearest-neighbour search with a quantization core in Rust, exposed through a Python API you can import in one line.</p>
+        <div class="cta-row reveal d4">
+          <a class="btn-primary" href="#">pip install turbovec</a>
+          <a class="btn-ghost mono" href="#">Read the design notes →</a>
+        </div>
+      </div>
+
+      <div class="panel reveal d3">
+        <div class="panel-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="panel-tab">search.py</span>
+        </div>
+<pre><span class="c-key">from</span> turbovec <span class="c-key">import</span> Index
+
+<span class="c-com"># build over your embeddings</span>
+idx = Index(dim=<span class="c-num">768</span>, metric=<span class="c-str">"cosine"</span>)
+idx.add(vectors)
+
+<span class="c-com"># query in Rust, return in Python</span>
+hits = idx.<span class="c-fn">search</span>(query, k=<span class="c-num">10</span>)</pre>
+        <div class="latency">
+          <span>warm query, k=10</span>
+          <b>sub-millisecond</b>
+          <span class="illus">— illustrative</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="facts">
+    <div class="wrap">
+      <div class="fact reveal d1">
+        <span class="k">Core</span>
+        <h3>Quantization, not guesswork</h3>
+        <p>TurboQuant compresses vectors so the index stays small and the recall stays honest.</p>
+      </div>
+      <div class="fact reveal d2">
+        <span class="k">Surface</span>
+        <h3>Python where you work</h3>
+        <p>The fast path lives in Rust. The API lives where your pipeline already is.</p>
+      </div>
+      <div class="fact reveal d3">
+        <span class="k">Footprint</span>
+        <h3>One dependency</h3>
+        <p>No server to run, no cluster to babysit. An index you embed inside your process.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>turbovec · open source</span>
+      <span class="mono">RyanCodrai / turbovec</span>
+    </div>
+  </footer>
+</body>
+</html>

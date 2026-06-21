@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puppeteer — Drive Chrome &amp; Firefox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0905;
+    --panel:#11100a;
+    --grid:rgba(214,170,80,.07);
+    --ink:#f0e9d8;
+    --muted:#9a8f74;
+    --amber:#f5a623;
+    --amber-2:#ffce6b;
+    --green:#5fcf6a;
+    --line:rgba(214,170,80,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:40px 40px;overflow-x:hidden}
+  .wrap{max-width:1180px;margin:0 auto;padding:30px 40px 80px}
+  header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.06em}
+  .ret{width:26px;height:26px;border:1.5px solid var(--amber);border-radius:50%;position:relative;display:grid;place-items:center}
+  .ret::before,.ret::after{content:'';position:absolute;background:var(--amber)}
+  .ret::before{width:1.5px;height:32px}.ret::after{height:1.5px;width:32px}
+  .ret span{width:6px;height:6px;background:var(--green);border-radius:50%;z-index:1}
+  nav{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+  nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--amber)}
+  .pill{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);border:1px solid var(--line);padding:6px 12px;border-radius:2px;display:flex;align-items:center;gap:8px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;margin-top:60px;align-items:center}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber-2);letter-spacing:.18em;text-transform:uppercase;margin-bottom:22px}
+  h1{font-size:clamp(38px,5.2vw,60px);line-height:1.03;letter-spacing:-.02em;font-weight:700}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{margin-top:22px;font-size:18px;line-height:1.6;color:var(--muted);max-width:32ch}
+  .cta{margin-top:34px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;padding:13px 22px;border-radius:3px;text-decoration:none;letter-spacing:.02em;transition:transform .15s ease,box-shadow .2s ease}
+  .btn-p{background:var(--amber);color:#1c1304}
+  .btn-p:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,166,35,.3)}
+  .btn-s{border:1px solid var(--line);color:var(--ink);font-family:'JetBrains Mono',monospace}
+  .btn-s:hover{border-color:var(--amber);color:var(--amber)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;font-family:'JetBrains Mono',monospace;position:relative}
+  .panel::before{content:'';position:absolute;inset:9px;border:1px solid rgba(214,170,80,.06);border-radius:5px;pointer-events:none}
+  .ph{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+  .steps{display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;align-items:center;gap:12px;font-size:12.5px;padding:10px 13px;border:1px solid var(--line);border-radius:4px;background:rgba(255,255,255,.012)}
+  .step .ix{color:var(--amber);width:18px}
+  .step .nm{flex:1;color:var(--ink)}
+  .step .st{font-size:10px;color:var(--green);letter-spacing:.06em}
+  .gauges{display:flex;gap:14px;margin-top:18px}
+  .g{flex:1;border:1px solid var(--line);border-radius:5px;padding:12px 13px}
+  .g .v{font-size:24px;color:var(--amber-2);font-weight:700}
+  .g .l{font-size:10px;color:var(--muted);letter-spacing:.06em;margin-top:3px}
+  .foot{font-size:10px;color:var(--muted);opacity:.6;margin-top:14px;letter-spacing:.04em}
+  .strip{margin-top:64px;border-top:1px solid var(--line);padding-top:26px;display:flex;gap:46px;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+  .strip div{font-size:12px;color:var(--muted)}
+  .strip b{display:block;font-size:22px;color:var(--ink);font-weight:700;margin-bottom:4px}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:36px}nav,.pill{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="ret"><span></span></span>PUPPETEER</div>
+    <nav><a href="#">API</a><a href="#">Guides</a><a href="#">Examples</a><a href="#">GitHub</a></nav>
+    <div class="pill"><span class="dot"></span>BROWSER ONLINE</div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="tag">// HEADLESS FLIGHT CONTROL</div>
+      <h1>Fly the browser <em>by code.</em></h1>
+      <p class="lede">JavaScript API for Chrome and Firefox.</p>
+      <div class="cta">
+        <a class="btn btn-p" href="#">npm i puppeteer ▸</a>
+        <a class="btn btn-s" href="#">Read the API</a>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ph"><span>SESSION TELEMETRY</span><span>TGT//CHROME · LIVE</span></div>
+      <div class="steps">
+        <div class="step"><span class="ix">01</span><span class="nm">launch( headless )</span><span class="st">OK</span></div>
+        <div class="step"><span class="ix">02</span><span class="nm">page.goto( url )</span><span class="st">200</span></div>
+        <div class="step"><span class="ix">03</span><span class="nm">page.click( "#go" )</span><span class="st">OK</span></div>
+        <div class="step"><span class="ix">04</span><span class="nm">page.screenshot()</span><span class="st">PNG</span></div>
+      </div>
+      <div class="gauges">
+        <div class="g"><div class="v">1</div><div class="l">DEVTOOLS PROTOCOL</div></div>
+        <div class="g"><div class="v">2</div><div class="l">ENGINES · CHROME/FF</div></div>
+        <div class="g"><div class="v">0</div><div class="l">UI REQUIRED</div></div>
+      </div>
+      <div class="foot">Readout is illustrative.</div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div><b>Headless</b>or full browser</div>
+    <div><b>CDP</b>devtools protocol</div>
+    <div><b>Automate</b>nav · click · type · capture</div>
+    <div><b>Test</b>render &amp; scrape</div>
+  </section>
+</div>
+</body>
+</html>

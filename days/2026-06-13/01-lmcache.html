@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LMCache — the fastest KV cache layer for your LLM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void: #0a0c0a; --panel: #0e120e; --ink: #e4ece4; --soft: #7e8c7e;
+    --hair: rgba(140,200,120,0.12); --amber: #f2a900; --amber-dim: rgba(242,169,0,0.14); --maxw: 1180px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--void); color: var(--ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.5;
+    background-image: linear-gradient(var(--hair) 1px, transparent 1px), linear-gradient(90deg, var(--hair) 1px, transparent 1px); background-size: 48px 48px; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; } .mono { font-family: "JetBrains Mono", monospace; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 56px; border-bottom: 1px solid var(--hair); font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--soft); letter-spacing: 0.08em; }
+  .bar .brand { color: var(--ink); font-family: "Oswald", sans-serif; font-weight: 600; font-size: 16px; letter-spacing: 0.06em; }
+  .bar .brand b { color: var(--amber); }
+  .bar .stat { display: flex; gap: 26px; }
+  .bar .stat span::before { content: "● "; color: var(--amber); font-size: 9px; vertical-align: 2px; }
+
+  .hero { padding: 78px 0 60px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+  .desig { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.22em; color: var(--amber); text-transform: uppercase; margin: 0 0 26px; }
+  h1 { font-family: "Oswald", sans-serif; font-weight: 600; text-transform: uppercase; font-size: clamp(40px, 5.6vw, 66px); line-height: 0.98; letter-spacing: 0.005em; margin: 0 0 22px; }
+  h1 .lit { color: var(--amber); }
+  .lede { color: var(--soft); font-size: 17px; max-width: 40ch; margin: 0 0 32px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; }
+  .btn { font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: 0.06em; text-decoration: none; padding: 12px 20px; border-radius: 4px; background: var(--amber); color: #1a1300; font-weight: 700; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms; }
+  .btn:hover { filter: brightness(1.08); } .btn:active { transform: scale(0.97); }
+  .btn.ghost { background: transparent; color: var(--amber); border: 1px solid var(--amber); }
+  .btn.ghost:hover { background: var(--amber-dim); }
+
+  /* throughput gauge */
+  .gauge { border: 1px solid var(--hair); border-radius: 8px; background: rgba(14,18,14,0.72); box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 60px -30px rgba(0,0,0,0.8); overflow: hidden; }
+  .gauge-head { display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--hair); font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--soft); letter-spacing: 0.1em; text-transform: uppercase; }
+  .gauge-body { padding: 8px 0; }
+  .row { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--hair); }
+  .row:last-child { border-bottom: none; }
+  .row .lbl { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--soft); }
+  .row .val { font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--amber); }
+  .meter { height: 5px; background: var(--amber-dim); border-radius: 2px; width: 130px; overflow: hidden; }
+  .meter i { display: block; height: 100%; background: var(--amber); }
+  .gauge-foot { padding: 12px 16px; font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--soft); letter-spacing: 0.08em; }
+
+  .reg { border-top: 1px solid var(--hair); padding: 52px 0 72px; }
+  .reg h2 { font-family: "Oswald", sans-serif; text-transform: uppercase; font-weight: 500; font-size: 15px; letter-spacing: 0.14em; color: var(--soft); margin: 0 0 26px; }
+  .reg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 8px; overflow: hidden; }
+  .cell { background: var(--panel); padding: 22px 20px; }
+  .cell .id { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--amber); letter-spacing: 0.1em; }
+  .cell h3 { font-family: "Oswald", sans-serif; text-transform: uppercase; font-weight: 500; font-size: 18px; letter-spacing: 0.03em; margin: 12px 0 8px; }
+  .cell p { margin: 0; color: var(--soft); font-size: 13.5px; max-width: 30ch; }
+
+  footer { border-top: 1px solid var(--hair); padding: 24px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--soft); letter-spacing: 0.08em; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .blink { animation: bl 1.4s steps(1) infinite; } @keyframes bl { 50% { opacity: 0.25; } }
+  }
+  .no-anim .blink { animation: none !important; }
+  @media (max-width: 880px) { .hero { grid-template-columns: 1fr; gap: 36px; padding: 48px 0; } .reg-grid { grid-template-columns: 1fr; } .bar .stat { display: none; } }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <div class="bar">
+      <span class="brand">LM<b>CACHE</b></span>
+      <span class="stat mono"><span>KV LAYER ONLINE</span><span>vLLM-READY</span><span class="blink">LIVE</span></span>
+    </div>
+
+    <section class="hero">
+      <div>
+        <p class="desig">KV CACHE LAYER · FOR LLM SERVING</p>
+        <h1>Stop recomputing<br />the <span class="lit">same tokens.</span></h1>
+        <p class="lede">LMCache stores and reuses KV caches across requests, so your LLM serves repeated context from cache instead of re-running attention every time.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://github.com/LMCache/LMCache">INSTALL LMCACHE</a>
+          <a class="btn ghost" href="#">READ THE DOCS</a>
+        </div>
+      </div>
+
+      <div class="gauge">
+        <div class="gauge-head"><span>CACHE TELEMETRY</span><span class="mono">READOUT</span></div>
+        <div class="gauge-body">
+          <div class="row"><span class="lbl">cache hit rate</span><span class="meter"><i style="width:88%"></i></span></div>
+          <div class="row"><span class="lbl">TTFT reduction</span><span class="meter"><i style="width:74%"></i></span></div>
+          <div class="row"><span class="lbl">reused KV blocks</span><span class="val">WARM</span></div>
+          <div class="row"><span class="lbl">backend</span><span class="val">vLLM</span></div>
+        </div>
+        <div class="gauge-foot">READOUT ILLUSTRATIVE · GAINS DEPEND ON WORKLOAD</div>
+      </div>
+    </section>
+  </div>
+
+  <section class="reg">
+    <div class="wrap">
+      <h2>// why a cache layer</h2>
+      <div class="reg-grid">
+        <div class="cell"><span class="id">KV-01</span><h3>Reuse context</h3><p>Shared prefixes and repeated documents are served from cache, not recomputed per request.</p></div>
+        <div class="cell"><span class="id">KV-02</span><h3>Faster first token</h3><p>Skipping prefill on cached context cuts time-to-first-token on long, repeated prompts.</p></div>
+        <div class="cell"><span class="id">KV-03</span><h3>Drops into vLLM</h3><p>Built to slot into existing LLM serving stacks instead of replacing them.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>LMCACHE // FASTEST KV CACHE LAYER</span><span>LMCache / LMCache</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>container — Linux containers on a Mac, in lightweight VMs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f6f7f8;
+    --ink: #16181b;
+    --soft: #565a60;
+    --hair: #e3e4e6;
+    --steel: #3a6b6f;        /* muted teal-steel — locked accent */
+    --steel-wash: #e6eeee;
+    --maxw: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.55; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 36px; }
+  a { color: inherit; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+  .brand .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--steel-wash); border: 1px solid var(--steel); display: inline-grid; place-items: center; color: var(--steel); font-family: "JetBrains Mono", monospace; font-size: 12px; }
+  .nav-right { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--soft); }
+  .nav-right a { text-decoration: none; } .nav-right a:hover { color: var(--ink); }
+  .pill { font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--steel); border: 1px solid var(--steel); border-radius: 8px; padding: 8px 15px; text-decoration: none; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), background 150ms, color 150ms; }
+  .pill:hover { background: var(--steel); color: #fff; } .pill:active { transform: scale(0.97); }
+
+  /* centered editorial hero (justified: a launch statement for a foundational dev tool) */
+  .hero { text-align: center; padding: 92px 0 40px; }
+  .kicker { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--steel); margin: 0 0 26px; }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; font-size: clamp(52px, 8vw, 96px); line-height: 0.98; letter-spacing: -0.01em; margin: 0 auto 24px; max-width: 16ch; }
+  h1 em { font-style: italic; color: var(--steel); }
+  .lede { font-size: 19px; color: var(--soft); max-width: 50ch; margin: 0 auto 34px; }
+  .cta-row { display: flex; gap: 14px; justify-content: center; align-items: center; }
+  .btn { background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 500; font-size: 15px; padding: 13px 24px; border-radius: 10px; font-family: "JetBrains Mono", monospace; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background 160ms; }
+  .btn:hover { background: var(--steel); } .btn:active { transform: scale(0.97); }
+  .btn-link { text-decoration: none; font-family: "JetBrains Mono", monospace; font-size: 14px; color: var(--ink); border-bottom: 1px solid var(--hair); padding-bottom: 2px; }
+  .btn-link:hover { border-color: var(--ink); }
+
+  /* command line proof */
+  .cmd { max-width: 640px; margin: 48px auto 0; background: #11181a; border-radius: 12px; padding: 18px 22px; text-align: left; font-family: "JetBrains Mono", monospace; font-size: 13.5px; color: #d6e2e1; box-shadow: 0 24px 60px -32px rgba(0,0,0,0.4); }
+  .cmd .pr { color: var(--steel); } .cmd .ok { color: #6fc6a0; } .cmd .dim { color: #7f8c8b; }
+
+  /* three facts, hairline-separated, no cards */
+  .facts { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); margin-top: 64px; }
+  .facts .wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .fact { padding: 38px 0; }
+  .fact + .fact { border-left: 1px solid var(--hair); padding-left: 34px; }
+  .fact .k { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--steel); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 14px; }
+  .fact h3 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 26px; margin: 0 0 8px; letter-spacing: -0.005em; }
+  .fact p { margin: 0; color: var(--soft); font-size: 14.5px; max-width: 32ch; }
+
+  footer { padding: 36px 0 52px; font-size: 13px; color: var(--soft); }
+  footer .wrap { display: flex; justify-content: space-between; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 720ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1{animation-delay:60ms}.d2{animation-delay:150ms}.d3{animation-delay:250ms}.d4{animation-delay:350ms}
+    @keyframes rise { to { opacity:1; transform:none; } }
+  }
+  .no-anim .reveal { opacity:1 !important; transform:none !important; animation:none !important; }
+
+  @media (max-width: 860px) {
+    .facts .wrap { grid-template-columns: 1fr; }
+    .fact + .fact { border-left: none; border-top: 1px solid var(--hair); padding-left: 0; }
+    .nav-right a { display: none; }
+  }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="mark">⬡</span> container</div>
+      <div class="nav-right"><a href="#">Docs</a><a href="#">CLI</a><a href="#">Releases</a><a class="pill" href="https://github.com/apple/container">GitHub</a></div>
+    </nav>
+
+    <section class="hero">
+      <p class="kicker reveal d1">Linux containers · on Apple silicon</p>
+      <h1 class="reveal d2">Containers, the <em>native</em> Mac way.</h1>
+      <p class="lede reveal d3">A tool for creating and running Linux containers using lightweight virtual machines on a Mac. Written in Swift, optimized for Apple silicon.</p>
+      <div class="cta-row reveal d4">
+        <a class="btn" href="#">Get container</a>
+        <a class="btn-link mono" href="#">Read the docs →</a>
+      </div>
+
+      <div class="cmd reveal d3">
+        <span class="pr">$</span> container run --rm <span class="dim">ubuntu</span> echo <span class="dim">"hello from a VM"</span><br />
+        <span class="ok">hello from a VM</span><br />
+        <span class="dim"># each container in its own lightweight VM · illustrative</span>
+      </div>
+    </section>
+  </div>
+
+  <section class="facts">
+    <div class="wrap">
+      <div class="fact reveal d1"><span class="k">Isolation</span><h3>A VM per container</h3><p>Lightweight virtual machines give each container real boundaries, not shared-kernel guesswork.</p></div>
+      <div class="fact reveal d2"><span class="k">Native</span><h3>Built in Swift</h3><p>Written for the platform it runs on and tuned for Apple silicon, not ported from elsewhere.</p></div>
+      <div class="fact reveal d3"><span class="k">Familiar</span><h3>The commands you know</h3><p>Run and manage Linux containers with the workflow muscle memory you already have.</p></div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>container · open source</span><span class="mono">apple / container</span></div></footer>
+</body>
+</html>

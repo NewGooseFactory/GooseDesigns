@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>codebase-memory-mcp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07090c; --panel:#0d1117; --line:#1b232d; --line-2:#273140;
+    --ink:#e9eef5; --muted:#8a99ab; --dim:#5b6b7d;
+    --acc:#22d3ee; --acc-dim:#0e7490;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    background-image:radial-gradient(circle at 18% -10%, rgba(34,211,238,.08), transparent 42%);}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-weight:700;letter-spacing:-.2px;font-size:14.5px}
+  .dot{width:9px;height:9px;border-radius:2px;background:var(--acc);box-shadow:0 0 14px var(--acc)}
+  nav{display:flex;gap:26px;font-size:13.5px;color:var(--muted)}
+  nav a{color:inherit;text-decoration:none}
+  nav a:hover{color:var(--ink)}
+  .ghbtn{font-family:var(--mono);font-size:12.5px;color:var(--ink);border:1px solid var(--line-2);
+    padding:7px 13px;border-radius:7px;display:flex;gap:9px;align-items:center}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;padding:78px 0 64px}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--acc);
+    border:1px solid var(--acc-dim);border-radius:30px;padding:5px 13px;margin-bottom:26px;
+    background:rgba(34,211,238,.05)}
+  h1{font-size:55px;line-height:1.02;letter-spacing:-1.6px;font-weight:700}
+  h1 .g{color:var(--dim)}
+  .sub{color:var(--muted);font-size:18.5px;max-width:30ch;margin:22px 0 32px;line-height:1.55}
+  .cta{display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .b1{background:var(--acc);color:#04222a;font-weight:600;font-size:14.5px;padding:11px 20px;border-radius:9px;
+    text-decoration:none;font-family:var(--mono)}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13.5px;border:1px solid var(--line-2);
+    padding:11px 17px;border-radius:9px;text-decoration:none;display:flex;gap:9px;align-items:center}
+  .specs{display:flex;gap:30px;margin-top:42px;padding-top:26px;border-top:1px solid var(--line)}
+  .spec .n{font-family:var(--mono);font-size:23px;font-weight:700;color:var(--ink)}
+  .spec .l{font-size:12px;color:var(--dim);margin-top:3px;letter-spacing:.2px}
+  .spec .n b{color:var(--acc);font-weight:700}
+  /* panel */
+  .panel{background:linear-gradient(180deg,#0d1117,#0a0e13);border:1px solid var(--line-2);border-radius:14px;
+    overflow:hidden;box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+  .pbar{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:12px;color:var(--dim)}
+  .pbar i{width:10px;height:10px;border-radius:50%;background:#222c38;display:inline-block}
+  .pbar .nm{margin-left:8px}
+  .pbody{padding:17px 18px;font-family:var(--mono);font-size:12.8px;line-height:1.85}
+  .ln{display:flex;gap:12px}
+  .pr{color:var(--acc)}
+  .cmd{color:var(--ink)}
+  .out{color:var(--muted)}
+  .ok{color:#34d399}
+  .hl{color:var(--acc)}
+  .gph{margin-top:14px;border-top:1px dashed var(--line-2);padding-top:14px}
+  .glab{color:var(--dim);font-size:11px;letter-spacing:.5px;margin-bottom:9px}
+  .node{display:inline-block;border:1px solid var(--line-2);border-radius:6px;padding:3px 9px;margin:0 6px 7px 0;
+    color:var(--muted);font-size:11.5px;background:#0b1218}
+  .node.a{border-color:var(--acc-dim);color:var(--acc);background:rgba(34,211,238,.06)}
+  .ill{font-size:10.5px;color:var(--dim);font-style:italic;font-family:'Inter';margin-top:11px}
+  .strip{border-top:1px solid var(--line);padding:22px 0 60px;display:flex;gap:34px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+  .strip b{color:var(--muted);font-weight:500}
+  @media(max-width:880px){.hero{grid-template-columns:1fr;gap:36px;padding:48px 0}h1{font-size:40px}.specs{gap:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot"></span>codebase-memory<span style="color:var(--dim)">·mcp</span></div>
+    <nav>
+      <a href="#">Protocol</a><a href="#">Languages</a><a href="#">Benchmarks</a><a href="#">Docs</a>
+    </nav>
+    <a class="ghbtn" href="https://github.com/DeusData/codebase-memory-mcp">★ DeusData/codebase-memory-mcp</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <span class="tag">● MCP server · single static binary</span>
+      <h1>Give your agent<br>a memory of the<br><span class="g">whole codebase.</span></h1>
+      <p class="sub">High-performance code intelligence MCP server. Indexes any repo into a persistent knowledge graph, then answers in sub-milliseconds.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/DeusData/codebase-memory-mcp">Add to your agent →</a>
+        <a class="b2" href="#">$ read the spec</a>
+      </div>
+      <div class="specs">
+        <div class="spec"><div class="n">158</div><div class="l">LANGUAGES</div></div>
+        <div class="spec"><div class="n"><b>sub-ms</b></div><div class="l">GRAPH QUERIES</div></div>
+        <div class="spec"><div class="n">99%</div><div class="l">FEWER TOKENS</div></div>
+        <div class="spec"><div class="n">0</div><div class="l">DEPENDENCIES</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="pbar"><i></i><i></i><i></i><span class="nm">mcp · index session</span></div>
+      <div class="pbody">
+        <div class="ln"><span class="pr">$</span><span class="cmd">cmem index ./monorepo</span></div>
+        <div class="ln"><span class="out">→ parsing <span class="hl">12,884</span> files · 158 langs</span></div>
+        <div class="ln"><span class="out">→ graph built in <span class="hl">0.84s</span> <span class="ok">✓</span></span></div>
+        <div class="ln"><span class="pr">›</span><span class="cmd">query "who calls AuthGuard?"</span></div>
+        <div class="ln"><span class="out">↳ 7 callers · <span class="hl">0.6ms</span> · 412 tokens <span class="ok">✓</span></span></div>
+        <div class="gph">
+          <div class="glab">PERSISTENT KNOWLEDGE GRAPH — illustrative</div>
+          <span class="node a">AuthGuard</span><span class="node">SessionStore</span><span class="node">login()</span>
+          <span class="node">middleware</span><span class="node a">refreshToken</span><span class="node">RouteTable</span>
+          <span class="node">UserRepo</span><span class="node">jwt.verify</span>
+        </div>
+        <div class="ill">UI data is illustrative.</div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="wrap">
+  <div class="strip">
+    <span><b>stdio + http</b> transport</span>
+    <span><b>incremental</b> reindex on save</span>
+    <span><b>zero</b> external services</span>
+    <span><b>works with</b> any MCP client</span>
+  </div>
+</div>
+</body>
+</html>

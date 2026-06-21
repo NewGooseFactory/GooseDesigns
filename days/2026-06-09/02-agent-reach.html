@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agent-Reach — give your agent eyes on the open internet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #faf8f5;
+    --ink: #1c1815;
+    --ink-soft: #5d554d;
+    --hair: #e7e1d8;
+    --accent: #b8462b;       /* terracotta — locked accent */
+    --accent-soft: #f3e7e1;
+    --maxw: 1140px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Inter Tight", system-ui, sans-serif; line-height: 1.55;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 36px; }
+  a { color: inherit; }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between; height: 70px;
+  }
+  .brand { font-family: "Spectral", serif; font-size: 19px; font-weight: 500; letter-spacing: -0.01em; }
+  .brand b { color: var(--accent); font-weight: 500; }
+  .nav-right { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--ink-soft); }
+  .nav-right a { text-decoration: none; }
+  .nav-right a:hover { color: var(--ink); }
+  .pill {
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 999px; padding: 7px 15px; text-decoration: none;
+    transition: transform 150ms cubic-bezier(0.23,1,0.32,1), background 150ms, color 150ms;
+  }
+  .pill:hover { background: var(--accent); color: #fff; }
+  .pill:active { transform: scale(0.97); }
+
+  .hero { padding: 88px 0 26px; border-bottom: 1px solid var(--hair); }
+  .kicker {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 28px;
+  }
+  h1 {
+    font-family: "Spectral", Georgia, serif; font-weight: 400;
+    font-size: clamp(42px, 6.2vw, 76px); line-height: 1.02; letter-spacing: -0.02em;
+    margin: 0 0 28px; max-width: 14ch;
+  }
+  h1 i { color: var(--accent); }
+  .sub-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: end; padding-bottom: 22px; }
+  .lede { font-size: 18.5px; color: var(--ink-soft); max-width: 40ch; margin: 0; }
+  .cta-row { display: flex; gap: 16px; align-items: center; justify-content: flex-end; }
+  .btn-primary {
+    background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 500;
+    font-size: 15px; padding: 12px 22px; border-radius: 10px;
+    font-family: "JetBrains Mono", monospace;
+    transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background 160ms;
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-primary:active { transform: scale(0.97); }
+
+  /* sources ledger */
+  .ledger { padding: 56px 0 64px; }
+  .ledger-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+  .ledger-head h2 { font-family: "Spectral", serif; font-weight: 400; font-size: 26px; margin: 0; letter-spacing: -0.01em; }
+  .ledger-head span { font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--ink-soft); }
+  .sources { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .src {
+    display: flex; align-items: baseline; gap: 14px; padding: 22px 4px;
+    border-top: 1px solid var(--hair);
+    transition: padding-left 200ms cubic-bezier(0.23,1,0.32,1);
+  }
+  .src:hover { padding-left: 12px; }
+  .src .n { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--accent); width: 26px; }
+  .src .name { font-family: "Spectral", serif; font-size: 21px; }
+  .src .verb { margin-left: auto; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .closing { border-top: 1px solid var(--hair); }
+  .closing .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding: 56px 36px; }
+  .closing h3 { font-family: "Spectral", serif; font-weight: 400; font-size: 28px; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+  .closing p { color: var(--ink-soft); font-size: 16px; margin: 0; max-width: 42ch; }
+  .closing .terminal {
+    grid-column: 1 / -1; margin-top: 8px; background: #1b1714; border-radius: 12px;
+    padding: 18px 22px; font-family: "JetBrains Mono", monospace; font-size: 13.5px; color: #e9e3da;
+  }
+  .closing .terminal .pr { color: var(--accent); }
+  .closing .terminal .ok { color: #8bbf86; }
+
+  footer { padding: 36px 0 52px; font-size: 13px; color: var(--ink-soft); }
+  footer .wrap { display: flex; justify-content: space-between; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 700ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1 { animation-delay: 60ms; } .d2 { animation-delay: 150ms; } .d3 { animation-delay: 250ms; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  }
+  .no-anim .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+
+  @media (max-width: 860px) {
+    .sub-row { grid-template-columns: 1fr; gap: 28px; align-items: start; }
+    .cta-row { justify-content: flex-start; }
+    .sources { grid-template-columns: 1fr; }
+    .closing .wrap { grid-template-columns: 1fr; gap: 24px; }
+    .nav-right a { display: none; }
+  }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <nav>
+      <div class="brand">Agent<b>·</b>Reach</div>
+      <div class="nav-right">
+        <a href="#">Sources</a><a href="#">CLI</a><a href="#">Docs</a>
+        <a class="pill" href="https://github.com/Panniantong/Agent-Reach">GitHub</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <p class="kicker reveal d1">One CLI · zero API fees</p>
+      <h1 class="reveal d2">Give your agent <i>eyes</i> on the open internet.</h1>
+      <div class="sub-row">
+        <p class="lede reveal d3">Read and search the public web the way a person does. Agent-Reach turns scattered platforms into one command your agent can call.</p>
+        <div class="cta-row reveal d3">
+          <a class="btn-primary" href="#">npx agent-reach</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section class="ledger">
+      <div class="ledger-head">
+        <h2>What it can see</h2>
+        <span>read &amp; search · public sources</span>
+      </div>
+      <div class="sources">
+        <div class="src"><span class="n">01</span><span class="name">Twitter</span><span class="verb">read · search</span></div>
+        <div class="src"><span class="n">02</span><span class="name">Reddit</span><span class="verb">read · search</span></div>
+        <div class="src"><span class="n">03</span><span class="name">YouTube</span><span class="verb">read · search</span></div>
+        <div class="src"><span class="n">04</span><span class="name">GitHub</span><span class="verb">read · search</span></div>
+        <div class="src"><span class="n">05</span><span class="name">Bilibili</span><span class="verb">read · search</span></div>
+        <div class="src"><span class="n">06</span><span class="name">XiaoHongShu</span><span class="verb">read · search</span></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="closing">
+    <div class="wrap">
+      <h3>The internet is the context. Stop paying tolls to reach it.</h3>
+      <p>No per-platform keys, no metered gateways. One interface that an agent can drive from a script, a loop, or a chat.</p>
+      <div class="terminal">
+        <span class="pr">$</span> agent-reach search <span style="color:#c9b89a">"reranking models"</span> --source reddit,hn<br />
+        <span class="ok">✓</span> 18 results across 2 sources <span style="color:#6f6a63">· illustrative</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>Agent-Reach · open source</span>
+      <span class="mono">Panniantong / Agent-Reach</span>
+    </div>
+  </footer>
+</body>
+</html>

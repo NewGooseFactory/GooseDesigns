@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mempalace — open-source memory for your agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0a08; --panel:#15130f; --line:#231f18; --line-2:#322c22;
+    --ink:#efe9df; --muted:#9c9384; --faint:#665e50;
+    --accent:#f5a623; --accent-soft:#ffd28a; --accent-dim:rgba(245,166,35,.1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;min-height:100vh;
+       -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:26px 0;border-bottom:1px solid var(--line)}
+  .brand{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;letter-spacing:-.02em;display:flex;gap:9px;align-items:center}
+  .brand .sq{width:11px;height:11px;border-radius:2px;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+  .navlinks{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+  .navlinks a{color:inherit;text-decoration:none} .navlinks a:hover{color:var(--ink)}
+  .ghbtn{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink);border:1px solid var(--line-2);padding:8px 14px;border-radius:8px;text-decoration:none}
+  .ghbtn:hover{border-color:var(--accent)}
+  .hero{padding:92px 0 60px;display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);background:var(--accent-dim);
+       border:1px solid rgba(245,166,35,.2);padding:5px 11px;border-radius:100px;display:inline-flex;gap:7px;align-items:center}
+  h1{font-size:clamp(38px,5vw,58px);line-height:1.03;letter-spacing:-.035em;font-weight:700;margin:22px 0 0}
+  h1 em{font-style:normal;color:var(--accent)}
+  .sub{color:var(--muted);font-size:18px;line-height:1.6;margin-top:22px;max-width:32ch}
+  .sub b{color:var(--ink);font-weight:600}
+  .row{display:flex;gap:12px;margin-top:30px;align-items:center;flex-wrap:wrap}
+  .cta{font-family:'JetBrains Mono',monospace;font-size:14px;text-decoration:none;background:var(--accent);color:#1a1206;
+       padding:11px 18px;border-radius:9px;font-weight:700}
+  .cmd{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--muted);border:1px solid var(--line);
+       background:var(--panel);padding:11px 15px;border-radius:9px}
+  .cmd .a{color:var(--accent)}
+  .stats{display:flex;gap:28px;margin-top:28px;font-family:'JetBrains Mono',monospace}
+  .stats div{font-size:13px;color:var(--faint)} .stats b{display:block;color:var(--ink);font-size:20px;font-weight:700;letter-spacing:-.02em}
+  .stats .free{color:var(--accent)}
+  /* memory graph viz */
+  .viz{position:relative;aspect-ratio:1/1;max-width:420px;justify-self:center;width:100%}
+  .viz svg{width:100%;height:100%;overflow:visible}
+  .node circle{fill:var(--panel);stroke:var(--line-2);stroke-width:1.5}
+  .node.core circle{fill:var(--accent-dim);stroke:var(--accent);stroke-width:2}
+  .node text{font-family:'JetBrains Mono',monospace;font-size:9.5px;fill:var(--muted)}
+  .node.core text{fill:var(--accent-soft);font-size:11px}
+  .edge{stroke:var(--line-2);stroke-width:1.2}
+  .edge.live{stroke:var(--accent);stroke-width:1.6;stroke-dasharray:4 5;animation:flow 2.4s linear infinite}
+  @keyframes flow{to{stroke-dashoffset:-18}}
+  .pulse{transform-origin:center;animation:pulse 3s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+  @media(max-width:880px){.hero{grid-template-columns:1fr;padding-top:60px;gap:44px}.navlinks{display:none}.viz{order:-1;max-width:320px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="sq"></span>mempalace</div>
+    <div class="navlinks"><a href="#">benchmarks</a><a href="#">docs</a><a href="#">quickstart</a></div>
+    <a class="ghbtn" href="https://github.com/MemPalace/mempalace">★ Star</a>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="tag">● open source · self-hostable</span>
+      <h1>Memory your agents can <em>actually recall.</em></h1>
+      <p class="sub">An open-source memory layer for AI agents — store, link, and retrieve context across sessions. <b>Best-benchmarked</b> of the open options, and <b>free</b>.</p>
+      <div class="row">
+        <a class="cta" href="#">Read the benchmarks →</a>
+        <span class="cmd"><span class="a">pip</span> install mempalace</span>
+      </div>
+      <div class="stats">
+        <div><b>open</b>source</div>
+        <div><b>self</b>hosted</div>
+        <div class="free"><b>$0</b>forever</div>
+      </div>
+    </div>
+
+    <div class="viz" aria-label="agent memory graph">
+      <svg viewBox="0 0 320 320">
+        <line class="edge live" x1="160" y1="160" x2="160" y2="56"/>
+        <line class="edge live" x1="160" y1="160" x2="262" y2="120"/>
+        <line class="edge" x1="160" y1="160" x2="250" y2="240"/>
+        <line class="edge live" x1="160" y1="160" x2="92" y2="252"/>
+        <line class="edge" x1="160" y1="160" x2="48" y2="138"/>
+        <line class="edge" x1="160" y1="56" x2="262" y2="120"/>
+        <line class="edge" x1="92" y1="252" x2="48" y2="138"/>
+        <g class="node"><circle cx="160" cy="56" r="26"/><text x="160" y="60" text-anchor="middle">session</text></g>
+        <g class="node"><circle cx="262" cy="120" r="24"/><text x="262" y="124" text-anchor="middle">entity</text></g>
+        <g class="node"><circle cx="250" cy="240" r="22"/><text x="250" y="244" text-anchor="middle">fact</text></g>
+        <g class="node"><circle cx="92" cy="252" r="24"/><text x="92" y="256" text-anchor="middle">recall</text></g>
+        <g class="node"><circle cx="48" cy="138" r="22"/><text x="48" y="142" text-anchor="middle">decay</text></g>
+        <g class="node core pulse"><circle cx="160" cy="160" r="40"/><text x="160" y="164" text-anchor="middle">agent</text></g>
+      </svg>
+    </div>
+  </section>
+</div>
+</body>
+</html>

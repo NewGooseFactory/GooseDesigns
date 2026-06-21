@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>superpowers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08070d; --panel:#11101a; --line:#201f2e; --line-2:#2c2a40;
+    --ink:#edeaf6; --muted:#9a96b4; --dim:#615d7d;
+    --acc:#a78bfa; --acc-2:#c4b5fd; --acc-dim:#5b3fb0;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    background-image:radial-gradient(circle at 82% -8%, rgba(167,139,250,.10), transparent 45%);}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-weight:700;font-size:14.5px;letter-spacing:-.2px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 14px var(--acc)}
+  nav{display:flex;gap:26px;font-size:13.5px;color:var(--muted)}
+  nav a{color:inherit;text-decoration:none}nav a:hover{color:var(--ink)}
+  .ghbtn{font-family:var(--mono);font-size:12.5px;color:var(--ink);border:1px solid var(--line-2);
+    padding:7px 13px;border-radius:7px}
+  .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:50px;align-items:center;padding:76px 0 56px}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--acc-2);
+    border:1px solid var(--acc-dim);border-radius:30px;padding:5px 13px;margin-bottom:26px;background:rgba(167,139,250,.06)}
+  h1{font-size:56px;line-height:1.02;letter-spacing:-1.8px;font-weight:800}
+  h1 em{font-style:normal;color:var(--acc)}
+  .sub{color:var(--muted);font-size:18.5px;max-width:32ch;margin:22px 0 32px;line-height:1.55}
+  .cta{display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .b1{background:var(--acc);color:#1a0f3a;font-weight:700;font-size:14.5px;padding:11px 20px;border-radius:9px;
+    text-decoration:none;font-family:var(--mono)}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13.5px;border:1px solid var(--line-2);
+    padding:11px 17px;border-radius:9px;text-decoration:none}
+  .meta{margin-top:38px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);
+    font-size:12.5px;color:var(--dim);display:flex;gap:26px;flex-wrap:wrap}
+  .meta b{color:var(--muted);font-weight:500}
+  /* skills rack */
+  .rack{background:linear-gradient(180deg,#11101a,#0b0a12);border:1px solid var(--line-2);border-radius:14px;
+    padding:18px;box-shadow:0 30px 80px -42px rgba(0,0,0,.9)}
+  .rhead{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11.5px;
+    color:var(--dim);letter-spacing:.4px;margin-bottom:14px}
+  .rhead .live{color:var(--acc-2)}
+  .skill{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:11px 12px;
+    border:1px solid var(--line);border-radius:9px;margin-bottom:9px;background:#0d0c15}
+  .skill.on{border-color:var(--acc-dim);background:rgba(167,139,250,.05)}
+  .chk{width:18px;height:18px;border-radius:5px;border:1px solid var(--line-2);display:grid;place-items:center;
+    font-size:11px;color:var(--dim)}
+  .skill.on .chk{background:var(--acc);color:#1a0f3a;border-color:var(--acc)}
+  .snm{font-family:var(--mono);font-size:13px;color:var(--ink)}
+  .sds{font-size:11.5px;color:var(--dim);margin-top:2px}
+  .pill{font-family:var(--mono);font-size:10.5px;color:var(--muted);border:1px solid var(--line-2);
+    border-radius:20px;padding:3px 9px}
+  .skill.on .pill{color:var(--acc-2);border-color:var(--acc-dim)}
+  .ill{font-size:10.5px;color:var(--dim);font-style:italic;margin-top:12px;text-align:right}
+  @media(max-width:880px){.hero{grid-template-columns:1fr;gap:34px;padding:46px 0}h1{font-size:41px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot"></span>superpowers</div>
+    <nav><a href="#">Skills</a><a href="#">Methodology</a><a href="#">Install</a><a href="#">Docs</a></nav>
+    <a class="ghbtn" href="https://github.com/obra/superpowers">★ obra/superpowers</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <span class="tag">◆ agentic skills framework</span>
+      <h1>Give your agent<br><em>superpowers</em> that<br>actually ship.</h1>
+      <p class="sub">An agentic skills framework &amp; software-development methodology that works — composable skills your coding agent loads on demand.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/obra/superpowers">Install the framework →</a>
+        <a class="b2" href="#">Read the method</a>
+      </div>
+      <div class="meta">
+        <span><b>composable</b> skills</span>
+        <span><b>methodology</b>-first</span>
+        <span><b>MIT</b> licensed</span>
+      </div>
+    </div>
+
+    <div class="rack">
+      <div class="rhead"><span>SKILL REGISTRY</span><span class="live">● loaded on demand</span></div>
+      <div class="skill on">
+        <div class="chk">✓</div>
+        <div><div class="snm">test-driven-loop</div><div class="sds">write the failing test before the code</div></div>
+        <div class="pill">core</div>
+      </div>
+      <div class="skill on">
+        <div class="chk">✓</div>
+        <div><div class="snm">surgical-edit</div><div class="sds">smallest change that passes the check</div></div>
+        <div class="pill">core</div>
+      </div>
+      <div class="skill on">
+        <div class="chk">✓</div>
+        <div><div class="snm">verify-then-claim</div><div class="sds">never report done without a green sense</div></div>
+        <div class="pill">core</div>
+      </div>
+      <div class="skill">
+        <div class="chk"></div>
+        <div><div class="snm">research-first</div><div class="sds">ground the plan in real evidence</div></div>
+        <div class="pill">opt-in</div>
+      </div>
+      <div class="ill">Skill names are illustrative.</div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>agentsview — local-first session intelligence for coding agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #070809;
+    --panel: #0d0f11;
+    --ink: #e8ecef;
+    --soft: #868d95;
+    --hair: #191c1f;
+    --cyan: #2dd4bf;          /* electric teal — single accent */
+    --cyan-dim: rgba(45,212,191,0.12);
+    --maxw: 1160px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Geist", system-ui, sans-serif; line-height: 1.55; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; }
+  .mono { font-family: "Geist Mono", monospace; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; height: 66px; border-bottom: 1px solid var(--hair); }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--cyan-dim); border: 1px solid var(--cyan); display: inline-grid; place-items: center; color: var(--cyan); font-family: "Geist Mono", monospace; font-size: 12px; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--soft); }
+  .nav-links a { text-decoration: none; } .nav-links a:hover { color: var(--ink); }
+  .nav-cta { font-family: "Geist Mono", monospace; font-size: 13px; border: 1px solid var(--hair); border-radius: 8px; padding: 8px 14px; text-decoration: none; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), border-color 150ms; }
+  .nav-cta:hover { border-color: var(--soft); } .nav-cta:active { transform: scale(0.97); }
+
+  /* centered hero (justified: this is an analytics dashboard product — the dashboard IS the pitch) */
+  .hero { text-align: center; padding: 76px 0 18px; }
+  .eyebrow { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); margin: 0 0 22px; }
+  h1 { font-weight: 600; font-size: clamp(40px, 5.6vw, 66px); line-height: 1.03; letter-spacing: -0.03em; margin: 0 auto 22px; max-width: 18ch; }
+  h1 .acc { color: var(--cyan); }
+  .lede { color: var(--soft); font-size: 18px; max-width: 54ch; margin: 0 auto 30px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; justify-content: center; }
+  .btn { background: var(--cyan); color: #04201d; text-decoration: none; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 9px; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms; }
+  .btn:hover { filter: brightness(1.07); } .btn:active { transform: scale(0.97); }
+  .btn-ghost { font-family: "Geist Mono", monospace; font-size: 13.5px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hair); padding-bottom: 2px; }
+  .btn-ghost:hover { border-color: var(--soft); }
+
+  /* dashboard panel as hero-belly visual */
+  .dash { margin: 44px 0 0; background: var(--panel); border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; box-shadow: 0 36px 80px -40px rgba(0,0,0,0.9); text-align: left; }
+  .dash-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--hair); }
+  .dash-bar .l { display: flex; align-items: center; gap: 8px; font-family: "Geist Mono", monospace; font-size: 12px; color: var(--soft); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
+  .dash-bar .r { font-family: "Geist Mono", monospace; font-size: 11.5px; color: var(--soft); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat { padding: 20px 20px; border-right: 1px solid var(--hair); }
+  .stat:last-child { border-right: none; }
+  .stat .k { font-family: "Geist Mono", monospace; font-size: 11px; color: var(--soft); letter-spacing: 0.06em; text-transform: uppercase; }
+  .stat .v { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin-top: 8px; }
+  .stat .v small { color: var(--cyan); font-size: 13px; font-weight: 500; }
+  .spark { display: flex; align-items: flex-end; gap: 4px; height: 64px; padding: 18px 20px 20px; border-top: 1px solid var(--hair); }
+  .spark i { flex: 1; background: var(--cyan-dim); border-radius: 2px 2px 0 0; }
+  .spark i.hot { background: var(--cyan); }
+  .dash-foot { padding: 10px 20px 16px; font-family: "Geist Mono", monospace; font-size: 11px; color: var(--soft); }
+
+  .feat { border-top: 1px solid var(--hair); padding: 56px 0 72px; }
+  .feat h2 { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); margin: 0 0 26px; }
+  .rows { display: grid; gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; }
+  .row { background: var(--panel); display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 22px 24px; align-items: baseline; }
+  .row .t { font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+  .row .t span { display: block; font-family: "Geist Mono", monospace; font-size: 11px; color: var(--cyan); margin-top: 6px; letter-spacing: 0.06em; }
+  .row p { margin: 0; color: var(--soft); font-size: 14px; }
+
+  footer { border-top: 1px solid var(--hair); padding: 24px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; font-family: "Geist Mono", monospace; font-size: 11px; color: var(--soft); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 700ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1{animation-delay:60ms}.d2{animation-delay:150ms}.d3{animation-delay:250ms}.d4{animation-delay:340ms}
+    @keyframes rise { to { opacity:1; transform:none; } }
+  }
+  .no-anim .reveal { opacity:1 !important; transform:none !important; animation:none !important; }
+
+  @media (max-width: 880px) { .stats { grid-template-columns: 1fr 1fr; } .stat:nth-child(2){border-right:none} .row { grid-template-columns: 1fr; gap: 8px; } .nav-links { display: none; } }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="mark">◴</span> agentsview</div>
+      <div class="nav-links"><a href="#">Agents</a><a href="#">Analytics</a><a href="#">Docs</a></div>
+      <a class="nav-cta" href="https://github.com/kenn-io/agentsview">View on GitHub</a>
+    </nav>
+
+    <section class="hero">
+      <p class="eyebrow reveal d1">Local-first · session intelligence</p>
+      <h1 class="reveal d2">See what your coding agents <span class="acc">actually did.</span></h1>
+      <p class="lede reveal d3">agentsview reads sessions from Claude Code, Codex, and 20+ other agents into one local-first analytics view. Also a 100x faster replacement for ccusage.</p>
+      <div class="cta-row reveal d4">
+        <a class="btn" href="#">npx agentsview</a>
+        <a class="btn-ghost mono" href="#">Supported agents →</a>
+      </div>
+
+      <div class="dash reveal d3">
+        <div class="dash-bar"><span class="l"><span class="dot"></span> SESSIONS · LAST 7 DAYS</span><span class="r">LOCAL · NO CLOUD</span></div>
+        <div class="stats">
+          <div class="stat"><div class="k">Sessions</div><div class="v">312</div></div>
+          <div class="stat"><div class="k">Agents</div><div class="v">7</div></div>
+          <div class="stat"><div class="k">Tokens</div><div class="v">48.2M</div></div>
+          <div class="stat"><div class="k">vs ccusage</div><div class="v">100<small>×</small></div></div>
+        </div>
+        <div class="spark">
+          <i style="height:38%"></i><i style="height:54%"></i><i style="height:30%"></i><i style="height:72%"></i><i class="hot" style="height:90%"></i><i style="height:48%"></i><i style="height:64%"></i><i style="height:42%"></i><i style="height:78%"></i><i class="hot" style="height:84%"></i><i style="height:36%"></i><i style="height:60%"></i>
+        </div>
+        <div class="dash-foot">illustrative dashboard · all data stays on your machine</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section class="feat">
+      <h2>// why local-first</h2>
+      <div class="rows">
+        <div class="row"><div class="t">One view<span>20+ AGENTS</span></div><p>Claude Code, Codex, and twenty-plus more, parsed into a single session timeline instead of scattered logs.</p></div>
+        <div class="row"><div class="t">On your machine<span>NO TELEMETRY</span></div><p>Local-first by design. Your prompts and code never leave the laptop to get analyzed.</p></div>
+        <div class="row"><div class="t">Fast<span>100× CCUSAGE</span></div><p>A drop-in, far quicker replacement for ccusage when you just want token accounting.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <footer><div class="wrap"><span>AGENTSVIEW // LOCAL-FIRST SESSION INTELLIGENCE</span><span>kenn-io / agentsview</span></div></footer>
+</body>
+</html>

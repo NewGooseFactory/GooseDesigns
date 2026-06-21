@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>goose — an open source AI agent that does the work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f6f7f4;
+    --ink: #14180f;
+    --ink-soft: #555a4c;
+    --hair: #e1e4db;
+    --accent: #2f6b3f;        /* forest — locked accent */
+    --accent-soft: #e7efe7;
+    --maxw: 1080px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif; line-height: 1.55;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 36px; }
+  a { color: inherit; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -0.01em; font-size: 17px; }
+  .brand .mark {
+    width: 24px; height: 24px; border-radius: 50%; background: var(--accent);
+    display: inline-grid; place-items: center; color: #fff; font-size: 13px;
+    font-family: "Spline Sans Mono", monospace;
+  }
+  .nav-right { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--ink-soft); }
+  .nav-right a { text-decoration: none; }
+  .nav-right a:hover { color: var(--ink); }
+  .ghost {
+    font-family: "Spline Sans Mono", monospace; font-size: 13px; color: var(--ink);
+    border: 1px solid var(--ink); border-radius: 8px; padding: 8px 15px; text-decoration: none;
+    transition: transform 150ms cubic-bezier(0.23,1,0.32,1), background 150ms, color 150ms;
+  }
+  .ghost:hover { background: var(--ink); color: var(--paper); }
+  .ghost:active { transform: scale(0.97); }
+
+  /* centered manifesto hero (justified: this is a launch statement for an agent) */
+  .hero { text-align: center; padding: 96px 0 64px; }
+  .badge {
+    display: inline-block; font-family: "Spline Sans Mono", monospace; font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+    background: var(--accent-soft); border-radius: 999px; padding: 7px 16px; margin: 0 0 30px;
+  }
+  h1 {
+    font-family: "Source Serif 4", Georgia, serif; font-weight: 400;
+    font-size: clamp(44px, 6.4vw, 78px); line-height: 1.04; letter-spacing: -0.02em;
+    margin: 0 auto 26px; max-width: 16ch;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 19px; color: var(--ink-soft); max-width: 52ch; margin: 0 auto 34px; }
+  .cta-row { display: flex; gap: 14px; justify-content: center; align-items: center; }
+  .btn-primary {
+    background: var(--accent); color: #fff; text-decoration: none; font-weight: 500;
+    font-size: 15px; padding: 13px 24px; border-radius: 10px;
+    transition: transform 160ms cubic-bezier(0.23,1,0.32,1), filter 160ms;
+  }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-link { text-decoration: none; font-family: "Spline Sans Mono", monospace; font-size: 14px; color: var(--ink); border-bottom: 1px solid var(--hair); padding-bottom: 2px; }
+  .btn-link:hover { border-color: var(--ink); }
+
+  /* the loop: four verbs */
+  .loop { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .loop .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .step { padding: 44px 0; }
+  .step + .step { border-left: 1px solid var(--hair); padding-left: 30px; }
+  .step .v {
+    font-family: "Source Serif 4", serif; font-style: italic; font-size: 30px; color: var(--accent);
+    margin: 0 0 12px;
+  }
+  .step p { margin: 0; color: var(--ink-soft); font-size: 14.5px; max-width: 24ch; }
+  .step .num { font-family: "Spline Sans Mono", monospace; font-size: 11px; color: var(--ink-soft); display: block; margin-bottom: 18px; letter-spacing: 0.1em; }
+
+  .any {
+    text-align: center; padding: 64px 0 16px;
+  }
+  .any h2 { font-family: "Source Serif 4", serif; font-weight: 400; font-size: 30px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .any p { color: var(--ink-soft); font-size: 16px; max-width: 46ch; margin: 0 auto 26px; }
+  .llms { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding-bottom: 64px; }
+  .chip {
+    font-family: "Spline Sans Mono", monospace; font-size: 12.5px; color: var(--ink-soft);
+    border: 1px solid var(--hair); border-radius: 999px; padding: 8px 16px; background: #fff;
+  }
+
+  footer { padding: 36px 0 52px; font-size: 13px; color: var(--ink-soft); }
+  footer .wrap { display: flex; justify-content: space-between; }
+  .mono { font-family: "Spline Sans Mono", monospace; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 720ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1 { animation-delay: 60ms; } .d2 { animation-delay: 150ms; } .d3 { animation-delay: 250ms; } .d4 { animation-delay: 350ms; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  }
+  .no-anim .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+
+  @media (max-width: 820px) {
+    .loop .wrap { grid-template-columns: 1fr 1fr; }
+    .step + .step { border-left: none; padding-left: 0; }
+    .step:nth-child(2) { border-left: 1px solid var(--hair); padding-left: 30px; }
+    .step:nth-child(3), .step:nth-child(4) { border-top: 1px solid var(--hair); }
+    .nav-right a { display: none; }
+  }
+  @media (max-width: 520px) {
+    .loop .wrap { grid-template-columns: 1fr; }
+    .step:nth-child(2) { border-left: none; padding-left: 0; border-top: 1px solid var(--hair); }
+  }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="mark">go</span> goose</div>
+      <div class="nav-right">
+        <a href="#">Docs</a><a href="#">Extensions</a><a href="#">Install</a>
+        <a class="ghost" href="https://github.com/aaif-goose/goose">GitHub</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <span class="badge reveal d1">Open source · extensible</span>
+      <h1 class="reveal d2">An agent that goes <em>beyond</em> code suggestions.</h1>
+      <p class="lede reveal d3">goose does not just propose changes. It installs, executes, edits, and tests on your machine, driven by any LLM you point it at.</p>
+      <div class="cta-row reveal d4">
+        <a class="btn-primary" href="#">Install goose</a>
+        <a class="btn-link mono" href="#">Read the docs →</a>
+      </div>
+    </section>
+  </div>
+
+  <section class="loop">
+    <div class="wrap">
+      <div class="step reveal d1"><span class="num">01</span><p class="v">install</p><p>Pulls the dependencies a task needs instead of asking you to.</p></div>
+      <div class="step reveal d2"><span class="num">02</span><p class="v">execute</p><p>Runs real commands and reads the real output back.</p></div>
+      <div class="step reveal d3"><span class="num">03</span><p class="v">edit</p><p>Changes files in place, across the project, not in a chat box.</p></div>
+      <div class="step reveal d4"><span class="num">04</span><p class="v">test</p><p>Verifies its own work and iterates until it passes.</p></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="any">
+      <h2>Bring your own model.</h2>
+      <p>goose is not tied to one provider. Run it on a frontier API or a local model on your own hardware.</p>
+    </section>
+    <div class="llms">
+      <span class="chip">OpenAI</span>
+      <span class="chip">Anthropic</span>
+      <span class="chip">Google</span>
+      <span class="chip">Ollama (local)</span>
+      <span class="chip">any OpenAI-compatible endpoint</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>goose · open source AI agent</span>
+      <span class="mono">aaif-goose / goose</span>
+    </div>
+  </footer>
+</body>
+</html>

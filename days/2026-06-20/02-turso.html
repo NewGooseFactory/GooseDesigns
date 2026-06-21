@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>turso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070a09; --panel:#0b110e; --line:#16241c; --line-2:#21392c;
+    --ink:#e6f2ea; --muted:#8ca596; --dim:#546b5c;
+    --grn:#39e08a; --grn-2:#7df0b3; --grn-dim:#15703f;
+    --grid:rgba(57,224,138,.045);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 30px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.4px;color:var(--ink)}
+  .brand .tag{width:8px;height:8px;border-radius:50%;background:var(--grn);box-shadow:0 0 12px var(--grn)}
+  .sys{font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;gap:18px;letter-spacing:.5px}
+  .sys b{color:var(--muted);font-weight:500}
+  .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:46px;align-items:center;padding:64px 0 52px}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11.5px;color:var(--grn-2);
+    letter-spacing:.7px;text-transform:uppercase;border:1px solid var(--grn-dim);border-radius:4px;padding:5px 11px;margin-bottom:24px;background:rgba(57,224,138,.04)}
+  h1{font-size:55px;line-height:1.02;letter-spacing:-1.4px;font-weight:700}
+  h1 .g{color:var(--dim)}
+  .sub{color:var(--muted);font-size:18px;max-width:31ch;margin:22px 0 30px;line-height:1.55}
+  .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .b1{background:var(--grn);color:#042414;font-weight:700;font-size:14px;padding:11px 19px;border-radius:7px;text-decoration:none;font-family:var(--mono)}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13px;border:1px solid var(--line-2);padding:11px 16px;border-radius:7px;text-decoration:none}
+  .deploys{display:flex;gap:24px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+  .deploys b{color:var(--muted);font-weight:500}
+  /* instrument */
+  .instr{background:radial-gradient(120% 120% at 50% 0%,#0d150f,#080d0a);border:1px solid var(--line-2);border-radius:16px;
+    padding:20px;box-shadow:0 30px 80px -42px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.02)}
+  .ihead{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.5px;margin-bottom:16px}
+  .ihead .live{color:var(--grn-2);display:flex;align-items:center;gap:7px}
+  .ihead .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--grn);box-shadow:0 0 9px var(--grn)}
+  .top{display:flex;gap:16px;margin-bottom:16px}
+  .stat{flex:1;border:1px solid var(--line);border-radius:9px;padding:13px 14px;background:#0a100c}
+  .stat .v{font-family:var(--mono);font-weight:700;font-size:27px;color:var(--grn-2);letter-spacing:-.5px}
+  .stat .v small{font-size:13px;color:var(--muted);font-weight:500}
+  .stat .l{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.5px;margin-top:5px}
+  /* sparkline */
+  .scope{border:1px solid var(--line);border-radius:9px;background:#0a100c;padding:12px 14px}
+  .scope .sl{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.5px;margin-bottom:8px;display:flex;justify-content:space-between}
+  .bars{display:flex;align-items:flex-end;gap:4px;height:60px}
+  .bars i{flex:1;background:linear-gradient(180deg,var(--grn),var(--grn-dim));border-radius:2px 2px 0 0;opacity:.9}
+  .qry{margin-top:14px;font-family:var(--mono);font-size:12px;line-height:1.85}
+  .qry .c{color:var(--grn-2)}.qry .k{color:var(--muted)}.qry .o{color:var(--dim)}
+  .ill{font-size:10px;color:var(--dim);font-style:italic;font-family:'Inter';margin-top:11px;text-align:right}
+  @media(max-width:880px){.hero{grid-template-columns:1fr;gap:34px;padding:42px 0}h1{font-size:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="tag"></span>TURSO</div>
+    <div class="sys"><span><b>ENGINE</b> in-process</span><span><b>WIRE</b> SQLite-compatible</span></div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <span class="kicker">◢ embedded SQL engine</span>
+      <h1>SQLite-compatible.<br><span class="g">In your process.</span></h1>
+      <p class="sub">Turso is an in-process SQL database — the SQLite you know, rebuilt for the way modern apps actually run.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/tursodatabase/turso">Get Turso →</a>
+        <a class="b2" href="#">$ cargo add turso</a>
+      </div>
+      <div class="deploys">
+        <span><b>zero</b> network hop</span>
+        <span><b>single</b> file</span>
+        <span><b>Rust</b> core</span>
+      </div>
+    </div>
+
+    <div class="instr">
+      <div class="ihead"><span>QUERY TELEMETRY</span><span class="live">LIVE</span></div>
+      <div class="top">
+        <div class="stat"><div class="v">0<small>ms</small></div><div class="l">NETWORK LATENCY</div></div>
+        <div class="stat"><div class="v">1<small>file</small></div><div class="l">DEPLOY FOOTPRINT</div></div>
+      </div>
+      <div class="scope">
+        <div class="sl"><span>QUERIES / SEC — last 24 ticks</span><span>illustrative</span></div>
+        <div class="bars">
+          <i style="height:38%"></i><i style="height:52%"></i><i style="height:44%"></i><i style="height:67%"></i>
+          <i style="height:58%"></i><i style="height:72%"></i><i style="height:63%"></i><i style="height:80%"></i>
+          <i style="height:70%"></i><i style="height:88%"></i><i style="height:76%"></i><i style="height:94%"></i>
+          <i style="height:82%"></i><i style="height:71%"></i><i style="height:85%"></i><i style="height:60%"></i>
+          <i style="height:74%"></i><i style="height:90%"></i><i style="height:66%"></i><i style="height:78%"></i>
+          <i style="height:55%"></i><i style="height:69%"></i><i style="height:48%"></i><i style="height:62%"></i>
+        </div>
+      </div>
+      <div class="qry">
+        <div><span class="c">turso&gt;</span> <span class="k">SELECT</span> name <span class="k">FROM</span> sensors <span class="k">WHERE</span> status=<span class="o">'live'</span>;</div>
+        <div class="o">↳ 3 rows · 0.03ms · in-process</div>
+      </div>
+      <div class="ill">Telemetry values are illustrative, not measured benchmarks.</div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

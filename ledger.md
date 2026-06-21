@@ -1,0 +1,46 @@
+# Design Taste Ledger
+
+Append-only record — one line per mock: date · repo · style · idea tested → verdict.
+
+- 2026-06-08 — [rep](days/2026-06-08/) — Andyyyy64/whichllm — terminal-dark (lime) — split hero + illustrative ranked panel → landed
+- 2026-06-08 — [rep](days/2026-06-08/) — mvanhorn/last30days-skill — terminal-dark (cyan, centered) — faux prompt-bar + source chips → mostly (skeleton lines a touch cliché)
+- 2026-06-08 — [rep](days/2026-06-08/) — MemPalace/mempalace — terminal-dark (amber) — bespoke animated SVG memory-graph hero → landed (strongest)
+- 2026-06-09 — [rep](days/2026-06-09/) — RyanCodrai/turbovec — editorial-technical (cobalt) — split hero + real code panel (no div-fake) → landed
+- 2026-06-09 — [rep](days/2026-06-09/) — Panniantong/Agent-Reach — editorial-technical (terracotta) — sources ledger instead of a logo wall → landed
+- 2026-06-09 — [rep](days/2026-06-09/) — aaif-goose/goose — editorial-technical (forest) — centered manifesto + real-verb loop (install/execute/edit/test) → mostly (centered hero leans on the headline)
+- 2026-06-10 — [rep](days/2026-06-10/) — addyosmani/agent-skills — hud-goose (amber) — cockpit gauge as hero payload (skill-loadout readout, illustrative) → landed
+- 2026-06-10 — [rep](days/2026-06-10/) — obra/superpowers — hud-goose (phosphor-green) — targeting reticle framing the headline + telemetry strip → mostly (telemetry "stat" is slogan, not data)
+- 2026-06-10 — [rep](days/2026-06-10/) — activeloopai/hivemind — hud-goose (radar-cyan) — working animated radar scope as hero (4 agents/one memory) → landed (strongest)
+- 2026-06-11 — [rep](days/2026-06-11/) — NVIDIA/SkillSpector — terminal-dark (threat-red) — scan-result terminal as hero (severity-tagged findings, illustrative) → landed
+- 2026-06-11 — [rep](days/2026-06-11/) — kenn-io/agentsview — terminal-dark (electric-teal) — analytics dashboard as hero-belly visual → mostly (stat-tiles read template)
+- 2026-06-11 — [rep](days/2026-06-11/) — hexo-ai/sia — terminal-dark (indigo) — the product is a loop so the hero is a 4-node loop diagram → landed (most on-brand)
+- 2026-06-12 — [rep](days/2026-06-12/) — msitarzewski/agency-agents — editorial-technical (brick-red, Playfair) — agent roster as an editorial index, not cards → landed
+- 2026-06-12 — [rep](days/2026-06-12/) — x1xhlol/system-prompts-and-models-of-ai-tools — editorial-technical (slate-blue, Lora) — reference-document card as hero asset → landed
+- 2026-06-12 — [rep](days/2026-06-12/) — apple/container — editorial-technical (steel-teal, Cormorant) — big centered launch serif + single command-line proof → mostly (fragile display serif on small screens)
+- 2026-06-13 — [rep](days/2026-06-13/) — LMCache/LMCache — hud-goose (amber) — cache-telemetry gauge as hero payload (hit-rate/TTFT, illustrative) → landed
+- 2026-06-13 — [rep](days/2026-06-13/) — andrewyng/aisuite — hud-goose (phosphor-green) — reticle manifesto + one-line model-swap proof terminal → landed (fixes Wed's bare-reticle miss)
+- 2026-06-13 — [rep](days/2026-06-13/) — kenn-io/agentsview — hud-goose (radar-cyan) — same product re-skinned as a session cockpit (dials + bars) → mostly (stats panel still weakest shape)
+- 2026-06-14 — [rep](days/2026-06-14/) — NVIDIA/SkillSpector — hud-goose (amber/green) — HUD as credible security instrument (threat readout + severity chips) → landed
+- 2026-06-14 — [rep](days/2026-06-14/) — andrewyng/aisuite — editorial-technical (forest) — sell "one interface" with a real provider-swap code panel → landed
+- 2026-06-14 — [rep](days/2026-06-14/) — swc-project/swc — terminal-dark (ember) — single electric accent carrying a dark hero, no gradient slop → mostly (centered layout a touch familiar)
+- 2026-06-15 — [rep](days/2026-06-15/) — Panniantong/Agent-Reach — terminal-dark (cyan) — live "read feed" panel makes "eyes on the internet" literal → landed
+- 2026-06-15 — [rep](days/2026-06-15/) — trycua/cua — terminal-dark (violet) — centered hero anchored by 3 real capability cards → mostly (centered = safe)
+- 2026-06-15 — [rep](days/2026-06-15/) — rohitg00/ai-engineering-from-scratch — terminal-dark (lime) — turn a 3-word tagline into a numbered Learn→Build→Ship pipeline → landed
+- 2026-06-16 — [rep](days/2026-06-16/) — alibaba/zvec — editorial-technical (cobalt) — code panel + honest 0/1/µs architecture metric strip (no fake benchmarks) → landed
+- 2026-06-16 — [rep](days/2026-06-16/) — OpenBMB/VoxCPM — editorial-technical (rose) — "show sound": centered hero over a single waveform player → mostly (static waveform leans on disclaimer)
+- 2026-06-16 — [rep](days/2026-06-16/) — n0-computer/iroh — editorial-technical (teal) — two-node "dial(key)" diagram replaces address with public key → landed
+- 2026-06-17 — [rep](days/2026-06-17/) — puppeteer/puppeteer — hud-goose (amber) — browser automation as "flight control": real script steps + honest capability gauges → landed
+- 2026-06-17 — [rep](days/2026-06-17/) — meshery/meshery — hud-goose (phosphor-green) — live cluster pod grid (one amber "watch" node) as a control-plane status surface → mostly (8 pods edge toward toy)
+- 2026-06-17 — [rep](days/2026-06-17/) — teslamate-org/teslamate — hud-goose (radar-cyan) — literal instrument cluster: conic-gradient dials + efficiency histogram, self-hosted footnote → landed
+- 2026-06-18 — [rep](days/2026-06-18/) — DeusData/codebase-memory-mcp — terminal-dark/cyan — render the knowledge-graph output not a description → landed
+- 2026-06-18 — [rep](days/2026-06-18/) — obra/superpowers — terminal-dark/violet — skills framework as a checkable on/off rack → mostly (sample reads thin)
+- 2026-06-18 — [rep](days/2026-06-18/) — continuedev/continue — terminal-dark/lime — prove coding-agent with a compressed read→edit→test transcript → landed
+- 2026-06-19 — [rep](days/2026-06-19/) — zai-org/GLM-5 — editorial/cobalt — tagline as a literal Vibe→Decompose→Engineered arc → landed
+- 2026-06-19 — [rep](days/2026-06-19/) — withastro/flue — editorial/amber — draw the sandbox capability surface as a calm card → landed
+- 2026-06-19 — [rep](days/2026-06-19/) — Kilo-Org/kilocode — editorial/teal — Build·Ship·Iterate as a descending-meter triad → mostly (symmetry risks template)
+- 2026-06-20 — [rep](days/2026-06-20/) — chopratejas/headroom — HUD/amber — token compression as a literal fuel/intake gauge → landed (most on-brand HUD subject of the week)
+- 2026-06-20 — [rep](days/2026-06-20/) — tursodatabase/turso — HUD/phosphor-green — lead with 0ms network latency as the hero gauge → landed
+- 2026-06-20 — [rep](days/2026-06-20/) — 1jehuang/jcode — HUD/radar-cyan — render the harness as a 5-stage run ladder for a tagline-less repo → mostly (metaphor carries more than the source proves)
+- 2026-06-21 — [rep](days/2026-06-21/) — topoteretes/cognee — blueprint/cyan — agent memory as a knowledge-graph schematic with a session rail → landed
+- 2026-06-21 — [rep](days/2026-06-21/) — bytedance/deer-flow — blueprint/amber — long-horizon harness as a 3-lane pipeline over a minutes→hours axis → landed
+- 2026-06-21 — [rep](days/2026-06-21/) — mukul975/Anthropic-Cybersecurity-Skills — blueprint/green — 754 skills x 5 frameworks as a crosswalk matrix → landed

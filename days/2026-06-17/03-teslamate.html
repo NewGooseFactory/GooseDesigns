@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeslaMate — Self-hosted Tesla data logger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#04090c;
+    --panel:#08111600;
+    --panelc:#081116;
+    --grid:rgba(56,196,224,.07);
+    --ink:#def0f4;
+    --muted:#7b929a;
+    --cyan:#38c4e0;
+    --cyan-2:#7fe0f2;
+    --amber:#f5b942;
+    --green:#5fcf6a;
+    --line:rgba(56,196,224,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:40px 40px;overflow-x:hidden}
+  .wrap{max-width:1180px;margin:0 auto;padding:30px 40px 80px}
+  header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.06em}
+  .ret{width:26px;height:26px;border:1.5px solid var(--cyan);border-radius:50%;position:relative;display:grid;place-items:center}
+  .ret::before{content:'';position:absolute;width:1.5px;height:32px;background:var(--cyan)}
+  .ret::after{content:'';position:absolute;height:1.5px;width:32px;background:var(--cyan)}
+  .ret span{width:6px;height:6px;background:var(--amber);border-radius:50%;z-index:1}
+  nav{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+  nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--cyan)}
+  .pill{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);border:1px solid var(--line);padding:6px 12px;border-radius:2px;display:flex;align-items:center;gap:8px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:54px;margin-top:56px;align-items:center}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan-2);letter-spacing:.18em;text-transform:uppercase;margin-bottom:22px}
+  h1{font-size:clamp(38px,5.2vw,58px);line-height:1.04;letter-spacing:-.02em;font-weight:700}
+  h1 em{font-style:normal;color:var(--cyan)}
+  .lede{margin-top:22px;font-size:18px;line-height:1.6;color:var(--muted);max-width:32ch}
+  .cta{margin-top:34px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;padding:13px 22px;border-radius:3px;text-decoration:none;letter-spacing:.02em}
+  .btn-p{background:var(--cyan);color:#05161b}
+  .btn-p:hover{box-shadow:0 8px 24px rgba(56,196,224,.3)}
+  .btn-s{border:1px solid var(--line);color:var(--ink)}
+  .btn-s:hover{border-color:var(--cyan);color:var(--cyan)}
+  .cluster{background:var(--panelc);border:1px solid var(--line);border-radius:10px;padding:22px;font-family:'JetBrains Mono',monospace;position:relative}
+  .ph{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+  .dials{display:flex;gap:16px;margin-bottom:20px}
+  .dial{flex:1;text-align:center}
+  .ring{width:96px;height:96px;border-radius:50%;margin:0 auto;display:grid;place-items:center;
+    background:conic-gradient(var(--cyan) 0 72%,rgba(56,196,224,.12) 72% 100%);position:relative}
+  .ring.b{background:conic-gradient(var(--amber) 0 54%,rgba(245,185,66,.12) 54% 100%)}
+  .ring::before{content:'';position:absolute;inset:9px;border-radius:50%;background:var(--bg)}
+  .ring .v{position:relative;font-size:20px;font-weight:700;color:var(--ink)}
+  .dial .l{font-size:10px;color:var(--muted);letter-spacing:.08em;margin-top:9px}
+  .bars{display:flex;align-items:flex-end;gap:5px;height:50px;padding:0 2px;margin-bottom:8px}
+  .bars i{flex:1;background:linear-gradient(180deg,var(--cyan),rgba(56,196,224,.25));border-radius:2px 2px 0 0}
+  .clabel{font-size:10px;color:var(--muted);letter-spacing:.06em;display:flex;justify-content:space-between}
+  .foot{font-size:10px;color:var(--muted);opacity:.6;margin-top:14px}
+  .strip{margin-top:62px;border-top:1px solid var(--line);padding-top:26px;display:flex;gap:46px;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+  .strip div{font-size:12px;color:var(--muted)}
+  .strip b{display:block;font-size:22px;color:var(--ink);font-weight:700;margin-bottom:4px}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:36px}nav,.pill{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="ret"><span></span></span>TESLAMATE</div>
+    <nav><a href="#">Dashboards</a><a href="#">Install</a><a href="#">Docs</a><a href="#">GitHub</a></nav>
+    <div class="pill"><span class="dot"></span>LOGGING · SELF-HOSTED</div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="tag">// YOUR CAR, YOUR DATA</div>
+      <h1>Every drive, on <em>your</em> instruments.</h1>
+      <p class="lede">A self-hosted data logger for your Tesla.</p>
+      <div class="cta">
+        <a class="btn btn-p" href="#">docker compose up ▸</a>
+        <a class="btn btn-s" href="#">Read the docs</a>
+      </div>
+    </div>
+    <div class="cluster">
+      <div class="ph"><span>INSTRUMENT CLUSTER</span><span>VIN//self · LIVE</span></div>
+      <div class="dials">
+        <div class="dial"><div class="ring"><span class="v">72%</span></div><div class="l">STATE OF CHARGE</div></div>
+        <div class="dial"><div class="ring b"><span class="v">54</span></div><div class="l">TRIP · kWh</div></div>
+      </div>
+      <div class="bars">
+        <i style="height:40%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:38%"></i><i style="height:90%"></i><i style="height:60%"></i><i style="height:46%"></i><i style="height:74%"></i><i style="height:52%"></i><i style="height:66%"></i><i style="height:42%"></i>
+      </div>
+      <div class="clabel"><span>EFFICIENCY · LAST 14 DRIVES</span><span>Wh/mi</span></div>
+      <div class="foot">Telemetry is illustrative — runs entirely on your own hardware.</div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div><b>Self-hosted</b>data stays with you</div>
+    <div><b>Grafana</b>rich dashboards</div>
+    <div><b>History</b>drives · charges · efficiency</div>
+    <div><b>OSS</b>Docker compose</div>
+  </section>
+</div>
+</body>
+</html>

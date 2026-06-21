@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>agency-agents — a complete AI agency at your fingertips</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f8f6f2;
+    --ink: #1a1815;
+    --soft: #5b554c;
+    --hair: #e6e1d8;
+    --brick: #b5421f;        /* brick-red — locked accent */
+    --brick-wash: #f4e7e1;
+    --maxw: 1140px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.55; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 36px; }
+  a { color: inherit; }
+  .mono { font-family: "IBM Plex Mono", monospace; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .brand { font-family: "Playfair Display", Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; }
+  .brand b { color: var(--brick); font-weight: 500; }
+  .nav-right { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--soft); }
+  .nav-right a { text-decoration: none; } .nav-right a:hover { color: var(--ink); }
+  .pill { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--brick); border: 1px solid var(--brick); border-radius: 999px; padding: 7px 15px; text-decoration: none; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), background 150ms, color 150ms; }
+  .pill:hover { background: var(--brick); color: #fff; } .pill:active { transform: scale(0.97); }
+
+  .hero { padding: 80px 0 26px; border-bottom: 1px solid var(--hair); }
+  .kicker { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brick); margin: 0 0 26px; }
+  h1 { font-family: "Playfair Display", Georgia, serif; font-weight: 400; font-size: clamp(42px, 6vw, 74px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 0 26px; max-width: 15ch; }
+  h1 i { color: var(--brick); }
+  .sub-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: end; padding-bottom: 24px; }
+  .lede { font-size: 18.5px; color: var(--soft); max-width: 42ch; margin: 0; }
+  .cta-row { display: flex; gap: 16px; align-items: center; justify-content: flex-end; }
+  .btn { background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 22px; border-radius: 10px; font-family: "IBM Plex Mono", monospace; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background 160ms; }
+  .btn:hover { background: var(--brick); } .btn:active { transform: scale(0.97); }
+
+  /* the roster — agents as an editorial index, not cards */
+  .roster { padding: 56px 0 64px; }
+  .roster-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+  .roster-head h2 { font-family: "Playfair Display", Georgia, serif; font-weight: 400; font-size: 26px; margin: 0; letter-spacing: -0.01em; }
+  .roster-head span { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--soft); }
+  .agent { display: grid; grid-template-columns: 28px 1fr auto; gap: 18px; align-items: baseline; padding: 20px 4px; border-top: 1px solid var(--hair); transition: padding-left 200ms cubic-bezier(0.23,1,0.32,1); }
+  .agent:hover { padding-left: 12px; }
+  .agent .n { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--brick); }
+  .agent .role { font-family: "Playfair Display", Georgia, serif; font-size: 22px; }
+  .agent .role small { display: block; font-family: "Inter", sans-serif; font-size: 13.5px; color: var(--soft); margin-top: 4px; letter-spacing: 0; }
+  .agent .deliver { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--soft); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .closing { border-top: 1px solid var(--hair); }
+  .closing .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding: 54px 36px; }
+  .closing h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 400; font-size: 28px; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+  .closing p { color: var(--soft); font-size: 16px; margin: 0; max-width: 42ch; }
+
+  footer { padding: 36px 0 52px; font-size: 13px; color: var(--soft); }
+  footer .wrap { display: flex; justify-content: space-between; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 700ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1{animation-delay:60ms}.d2{animation-delay:150ms}.d3{animation-delay:250ms}
+    @keyframes rise { to { opacity:1; transform:none; } }
+  }
+  .no-anim .reveal { opacity:1 !important; transform:none !important; animation:none !important; }
+
+  @media (max-width: 860px) {
+    .sub-row { grid-template-columns: 1fr; gap: 28px; align-items: start; }
+    .cta-row { justify-content: flex-start; }
+    .agent { grid-template-columns: 22px 1fr; } .agent .deliver { grid-column: 2; }
+    .closing .wrap { grid-template-columns: 1fr; gap: 24px; }
+    .nav-right a { display: none; }
+  }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <nav>
+      <div class="brand">Agency<b>.</b>Agents</div>
+      <div class="nav-right"><a href="#">Roster</a><a href="#">Workflows</a><a href="#">Docs</a><a class="pill" href="https://github.com/msitarzewski/agency-agents">GitHub</a></div>
+    </nav>
+
+    <section class="hero">
+      <p class="kicker reveal d1">A complete AI agency · at your fingertips</p>
+      <h1 class="reveal d2">Hire a whole <i>team</i> of specialists.</h1>
+      <div class="sub-row">
+        <p class="lede reveal d3">Frontend wizards, community ninjas, whimsy injectors, reality checkers. Each agent is a specialist with its own personality, process, and proven deliverables.</p>
+        <div class="cta-row reveal d3"><a class="btn" href="#">Assemble the agency</a></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section class="roster">
+      <div class="roster-head"><h2>The roster</h2><span>specialists · each with a process</span></div>
+      <div class="agent"><span class="n">01</span><span class="role">Frontend wizard<small>Ships polished interface work end to end.</small></span><span class="deliver">deliverable: UI</span></div>
+      <div class="agent"><span class="n">02</span><span class="role">Community ninja<small>Runs the Reddit and forum presence.</small></span><span class="deliver">deliverable: reach</span></div>
+      <div class="agent"><span class="n">03</span><span class="role">Whimsy injector<small>Adds the personality the draft is missing.</small></span><span class="deliver">deliverable: voice</span></div>
+      <div class="agent"><span class="n">04</span><span class="role">Reality checker<small>Stress-tests claims before they ship.</small></span><span class="deliver">deliverable: rigor</span></div>
+    </section>
+  </div>
+
+  <section class="closing">
+    <div class="wrap">
+      <h3>Not one assistant. A team that already knows its job.</h3>
+      <p>Each role comes with its own process and the deliverables it is expected to produce, so you brief the agency, not micromanage a single bot.</p>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>agency-agents · open source</span><span class="mono">msitarzewski / agency-agents</span></div></footer>
+</body>
+</html>

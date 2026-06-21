@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>last30days — research grounded in what people actually said</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08090c; --panel:#0e1016; --line:#1b1f27; --line-2:#272c36;
+    --ink:#eaecef; --muted:#878e99; --faint:#565d68;
+    --accent:#38bdf8; --accent-dim:rgba(56,189,248,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;min-height:100vh;
+       -webkit-font-smoothing:antialiased}
+  .wrap{max-width:940px;margin:0 auto;padding:0 28px}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0}
+  .brand{font-weight:800;font-size:16px;letter-spacing:-.03em;display:flex;align-items:center;gap:9px}
+  .brand .glyph{font-family:'JetBrains Mono',monospace;color:var(--accent);border:1px solid var(--line-2);
+                border-radius:7px;padding:3px 7px;font-size:13px}
+  .ghbtn{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);text-decoration:none}
+  .ghbtn:hover{color:var(--ink)}
+  /* hero centered */
+  .hero{text-align:center;padding:90px 0 40px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);letter-spacing:.04em;text-transform:lowercase}
+  h1{font-size:clamp(36px,5.6vw,58px);line-height:1.04;letter-spacing:-.04em;font-weight:800;margin:18px auto 0;max-width:14ch}
+  h1 .grad{color:var(--accent)}
+  .sub{color:var(--muted);font-size:18.5px;line-height:1.6;margin:22px auto 0;max-width:46ch}
+  .sub b{color:var(--ink);font-weight:600}
+  /* fake prompt bar */
+  .prompt{margin:38px auto 0;max-width:620px;background:var(--panel);border:1px solid var(--line);border-radius:14px;
+          box-shadow:0 0 0 1px rgba(56,189,248,.05),0 24px 60px -30px rgba(56,189,248,.3);overflow:hidden;text-align:left}
+  .ptop{display:flex;align-items:center;gap:11px;padding:16px 18px}
+  .ptop .ic{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:14px}
+  .ptop .q{color:var(--ink);font-size:15.5px;flex:1}
+  .ptop .q .cur{display:inline-block;width:2px;height:1.05em;background:var(--accent);translate:0 .15em;animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .ptop .go{font-family:'JetBrains Mono',monospace;font-size:12px;color:#06121a;background:var(--accent);
+            padding:6px 12px;border-radius:8px;font-weight:500}
+  .sources{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 18px}
+  .chip{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);border:1px solid var(--line-2);
+        border-radius:100px;padding:5px 11px;display:flex;align-items:center;gap:7px}
+  .chip .d{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.8}
+  .scanline{height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:0 18px;opacity:.5}
+  .synth{padding:16px 18px;color:var(--muted);font-size:13.5px;line-height:1.65;font-family:'Inter',sans-serif}
+  .synth .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);display:block;margin-bottom:7px;letter-spacing:.04em}
+  .synth .sk{display:block;height:9px;border-radius:4px;background:var(--line-2);margin:8px 0}
+  .foot{display:flex;justify-content:center;gap:26px;color:var(--faint);font-size:13px;font-family:'JetBrains Mono',monospace;margin-top:30px}
+  @media(max-width:640px){.foot{flex-wrap:wrap;gap:12px;justify-content:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="glyph">30d</span>last30days</div>
+    <a class="ghbtn" href="https://github.com/mvanhorn/last30days-skill">github ↗</a>
+  </nav>
+
+  <section class="hero">
+    <span class="eyebrow">an agent skill, not another scraper</span>
+    <h1>Research grounded in what people <span class="grad">actually said.</span></h1>
+    <p class="sub">Point it at any topic. It pulls real posts and engagement from <b>Reddit, X, YouTube, HN, Polymarket</b> and the web — then synthesizes a summary you can <b>trust the sourcing on</b>.</p>
+
+    <div class="prompt">
+      <div class="ptop">
+        <span class="ic">&gt;</span>
+        <span class="q">what are devs saying about local agents this month<span class="cur"></span></span>
+        <span class="go">research</span>
+      </div>
+      <div class="sources">
+        <span class="chip"><span class="d"></span>reddit</span>
+        <span class="chip"><span class="d"></span>x</span>
+        <span class="chip"><span class="d"></span>youtube</span>
+        <span class="chip"><span class="d"></span>hacker news</span>
+        <span class="chip"><span class="d"></span>polymarket</span>
+        <span class="chip"><span class="d"></span>web</span>
+      </div>
+      <div class="scanline"></div>
+      <div class="synth">
+        <span class="lbl">synthesizing · 30-day window · cited</span>
+        <span class="sk" style="width:96%"></span>
+        <span class="sk" style="width:88%"></span>
+        <span class="sk" style="width:72%"></span>
+      </div>
+    </div>
+
+    <div class="foot"><span>recency-aware</span><span>engagement-weighted</span><span>every claim cited</span></div>
+  </section>
+</div>
+</body>
+</html>

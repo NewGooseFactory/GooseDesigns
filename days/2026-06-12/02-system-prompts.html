@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>system-prompts-and-models-of-ai-tools — the system prompts behind the tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #faf9f7;
+    --ink: #15171a;
+    --soft: #565b63;
+    --hair: #e4e3df;
+    --ink-accent: #1f3a5f;     /* deep slate-blue — locked accent */
+    --accent-wash: #eaeef4;
+    --maxw: 1180px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.55; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 36px; }
+  a { color: inherit; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; height: 70px; border-bottom: 1px solid var(--hair); }
+  .brand { font-family: "Lora", serif; font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+  .brand b { color: var(--ink-accent); }
+  .nav-right { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--soft); }
+  .nav-right a { text-decoration: none; } .nav-right a:hover { color: var(--ink); }
+  .pill { font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: #fff; background: var(--ink-accent); border-radius: 8px; padding: 8px 15px; text-decoration: none; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms; }
+  .pill:hover { filter: brightness(1.12); } .pill:active { transform: scale(0.97); }
+
+  /* split hero: editorial left, "leaked prompt" document right */
+  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 60px; align-items: center; padding: 84px 0 76px; }
+  .kicker { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-accent); margin: 0 0 24px; }
+  h1 { font-family: "Lora", Georgia, serif; font-weight: 600; font-size: clamp(40px, 5.4vw, 64px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 24px; }
+  h1 em { font-style: italic; font-weight: 400; color: var(--ink-accent); }
+  .lede { font-size: 18px; color: var(--soft); max-width: 38ch; margin: 0 0 32px; }
+  .cta-row { display: flex; gap: 16px; align-items: center; }
+  .btn { background: var(--ink-accent); color: #fff; text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 22px; border-radius: 10px; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), filter 160ms; }
+  .btn:hover { filter: brightness(1.1); } .btn:active { transform: scale(0.97); }
+  .btn-ghost { font-family: "JetBrains Mono", monospace; font-size: 14px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hair); padding-bottom: 2px; }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  /* document card */
+  .doc { background: #fff; border: 1px solid var(--hair); border-radius: 12px; overflow: hidden; box-shadow: 0 28px 64px -34px rgba(20,23,26,0.35); }
+  .doc-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--hair); }
+  .doc-head .name { font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--soft); }
+  .doc-head .tag { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-accent); background: var(--accent-wash); border-radius: 4px; padding: 3px 8px; }
+  .doc pre { margin: 0; padding: 20px 20px; font-family: "JetBrains Mono", monospace; font-size: 12.5px; line-height: 1.85; color: #2b2f36; white-space: pre-wrap; }
+  .doc pre .h { color: var(--ink-accent); font-weight: 500; }
+  .doc pre .c { color: #9aa0a8; }
+  .doc-foot { padding: 12px 20px; border-top: 1px solid var(--hair); font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--soft); }
+
+  /* index of tools */
+  .index { border-top: 1px solid var(--hair); padding: 54px 0 72px; }
+  .index h2 { font-family: "Lora", serif; font-weight: 600; font-size: 24px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .index .note { color: var(--soft); font-size: 14px; margin: 0 0 26px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--ink); border: 1px solid var(--hair); background: #fff; border-radius: 999px; padding: 8px 15px; transition: border-color 160ms, color 160ms; }
+  .chip:hover { border-color: var(--ink-accent); color: var(--ink-accent); }
+
+  footer { padding: 36px 0 52px; font-size: 13px; color: var(--soft); }
+  footer .wrap { display: flex; justify-content: space-between; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(10px); animation: rise 700ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .d1{animation-delay:60ms}.d2{animation-delay:150ms}.d3{animation-delay:250ms}.d4{animation-delay:340ms}
+    @keyframes rise { to { opacity:1; transform:none; } }
+  }
+  .no-anim .reveal { opacity:1 !important; transform:none !important; animation:none !important; }
+
+  @media (max-width: 880px) { .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; } .nav-right a { display: none; } }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <nav>
+      <div class="brand">System<b>Prompts</b> Archive</div>
+      <div class="nav-right"><a href="#">Tools</a><a href="#">Models</a><a href="#">Contribute</a><a class="pill" href="https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools">GitHub</a></div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <p class="kicker reveal d1">System prompts · internal tools · models</p>
+        <h1 class="reveal d2">The instructions <em>behind</em> the tools you use.</h1>
+        <p class="lede reveal d3">A reference archive of the system prompts, internal tools, and models powering the major AI coding products, collected in one place to study how they are actually built.</p>
+        <div class="cta-row reveal d4">
+          <a class="btn" href="#">Browse the archive</a>
+          <a class="btn-ghost mono" href="#">How to contribute →</a>
+        </div>
+      </div>
+
+      <div class="doc reveal d3">
+        <div class="doc-head"><span class="name">cursor / system-prompt.md</span><span class="tag">reference</span></div>
+<pre><span class="c"># Role</span>
+<span class="h">You are an AI coding assistant</span> operating
+inside the editor. You pair with the user
+to read, edit, and run their code.
+
+<span class="c"># Tools</span>
+- read_file, edit_file, run_terminal
+- search the workspace before editing</pre>
+        <div class="doc-foot">excerpt · illustrative · see repo for full collected prompts</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section class="index">
+      <h2>What's collected</h2>
+      <p class="note">System prompts and tool definitions gathered from a wide set of AI coding products and agents.</p>
+      <div class="chips">
+        <span class="chip">Cursor</span><span class="chip">Claude Code</span><span class="chip">Devin</span><span class="chip">Windsurf</span><span class="chip">Replit</span><span class="chip">v0</span><span class="chip">Perplexity</span><span class="chip">VSCode Agent</span><span class="chip">Warp</span><span class="chip">Lovable</span><span class="chip">+ many more</span>
+      </div>
+    </section>
+  </div>
+
+  <footer><div class="wrap"><span>System Prompts Archive · open source reference</span><span class="mono">x1xhlol / system-prompts-and-models-of-ai-tools</span></div></footer>
+</body>
+</html>

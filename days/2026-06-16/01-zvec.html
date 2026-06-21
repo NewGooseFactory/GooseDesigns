@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>zvec — A lightweight, in-process vector database</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf8;
+    --ink:#181a1f;
+    --soft:#595d66;
+    --line:#e7e4dd;
+    --accent:#2347c5;
+    --accent-soft:#eaeefb;
+    --code:#f4f2ec;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:30px 0;border-bottom:1px solid var(--line)}
+  .brand{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:17px;letter-spacing:-.01em}
+  .brand b{color:var(--accent)}
+  nav{display:flex;gap:30px;align-items:center}
+  nav a{color:var(--soft);text-decoration:none;font-size:14.5px;font-weight:500}
+  nav a:hover{color:var(--ink)}
+  .ghbtn{font-size:14px;border:1px solid var(--line);padding:9px 16px;border-radius:7px;color:var(--ink);background:#fff}
+  .ghbtn:hover{border-color:#cfcabb}
+  .hero{display:grid;grid-template-columns:1.06fr .94fr;gap:58px;align-items:center;padding:86px 0 72px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);letter-spacing:.04em;margin-bottom:26px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--accent)}
+  h1{font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:clamp(40px,5.4vw,66px);line-height:1.05;letter-spacing:-.018em}
+  h1 em{font-style:italic;color:var(--accent)}
+  .lede{font-size:19px;color:var(--soft);margin-top:24px;max-width:34ch;line-height:1.62}
+  .cta{margin-top:38px;display:flex;gap:14px;align-items:center}
+  .btn-p{background:var(--ink);color:var(--paper);font-size:15px;font-weight:500;padding:13px 24px;border-radius:8px;text-decoration:none}
+  .btn-p:hover{background:#000}
+  .btn-t{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;padding:13px 6px;border-bottom:1px solid transparent}
+  .btn-t:hover{border-color:var(--ink)}
+  .codecard{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 0 rgba(0,0,0,.02),0 18px 50px -28px rgba(40,40,30,.22);overflow:hidden}
+  .codebar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid var(--line);background:var(--code)}
+  .codebar i{width:11px;height:11px;border-radius:50%;background:#d9d4c7;display:inline-block}
+  .codebar span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft);margin-left:8px}
+  pre{font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.85;padding:22px;color:#2b2a26;overflow-x:auto}
+  .c-k{color:#9d4b2b}.c-s{color:var(--accent)}.c-c{color:#a39e90}.c-v{color:#1f7a4d}
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:30px}
+  .metric{padding:22px 24px;border-right:1px solid var(--line)}
+  .metric:last-child{border-right:none}
+  .metric .v{font-family:'Newsreader',serif;font-size:30px;font-weight:600;letter-spacing:-.01em}
+  .metric .l{font-size:13px;color:var(--soft);margin-top:4px}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;padding:18px 0 88px}
+  .pt h3{font-family:'Newsreader',serif;font-weight:600;font-size:21px;margin-bottom:8px}
+  .pt p{font-size:15px;color:var(--soft);line-height:1.6}
+  .pt .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:14px}
+  .ill{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);opacity:.7;padding:8px 0 0}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:40px;padding:56px 0}.points{grid-template-columns:1fr;gap:28px}nav a:not(.ghbtn){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">z<b>vec</b></div>
+    <nav>
+      <a href="#">Docs</a><a href="#">Benchmarks</a><a href="#">Examples</a>
+      <a class="ghbtn" href="#">GitHub ★</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">IN-PROCESS VECTOR DATABASE</div>
+      <h1>A vector store that lives <em>inside</em> your process.</h1>
+      <p class="lede">A lightweight, lightning-fast, in-process vector database.</p>
+      <div class="cta">
+        <a class="btn-p" href="#">pip install zvec</a>
+        <a class="btn-t" href="#">Read the docs →</a>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="v">0</div><div class="l">network hops</div></div>
+        <div class="metric"><div class="v">1</div><div class="l">dependency, embedded</div></div>
+        <div class="metric"><div class="v">~µs</div><div class="l">in-memory lookup</div></div>
+      </div>
+      <div class="ill">Metric labels are illustrative of the in-process design, not benchmarks.</div>
+    </div>
+    <div class="codecard">
+      <div class="codebar"><i></i><i></i><i></i><span>rag.py</span></div>
+<pre><span class="c-k">import</span> zvec
+
+db = zvec.<span class="c-v">Index</span>(dim=<span class="c-v">768</span>)
+db.<span class="c-v">add</span>(ids, embeddings)   <span class="c-c"># no server</span>
+
+hits = db.<span class="c-v">search</span>(
+    query_vec,
+    k=<span class="c-v">5</span>,
+)
+<span class="c-k">for</span> id, score <span class="c-k">in</span> hits:
+    <span class="c-v">print</span>(id, score)</pre>
+    </div>
+  </section>
+
+  <section class="points">
+    <div class="pt"><div class="num">01</div><h3>No server to run</h3><p>Embedded in your application process — no daemon, no ports, no ops. Just import and index.</p></div>
+    <div class="pt"><div class="num">02</div><h3>Lightweight by design</h3><p>A small footprint meant to sit beside your model code, not a cluster to operate alongside it.</p></div>
+    <div class="pt"><div class="num">03</div><h3>Built for speed</h3><p>In-memory similarity search tuned to keep retrieval off the critical path of your app.</p></div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>hivemind — one brain for all your agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void: #080b0e;
+    --panel: #0c1014;
+    --ink: #dde6ec;
+    --ink-soft: #6e818f;
+    --hair: rgba(120,160,200,0.12);
+    --ice: #36c2d6;        /* ice / radar cyan readout — locked accent */
+    --ice-dim: rgba(54,194,214,0.12);
+    --maxw: 1180px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    margin: 0; background: var(--void); color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif; line-height: 1.5;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 58px; border-bottom: 1px solid var(--hair); }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ice); box-shadow: 0 0 0 3px var(--ice-dim); }
+  .nav { display: flex; gap: 24px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-soft); }
+  .nav a { text-decoration: none; }
+  .nav a:hover { color: var(--ink); }
+
+  /* split hero: copy left, radar-scope right */
+  .hero { padding: 72px 0 60px; display: grid; grid-template-columns: 1fr 0.9fr; gap: 56px; align-items: center; }
+  .desig { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.22em; color: var(--ice); text-transform: uppercase; margin: 0 0 24px; }
+  h1 { font-family: "Rajdhani", sans-serif; font-weight: 700; text-transform: uppercase; font-size: clamp(46px, 6.6vw, 80px); line-height: 0.96; letter-spacing: 0.01em; margin: 0 0 20px; }
+  h1 .lit { color: var(--ice); }
+  .lede { color: var(--ink-soft); font-size: 17.5px; max-width: 40ch; margin: 0 0 30px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; }
+  .btn { font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: 0.06em; text-decoration: none; padding: 13px 22px; border-radius: 4px; font-weight: 700; background: var(--ice); color: #04161a; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms; }
+  .btn:hover { filter: brightness(1.1); }
+  .btn:active { transform: scale(0.97); }
+  .btn.ghost { background: transparent; color: var(--ice); border: 1px solid var(--ice); }
+  .btn.ghost:hover { background: var(--ice-dim); }
+
+  /* radar scope */
+  .scope-wrap { border: 1px solid var(--hair); border-radius: 10px; background: var(--panel); padding: 22px; }
+  .scope-head { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+  .scope { position: relative; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--hair); overflow: hidden;
+    background:
+      radial-gradient(circle, transparent 0 30%, var(--hair) 30% calc(30% + 1px), transparent calc(30% + 1px) 60%, var(--hair) 60% calc(60% + 1px), transparent calc(60% + 1px));
+  }
+  .scope::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 49.6%, var(--hair) 50%, transparent 50.4%), linear-gradient(0deg, transparent 49.6%, var(--hair) 50%, transparent 50.4%); }
+  .sweep-arm { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, var(--ice-dim) 0deg, transparent 55deg); }
+  .blip { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--ice); box-shadow: 0 0 0 3px var(--ice-dim); }
+  .b1 { top: 32%; left: 58%; } .b2 { top: 60%; left: 40%; } .b3 { top: 44%; left: 70%; } .b4 { top: 70%; left: 62%; }
+  .scope-foot { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--ink-soft); letter-spacing: 0.08em; margin-top: 14px; text-align: center; }
+
+  /* unified memory strip */
+  .mem { border-top: 1px solid var(--hair); padding: 52px 0 72px; }
+  .mem h2 { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink-soft); text-transform: uppercase; margin: 0 0 26px; }
+  .mem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 8px; overflow: hidden; }
+  .cell { background: var(--panel); padding: 24px 22px; }
+  .cell .id { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ice); letter-spacing: 0.1em; }
+  .cell h3 { font-family: "Rajdhani", sans-serif; font-weight: 600; text-transform: uppercase; font-size: 20px; letter-spacing: 0.03em; margin: 12px 0 8px; }
+  .cell p { margin: 0; color: var(--ink-soft); font-size: 13.5px; max-width: 30ch; }
+
+  footer { border-top: 1px solid var(--hair); padding: 24px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.08em; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sweep-arm { animation: spin 6s linear infinite; transform-origin: 50% 50%; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  }
+  .no-anim .sweep-arm { animation: none !important; }
+
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; }
+    .mem-grid { grid-template-columns: 1fr; }
+    .nav { display: none; }
+    .scope-wrap { max-width: 360px; }
+  }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <div class="bar">
+      <span class="brand"><span class="dot"></span> HIVEMIND</span>
+      <nav class="nav"><a href="#">MEMORY</a><a href="#">AGENTS</a><a href="#">DOCS</a><a href="https://github.com/activeloopai/hivemind">GITHUB</a></nav>
+    </div>
+
+    <section class="hero">
+      <div>
+        <p class="desig">SHARED MEMORY · MULTI-AGENT</p>
+        <h1>One brain for <span class="lit">all your agents.</span></h1>
+        <p class="lede">A single memory layer every agent reads from and writes to. Stop each agent rediscovering what another one already learned.</p>
+        <div class="cta-row">
+          <a class="btn" href="#">CONNECT AGENTS</a>
+          <a class="btn ghost" href="#">VIEW DOCS</a>
+        </div>
+      </div>
+
+      <div class="scope-wrap">
+        <div class="scope-head"><span>AGENT MESH</span><span>SCANNING</span></div>
+        <div class="scope">
+          <div class="sweep-arm"></div>
+          <span class="blip b1"></span><span class="blip b2"></span><span class="blip b3"></span><span class="blip b4"></span>
+        </div>
+        <div class="scope-foot">4 AGENTS ON ONE MEMORY · ILLUSTRATIVE</div>
+      </div>
+    </section>
+  </div>
+
+  <section class="mem">
+    <div class="wrap">
+      <h2>// One memory, many minds</h2>
+      <div class="mem-grid">
+        <div class="cell"><span class="id">MEM-01</span><h3>Shared</h3><p>Every agent reads and writes the same store. Knowledge compounds instead of fragmenting.</p></div>
+        <div class="cell"><span class="id">MEM-02</span><h3>Persistent</h3><p>What one agent learns survives the session and is there for the next one.</p></div>
+        <div class="cell"><span class="id">MEM-03</span><h3>Queryable</h3><p>Recall by meaning, so an agent retrieves the right context at the right moment.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>HIVEMIND // SHARED AGENT MEMORY</span>
+      <span>activeloopai / hivemind</span>
+    </div>
+  </footer>
+</body>
+</html>

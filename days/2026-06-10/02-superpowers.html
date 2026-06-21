@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>superpowers — an agentic skills framework that works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void: #07090b;
+    --panel: #0b0f12;
+    --ink: #dce6e4;
+    --ink-soft: #6f8480;
+    --hair: rgba(110,180,150,0.12);
+    --grn: #3ad37e;        /* phosphor green readout — locked accent */
+    --grn-dim: rgba(58,211,126,0.12);
+    --maxw: 1160px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    margin: 0; background: radial-gradient(120% 80% at 50% -10%, #0c1114 0%, var(--void) 60%);
+    color: var(--ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.5;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 58px; border-bottom: 1px solid var(--hair); }
+  .brand { font-family: "Saira Condensed", sans-serif; font-weight: 700; font-size: 19px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .brand b { color: var(--grn); }
+  .nav { display: flex; gap: 24px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-soft); }
+  .nav a { text-decoration: none; }
+  .nav a:hover { color: var(--ink); }
+
+  /* HUD reticle hero — centered instrument */
+  .hero { text-align: center; padding: 70px 0 56px; position: relative; }
+  .reticle {
+    position: relative; display: inline-block; padding: 44px 56px; margin-bottom: 8px;
+  }
+  .reticle::before, .reticle::after {
+    content: ""; position: absolute; width: 16px; height: 16px; border-color: var(--grn); border-style: solid;
+  }
+  .reticle::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+  .reticle::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+  .corner-tr, .corner-bl { position: absolute; width: 16px; height: 16px; border-color: var(--grn); border-style: solid; }
+  .corner-tr { top: 0; right: 0; border-width: 1px 1px 0 0; }
+  .corner-bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+  .desig { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.24em; color: var(--grn); text-transform: uppercase; margin: 0 0 20px; }
+  h1 {
+    font-family: "Saira Condensed", sans-serif; font-weight: 700; text-transform: uppercase;
+    font-size: clamp(46px, 7vw, 86px); line-height: 0.94; letter-spacing: 0.01em; margin: 0;
+  }
+  h1 .lit { color: var(--grn); }
+  .lede { color: var(--ink-soft); font-size: 17.5px; max-width: 50ch; margin: 26px auto 32px; }
+  .cta-row { display: flex; gap: 14px; justify-content: center; }
+  .btn {
+    font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: 0.06em;
+    text-decoration: none; padding: 13px 22px; border-radius: 4px; font-weight: 700;
+    background: var(--grn); color: #04140a;
+    transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms;
+  }
+  .btn:hover { filter: brightness(1.1); }
+  .btn:active { transform: scale(0.97); }
+  .btn.ghost { background: transparent; color: var(--grn); border: 1px solid var(--grn); }
+  .btn.ghost:hover { background: var(--grn-dim); }
+
+  /* method telemetry strip */
+  .telem { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .telem .wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .t { padding: 30px 0; display: flex; flex-direction: column; gap: 8px; }
+  .t + .t { border-left: 1px solid var(--hair); padding-left: 28px; }
+  .t .k { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grn); letter-spacing: 0.12em; text-transform: uppercase; }
+  .t .v { font-family: "Saira Condensed", sans-serif; font-weight: 600; font-size: 26px; text-transform: uppercase; letter-spacing: 0.02em; }
+  .t p { margin: 0; color: var(--ink-soft); font-size: 13px; max-width: 30ch; }
+
+  /* method = the framework */
+  .method { padding: 56px 0 72px; }
+  .method h2 { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--ink-soft); text-transform: uppercase; margin: 0 0 24px; }
+  .steps { display: grid; gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 8px; overflow: hidden; }
+  .step { background: var(--panel); display: grid; grid-template-columns: 64px 1fr; align-items: center; }
+  .step .n { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--grn); text-align: center; border-right: 1px solid var(--hair); padding: 20px 0; }
+  .step .c { padding: 18px 22px; }
+  .step .c b { font-family: "Saira Condensed", sans-serif; font-weight: 600; font-size: 19px; text-transform: uppercase; letter-spacing: 0.03em; display: block; }
+  .step .c span { color: var(--ink-soft); font-size: 13.5px; }
+
+  footer { border-top: 1px solid var(--hair); padding: 24px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.08em; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sweep { position: relative; overflow: hidden; }
+    .sweep::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--grn-dim), transparent); transform: translateX(-100%); animation: sw 4.5s ease-in-out infinite; }
+    @keyframes sw { 50%,100% { transform: translateX(100%); } }
+  }
+  .no-anim .sweep::after { animation: none !important; display: none; }
+
+  @media (max-width: 860px) {
+    .telem .wrap { grid-template-columns: 1fr; }
+    .t + .t { border-left: none; border-top: 1px solid var(--hair); padding-left: 0; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <div class="bar">
+      <span class="brand">SUPER<b>POWERS</b></span>
+      <nav class="nav"><a href="#">METHOD</a><a href="#">SKILLS</a><a href="#">DOCS</a><a href="https://github.com/obra/superpowers">GITHUB</a></nav>
+    </div>
+
+    <section class="hero">
+      <div class="reticle sweep">
+        <span class="corner-tr"></span><span class="corner-bl"></span>
+        <p class="desig">AGENTIC SKILLS FRAMEWORK</p>
+        <h1>A methodology<br />that <span class="lit">actually works.</span></h1>
+      </div>
+      <p class="lede">Superpowers is an agentic skills framework and a software-development methodology, the discipline an agent needs to ship real change, not just suggest it.</p>
+      <div class="cta-row">
+        <a class="btn" href="#">GET SUPERPOWERS</a>
+        <a class="btn ghost" href="#">READ THE METHOD</a>
+      </div>
+    </section>
+  </div>
+
+  <section class="telem">
+    <div class="wrap">
+      <div class="t"><span class="k">Framework</span><span class="v">Skills</span><p>Composable capabilities an agent loads to do real engineering work.</p></div>
+      <div class="t"><span class="k">Discipline</span><span class="v">Method</span><p>An opinionated software-development workflow, not vibes.</p></div>
+      <div class="t"><span class="k">Outcome</span><span class="v">It ships</span><p>Built to produce working change, the whole point of the project.</p></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="method">
+      <h2>// The loop it enforces</h2>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><div class="c"><b>Plan</b><span>Break the intent into a checked sequence before touching code.</span></div></div>
+        <div class="step"><span class="n">02</span><div class="c"><b>Act</b><span>Run the skill, make the change, read the real output.</span></div></div>
+        <div class="step"><span class="n">03</span><div class="c"><b>Verify</b><span>Test the work and iterate until it actually holds.</span></div></div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>SUPERPOWERS // AGENTIC FRAMEWORK</span>
+      <span>obra / superpowers</span>
+    </div>
+  </footer>
+</body>
+</html>

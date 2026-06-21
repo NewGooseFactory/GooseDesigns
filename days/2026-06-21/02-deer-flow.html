@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>deer-flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#16110a; --bg2:#1b150c; --line:#2f2615; --line-2:#43361d;
+    --ink:#f5ecdd; --muted:#bca988; --dim:#7c6b4c;
+    --amb:#e8a33a; --amb-2:#f6c879; --amb-dim:#7a5414;
+    --grid:rgba(232,163,58,.05);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:34px 34px;}
+  .frame{max-width:1180px;margin:0 auto;padding:18px 22px;min-height:100vh}
+  .draw{border:1px solid var(--line-2);border-radius:6px;background:
+    radial-gradient(130% 120% at 18% -10%,rgba(232,163,58,.06),transparent 55%),var(--bg2);position:relative;overflow:hidden}
+  .draw::before,.draw::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--amb-dim);opacity:.6}
+  .draw::before{left:10px;top:10px;border-right:none;border-bottom:none}
+  .draw::after{right:10px;bottom:10px;border-left:none;border-top:none}
+  .top{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;border-bottom:1px dashed var(--line-2);font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.5px}
+  .top .nm{color:var(--ink);font-weight:700;letter-spacing:1px}
+  .top .nm b{color:var(--amb)}
+  .hero{padding:44px 30px 18px;max-width:760px}
+  .kicker{font-family:var(--mono);font-size:11.5px;color:var(--amb-2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:9px}
+  .kicker::before{content:"";width:22px;height:1px;background:var(--amb)}
+  h1{font-size:50px;line-height:1.04;letter-spacing:-1.3px;font-weight:700}
+  h1 .g{color:var(--dim)}
+  .sub{color:var(--muted);font-size:17.5px;max-width:62ch;margin:20px 0 26px;line-height:1.55}
+  .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .b1{background:var(--amb);color:#241700;font-weight:700;font-size:13.5px;padding:11px 18px;border-radius:6px;text-decoration:none;font-family:var(--mono)}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13px;border:1px solid var(--line-2);padding:11px 15px;border-radius:6px;text-decoration:none}
+  /* pipeline schematic */
+  .schem{margin:24px 30px 8px;border:1px solid var(--line-2);border-radius:8px;background:rgba(22,17,10,.6);padding:18px 20px}
+  .slab{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.6px;display:flex;justify-content:space-between;margin-bottom:16px}
+  .lanes{display:grid;grid-template-columns:84px 1fr;gap:10px 14px;align-items:center}
+  .lname{font-family:var(--mono);font-size:11px;color:var(--amb-2);text-align:right;letter-spacing:.3px}
+  .lane{display:flex;align-items:center;gap:0}
+  .stg{flex:1;border:1px solid var(--line-2);border-radius:5px;background:rgba(43,54,29,.0);padding:8px 11px;font-family:var(--mono);font-size:11.5px;color:var(--ink);position:relative;text-align:center}
+  .stg.on{border-color:var(--amb-dim);background:rgba(232,163,58,.06);color:var(--amb-2)}
+  .conn{width:26px;height:1px;background:var(--line-2);position:relative;flex:none}
+  .conn::after{content:"";position:absolute;right:-1px;top:-3px;border:3px solid transparent;border-left-color:var(--amb-dim)}
+  .mods{display:grid;grid-template-columns:84px 1fr;gap:14px;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line-2);align-items:center}
+  .mlab{font-family:var(--mono);font-size:11px;color:var(--dim);text-align:right}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:10.5px;color:var(--muted);border:1px solid var(--line-2);border-radius:20px;padding:4px 11px}
+  .axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
+  .ill{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;text-align:right}
+  .tblock{position:absolute;right:14px;bottom:14px;font-family:var(--mono);font-size:9px;color:var(--dim);text-align:right;line-height:1.6;border:1px solid var(--line-2);border-radius:4px;padding:7px 10px;background:rgba(22,17,10,.7)}
+  .tblock b{color:var(--muted);font-weight:500}
+  @media(max-width:880px){h1{font-size:38px}.lanes,.mods{grid-template-columns:1fr}.lname,.mlab{text-align:left}.tblock{display:none}}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="draw">
+    <div class="top">
+      <span class="nm">bytedance / <b>deer-flow</b></span>
+      <span>DWG · SUPERAGENT-HARNESS · REV A · SHEET 1/1</span>
+    </div>
+    <div class="hero">
+      <div class="kicker">Long-horizon superagent harness</div>
+      <h1>Tasks that take<br><span class="g">minutes to hours,</span> run<br>end to end.</h1>
+      <p class="sub">An open-source long-horizon SuperAgent harness that researches, codes, and creates — with sandboxes, memories, tools, skills, subagents, and a message gateway.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/bytedance/deer-flow">Run the harness →</a>
+        <a class="b2" href="#">$ git clone deer-flow</a>
+      </div>
+    </div>
+
+    <div class="schem">
+      <div class="slab"><span>SCHEMATIC — LONG-HORIZON RUN</span><span>illustrative</span></div>
+      <div class="lanes">
+        <div class="lname">research</div>
+        <div class="lane">
+          <div class="stg on">gather</div><div class="conn"></div>
+          <div class="stg">synthesize</div><div class="conn"></div>
+          <div class="stg">cite</div>
+        </div>
+        <div class="lname">code</div>
+        <div class="lane">
+          <div class="stg on">plan</div><div class="conn"></div>
+          <div class="stg on">edit · run</div><div class="conn"></div>
+          <div class="stg">verify</div>
+        </div>
+        <div class="lname">create</div>
+        <div class="lane">
+          <div class="stg">draft</div><div class="conn"></div>
+          <div class="stg">assemble</div><div class="conn"></div>
+          <div class="stg">deliver</div>
+        </div>
+      </div>
+      <div class="mods">
+        <div class="mlab">substrate</div>
+        <div class="chips">
+          <span class="chip">sandboxes</span><span class="chip">memories</span><span class="chip">tools</span>
+          <span class="chip">skills</span><span class="chip">subagents</span><span class="chip">message gateway</span>
+        </div>
+      </div>
+      <div class="axis"><span>t0 · minutes</span><span>──────────  long-horizon  ──────────</span><span>hours · done</span></div>
+      <div class="ill">Stage labels are illustrative.</div>
+    </div>
+    <div class="tblock"><b>SCALE</b> n.t.s.&nbsp;&nbsp;<b>UNITS</b> stages·lanes<br><b>DRAWN</b> goose &nbsp; <b>STYLE</b> blueprint</div>
+  </div>
+</div>
+</body>
+</html>
+
+

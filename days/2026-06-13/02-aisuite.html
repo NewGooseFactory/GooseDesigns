@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>aisuite — one interface to every GenAI provider</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void: #07090b; --panel: #0b0f12; --ink: #dce6e4; --soft: #6f8480;
+    --hair: rgba(110,180,150,0.12); --grn: #3ad37e; --grn-dim: rgba(58,211,126,0.12); --maxw: 1160px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: radial-gradient(120% 80% at 50% -10%, #0c1114 0%, var(--void) 60%); color: var(--ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.5; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; } .mono { font-family: "JetBrains Mono", monospace; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 58px; border-bottom: 1px solid var(--hair); }
+  .brand { font-family: "Saira Condensed", sans-serif; font-weight: 700; font-size: 19px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .brand b { color: var(--grn); }
+  .nav { display: flex; gap: 24px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--soft); }
+  .nav a { text-decoration: none; } .nav a:hover { color: var(--ink); }
+
+  /* centered reticle hero */
+  .hero { text-align: center; padding: 70px 0 54px; }
+  .reticle { position: relative; display: inline-block; padding: 44px 56px; margin-bottom: 8px; }
+  .reticle::before, .reticle::after { content: ""; position: absolute; width: 16px; height: 16px; border-color: var(--grn); border-style: solid; }
+  .reticle::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+  .reticle::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+  .corner-tr, .corner-bl { position: absolute; width: 16px; height: 16px; border-color: var(--grn); border-style: solid; }
+  .corner-tr { top: 0; right: 0; border-width: 1px 1px 0 0; }
+  .corner-bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+  .desig { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.24em; color: var(--grn); text-transform: uppercase; margin: 0 0 20px; }
+  h1 { font-family: "Saira Condensed", sans-serif; font-weight: 700; text-transform: uppercase; font-size: clamp(46px, 7vw, 84px); line-height: 0.94; letter-spacing: 0.01em; margin: 0; }
+  h1 .lit { color: var(--grn); }
+  .lede { color: var(--soft); font-size: 17.5px; max-width: 50ch; margin: 26px auto 30px; }
+  .cta-row { display: flex; gap: 14px; justify-content: center; }
+  .btn { font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: 0.06em; text-decoration: none; padding: 13px 22px; border-radius: 4px; font-weight: 700; background: var(--grn); color: #04140a; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms; }
+  .btn:hover { filter: brightness(1.1); } .btn:active { transform: scale(0.97); }
+  .btn.ghost { background: transparent; color: var(--grn); border: 1px solid var(--grn); }
+  .btn.ghost:hover { background: var(--grn-dim); }
+
+  /* one-line swap proof terminal */
+  .term { max-width: 660px; margin: 40px auto 0; background: #0a120d; border: 1px solid var(--hair); border-radius: 10px; padding: 18px 20px; text-align: left; font-family: "JetBrains Mono", monospace; font-size: 13px; line-height: 1.85; color: #cfe6d8; }
+  .term .c { color: #5d7068; } .term .k { color: var(--grn); } .term .s { color: #cdbf7a; }
+
+  /* provider bay (instrument channel list) */
+  .bay { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); margin-top: 60px; }
+  .bay .wrap { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .ch { padding: 26px 0; text-align: center; border-left: 1px solid var(--hair); font-family: "Saira Condensed", sans-serif; font-weight: 600; font-size: 17px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .ch:first-child { border-left: none; }
+  .ch span { display: block; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--grn); letter-spacing: 0.1em; margin-top: 6px; }
+
+  .method { padding: 56px 0 72px; }
+  .method h2 { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--soft); text-transform: uppercase; margin: 0 0 24px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 8px; overflow: hidden; }
+  .step { background: var(--panel); padding: 22px 22px; }
+  .step b { font-family: "Saira Condensed", sans-serif; font-weight: 600; font-size: 19px; text-transform: uppercase; letter-spacing: 0.03em; display: block; margin-bottom: 8px; }
+  .step .n { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grn); }
+  .step p { color: var(--soft); font-size: 13.5px; margin: 6px 0 0; max-width: 30ch; }
+
+  footer { border-top: 1px solid var(--hair); padding: 24px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--soft); letter-spacing: 0.08em; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sweep { position: relative; overflow: hidden; }
+    .sweep::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--grn-dim), transparent); transform: translateX(-100%); animation: sw 4.5s ease-in-out infinite; }
+    @keyframes sw { 50%,100% { transform: translateX(100%); } }
+  }
+  .no-anim .sweep::after { animation: none !important; display: none; }
+  @media (max-width: 860px) { .bay .wrap { grid-template-columns: 1fr 1fr 1fr; } .ch:nth-child(4){border-left:none} .steps { grid-template-columns: 1fr; } .nav { display: none; } }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <div class="bar">
+      <span class="brand">AI<b>SUITE</b></span>
+      <nav class="nav"><a href="#">PROVIDERS</a><a href="#">DOCS</a><a href="#">EXAMPLES</a><a href="https://github.com/andrewyng/aisuite">GITHUB</a></nav>
+    </div>
+
+    <section class="hero">
+      <div class="reticle sweep">
+        <span class="corner-tr"></span><span class="corner-bl"></span>
+        <p class="desig">UNIFIED GENERATIVE-AI INTERFACE</p>
+        <h1>One interface.<br /><span class="lit">Every provider.</span></h1>
+      </div>
+      <p class="lede">aisuite gives you a single, simple interface to multiple generative-AI providers. Swap the model string, keep your code.</p>
+      <div class="cta-row">
+        <a class="btn" href="#">pip install aisuite</a>
+        <a class="btn ghost" href="#">SEE PROVIDERS</a>
+      </div>
+
+      <div class="term sweep">
+        <span class="c"># same call, different provider</span><br />
+        client.chat.completions.<span class="k">create</span>(<br />
+        &nbsp;&nbsp;model=<span class="s">"openai:gpt-4o"</span>,&nbsp;&nbsp;<span class="c"># or "anthropic:..."</span><br />
+        &nbsp;&nbsp;messages=messages,<br />
+        )&nbsp;&nbsp;<span class="c"># illustrative</span>
+      </div>
+    </section>
+  </div>
+
+  <section class="bay">
+    <div class="wrap">
+      <div class="ch">OpenAI<span>ch 01</span></div>
+      <div class="ch">Anthropic<span>ch 02</span></div>
+      <div class="ch">Google<span>ch 03</span></div>
+      <div class="ch">Mistral<span>ch 04</span></div>
+      <div class="ch">Groq<span>ch 05</span></div>
+      <div class="ch">+ more<span>ch ··</span></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="method">
+      <h2>// what you get</h2>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><b>Unified calls</b><p>One client shape for chat completions across providers.</p></div>
+        <div class="step"><span class="n">02</span><b>Swap by string</b><p>Change the model identifier; the rest of your code stays put.</p></div>
+        <div class="step"><span class="n">03</span><b>Stay portable</b><p>Avoid hard-wiring your app to a single vendor's SDK.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <footer><div class="wrap"><span>AISUITE // UNIFIED GENAI INTERFACE</span><span>andrewyng / aisuite</span></div></footer>
+</body>
+</html>

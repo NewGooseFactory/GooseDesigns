@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cognee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#091420; --bg2:#0b1825; --line:#13283a; --line-2:#1d3b52;
+    --ink:#e8f1f8; --muted:#8aa6bb; --dim:#52708a;
+    --cy:#39c6e8; --cy-2:#8fe3f5; --cy-dim:#11546b;
+    --grid:rgba(57,198,232,.06);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:34px 34px;}
+  .frame{max-width:1180px;margin:0 auto;padding:18px 22px;min-height:100vh}
+  .draw{border:1px solid var(--line-2);border-radius:6px;background:
+    radial-gradient(130% 120% at 80% -10%,rgba(57,198,232,.06),transparent 55%),var(--bg2);position:relative;overflow:hidden}
+  /* corner ticks */
+  .draw::before,.draw::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--cy-dim);opacity:.6}
+  .draw::before{left:10px;top:10px;border-right:none;border-bottom:none}
+  .draw::after{right:10px;bottom:10px;border-left:none;border-top:none}
+  .top{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;border-bottom:1px dashed var(--line-2);font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.5px}
+  .top .nm{color:var(--ink);font-weight:700;letter-spacing:1px}
+  .top .nm b{color:var(--cy)}
+  .body{display:grid;grid-template-columns:1.02fr 1.05fr;gap:30px;padding:42px 30px 30px;align-items:center}
+  .kicker{font-family:var(--mono);font-size:11.5px;color:var(--cy-2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:9px}
+  .kicker::before{content:"";width:22px;height:1px;background:var(--cy)}
+  h1{font-size:50px;line-height:1.04;letter-spacing:-1.3px;font-weight:700}
+  h1 .g{color:var(--dim)}
+  .sub{color:var(--muted);font-size:17.5px;max-width:34ch;margin:20px 0 28px;line-height:1.55}
+  .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .b1{background:var(--cy);color:#042029;font-weight:700;font-size:13.5px;padding:11px 18px;border-radius:6px;text-decoration:none;font-family:var(--mono)}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13px;border:1px solid var(--line-2);padding:11px 15px;border-radius:6px;text-decoration:none}
+  .legend{display:flex;gap:22px;margin-top:30px;padding-top:20px;border-top:1px dashed var(--line-2);font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .legend b{color:var(--muted);font-weight:500}
+  /* schematic panel */
+  .schem{border:1px solid var(--line-2);border-radius:8px;background:rgba(9,20,32,.6);padding:16px}
+  .slab{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.6px;display:flex;justify-content:space-between;margin-bottom:8px}
+  svg{display:block;width:100%;height:auto}
+  .nlbl{font-family:var(--mono);font-size:9.5px;fill:var(--muted)}
+  .nlbl.a{fill:var(--cy-2)}
+  .cap{font-family:var(--mono);font-size:9px;fill:var(--dim)}
+  .ill{font-size:10px;color:var(--dim);font-style:italic;margin-top:10px;text-align:right}
+  .tblock{position:absolute;right:14px;bottom:14px;font-family:var(--mono);font-size:9px;color:var(--dim);text-align:right;line-height:1.6;border:1px solid var(--line-2);border-radius:4px;padding:7px 10px;background:rgba(9,20,32,.7)}
+  .tblock b{color:var(--muted);font-weight:500}
+  @media(max-width:880px){.body{grid-template-columns:1fr;gap:26px}h1{font-size:38px}.tblock{display:none}}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="draw">
+    <div class="top">
+      <span class="nm">topoteretes / <b>cognee</b></span>
+      <span>DWG · AI-MEMORY-001 · REV C · SHEET 1/1</span>
+    </div>
+    <div class="body">
+      <div>
+        <div class="kicker">AI memory platform for agents</div>
+        <h1>Memory your agents<br><span class="g">keep between<br>sessions.</span></h1>
+        <p class="sub">Cognee is an open-source AI memory platform — give agents persistent long-term memory through a self-hosted knowledge-graph engine.</p>
+        <div class="cta">
+          <a class="b1" href="https://github.com/topoteretes/cognee">Build agent memory →</a>
+          <a class="b2" href="#">$ pip install cognee</a>
+        </div>
+        <div class="legend">
+          <span><b>self-hosted</b></span>
+          <span><b>knowledge graph</b></span>
+          <span><b>cross-session</b></span>
+        </div>
+      </div>
+
+      <div class="schem">
+        <div class="slab"><span>SCHEMATIC — PERSISTENT MEMORY GRAPH</span><span>illustrative</span></div>
+        <svg viewBox="0 0 440 290" role="img" aria-label="knowledge graph schematic">
+          <defs>
+            <marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6" fill="none" stroke="#39c6e8" stroke-width="1"/>
+            </marker>
+          </defs>
+          <!-- session rail -->
+          <line x1="20" y1="44" x2="420" y2="44" stroke="#1d3b52" stroke-width="1" stroke-dasharray="3 4"/>
+          <text x="20" y="34" class="cap">SESSION  t1 ───────────────  t2 ───────────────  t3</text>
+          <!-- edges -->
+          <g stroke="#1d3b52" stroke-width="1.2" fill="none">
+            <line x1="92" y1="120" x2="210" y2="96" marker-end="url(#ar)"/>
+            <line x1="92" y1="120" x2="170" y2="200" marker-end="url(#ar)"/>
+            <line x1="210" y1="96" x2="330" y2="130" marker-end="url(#ar)"/>
+            <line x1="170" y1="200" x2="300" y2="220" marker-end="url(#ar)"/>
+            <line x1="330" y1="130" x2="300" y2="220" stroke-dasharray="3 3"/>
+            <line x1="210" y1="96" x2="170" y2="200"/>
+          </g>
+          <!-- persistence links to rail (dashed cyan) -->
+          <g stroke="#11546b" stroke-width="1" stroke-dasharray="2 4">
+            <line x1="92" y1="120" x2="92" y2="44"/>
+            <line x1="210" y1="96" x2="210" y2="44"/>
+            <line x1="330" y1="130" x2="330" y2="44"/>
+          </g>
+          <!-- nodes -->
+          <g>
+            <circle cx="92" cy="120" r="13" fill="#0b1825" stroke="#39c6e8" stroke-width="1.4"/>
+            <text x="92" y="146" text-anchor="middle" class="nlbl a">entity</text>
+            <circle cx="210" cy="96" r="13" fill="#0b1825" stroke="#8fe3f5" stroke-width="1.4"/>
+            <text x="210" y="78" text-anchor="middle" class="nlbl a">fact</text>
+            <circle cx="170" cy="200" r="13" fill="#0b1825" stroke="#52708a" stroke-width="1.4"/>
+            <text x="170" y="226" text-anchor="middle" class="nlbl">doc</text>
+            <circle cx="330" cy="130" r="13" fill="#0b1825" stroke="#39c6e8" stroke-width="1.4"/>
+            <text x="330" y="112" text-anchor="middle" class="nlbl a">concept</text>
+            <circle cx="300" cy="220" r="13" fill="#0b1825" stroke="#52708a" stroke-width="1.4"/>
+            <text x="300" y="246" text-anchor="middle" class="nlbl">recall</text>
+          </g>
+          <text x="20" y="278" class="cap">PERSIST ↑ writes survive across sessions · graph is the memory</text>
+        </svg>
+        <div class="ill">Graph contents are illustrative.</div>
+      </div>
+    </div>
+    <div class="tblock"><b>SCALE</b> n.t.s.&nbsp;&nbsp;<b>UNITS</b> nodes·edges<br><b>DRAWN</b> goose &nbsp; <b>STYLE</b> blueprint</div>
+  </div>
+</div>
+</body>
+</html>
+

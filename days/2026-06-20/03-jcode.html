@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jcode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070a0c; --panel:#0a1014; --line:#152530; --line-2:#1f3947;
+    --ink:#e7f1f6; --muted:#8ba3b0; --dim:#536872;
+    --cy:#34d8f0; --cy-2:#86ecf9; --cy-dim:#106377;
+    --amb:#ffb020;
+    --grid:rgba(52,216,240,.045);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 30px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.4px;color:var(--ink)}
+  .brand .tag{width:8px;height:8px;border-radius:50%;background:var(--cy);box-shadow:0 0 12px var(--cy)}
+  .sys{font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;gap:18px;letter-spacing:.5px}
+  .sys b{color:var(--muted);font-weight:500}
+  .hero{display:grid;grid-template-columns:1.04fr .96fr;gap:46px;align-items:center;padding:64px 0 52px}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11.5px;color:var(--cy-2);
+    letter-spacing:.7px;text-transform:uppercase;border:1px solid var(--cy-dim);border-radius:4px;padding:5px 11px;margin-bottom:24px;background:rgba(52,216,240,.04)}
+  h1{font-size:55px;line-height:1.02;letter-spacing:-1.4px;font-weight:700}
+  h1 .g{color:var(--dim)}
+  .sub{color:var(--muted);font-size:18px;max-width:32ch;margin:22px 0 30px;line-height:1.55}
+  .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .b1{background:var(--cy);color:#04222a;font-weight:700;font-size:14px;padding:11px 19px;border-radius:7px;text-decoration:none;font-family:var(--mono)}
+  .b2{color:var(--ink);font-family:var(--mono);font-size:13px;border:1px solid var(--line-2);padding:11px 16px;border-radius:7px;text-decoration:none}
+  .deploys{display:flex;gap:24px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+  .deploys b{color:var(--muted);font-weight:500}
+  /* instrument: harness control surface */
+  .instr{background:radial-gradient(120% 120% at 50% 0%,#0c141a,#080d10);border:1px solid var(--line-2);border-radius:16px;
+    padding:20px;box-shadow:0 30px 80px -42px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.02)}
+  .ihead{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.5px;margin-bottom:16px}
+  .ihead .live{color:var(--cy-2);display:flex;align-items:center;gap:7px}
+  .ihead .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cy);box-shadow:0 0 9px var(--cy)}
+  /* run loop ladder */
+  .ladder{border:1px solid var(--line);border-radius:10px;background:#091014;overflow:hidden}
+  .step{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line)}
+  .step:last-child{border-bottom:none}
+  .step .ix{font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .step .nm{font-family:var(--mono);font-size:13px;color:var(--ink)}
+  .step .st{font-family:var(--mono);font-size:11px;letter-spacing:.4px}
+  .ok{color:var(--cy-2)}.run{color:var(--amb)}.idle{color:var(--dim)}
+  .step.active{background:rgba(52,216,240,.04)}
+  .gaugerow{display:flex;gap:14px;margin-top:14px}
+  .g2{flex:1;border:1px solid var(--line);border-radius:9px;background:#091014;padding:12px 13px}
+  .g2 .v{font-family:var(--mono);font-weight:700;font-size:24px;color:var(--cy-2);letter-spacing:-.5px}
+  .g2 .v small{font-size:12px;color:var(--muted);font-weight:500}
+  .g2 .l{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.5px;margin-top:5px}
+  .ill{font-size:10px;color:var(--dim);font-style:italic;font-family:'Inter';margin-top:11px;text-align:right}
+  @media(max-width:880px){.hero{grid-template-columns:1fr;gap:34px;padding:42px 0}h1{font-size:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="tag"></span>JCODE</div>
+    <div class="sys"><span><b>TYPE</b> coding-agent harness</span><span><b>LOOP</b> armed</span></div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <span class="kicker">◢ coding agent harness</span>
+      <h1>The harness your<br>coding agent <span class="g">flies in.</span></h1>
+      <p class="sub">jcode is a harness for coding agents — the control surface that runs the loop, holds the context, and keeps each pass on instruments.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/1jehuang/jcode">Open the harness →</a>
+        <a class="b2" href="#">$ jcode run</a>
+      </div>
+      <div class="deploys">
+        <span><b>loop</b> control</span>
+        <span><b>tool</b> dispatch</span>
+        <span><b>run</b> telemetry</span>
+      </div>
+    </div>
+
+    <div class="instr">
+      <div class="ihead"><span>AGENT RUN — CONTROL SURFACE</span><span class="live">LOOP ACTIVE</span></div>
+      <div class="ladder">
+        <div class="step"><span class="ix">01</span><span class="nm">read context</span><span class="st ok">✓ done</span></div>
+        <div class="step"><span class="ix">02</span><span class="nm">plan step</span><span class="st ok">✓ done</span></div>
+        <div class="step active"><span class="ix">03</span><span class="nm">edit + run tool</span><span class="st run">● running</span></div>
+        <div class="step"><span class="ix">04</span><span class="nm">verify check</span><span class="st idle">— armed</span></div>
+        <div class="step"><span class="ix">05</span><span class="nm">commit or retry</span><span class="st idle">— armed</span></div>
+      </div>
+      <div class="gaugerow">
+        <div class="g2"><div class="v">03<small>/05</small></div><div class="l">LOOP STAGE</div></div>
+        <div class="g2"><div class="v">2<small>tools</small></div><div class="l">DISPATCHED</div></div>
+        <div class="g2"><div class="v">0<small>err</small></div><div class="l">FAULTS</div></div>
+      </div>
+      <div class="ill">Run state is illustrative.</div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

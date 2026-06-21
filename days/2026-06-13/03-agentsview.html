@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>agentsview — session intelligence for your coding agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void: #080b0e; --panel: #0c1014; --ink: #dde6ec; --soft: #6e818f;
+    --hair: rgba(120,160,200,0.12); --ice: #36c2d6; --ice-dim: rgba(54,194,214,0.12); --maxw: 1180px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--void); color: var(--ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.5; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; } .mono { font-family: "JetBrains Mono", monospace; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 58px; border-bottom: 1px solid var(--hair); }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ice); box-shadow: 0 0 0 3px var(--ice-dim); }
+  .nav { display: flex; gap: 24px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--soft); }
+  .nav a { text-decoration: none; } .nav a:hover { color: var(--ink); }
+
+  /* split hero: copy left, instrument cluster (gauge + bars) right */
+  .hero { padding: 72px 0 60px; display: grid; grid-template-columns: 1fr 0.92fr; gap: 56px; align-items: center; }
+  .desig { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.22em; color: var(--ice); text-transform: uppercase; margin: 0 0 24px; }
+  h1 { font-family: "Rajdhani", sans-serif; font-weight: 700; text-transform: uppercase; font-size: clamp(46px, 6.6vw, 78px); line-height: 0.96; letter-spacing: 0.01em; margin: 0 0 20px; }
+  h1 .lit { color: var(--ice); }
+  .lede { color: var(--soft); font-size: 17.5px; max-width: 40ch; margin: 0 0 30px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; }
+  .btn { font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: 0.06em; text-decoration: none; padding: 13px 22px; border-radius: 4px; font-weight: 700; background: var(--ice); color: #04161a; transition: transform 150ms cubic-bezier(0.23,1,0.32,1), filter 150ms; }
+  .btn:hover { filter: brightness(1.1); } .btn:active { transform: scale(0.97); }
+  .btn.ghost { background: transparent; color: var(--ice); border: 1px solid var(--ice); }
+  .btn.ghost:hover { background: var(--ice-dim); }
+
+  /* instrument cluster */
+  .panel { border: 1px solid var(--hair); border-radius: 10px; background: var(--panel); overflow: hidden; box-shadow: 0 28px 64px -34px rgba(0,0,0,0.85); }
+  .panel-head { display: flex; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid var(--hair); font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--soft); letter-spacing: 0.1em; text-transform: uppercase; }
+  .dials { display: grid; grid-template-columns: 1fr 1fr; }
+  .dial { padding: 20px 18px; border-right: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .dial:nth-child(2n) { border-right: none; }
+  .dial:nth-child(n+3) { border-bottom: none; }
+  .dial .k { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--soft); letter-spacing: 0.08em; text-transform: uppercase; }
+  .dial .v { font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 32px; line-height: 1; margin-top: 8px; letter-spacing: 0.01em; }
+  .dial .v small { color: var(--ice); font-size: 15px; }
+  .bars { display: flex; align-items: flex-end; gap: 5px; height: 56px; padding: 16px 18px 18px; border-top: 1px solid var(--hair); }
+  .bars i { flex: 1; background: var(--ice-dim); border-radius: 2px 2px 0 0; }
+  .bars i.hot { background: var(--ice); }
+  .panel-foot { padding: 11px 18px; font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--soft); letter-spacing: 0.06em; }
+
+  .mem { border-top: 1px solid var(--hair); padding: 52px 0 72px; }
+  .mem h2 { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--soft); text-transform: uppercase; margin: 0 0 26px; }
+  .mem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 8px; overflow: hidden; }
+  .cell { background: var(--panel); padding: 24px 22px; }
+  .cell .id { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ice); letter-spacing: 0.1em; }
+  .cell h3 { font-family: "Rajdhani", sans-serif; font-weight: 600; text-transform: uppercase; font-size: 20px; letter-spacing: 0.03em; margin: 12px 0 8px; }
+  .cell p { margin: 0; color: var(--soft); font-size: 13.5px; max-width: 30ch; }
+
+  footer { border-top: 1px solid var(--hair); padding: 24px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--soft); letter-spacing: 0.08em; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .bars i.hot { animation: pulse 2.6s ease-in-out infinite alternate; } @keyframes pulse { from { opacity: 0.6; } to { opacity: 1; } }
+  }
+  .no-anim .bars i.hot { animation: none !important; }
+  @media (max-width: 880px) { .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; } .mem-grid { grid-template-columns: 1fr; } .nav { display: none; } }
+</style>
+</head>
+<body>
+  <script>if (location.search.indexOf('static') !== -1) document.documentElement.classList.add('no-anim');</script>
+  <div class="wrap">
+    <div class="bar">
+      <span class="brand"><span class="dot"></span> AGENTSVIEW</span>
+      <nav class="nav"><a href="#">SESSIONS</a><a href="#">AGENTS</a><a href="#">DOCS</a><a href="https://github.com/kenn-io/agentsview">GITHUB</a></nav>
+    </div>
+
+    <section class="hero">
+      <div>
+        <p class="desig">SESSION INTELLIGENCE · LOCAL-FIRST</p>
+        <h1>Instrument <span class="lit">every agent run.</span></h1>
+        <p class="lede">agentsview reads sessions from Claude Code, Codex, and 20+ other coding agents into one local-first cockpit. Also a 100x faster replacement for ccusage.</p>
+        <div class="cta-row">
+          <a class="btn" href="#">npx agentsview</a>
+          <a class="btn ghost" href="#">SUPPORTED AGENTS</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><span>SESSIONS · 7-DAY</span><span>LOCAL · NO CLOUD</span></div>
+        <div class="dials">
+          <div class="dial"><div class="k">Sessions</div><div class="v">312</div></div>
+          <div class="dial"><div class="k">Agents</div><div class="v">7</div></div>
+          <div class="dial"><div class="k">Tokens</div><div class="v">48.2<small>M</small></div></div>
+          <div class="dial"><div class="k">vs ccusage</div><div class="v">100<small>×</small></div></div>
+        </div>
+        <div class="bars">
+          <i style="height:40%"></i><i style="height:58%"></i><i style="height:32%"></i><i style="height:74%"></i><i class="hot" style="height:92%"></i><i style="height:50%"></i><i style="height:66%"></i><i style="height:44%"></i><i style="height:80%"></i><i class="hot" style="height:86%"></i><i style="height:38%"></i><i style="height:62%"></i>
+        </div>
+        <div class="panel-foot">ILLUSTRATIVE READOUT · DATA STAYS ON YOUR MACHINE</div>
+      </div>
+    </section>
+  </div>
+
+  <section class="mem">
+    <div class="wrap">
+      <h2>// why instrument agents</h2>
+      <div class="mem-grid">
+        <div class="cell"><span class="id">OBS-01</span><h3>One cockpit</h3><p>Claude Code, Codex, and 20+ more parsed into a single session view, not scattered logs.</p></div>
+        <div class="cell"><span class="id">OBS-02</span><h3>Local-first</h3><p>Your prompts and code never leave the machine to be analyzed.</p></div>
+        <div class="cell"><span class="id">OBS-03</span><h3>Fast</h3><p>A drop-in replacement for ccusage when you just want quick token accounting.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>AGENTSVIEW // SESSION INTELLIGENCE</span><span>kenn-io / agentsview</span></div></footer>
+</body>
+</html>

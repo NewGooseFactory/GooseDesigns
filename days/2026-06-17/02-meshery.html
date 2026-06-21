@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meshery — The cloud native manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050a07;
+    --panel:#0a120c;
+    --grid:rgba(95,207,106,.07);
+    --ink:#e2f0e6;
+    --muted:#7e947f;
+    --green:#5fcf6a;
+    --green-2:#9be0a0;
+    --amber:#f5c34a;
+    --line:rgba(95,207,106,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:40px 40px;overflow-x:hidden}
+  .wrap{max-width:1180px;margin:0 auto;padding:30px 40px 80px}
+  header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.06em}
+  .ret{width:26px;height:26px;border:1.5px solid var(--green);border-radius:6px;position:relative;display:grid;place-items:center;transform:rotate(45deg)}
+  .ret span{width:8px;height:8px;background:var(--green);border-radius:2px}
+  nav{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+  nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--green)}
+  .pill{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);border:1px solid var(--line);padding:6px 12px;border-radius:2px;display:flex;align-items:center;gap:8px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:54px;margin-top:60px;align-items:center}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green-2);letter-spacing:.18em;text-transform:uppercase;margin-bottom:22px}
+  h1{font-size:clamp(38px,5.2vw,58px);line-height:1.04;letter-spacing:-.02em;font-weight:700}
+  h1 em{font-style:normal;color:var(--green)}
+  .lede{margin-top:22px;font-size:18px;line-height:1.6;color:var(--muted);max-width:32ch}
+  .cta{margin-top:34px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;padding:13px 22px;border-radius:3px;text-decoration:none;letter-spacing:.02em}
+  .btn-p{background:var(--green);color:#08160a}
+  .btn-p:hover{box-shadow:0 8px 24px rgba(95,207,106,.3)}
+  .btn-s{border:1px solid var(--line);color:var(--ink)}
+  .btn-s:hover{border-color:var(--green);color:var(--green)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px;font-family:'JetBrains Mono',monospace;position:relative}
+  .ph{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+  .mesh{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+  .pod{aspect-ratio:1;border:1px solid var(--line);border-radius:5px;display:grid;place-items:center;position:relative;background:rgba(95,207,106,.03)}
+  .pod span{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+  .pod.warn span{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+  .pod small{position:absolute;bottom:5px;font-size:8px;color:var(--muted)}
+  .rows{display:flex;flex-direction:column;gap:8px}
+  .row{display:flex;align-items:center;gap:10px;font-size:12px;padding:8px 11px;border:1px solid var(--line);border-radius:4px}
+  .row .nm{flex:1;color:var(--ink)}
+  .row .st{font-size:10px;color:var(--green)}
+  .row.w .st{color:var(--amber)}
+  .foot{font-size:10px;color:var(--muted);opacity:.6;margin-top:12px}
+  .strip{margin-top:64px;border-top:1px solid var(--line);padding-top:26px;display:flex;gap:46px;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+  .strip div{font-size:12px;color:var(--muted)}
+  .strip b{display:block;font-size:22px;color:var(--ink);font-weight:700;margin-bottom:4px}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:36px}nav,.pill{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="ret"><span></span></span>MESHERY</div>
+    <nav><a href="#">Designs</a><a href="#">Catalog</a><a href="#">Docs</a><a href="#">GitHub</a></nav>
+    <div class="pill"><span class="dot"></span>MESH NOMINAL</div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="tag">// CLOUD NATIVE FLIGHT DECK</div>
+      <h1>One console for the <em>whole</em> mesh.</h1>
+      <p class="lede">Meshery, the cloud native manager.</p>
+      <div class="cta">
+        <a class="btn btn-p" href="#">Launch console ▸</a>
+        <a class="btn btn-s" href="#">Read the docs</a>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ph"><span>CLUSTER STATUS</span><span>NS//default · LIVE</span></div>
+      <div class="mesh">
+        <div class="pod"><span></span><small>svc-a</small></div>
+        <div class="pod"><span></span><small>svc-b</small></div>
+        <div class="pod warn"><span></span><small>svc-c</small></div>
+        <div class="pod"><span></span><small>svc-d</small></div>
+        <div class="pod"><span></span><small>gw</small></div>
+        <div class="pod"><span></span><small>db</small></div>
+        <div class="pod"><span></span><small>cache</small></div>
+        <div class="pod"><span></span><small>queue</small></div>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="nm">sidecar inject · namespace</span><span class="st">SYNCED</span></div>
+        <div class="row w"><span class="nm">svc-c · p99 latency drift</span><span class="st">WATCH</span></div>
+        <div class="row"><span class="nm">policy apply · design v4</span><span class="st">OK</span></div>
+      </div>
+      <div class="foot">Topology is illustrative.</div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div><b>Manage</b>multi-cluster, one pane</div>
+    <div><b>Design</b>cloud native, visually</div>
+    <div><b>Operate</b>policies &amp; lifecycle</div>
+    <div><b>OSS</b>CNCF ecosystem</div>
+  </section>
+</div>
+</body>
+</html>
+
