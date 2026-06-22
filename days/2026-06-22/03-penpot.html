@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Penpot — design and code collaboration</title>
+<style>
+  :root{
+    --ink:#0A0A0A; --paper:#FBFBF9; --red:#E5231B; --grid:rgba(10,10,10,.07);
+    --sans:Inter,"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SFMono-Regular",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.1}
+  .frame{max-width:1200px;margin:0 auto;min-height:100vh;padding:0 28px;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px);background-size:100% 56px;background-position:0 0;
+    display:flex;flex-direction:column}
+  /* header row */
+  .hd{display:grid;grid-template-columns:repeat(12,1fr);align-items:center;padding:22px 0;border-bottom:2px solid var(--ink)}
+  .hd .brand{grid-column:1/4;font-weight:800;font-size:21px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+  .sq{width:15px;height:15px;background:var(--red)}
+  .hd nav{grid-column:5/13;display:flex;gap:28px;justify-content:flex-end;font-size:13px;font-weight:500}
+  .hd nav a{color:var(--ink);text-decoration:none;opacity:.7}
+  .hd nav a:hover{opacity:1}
+  .hd nav .mono{font-family:var(--mono);font-size:11px;letter-spacing:.1em;opacity:.5;text-transform:uppercase}
+  /* hero grid */
+  .hero{display:grid;grid-template-columns:repeat(12,1fr);gap:0;flex:1;align-content:center;padding:40px 0}
+  .ey{grid-column:1/13;font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:22px}
+  h1{grid-column:1/11;font-size:clamp(46px,10vw,128px);line-height:.9;letter-spacing:-.045em;font-weight:800}
+  h1 .slash{color:var(--red);font-weight:400}
+  .meta{grid-column:11/13;align-self:end;text-align:right;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#555;text-transform:uppercase;line-height:1.6}
+  .lede{grid-column:1/7;margin-top:34px;font-size:19px;line-height:1.45;font-weight:450}
+  .lede b{font-weight:700}
+  .actions{grid-column:1/7;margin-top:26px;display:flex;gap:14px;align-items:center}
+  .btn{font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px}
+  .btn.p{background:var(--ink);color:var(--paper)}
+  .btn.p:hover{background:var(--red)}
+  .btn.s{color:var(--ink);border-bottom:2px solid var(--ink);padding:12px 2px}
+  .btn.s:hover{color:var(--red);border-color:var(--red)}
+  /* duality strip */
+  .duo{grid-column:8/13;margin-top:30px;border-left:2px solid var(--ink);padding-left:22px;display:flex;flex-direction:column;gap:18px}
+  .duo .d{display:flex;align-items:baseline;gap:14px}
+  .duo .n{font-family:var(--mono);font-size:12px;color:var(--red);width:26px}
+  .duo .t{font-size:21px;font-weight:700;letter-spacing:-.01em}
+  .duo .t span{display:block;font-size:13px;font-weight:450;color:#555;margin-top:5px;letter-spacing:0}
+  .duo .ex{font-family:var(--mono);font-size:26px;color:var(--ink);text-align:center;opacity:.85}
+  /* footer */
+  .ft{display:grid;grid-template-columns:repeat(12,1fr);align-items:center;padding:18px 0;border-top:2px solid var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#555}
+  .ft .a{grid-column:1/6}
+  .ft .b{grid-column:6/10;text-align:center}
+  .ft .c{grid-column:10/13;text-align:right}
+  .ft b{color:var(--ink)}
+  @media(max-width:820px){
+    h1{grid-column:1/13} .meta{grid-column:1/13;text-align:left;margin-top:14px}
+    .lede,.actions,.duo{grid-column:1/13} .duo{border-left:0;padding-left:0;border-top:2px solid var(--ink);padding-top:20px}
+    .hd nav{display:none}
+  }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <header class="hd">
+      <div class="brand"><span class="sq"></span>Penpot</div>
+      <nav>
+        <a href="#">Design</a>
+        <a href="#">Code</a>
+        <a href="#">Open source</a>
+        <a class="mono" href="https://github.com/penpot/penpot">github ↗</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="ey">The open-source design tool</div>
+      <h1>Design<span class="slash"> / </span>Code.<br>One canvas.</h1>
+      <div class="meta">penpot / penpot<br>open source<br>trending · #4</div>
+
+      <p class="lede">The design tool for <b>design and code collaboration</b> — built so designers and developers finally work on the same source of truth, not two copies of it.</p>
+
+      <div class="actions">
+        <a class="btn p" href="https://github.com/penpot/penpot">Star on GitHub</a>
+        <a class="btn s" href="https://github.com/penpot/penpot">Read the docs</a>
+      </div>
+
+      <div class="duo">
+        <div class="d"><span class="n">01</span><span class="t">Design<span>compose, prototype, hand off</span></span></div>
+        <div class="ex">&#8644;</div>
+        <div class="d"><span class="n">02</span><span class="t">Code<span>same canvas, no translation loss</span></span></div>
+      </div>
+    </section>
+
+    <footer class="ft">
+      <div class="a"><b>Open source</b> · self-hostable</div>
+      <div class="b">design ⇄ code, one file</div>
+      <div class="c"><b>Penpot</b></div>
+    </footer>
+  </div>
+</body>
+</html>

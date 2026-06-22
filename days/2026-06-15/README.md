@@ -1,4 +1,4 @@
-﻿# Design Rep — Monday, June 15
+# Design Rep — Monday, June 15
 
 > 3 mocks — terminal-dark
 

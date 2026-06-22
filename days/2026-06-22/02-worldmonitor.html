@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>worldmonitor — situational awareness console</title>
+<style>
+  :root{
+    --bg:#0D1316; --panel:#121B20; --panel2:#0F171B; --line:#21303A;
+    --txt:#D2DCE0; --mut:#74878F; --teal:#2DD4BF; --teal-dim:#1c7c72;
+    --amber:#E0A714; --red:#E5575C; --green:#41D195;
+    --mono:ui-monospace,"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+    --sans:Inter,"Helvetica Neue",system-ui,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.4}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .shell{max-width:1240px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+  /* top bar */
+  .top{display:flex;align-items:center;gap:18px;padding:14px 20px;border-bottom:1px solid var(--line)}
+  .logo{font-weight:800;letter-spacing:-.02em;font-size:18px}
+  .logo .d{color:var(--teal)}
+  .live{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--teal);border:1px solid var(--teal-dim);padding:3px 8px;border-radius:2px;display:flex;align-items:center;gap:6px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(45,212,191,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(45,212,191,.5)}70%{box-shadow:0 0 0 7px rgba(45,212,191,0)}100%{box-shadow:0 0 0 0 rgba(45,212,191,0)}}
+  .top .sub{color:var(--mut);font-size:13px;max-width:48ch}
+  .top .clock{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--mut)}
+  .illus{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:#0D1316;background:var(--amber);padding:3px 7px;border-radius:2px;font-weight:700}
+  /* body grid */
+  .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:1px;background:var(--line);flex:1}
+  @media(max-width:880px){.grid{grid-template-columns:1fr}}
+  .col{background:var(--bg);display:flex;flex-direction:column;gap:1px}
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+  .tile{background:var(--panel);padding:14px 16px}
+  .tile .lab{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
+  .tile .big{font-size:26px;font-weight:700;margin-top:6px;display:flex;align-items:baseline;gap:6px}
+  .tile .delta{font-family:var(--mono);font-size:11px}
+  .up{color:var(--green)} .dn{color:var(--red)} .fl{color:var(--amber)}
+  .spark{margin-top:8px;display:block}
+  /* feed */
+  .panel{background:var(--panel);padding:16px;flex:1}
+  .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .ph h2{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:700;font-family:var(--mono)}
+  .feed{display:flex;flex-direction:column}
+  .row{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+  .row:first-child{border-top:0}
+  .cat{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--teal);text-transform:uppercase}
+  .msg{font-size:14px}
+  .msg small{color:var(--mut);font-size:12px;display:block;margin-top:2px}
+  .sev{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--mut)}
+  .sev i{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .sev.h i{background:var(--red)} .sev.m i{background:var(--amber)} .sev.l i{background:var(--green)}
+  /* region table */
+  .reg{display:flex;flex-direction:column}
+  .reg .rrow{display:grid;grid-template-columns:1fr 70px 90px;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13px}
+  .reg .rrow:first-child{border-top:0}
+  .reg .rname{display:flex;align-items:center;gap:8px}
+  .bar{height:6px;background:var(--panel2);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--teal)}
+  .reg .st{font-family:var(--mono);font-size:11px;text-align:right}
+  /* legend footer */
+  .legend{display:flex;gap:18px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--mut)}
+  .legend span{display:flex;align-items:center;gap:7px}
+  .legend i{width:9px;height:9px;border-radius:50%}
+  a.cta{margin-left:auto;color:var(--teal);text-decoration:none;border:1px solid var(--teal-dim);padding:5px 12px;border-radius:2px;font-size:11px;letter-spacing:.06em}
+  a.cta:hover{background:var(--teal);color:#06100f}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="top">
+      <div class="logo">world<span class="d">monitor</span></div>
+      <div class="live"><span class="dot"></span>LIVE</div>
+      <div class="sub">Real-time global intelligence — news aggregation, geopolitical monitoring &amp; infrastructure tracking in one situational-awareness interface.</div>
+      <div class="clock"><span class="illus">ILLUSTRATIVE DATA</span></div>
+    </div>
+
+    <div class="grid">
+      <!-- left: tiles + feed -->
+      <div class="col">
+        <div class="tiles">
+          <div class="tile">
+            <div class="lab">Signals / hr</div>
+            <div class="big"><span class="num">1,284</span><span class="delta up">+6%</span></div>
+            <svg class="spark" width="100%" height="26" viewBox="0 0 120 26" preserveAspectRatio="none"><polyline fill="none" stroke="#2DD4BF" stroke-width="1.5" points="0,20 15,18 30,21 45,12 60,15 75,9 90,11 105,6 120,8"/></svg>
+          </div>
+          <div class="tile">
+            <div class="lab">Active regions</div>
+            <div class="big"><span class="num">37</span><span class="delta fl">stable</span></div>
+            <svg class="spark" width="100%" height="26" viewBox="0 0 120 26" preserveAspectRatio="none"><polyline fill="none" stroke="#E0A714" stroke-width="1.5" points="0,14 15,15 30,13 45,14 60,12 75,14 90,13 105,15 120,13"/></svg>
+          </div>
+          <div class="tile">
+            <div class="lab">Alerts open</div>
+            <div class="big"><span class="num">9</span><span class="delta dn">+2</span></div>
+            <svg class="spark" width="100%" height="26" viewBox="0 0 120 26" preserveAspectRatio="none"><polyline fill="none" stroke="#E5575C" stroke-width="1.5" points="0,18 15,17 30,16 45,17 60,13 75,14 90,10 105,11 120,7"/></svg>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="ph"><h2>Intelligence feed</h2><span class="num" style="color:var(--mut);font-size:11px">stream · auto</span></div>
+          <div class="feed">
+            <div class="row"><span class="cat">Energy</span><span class="msg">Grid frequency drift flagged on regional interconnect<small>aggregated · 3 sources corroborate</small></span><span class="sev h"><i></i>high</span></div>
+            <div class="row"><span class="cat">Maritime</span><span class="msg">Unusual routing density near strait corridor<small>infrastructure tracking</small></span><span class="sev m"><i></i>watch</span></div>
+            <div class="row"><span class="cat">Cyber</span><span class="msg">Coordinated outage chatter rising across feeds<small>news + telemetry</small></span><span class="sev m"><i></i>watch</span></div>
+            <div class="row"><span class="cat">Markets</span><span class="msg">Commodity volatility normalizing after open<small>geopolitical monitor</small></span><span class="sev l"><i></i>clear</span></div>
+            <div class="row"><span class="cat">Climate</span><span class="msg">Severe-weather band updated for 2 regions<small>infrastructure tracking</small></span><span class="sev l"><i></i>clear</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- right: region status -->
+      <div class="col">
+        <div class="panel reg">
+          <div class="ph"><h2>Region status</h2><span class="num" style="color:var(--mut);font-size:11px">awareness index</span></div>
+          <div class="rrow"><div class="rname"><span class="num">01</span> Eastern Europe</div><div class="bar"><i style="width:82%"></i></div><div class="st" style="color:var(--red)">elevated</div></div>
+          <div class="rrow"><div class="rname"><span class="num">02</span> Indo-Pacific</div><div class="bar"><i style="width:67%"></i></div><div class="st" style="color:var(--amber)">watch</div></div>
+          <div class="rrow"><div class="rname"><span class="num">03</span> Middle East</div><div class="bar"><i style="width:74%"></i></div><div class="st" style="color:var(--amber)">watch</div></div>
+          <div class="rrow"><div class="rname"><span class="num">04</span> West Africa</div><div class="bar"><i style="width:41%"></i></div><div class="st" style="color:var(--green)">nominal</div></div>
+          <div class="rrow"><div class="rname"><span class="num">05</span> Latin America</div><div class="bar"><i style="width:33%"></i></div><div class="st" style="color:var(--green)">nominal</div></div>
+          <div class="rrow"><div class="rname"><span class="num">06</span> North Atlantic</div><div class="bar"><i style="width:28%"></i></div><div class="st" style="color:var(--green)">nominal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span><i style="background:var(--red)"></i>elevated</span>
+      <span><i style="background:var(--amber)"></i>watch</span>
+      <span><i style="background:var(--green)"></i>nominal</span>
+      <span style="color:#566169">koala73 / worldmonitor · open-source situational awareness</span>
+      <a class="cta" href="https://github.com/koala73/worldmonitor">View on GitHub →</a>
+    </div>
+  </div>
+</body>
+</html>

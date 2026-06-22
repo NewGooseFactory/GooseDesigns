@@ -1,4 +1,4 @@
-﻿# Design Rep — Tuesday, June 9
+# Design Rep — Tuesday, June 9
 
 > 3 mocks — editorial
 

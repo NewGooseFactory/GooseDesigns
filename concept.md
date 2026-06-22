@@ -1,4 +1,4 @@
-﻿---
+---
 title: Concept — Design Taste
 date: 2026-06-08
 type: concept

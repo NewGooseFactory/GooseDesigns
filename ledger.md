@@ -1,4 +1,4 @@
-﻿# Design Taste Ledger
+# Design Taste Ledger
 
 Append-only record — one line per mock: date · repo · style · idea tested → verdict.
 
@@ -44,3 +44,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-06-21 — [rep](days/2026-06-21/) — topoteretes/cognee — blueprint/cyan — agent memory as a knowledge-graph schematic with a session rail → landed
 - 2026-06-21 — [rep](days/2026-06-21/) — bytedance/deer-flow — blueprint/amber — long-horizon harness as a 3-lane pipeline over a minutes→hours axis → landed
 - 2026-06-21 — [rep](days/2026-06-21/) — mukul975/Anthropic-Cybersecurity-Skills — blueprint/green — 754 skills x 5 frameworks as a crosswalk matrix → landed
+- 2026-06-22 — [rep](days/2026-06-22/) — calesthio/OpenMontage — brutalist/electric-blue — render the system's surface area (12/52/500+) as an exposed hard-bordered rack → landed
+- 2026-06-22 — [rep](days/2026-06-22/) — koala73/worldmonitor — data-viz/teal — make the hero a working situational-awareness console, not a screenshot of one → landed
+- 2026-06-22 — [rep](days/2026-06-22/) — penpot/penpot — swiss/red — design ⇄ code as one strict Swiss grid with a single red accent → mostly (duality column leans on an implied glyph)

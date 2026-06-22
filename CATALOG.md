@@ -1,11 +1,14 @@
-﻿# Catalog — every design rep
+# Catalog — every design rep
 
-Searchable master index. **42 mocks** across **14 days**. Newest first.
+Searchable master index. **45 mocks** across **15 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-06-22 | Monday | [calesthio/OpenMontage](https://github.com/calesthio/OpenMontage) | brutalist | electric-blue | render the system's surface area (12/52/500+) as an exposed hard-bordered rack | landed | [png](days/2026-06-22/01-OpenMontage.png) | [2026-06-22](days/2026-06-22/) |
+| 2026-06-22 | Monday | [koala73/worldmonitor](https://github.com/koala73/worldmonitor) | data-viz | teal | make the hero a working situational-awareness console, not a screenshot of one | landed | [png](days/2026-06-22/02-worldmonitor.png) | [2026-06-22](days/2026-06-22/) |
+| 2026-06-22 | Monday | [penpot/penpot](https://github.com/penpot/penpot) | swiss | red | design ⇄ code as one strict Swiss grid with a single red accent | mostly (duality column leans on an implied glyph) | [png](days/2026-06-22/03-penpot.png) | [2026-06-22](days/2026-06-22/) |
 | 2026-06-21 | Sunday | [topoteretes/cognee](https://github.com/topoteretes/cognee) | blueprint | cyan | agent memory as a knowledge-graph schematic with a session rail | landed | [png](days/2026-06-21/01-cognee.png) | [2026-06-21](days/2026-06-21/) |
 | 2026-06-21 | Sunday | [bytedance/deer-flow](https://github.com/bytedance/deer-flow) | blueprint | amber | long-horizon harness as a 3-lane pipeline over a minutes→hours axis | landed | [png](days/2026-06-21/02-deer-flow.png) | [2026-06-21](days/2026-06-21/) |
 | 2026-06-21 | Sunday | [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | blueprint | green | 754 skills x 5 frameworks as a crosswalk matrix | landed | [png](days/2026-06-21/03-Anthropic-Cybersecurity-Skills.png) | [2026-06-21](days/2026-06-21/) |
