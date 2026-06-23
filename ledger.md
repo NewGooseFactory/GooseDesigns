@@ -47,3 +47,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-06-22 — [rep](days/2026-06-22/) — calesthio/OpenMontage — brutalist/electric-blue — render the system's surface area (12/52/500+) as an exposed hard-bordered rack → landed
 - 2026-06-22 — [rep](days/2026-06-22/) — koala73/worldmonitor — data-viz/teal — make the hero a working situational-awareness console, not a screenshot of one → landed
 - 2026-06-22 — [rep](days/2026-06-22/) — penpot/penpot — swiss/red — design ⇄ code as one strict Swiss grid with a single red accent → mostly (duality column leans on an implied glyph)
+- 2026-06-23 — [rep](days/2026-06-23/) — garrytan/gstack — mono-zine/amber — cast the 23 tools as a literal crew roster in an all-mono terminal manifest → landed
+- 2026-06-23 — [rep](days/2026-06-23/) — revfactory/harness — bauhaus/primary — meta-skill as a central node emitting geometric agents/skills on a drafting grid → landed
+- 2026-06-23 — [rep](days/2026-06-23/) — NousResearch/hermes-agent — warm-minimal/sage — a four-word tagline as a warm growth card compounding context to instinct → mostly (week figures are invented scaffolding)

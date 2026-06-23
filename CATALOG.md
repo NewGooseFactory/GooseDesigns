@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **45 mocks** across **15 days**. Newest first.
+Searchable master index. **48 mocks** across **16 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-06-23 | Tuesday | [garrytan/gstack](https://github.com/garrytan/gstack) | mono-zine | amber | cast the 23 tools as a literal crew roster in an all-mono terminal manifest | landed | [png](days/2026-06-23/01-gstack.png) | [2026-06-23](days/2026-06-23/) |
+| 2026-06-23 | Tuesday | [revfactory/harness](https://github.com/revfactory/harness) | bauhaus | primary | meta-skill as a central node emitting geometric agents/skills on a drafting grid | landed | [png](days/2026-06-23/02-harness.png) | [2026-06-23](days/2026-06-23/) |
+| 2026-06-23 | Tuesday | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | warm-minimal | sage | a four-word tagline as a warm growth card compounding context to instinct | mostly (week figures are invented scaffolding) | [png](days/2026-06-23/03-hermes-agent.png) | [2026-06-23](days/2026-06-23/) |
 | 2026-06-22 | Monday | [calesthio/OpenMontage](https://github.com/calesthio/OpenMontage) | brutalist | electric-blue | render the system's surface area (12/52/500+) as an exposed hard-bordered rack | landed | [png](days/2026-06-22/01-OpenMontage.png) | [2026-06-22](days/2026-06-22/) |
 | 2026-06-22 | Monday | [koala73/worldmonitor](https://github.com/koala73/worldmonitor) | data-viz | teal | make the hero a working situational-awareness console, not a screenshot of one | landed | [png](days/2026-06-22/02-worldmonitor.png) | [2026-06-22](days/2026-06-22/) |
 | 2026-06-22 | Monday | [penpot/penpot](https://github.com/penpot/penpot) | swiss | red | design ⇄ code as one strict Swiss grid with a single red accent | mostly (duality column leans on an implied glyph) | [png](days/2026-06-22/03-penpot.png) | [2026-06-22](days/2026-06-22/) |

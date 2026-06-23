@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>harness — a meta-skill that designs agent teams</title>
+<style>
+  :root{
+    --paper:#F4F1E9; --ink:#16130F; --red:#E2402A; --blue:#1F5FD0; --yellow:#F2C014;
+    --line:#16130F;
+    --sans:"Inter","Helvetica Neue",Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SFMono-Regular",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.18;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 26px;min-height:100vh;display:flex;flex-direction:column}
+  /* top */
+  .top{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-bottom:3px solid var(--ink)}
+  .top .b{display:flex;align-items:center;gap:11px;font-weight:700}
+  .mk{width:18px;height:18px;background:var(--red);border:2px solid var(--ink)}
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:0;border-bottom:3px solid var(--ink);flex:1}
+  @media(max-width:860px){.hero{grid-template-columns:1fr}}
+  .left{padding:40px 36px 36px 0;display:flex;flex-direction:column;justify-content:center}
+  @media(max-width:860px){.left{padding:32px 0}}
+  .kick{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:20px}
+  h1{font-size:clamp(40px,7.6vw,86px);line-height:.92;letter-spacing:-.035em;font-weight:800}
+  h1 em{font-style:normal;color:var(--blue)}
+  h1 .u{box-shadow:inset 0 -.18em 0 var(--yellow)}
+  .lede{margin-top:26px;font-size:18px;line-height:1.45;max-width:44ch;font-weight:450;color:#332e26}
+  .lede b{color:var(--ink);font-weight:700}
+  .cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+  .btn{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:13px 22px;border:2px solid var(--ink)}
+  .btn.p{background:var(--ink);color:var(--paper)}
+  .btn.p:hover{background:var(--red)}
+  .btn.s{background:var(--paper);color:var(--ink)}
+  .btn.s:hover{background:var(--yellow)}
+  /* right: geometric assembly */
+  .right{border-left:3px solid var(--ink);position:relative;overflow:hidden;min-height:420px;background:
+     repeating-linear-gradient(0deg,transparent 0 47px,rgba(22,19,15,.06) 47px 48px),
+     repeating-linear-gradient(90deg,transparent 0 47px,rgba(22,19,15,.06) 47px 48px)}
+  @media(max-width:860px){.right{border-left:0;border-top:3px solid var(--ink);min-height:340px}}
+  .stage{position:absolute;inset:0}
+  /* meta-skill = the circle that emits shapes */
+  .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:118px;height:118px;border-radius:50%;background:var(--red);border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;color:var(--paper);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-align:center;z-index:5;font-weight:700}
+  .core span{line-height:1.3}
+  .ring{position:absolute;left:50%;top:50%;width:118px;height:118px;border:2px solid var(--ink);border-radius:50%;transform:translate(-50%,-50%);opacity:.35;animation:pulse 3.2s ease-out infinite}
+  @keyframes pulse{0%{width:118px;height:118px;opacity:.5}100%{width:360px;height:360px;opacity:0}}
+  /* emitted agent shapes */
+  .ag{position:absolute;border:3px solid var(--ink);display:flex;align-items:flex-end;padding:7px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.04em}
+  .ag.a{width:74px;height:74px;background:var(--blue);left:14%;top:14%;color:var(--paper);animation:f1 6s ease-in-out infinite}
+  .ag.b{width:64px;height:64px;background:var(--yellow);right:12%;top:20%;border-radius:50%;animation:f2 7s ease-in-out infinite}
+  .ag.c{width:80px;height:54px;background:var(--paper);left:10%;bottom:15%;animation:f1 6.6s ease-in-out infinite reverse}
+  .ag.d{width:60px;height:60px;background:var(--ink);color:var(--paper);right:15%;bottom:16%;clip-path:polygon(50% 0,100% 100%,0 100%);align-items:center;justify-content:center;padding:0;animation:f2 5.6s ease-in-out infinite}
+  @keyframes f1{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes f2{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+  /* legend strip */
+  .legend{display:flex;flex-wrap:wrap;gap:0;border-bottom:3px solid var(--ink)}
+  .lg{flex:1;min-width:180px;padding:16px 18px;border-right:3px solid var(--ink);font-size:14px;font-weight:600}
+  .lg:last-child{border-right:0}
+  .lg .n{font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:.08em;display:block;margin-bottom:6px}
+  .lg s{display:block;font-weight:450;color:#5a5448;font-size:12.5px;margin-top:4px;text-decoration:none}
+  .foot{padding:18px 0 26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5a5448}
+  .foot b{color:var(--ink)}
+  @media(prefers-reduced-motion:reduce){.ring,.ag{animation:none}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="b"><span class="mk"></span>revfactory / harness</div>
+      <div>meta-skill · trending #10</div>
+    </div>
+
+    <section class="hero">
+      <div class="left">
+        <div class="kick">one skill that builds the rest</div>
+        <h1>Design the <em>team</em>,<br>then the <span class="u">skills</span> it needs.</h1>
+        <p class="lede">A <b>meta-skill</b> that designs domain-specific agent teams, defines each specialized agent, and generates the skills they run on — point it at a domain, get a staffed crew back.</p>
+        <div class="cta">
+          <a class="btn p" href="https://github.com/revfactory/harness">Get harness</a>
+          <a class="btn s" href="https://github.com/revfactory/harness">How it works</a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="stage">
+          <div class="ring"></div>
+          <div class="core"><span>META<br>SKILL</span></div>
+          <div class="ag a">agent</div>
+          <div class="ag b">agent</div>
+          <div class="ag c">skill</div>
+          <div class="ag d"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="legend">
+      <div class="lg"><span class="n">01 / design</span>Map the domain<s>what roles does this problem actually need?</s></div>
+      <div class="lg"><span class="n">02 / define</span>Specialize agents<s>each gets a job, a scope, a voice</s></div>
+      <div class="lg"><span class="n">03 / generate</span>Emit their skills<s>the tools the crew runs on, written for them</s></div>
+    </div>
+
+    <div class="foot">
+      <span><b>harness</b> — agent teams, generated</span>
+      <span>github.com/revfactory/harness</span>
+    </div>
+  </div>
+</body>
+</html>

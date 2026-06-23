@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hermes — the agent that grows with you</title>
+<style>
+  :root{
+    --bg:#F3EFE7; --card:#FBF8F2; --ink:#2B2722; --soft:#6E665A; --sage:#7C8A6B; --sage-d:#5d6a4f;
+    --terra:#C57B54; --line:#E4DCCE; --shadow:24px 24px 60px rgba(120,108,86,.16);
+    --serif:"Georgia","Iowan Old Style",ui-serif,serif;
+    --sans:"Inter",-apple-system,"Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 26px;min-height:100vh;display:flex;flex-direction:column}
+  /* nav */
+  nav{display:flex;justify-content:space-between;align-items:center;padding:26px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.01em}
+  .seed{width:22px;height:22px;border-radius:50% 50% 50% 0;background:var(--sage);transform:rotate(45deg);box-shadow:inset -3px -3px 0 rgba(0,0,0,.06)}
+  nav .links{display:flex;gap:26px;font-size:14px;color:var(--soft)}
+  nav .links a{color:inherit;text-decoration:none}
+  nav .links a:hover{color:var(--ink)}
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;flex:1;padding:30px 0 44px}
+  @media(max-width:840px){.hero{grid-template-columns:1fr;gap:34px}}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--sage-d);background:rgba(124,138,107,.12);border-radius:100px;padding:7px 14px;font-weight:600;letter-spacing:.02em}
+  .pill i{width:7px;height:7px;border-radius:50%;background:var(--sage);display:inline-block}
+  h1{font-family:var(--serif);font-size:clamp(40px,6.6vw,68px);line-height:1.02;letter-spacing:-.02em;font-weight:600;margin:22px 0 0}
+  h1 em{font-style:italic;color:var(--sage-d)}
+  .lede{margin-top:22px;font-size:18px;line-height:1.6;color:var(--soft);max-width:42ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;gap:14px;margin-top:30px;align-items:center;flex-wrap:wrap}
+  .btn{font-size:15px;font-weight:600;text-decoration:none;border-radius:13px;padding:13px 24px;transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease}
+  .btn.p{background:var(--sage);color:#fff;box-shadow:0 10px 22px rgba(124,138,107,.32)}
+  .btn.p:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(124,138,107,.4)}
+  .btn.s{color:var(--ink);background:transparent}
+  .btn.s:hover{color:var(--sage-d)}
+  .btn.s::after{content:" →"}
+  /* growth card */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px;box-shadow:var(--shadow)}
+  .ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+  .ch .t{font-weight:700;font-size:14px}
+  .ch .d{font-size:12px;color:var(--soft);font-family:var(--sans)}
+  .illus{font-size:10px;color:var(--terra);border:1px solid rgba(197,123,84,.4);border-radius:100px;padding:3px 9px;letter-spacing:.04em}
+  /* the rings of growth */
+  .rings{display:flex;flex-direction:column;gap:14px}
+  .stage{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:center}
+  .stage .lvl{font-family:var(--sans);font-size:12px;color:var(--soft);font-weight:600}
+  .track{height:11px;border-radius:100px;background:#ECE5D7;overflow:hidden}
+  .track i{display:block;height:100%;border-radius:100px;background:linear-gradient(90deg,var(--sage),var(--sage-d));width:0;animation:grow 1.4s cubic-bezier(.2,.8,.2,1) forwards}
+  .stage:nth-child(2) .track i{animation-delay:.15s}
+  .stage:nth-child(3) .track i{animation-delay:.3s}
+  .stage:nth-child(4) .track i{animation-delay:.45s}
+  .stage .v{font-size:12px;color:var(--soft);font-variant-numeric:tabular-nums}
+  @keyframes grow{from{width:0}}
+  .note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--soft);line-height:1.55}
+  .note b{color:var(--sage-d)}
+  /* footer */
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:18px 0 28px;font-size:13px;color:var(--soft)}
+  .foot a{color:var(--sage-d);text-decoration:none;font-weight:600}
+  @media(prefers-reduced-motion:reduce){.track i{animation:none;width:var(--w,60%)}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="seed"></span>Hermes</div>
+      <div class="links">
+        <a href="#">Memory</a>
+        <a href="#">Tools</a>
+        <a href="https://github.com/NousResearch/hermes-agent">GitHub</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <span class="pill"><i></i>NousResearch · hermes-agent</span>
+        <h1>The agent that <em>grows</em><br>with you.</h1>
+        <p class="lede">An open agent that doesn't reset between sessions — it <b>accumulates</b>. The more you work alongside it, the more of your context, habits, and judgment it carries forward.</p>
+        <div class="cta">
+          <a class="btn p" href="https://github.com/NousResearch/hermes-agent">Start with Hermes</a>
+          <a class="btn s" href="https://github.com/NousResearch/hermes-agent">Read the repo</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ch">
+          <div>
+            <div class="t">Growth over sessions</div>
+            <div class="d">how much it carries forward</div>
+          </div>
+          <span class="illus">illustrative</span>
+        </div>
+        <div class="rings">
+          <div class="stage"><span class="lvl">wk 1</span><div class="track"><i style="--w:24%;width:24%"></i></div><span class="v">context</span></div>
+          <div class="stage"><span class="lvl">wk 4</span><div class="track"><i style="--w:52%;width:52%"></i></div><span class="v">+ habits</span></div>
+          <div class="stage"><span class="lvl">wk 12</span><div class="track"><i style="--w:74%;width:74%"></i></div><span class="v">+ judgment</span></div>
+          <div class="stage"><span class="lvl">wk 24</span><div class="track"><i style="--w:91%;width:91%"></i></div><span class="v">+ instinct</span></div>
+        </div>
+        <p class="note">Not a bigger context window — a <b>relationship</b>. Memory compounds instead of evaporating at the end of every chat.</p>
+      </div>
+    </section>
+
+    <div class="foot">
+      <span>Open weights · open agent · grows locally with you</span>
+      <span><a href="https://github.com/NousResearch/hermes-agent">github.com/NousResearch/hermes-agent</a></span>
+    </div>
+  </div>
+</body>
+</html>
