@@ -2,33 +2,37 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![48 mocks](https://img.shields.io/badge/mocks-48-1f6feb?style=flat-square) ![16 days](https://img.shields.io/badge/days-16-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![60 mocks](https://img.shields.io/badge/mocks-60-1f6feb?style=flat-square) ![20 days](https://img.shields.io/badge/days-20-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 48 mockups across 16 days and 10 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 60 mockups across 20 days and 14 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
 - **[Full catalog](CATALOG.md)** — every mock in one searchable table
-- **By style:** [bauhaus](styles/bauhaus.md) · [blueprint](styles/blueprint.md) · [brutalist](styles/brutalist.md) · [data-viz](styles/data-viz.md) · [editorial](styles/editorial.md) · [hud](styles/hud.md) · [mono-zine](styles/mono-zine.md) · [swiss](styles/swiss.md) · [terminal-dark](styles/terminal-dark.md) · [warm-minimal](styles/warm-minimal.md)
+- **By style:** [bauhaus](styles/bauhaus.md) · [blueprint](styles/blueprint.md) · [brutalist](styles/brutalist.md) · [constellation](styles/constellation.md) · [data-viz](styles/data-viz.md) · [editorial](styles/editorial.md) · [glass](styles/glass.md) · [hud](styles/hud.md) · [mono-zine](styles/mono-zine.md) · [neon-noir](styles/neon-noir.md) · [poster](styles/poster.md) · [swiss](styles/swiss.md) · [terminal-dark](styles/terminal-dark.md) · [warm-minimal](styles/warm-minimal.md)
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Tuesday, June 23
+## Latest — Sunday, June 28
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-06-23/"><img src="days/2026-06-23/01-gstack.png" width="320" alt="garrytan/gstack"></a><br><sub><b>garrytan/gstack</b><br>mono-zine</sub></td>
-<td align="center" width="33%"><a href="days/2026-06-23/"><img src="days/2026-06-23/02-harness.png" width="320" alt="revfactory/harness"></a><br><sub><b>revfactory/harness</b><br>bauhaus</sub></td>
-<td align="center" width="33%"><a href="days/2026-06-23/"><img src="days/2026-06-23/03-hermes-agent.png" width="320" alt="NousResearch/hermes-agent"></a><br><sub><b>NousResearch/hermes-agent</b><br>warm-minimal</sub></td>
+<td align="center" width="33%"><a href="days/2026-06-28/"><img src="days/2026-06-28/01-codebase-memory-mcp.png" width="320" alt="DeusData/codebase-memory-mcp"></a><br><sub><b>DeusData/codebase-memory-mcp</b><br>constellation</sub></td>
+<td align="center" width="33%"><a href="days/2026-06-28/"><img src="days/2026-06-28/02-strix.png" width="320" alt="usestrix/strix"></a><br><sub><b>usestrix/strix</b><br>brutalist</sub></td>
+<td align="center" width="33%"><a href="days/2026-06-28/"><img src="days/2026-06-28/03-FluidVoice.png" width="320" alt="altic-dev/FluidVoice"></a><br><sub><b>altic-dev/FluidVoice</b><br>warm-minimal</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-06-23/)
+[See the full day →](days/2026-06-28/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-06-28 | Sunday | 3 | constellation, brutalist, warm-minimal | [open](days/2026-06-28/) |
+| 2026-06-27 | Saturday | 3 | swiss, neon-noir, data-viz | [open](days/2026-06-27/) |
+| 2026-06-26 | Friday | 3 | editorial, terminal-dark, blueprint | [open](days/2026-06-26/) |
+| 2026-06-25 | Thursday | 3 | poster, glass, hud | [open](days/2026-06-25/) |
 | 2026-06-23 | Tuesday | 3 | mono-zine, bauhaus, warm-minimal | [open](days/2026-06-23/) |
 | 2026-06-22 | Monday | 3 | brutalist, data-viz, swiss | [open](days/2026-06-22/) |
 | 2026-06-21 | Sunday | 3 | blueprint | [open](days/2026-06-21/) |

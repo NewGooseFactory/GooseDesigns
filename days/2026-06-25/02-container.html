@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>container — Linux containers on Apple silicon</title>
+<style>
+  :root{
+    --bg:#070809; --ink:#EAF0F4; --dim:#8E9AA6; --frost:#7FC4FF; --frost-d:#2f7bbf;
+    --hair:rgba(255,255,255,.10); --glass:rgba(255,255,255,.045);
+    --sans:"Inter",-apple-system,"SF Pro Display","Segoe UI",system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.4;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  /* restrained ambient light — single cool source, no rainbow */
+  body::before{content:"";position:fixed;inset:0;z-index:0;background:
+    radial-gradient(680px 420px at 78% 8%,rgba(127,196,255,.14),transparent 60%),
+    radial-gradient(560px 420px at 12% 96%,rgba(127,196,255,.06),transparent 60%)}
+  .grain{position:fixed;inset:0;z-index:0;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:3px 3px}
+  .wrap{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 28px;min-height:100vh;display:flex;flex-direction:column}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;font-size:14px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:-.01em;font-size:17px}
+  .glyph{width:24px;height:24px;border-radius:7px;border:1px solid var(--hair);background:var(--glass);backdrop-filter:blur(8px);display:grid;place-items:center}
+  .glyph i{width:9px;height:9px;border:1.5px solid var(--frost);border-radius:2px;display:block}
+  nav .links{display:flex;gap:24px;color:var(--dim)}
+  nav .links a{color:inherit;text-decoration:none}nav .links a:hover{color:var(--ink)}
+  .hero{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:24px 0 40px}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:30px}}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--frost);border:1px solid var(--hair);background:var(--glass);backdrop-filter:blur(8px);border-radius:100px;padding:6px 13px}
+  h1{font-size:clamp(40px,6.4vw,66px);line-height:1.0;letter-spacing:-.03em;font-weight:600;margin:22px 0 0}
+  h1 span{color:var(--dim)}
+  .lede{margin-top:22px;font-size:18px;color:var(--dim);max-width:42ch;line-height:1.6}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+  .btn{font-size:15px;font-weight:600;text-decoration:none;border-radius:12px;padding:12px 22px;transition:transform .18s cubic-bezier(.2,.8,.2,1),background .18s ease}
+  .btn.p{background:var(--frost);color:#04121f}
+  .btn.p:hover{transform:translateY(-2px)}
+  .btn.s{color:var(--ink);border:1px solid var(--hair);background:var(--glass);backdrop-filter:blur(8px)}
+  .btn.s:hover{border-color:var(--frost-d)}
+  /* the single frosted panel */
+  .panel{position:relative;border:1px solid var(--hair);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));backdrop-filter:blur(22px) saturate(120%);border-radius:20px;padding:22px;box-shadow:0 30px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12)}
+  .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .ph .t{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--dim)}
+  .ph .dots{display:flex;gap:6px}.ph .dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.14)}
+  /* stacked container-on-VM cards */
+  .stack{display:flex;flex-direction:column;gap:12px}
+  .ct{border:1px solid var(--hair);border-radius:13px;padding:13px 15px;background:rgba(255,255,255,.04);display:grid;grid-template-columns:34px 1fr auto;gap:13px;align-items:center;animation:rise .7s cubic-bezier(.2,.8,.2,1) backwards}
+  .ct:nth-child(1){animation-delay:.05s}.ct:nth-child(2){animation-delay:.15s}.ct:nth-child(3){animation-delay:.25s}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}}
+  .ct .ico{width:34px;height:34px;border-radius:9px;border:1px solid var(--hair);display:grid;place-items:center;background:rgba(127,196,255,.10);color:var(--frost);font-family:var(--mono);font-size:11px;font-weight:700}
+  .ct .nm{font-size:14px;font-weight:600}
+  .ct .nm s{display:block;text-decoration:none;color:var(--dim);font-family:var(--mono);font-size:11px;margin-top:2px}
+  .ct .st{font-family:var(--mono);font-size:11px;color:#76d39a;display:flex;align-items:center;gap:6px}
+  .ct .st i{width:6px;height:6px;border-radius:50%;background:#76d39a;box-shadow:0 0 8px #76d39a}
+  .base{margin-top:12px;border-top:1px dashed var(--hair);padding-top:13px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .base b{color:var(--frost)}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:16px 0 26px;font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.04em}
+  .foot a{color:var(--frost);text-decoration:none}
+  @media(prefers-reduced-motion:reduce){.ct{animation:none}}
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="glyph"><i></i></span>container</div>
+      <div class="links"><a href="#">Docs</a><a href="#">Swift</a><a href="https://github.com/apple/container">GitHub</a></div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <span class="pill">apple / container · written in Swift</span>
+        <h1>Linux containers.<br><span>One light VM each.</span></h1>
+        <p class="lede">A tool for creating and running <b>Linux containers using lightweight virtual machines</b> on a Mac — optimized for Apple silicon.</p>
+        <div class="cta">
+          <a class="btn p" href="https://github.com/apple/container">Get started</a>
+          <a class="btn s" href="https://github.com/apple/container">Read the source</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph"><span class="t">~ container ls</span><span class="dots"><i></i><i></i><i></i></span></div>
+        <div class="stack">
+          <div class="ct"><span class="ico">VM</span><span class="nm">api · alpine<s>own kernel · isolated</s></span><span class="st"><i></i>running</span></div>
+          <div class="ct"><span class="ico">VM</span><span class="nm">postgres · debian<s>own kernel · isolated</s></span><span class="st"><i></i>running</span></div>
+          <div class="ct"><span class="ico">VM</span><span class="nm">worker · ubuntu<s>own kernel · isolated</s></span><span class="st"><i></i>running</span></div>
+        </div>
+        <div class="base"><span>each container = its own lightweight VM</span><span><b>Apple silicon</b> · optimized</span></div>
+      </div>
+    </section>
+
+    <div class="foot">
+      <span>Open source · Swift · macOS</span>
+      <span><a href="https://github.com/apple/container">github.com/apple/container ↗</a></span>
+    </div>
+  </div>
+</body>
+</html>

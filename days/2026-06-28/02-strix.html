@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>strix — brutalist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0d0b; --ink:#ededed; --mut:#9a9c95; --dim:#6c6e66;
+    --acid:#b8ff2e; --line:#2a2c26; --hard:#3a3d33; --panel:#121310;
+    --crit:#ff5c5c; --warn:#ffc24b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:"Space Mono",ui-monospace,monospace;line-height:1.5}
+  .wrap{max-width:1180px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid var(--line);font-size:13px;letter-spacing:.04em}
+  nav .l{color:var(--ink);font-weight:700}
+  nav .l b{color:var(--acid)}
+  nav .r{color:var(--dim)}
+  nav .r u{color:var(--acid);text-decoration:none}
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.1fr .9fr}
+  .left{padding:54px 24px 40px;border-right:1px solid var(--line)}
+  .tag{display:inline-block;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--bg);background:var(--acid);padding:5px 11px;font-weight:700;margin-bottom:30px}
+  h1{font-family:"Archivo",system-ui,sans-serif;font-weight:900;font-size:clamp(46px,8vw,92px);line-height:.92;letter-spacing:-.02em;text-transform:uppercase}
+  h1 .o{color:var(--bg);-webkit-text-stroke:2px var(--acid)}
+  .lede{margin-top:26px;font-size:16px;color:var(--mut);max-width:40ch}
+  .lede b{color:var(--ink);font-weight:700}
+  .row{margin-top:34px;display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--hard)}
+  .row a{font-size:13px;letter-spacing:.03em;text-decoration:none;padding:13px 20px;color:var(--ink)}
+  .row a.go{background:var(--acid);color:var(--bg);font-weight:700}
+  .row a.alt{border-left:1px solid var(--hard)}
+  .row a.alt:hover{color:var(--acid)}
+  /* scan panel */
+  .right{padding:0;background:var(--panel);display:flex;flex-direction:column}
+  .ph{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-size:12px;color:var(--dim);letter-spacing:.03em}
+  .ph .live{color:var(--acid)}
+  .ph .live::before{content:"";display:inline-block;width:7px;height:7px;background:var(--acid);margin-right:7px;vertical-align:middle;animation:bl 1.1s steps(2) infinite}
+  @keyframes bl{50%{opacity:.25}}
+  .scan{padding:8px 0;flex:1}
+  .find{display:grid;grid-template-columns:78px 1fr 64px;gap:0;align-items:center;padding:11px 18px;border-bottom:1px solid var(--line);font-size:12.5px}
+  .sev{font-weight:700;font-size:11px;letter-spacing:.06em}
+  .sev.c{color:var(--crit)} .sev.h{color:var(--warn)} .sev.m{color:var(--mut)}
+  .what{color:var(--ink)}
+  .what small{display:block;color:var(--dim);font-size:11px;margin-top:2px}
+  .fix{text-align:right;font-size:11px;font-weight:700;color:var(--acid);letter-spacing:.04em}
+  .pf{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--dim)}
+  /* bottom triad */
+  .triad{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+  .cell{padding:28px 24px;border-right:1px solid var(--line)}
+  .cell:last-child{border-right:0}
+  .cell .k{font-family:"Archivo",sans-serif;font-weight:900;font-size:15px;letter-spacing:.02em;text-transform:uppercase}
+  .cell .d{margin-top:9px;font-size:12.5px;color:var(--mut);line-height:1.6}
+  .cell .k b{color:var(--acid)}
+  footer{padding:18px 24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:11.5px;color:var(--dim)}
+  @media(max-width:840px){
+    .hero{grid-template-columns:1fr}.left{border-right:0;border-bottom:1px solid var(--line)}
+    .triad{grid-template-columns:1fr}.cell{border-right:0;border-bottom:1px solid var(--line)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="l">STRIX<b>//</b>open-source ai hackers</div>
+    <div class="r">find <u>+</u> fix · self-hosted</div>
+  </nav>
+
+  <section class="hero">
+    <div class="left">
+      <span class="tag">autonomous security agents</span>
+      <h1>AI<br>HACK<span class="o">ERS</span></h1>
+      <p class="lede">Open-source AI hackers that <b>find and fix</b> your app's vulnerabilities — running on your own infrastructure, not someone else's cloud.</p>
+      <div class="row">
+        <a class="go" href="#">run a scan</a>
+        <a class="alt" href="https://github.com/usestrix/strix">read the source →</a>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="ph"><span>strix · scan session</span><span class="live">hunting</span></div>
+      <div class="scan">
+        <div class="find"><span class="sev c">CRIT</span><span class="what">SQL injection in /api/search<small>user input reaches raw query</small></span><span class="fix">PATCHED</span></div>
+        <div class="find"><span class="sev h">HIGH</span><span class="what">Broken access control on /admin<small>missing role check</small></span><span class="fix">PATCHED</span></div>
+        <div class="find"><span class="sev h">HIGH</span><span class="what">Reflected XSS in profile bio<small>unescaped render</small></span><span class="fix">PR OPEN</span></div>
+        <div class="find"><span class="sev m">MED</span><span class="what">Secret in client bundle<small>token shipped to browser</small></span><span class="fix">PR OPEN</span></div>
+      </div>
+      <div class="pf"><span>findings · illustrative</span><span>4 found · 2 fixed</span></div>
+    </div>
+  </section>
+
+  <div class="triad">
+    <div class="cell"><div class="k">FIND <b>+</b> FIX</div><div class="d">Agents probe the running app, confirm the exploit, then open a fix — not just a report.</div></div>
+    <div class="cell"><div class="k">OPEN <b>SOURCE</b></div><div class="d">Inspect every step. No black box, no vendor lock — the hacker is auditable.</div></div>
+    <div class="cell"><div class="k">YOUR <b>INFRA</b></div><div class="d">Self-hosted by design. Your code and findings never leave your environment.</div></div>
+  </div>
+
+  <footer><span>usestrix / strix</span><span>scan log illustrative · no benchmark claims</span></footer>
+</div>
+</body>
+</html>

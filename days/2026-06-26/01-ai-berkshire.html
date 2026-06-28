@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ai-berkshire — research that argues with itself</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#f4f1ea; --ink:#1b1a16; --muted:#5b574d; --line:#d8d2c4; --accent:#234b36; --accent-soft:#e7ede8; --paper:#fbfaf6; }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{ background:var(--bg); color:var(--ink); font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased; line-height:1.5; }
+  .wrap{max-width:1080px; margin:0 auto; padding:64px 40px 72px}
+  .eyebrow{ font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin:0 0 22px; display:flex; align-items:center; gap:10px; }
+  .eyebrow::before{content:""; width:26px; height:1.5px; background:var(--accent)}
+  h1{ font-family:Newsreader,Georgia,serif; font-weight:500; font-size:clamp(38px,6vw,68px); line-height:1.04; letter-spacing:-.01em; margin:0 0 24px; max-width:14ch; }
+  h1 em{font-style:italic; color:var(--accent)}
+  .lede{ font-size:clamp(17px,1.6vw,20px); color:var(--muted); max-width:62ch; margin:0 0 44px; }
+  .lede b{color:var(--ink); font-weight:600}
+  .lenses{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-bottom:28px; }
+  .lens{background:var(--paper); padding:22px 20px 24px}
+  .lens .p{font-family:Newsreader,Georgia,serif; font-size:21px; line-height:1.15; margin:0 0 10px}
+  .lens .a{font-size:12.5px; letter-spacing:.04em; color:var(--muted); text-transform:uppercase}
+  .lens .n{font-size:11px; color:var(--accent); font-weight:600; margin-bottom:14px; letter-spacing:.08em}
+  .converge{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; background:var(--accent-soft); border:1px solid #cfdcd3; border-radius:12px; padding:18px 22px; color:#26402f; }
+  .converge .big{font-family:Newsreader,Georgia,serif; font-size:19px}
+  .converge .arrow{color:var(--accent); font-weight:600; font-size:20px}
+  .converge .ill{margin-left:auto; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#7d8a81}
+  footer{ margin-top:40px; padding-top:20px; border-top:1px solid var(--line); display:flex; gap:10px; align-items:center; font-size:14px; color:var(--muted); }
+  footer a{color:var(--ink); text-decoration:none; font-weight:600; border-bottom:2px solid var(--accent); padding-bottom:1px}
+  .reveal{opacity:0; transform:translateY(12px); animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+  .d1{animation-delay:.05s}.d2{animation-delay:.14s}.d3{animation-delay:.2s}
+  .lens{opacity:0; transform:translateY(10px); animation:rise .6s cubic-bezier(.2,.7,.2,1) forwards}
+  .lens:nth-child(1){animation-delay:.26s}.lens:nth-child(2){animation-delay:.34s}.lens:nth-child(3){animation-delay:.42s}.lens:nth-child(4){animation-delay:.5s}
+  @keyframes rise{to{opacity:1; transform:none}}
+  @media (max-width:760px){ .lenses{grid-template-columns:repeat(2,1fr)} .wrap{padding:44px 24px} }
+  @media (prefers-reduced-motion:reduce){ .reveal,.lens{animation:none; opacity:1; transform:none} }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="eyebrow reveal d1">Open research framework · built on Claude Code</p>
+    <h1 class="reveal d2">A research desk that <em>argues with itself.</em></h1>
+    <p class="lede reveal d3">AI-era Berkshire. Four masters' methodologies, run as <b>adversarial multi-agent analysis</b> &mdash; so every thesis meets its strongest counter-argument before you act on it.</p>
+    <section class="lenses" aria-label="Four methodology lenses">
+      <div class="lens"><div class="n">LENS 01</div><p class="p">Margin of safety</p><div class="a">Buffett</div></div>
+      <div class="lens"><div class="n">LENS 02</div><p class="p">Invert, always invert</p><div class="a">Munger</div></div>
+      <div class="lens"><div class="n">LENS 03</div><p class="p">Stay in your circle</p><div class="a">Duan Yongping</div></div>
+      <div class="lens"><div class="n">LENS 04</div><p class="p">Concentrate &amp; hold</p><div class="a">Li Lu</div></div>
+    </section>
+    <div class="converge reveal d3">
+      <span class="big">4 agents debate</span><span class="arrow">&rarr;</span><span class="big">1 reconciled thesis</span><span class="ill">illustrative</span>
+    </div>
+    <footer><span>github.com/</span><a href="https://github.com/xbtlin/ai-berkshire">xbtlin / ai-berkshire</a></footer>
+  </main>
+</body>
+</html>

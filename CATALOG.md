@@ -1,11 +1,23 @@
 # Catalog — every design rep
 
-Searchable master index. **48 mocks** across **16 days**. Newest first.
+Searchable master index. **60 mocks** across **20 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-06-28 | Sunday | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | constellation | electric-indigo | codebase as a living knowledge graph, two live edges show a query traversing | landed | [png](days/2026-06-28/01-codebase-memory-mcp.png) | [2026-06-28](days/2026-06-28/) |
+| 2026-06-28 | Sunday | [usestrix/strix](https://github.com/usestrix/strix) | brutalist | acid-green | security agent as a hard-edged find→fix scan log, one acid accent | landed | [png](days/2026-06-28/02-strix.png) | [2026-06-28](days/2026-06-28/) |
+| 2026-06-28 | Sunday | [altic-dev/FluidVoice](https://github.com/altic-dev/FluidVoice) | warm-minimal | terracotta | fully-local dictation as a soft cream device, waveform becomes text | landed | [png](days/2026-06-28/03-FluidVoice.png) | [2026-06-28](days/2026-06-28/) |
+| 2026-06-27 | Saturday | [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | swiss | red | spec.md as single source of truth feeding author-implement-verify ladder | landed | [png](days/2026-06-27/01-OpenSpec.png) | [2026-06-27](days/2026-06-27/) |
+| 2026-06-27 | Saturday | [anomalyco/opencode](https://github.com/anomalyco/opencode) | neon-noir | cyan | neon exactly once, cyan wordmark glow over inspectable terminal session | mostly | [png](days/2026-06-27/02-opencode.png) | [2026-06-27](days/2026-06-27/) |
+| 2026-06-27 | Saturday | [Anil-matcha/Open-Generative-AI](https://github.com/Anil-matcha/Open-Generative-AI) | data-viz | violet | 200+ models as a working model-catalog console with family bars | landed | [png](days/2026-06-27/03-Open-Generative-AI.png) | [2026-06-27](days/2026-06-27/) |
+| 2026-06-26 | Friday | [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire) | editorial | forest-green | research desk that argues with itself, four lenses converge to one thesis | landed | [png](days/2026-06-26/01-ai-berkshire.png) | [2026-06-26](days/2026-06-26/) |
+| 2026-06-26 | Friday | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | terminal-dark | amber | give your agent first-party AWS hands, register-the-toolkit terminal + 3 cards | landed | [png](days/2026-06-26/02-agent-toolkit-for-aws.png) | [2026-06-26](days/2026-06-26/) |
+| 2026-06-26 | Friday | [opendatalab/MinerU](https://github.com/opendatalab/MinerU) | blueprint | cyan | make the extraction the hero, scan to layout analysis to tagged Markdown/JSON | landed | [png](days/2026-06-26/03-MinerU.png) | [2026-06-26](days/2026-06-26/) |
+| 2026-06-25 | Thursday | [google-labs-code/design.md](https://github.com/google-labs-code/design.md) | poster | ink | filename as hero, four-cell what/for/holds/gives strip | landed | [png](days/2026-06-25/01-design.md.png) | [2026-06-25](days/2026-06-25/) |
+| 2026-06-25 | Thursday | [apple/container](https://github.com/apple/container) | glass | frost-blue | one frosted panel, each row its own lightweight VM | landed | [png](days/2026-06-25/02-container.png) | [2026-06-25](days/2026-06-25/) |
+| 2026-06-25 | Thursday | [alibaba/page-agent](https://github.com/alibaba/page-agent) | hud | scan-cyan | agent as instrument readout, NL command to LOCATE-CLICK-SELECT-ARCHIVE ladder | mostly | [png](days/2026-06-25/03-page-agent.png) | [2026-06-25](days/2026-06-25/) |
 | 2026-06-23 | Tuesday | [garrytan/gstack](https://github.com/garrytan/gstack) | mono-zine | amber | cast the 23 tools as a literal crew roster in an all-mono terminal manifest | landed | [png](days/2026-06-23/01-gstack.png) | [2026-06-23](days/2026-06-23/) |
 | 2026-06-23 | Tuesday | [revfactory/harness](https://github.com/revfactory/harness) | bauhaus | primary | meta-skill as a central node emitting geometric agents/skills on a drafting grid | landed | [png](days/2026-06-23/02-harness.png) | [2026-06-23](days/2026-06-23/) |
 | 2026-06-23 | Tuesday | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | warm-minimal | sage | a four-word tagline as a warm growth card compounding context to instinct | mostly (week figures are invented scaffolding) | [png](days/2026-06-23/03-hermes-agent.png) | [2026-06-23](days/2026-06-23/) |

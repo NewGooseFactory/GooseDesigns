@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenSpec — spec-driven development for AI coding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#f6f5f3; --ink:#0f0f0f; --muted:#6b6b6b; --line:#111; --hair:#dcdad5; --red:#e4002b; --paper:#fff; }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{ background:var(--bg); color:var(--ink); font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
+  .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .grid{ max-width:1120px; margin:0 auto; min-height:100vh; display:grid; grid-template-columns:repeat(12,1fr); grid-template-rows:auto 1fr auto; gap:0 24px; padding:0 40px; }
+  .top{ grid-column:1/13; display:flex; align-items:baseline; gap:18px; padding:26px 0 20px; border-bottom:2px solid var(--line); }
+  .top .mark{font-weight:800; letter-spacing:-.02em; font-size:17px}
+  .top .mark b{color:var(--red)}
+  .top .meta{margin-left:auto; font-size:12px; color:var(--muted); letter-spacing:.04em; text-transform:uppercase}
+  .hero{ grid-column:1/8; align-self:center; padding:56px 0 40px; }
+  .num{font-size:12px; letter-spacing:.2em; color:var(--red); font-weight:600; margin-bottom:22px}
+  h1{ font-size:clamp(46px,7.4vw,104px); line-height:.92; letter-spacing:-.035em; font-weight:800; margin:0 0 26px; }
+  h1 .br{display:block}
+  .rule{height:6px; background:var(--red); width:120px; margin:0 0 26px}
+  .lede{font-size:clamp(16px,1.5vw,19px); color:#2b2b2b; max-width:42ch; margin:0}
+  .lede b{font-weight:600}
+  .panel{ grid-column:8/13; align-self:center; border:2px solid var(--line); background:var(--paper); margin:40px 0; }
+  .panel .hd{display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:2px solid var(--line); font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600}
+  .panel .hd .tag{background:var(--red); color:#fff; padding:3px 8px}
+  .panel .spec{padding:16px; font-size:12.5px; line-height:1.75; border-bottom:1px dashed var(--hair)}
+  .panel .spec .k{color:var(--red)}
+  .panel .spec .muted{color:var(--muted)}
+  .panel .flow{display:grid; grid-template-columns:1fr; }
+  .step{display:flex; gap:12px; align-items:center; padding:13px 16px; border-bottom:1px solid var(--hair)}
+  .step:last-child{border-bottom:0}
+  .step .i{width:22px; height:22px; border:2px solid var(--line); display:grid; place-items:center; font-size:11px; font-weight:700; flex:none}
+  .step.act .i{background:var(--red); border-color:var(--red); color:#fff}
+  .step .t{font-size:13.5px; font-weight:500}
+  .step .s{margin-left:auto; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em}
+  .foot{ grid-column:1/13; display:flex; align-items:center; gap:16px; padding:18px 0 26px; border-top:2px solid var(--line); font-size:13px; color:var(--muted); }
+  .foot a{color:var(--ink); text-decoration:none; font-weight:700; border-bottom:3px solid var(--red); padding-bottom:1px}
+  .foot .ill{margin-left:auto; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#a7a39b}
+  .reveal{opacity:0; transform:translateY(14px); animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+  .d1{animation-delay:.05s}.d2{animation-delay:.13s}.d3{animation-delay:.2s}.d4{animation-delay:.3s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media (max-width:900px){ .hero{grid-column:1/13; padding:40px 0 8px} .panel{grid-column:1/13} .grid{padding:0 24px} }
+  @media (prefers-reduced-motion:reduce){ .reveal{animation:none;opacity:1;transform:none} }
+</style>
+</head>
+<body>
+  <main class="grid">
+    <header class="top">
+      <span class="mark">Open<b>Spec</b></span>
+      <span class="meta mono">Spec-driven development</span>
+    </header>
+    <section class="hero">
+      <div class="num mono reveal d1">SDD / 01</div>
+      <h1 class="reveal d1"><span class="br">Spec</span><span class="br">first.</span><span class="br">Then code.</span></h1>
+      <div class="rule reveal d2"></div>
+      <p class="lede reveal d2"><b>Spec-driven development for AI coding assistants.</b> Write the contract once; let the agent build to it &mdash; reviewable, versioned, and the single source of truth.</p>
+    </section>
+    <aside class="panel reveal d3">
+      <div class="hd"><span class="mono">spec.md</span><span class="tag mono">SOURCE OF TRUTH</span></div>
+      <div class="spec mono"><span class="muted"># capability</span><br><span class="k">requirement:</span> parse invoice &rarr; line items<br><span class="k">accepts:</span> pdf, image<br><span class="k">returns:</span> json[]&nbsp;&nbsp;<span class="muted">// typed</span></div>
+      <div class="flow">
+        <div class="step"><span class="i">1</span><span class="t">Author spec</span><span class="s">human</span></div>
+        <div class="step"><span class="i">2</span><span class="t">Agent implements</span><span class="s">assistant</span></div>
+        <div class="step act"><span class="i">3</span><span class="t">Check against spec</span><span class="s">verify</span></div>
+      </div>
+    </aside>
+    <footer class="foot">
+      <span class="mono">github.com/</span><a href="https://github.com/Fission-AI/OpenSpec">Fission-AI / OpenSpec</a>
+      <span class="ill mono">spec contents illustrative</span>
+    </footer>
+  </main>
+</body>
+</html>

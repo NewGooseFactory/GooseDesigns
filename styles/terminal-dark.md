@@ -2,10 +2,11 @@
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-13 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-06-26](../days/2026-06-26/) | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | amber | give your agent first-party AWS hands, register-the-toolkit terminal + 3 cards | landed | [png](../days/2026-06-26/02-agent-toolkit-for-aws.png) |
 | [2026-06-18](../days/2026-06-18/) | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | cyan | render the knowledge-graph output not a description | landed | [png](../days/2026-06-18/01-codebase-memory-mcp.png) |
 | [2026-06-18](../days/2026-06-18/) | [obra/superpowers](https://github.com/obra/superpowers) | violet | skills framework as a checkable on/off rack | mostly (sample reads thin) | [png](../days/2026-06-18/02-superpowers.png) |
 | [2026-06-18](../days/2026-06-18/) | [continuedev/continue](https://github.com/continuedev/continue) | lime | prove coding-agent with a compressed read→edit→test transcript | landed | [png](../days/2026-06-18/03-continue.png) |

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>opencode — the open source coding agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#06070a; --ink:#e8edf2; --muted:#79828f; --cyan:#22e3d4; --line:rgba(120,200,210,.16); --panel:rgba(255,255,255,.022); }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{ background:var(--bg); color:var(--ink); font-family:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased; line-height:1.5; position:relative; overflow-x:hidden; }
+  body::before{ content:""; position:fixed; inset:0; background:repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 3px); pointer-events:none; z-index:2; }
+  body::after{ content:""; position:fixed; left:50%; top:-10%; width:760px; height:760px; transform:translateX(-50%); background:radial-gradient(circle, rgba(34,227,212,.10), transparent 62%); pointer-events:none; }
+  .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{position:relative; z-index:3; max-width:1000px; margin:0 auto; padding:120px 40px 80px; text-align:center}
+  .badge{ display:inline-flex; align-items:center; gap:9px; border:1px solid var(--line); border-radius:999px; padding:7px 16px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:42px; }
+  .badge .led{width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 12px var(--cyan); animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  h1{ font-size:clamp(52px,10vw,128px); line-height:.9; letter-spacing:-.04em; font-weight:700; margin:0 0 8px; }
+  h1 .o{color:var(--cyan); text-shadow:0 0 38px rgba(34,227,212,.45)}
+  .sub{ font-size:clamp(16px,1.7vw,21px); color:var(--muted); max-width:46ch; margin:26px auto 0; }
+  .sub b{color:var(--ink); font-weight:500}
+  .cmd{ margin:46px auto 0; max-width:520px; border:1px solid var(--line); border-radius:12px; background:var(--panel); backdrop-filter:blur(6px); text-align:left; overflow:hidden; }
+  .cmd .bar{display:flex; align-items:center; gap:8px; padding:11px 14px; border-bottom:1px solid var(--line); font-size:11px; color:var(--muted); letter-spacing:.1em}
+  .cmd .bar .d{width:9px;height:9px;border-radius:50%;background:rgba(120,200,210,.25)}
+  .cmd .body{padding:18px; font-size:14px; line-height:1.9}
+  .cmd .pr{color:var(--cyan)} .cmd .t{color:var(--ink)} .cmd .c{color:var(--muted)}
+  .cur{display:inline-block;width:9px;height:16px;background:var(--cyan);vertical-align:-2px;margin-left:4px;animation:bk 1.05s steps(1) infinite;box-shadow:0 0 10px var(--cyan)}
+  @keyframes bk{50%{opacity:0}}
+  .row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px}
+  .chip{border:1px solid var(--line); border-radius:8px; padding:11px 16px; font-size:13px; color:var(--muted)}
+  .chip b{color:var(--cyan); font-weight:600}
+  .foot{margin-top:54px; font-size:13px; color:var(--muted)}
+  .foot a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--cyan); padding-bottom:2px}
+  .reveal{opacity:0; transform:translateY(16px); animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+  .d1{animation-delay:.05s}.d2{animation-delay:.16s}.d3{animation-delay:.28s}.d4{animation-delay:.4s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media (max-width:760px){ .wrap{padding:80px 22px 60px} }
+  @media (prefers-reduced-motion:reduce){ .reveal{animation:none;opacity:1;transform:none} .badge .led,.cur{animation:none} }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <span class="badge reveal d1"><span class="led"></span> Open source &middot; coding agent</span>
+    <h1 class="reveal d1"><span class="o">open</span>code</h1>
+    <p class="sub reveal d2"><b>The open source coding agent.</b> Runs in your terminal, reads your repo, and ships changes &mdash; fully inspectable, no black box.</p>
+    <div class="cmd reveal d3" role="img" aria-label="Illustrative session">
+      <div class="bar mono"><span class="d"></span> session &middot; ~/project</div>
+      <div class="body mono">
+        <div><span class="pr">&rsaquo;</span> <span class="t">opencode "add retry to the API client"</span></div>
+        <div><span class="c">&bull; read 4 files &middot; planning&hellip;</span></div>
+        <div><span class="c">&bull; edit api/client.ts &middot; +18 -3</span></div>
+        <div><span class="c">&bull; tests green</span> <span class="cur"></span></div>
+      </div>
+    </div>
+    <div class="row reveal d4">
+      <span class="chip"><b>$</b> Lives in your terminal</span>
+      <span class="chip"><b>{ }</b> Reads the whole repo</span>
+      <span class="chip"><b>&lt;/&gt;</b> Open source</span>
+    </div>
+    <p class="foot reveal d4"><span class="mono">github.com/</span> <a href="https://github.com/anomalyco/opencode">anomalyco / opencode</a> &nbsp;&middot;&nbsp; <span class="mono" style="color:#4a525d">session illustrative</span></p>
+  </main>
+</body>
+</html>

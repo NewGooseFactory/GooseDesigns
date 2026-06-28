@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>codebase-memory-mcp — constellation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b12; --panel:#10121d; --line:#1e2233;
+    --ink:#e8eaf6; --mut:#8a90b3; --dim:#5a6080;
+    --ind:#7c6cff; --ind-soft:#a99bff; --edge:#2a2f4a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    line-height:1.5; overflow-x:hidden;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  /* top bar */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:26px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:-.01em}
+  .glyph{width:22px;height:22px}
+  nav .meta{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--dim);letter-spacing:.02em}
+  /* hero */
+  .hero{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:78px 0 64px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ind-soft);margin-bottom:26px}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ind);box-shadow:0 0 0 4px rgba(124,108,255,.16)}
+  h1{font-size:clamp(38px,5.6vw,62px);line-height:1.02;letter-spacing:-.03em;font-weight:700}
+  h1 em{font-style:normal;color:var(--ind-soft)}
+  .sub{margin-top:22px;font-size:18px;color:var(--mut);max-width:30ch}
+  .cta{margin-top:34px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .btn{font-family:"JetBrains Mono",monospace;font-size:13.5px;text-decoration:none;padding:12px 18px;border-radius:8px;border:1px solid var(--line);color:var(--ink);transition:.18s}
+  .btn.primary{background:var(--ind);border-color:var(--ind);color:#0a0b12;font-weight:500}
+  .btn.primary:hover{background:var(--ind-soft);border-color:var(--ind-soft)}
+  .btn.ghost:hover{border-color:var(--ind);color:var(--ind-soft)}
+  /* graph panel */
+  .panel{position:relative;border:1px solid var(--line);background:linear-gradient(180deg,#10121d,#0c0e17);border-radius:16px;overflow:hidden;height:430px}
+  .panel .cap{position:absolute;top:14px;left:16px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim);letter-spacing:.04em;z-index:3}
+  .panel .q{position:absolute;bottom:14px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--mut);z-index:3}
+  .panel .q b{color:var(--ind-soft);font-weight:500}
+  svg{position:absolute;inset:0;width:100%;height:100%}
+  
+  .ndot{fill:var(--panel);stroke:var(--ind);stroke-width:1.5}
+  .ndot.hot{fill:var(--ind);stroke:var(--ind)}
+  .nlabel{font-family:"JetBrains Mono",monospace;font-size:10.5px;fill:var(--mut)}
+  .edge{stroke:var(--edge);stroke-width:1;fill:none}
+  .edge.live{stroke:var(--ind);stroke-width:1.5;stroke-dasharray:4 5;animation:flow 1.1s linear infinite}
+  @keyframes flow{to{stroke-dashoffset:-18}}
+  .pulse{animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:8px 0 18px}
+  .stat{padding:24px 22px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:0}
+  .stat .n{font-size:30px;font-weight:600;letter-spacing:-.02em}
+  .stat .n span{color:var(--ind-soft)}
+  .stat .l{margin-top:6px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim);letter-spacing:.03em}
+  .foot{display:flex;justify-content:space-between;align-items:center;padding:22px 0 60px;color:var(--dim);font-family:"JetBrains Mono",monospace;font-size:12px;border-top:1px solid var(--line)}
+  .foot .ill{color:var(--dim)}
+  @media(max-width:860px){
+    .hero{grid-template-columns:1fr;padding:48px 0}
+    .panel{height:330px;order:2}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat:nth-child(2){border-right:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand">
+      <svg class="glyph" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="6" r="2.2" fill="#7c6cff"/><circle cx="19" cy="9" r="2.2" stroke="#7c6cff" stroke-width="1.5"/><circle cx="9" cy="18" r="2.2" stroke="#7c6cff" stroke-width="1.5"/><path d="M6.6 7.2 17.4 8.4M7.3 16.4 17.6 10.4M6.4 8 8.4 16" stroke="#3a3f5e" stroke-width="1.2"/></svg>
+      <span>codebase-memory</span>
+    </div>
+    <div class="meta">MCP · single static binary</div>
+  </nav>
+
+  <section class="hero">
+    <div class="copy">
+      <div class="eyebrow"><span class="dot"></span> code intelligence · mcp server</div>
+      <h1>Your codebase as a <em>persistent knowledge graph.</em></h1>
+      <p class="sub">High-performance code intelligence over MCP. Indexes an average repo in milliseconds, then answers structural queries in sub-millisecond time.</p>
+      <div class="cta">
+        <a class="btn primary" href="#">add to your agent</a>
+        <a class="btn ghost" href="https://github.com/DeusData/codebase-memory-mcp">view source →</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="cap">knowledge-graph index · live</div>
+      <svg viewBox="0 0 480 430" preserveAspectRatio="xMidYMid meet">
+        <!-- edges -->
+        <path class="edge" d="M120 120 L240 90"/>
+        <path class="edge" d="M120 120 L150 230"/>
+        <path class="edge live" d="M240 90 L360 140"/>
+        <path class="edge" d="M360 140 L380 250"/>
+        <path class="edge live" d="M150 230 L260 250"/>
+        <path class="edge" d="M260 250 L380 250"/>
+        <path class="edge" d="M260 250 L230 340"/>
+        <path class="edge" d="M150 230 L230 340"/>
+        <path class="edge live" d="M240 90 L260 250"/>
+        <path class="edge" d="M380 250 L320 350"/>
+        <!-- nodes -->
+        <g class="node"><circle class="ndot" cx="120" cy="120" r="7"/><text class="nlabel" x="120" y="104" text-anchor="middle">parser.rs</text></g>
+        <g class="node pulse"><circle class="ndot hot" cx="240" cy="90" r="9"/><text class="nlabel" x="240" y="74" text-anchor="middle" fill="#a99bff">index()</text></g>
+        <g class="node"><circle class="ndot" cx="360" cy="140" r="7"/><text class="nlabel" x="360" y="124" text-anchor="middle">graph.rs</text></g>
+        <g class="node"><circle class="ndot" cx="150" cy="230" r="7"/><text class="nlabel" x="150" y="214" text-anchor="middle">symbol.rs</text></g>
+        <g class="node pulse"><circle class="ndot hot" cx="260" cy="250" r="9"/><text class="nlabel" x="260" y="234" text-anchor="middle" fill="#a99bff">query()</text></g>
+        <g class="node"><circle class="ndot" cx="380" cy="250" r="7"/><text class="nlabel" x="382" y="234" text-anchor="middle">store.rs</text></g>
+        <g class="node"><circle class="ndot" cx="230" cy="340" r="7"/><text class="nlabel" x="230" y="362" text-anchor="middle">resolve.rs</text></g>
+        <g class="node"><circle class="ndot" cx="320" cy="350" r="7"/><text class="nlabel" x="320" y="372" text-anchor="middle">cache.rs</text></g>
+      </svg>
+      <div class="q"><span>query · <b>find_callers("index")</b></span><span><b>0.4 ms</b> · illustrative</span></div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><div class="n">158</div><div class="l">languages parsed</div></div>
+    <div class="stat"><div class="n">&lt;1<span>ms</span></div><div class="l">graph queries</div></div>
+    <div class="stat"><div class="n">99<span>%</span></div><div class="l">fewer tokens</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">dependencies</div></div>
+  </div>
+
+  <div class="foot">
+    <span>DeusData / codebase-memory-mcp</span>
+    <span class="ill">graph &amp; timings illustrative · figures from project README</span>
+  </div>
+</div>
+</body>
+</html>
+

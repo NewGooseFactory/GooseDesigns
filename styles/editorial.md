@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-13 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-06-26](../days/2026-06-26/) | [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire) | forest-green | research desk that argues with itself, four lenses converge to one thesis | landed | [png](../days/2026-06-26/01-ai-berkshire.png) |
 | [2026-06-19](../days/2026-06-19/) | [zai-org/GLM-5](https://github.com/zai-org/GLM-5) | cobalt | tagline as a literal Vibe→Decompose→Engineered arc | landed | [png](../days/2026-06-19/01-GLM-5.png) |
 | [2026-06-19](../days/2026-06-19/) | [withastro/flue](https://github.com/withastro/flue) | amber | draw the sandbox capability surface as a calm card | landed | [png](../days/2026-06-19/02-flue.png) |
 | [2026-06-19](../days/2026-06-19/) | [Kilo-Org/kilocode](https://github.com/Kilo-Org/kilocode) | teal | Build·Ship·Iterate as a descending-meter triad | mostly (symmetry risks template) | [png](../days/2026-06-19/03-kilocode.png) |

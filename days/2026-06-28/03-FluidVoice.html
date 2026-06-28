@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FluidVoice — warm-minimal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5efe6; --card:#fffdf9; --ink:#2a2520; --mut:#6f675d; --dim:#9a9388;
+    --terra:#c2553a; --terra-d:#a9472f; --sage:#7d8a6b; --line:#e7ded1; --soft:#efe7da;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,sans-serif;line-height:1.5}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:28px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em;font-size:18px}
+  .mic{width:26px;height:26px;border-radius:9px;background:var(--terra);display:grid;place-items:center}
+  .mic svg{width:13px;height:13px}
+  nav .links{display:flex;gap:26px;font-size:14px;color:var(--mut);font-weight:500;align-items:center}
+  nav .links .pill{padding:9px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+  /* hero */
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center;padding:56px 0 40px}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--soft);border:1px solid var(--line);color:var(--mut);font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:999px;margin-bottom:24px}
+  .badge .d{width:7px;height:7px;border-radius:50%;background:var(--sage)}
+  h1{font-size:clamp(36px,5.2vw,56px);line-height:1.04;letter-spacing:-.03em;font-weight:800}
+  h1 em{font-style:normal;color:var(--terra)}
+  .sub{margin-top:20px;font-size:18px;color:var(--mut);max-width:34ch;line-height:1.6}
+  .cta{margin-top:30px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .btn{font-size:15px;font-weight:600;text-decoration:none;padding:13px 22px;border-radius:12px;transition:.18s}
+  .btn.p{background:var(--terra);color:#fff;box-shadow:0 8px 22px -10px rgba(194,85,58,.7)}
+  .btn.p:hover{background:var(--terra-d)}
+  .btn.g{color:var(--ink);border:1px solid var(--line);background:var(--card)}
+  .btn.g:hover{border-color:var(--dim)}
+  .note{margin-top:18px;font-size:13px;color:var(--dim);display:flex;align-items:center;gap:7px}
+  /* device card */
+  .device{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 30px 60px -34px rgba(60,45,30,.45)}
+  .titlebar{display:flex;align-items:center;gap:7px;padding:8px 10px 14px}
+  .titlebar i{width:11px;height:11px;border-radius:50%;background:#e3d9c9;display:block}
+  .titlebar .t{margin-left:10px;font-size:12px;color:var(--dim);font-weight:600}
+  .stage{background:var(--soft);border-radius:14px;padding:30px 26px}
+  .listening{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--terra);font-weight:700;letter-spacing:.02em;margin-bottom:20px}
+  .listening .live{width:8px;height:8px;border-radius:50%;background:var(--terra);animation:p 1.3s ease-in-out infinite}
+  @keyframes p{0%,100%{opacity:.4;transform:scale(.85)}50%{opacity:1;transform:scale(1)}}
+  .wave{display:flex;align-items:center;gap:4px;height:54px;margin-bottom:22px}
+  .wave span{width:4px;border-radius:3px;background:var(--terra);opacity:.85;animation:w 1.1s ease-in-out infinite}
+  .wave span:nth-child(even){background:var(--sage)}
+  @keyframes w{0%,100%{height:10px}50%{height:46px}}
+  .typed{font-size:18px;line-height:1.6;color:var(--ink);font-weight:500}
+  .typed .cur{display:inline-block;width:2px;height:19px;background:var(--terra);vertical-align:-3px;margin-left:2px;animation:bl 1s steps(2) infinite}
+  @keyframes bl{50%{opacity:0}}
+  .stage .meta{margin-top:18px;display:flex;justify-content:space-between;font-size:11.5px;color:var(--dim)}
+  /* feature triad */
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:26px 0 64px}
+  .f{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .f .ic{width:34px;height:34px;border-radius:10px;background:var(--soft);display:grid;place-items:center;margin-bottom:14px}
+  .f .ic svg{width:17px;height:17px}
+  .f h3{font-size:16px;font-weight:700;letter-spacing:-.01em}
+  .f p{margin-top:7px;font-size:13.5px;color:var(--mut);line-height:1.6}
+  footer{display:flex;justify-content:space-between;align-items:center;padding:22px 0 56px;border-top:1px solid var(--line);font-size:12.5px;color:var(--dim)}
+  @media(max-width:840px){.hero{grid-template-columns:1fr;gap:34px}.feat{grid-template-columns:1fr}nav .links a:not(.pill){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand">
+      <span class="mic"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
+      FluidVoice
+    </div>
+    <div class="links">
+      <a href="#">Why local</a><a href="#">Speed</a>
+      <a class="pill" href="https://github.com/altic-dev/FluidVoice">Get it for macOS</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="copy">
+      <span class="badge"><span class="d"></span> 100% on-device · nothing uploaded</span>
+      <h1>Voice to text, <em>fully local.</em></h1>
+      <p class="sub">The fastest offline dictation app for macOS. Speak naturally and watch it become text — instantly, with no network and no cloud.</p>
+      <div class="cta">
+        <a class="btn p" href="#">Download for Mac</a>
+        <a class="btn g" href="https://github.com/altic-dev/FluidVoice">View on GitHub</a>
+      </div>
+      <div class="note">Offline-first · your audio never leaves the machine</div>
+    </div>
+
+    <div class="device">
+      <div class="titlebar"><i></i><i></i><i></i><span class="t">FluidVoice — dictation</span></div>
+      <div class="stage">
+        <div class="listening"><span class="live"></span> LISTENING · ON-DEVICE</div>
+        <div class="wave">
+          <span style="animation-delay:0s"></span><span style="animation-delay:.12s"></span><span style="animation-delay:.05s"></span><span style="animation-delay:.21s"></span><span style="animation-delay:.09s"></span><span style="animation-delay:.27s"></span><span style="animation-delay:.03s"></span><span style="animation-delay:.18s"></span><span style="animation-delay:.24s"></span><span style="animation-delay:.07s"></span><span style="animation-delay:.15s"></span><span style="animation-delay:.3s"></span><span style="animation-delay:.1s"></span><span style="animation-delay:.22s"></span><span style="animation-delay:.04s"></span><span style="animation-delay:.26s"></span><span style="animation-delay:.13s"></span><span style="animation-delay:.19s"></span>
+        </div>
+        <div class="typed">Draft the release notes and keep the tone calm<span class="cur"></span></div>
+        <div class="meta"><span>transcript · illustrative</span><span>real-time · 0 ms upload</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="feat">
+    <div class="f">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="#7d8a6b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>Works offline</h3><p>No internet required. Dictate on a plane, in a tunnel, anywhere — the model runs on your Mac.</p>
+    </div>
+    <div class="f">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z" fill="#c2553a"/></svg></div>
+      <h3>Built for speed</h3><p>Tuned to be the fastest offline dictation on macOS — words appear as you speak.</p>
+    </div>
+    <div class="f">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z" stroke="#2a2520" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      <h3>Private by design</h3><p>Voice and transcript stay on the device. Nothing is uploaded, logged, or sent to a server.</p>
+    </div>
+  </div>
+
+  <footer><span>altic-dev / FluidVoice</span><span>UI &amp; transcript illustrative · no benchmark figures shown</span></footer>
+</div>
+</body>
+</html>

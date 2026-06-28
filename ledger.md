@@ -50,3 +50,15 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-06-23 — [rep](days/2026-06-23/) — garrytan/gstack — mono-zine/amber — cast the 23 tools as a literal crew roster in an all-mono terminal manifest → landed
 - 2026-06-23 — [rep](days/2026-06-23/) — revfactory/harness — bauhaus/primary — meta-skill as a central node emitting geometric agents/skills on a drafting grid → landed
 - 2026-06-23 — [rep](days/2026-06-23/) — NousResearch/hermes-agent — warm-minimal/sage — a four-word tagline as a warm growth card compounding context to instinct → mostly (week figures are invented scaffolding)
+- 2026-06-25 — [rep](days/2026-06-25/) — google-labs-code/design.md — poster/ink — filename as hero, four-cell what/for/holds/gives strip → landed
+- 2026-06-25 — [rep](days/2026-06-25/) — apple/container — glass/frost-blue — one frosted panel, each row its own lightweight VM → landed
+- 2026-06-25 — [rep](days/2026-06-25/) — alibaba/page-agent — hud/scan-cyan — agent as instrument readout, NL command to LOCATE-CLICK-SELECT-ARCHIVE ladder → mostly
+- 2026-06-26 — [rep](days/2026-06-26/) — xbtlin/ai-berkshire — editorial/forest-green — research desk that argues with itself, four lenses converge to one thesis → landed
+- 2026-06-26 — [rep](days/2026-06-26/) — aws/agent-toolkit-for-aws — terminal-dark/amber — give your agent first-party AWS hands, register-the-toolkit terminal + 3 cards → landed
+- 2026-06-26 — [rep](days/2026-06-26/) — opendatalab/MinerU — blueprint/cyan — make the extraction the hero, scan to layout analysis to tagged Markdown/JSON → landed
+- 2026-06-27 — [rep](days/2026-06-27/) — Fission-AI/OpenSpec — swiss/red — spec.md as single source of truth feeding author-implement-verify ladder → landed
+- 2026-06-27 — [rep](days/2026-06-27/) — anomalyco/opencode — neon-noir/cyan — neon exactly once, cyan wordmark glow over inspectable terminal session → mostly
+- 2026-06-27 — [rep](days/2026-06-27/) — Anil-matcha/Open-Generative-AI — data-viz/violet — 200+ models as a working model-catalog console with family bars → landed
+- 2026-06-28 — [rep](days/2026-06-28/) — DeusData/codebase-memory-mcp — constellation/electric-indigo — codebase as a living knowledge graph, two live edges show a query traversing → landed
+- 2026-06-28 — [rep](days/2026-06-28/) — usestrix/strix — brutalist/acid-green — security agent as a hard-edged find→fix scan log, one acid accent → landed
+- 2026-06-28 — [rep](days/2026-06-28/) — altic-dev/FluidVoice — warm-minimal/terracotta — fully-local dictation as a soft cream device, waveform becomes text → landed
