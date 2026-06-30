@@ -62,3 +62,9 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-06-28 — [rep](days/2026-06-28/) — DeusData/codebase-memory-mcp — constellation/electric-indigo — codebase as a living knowledge graph, two live edges show a query traversing → landed
 - 2026-06-28 — [rep](days/2026-06-28/) — usestrix/strix — brutalist/acid-green — security agent as a hard-edged find→fix scan log, one acid accent → landed
 - 2026-06-28 — [rep](days/2026-06-28/) — altic-dev/FluidVoice — warm-minimal/terracotta — fully-local dictation as a soft cream device, waveform becomes text → landed
+- 2026-06-29 — [rep](days/2026-06-29/) — msitarzewski/agency-agents — hud/amber — multi-agent crew as a live instrument panel with status LEDs → landed
+- 2026-06-29 — [rep](days/2026-06-29/) — refactoringhq/tolaria — poster/ink — markdown as the hero, giant italic serif over a four-cell spec strip → landed
+- 2026-06-29 — [rep](days/2026-06-29/) — logto-io/logto — blueprint/cyan — auth value as App→Logto→Tenant schematic on a drafting grid → landed
+- 2026-06-30 — [rep](days/2026-06-30/) — diegosouzapw/OmniRoute — data-viz/teal — AI gateway as a live routing console, provider lanes with utilization meters → landed
+- 2026-06-30 — [rep](days/2026-06-30/) — google/agents-cli — terminal-dark/google-blue — center the story on one terminal walking create→evaluate→deploy → landed
+- 2026-06-30 — [rep](days/2026-06-30/) — facebook/astryx — bauhaus/primary — show a design system AS primitives, a four-cell token wall of shapes → landed

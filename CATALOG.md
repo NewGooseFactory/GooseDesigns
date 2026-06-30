@@ -1,11 +1,17 @@
 # Catalog — every design rep
 
-Searchable master index. **60 mocks** across **20 days**. Newest first.
+Searchable master index. **66 mocks** across **22 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-06-30 | Tuesday | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | data-viz | teal | AI gateway as a live routing console, provider lanes with utilization meters | landed | [png](days/2026-06-30/01-OmniRoute.png) | [2026-06-30](days/2026-06-30/) |
+| 2026-06-30 | Tuesday | [google/agents-cli](https://github.com/google/agents-cli) | terminal-dark | google-blue | center the story on one terminal walking create→evaluate→deploy | landed | [png](days/2026-06-30/02-agents-cli.png) | [2026-06-30](days/2026-06-30/) |
+| 2026-06-30 | Tuesday | [facebook/astryx](https://github.com/facebook/astryx) | bauhaus | primary | show a design system AS primitives, a four-cell token wall of shapes | landed | [png](days/2026-06-30/03-astryx.png) | [2026-06-30](days/2026-06-30/) |
+| 2026-06-29 | Monday | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | hud | amber | multi-agent crew as a live instrument panel with status LEDs | landed | [png](days/2026-06-29/01-agency-agents.png) | [2026-06-29](days/2026-06-29/) |
+| 2026-06-29 | Monday | [refactoringhq/tolaria](https://github.com/refactoringhq/tolaria) | poster | ink | markdown as the hero, giant italic serif over a four-cell spec strip | landed | [png](days/2026-06-29/02-tolaria.png) | [2026-06-29](days/2026-06-29/) |
+| 2026-06-29 | Monday | [logto-io/logto](https://github.com/logto-io/logto) | blueprint | cyan | auth value as App→Logto→Tenant schematic on a drafting grid | landed | [png](days/2026-06-29/03-logto.png) | [2026-06-29](days/2026-06-29/) |
 | 2026-06-28 | Sunday | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | constellation | electric-indigo | codebase as a living knowledge graph, two live edges show a query traversing | landed | [png](days/2026-06-28/01-codebase-memory-mcp.png) | [2026-06-28](days/2026-06-28/) |
 | 2026-06-28 | Sunday | [usestrix/strix](https://github.com/usestrix/strix) | brutalist | acid-green | security agent as a hard-edged find→fix scan log, one acid accent | landed | [png](days/2026-06-28/02-strix.png) | [2026-06-28](days/2026-06-28/) |
 | 2026-06-28 | Sunday | [altic-dev/FluidVoice](https://github.com/altic-dev/FluidVoice) | warm-minimal | terracotta | fully-local dictation as a soft cream device, waveform becomes text | landed | [png](days/2026-06-28/03-FluidVoice.png) | [2026-06-28](days/2026-06-28/) |

@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![60 mocks](https://img.shields.io/badge/mocks-60-1f6feb?style=flat-square) ![20 days](https://img.shields.io/badge/days-20-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![66 mocks](https://img.shields.io/badge/mocks-66-1f6feb?style=flat-square) ![22 days](https://img.shields.io/badge/days-22-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 60 mockups across 20 days and 14 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 66 mockups across 22 days and 14 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,22 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Sunday, June 28
+## Latest — Tuesday, June 30
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-06-28/"><img src="days/2026-06-28/01-codebase-memory-mcp.png" width="320" alt="DeusData/codebase-memory-mcp"></a><br><sub><b>DeusData/codebase-memory-mcp</b><br>constellation</sub></td>
-<td align="center" width="33%"><a href="days/2026-06-28/"><img src="days/2026-06-28/02-strix.png" width="320" alt="usestrix/strix"></a><br><sub><b>usestrix/strix</b><br>brutalist</sub></td>
-<td align="center" width="33%"><a href="days/2026-06-28/"><img src="days/2026-06-28/03-FluidVoice.png" width="320" alt="altic-dev/FluidVoice"></a><br><sub><b>altic-dev/FluidVoice</b><br>warm-minimal</sub></td>
+<td align="center" width="33%"><a href="days/2026-06-30/"><img src="days/2026-06-30/01-OmniRoute.png" width="320" alt="diegosouzapw/OmniRoute"></a><br><sub><b>diegosouzapw/OmniRoute</b><br>data-viz</sub></td>
+<td align="center" width="33%"><a href="days/2026-06-30/"><img src="days/2026-06-30/02-agents-cli.png" width="320" alt="google/agents-cli"></a><br><sub><b>google/agents-cli</b><br>terminal-dark</sub></td>
+<td align="center" width="33%"><a href="days/2026-06-30/"><img src="days/2026-06-30/03-astryx.png" width="320" alt="facebook/astryx"></a><br><sub><b>facebook/astryx</b><br>bauhaus</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-06-28/)
+[See the full day →](days/2026-06-30/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-06-30 | Tuesday | 3 | data-viz, terminal-dark, bauhaus | [open](days/2026-06-30/) |
+| 2026-06-29 | Monday | 3 | hud, poster, blueprint | [open](days/2026-06-29/) |
 | 2026-06-28 | Sunday | 3 | constellation, brutalist, warm-minimal | [open](days/2026-06-28/) |
 | 2026-06-27 | Saturday | 3 | swiss, neon-noir, data-viz | [open](days/2026-06-27/) |
 | 2026-06-26 | Friday | 3 | editorial, terminal-dark, blueprint | [open](days/2026-06-26/) |

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>logto — blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0d1b24;--panel:#0f2129;--ink:#dceaf0;--mut:#7fa1b0;--dim:#4f6e7c;--cyan:#43cfe0;--line:#1c3742}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.5;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:46px 46px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .b{font-weight:700;letter-spacing:-.01em}.b span{color:var(--cyan)}
+  nav .r{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--dim)}
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:62px 0 46px}
+  .ey{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+  h1{font-size:clamp(36px,5.2vw,54px);line-height:1.05;letter-spacing:-.03em;font-weight:800}
+  h1 em{font-style:normal;color:var(--cyan)}
+  .sub{margin-top:18px;color:var(--mut);font-size:17.5px;max-width:36ch}
+  .cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{font-size:14px;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:7px;border:1px solid var(--line);color:var(--ink)}
+  .btn.p{background:var(--cyan);color:#08161c;border-color:var(--cyan)}.btn.g:hover{border-color:var(--cyan)}
+  .diagram{position:relative;border:1px solid var(--line);background:rgba(15,33,41,.85);border-radius:12px;padding:22px}
+  .dh{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dim);letter-spacing:.06em;margin-bottom:18px}
+  .flow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .nodeb{flex:1;border:1px solid var(--line);border-radius:8px;padding:14px 10px;text-align:center;background:#0c1c23}
+  .nodeb b{display:block;font-size:13px;color:var(--ink)}.nodeb small{font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--dim)}
+  .nodeb.k{border-color:var(--cyan)} .nodeb.k b{color:var(--cyan)}
+  .arr{color:var(--cyan);font-family:"JetBrains Mono",monospace;font-size:14px}
+  .pills{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .pill{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:6px 12px}.pill b{color:var(--cyan)}
+  .ft{border-top:1px solid var(--line);padding:18px 0 52px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between}
+  @media(max-width:840px){.hero{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<nav><div class="b">Log<span>to</span></div><div class="r">OIDC · OAuth 2.1 · multi-tenant</div></nav>
+<section class="hero"><div>
+  <div class="ey">identity infrastructure</div>
+  <h1>Auth for SaaS <em>and AI apps.</em></h1>
+  <p class="sub">Authentication and authorization infrastructure built on OIDC and OAuth 2.1 — with multi-tenancy, SSO, and RBAC out of the box.</p>
+  <div class="cta"><a class="btn p" href="#">read the docs</a><a class="btn g" href="https://github.com/logto-io/logto">view source →</a></div>
+</div>
+<div class="diagram"><div class="dh">SIGN-IN FLOW · SCHEMATIC</div>
+  <div class="flow"><div class="nodeb"><b>App</b><small>SaaS / AI</small></div><span class="arr">→</span><div class="nodeb k"><b>Logto</b><small>OIDC/OAuth</small></div><span class="arr">→</span><div class="nodeb"><b>Tenant</b><small>SSO · RBAC</small></div></div>
+  <div class="pills"><span class="pill"><b>+</b> multi-tenancy</span><span class="pill"><b>+</b> SSO</span><span class="pill"><b>+</b> RBAC</span><span class="pill"><b>+</b> OAuth 2.1</span></div>
+</div></section>
+<div class="ft"><span>logto-io / logto</span><span>flow diagram illustrative</span></div>
+</div></body></html>

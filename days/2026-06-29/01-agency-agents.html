@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>agency-agents — hud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0e0c;--panel:#0e1512;--line:#1c2a23;--ink:#d9e6df;--mut:#7e9488;--dim:#566459;--amber:#ffb547;--green:#5fd08a;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.5;background-image:radial-gradient(circle at 1px 1px,rgba(95,208,138,.05) 1px,transparent 0);background-size:30px 30px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.04em}
+  nav .b{color:var(--amber);font-weight:600}.b b{color:var(--green)}
+  nav .r{color:var(--dim)} nav .r .on{color:var(--green)}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center;padding:64px 0 48px}
+  .ey{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .ey::before{content:"";width:26px;height:1px;background:var(--amber)}
+  h1{font-size:clamp(38px,5.4vw,58px);line-height:1.02;letter-spacing:-.03em;font-weight:800}
+  h1 em{font-style:normal;color:var(--amber)}
+  .sub{margin-top:20px;color:var(--mut);font-size:18px;max-width:34ch}
+  .cta{margin-top:30px;display:flex;gap:13px;flex-wrap:wrap}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:13px;text-decoration:none;padding:12px 18px;border:1px solid var(--line);color:var(--ink);border-radius:4px}
+  .btn.p{background:var(--amber);color:#0a0e0c;border-color:var(--amber);font-weight:600}
+  .btn.g:hover{border-color:var(--green);color:var(--green)}
+  .inst{border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}
+  .ih{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--dim);letter-spacing:.06em}
+  .ih .on{color:var(--green)}.ih .on::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px;animation:b 1.4s infinite}
+  @keyframes b{50%{opacity:.3}}
+  .roster{padding:6px 0}
+  .ag{display:grid;grid-template-columns:14px 1fr auto;gap:11px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);font-size:13px}
+  .ag:last-child{border:0}
+  .ag .led{width:7px;height:7px;border-radius:50%;background:var(--green)}.ag.idle .led{background:var(--dim)}
+  .ag .nm{font-weight:600}.ag .nm small{display:block;color:var(--dim);font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:400;margin-top:1px}
+  .ag .st{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--amber)}.ag.idle .st{color:var(--dim)}
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:10px;margin:6px 0 48px;overflow:hidden}
+  .s{padding:20px 22px;border-right:1px solid var(--line)}.s:last-child{border:0}
+  .s .n{font-family:"IBM Plex Mono",monospace;font-size:26px;color:var(--amber);font-weight:600}.s .l{margin-top:5px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--dim)}
+  .ft{border-top:1px solid var(--line);padding:18px 0 50px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between}
+  @media(max-width:840px){.hero{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.s{border-right:0;border-bottom:1px solid var(--line)}}
+</style></head><body><div class="wrap">
+<nav><div class="b">AGENCY<b>//</b>AGENTS</div><div class="r"><span class="on">roster online</span> · 14 specialists</div></nav>
+<section class="hero"><div>
+  <div class="ey">a complete ai agency</div>
+  <h1>Your whole agency, <em>on call.</em></h1>
+  <p class="sub">Frontend wizards to community ninjas to reality checkers — each agent a specialist with its own personality, process, and proven deliverables.</p>
+  <div class="cta"><a class="btn p" href="#">assemble the team</a><a class="btn g" href="https://github.com/msitarzewski/agency-agents">view source →</a></div>
+</div>
+<div class="inst"><div class="ih"><span>AGENCY ROSTER</span><span class="on">dispatching</span></div><div class="roster">
+  <div class="ag"><span class="led"></span><span class="nm">Frontend Wizard<small>ships UI from a sketch</small></span><span class="st">BUILDING</span></div>
+  <div class="ag"><span class="led"></span><span class="nm">Reality Checker<small>flags the optimistic plan</small></span><span class="st">REVIEWING</span></div>
+  <div class="ag idle"><span class="led"></span><span class="nm">Community Ninja<small>runs the launch threads</small></span><span class="st">IDLE</span></div>
+  <div class="ag"><span class="led"></span><span class="nm">Whimsy Injector<small>adds the delight</small></span><span class="st">DRAFTING</span></div>
+  <div class="ag idle"><span class="led"></span><span class="nm">Reddit Strategist<small>finds the right subs</small></span><span class="st">IDLE</span></div>
+</div></div></section>
+<div class="strip"><div class="s"><div class="n">14</div><div class="l">specialist agents</div></div><div class="s"><div class="n">1</div><div class="l">prompt to dispatch</div></div><div class="s"><div class="n">∞</div><div class="l">parallel runs</div></div></div>
+<div class="ft"><span>msitarzewski / agency-agents</span><span>roster status illustrative</span></div>
+</div></body></html>
+

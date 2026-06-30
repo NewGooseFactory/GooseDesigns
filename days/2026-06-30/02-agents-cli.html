@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>agents-cli — terminal-dark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#08090c;--panel:#0d0f14;--line:#1a1d26;--ink:#e6e9f0;--mut:#8a90a3;--dim:#565d70;--blue:#5b9dff;--blue-d:#3b82f6;--grn:#4ade80}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.5}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;font-size:13px}
+  .b{font-weight:700;letter-spacing:-.01em;font-family:"JetBrains Mono",monospace}.b span{color:var(--blue)}
+  nav .r{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--dim)}
+  .hero{text-align:center;padding:72px 0 30px;max-width:780px;margin:0 auto}
+  .ey{display:inline-flex;align-items:center;gap:9px;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);border:1px solid var(--line);border-radius:999px;padding:6px 14px;margin-bottom:26px}
+  .ey .g{display:flex;gap:3px}.ey .g i{width:6px;height:6px;border-radius:50%}
+  .ey .g i:nth-child(1){background:#5b9dff}.ey .g i:nth-child(2){background:#ea4335}.ey .g i:nth-child(3){background:#fbbc05}.ey .g i:nth-child(4){background:#34a853}
+  h1{font-size:clamp(38px,5.6vw,60px);line-height:1.03;letter-spacing:-.03em;font-weight:800}
+  h1 em{font-style:normal;color:var(--blue)}
+  .sub{margin:20px auto 0;color:var(--mut);font-size:18px;max-width:50ch}
+  .cta{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{font-size:13.5px;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:8px;border:1px solid var(--line);color:var(--ink)}
+  .btn.p{background:var(--blue);color:#04101f;border-color:var(--blue)}.btn.g{font-family:"JetBrains Mono",monospace}.btn.g:hover{border-color:var(--blue)}
+  .term{max-width:880px;margin:44px auto 0;border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden;box-shadow:0 30px 80px -40px rgba(91,157,255,.3)}
+  .th{display:flex;align-items:center;gap:7px;padding:12px 15px;border-bottom:1px solid var(--line)}
+  .th i{width:11px;height:11px;border-radius:50%;background:#222634;display:block}
+  .th .t{margin-left:10px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim)}
+  .body{padding:20px 20px 24px;font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.85}
+  .ln{white-space:pre-wrap}
+  .pr{color:var(--blue)} .cm{color:var(--ink)} .ok{color:var(--grn)} .mt{color:var(--dim)}
+  .cur{display:inline-block;width:8px;height:15px;background:var(--blue);vertical-align:-2px;animation:bk 1s steps(2) infinite}
+  @keyframes bk{50%{opacity:0}}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:40px 0 56px}
+  .st{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--panel)}
+  .st .k{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue);letter-spacing:.06em}
+  .st h3{margin-top:10px;font-size:16px;font-weight:700}
+  .st p{margin-top:7px;font-size:13.5px;color:var(--mut);line-height:1.6}
+  .ft{border-top:1px solid var(--line);padding:18px 0 52px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between}
+  @media(max-width:780px){.steps{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<nav><div class="b">agents<span>-cli</span></div><div class="r">google cloud · open source</div></nav>
+<section class="hero">
+  <div class="ey"><span class="g"><i></i><i></i><i></i><i></i></span> the agent dev CLI</div>
+  <h1>Turn any coding assistant into an <em>agent expert.</em></h1>
+  <p class="sub">A CLI and skills layer that helps your assistant create, evaluate, and deploy AI agents on Google Cloud — from one terminal.</p>
+  <div class="cta"><a class="btn p" href="#">install the CLI</a><a class="btn g" href="https://github.com/google/agents-cli">view source →</a></div>
+</section>
+<div class="term">
+  <div class="th"><i></i><i></i><i></i><span class="t">agents-cli — deploy</span></div>
+  <div class="body">
+<div class="ln"><span class="pr">$</span> <span class="cm">agents init my-support-agent</span></div>
+<div class="ln"><span class="mt">  scaffolded agent · skills attached</span></div>
+<div class="ln"><span class="pr">$</span> <span class="cm">agents eval --suite regression</span></div>
+<div class="ln"><span class="ok">  ✓ 24/24 checks passed</span> <span class="mt">(illustrative)</span></div>
+<div class="ln"><span class="pr">$</span> <span class="cm">agents deploy --project gcp-prod</span></div>
+<div class="ln"><span class="ok">  ✓ live</span> <span class="mt">→ run.app/my-support-agent</span><span class="cur"></span></div>
+  </div>
+</div>
+<div class="steps">
+  <div class="st"><div class="k">01 · CREATE</div><h3>Scaffold</h3><p>Spin up an agent with skills your assistant already understands.</p></div>
+  <div class="st"><div class="k">02 · EVALUATE</div><h3>Prove it</h3><p>Run evals before you ship — regression suites, not vibes.</p></div>
+  <div class="st"><div class="k">03 · DEPLOY</div><h3>Go live</h3><p>One command to deploy onto Google Cloud.</p></div>
+</div>
+<div class="ft"><span>google / agents-cli</span><span>terminal session illustrative · no benchmark claims</span></div>
+</div></body></html>

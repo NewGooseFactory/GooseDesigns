@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OmniRoute — data-viz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1413;--panel:#0e1a18;--card:#102220;--line:#1b302d;--ink:#dcefea;--mut:#7fa39b;--dim:#506b64;
+    --teal:#2dd4bf;--teal-d:#14b8a6;--amber:#f2c14e;--violet:#a78bfa;--rose:#fb7185;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.5}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .b{font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+  .b .d{width:10px;height:10px;border-radius:3px;background:var(--teal);box-shadow:0 0 0 4px rgba(45,212,191,.14)}
+  .b span{color:var(--teal)}
+  nav .r{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--dim)}
+  .hero{display:grid;grid-template-columns:.92fr 1.08fr;gap:40px;align-items:center;padding:56px 0 40px}
+  .ey{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:20px}
+  h1{font-size:clamp(36px,5vw,54px);line-height:1.04;letter-spacing:-.03em;font-weight:800}
+  h1 em{font-style:normal;color:var(--teal)}
+  .sub{margin-top:18px;color:var(--mut);font-size:17.5px;max-width:36ch}
+  .cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{font-size:13.5px;font-weight:600;text-decoration:none;padding:12px 18px;border-radius:8px;border:1px solid var(--line);color:var(--ink)}
+  .btn.p{background:var(--teal);color:#062019;border-color:var(--teal)}.btn.g:hover{border-color:var(--teal)}
+  .console{border:1px solid var(--line);background:linear-gradient(180deg,#0f1d1b,#0c1816);border-radius:14px;overflow:hidden}
+  .ch{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim)}
+  .ch .ep{color:var(--ink)}.ch .ep b{color:var(--teal)}
+  .ch .on{color:var(--teal)}.ch .on::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal);margin-right:6px;animation:bl 1.4s infinite}
+  @keyframes bl{50%{opacity:.3}}
+  .lanes{padding:14px 16px;display:grid;gap:10px}
+  .lane{display:grid;grid-template-columns:120px 1fr 58px;gap:12px;align-items:center;font-size:12.5px}
+  .lane .nm{font-family:"JetBrains Mono",monospace;color:var(--mut);font-size:11.5px}
+  .lane .nm b{color:var(--ink);font-weight:500}
+  .bar{height:9px;border-radius:5px;background:#0a1614;border:1px solid var(--line);overflow:hidden;position:relative}
+  .bar i{display:block;height:100%;border-radius:5px}
+  .lane .pct{font-family:"JetBrains Mono",monospace;font-size:11px;text-align:right;color:var(--mut)}
+  .t1{background:linear-gradient(90deg,var(--teal-d),var(--teal))}
+  .t2{background:var(--violet)}.t3{background:var(--amber)}.t4{background:var(--rose)}.t5{background:#38bdf8}
+  .cf{display:flex;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dim)}
+  .cf b{color:var(--teal)}
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:4px 0 46px}
+  .s{padding:20px 20px;border-right:1px solid var(--line)}.s:last-child{border:0}
+  .s .n{font-family:"JetBrains Mono",monospace;font-size:25px;font-weight:600;color:var(--teal)}
+  .s .l{margin-top:5px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dim)}
+  .ft{border-top:1px solid var(--line);padding:18px 0 52px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between}
+  @media(max-width:860px){.hero{grid-template-columns:1fr}.strip{grid-template-columns:repeat(2,1fr)}.s:nth-child(2){border-right:0}}
+</style></head><body><div class="wrap">
+<nav><div class="b"><span class="d"></span>Omni<span>Route</span></div><div class="r">one endpoint · 160+ providers</div></nav>
+<section class="hero"><div>
+  <div class="ey">free ai gateway</div>
+  <h1>One endpoint. <em>Every model.</em></h1>
+  <p class="sub">Point Claude Code, Codex, Cursor, Cline and Copilot at a single gateway — 160+ providers, smart auto-fallback, and stacked token compression.</p>
+  <div class="cta"><a class="btn p" href="#">get the endpoint</a><a class="btn g" href="https://github.com/diegosouzapw/OmniRoute">view source →</a></div>
+</div>
+<div class="console">
+  <div class="ch"><span class="ep">POST <b>/v1/route</b></span><span class="on">routing</span></div>
+  <div class="lanes">
+    <div class="lane"><span class="nm"><b>Claude</b> · anthropic</span><span class="bar"><i class="t1" style="width:88%"></i></span><span class="pct">88%</span></div>
+    <div class="lane"><span class="nm"><b>GPT</b> · openai</span><span class="bar"><i class="t5" style="width:72%"></i></span><span class="pct">72%</span></div>
+    <div class="lane"><span class="nm"><b>Gemini</b> · google</span><span class="bar"><i class="t2" style="width:64%"></i></span><span class="pct">64%</span></div>
+    <div class="lane"><span class="nm"><b>Llama</b> · groq</span><span class="bar"><i class="t3" style="width:51%"></i></span><span class="pct">51%</span></div>
+    <div class="lane"><span class="nm"><b>fallback</b> · 50+ free</span><span class="bar"><i class="t4" style="width:34%"></i></span><span class="pct">34%</span></div>
+  </div>
+  <div class="cf"><span>auto-fallback · MCP / A2A · multimodal</span><span>tokens saved <b>15–95%</b> · illustrative</span></div>
+</div></section>
+<div class="strip">
+  <div class="s"><div class="n">160+</div><div class="l">providers</div></div>
+  <div class="s"><div class="n">50+</div><div class="l">free models</div></div>
+  <div class="s"><div class="n">1</div><div class="l">endpoint</div></div>
+  <div class="s"><div class="n">15–95%</div><div class="l">tokens saved</div></div>
+</div>
+<div class="ft"><span>diegosouzapw / OmniRoute</span><span>routing meters &amp; savings illustrative · figures from project README</span></div>
+</div></body></html>
