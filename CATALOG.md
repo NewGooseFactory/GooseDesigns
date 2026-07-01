@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **66 mocks** across **22 days**. Newest first.
+Searchable master index. **69 mocks** across **23 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-01 | Wednesday | [0xNyk/council-of-high-intelligence](https://github.com/0xNyk/council-of-high-intelligence) | editorial | burgundy | 18 personas as a newspaper council with a live for/against/abstain deliberation column | landed | [png](days/2026-07-01/01-council-of-high-intelligence.png) | [2026-07-01](days/2026-07-01/) |
+| 2026-07-01 | Wednesday | [TencentCloud/CubeSandbox](https://github.com/TencentCloud/CubeSandbox) | glass | frost-cyan | make isolation visible, one frosted panel holding three sealed agent cubes | landed | [png](days/2026-07-01/02-CubeSandbox.png) | [2026-07-01](days/2026-07-01/) |
+| 2026-07-01 | Wednesday | [ogulcancelik/herdr](https://github.com/ogulcancelik/herdr) | mono-zine | amber | multiplexer as an ASCII fan-in over a four-pane terminal split | landed | [png](days/2026-07-01/03-herdr.png) | [2026-07-01](days/2026-07-01/) |
 | 2026-06-30 | Tuesday | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | data-viz | teal | AI gateway as a live routing console, provider lanes with utilization meters | landed | [png](days/2026-06-30/01-OmniRoute.png) | [2026-06-30](days/2026-06-30/) |
 | 2026-06-30 | Tuesday | [google/agents-cli](https://github.com/google/agents-cli) | terminal-dark | google-blue | center the story on one terminal walking create→evaluate→deploy | landed | [png](days/2026-06-30/02-agents-cli.png) | [2026-06-30](days/2026-06-30/) |
 | 2026-06-30 | Tuesday | [facebook/astryx](https://github.com/facebook/astryx) | bauhaus | primary | show a design system AS primitives, a four-cell token wall of shapes | landed | [png](days/2026-06-30/03-astryx.png) | [2026-06-30](days/2026-06-30/) |

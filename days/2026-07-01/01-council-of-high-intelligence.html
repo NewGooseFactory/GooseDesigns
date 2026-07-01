@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>council-of-high-intelligence — editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#fbf9f4;--ink:#1c1a17;--mut:#57534a;--dim:#8a8478;--line:#e4ded2;--rule:#cfc7b6;--accent:#7a2230;--paper:#fffefb}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.55}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 34px}
+  .masthead{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .masthead .name{font-family:"Newsreader",serif;font-weight:700;font-size:20px;letter-spacing:-.01em}
+  .masthead .name b{color:var(--accent)}
+  .masthead .r{font-family:"Newsreader",serif;font-style:italic;font-size:13px;color:var(--dim)}
+  .kick{display:flex;gap:14px;align-items:center;font-family:"Inter";font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);padding:14px 0 0}
+  .kick::before,.kick::after{content:"";height:1px;background:var(--rule);flex:1}
+  .hero{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;padding:22px 0 34px;border-bottom:1px solid var(--line)}
+  h1{font-family:"Newsreader",serif;font-weight:700;font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.02em}
+  h1 em{font-style:italic;color:var(--accent);font-weight:600}
+  .deck{font-family:"Newsreader",serif;font-size:20px;line-height:1.45;color:var(--mut);margin-top:18px;max-width:38ch}
+  .drop::first-letter{float:left;font-family:"Newsreader",serif;font-weight:700;font-size:64px;line-height:.72;padding:6px 12px 0 0;color:var(--accent)}
+  .body{font-size:15px;color:var(--mut);line-height:1.7}
+  .cta{margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .btn{font-size:13.5px;font-weight:600;text-decoration:none;padding:11px 18px;border-radius:2px}
+  .btn.p{background:var(--ink);color:var(--bg)}.btn.g{color:var(--ink);border:1px solid var(--rule)}
+  .btn.g:hover{border-color:var(--ink)} .btn.p:hover{background:var(--accent)}
+  .council{border:1px solid var(--line);background:var(--paper);border-radius:4px;overflow:hidden}
+  .ch{padding:12px 16px;border-bottom:1px solid var(--line);font-family:"Inter";font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);display:flex;justify-content:space-between}
+  .ch .rd{color:var(--accent)}
+  .voice{padding:13px 16px;border-bottom:1px solid var(--line)}
+  .voice:last-child{border:0}
+  .voice .who{font-family:"Newsreader",serif;font-weight:600;font-size:14px}
+  .voice .who small{font-family:"Inter";font-weight:500;font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);margin-left:8px}
+  .voice .say{font-family:"Newsreader",serif;font-style:italic;font-size:13.5px;color:var(--mut);margin-top:3px;line-height:1.4}
+  .voice .pos{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:7px;vertical-align:1px}
+  .for{background:#2f6b45}.against{background:var(--accent)}.abst{background:var(--dim)}
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 0 46px}
+  .s{padding:22px 4px;text-align:center;border-right:1px solid var(--line)}.s:last-child{border:0}
+  .s .n{font-family:"Newsreader",serif;font-weight:700;font-size:30px}.s .n b{color:var(--accent)}
+  .s .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:5px}
+  .ft{display:flex;justify-content:space-between;padding:0 0 52px;font-size:11.5px;color:var(--dim);font-family:"Inter"}
+  @media(max-width:820px){.hero{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.s{border-right:0;border-bottom:1px solid var(--line)}}
+</style></head><body><div class="wrap">
+<div class="masthead"><div class="name">THE <b>COUNCIL</b></div><div class="r">of High Intelligence · est. one command</div></div>
+<div class="kick">Multi-round deliberation · genuine model diversity</div>
+<section class="hero">
+  <div>
+    <h1>Eighteen minds on your <em>hardest</em> decision.</h1>
+    <p class="deck">Aristotle, Feynman, Kahneman, Torvalds and more — AI personas that deliberate across multiple LLM providers, then hand you a reasoned verdict.</p>
+    <p class="body drop" style="margin-top:18px">Run one command and the room convenes. Each persona argues from its own school across several providers, so the disagreement is real, not a single model wearing masks — then the rounds converge on a recommendation you can inspect.</p>
+    <div class="cta"><a class="btn p" href="#">/council</a><a class="btn g" href="https://github.com/0xNyk/council-of-high-intelligence">read the source →</a></div>
+  </div>
+  <aside class="council">
+    <div class="ch"><span>Deliberation · Round 2</span><span class="rd">convening</span></div>
+    <div class="voice"><div class="who">Feynman<small>first principles</small></div><div class="say"><span class="pos for"></span>Strip it to the mechanism before you name it.</div></div>
+    <div class="voice"><div class="who">Kahneman<small>bias check</small></div><div class="say"><span class="pos against"></span>You are anchoring on the first estimate.</div></div>
+    <div class="voice"><div class="who">Torvalds<small>pragmatics</small></div><div class="say"><span class="pos for"></span>Ship the boring version; measure it.</div></div>
+    <div class="voice"><div class="who">Aristotle<small>ethics</small></div><div class="say"><span class="pos abst"></span>Define the end before the means.</div></div>
+  </aside>
+</section>
+<div class="strip">
+  <div class="s"><div class="n"><b>18</b></div><div class="l">AI personas</div></div>
+  <div class="s"><div class="n">multi</div><div class="l">LLM providers</div></div>
+  <div class="s"><div class="n"><b>1</b></div><div class="l">command</div></div>
+</div>
+<div class="ft"><span>0xNyk / council-of-high-intelligence</span><span>deliberation transcript illustrative</span></div>
+</div></body></html>

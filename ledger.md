@@ -68,3 +68,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-06-30 — [rep](days/2026-06-30/) — diegosouzapw/OmniRoute — data-viz/teal — AI gateway as a live routing console, provider lanes with utilization meters → landed
 - 2026-06-30 — [rep](days/2026-06-30/) — google/agents-cli — terminal-dark/google-blue — center the story on one terminal walking create→evaluate→deploy → landed
 - 2026-06-30 — [rep](days/2026-06-30/) — facebook/astryx — bauhaus/primary — show a design system AS primitives, a four-cell token wall of shapes → landed
+- 2026-07-01 — [rep](days/2026-07-01/) — 0xNyk/council-of-high-intelligence — editorial/burgundy — 18 personas as a newspaper council with a live for/against/abstain deliberation column → landed
+- 2026-07-01 — [rep](days/2026-07-01/) — TencentCloud/CubeSandbox — glass/frost-cyan — make isolation visible, one frosted panel holding three sealed agent cubes → landed
+- 2026-07-01 — [rep](days/2026-07-01/) — ogulcancelik/herdr — mono-zine/amber — multiplexer as an ASCII fan-in over a four-pane terminal split → landed

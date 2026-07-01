@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CubeSandbox — glass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070b12;--ink:#e9f0f7;--mut:#93a3b8;--dim:#5c6b80;--cyan:#5fd6e6;--cyan-d:#2bb6c8;--line:rgba(255,255,255,.09);--glass:rgba(30,44,63,.42)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Sora",system-ui,sans-serif;line-height:1.5;overflow-x:hidden;position:relative}
+  body::before{content:"";position:fixed;inset:0;background:
+    radial-gradient(680px 420px at 78% 8%,rgba(95,214,230,.16),transparent 60%),
+    radial-gradient(560px 380px at 12% 92%,rgba(43,182,200,.10),transparent 62%);pointer-events:none}
+  .grid{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:52px 52px;pointer-events:none}
+  .wrap{position:relative;max-width:1140px;margin:0 auto;padding:0 32px;z-index:1}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;font-size:13px}
+  .b{font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+  .b .cube{width:22px;height:22px;border:1.5px solid var(--cyan);border-radius:5px;position:relative;box-shadow:0 0 14px rgba(95,214,230,.4) inset}
+  .b span{color:var(--cyan)}
+  nav .r{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--dim)}
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:60px 0 46px}
+  .ey{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+  h1{font-size:clamp(38px,5.4vw,58px);line-height:1.03;letter-spacing:-.03em;font-weight:800}
+  h1 em{font-style:normal;color:var(--cyan)}
+  .sub{margin-top:18px;color:var(--mut);font-size:18px;max-width:34ch}
+  .cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{font-size:14px;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:9px;border:1px solid var(--line);color:var(--ink)}
+  .btn.p{background:var(--cyan);color:#04141a;border-color:var(--cyan)}.btn.g:hover{border-color:var(--cyan)}
+  .panel{position:relative;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:18px;padding:20px;box-shadow:0 30px 80px -40px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.06) inset}
+  .ph{display:flex;justify-content:space-between;align-items:center;padding:0 4px 16px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dim);letter-spacing:.05em}
+  .ph .on{color:var(--cyan)}.ph .on::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cyan);margin-right:6px;box-shadow:0 0 8px var(--cyan);animation:pl 1.6s infinite}
+  @keyframes pl{50%{opacity:.35}}
+  .boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .sbx{border:1px solid var(--line);border-radius:12px;background:rgba(12,22,34,.5);padding:14px 12px;position:relative;overflow:hidden}
+  .sbx .id{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--dim)}
+  .sbx .ag{font-weight:600;font-size:13px;margin-top:6px}
+  .sbx .st{font-family:"JetBrains Mono",monospace;font-size:10px;margin-top:8px;color:var(--cyan)}
+  .sbx.busy{border-color:rgba(95,214,230,.35);box-shadow:0 0 22px -8px rgba(95,214,230,.5)}
+  .sbx .seal{position:absolute;top:9px;right:10px;font-size:9px;font-family:"JetBrains Mono",monospace;color:var(--dim);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+  .meta{display:flex;justify-content:space-between;padding:16px 4px 0;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--dim)}
+  .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:6px 0 52px}
+  .f{border:1px solid var(--line);border-radius:12px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:18px}
+  .f h3{font-size:14px;font-weight:700}.f p{margin-top:6px;font-size:12px;color:var(--mut);line-height:1.55}
+  .f .k{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--cyan);letter-spacing:.06em}
+  .ft{border-top:1px solid var(--line);padding:18px 0 54px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between}
+  @media(max-width:860px){.hero{grid-template-columns:1fr}.feat{grid-template-columns:repeat(2,1fr)}}
+</style></head><body><div class="grid"></div><div class="wrap">
+<nav><div class="b"><span class="cube"></span>Cube<span>Sandbox</span></div><div class="r">isolated · concurrent · secure</div></nav>
+<section class="hero"><div>
+  <div class="ey">sandbox for ai agents</div>
+  <h1>Give every agent its own <em>sealed cube.</em></h1>
+  <p class="sub">Instant, concurrent, secure and lightweight sandboxes — so agent code runs isolated, in parallel, and never touches the host.</p>
+  <div class="cta"><a class="btn p" href="#">spin up a cube</a><a class="btn g" href="https://github.com/TencentCloud/CubeSandbox">view source →</a></div>
+</div>
+<div class="panel">
+  <div class="ph"><span>ACTIVE SANDBOXES</span><span class="on">3 running</span></div>
+  <div class="boxes">
+    <div class="sbx busy"><span class="seal">sealed</span><div class="id">cube-01</div><div class="ag">planner</div><div class="st">RUNNING</div></div>
+    <div class="sbx busy"><span class="seal">sealed</span><div class="id">cube-02</div><div class="ag">coder</div><div class="st">RUNNING</div></div>
+    <div class="sbx"><span class="seal">sealed</span><div class="id">cube-03</div><div class="ag">tester</div><div class="st">SPAWNING</div></div>
+  </div>
+  <div class="meta"><span>cold start · &lt;1s illustrative</span><span>host isolation · enforced</span></div>
+</div></section>
+<div class="feat">
+  <div class="f"><div class="k">01</div><h3>Instant</h3><p>Cold-start a fresh sandbox in about a second.</p></div>
+  <div class="f"><div class="k">02</div><h3>Concurrent</h3><p>Run many agents at once, each in its own cube.</p></div>
+  <div class="f"><div class="k">03</div><h3>Secure</h3><p>Isolated from the host and from each other.</p></div>
+  <div class="f"><div class="k">04</div><h3>Lightweight</h3><p>Small footprint, built to scale out.</p></div>
+</div>
+<div class="ft"><span>TencentCloud / CubeSandbox</span><span>sandbox states illustrative</span></div>
+</div></body></html>
