@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ECC — hud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#080d0a;--panel:#0b130e;--line:#17271b;--ink:#dcefe0;--mut:#7c9585;--dim:#4f6355;--green:#54e08a;--amber:#ffc061;--red:#ff6b5f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.5;background-image:radial-gradient(circle at 1px 1px,rgba(84,224,138,.05) 1px,transparent 0);background-size:28px 28px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.04em}
+  nav .b{color:var(--green);font-weight:600}.b b{color:var(--amber)}
+  nav .r{color:var(--dim)} nav .r .on{color:var(--green)}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;padding:60px 0 44px}
+  .ey{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .ey::before{content:"";width:26px;height:1px;background:var(--green)}
+  h1{font-size:clamp(38px,5.4vw,58px);line-height:1.02;letter-spacing:-.03em;font-weight:800}
+  h1 em{font-style:normal;color:var(--green)}
+  .sub{margin-top:20px;color:var(--mut);font-size:18px;max-width:36ch}
+  .cta{margin-top:30px;display:flex;gap:13px;flex-wrap:wrap}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:13px;text-decoration:none;padding:12px 18px;border:1px solid var(--line);color:var(--ink);border-radius:4px}
+  .btn.p{background:var(--green);color:#08130c;border-color:var(--green);font-weight:600}
+  .btn.g:hover{border-color:var(--green);color:var(--green)}
+  .instr{border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+  .ih{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--dim);letter-spacing:.06em}
+  .ih .on{color:var(--green)}.ih .on::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px;animation:b 1.5s infinite}
+  @keyframes b{50%{opacity:.3}}
+  .gauges{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+  .g{padding:16px 12px;border-right:1px solid var(--line);text-align:center}.g:last-child{border:0}
+  .g .lab{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+  .dial{width:58px;height:29px;margin:10px auto 6px;position:relative;overflow:hidden}
+  .dial svg{width:58px;height:58px}
+  .g .val{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--green);font-weight:600}
+  .g.amber .val{color:var(--amber)}
+  .readout{border-top:1px solid var(--line);padding:12px 15px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mut);display:flex;justify-content:space-between}
+  .readout b{color:var(--green)}
+  .row{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0 46px}
+  .cap{padding:18px 16px;border-right:1px solid var(--line)}.cap:last-child{border:0}
+  .cap .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--amber);letter-spacing:.04em}
+  .cap .t{margin-top:7px;font-size:13px;color:var(--ink);font-weight:500}
+  .cap .d{margin-top:4px;font-size:11.5px;color:var(--dim);line-height:1.5}
+  .ft{border-top:1px solid var(--line);padding:18px 0 52px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between}
+  @media(max-width:860px){.hero{grid-template-columns:1fr}.gauges{grid-template-columns:repeat(3,1fr)}.row{grid-template-columns:1fr}.cap{border-right:0;border-bottom:1px solid var(--line)}}
+</style></head><body><div class="wrap">
+<nav><div class="b">ECC<b>//</b>agent harness</div><div class="r"><span class="on">harness nominal</span> · 5 subsystems</div></nav>
+<section class="hero"><div>
+  <div class="ey">performance optimization system</div>
+  <h1>Tune the <em>harness,</em> not just the model.</h1>
+  <p class="sub">Skills, instincts, memory, security and research-first development — a performance layer for Claude Code, Codex, Opencode, Cursor and beyond.</p>
+  <div class="cta"><a class="btn p" href="#">arm the harness</a><a class="btn g" href="https://github.com/affaan-m/ECC">view source →</a></div>
+</div>
+<div class="instr">
+  <div class="ih"><span>HARNESS SUBSYSTEMS</span><span class="on">monitoring</span></div>
+  <div class="gauges">
+    <div class="g"><div class="lab">Skills</div><div class="dial"><svg viewBox="0 0 58 58"><path d="M6 29a23 23 0 0 1 46 0" fill="none" stroke="#17271b" stroke-width="5"/><path d="M6 29a23 23 0 0 1 40 -12" fill="none" stroke="#54e08a" stroke-width="5" stroke-linecap="round"/></svg></div><div class="val">ONLINE</div></div>
+    <div class="g"><div class="lab">Instincts</div><div class="dial"><svg viewBox="0 0 58 58"><path d="M6 29a23 23 0 0 1 46 0" fill="none" stroke="#17271b" stroke-width="5"/><path d="M6 29a23 23 0 0 1 44 -6" fill="none" stroke="#54e08a" stroke-width="5" stroke-linecap="round"/></svg></div><div class="val">ONLINE</div></div>
+    <div class="g"><div class="lab">Memory</div><div class="dial"><svg viewBox="0 0 58 58"><path d="M6 29a23 23 0 0 1 46 0" fill="none" stroke="#17271b" stroke-width="5"/><path d="M6 29a23 23 0 0 1 34 -18" fill="none" stroke="#54e08a" stroke-width="5" stroke-linecap="round"/></svg></div><div class="val">SYNC</div></div>
+    <div class="g amber"><div class="lab">Security</div><div class="dial"><svg viewBox="0 0 58 58"><path d="M6 29a23 23 0 0 1 46 0" fill="none" stroke="#17271b" stroke-width="5"/><path d="M6 29a23 23 0 0 1 42 -9" fill="none" stroke="#ffc061" stroke-width="5" stroke-linecap="round"/></svg></div><div class="val">GUARD</div></div>
+    <div class="g"><div class="lab">Research</div><div class="dial"><svg viewBox="0 0 58 58"><path d="M6 29a23 23 0 0 1 46 0" fill="none" stroke="#17271b" stroke-width="5"/><path d="M6 29a23 23 0 0 1 38 -14" fill="none" stroke="#54e08a" stroke-width="5" stroke-linecap="round"/></svg></div><div class="val">FIRST</div></div>
+  </div>
+  <div class="readout"><span>research-first · <b>enabled</b></span><span>subsystem states illustrative</span></div>
+</div></section>
+<div class="row">
+  <div class="cap"><div class="k">SKILLS</div><div class="t">Reusable moves</div><div class="d">Composable capabilities the agent can call.</div></div>
+  <div class="cap"><div class="k">INSTINCTS</div><div class="t">Default reflexes</div><div class="d">Learned reflexes that fire before deliberation.</div></div>
+  <div class="cap"><div class="k">MEMORY</div><div class="t">Carried context</div><div class="d">State that survives across sessions.</div></div>
+  <div class="cap"><div class="k">SECURITY</div><div class="t">Guardrails</div><div class="d">Boundaries enforced on every action.</div></div>
+  <div class="cap"><div class="k">RESEARCH</div><div class="t">Look before leap</div><div class="d">Investigate first, then act.</div></div>
+</div>
+<div class="ft"><span>affaan-m / ECC</span><span>gauges &amp; states illustrative</span></div>
+</div></body></html>

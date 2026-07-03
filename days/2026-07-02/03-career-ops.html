@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>career-ops — swiss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f4f4f2;--ink:#111112;--mut:#55565a;--dim:#8b8c90;--line:#d7d7d3;--cobalt:#1b43d8;--paper:#fff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 34px}
+  nav{display:grid;grid-template-columns:repeat(12,1fr);align-items:baseline;padding:24px 0;border-bottom:2px solid var(--ink)}
+  nav .b{grid-column:1/4;font-weight:800;font-size:19px;letter-spacing:-.02em}
+  nav .b span{color:var(--cobalt)}
+  nav .m{grid-column:9/13;text-align:right;font-size:12px;color:var(--dim);font-weight:500;letter-spacing:.02em}
+  .hero{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;padding:56px 0 40px;border-bottom:1px solid var(--line)}
+  .h-l{grid-column:1/8}
+  .idx{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cobalt);margin-bottom:22px}
+  h1{font-size:clamp(46px,7.6vw,94px);line-height:.94;letter-spacing:-.04em;font-weight:900}
+  .h-r{grid-column:9/13;align-self:end}
+  .h-r p{font-size:16px;color:var(--mut);line-height:1.6}
+  .h-r .cta{margin-top:22px;display:flex;flex-direction:column;gap:9px}
+  .btn{font-size:13.5px;font-weight:600;text-decoration:none;padding:12px 18px;text-align:center}
+  .btn.p{background:var(--cobalt);color:#fff}.btn.g{border:1px solid var(--ink);color:var(--ink)}.btn.g:hover{background:var(--ink);color:#fff}
+  .modes{display:grid;grid-template-columns:repeat(12,1fr);gap:0;border-bottom:1px solid var(--line)}
+  .mh{grid-column:1/4;padding:26px 0;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .mh span{color:var(--cobalt)}
+  .mgrid{grid-column:4/13;display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid var(--line)}
+  .mode{padding:18px 16px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);min-height:96px;display:flex;flex-direction:column;justify-content:space-between}
+  .mode:nth-child(4n){border-right:0}
+  .mode .no{font-size:11px;color:var(--dim);font-weight:600}
+  .mode .nm{font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .mode:hover{background:var(--cobalt);color:#fff}.mode:hover .no{color:rgba(255,255,255,.7)}
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:0}
+  .s{padding:26px 0;border-right:1px solid var(--line)}.s:last-child{border:0;padding-left:0}
+  .s{padding-left:0}.s+.s{padding-left:24px}
+  .s .n{font-size:42px;font-weight:900;letter-spacing:-.03em}.s .n b{color:var(--cobalt)}
+  .s .l{margin-top:6px;font-size:12px;color:var(--dim);font-weight:500;letter-spacing:.02em}
+  .ft{display:flex;justify-content:space-between;padding:22px 0 54px;font-size:11.5px;color:var(--dim);border-top:2px solid var(--ink);margin-top:8px}
+  @media(max-width:820px){.h-l,.h-r,.mh,.mgrid{grid-column:1/13}.mgrid{grid-template-columns:repeat(2,1fr);border-left:0}.mode:nth-child(4n){border-right:1px solid var(--line)}.mode:nth-child(2n){border-right:0}.strip{grid-template-columns:1fr}.s+.s{padding-left:0}.s{border-right:0;border-bottom:1px solid var(--line)}}
+</style></head><body><div class="wrap">
+<nav><div class="b">career<span>-ops</span></div><div class="m">AI-powered job search · built on Claude Code</div></nav>
+<section class="hero">
+  <div class="h-l">
+    <div class="idx">Job search, operationalized</div>
+    <h1>Run your<br>search like<br>a system.</h1>
+  </div>
+  <div class="h-r">
+    <p>Fourteen skill modes, a Go dashboard, PDF generation and batch processing — the whole job hunt as one operable pipeline.</p>
+    <div class="cta"><a class="btn p" href="#">Start a run</a><a class="btn g" href="https://github.com/santifer/career-ops">View on GitHub</a></div>
+  </div>
+</section>
+<div class="modes">
+  <div class="mh">14 skill<br><span>modes</span></div>
+  <div class="mgrid">
+    <div class="mode"><span class="no">01</span><span class="nm">Resume</span></div>
+    <div class="mode"><span class="no">02</span><span class="nm">Cover letter</span></div>
+    <div class="mode"><span class="no">03</span><span class="nm">JD match</span></div>
+    <div class="mode"><span class="no">04</span><span class="nm">Outreach</span></div>
+    <div class="mode"><span class="no">05</span><span class="nm">Company research</span></div>
+    <div class="mode"><span class="no">06</span><span class="nm">Interview prep</span></div>
+    <div class="mode"><span class="no">07</span><span class="nm">Batch apply</span></div>
+    <div class="mode"><span class="no">08</span><span class="nm">Tracking</span></div>
+  </div>
+</div>
+<div class="strip">
+  <div class="s"><div class="n"><b>14</b></div><div class="l">skill modes</div></div>
+  <div class="s"><div class="n">Go</div><div class="l">dashboard + PDF gen</div></div>
+  <div class="s"><div class="n">batch</div><div class="l">processing built in</div></div>
+</div>
+<div class="ft"><span>santifer / career-ops</span><span>mode list illustrative · 14 modes from project README</span></div>
+</div></body></html>

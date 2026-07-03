@@ -3,7 +3,7 @@ title: Concept — Design Taste
 date: 2026-06-08
 type: concept
 status: active
-updated: 2026-06-20
+updated: 2026-07-01
 tags:
   - design
   - principles
@@ -26,7 +26,7 @@ Living distillation of what makes a landing/hero UI *land* for my audience (tech
 
 - **Real/bespoke artifacts beat stock or faked ones.** A genuine code snippet, a hand-built diagram, or honestly-labelled "illustrative" data lands far better than stock illustrations, div-fake "dashboards", or fabricated benchmarks. Proven repeatedly: bespoke animated SVG memory-graph (strongest of its day) and an illustrative-not-fabricated ranked panel 2026-06-08; a real `from turbovec import Index` code panel explicitly avoiding a div-fake 2026-06-09; a working instrument readout vs a screenshot 2026-06-10.
 - **Let the capability list *be* the layout (content-as-structure) instead of decorating around it.** Rendering the substance as the page structure beats card-rows / logo-walls: a numbered "sources ledger" and a real install/execute/edit/test verb-loop both landed 2026-06-09; an agent **roster as an editorial index** and a **prompt-excerpt reference document** both landed again 2026-06-12. Four-plus clean wins — the most reliable move in the practice.
-- **Make the hero visual *diagram the value proposition* (the mechanism), not decorate.** The strongest mocks let one visual literally explain the claim: a memory-graph = the product 2026-06-08; a radar scope = "4 agents on one shared memory" and a loadout gauge = "skills on demand" 2026-06-10; a scan-result terminal = "catch danger" and a 4-node loop = "self-improve" 2026-06-11. A motif is tasteful when the instrument encodes the actual claim, and drifts to costume when it's a frame around ordinary copy. **Now proven style-independent:** the same "supporting artifact carries the hero, not the headline" finding held three days running across *different* style families — a terminal-dark live read-feed 2026-06-15, an editorial two-node dial(key) diagram 2026-06-16, and a literal HUD instrument-cluster of dials 2026-06-17 — so this is a general law of the practice, not a quirk of one aesthetic.
+- **Make the hero visual *diagram the value proposition* (the mechanism), not decorate.** The strongest mocks let one visual literally explain the claim: a memory-graph = the product 2026-06-08; a radar scope = "4 agents on one shared memory" and a loadout gauge = "skills on demand" 2026-06-10; a scan-result terminal = "catch danger" and a 4-node loop = "self-improve" 2026-06-11. A motif is tasteful when the instrument encodes the actual claim, and drifts to costume when it's a frame around ordinary copy. **Now proven style-independent:** the same "supporting artifact carries the hero, not the headline" finding held three days running across *different* style families — a terminal-dark live read-feed 2026-06-15, an editorial two-node dial(key) diagram 2026-06-16, and a literal HUD instrument-cluster of dials 2026-06-17 — so this is a general law of the practice, not a quirk of one aesthetic. **Restated 2026-06-30/07-01 as "design in the artifact's native medium":** show the mechanism in the medium it runs in — a routing console with provider lanes, a terminal walking create->evaluate->deploy, a Bauhaus token wall, an editorial for/against/abstain deliberation column, a frosted isolation panel of sealed agent cubes, an ASCII terminal multiplexer — six more landed across six different style families 2026-06-30 2026-07-01.
 - **Label faux/illustrative data honestly ("illustrative") — it then lands instead of misleading.** Repeatedly an explicitly-labelled illustrative panel earned the "fast/ranked/live" claim without faking a benchmark: ranked output panel 2026-06-08; loadout gauge + radar readout both footed `ILLUSTRATIVE` 2026-06-10.
 
 - **An instrument/HUD frame only lands when a *real readout or code/command proof* sits inside it — a bare frame around ordinary copy underdelivers.** The aviation motif needs concrete content under it: a one-line `model="openai:gpt-4o" # or "anthropic:…"` swap-terminal made the reticle land and explicitly *fixed* the earlier bare-reticle miss 2026-06-13; an honestly-footed cache-telemetry gauge (`GAINS DEPEND ON WORKLOAD`) landed 2026-06-13; whereas a reticle whose "telemetry" was a slogan only *mostly* landed 2026-06-10. Frame + real proof = lands; frame alone = costume.
@@ -45,6 +45,7 @@ Living distillation of what makes a landing/hero UI *land* for my audience (tech
 
 - Editorial style may build more *credibility* for thought-leadership pieces than terminal-dark.
 - HUD style is high-variance — strong when restrained, costume-y when overdone.
+
 
 
 

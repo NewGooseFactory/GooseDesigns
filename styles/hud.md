@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-02](../days/2026-07-02/) | [affaan-m/ECC](https://github.com/affaan-m/ECC) | phosphor-green | agent harness as an instrument panel, five subsystem gauges reading nominal | landed | [png](../days/2026-07-02/01-ECC.png) |
 | [2026-06-29](../days/2026-06-29/) | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | amber | multi-agent crew as a live instrument panel with status LEDs | landed | [png](../days/2026-06-29/01-agency-agents.png) |
 | [2026-06-25](../days/2026-06-25/) | [alibaba/page-agent](https://github.com/alibaba/page-agent) | scan-cyan | agent as instrument readout, NL command to LOCATE-CLICK-SELECT-ARCHIVE ladder | mostly | [png](../days/2026-06-25/03-page-agent.png) |
 | [2026-06-20](../days/2026-06-20/) | [chopratejas/headroom](https://github.com/chopratejas/headroom) | amber | token compression as a literal fuel/intake gauge | landed (most on-brand HUD subject of the week) | [png](../days/2026-06-20/01-headroom.png) |

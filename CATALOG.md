@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **69 mocks** across **23 days**. Newest first.
+Searchable master index. **72 mocks** across **24 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-02 | Thursday | [affaan-m/ECC](https://github.com/affaan-m/ECC) | hud | phosphor-green | agent harness as an instrument panel, five subsystem gauges reading nominal | landed | [png](days/2026-07-02/01-ECC.png) | [2026-07-02](days/2026-07-02/) |
+| 2026-07-02 | Thursday | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | brutalist | orange | headline is the joke, before/after token bar visibly shrinks to prove 65% | landed | [png](days/2026-07-02/02-caveman.png) | [2026-07-02](days/2026-07-02/) |
+| 2026-07-02 | Thursday | [santifer/career-ops](https://github.com/santifer/career-ops) | swiss | cobalt | run your search like a system, numbered 01-14 mode index on a 12-col grid | landed | [png](days/2026-07-02/03-career-ops.png) | [2026-07-02](days/2026-07-02/) |
 | 2026-07-01 | Wednesday | [0xNyk/council-of-high-intelligence](https://github.com/0xNyk/council-of-high-intelligence) | editorial | burgundy | 18 personas as a newspaper council with a live for/against/abstain deliberation column | landed | [png](days/2026-07-01/01-council-of-high-intelligence.png) | [2026-07-01](days/2026-07-01/) |
 | 2026-07-01 | Wednesday | [TencentCloud/CubeSandbox](https://github.com/TencentCloud/CubeSandbox) | glass | frost-cyan | make isolation visible, one frosted panel holding three sealed agent cubes | landed | [png](days/2026-07-01/02-CubeSandbox.png) | [2026-07-01](days/2026-07-01/) |
 | 2026-07-01 | Wednesday | [ogulcancelik/herdr](https://github.com/ogulcancelik/herdr) | mono-zine | amber | multiplexer as an ASCII fan-in over a four-pane terminal split | landed | [png](days/2026-07-01/03-herdr.png) | [2026-07-01](days/2026-07-01/) |

@@ -71,3 +71,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-01 — [rep](days/2026-07-01/) — 0xNyk/council-of-high-intelligence — editorial/burgundy — 18 personas as a newspaper council with a live for/against/abstain deliberation column → landed
 - 2026-07-01 — [rep](days/2026-07-01/) — TencentCloud/CubeSandbox — glass/frost-cyan — make isolation visible, one frosted panel holding three sealed agent cubes → landed
 - 2026-07-01 — [rep](days/2026-07-01/) — ogulcancelik/herdr — mono-zine/amber — multiplexer as an ASCII fan-in over a four-pane terminal split → landed
+- 2026-07-02 — [rep](days/2026-07-02/) — affaan-m/ECC — hud/phosphor-green — agent harness as an instrument panel, five subsystem gauges reading nominal → landed
+- 2026-07-02 — [rep](days/2026-07-02/) — JuliusBrussee/caveman — brutalist/orange — headline is the joke, before/after token bar visibly shrinks to prove 65% → landed
+- 2026-07-02 — [rep](days/2026-07-02/) — santifer/career-ops — swiss/cobalt — run your search like a system, numbered 01-14 mode index on a 12-col grid → landed
