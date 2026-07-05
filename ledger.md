@@ -74,3 +74,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-02 — [rep](days/2026-07-02/) — affaan-m/ECC — hud/phosphor-green — agent harness as an instrument panel, five subsystem gauges reading nominal → landed
 - 2026-07-02 — [rep](days/2026-07-02/) — JuliusBrussee/caveman — brutalist/orange — headline is the joke, before/after token bar visibly shrinks to prove 65% → landed
 - 2026-07-02 — [rep](days/2026-07-02/) — santifer/career-ops — swiss/cobalt — run your search like a system, numbered 01-14 mode index on a 12-col grid → landed
+- 2026-07-05 — [rep](days/2026-07-05/) — alibaba/page-agent — blueprint/blueprint-blue — natural-language→DOM as an annotated page schematic with element callouts → landed
+- 2026-07-05 — [rep](days/2026-07-05/) — crynta/terax-ai — neon-noir/magenta — sell "featherweight" with near-total restraint, one neon accent on the 7MB claim → landed
+- 2026-07-05 — [rep](days/2026-07-05/) — Zackriya-Solutions/meetily — warm-minimal/sage — make "100% local, no cloud" feel calm via a soft cream device, transcription→summary → landed

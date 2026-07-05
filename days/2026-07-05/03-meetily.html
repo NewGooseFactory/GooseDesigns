@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>meetily — private AI meeting notes, 100% on your machine</title>
+<style>
+  :root{
+    --cream:#f5f1e8; --cream-2:#efe9dc; --card:#fffdf8; --edge:#e6ddcb;
+    --ink:#2b2822; --ink-2:#6c6659; --ink-3:#9a9284;
+    --sage:#5f7d5b; --sage-2:#41603e; --sage-soft:#e2ebdd; --amber:#c08a3e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--cream); color:var(--ink);
+    font-family:"Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.55;
+  }
+  .wrap{max-width:1160px;margin:0 auto;padding:0 34px}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:650;font-size:17px;letter-spacing:-.01em}
+  .brand .m{width:26px;height:26px;border-radius:8px;background:var(--sage);display:grid;place-items:center;color:#fff;font-size:14px;box-shadow:0 4px 10px -3px rgba(95,125,91,.6)}
+  .brand small{color:var(--ink-3);font-weight:500;font-size:12.5px;letter-spacing:0}
+  .nav-r{display:flex;gap:26px;align-items:center;font-size:14px;color:var(--ink-2)}
+  .nav-r a{color:inherit;text-decoration:none}
+  .nav-r a:hover{color:var(--ink)}
+  .nav-r .g{border:1px solid var(--edge);padding:8px 15px;border-radius:9px;background:var(--card)}
+  .hero{display:grid;grid-template-columns:1fr 1.04fr;gap:60px;align-items:center;padding:56px 0 40px}
+  .chip{display:inline-flex;align-items:center;gap:9px;background:var(--sage-soft);color:var(--sage-2);font-size:13px;font-weight:550;padding:7px 14px;border-radius:100px}
+  .chip .d{width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 4px rgba(95,125,91,.18)}
+  h1{font-size:clamp(36px,4.9vw,58px);line-height:1.06;letter-spacing:-.025em;font-weight:680;margin:20px 0 0}
+  h1 span{color:var(--sage-2)}
+  .lead{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:40ch;margin:22px 0 0}
+  .cta{display:flex;gap:13px;margin-top:32px;flex-wrap:wrap}
+  .btn{padding:13px 20px;border-radius:11px;font-size:14.5px;font-weight:550;text-decoration:none;border:1px solid var(--edge);background:var(--card);color:var(--ink);box-shadow:0 2px 8px -4px rgba(43,40,34,.2)}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.p{background:var(--sage);border-color:var(--sage);color:#fff;box-shadow:0 8px 20px -8px rgba(95,125,91,.8)}
+  .btn.p:hover{background:var(--sage-2)}
+  .trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px}
+  .trust div{font-size:13px;color:var(--ink-2)}
+  .trust div b{display:block;color:var(--ink);font-weight:600;font-size:13.5px;margin-bottom:1px}
+  /* device card */
+  .device{background:var(--card);border:1px solid var(--edge);border-radius:22px;padding:20px;box-shadow:0 40px 80px -50px rgba(43,40,34,.55),0 10px 24px -18px rgba(43,40,34,.4)}
+  .dtop{display:flex;align-items:center;justify-content:space-between;padding:2px 6px 16px}
+  .rec{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink-2);font-weight:550}
+  .rec .live{width:9px;height:9px;border-radius:50%;background:#c65a4e;box-shadow:0 0 0 0 rgba(198,90,78,.5);animation:pulse 2s infinite}
+  .local-pill{font-size:11.5px;font-weight:600;color:var(--sage-2);background:var(--sage-soft);padding:4px 11px;border-radius:100px}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(198,90,78,.5)}70%{box-shadow:0 0 0 8px rgba(198,90,78,0)}100%{box-shadow:0 0 0 0 rgba(198,90,78,0)}}
+  .wave{display:flex;align-items:center;gap:3px;height:34px;padding:0 6px 14px}
+  .wave i{flex:1;background:var(--sage);border-radius:3px;opacity:.85;animation:bar 1.4s ease-in-out infinite}
+  .wave i:nth-child(even){opacity:.4;animation-duration:1.7s}
+  @keyframes bar{0%,100%{height:20%}50%{height:90%}}
+  .turn{display:flex;gap:12px;padding:12px 6px;border-top:1px solid var(--cream-2)}
+  .who{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:12px;font-weight:650;color:#fff}
+  .who.a{background:#7089b5}.who.b{background:#b58a70}
+  .txt{font-size:13.5px;color:var(--ink);line-height:1.5}
+  .txt small{display:block;color:var(--ink-3);font-size:11px;font-weight:600;letter-spacing:.02em;margin-bottom:2px}
+  .summary{margin-top:14px;background:var(--sage-soft);border:1px solid #d3e0cd;border-radius:14px;padding:15px 16px}
+  .summary h4{margin:0 0 9px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-2)}
+  .summary ul{margin:0;padding-left:18px;color:var(--ink);font-size:13.5px}
+  .summary li{margin:3px 0}
+  .summary li b{color:var(--sage-2)}
+  footer{border-top:1px solid var(--edge);padding:20px 0 30px;margin-top:20px;display:flex;justify-content:space-between;font-size:13px;color:var(--ink-3)}
+  @media (prefers-reduced-motion:reduce){.wave i,.rec .live{animation:none}}
+  @media (max-width:920px){.hero{grid-template-columns:1fr;gap:44px;padding:40px 0}.lead{max-width:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="m">◉</span> meetily <small>· private meeting notes</small></div>
+    <div class="nav-r"><a href="#">Features</a><a href="#">Download</a><a class="g" href="https://github.com/Zackriya-Solutions/meetily">GitHub ↗</a></div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="chip"><span class="d"></span>100% local · no cloud required</span>
+      <h1>Every meeting, transcribed and <span>summarized on your own machine.</span></h1>
+      <p class="lead">meetily runs Whisper &amp; Parakeet transcription, speaker diarization, and Ollama summaries locally — up to 4× faster, built on Rust. Your conversations never leave your laptop.</p>
+      <div class="cta">
+        <a class="btn p" href="#">Download for macOS</a>
+        <a class="btn" href="#">Download for Windows</a>
+      </div>
+      <div class="trust">
+        <div><b>On-device</b>Nothing uploaded</div>
+        <div><b>Diarization</b>Knows who spoke</div>
+        <div><b>Built on Rust</b>4× faster live</div>
+      </div>
+    </div>
+
+    <div class="device">
+      <div class="dtop">
+        <span class="rec"><span class="live"></span>Recording · 12:04</span>
+        <span class="local-pill">⛭ processed locally</span>
+      </div>
+      <div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="turn"><span class="who a">A</span><span class="txt"><small>Speaker A</small>Let's ship the local-first build by Friday and cut the cloud dependency entirely.</span></div>
+      <div class="turn"><span class="who b">B</span><span class="txt"><small>Speaker B</small>Agreed. I'll own the Rust transcription path; you take the summary export.</span></div>
+      <div class="summary">
+        <h4>Ollama summary · action items</h4>
+        <ul>
+          <li><b>Owner A</b> — finalize local-first build by Fri</li>
+          <li><b>Owner B</b> — Rust transcription path</li>
+          <li>Ship summary export · <span style="color:var(--ink-3)">no cloud</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer><span>Open source · self-hosted</span><span>Whisper · Parakeet · Ollama · Rust</span></footer>
+</div>
+</body>
+</html>

@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **72 mocks** across **24 days**. Newest first.
+Searchable master index. **75 mocks** across **25 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-05 | Sunday | [alibaba/page-agent](https://github.com/alibaba/page-agent) | blueprint | blueprint-blue | natural-language→DOM as an annotated page schematic with element callouts | landed | [png](days/2026-07-05/01-page-agent.png) | [2026-07-05](days/2026-07-05/) |
+| 2026-07-05 | Sunday | [crynta/terax-ai](https://github.com/crynta/terax-ai) | neon-noir | magenta | sell "featherweight" with near-total restraint, one neon accent on the 7MB claim | landed | [png](days/2026-07-05/02-terax-ai.png) | [2026-07-05](days/2026-07-05/) |
+| 2026-07-05 | Sunday | [Zackriya-Solutions/meetily](https://github.com/Zackriya-Solutions/meetily) | warm-minimal | sage | make "100% local, no cloud" feel calm via a soft cream device, transcription→summary | landed | [png](days/2026-07-05/03-meetily.png) | [2026-07-05](days/2026-07-05/) |
 | 2026-07-02 | Thursday | [affaan-m/ECC](https://github.com/affaan-m/ECC) | hud | phosphor-green | agent harness as an instrument panel, five subsystem gauges reading nominal | landed | [png](days/2026-07-02/01-ECC.png) | [2026-07-02](days/2026-07-02/) |
 | 2026-07-02 | Thursday | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | brutalist | orange | headline is the joke, before/after token bar visibly shrinks to prove 65% | landed | [png](days/2026-07-02/02-caveman.png) | [2026-07-02](days/2026-07-02/) |
 | 2026-07-02 | Thursday | [santifer/career-ops](https://github.com/santifer/career-ops) | swiss | cobalt | run your search like a system, numbered 01-14 mode index on a 12-col grid | landed | [png](days/2026-07-02/03-career-ops.png) | [2026-07-02](days/2026-07-02/) |

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>page-agent — drive any web page with a sentence</title>
+<style>
+  :root{
+    --paper:#eef1ec; --paper-2:#e6eae4; --ink:#14202e; --ink-2:#3b4a5a;
+    --blue:#1461b8; --blue-ink:#0d4race; --line:rgba(20,97,184,.18); --line-2:rgba(20,97,184,.34);
+    --amber:#b46a12;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:26px 26px;
+    background-position:-1px -1px;
+  }
+  .mono{font-family:"JetBrains Mono","SFMono-Regular",ui-monospace,Menlo,Consolas,monospace}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  /* frame */
+  .sheet{border:1.5px solid var(--ink);margin:22px;min-height:calc(100vh - 44px);position:relative;background:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:26px 26px}
+  .sheet::before,.sheet::after{content:"";position:absolute;width:14px;height:14px;border:1.5px solid var(--ink)}
+  .sheet::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+  .sheet::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1.5px solid var(--ink)}
+  .brand{display:flex;align-items:baseline;gap:12px}
+  .brand b{font-size:16px;letter-spacing:.02em}
+  .brand span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .nlinks{display:flex;gap:26px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+  .nlinks a{color:inherit;text-decoration:none}
+  .nlinks a:hover{color:var(--blue)}
+  /* hero grid */
+  .hero{display:grid;grid-template-columns:1.02fr 1.1fr;gap:56px;padding:64px 32px 40px;align-items:center}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);border:1px solid var(--line-2);padding:6px 11px;border-radius:2px}
+  .tag i{width:6px;height:6px;background:var(--blue);border-radius:50%;display:inline-block}
+  h1{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.02em;margin:22px 0 0;font-weight:700;color:var(--ink)}
+  h1 em{font-style:normal;color:var(--blue);position:relative}
+  .lead{font-size:18px;line-height:1.55;color:var(--ink-2);max-width:34ch;margin:20px 0 0}
+  .cli{margin-top:30px;display:flex;gap:0;max-width:360px;border:1.5px solid var(--ink);border-radius:3px;overflow:hidden;background:#fff}
+  .cli .p{padding:13px 14px;font-size:14px;color:var(--ink);flex:1}
+  .cli .p b{color:var(--blue)}
+  .cli button{border:none;border-left:1.5px solid var(--ink);background:var(--ink);color:var(--paper);padding:0 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  .cli button:hover{background:var(--blue)}
+  .specs{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:34px}
+  .specs div{font-size:12.5px;color:var(--ink-2)}
+  .specs div b{display:block;color:var(--ink);font-size:13px;letter-spacing:.02em}
+  /* schematic panel */
+  .plate{position:relative;border:1.5px solid var(--ink);background:#fbfcfa;border-radius:4px;padding:0;box-shadow:6px 6px 0 rgba(20,32,46,.07)}
+  .plate .title-blk{display:flex;justify-content:space-between;border-bottom:1.5px solid var(--ink);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .plate .title-blk div{padding:8px 12px}
+  .plate .title-blk div+div{border-left:1.5px solid var(--ink)}
+  .browser{margin:26px 22px 10px;border:1.4px solid var(--ink-2);border-radius:5px;background:#fff;overflow:hidden;position:relative}
+  .bbar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1.2px solid var(--line-2);background:var(--paper-2)}
+  .bbar i{width:9px;height:9px;border:1.2px solid var(--ink-2);border-radius:50%}
+  .bbar .url{margin-left:10px;font-size:11px;color:var(--ink-2);letter-spacing:.02em}
+  .page{padding:18px 16px 22px;position:relative}
+  .row{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+  .box{border:1.3px solid var(--line-2);border-radius:4px;height:14px;flex:1;background:repeating-linear-gradient(90deg,transparent,transparent 5px,var(--line) 5px,var(--line) 6px)}
+  .box.sm{max-width:88px}
+  .field{height:30px;border:1.4px solid var(--ink);border-radius:4px;position:relative;flex:1;background:#fff}
+  .btn-tgt{height:30px;width:96px;border:1.4px solid var(--blue);background:rgba(20,97,184,.08);border-radius:4px;position:relative}
+  /* callouts */
+  .call{position:absolute;font-size:10.5px;letter-spacing:.02em;color:var(--blue);white-space:nowrap}
+  .call b{color:var(--ink)}
+  .dim{position:absolute;border-top:1.2px dashed var(--blue);}
+  .lead-line{position:absolute;border-left:1.2px dashed var(--blue)}
+  .cmd{margin:8px 22px 22px;border:1.4px solid var(--ink);border-radius:5px;background:var(--ink);color:var(--paper);padding:13px 15px;display:flex;gap:10px;align-items:center;font-size:13.5px}
+  .cmd .arw{color:var(--blue);font-weight:700}
+  .cmd .cur{display:inline-block;width:8px;height:16px;background:var(--blue);margin-left:2px;animation:blink 1.1s steps(1) infinite;vertical-align:-2px}
+  .scan{position:absolute;left:0;right:0;height:38px;top:0;background:linear-gradient(180deg,rgba(20,97,184,.14),transparent);pointer-events:none;animation:sweep 5.5s ease-in-out infinite}
+  @keyframes blink{50%{opacity:0}}
+  @keyframes sweep{0%{transform:translateY(0);opacity:0}8%{opacity:1}70%{opacity:1}100%{transform:translateY(230px);opacity:0}}
+  footer{border-top:1.5px solid var(--ink);padding:16px 32px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+  @media (prefers-reduced-motion:reduce){.scan,.cmd .cur{animation:none}}
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;gap:40px;padding:44px 24px}
+    .lead{max-width:none}
+    .sheet{margin:12px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <nav>
+    <div class="brand">
+      <b class="mono">page-agent</b>
+      <span>JS in-page GUI agent</span>
+    </div>
+    <div class="nlinks">
+      <a href="#">Docs</a><a href="#">Examples</a><a href="#">npm</a>
+      <a href="https://github.com/alibaba/page-agent">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <section class="hero wrap-none">
+    <div class="col">
+      <span class="tag"><i></i>alibaba / page-agent</span>
+      <h1>Drive any web page<br>with <em>a sentence.</em></h1>
+      <p class="lead">A JavaScript in-page GUI agent. Describe the outcome in natural language — page-agent reads the live interface and performs the clicks, types, and navigation for you.</p>
+      <div class="cli">
+        <div class="p mono">$ npm i <b>page-agent</b></div>
+        <button>Copy</button>
+      </div>
+      <div class="specs mono">
+        <div><b>In-page</b>runs in the tab</div>
+        <div><b>NL selectors</b>no brittle XPath</div>
+        <div><b>Zero backend</b>ships as a script</div>
+        <div><b>Framework-agnostic</b>any DOM</div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="plate">
+        <div class="title-blk mono">
+          <div>FIG.01 — INTENT → DOM</div>
+          <div>SCALE 1:1</div>
+          <div>REV. A</div>
+        </div>
+        <div class="browser">
+          <div class="bbar">
+            <i></i><i></i><i></i>
+            <span class="url mono">https://example.com/booking</span>
+          </div>
+          <div class="page">
+            <div class="scan"></div>
+            <div class="row"><div class="box sm"></div><div class="box"></div></div>
+            <div class="row" style="margin-top:22px">
+              <div class="field" id="f1"></div>
+            </div>
+            <div class="row" style="justify-content:flex-end;margin-top:22px">
+              <div class="btn-tgt" id="b1"></div>
+            </div>
+            <!-- annotations -->
+            <div class="call mono" style="top:60px;left:8px">┌ field <b>#origin</b></div>
+            <div class="call mono" style="top:112px;right:6px;text-align:right">button <b>.confirm</b> ┐</div>
+            <div class="dim" style="top:78px;left:12px;width:120px"></div>
+            <div class="dim" style="top:130px;right:12px;width:104px"></div>
+          </div>
+        </div>
+        <div class="cmd mono">
+          <span class="arw">&rarr;</span>
+          <span>"book the 9am to Boston and confirm"<span class="cur"></span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mono">
+    <span>Open source · MIT</span>
+    <span>github.com/alibaba/page-agent</span>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>terax — the AI dev workspace that weighs 7MB</title>
+<style>
+  :root{
+    --bg:#08080b; --bg-2:#0e0e13; --panel:#101017; --edge:#1e1e28;
+    --fg:#e9e9ee; --fg-2:#8a8a99; --fg-3:#5a5a68;
+    --neon:#ff2d8b; --neon-soft:rgba(255,45,139,.55);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--fg);
+    font-family:"JetBrains Mono","SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+    -webkit-font-smoothing:antialiased; line-height:1.6; overflow-x:hidden;
+  }
+  /* subtle scanlines + faint vignette */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:3;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;
+    background:radial-gradient(120% 90% at 50% 0%,transparent 55%,rgba(0,0,0,.55) 100%);}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 30px;position:relative;z-index:4}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:26px 0;font-size:12.5px}
+  .brand{display:flex;align-items:center;gap:11px;letter-spacing:.02em}
+  .brand .dot{width:9px;height:9px;background:var(--neon);border-radius:50%;box-shadow:0 0 10px var(--neon-soft)}
+  .brand b{font-weight:600}
+  .brand span{color:var(--fg-3)}
+  .nav-r{display:flex;gap:24px;color:var(--fg-2)}
+  .nav-r a{color:inherit;text-decoration:none}
+  .nav-r a:hover{color:var(--fg)}
+  .hero{padding:82px 0 30px;display:grid;grid-template-columns:1fr;gap:0;max-width:760px}
+  .kick{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:650;
+    font-size:clamp(40px,6.4vw,80px);line-height:1.0;letter-spacing:-.03em;margin:20px 0 0}
+  h1 u{text-decoration:none;color:var(--neon);position:relative;text-shadow:0 0 22px var(--neon-soft)}
+  h1 u::after{content:"";position:absolute;left:0;right:0;bottom:-.06em;height:3px;background:var(--neon);box-shadow:0 0 14px var(--neon-soft)}
+  .lead{font-size:16.5px;line-height:1.65;color:var(--fg-2);max-width:52ch;margin:26px 0 0}
+  .lead b{color:var(--fg);font-weight:500}
+  .cta{display:flex;gap:14px;align-items:center;margin-top:34px;flex-wrap:wrap}
+  .btn{border:1px solid var(--edge);background:var(--panel);color:var(--fg);padding:12px 18px;font-size:13px;border-radius:6px;text-decoration:none;letter-spacing:.02em}
+  .btn:hover{border-color:var(--fg-3)}
+  .btn.p{border-color:var(--neon);color:#fff;background:linear-gradient(0deg,rgba(255,45,139,.14),rgba(255,45,139,.06))}
+  .btn.p:hover{background:rgba(255,45,139,.2)}
+  .btn .arrow{color:var(--neon)}
+  /* terminal */
+  .term{margin:52px 0 20px;border:1px solid var(--edge);border-radius:10px;background:linear-gradient(180deg,var(--panel),var(--bg-2));overflow:hidden;box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+  .term .bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--edge);color:var(--fg-3);font-size:12px}
+  .term .bar i{width:10px;height:10px;border-radius:50%;background:#2a2a34}
+  .term .bar .t{margin-left:12px;color:var(--fg-2)}
+  .term .bar .r{margin-left:auto;color:var(--fg-3)}
+  .term .body{padding:22px 22px 26px;font-size:13.5px;line-height:1.9}
+  .l{white-space:pre-wrap}
+  .c-dim{color:var(--fg-3)} .c-mid{color:var(--fg-2)} .c-fg{color:var(--fg)}
+  .prompt{color:var(--neon);text-shadow:0 0 12px var(--neon-soft)}
+  .ai{color:var(--fg);border-left:2px solid var(--neon);padding-left:14px;margin:10px 0;display:block;box-shadow:-1px 0 14px -6px var(--neon-soft)}
+  .badge{display:inline-block;border:1px solid var(--edge);color:var(--fg-2);border-radius:4px;padding:1px 7px;font-size:11px;margin-right:6px}
+  .cur{display:inline-block;width:8px;height:15px;background:var(--neon);vertical-align:-2px;margin-left:3px;box-shadow:0 0 10px var(--neon-soft);animation:blink 1.15s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .stats{display:flex;gap:0;border:1px solid var(--edge);border-radius:8px;overflow:hidden;margin:8px 0 60px}
+  .stats div{flex:1;padding:18px 20px}
+  .stats div+div{border-left:1px solid var(--edge)}
+  .stats .n{font-family:"Inter",sans-serif;font-size:26px;font-weight:650;letter-spacing:-.02em;color:var(--fg)}
+  .stats .n .u{color:var(--neon)}
+  .stats .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-top:4px}
+  @media (prefers-reduced-motion:reduce){.cur{animation:none}}
+  @media (max-width:760px){.stats{flex-wrap:wrap}.stats div{flex:1 1 50%}.stats div:nth-child(3){border-left:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="dot"></span><b>terax</b><span>· terminal-first AI workspace</span></div>
+    <div class="nav-r"><a href="#">Install</a><a href="#">Docs</a><a href="https://github.com/crynta/terax-ai">GitHub ↗</a></div>
+  </nav>
+
+  <section class="hero">
+    <div class="kick">crynta / terax-ai</div>
+    <h1>The AI dev workspace<br>that weighs <u>7MB</u>.</h1>
+    <p class="lead">A <b>terminal-first, AI-native</b> workspace that opens in the time it takes to blink. No Electron, no bloat — just your shell, your files, and an agent that lives where you already work.</p>
+    <div class="cta">
+      <a class="btn p" href="#">Install terax <span class="arrow">&rarr;</span></a>
+      <a class="btn" href="https://github.com/crynta/terax-ai">Star on GitHub</a>
+    </div>
+  </section>
+
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i><span class="t">~/proj/api — terax</span><span class="r">7MB · pid 4021</span></div>
+    <div class="body">
+<div class="l"><span class="prompt">terax&gt;</span> <span class="c-fg">refactor the auth handler to use the new token store</span></div>
+<div class="ai"><span class="badge">plan</span>Read <span class="c-mid">auth/handler.go</span> → 3 call sites. Swapping <span class="c-mid">sessionStore</span> for <span class="c-mid">tokenStore</span>, updating tests. <span class="c-dim">Apply?</span></div>
+<div class="l"><span class="c-dim"># y — 4 files edited, tests green (illustrative)</span></div>
+<div class="l"><span class="prompt">terax&gt;</span> <span class="c-fg">explain what changed<span class="cur"></span></span></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div><div class="n">7<span class="u">MB</span></div><div class="k">Footprint</div></div>
+    <div><div class="n">0</div><div class="k">Electron deps</div></div>
+    <div><div class="n">100<span class="u">%</span></div><div class="k">In your terminal</div></div>
+  </div>
+</div>
+</body>
+</html>
