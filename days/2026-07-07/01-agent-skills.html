@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>agent-skills — production-grade skills for AI coding agents</title>
+<style>
+  :root{
+    --paper:#f4f2ec; --ink:#111110; --ink-2:#4a4842; --ink-3:#87847a;
+    --rule:#111110; --accent:#c8341f; --hair:rgba(17,17,16,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.4}
+  .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  /* top matter */
+  .masthead{display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:2px solid var(--rule);padding:22px 0 12px}
+  .masthead .l{font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+  .masthead .r{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);display:flex;gap:22px}
+  .masthead .r a{color:inherit;text-decoration:none}
+  .masthead .r a:hover{color:var(--accent)}
+  .kicker{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0 0;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .kicker .dot{color:var(--accent)}
+  /* poster headline */
+  h1{font-weight:800;letter-spacing:-.035em;line-height:.9;margin:10px 0 0;
+    font-size:clamp(64px,15vw,208px);text-transform:none}
+  h1 .stroke{display:block}
+  h1 em{font-style:italic;font-weight:800;color:var(--accent)}
+  .deck{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:end;
+    border-bottom:2px solid var(--rule);padding:22px 0 30px}
+  .deck p{margin:0;font-size:19px;line-height:1.5;color:var(--ink-2);max-width:40ch}
+  .deck p b{color:var(--ink);font-weight:600}
+  .deck .cta{justify-self:end;text-align:right}
+  .install{display:inline-flex;border:1.6px solid var(--rule);border-radius:2px;overflow:hidden;background:#fff}
+  .install .c{padding:12px 16px;font-size:14px}
+  .install .c b{color:var(--accent)}
+  .install button{border:0;border-left:1.6px solid var(--rule);background:var(--ink);color:var(--paper);
+    padding:0 18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  .install button:hover{background:var(--accent)}
+  .deck .note{margin-top:12px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  /* index of skills */
+  .index{padding:26px 0 44px}
+  .index .hd{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--hair);padding-bottom:10px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .cell{border-bottom:1px solid var(--hair);border-right:1px solid var(--hair);padding:18px 16px 20px}
+  .cell:nth-child(4n){border-right:none}
+  .cell .n{font-size:12px;color:var(--ink-3);letter-spacing:.06em}
+  .cell h3{margin:6px 0 5px;font-size:17px;font-weight:650;letter-spacing:-.01em}
+  .cell p{margin:0;font-size:13px;line-height:1.45;color:var(--ink-2)}
+  .cell:hover h3{color:var(--accent)}
+  .foot{display:flex;justify-content:space-between;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border-top:2px solid var(--rule);padding:14px 0 26px}
+  @media (max-width:900px){
+    .deck{grid-template-columns:1fr;gap:22px}
+    .deck .cta{justify-self:start;text-align:left}
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .cell:nth-child(4n){border-right:1px solid var(--hair)}
+    .cell:nth-child(2n){border-right:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div class="l">agent-skills</div>
+    <div class="r">
+      <span class="mono">addyosmani</span>
+      <a href="#">Docs</a><a href="#">Registry</a>
+      <a href="https://github.com/addyosmani/agent-skills">GitHub &#8599;</a>
+    </div>
+  </div>
+
+  <div class="kicker">
+    <span><span class="dot">&#9679;</span> Open source &middot; MIT</span>
+    <span>Production-grade &middot; for AI coding agents</span>
+  </div>
+
+  <h1>
+    <span class="stroke">Skills your</span>
+    <span class="stroke"><em>agent</em> earns.</span>
+  </h1>
+
+  <div class="deck">
+    <p><b>Production-grade engineering skills for AI coding agents.</b> Drop-in, reviewed capabilities that turn a general model into a disciplined engineer — testing, refactoring, review, and release, done the way a senior would.</p>
+    <div class="cta">
+      <div class="install mono"><span class="c">npx <b>agent-skills</b> add</span><button>Copy</button></div>
+      <div class="note">install any skill &middot; framework-agnostic</div>
+    </div>
+  </div>
+
+  <div class="index">
+    <div class="hd"><span>The catalog</span><span>skills shown are illustrative</span></div>
+    <div class="grid">
+      <div class="cell"><div class="n mono">01</div><h3>Write tests first</h3><p>Red-green-refactor as a repeatable move, not a suggestion.</p></div>
+      <div class="cell"><div class="n mono">02</div><h3>Surgical refactor</h3><p>Change the smallest surface; keep the diff reviewable.</p></div>
+      <div class="cell"><div class="n mono">03</div><h3>Review the diff</h3><p>Catch real bugs and regressions, skip the nitpicks.</p></div>
+      <div class="cell"><div class="n mono">04</div><h3>Ship safely</h3><p>Gate on green: build, test, lint before release.</p></div>
+      <div class="cell"><div class="n mono">05</div><h3>Read before writing</h3><p>Map the blast radius before touching a line.</p></div>
+      <div class="cell"><div class="n mono">06</div><h3>Trace the bug</h3><p>Reproduce first, fix the root, confirm with a test.</p></div>
+      <div class="cell"><div class="n mono">07</div><h3>Type-safe by default</h3><p>Let the checker be the fast feedback loop.</p></div>
+      <div class="cell"><div class="n mono">08</div><h3>Document intent</h3><p>Explain the why the code can&#39;t say on its own.</p></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>github.com/addyosmani/agent-skills</span>
+    <span>A hand-set catalog for coding agents</span>
+  </div>
+</div>
+</body>
+</html>

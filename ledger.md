@@ -77,3 +77,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-05 — [rep](days/2026-07-05/) — alibaba/page-agent — blueprint/blueprint-blue — natural-language→DOM as an annotated page schematic with element callouts → landed
 - 2026-07-05 — [rep](days/2026-07-05/) — crynta/terax-ai — neon-noir/magenta — sell "featherweight" with near-total restraint, one neon accent on the 7MB claim → landed
 - 2026-07-05 — [rep](days/2026-07-05/) — Zackriya-Solutions/meetily — warm-minimal/sage — make "100% local, no cloud" feel calm via a soft cream device, transcription→summary → landed
+- 2026-07-07 — [rep](days/2026-07-07/) — addyosmani/agent-skills — poster/ink-red — poster-scale headline carries a skills catalog, restrained numbered index underneath → landed
+- 2026-07-07 — [rep](days/2026-07-07/) — ruvnet/RuView — data-viz/signal-cyan — show the sensor not the words: presence radar + vital-sign trace for camera-free WiFi sensing → landed
+- 2026-07-07 — [rep](days/2026-07-07/) — iOfficeAI/OfficeCLI — bauhaus/primary — map Word/Excel/PowerPoint to square/circle/triangle primitives unified by one CLI → landed

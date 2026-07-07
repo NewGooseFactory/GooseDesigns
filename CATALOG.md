@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **75 mocks** across **25 days**. Newest first.
+Searchable master index. **78 mocks** across **26 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-07 | Tuesday | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | poster | ink-red | poster-scale headline carries a skills catalog, restrained numbered index underneath | landed | [png](days/2026-07-07/01-agent-skills.png) | [2026-07-07](days/2026-07-07/) |
+| 2026-07-07 | Tuesday | [ruvnet/RuView](https://github.com/ruvnet/RuView) | data-viz | signal-cyan | show the sensor not the words: presence radar + vital-sign trace for camera-free WiFi sensing | landed | [png](days/2026-07-07/02-RuView.png) | [2026-07-07](days/2026-07-07/) |
+| 2026-07-07 | Tuesday | [iOfficeAI/OfficeCLI](https://github.com/iOfficeAI/OfficeCLI) | bauhaus | primary | map Word/Excel/PowerPoint to square/circle/triangle primitives unified by one CLI | landed | [png](days/2026-07-07/03-OfficeCLI.png) | [2026-07-07](days/2026-07-07/) |
 | 2026-07-05 | Sunday | [alibaba/page-agent](https://github.com/alibaba/page-agent) | blueprint | blueprint-blue | natural-language→DOM as an annotated page schematic with element callouts | landed | [png](days/2026-07-05/01-page-agent.png) | [2026-07-05](days/2026-07-05/) |
 | 2026-07-05 | Sunday | [crynta/terax-ai](https://github.com/crynta/terax-ai) | neon-noir | magenta | sell "featherweight" with near-total restraint, one neon accent on the 7MB claim | landed | [png](days/2026-07-05/02-terax-ai.png) | [2026-07-05](days/2026-07-05/) |
 | 2026-07-05 | Sunday | [Zackriya-Solutions/meetily](https://github.com/Zackriya-Solutions/meetily) | warm-minimal | sage | make "100% local, no cloud" feel calm via a soft cream device, transcription→summary | landed | [png](days/2026-07-05/03-meetily.png) | [2026-07-05](days/2026-07-05/) |
