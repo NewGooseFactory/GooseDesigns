@@ -2,10 +2,11 @@
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-08](../days/2026-07-08/) | [wonderwhy-er/DesktopCommanderMCP](https://github.com/wonderwhy-er/DesktopCommanderMCP) | electric-cyan | prove "give Claude your terminal" by making the hero a live search→diff→apply→test session | landed | [png](../days/2026-07-08/01-DesktopCommanderMCP.png) |
 | [2026-06-30](../days/2026-06-30/) | [google/agents-cli](https://github.com/google/agents-cli) | google-blue | center the story on one terminal walking create→evaluate→deploy | landed | [png](../days/2026-06-30/02-agents-cli.png) |
 | [2026-06-26](../days/2026-06-26/) | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | amber | give your agent first-party AWS hands, register-the-toolkit terminal + 3 cards | landed | [png](../days/2026-06-26/02-agent-toolkit-for-aws.png) |
 | [2026-06-18](../days/2026-06-18/) | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | cyan | render the knowledge-graph output not a description | landed | [png](../days/2026-06-18/01-codebase-memory-mcp.png) |

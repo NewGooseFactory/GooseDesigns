@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desktop Commander — give Claude your terminal</title>
+<style>
+  :root{
+    --bg:#08090b; --bg-2:#0d0f12; --panel:#0f1216; --edge:#1b2027;
+    --fg:#e7ebf0; --fg-2:#8b95a3; --fg-3:#586170;
+    --cyan:#3ad1ff; --cyan-dim:rgba(58,209,255,.14);
+    --green:#4ade80; --amber:#e0b23a; --red:#f2585b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--fg);
+    font-family:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  .mono{font-family:"JetBrains Mono","SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:650;font-size:16px;letter-spacing:-.01em}
+  .brand .lg{width:26px;height:26px;border:1.5px solid var(--edge);border-radius:7px;display:grid;place-items:center;color:var(--cyan);font-size:13px;background:var(--panel)}
+  .brand small{color:var(--fg-3);font-weight:500;font-size:12.5px;letter-spacing:.02em}
+  .nav-r{display:flex;gap:24px;font-size:13.5px;color:var(--fg-2)}
+  .nav-r a{color:inherit;text-decoration:none}.nav-r a:hover{color:var(--fg)}
+  .hero{display:grid;grid-template-columns:.92fr 1.18fr;gap:46px;align-items:center;padding:50px 0 34px}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid var(--edge);border-radius:100px;padding:6px 13px}
+  .chip .lv{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:bl 1.8s infinite}
+  @keyframes bl{50%{opacity:.4}}
+  h1{font-size:clamp(36px,5vw,58px);line-height:1.03;letter-spacing:-.03em;font-weight:700;margin:18px 0 0}
+  h1 span{color:var(--cyan)}
+  .lead{font-size:17px;line-height:1.6;color:var(--fg-2);max-width:40ch;margin:20px 0 0}
+  .lead b{color:var(--fg);font-weight:500}
+  .caps{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .caps span{font-size:12px;color:var(--fg-2);border:1px solid var(--edge);border-radius:6px;padding:6px 11px}
+  .caps span b{color:var(--cyan);font-weight:600}
+  .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .btn{padding:12px 18px;border-radius:9px;font-size:14px;font-weight:550;text-decoration:none;border:1px solid var(--edge);color:var(--fg);background:var(--panel)}
+  .btn:hover{border-color:var(--fg-3)}
+  .btn.p{background:var(--cyan);border-color:var(--cyan);color:#032330;font-weight:650}
+  /* terminal */
+  .term{border:1px solid var(--edge);border-radius:13px;overflow:hidden;background:linear-gradient(180deg,var(--panel),var(--bg-2));box-shadow:0 40px 90px -50px #000}
+  .tbar{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--edge);font-size:12px;color:var(--fg-3)}
+  .tbar i{width:11px;height:11px;border-radius:50%}
+  .tbar i.r{background:var(--red)}.tbar i.y{background:var(--amber)}.tbar i.g{background:var(--green)}
+  .tbar .t{margin-left:10px;color:var(--fg-2)}
+  .tbar .r-side{margin-left:auto;color:var(--cyan)}
+  .tbody{padding:18px 18px 20px;font-size:13.2px;line-height:1.85}
+  .ln{white-space:pre-wrap}
+  .p{color:var(--cyan);font-weight:600}
+  .cmd{color:var(--fg)}
+  .out{color:var(--fg-2)}
+  .ok{color:var(--green)}
+  .path{color:var(--amber)}
+  .diff-a{color:var(--green)}.diff-d{color:var(--red)}
+  .tool{display:inline-block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan);border:1px solid var(--edge);border-radius:4px;padding:1px 7px;margin-right:8px}
+  .cur{display:inline-block;width:8px;height:15px;background:var(--cyan);vertical-align:-2px;margin-left:2px;box-shadow:0 0 9px var(--cyan);animation:blink 1.15s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){.cur,.chip .lv{animation:none}}
+  @media (max-width:920px){.hero{grid-template-columns:1fr;gap:34px}.lead{max-width:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="lg mono">&gt;_</span> Desktop Commander <small>&middot; MCP for Claude</small></div>
+    <div class="nav-r"><a href="#">Setup</a><a href="#">Docs</a><a href="https://github.com/wonderwhy-er/DesktopCommanderMCP">GitHub &#8599;</a></div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="chip"><span class="lv"></span>MCP server &middot; local</span>
+      <h1>Give Claude your <span>terminal.</span></h1>
+      <p class="lead">An MCP server that hands Claude real <b>terminal control</b>, <b>filesystem search</b>, and <b>diff-based file editing</b> — so it can run, find, and change code on your machine, not just talk about it.</p>
+      <div class="caps mono">
+        <span><b>run</b> shell commands</span>
+        <span><b>search</b> the filesystem</span>
+        <span><b>edit</b> via surgical diffs</span>
+      </div>
+      <div class="cta">
+        <a class="btn p" href="#">Add to Claude</a>
+        <a class="btn" href="https://github.com/wonderwhy-er/DesktopCommanderMCP">Star on GitHub</a>
+      </div>
+    </div>
+
+    <div class="term">
+      <div class="tbar mono"><i class="r"></i><i class="y"></i><i class="g"></i><span class="t">claude &middot; desktop-commander</span><span class="r-side">mcp &middot; connected</span></div>
+      <div class="tbody mono">
+<div class="ln"><span class="tool">search</span><span class="out">grep "retryPolicy" ./src &rarr; </span><span class="path">src/net/client.ts:42</span></div>
+<div class="ln"><span class="p">$</span> <span class="cmd">open src/net/client.ts &middot; propose edit</span></div>
+<div class="ln"><span class="tool">edit</span><span class="out">client.ts &middot; diff</span></div>
+<div class="ln"><span class="diff-d">- const retries = 3;</span></div>
+<div class="ln"><span class="diff-a">+ const retries = opts.retries ?? 5;</span></div>
+<div class="ln"><span class="out">&nbsp;&nbsp;apply? y &middot; </span><span class="ok">&#10003; written, 1 hunk</span></div>
+<div class="ln"><span class="p">$</span> <span class="cmd">npm test -- net/</span> <span class="ok">&#10003; 12 passed</span> <span class="out">(illustrative)</span></div>
+<div class="ln"><span class="p">$</span> <span class="cmd">_<span class="cur"></span></span></div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

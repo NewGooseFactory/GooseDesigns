@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-08](../days/2026-07-08/) | [obra/superpowers](https://github.com/obra/superpowers) | burgundy | treat an agentic methodology as a calm serif manifesto, one burgundy italic word, numbered principles | landed | [png](../days/2026-07-08/03-superpowers.png) |
 | [2026-07-01](../days/2026-07-01/) | [0xNyk/council-of-high-intelligence](https://github.com/0xNyk/council-of-high-intelligence) | burgundy | 18 personas as a newspaper council with a live for/against/abstain deliberation column | landed | [png](../days/2026-07-01/01-council-of-high-intelligence.png) |
 | [2026-06-26](../days/2026-06-26/) | [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire) | forest-green | research desk that argues with itself, four lenses converge to one thesis | landed | [png](../days/2026-06-26/01-ai-berkshire.png) |
 | [2026-06-19](../days/2026-06-19/) | [zai-org/GLM-5](https://github.com/zai-org/GLM-5) | cobalt | tagline as a literal Vibe→Decompose→Engineered arc | landed | [png](../days/2026-06-19/01-GLM-5.png) |

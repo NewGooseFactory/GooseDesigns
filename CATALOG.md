@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **78 mocks** across **26 days**. Newest first.
+Searchable master index. **81 mocks** across **27 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-08 | Wednesday | [wonderwhy-er/DesktopCommanderMCP](https://github.com/wonderwhy-er/DesktopCommanderMCP) | terminal-dark | electric-cyan | prove "give Claude your terminal" by making the hero a live search→diff→apply→test session | landed | [png](days/2026-07-08/01-DesktopCommanderMCP.png) | [2026-07-08](days/2026-07-08/) |
+| 2026-07-08 | Wednesday | [TencentCloud/TencentDB-Agent-Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) | hud | amber | render a 4-tier memory pipeline as an instrument panel with stacked tier gauges + flow strip | landed | [png](days/2026-07-08/02-TencentDB-Agent-Memory.png) | [2026-07-08](days/2026-07-08/) |
+| 2026-07-08 | Wednesday | [obra/superpowers](https://github.com/obra/superpowers) | editorial | burgundy | treat an agentic methodology as a calm serif manifesto, one burgundy italic word, numbered principles | landed | [png](days/2026-07-08/03-superpowers.png) | [2026-07-08](days/2026-07-08/) |
 | 2026-07-07 | Tuesday | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | poster | ink-red | poster-scale headline carries a skills catalog, restrained numbered index underneath | landed | [png](days/2026-07-07/01-agent-skills.png) | [2026-07-07](days/2026-07-07/) |
 | 2026-07-07 | Tuesday | [ruvnet/RuView](https://github.com/ruvnet/RuView) | data-viz | signal-cyan | show the sensor not the words: presence radar + vital-sign trace for camera-free WiFi sensing | landed | [png](days/2026-07-07/02-RuView.png) | [2026-07-07](days/2026-07-07/) |
 | 2026-07-07 | Tuesday | [iOfficeAI/OfficeCLI](https://github.com/iOfficeAI/OfficeCLI) | bauhaus | primary | map Word/Excel/PowerPoint to square/circle/triangle primitives unified by one CLI | landed | [png](days/2026-07-07/03-OfficeCLI.png) | [2026-07-07](days/2026-07-07/) |

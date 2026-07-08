@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Memory — fully local, four-tier recall</title>
+<style>
+  :root{
+    --bg:#0a0c0a; --panel:#0f1310; --panel-2:#121711; --edge:#243021;
+    --fg:#e8f0e4; --fg-2:#8ea287; --fg-3:#5c6f57;
+    --amber:#e8b23a; --amber-dim:rgba(232,178,58,.16);
+    --green:#63d06a; --green-dim:rgba(99,208,106,.16);
+    --grid:rgba(120,160,110,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--fg);
+    font-family:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--edge)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:650;font-size:16px;letter-spacing:.01em}
+  .brand .rd{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+  .brand small{color:var(--fg-3);font-weight:500;font-size:12.5px}
+  .nav-r{display:flex;gap:24px;font-size:13px;color:var(--fg-2);letter-spacing:.02em}
+  .nav-r a{color:inherit;text-decoration:none}.nav-r a:hover{color:var(--fg)}
+  .hero{display:grid;grid-template-columns:.9fr 1.2fr;gap:44px;align-items:center;padding:46px 0 34px}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);border:1px solid var(--edge);border-radius:3px;padding:6px 12px}
+  h1{font-size:clamp(34px,4.6vw,54px);line-height:1.05;letter-spacing:-.025em;font-weight:700;margin:18px 0 0}
+  h1 span{color:var(--amber)}
+  .lead{font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:40ch;margin:18px 0 0}
+  .lead b{color:var(--fg);font-weight:500}
+  .readout{display:flex;gap:0;margin-top:26px;border:1px solid var(--edge);border-radius:8px;overflow:hidden}
+  .readout div{flex:1;padding:13px 15px}.readout div+div{border-left:1px solid var(--edge)}
+  .readout .v{font-size:20px;font-weight:650}
+  .readout .v.a{color:var(--amber)}.readout .v.g{color:var(--green)}
+  .readout .k{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);margin-top:3px}
+  .cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .btn{padding:11px 17px;border-radius:7px;font-size:14px;font-weight:550;text-decoration:none;border:1px solid var(--edge);color:var(--fg);background:var(--panel)}
+  .btn:hover{border-color:var(--fg-3)}
+  .btn.p{background:var(--amber);border-color:var(--amber);color:#241a05;font-weight:650}
+  /* instrument panel */
+  .panel{border:1px solid var(--edge);border-radius:14px;background:
+      linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+      linear-gradient(180deg,var(--panel),var(--bg));
+    background-size:30px 30px,30px 30px,100% 100%;
+    overflow:hidden;box-shadow:0 40px 90px -50px #000}
+  .phd{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--edge);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .phd b{color:var(--amber);font-weight:600}
+  .phd .st{color:var(--green)}
+  .tiers{padding:16px 16px 6px}
+  .tier{display:grid;grid-template-columns:38px 1fr 66px;align-items:center;gap:14px;padding:11px 6px;border-bottom:1px solid rgba(120,160,110,.1)}
+  .tier:last-child{border-bottom:none}
+  .tier .no{font-size:12px;color:var(--fg-3);text-align:center}
+  .tier .no b{display:block;color:var(--amber);font-size:15px}
+  .tier .lab{font-size:13.5px;color:var(--fg);font-weight:550}
+  .tier .lab small{display:block;color:var(--fg-3);font-size:11px;font-weight:400;margin-top:1px}
+  .gauge{height:8px;border-radius:5px;background:#182013;overflow:hidden;margin-top:7px;border:1px solid rgba(120,160,110,.12)}
+  .gauge i{display:block;height:100%;border-radius:5px}
+  .g1 i{width:92%;background:linear-gradient(90deg,var(--amber),#f2c65a)}
+  .g2 i{width:68%;background:linear-gradient(90deg,var(--amber),#f2c65a)}
+  .g3 i{width:41%;background:linear-gradient(90deg,var(--green),#8fe095)}
+  .g4 i{width:23%;background:linear-gradient(90deg,var(--green),#8fe095)}
+  .rd-val{font-size:12.5px;color:var(--fg-2);text-align:right}
+  .rd-val b{color:var(--fg)}
+  .flow{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-top:1px solid var(--edge);font-size:11px;color:var(--fg-3);letter-spacing:.04em}
+  .flow .step{color:var(--fg-2)}.flow .ar{color:var(--amber)}
+  .pulse{position:relative}
+  .pulse::after{content:"";position:absolute;right:12px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 var(--green-dim);animation:pp 2s infinite}
+  @keyframes pp{0%{box-shadow:0 0 0 0 rgba(99,208,106,.5)}70%{box-shadow:0 0 0 9px rgba(99,208,106,0)}100%{box-shadow:0 0 0 0 rgba(99,208,106,0)}}
+  .illus{text-align:center;font-size:10px;color:var(--fg-3);padding:0 0 12px;letter-spacing:.04em}
+  @media (prefers-reduced-motion:reduce){.pulse::after{animation:none}}
+  @media (max-width:920px){.hero{grid-template-columns:1fr;gap:32px}.lead{max-width:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="rd"></span> TencentDB <b style="font-weight:650">Agent Memory</b> <small>&middot; TencentCloud</small></div>
+    <div class="nav-r"><a href="#">Architecture</a><a href="#">Docs</a><a href="https://github.com/TencentCloud/TencentDB-Agent-Memory">GitHub &#8599;</a></div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="chip">Fully local &middot; long-term memory</span>
+      <h1>Memory your agent <span>keeps to itself.</span></h1>
+      <p class="lead">Long-term memory for AI agents through a <b>four-tier progressive pipeline</b> — with <b>zero external API dependencies</b>. Everything runs local; nothing your agent remembers ever leaves the box.</p>
+      <div class="readout mono">
+        <div><div class="v a">4</div><div class="k">Tiers</div></div>
+        <div><div class="v g">0</div><div class="k">External APIs</div></div>
+        <div><div class="v g">100%</div><div class="k">Local</div></div>
+      </div>
+      <div class="cta">
+        <a class="btn p" href="#">Read the design</a>
+        <a class="btn" href="https://github.com/TencentCloud/TencentDB-Agent-Memory">Star on GitHub</a>
+      </div>
+    </div>
+
+    <div class="panel pulse">
+      <div class="phd mono"><span>MEM &middot; <b>4-TIER PIPELINE</b></span><span class="st">&#9673; local &middot; nominal</span></div>
+      <div class="tiers">
+        <div class="tier">
+          <div class="no mono"><b>01</b>hot</div>
+          <div><div class="lab">Working recall <small>recent turns, instant</small></div><div class="gauge g1"><i></i></div></div>
+          <div class="rd-val mono"><b>92</b>% hit</div>
+        </div>
+        <div class="tier">
+          <div class="no mono"><b>02</b>warm</div>
+          <div><div class="lab">Session memory <small>consolidated context</small></div><div class="gauge g2"><i></i></div></div>
+          <div class="rd-val mono"><b>68</b>% hit</div>
+        </div>
+        <div class="tier">
+          <div class="no mono"><b>03</b>cold</div>
+          <div><div class="lab">Long-term store <small>durable facts &amp; prefs</small></div><div class="gauge g3"><i></i></div></div>
+          <div class="rd-val mono"><b>41</b>% hit</div>
+        </div>
+        <div class="tier">
+          <div class="no mono"><b>04</b>arch</div>
+          <div><div class="lab">Archive <small>compacted, retrievable</small></div><div class="gauge g4"><i></i></div></div>
+          <div class="rd-val mono"><b>23</b>% hit</div>
+        </div>
+      </div>
+      <div class="flow mono"><span class="step">ingest</span><span class="ar">&rarr;</span><span class="step">promote</span><span class="ar">&rarr;</span><span class="step">consolidate</span><span class="ar">&rarr;</span><span class="step">archive</span></div>
+      <div class="illus mono">Tier labels &amp; hit-rates illustrative &middot; no external calls</div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
