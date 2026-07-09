@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>awesome-design-md — one file, a matching UI</title>
+<style>
+  :root{
+    --paper:#f3f2ee; --ink:#0d0d0c; --ink-2:#44443e; --ink-3:#83837a;
+    --red:#e1261c; --rule:#0d0d0c; --hair:rgba(13,13,12,.14);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Helvetica Neue","Inter",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.32;letter-spacing:-.01em}
+  .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;letter-spacing:0}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  /* 12-col grid scaffold */
+  nav{display:grid;grid-template-columns:repeat(12,1fr);align-items:baseline;border-bottom:3px solid var(--rule);padding:20px 0 14px;gap:0}
+  nav .brand{grid-column:1 / 6;font-size:15px;font-weight:700;letter-spacing:.01em}
+  nav .brand b{color:var(--red)}
+  nav .meta{grid-column:6 / 10;font-size:12px;color:var(--ink-3);letter-spacing:.02em}
+  nav .links{grid-column:10 / 13;display:flex;gap:18px;justify-content:flex-end;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+  nav .links a{color:var(--ink);text-decoration:none}nav .links a:hover{color:var(--red)}
+  .hero{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding:44px 0 0}
+  .idx{grid-column:1 / 3;border-right:1px solid var(--hair);padding-right:16px}
+  .idx .n{font-size:12px;color:var(--ink-3);margin-bottom:6px}
+  .idx .n b{color:var(--red)}
+  .idx ol{list-style:none;margin:0;padding:0;font-size:12.5px;color:var(--ink-2);line-height:1.9}
+  .idx ol li{border-bottom:1px solid var(--hair);padding:5px 0}
+  .idx ol li span{color:var(--ink-3);margin-right:8px}
+  h1{grid-column:3 / 13;padding-left:34px;font-size:clamp(46px,8vw,116px);font-weight:800;line-height:.92;letter-spacing:-.035em;margin:0}
+  h1 .r{color:var(--red)}
+  .sub{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding:30px 0 0;align-items:start}
+  .sub .lead{grid-column:3 / 8;padding-left:34px;font-size:18px;line-height:1.5;color:var(--ink-2)}
+  .sub .lead b{color:var(--ink);font-weight:600}
+  .sub .cta{grid-column:9 / 13;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+  .drop{border:2px solid var(--rule);background:#fff;padding:10px 14px;font-size:13px;display:flex;gap:10px;align-items:center}
+  .drop b{color:var(--red)}
+  .drop .go{background:var(--ink);color:var(--paper);padding:6px 12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .rulebar{height:3px;background:var(--rule);margin:36px 0 0}
+  /* the DESIGN.md → UI demonstration */
+  .demo{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding:0 0 48px}
+  .md{grid-column:1 / 6;border-right:3px solid var(--rule);padding:22px 24px 22px 0}
+  .md .cap{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+  .md pre{margin:0;font-size:12.5px;line-height:1.75;color:var(--ink-2);white-space:pre-wrap}
+  .md .k{color:var(--red)}
+  .md .h{color:var(--ink);font-weight:700}
+  .out{grid-column:6 / 13;padding:22px 0 22px 34px}
+  .out .cap{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+  .card{border:2px solid var(--rule);background:#fff;padding:0;max-width:520px}
+  .card .bar{background:var(--red);height:8px}
+  .card .body{padding:22px 22px 24px}
+  .card h3{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em}
+  .card p{margin:8px 0 16px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+  .card .row{display:flex;gap:10px}
+  .card .btn{font-size:13px;font-weight:600;padding:9px 16px}
+  .card .btn.p{background:var(--ink);color:#fff}
+  .card .btn.s{border:2px solid var(--rule);color:var(--ink)}
+  .card .swatch{display:flex;gap:6px;margin-top:16px}
+  .card .swatch i{width:22px;height:22px}
+  .foot{border-top:3px solid var(--rule);padding:14px 0 26px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  @media (max-width:860px){
+    nav,.hero,.sub,.demo{grid-template-columns:1fr}
+    .idx{display:none}
+    h1,.sub .lead,.out{grid-column:1;padding-left:0}
+    .md{grid-column:1;border-right:none;border-bottom:3px solid var(--rule)}
+    .sub .cta{grid-column:1;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand">awesome&#8209;design&#8209;md <b>/ VoltAgent</b></div>
+    <div class="meta mono">DESIGN.md &rarr; matching UI</div>
+    <div class="links"><a href="#">Collection</a><a href="https://github.com/VoltAgent/awesome-design-md">GitHub</a></div>
+  </nav>
+
+  <section class="hero">
+    <div class="idx">
+      <div class="n mono"><b>&#167;</b> Systems</div>
+      <ol class="mono">
+        <li><span>01</span>Type scale</li>
+        <li><span>02</span>Color</li>
+        <li><span>03</span>Spacing</li>
+        <li><span>04</span>Components</li>
+        <li><span>05</span>Motion</li>
+      </ol>
+    </div>
+    <h1>One file.<br>A whole <span class="r">design<br>system.</span></h1>
+  </section>
+
+  <div class="sub">
+    <p class="lead">A curated collection of <b>DESIGN.md</b> files analysing popular brand design systems. Drop one into your project and let coding agents generate a UI that <b>matches the system</b> — not generic slop.</p>
+    <div class="cta">
+      <div class="drop mono">cp <b>DESIGN.md</b> ./ <span class="go">use it</span></div>
+      <div class="mono" style="font-size:11px;color:var(--ink-3);letter-spacing:.04em">agent reads it &middot; UI follows</div>
+    </div>
+  </div>
+
+  <div class="rulebar"></div>
+
+  <section class="demo">
+    <div class="md">
+      <div class="cap mono">Input &middot; DESIGN.md</div>
+      <pre class="mono"><span class="h"># Design System</span>
+
+<span class="k">## Type</span>
+scale: 1.250 (major third)
+heading: 800 / -0.03em
+body: 400 / 1.5
+
+<span class="k">## Color</span>
+accent: <span class="r">#E1261C</span>
+ink: #0D0D0C
+paper: #F3F2EE
+
+<span class="k">## Shape</span>
+radius: 0 (hard edges)
+border: 2px solid ink</pre>
+    </div>
+    <div class="out">
+      <div class="cap mono">Output &middot; generated UI (illustrative)</div>
+      <div class="card">
+        <div class="bar"></div>
+        <div class="body">
+          <h3>Ship the system.</h3>
+          <p>Same scale, same accent, same hard edges — an agent built this card straight from the DESIGN.md on the left.</p>
+          <div class="row">
+            <span class="btn p">Primary</span>
+            <span class="btn s">Secondary</span>
+          </div>
+          <div class="swatch">
+            <i style="background:#E1261C"></i><i style="background:#0D0D0C"></i><i style="background:#F3F2EE;border:1px solid #ccc"></i><i style="background:#44443E"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot mono">
+    <span>github.com/VoltAgent/awesome-design-md</span>
+    <span>One DESIGN.md, a matching UI</span>
+  </div>
+</div>
+</body>
+</html>

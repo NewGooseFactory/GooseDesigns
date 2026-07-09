@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **81 mocks** across **27 days**. Newest first.
+Searchable master index. **84 mocks** across **28 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-09 | Thursday | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | swiss | red | make a design-system tool prove itself via a strict grid + DESIGN.md→UI input/output split | landed | [png](days/2026-07-09/01-awesome-design-md.png) | [2026-07-09](days/2026-07-09/) |
+| 2026-07-09 | Thursday | [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi) | mono-zine | phosphor-green | render autonomous pentest as an ASCII kill-chain + tagged live engagement run-log | landed | [png](days/2026-07-09/02-pentagi.png) | [2026-07-09](days/2026-07-09/) |
+| 2026-07-09 | Thursday | [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) | glass | frost-cyan | one frosted panel splitting messy raw HTML against clean markdown+JSON to show "LLM-friendly" | landed | [png](days/2026-07-09/03-crawl4ai.png) | [2026-07-09](days/2026-07-09/) |
 | 2026-07-08 | Wednesday | [wonderwhy-er/DesktopCommanderMCP](https://github.com/wonderwhy-er/DesktopCommanderMCP) | terminal-dark | electric-cyan | prove "give Claude your terminal" by making the hero a live search→diff→apply→test session | landed | [png](days/2026-07-08/01-DesktopCommanderMCP.png) | [2026-07-08](days/2026-07-08/) |
 | 2026-07-08 | Wednesday | [TencentCloud/TencentDB-Agent-Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) | hud | amber | render a 4-tier memory pipeline as an instrument panel with stacked tier gauges + flow strip | landed | [png](days/2026-07-08/02-TencentDB-Agent-Memory.png) | [2026-07-08](days/2026-07-08/) |
 | 2026-07-08 | Wednesday | [obra/superpowers](https://github.com/obra/superpowers) | editorial | burgundy | treat an agentic methodology as a calm serif manifesto, one burgundy italic word, numbered principles | landed | [png](days/2026-07-08/03-superpowers.png) | [2026-07-08](days/2026-07-08/) |

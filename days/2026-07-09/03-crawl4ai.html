@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crawl4AI — LLM-friendly web crawler</title>
+<style>
+  :root{
+    --bg:#0a0f1a; --bg-2:#0c1322; --fg:#eaf0fb; --fg-2:#93a3c4; --fg-3:#5d6b8a;
+    --frost:rgba(255,255,255,.055); --frost-brd:rgba(255,255,255,.12);
+    --cyan:#4fd6ff; --cyan-dim:rgba(79,214,255,.16); --green:#63e6a8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:
+      radial-gradient(1000px 500px at 78% -10%, rgba(79,214,255,.10), transparent 60%),
+      radial-gradient(800px 500px at 10% 110%, rgba(99,230,168,.06), transparent 55%),
+      var(--bg);
+    color:var(--fg);font-family:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.55;min-height:100vh}
+  .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:650;font-size:16px;letter-spacing:-.01em}
+  .brand .lg{width:26px;height:26px;border-radius:8px;background:linear-gradient(150deg,var(--cyan),#2b8fc0);display:grid;place-items:center;color:#05202b;font-size:14px;font-weight:800}
+  .brand small{color:var(--fg-3);font-weight:500;font-size:12.5px}
+  .nav-r{display:flex;gap:24px;font-size:13.5px;color:var(--fg-2)}
+  .nav-r a{color:inherit;text-decoration:none}.nav-r a:hover{color:var(--fg)}
+  .hero{display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;padding:48px 0 40px}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan);border:1px solid var(--frost-brd);border-radius:100px;padding:6px 13px;background:var(--frost)}
+  h1{font-size:clamp(36px,5vw,60px);line-height:1.02;letter-spacing:-.03em;font-weight:700;margin:18px 0 0}
+  h1 span{background:linear-gradient(90deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:17px;line-height:1.6;color:var(--fg-2);max-width:40ch;margin:20px 0 0}
+  .lead b{color:var(--fg);font-weight:500}
+  .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .btn{padding:12px 18px;border-radius:10px;font-size:14px;font-weight:550;text-decoration:none;border:1px solid var(--frost-brd);color:var(--fg);background:var(--frost)}
+  .btn:hover{border-color:var(--cyan)}
+  .btn.p{background:var(--cyan);border-color:var(--cyan);color:#04222e;font-weight:650}
+  .pip{display:flex;gap:20px;margin-top:26px;font-size:12.5px;color:var(--fg-2)}
+  .pip b{color:var(--cyan);font-weight:600}
+  /* single frosted panel */
+  .glass{position:relative;border:1px solid var(--frost-brd);border-radius:18px;
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:0 40px 90px -50px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.09);overflow:hidden}
+  .ghd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--frost-brd);font-size:12px;color:var(--fg-3)}
+  .ghd .u{color:var(--fg-2)}
+  .ghd .st{color:var(--green);display:flex;align-items:center;gap:7px}
+  .ghd .st i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pl 1.8s infinite}
+  @keyframes pl{50%{opacity:.4}}
+  .split{display:grid;grid-template-columns:1fr 1fr}
+  .col{padding:16px 18px}
+  .col.l{border-right:1px solid var(--frost-brd)}
+  .col .cap{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-bottom:10px}
+  .raw{font-size:11.5px;line-height:1.7;color:var(--fg-3)}
+  .raw .tagx{color:#6c7fa6}
+  .clean{font-size:12.5px;line-height:1.75}
+  .clean .h{color:var(--cyan);font-weight:600}
+  .clean .b{color:var(--fg)}
+  .clean .li{color:var(--fg-2);display:block;padding-left:12px;position:relative}
+  .clean .li::before{content:"-";position:absolute;left:0;color:var(--green)}
+  .clean .json{color:var(--fg-2)}
+  .clean .key{color:var(--cyan)}
+  .arrow{display:flex;align-items:center;justify-content:center;padding:8px;border-top:1px solid var(--frost-brd);color:var(--fg-3);font-size:11.5px;letter-spacing:.04em}
+  .arrow b{color:var(--cyan)}
+  .illus{text-align:center;font-size:10px;color:var(--fg-3);padding:0 0 14px}
+  @media (prefers-reduced-motion:reduce){.ghd .st i{animation:none}}
+  @media (max-width:920px){.hero{grid-template-columns:1fr;gap:34px}.lead{max-width:none}.split{grid-template-columns:1fr}.col.l{border-right:none;border-bottom:1px solid var(--frost-brd)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="lg">C4</span> Crawl4AI <small>&middot; unclecode</small></div>
+    <div class="nav-r"><a href="#">Docs</a><a href="#">Quickstart</a><a href="https://github.com/unclecode/crawl4ai">GitHub &#8599;</a></div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="chip">Open source &middot; LLM-friendly</span>
+      <h1>Turn any page into <span>clean, model-ready data.</span></h1>
+      <p class="lead">An <b>open-source, LLM-friendly web crawler &amp; scraper</b> that strips the clutter and hands your model structured markdown and JSON — not a tangle of raw HTML.</p>
+      <div class="cta">
+        <a class="btn p" href="#">pip install crawl4ai</a>
+        <a class="btn" href="https://github.com/unclecode/crawl4ai">Star on GitHub</a>
+      </div>
+      <div class="pip mono">
+        <span><b>&rarr;</b> clean markdown</span>
+        <span><b>&rarr;</b> structured JSON</span>
+        <span><b>&rarr;</b> LLM-ready</span>
+      </div>
+    </div>
+
+    <div class="glass">
+      <div class="ghd mono"><span class="u">crawl4ai &middot; <span style="color:var(--fg-2)">example.com/post</span></span><span class="st"><i></i>extracted</span></div>
+      <div class="split">
+        <div class="col l">
+          <div class="cap">Raw HTML</div>
+          <div class="raw mono"><span class="tagx">&lt;div class="nav"&gt;</span>&#8230;<span class="tagx">&lt;/div&gt;</span>
+<span class="tagx">&lt;header&gt;&lt;a&gt;</span>menu<span class="tagx">&lt;/a&gt;</span>&#8230;
+<span class="tagx">&lt;article&gt;</span>
+ <span class="tagx">&lt;h1&gt;</span>Scaling Agents<span class="tagx">&lt;/h1&gt;</span>
+ <span class="tagx">&lt;p&gt;</span>We shipped&#8230;<span class="tagx">&lt;/p&gt;</span>
+ <span class="tagx">&lt;ul&gt;&lt;li&gt;</span>&#8230;
+<span class="tagx">&lt;aside class="ad"&gt;</span>&#8230;
+<span class="tagx">&lt;footer&gt;</span>&#8230;</div>
+        </div>
+        <div class="col">
+          <div class="cap">Model-ready output</div>
+          <div class="clean mono">
+<span class="h"># Scaling Agents</span>
+<span class="b">We shipped a new planner&#8230;</span>
+<span class="li">durable memory</span>
+<span class="li">verified tools</span>
+
+<span class="json">{ <span class="key">"title"</span>: "Scaling Agents",
+  <span class="key">"headings"</span>: 1,
+  <span class="key">"links"</span>: 4 }</span>
+          </div>
+        </div>
+      </div>
+      <div class="arrow mono">raw page <b>&rarr;</b> boilerplate stripped <b>&rarr;</b> markdown + JSON</div>
+      <div class="illus mono">Extracted content is illustrative</div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

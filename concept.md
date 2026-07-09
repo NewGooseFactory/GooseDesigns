@@ -3,7 +3,7 @@ title: Concept — Design Taste
 date: 2026-06-08
 type: concept
 status: active
-updated: 2026-07-07
+updated: 2026-07-08
 tags:
   - design
   - principles
@@ -32,6 +32,7 @@ Living distillation of what makes a landing/hero UI *land* for my audience (tech
 - **An instrument/HUD frame only lands when a *real readout or code/command proof* sits inside it — a bare frame around ordinary copy underdelivers.** The aviation motif needs concrete content under it: a one-line `model="openai:gpt-4o" # or "anthropic:…"` swap-terminal made the reticle land and explicitly *fixed* the earlier bare-reticle miss 2026-06-13; an honestly-footed cache-telemetry gauge (`GAINS DEPEND ON WORKLOAD`) landed 2026-06-13; whereas a reticle whose "telemetry" was a slogan only *mostly* landed 2026-06-10. Frame + real proof = lands; frame alone = costume.
 - **Turn a tagline or claim into a literal staged sequence (pipeline / arc) — make the *process* the hero.** When the pitch is really a sequence, rendering it as an explicit ordered arc lands: a 3-word tagline drawn as a numbered Learn->Build->Ship pipeline 2026-06-15 and a tagline staged as a literal Vibe->Decompose->Engineered arc 2026-06-19 both landed. Caveat — the stages must be real: a 5-stage run-ladder invented for a tagline-less repo only *mostly* landed because the metaphor carries more than the source proves 2026-06-20.
 
+- **Editorial restraint (serif + generous whitespace + a single warm accent) builds credibility for *methodology / thought-leadership* pieces where a dark dev-tool look would undercut it.** When the subject is a framework or a point of view rather than a tool, a calm editorial treatment reads as considered, not hyped: 18 personas as a newspaper deliberation council 2026-07-01 and an agentic methodology as a calm Georgia-serif manifesto with one burgundy italic word 2026-07-08 both landed. (Promoted from an open hypothesis once it landed twice across different repos.)
 ## Anti-patterns (repeated misses)
 - **A small *sample of an inventory* (a few-row rack, an N-node grid) reads thin/toy — show one *produced result/state* instead.** When the artifact depicts a representative slice of a large set, it underdelivers because the slice looks like the whole: a four-row "skills rack" *mostly* landed but the sample "risks looking thin" 2026-06-18; an eight-pod cluster grid *mostly* landed but "edges toward toy" 2026-06-17. The reliable fix is to render a concrete **result the product produces** rather than a roster of what it contains — a knowledge-graph readout 2026-06-18 and a read->edit->test diff transcript 2026-06-18 both *landed* the same day the rack only mostly did, and an instrument *readout* 2026-06-17 beat the pod *grid* of its day. Show state/result, not inventory. **Corollary — uniform *symmetric / parallel* N-card layouts trip the same wire:** equal-weight cards in a tidy row read as a template even when the copy is good — a Build·Ship·Iterate three-card triad *mostly* landed but "symmetry risks looking template" 2026-06-19, echoing the four-row rack of the day before 2026-06-18. Break the symmetry (vary weight/size, or replace one card with a real produced result) instead of shipping a clean parallel grid.
 
@@ -43,7 +44,7 @@ Living distillation of what makes a landing/hero UI *land* for my audience (tech
 
 ## Open hypotheses
 
-- Editorial style may build more *credibility* for thought-leadership pieces than terminal-dark.
+- ~~Editorial style may build more credibility for thought-leadership~~ → **promoted to a proven principle 2026-07-08** (landed twice: 2026-07-01, 2026-07-08).
 - HUD style is high-variance — strong when restrained, costume-y when overdone.
 
 

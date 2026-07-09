@@ -83,3 +83,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-08 — [rep](days/2026-07-08/) — wonderwhy-er/DesktopCommanderMCP — terminal-dark/electric-cyan — prove "give Claude your terminal" by making the hero a live search→diff→apply→test session → landed
 - 2026-07-08 — [rep](days/2026-07-08/) — TencentCloud/TencentDB-Agent-Memory — hud/amber — render a 4-tier memory pipeline as an instrument panel with stacked tier gauges + flow strip → landed
 - 2026-07-08 — [rep](days/2026-07-08/) — obra/superpowers — editorial/burgundy — treat an agentic methodology as a calm serif manifesto, one burgundy italic word, numbered principles → landed
+- 2026-07-09 — [rep](days/2026-07-09/) — VoltAgent/awesome-design-md — swiss/red — make a design-system tool prove itself via a strict grid + DESIGN.md→UI input/output split → landed
+- 2026-07-09 — [rep](days/2026-07-09/) — vxcontrol/pentagi — mono-zine/phosphor-green — render autonomous pentest as an ASCII kill-chain + tagged live engagement run-log → landed
+- 2026-07-09 — [rep](days/2026-07-09/) — unclecode/crawl4ai — glass/frost-cyan — one frosted panel splitting messy raw HTML against clean markdown+JSON to show "LLM-friendly" → landed
