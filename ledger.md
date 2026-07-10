@@ -86,3 +86,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-09 — [rep](days/2026-07-09/) — VoltAgent/awesome-design-md — swiss/red — make a design-system tool prove itself via a strict grid + DESIGN.md→UI input/output split → landed
 - 2026-07-09 — [rep](days/2026-07-09/) — vxcontrol/pentagi — mono-zine/phosphor-green — render autonomous pentest as an ASCII kill-chain + tagged live engagement run-log → landed
 - 2026-07-09 — [rep](days/2026-07-09/) — unclecode/crawl4ai — glass/frost-cyan — one frosted panel splitting messy raw HTML against clean markdown+JSON to show "LLM-friendly" → landed
+- 2026-07-10 — [rep](days/2026-07-10/) — mattpocock/skills — brutalist/acid-yellow — turn "Skills for Real Engineers" into a hard-edged manifesto with one acid block behind REAL → landed
+- 2026-07-10 — [rep](days/2026-07-10/) — google-labs-code/stitch-skills — blueprint/cobalt — diagram portable Agent Skills as a Stitch MCP↔SKILL.md interface + compatibility rail → landed
+- 2026-07-10 — [rep](days/2026-07-10/) — oven-sh/bun — neon-noir/hot-orange — prove "all in one" as one uninterrupted init→install→test→build terminal journey → landed

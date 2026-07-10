@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **84 mocks** across **28 days**. Newest first.
+Searchable master index. **87 mocks** across **29 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-10 | Friday | [mattpocock/skills](https://github.com/mattpocock/skills) | brutalist | acid-yellow | turn "Skills for Real Engineers" into a hard-edged manifesto with one acid block behind REAL | landed | [png](days/2026-07-10/01-skills.png) | [2026-07-10](days/2026-07-10/) |
+| 2026-07-10 | Friday | [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills) | blueprint | cobalt | diagram portable Agent Skills as a Stitch MCP↔SKILL.md interface + compatibility rail | landed | [png](days/2026-07-10/02-stitch-skills.png) | [2026-07-10](days/2026-07-10/) |
+| 2026-07-10 | Friday | [oven-sh/bun](https://github.com/oven-sh/bun) | neon-noir | hot-orange | prove "all in one" as one uninterrupted init→install→test→build terminal journey | landed | [png](days/2026-07-10/03-bun.png) | [2026-07-10](days/2026-07-10/) |
 | 2026-07-09 | Thursday | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | swiss | red | make a design-system tool prove itself via a strict grid + DESIGN.md→UI input/output split | landed | [png](days/2026-07-09/01-awesome-design-md.png) | [2026-07-09](days/2026-07-09/) |
 | 2026-07-09 | Thursday | [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi) | mono-zine | phosphor-green | render autonomous pentest as an ASCII kill-chain + tagged live engagement run-log | landed | [png](days/2026-07-09/02-pentagi.png) | [2026-07-09](days/2026-07-09/) |
 | 2026-07-09 | Thursday | [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) | glass | frost-cyan | one frosted panel splitting messy raw HTML against clean markdown+JSON to show "LLM-friendly" | landed | [png](days/2026-07-09/03-crawl4ai.png) | [2026-07-09](days/2026-07-09/) |

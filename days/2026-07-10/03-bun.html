@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bun — all-in-one JavaScript toolkit</title>
+<style>
+  :root{--bg:#08090c;--panel:#0e1015;--edge:#20232c;--fg:#f0eee9;--fg2:#97969c;--fg3:#5b5d65;--orange:#ff7a2f;--odim:rgba(255,122,47,.17);--green:#60df9a}
+  *{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--fg);font-family:"Inter",-apple-system,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 4px)}.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}.wrap{max-width:1140px;margin:0 auto;padding:0 32px;position:relative}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0}.brand{display:flex;gap:10px;align-items:center;font-weight:700}.brand .bun{width:28px;height:28px;border:2px solid var(--fg);border-radius:50% 50% 45% 45%;position:relative}.brand .bun:before,.brand .bun:after{content:"";position:absolute;top:7px;width:3px;height:3px;background:var(--fg);border-radius:50%}.brand .bun:before{left:7px}.brand .bun:after{right:7px}.brand small{font-weight:500;color:var(--fg3);font-size:12px}.links{display:flex;gap:23px;font-size:13px}.links a{color:var(--fg2);text-decoration:none}.links a:hover{color:var(--fg)}
+  .hero{display:grid;grid-template-columns:.95fr 1.1fr;gap:50px;align-items:center;padding:64px 0 48px}.tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3)}h1{font-size:clamp(42px,6.4vw,76px);line-height:.98;letter-spacing:-.035em;margin:18px 0 0;font-weight:720}h1 em{font-style:normal;color:var(--orange);text-shadow:0 0 24px var(--odim);position:relative}h1 em:after{content:"";position:absolute;left:0;right:0;height:3px;bottom:-2px;background:var(--orange);box-shadow:0 0 14px var(--odim)}.lead{font-size:17px;line-height:1.65;color:var(--fg2);max-width:40ch;margin:22px 0 0}.lead b{color:var(--fg);font-weight:550}.cta{display:flex;gap:12px;margin-top:29px;flex-wrap:wrap}.btn{padding:12px 18px;border-radius:8px;border:1px solid var(--edge);background:var(--panel);color:var(--fg);text-decoration:none;font-size:14px}.btn.p{border-color:var(--orange);background:rgba(255,122,47,.10)}.btn:hover{border-color:var(--fg3)}
+  .all{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--edge);border-radius:8px;overflow:hidden;margin-top:29px}.all div{padding:12px 10px;text-align:center;font-size:10px;color:var(--fg3);letter-spacing:.1em;text-transform:uppercase}.all div+div{border-left:1px solid var(--edge)}.all b{display:block;color:var(--fg);font-size:12px;letter-spacing:0;text-transform:none;margin-bottom:2px}
+  .term{border:1px solid var(--edge);border-radius:12px;overflow:hidden;background:linear-gradient(180deg,var(--panel),#0a0b0f);box-shadow:0 38px 90px -48px #000}.tbar{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--edge);font-size:11px;color:var(--fg3)}.tbar i{width:9px;height:9px;border-radius:50%;background:#2a2c34}.tbar .r{margin-left:auto;color:var(--orange)}.body{padding:19px 19px 22px;font-size:13px;line-height:1.9}.ln{white-space:pre-wrap}.p{color:var(--orange);font-weight:700}.cmd{color:var(--fg)}.out{color:var(--fg2)}.ok{color:var(--green)}.dim{color:var(--fg3)}.block{border-left:2px solid var(--orange);padding-left:12px;margin:9px 0;background:linear-gradient(90deg,var(--odim),transparent)}.cur{display:inline-block;width:8px;height:15px;background:var(--orange);vertical-align:-2px;box-shadow:0 0 9px var(--orange);animation:blink 1.1s steps(1) infinite}@keyframes blink{50%{opacity:0}}.foot{border-top:1px solid var(--edge);padding:18px 0 28px;display:flex;justify-content:space-between;font-size:11px;color:var(--fg3);letter-spacing:.07em;text-transform:uppercase}
+  @media(prefers-reduced-motion:reduce){.cur{animation:none}}@media(max-width:900px){.hero{grid-template-columns:1fr;gap:34px}.lead{max-width:none}.all{grid-template-columns:1fr 1fr}.all div:nth-child(3){border-left:0;border-top:1px solid var(--edge)}.all div:nth-child(4){border-top:1px solid var(--edge)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><div class="brand"><span class="bun"></span>Bun <small>&middot; oven-sh</small></div><div class="links"><a href="#">Docs</a><a href="#">Install</a><a href="https://github.com/oven-sh/bun">GitHub &#8599;</a></div></nav>
+<section class="hero">
+  <div>
+    <div class="tag mono">JavaScript &middot; all in one</div>
+    <h1>One toolkit.<br><em>Everything JS.</em></h1>
+    <p class="lead">An <b>incredibly fast JavaScript runtime, bundler, test runner, and package manager</b> — all in one. Start, install, test, and build without stitching four tools together.</p>
+    <div class="cta"><a class="btn p mono" href="#">curl -fsSL bun.sh/install | bash</a><a class="btn" href="https://github.com/oven-sh/bun">View source</a></div>
+    <div class="all mono"><div><b>Runtime</b>execute</div><div><b>Bundler</b>build</div><div><b>Test runner</b>verify</div><div><b>Package mgr</b>install</div></div>
+  </div>
+  <div class="term">
+    <div class="tbar mono"><i></i><i></i><i></i><span>bun &middot; ~/app</span><span class="r">all systems ready</span></div>
+    <div class="body mono">
+<div class="ln"><span class="p">$</span> <span class="cmd">bun init</span> <span class="ok">&#10003;</span></div>
+<div class="ln"><span class="p">$</span> <span class="cmd">bun install</span></div>
+<div class="block"><span class="out">resolved dependencies &middot; lockfile written</span></div>
+<div class="ln"><span class="p">$</span> <span class="cmd">bun test</span></div>
+<div class="ln"><span class="ok">  pass</span> <span class="out">src/math.test.ts</span></div>
+<div class="ln"><span class="p">$</span> <span class="cmd">bun build ./src/index.ts --outdir ./dist</span></div>
+<div class="block"><span class="out">bundled application</span> <span class="ok">&#10003;</span> <span class="dim">(illustrative)</span></div>
+<div class="ln"><span class="p">$</span> <span class="cmd">_<span class="cur"></span></span></div>
+    </div>
+  </div>
+</section>
+<div class="foot mono"><span>runtime &middot; bundler &middot; tests &middot; packages</span><span>bun.sh</span></div>
+</div>
+</body>
+</html>
