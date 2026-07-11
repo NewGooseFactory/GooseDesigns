@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **87 mocks** across **29 days**. Newest first.
+Searchable master index. **90 mocks** across **30 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-11 | Saturday | [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) | data-viz | violet | combine configuration promise with a live Claude Code session-monitor dashboard | landed | [png](days/2026-07-11/01-claude-code-templates.png) | [2026-07-11](days/2026-07-11/) |
+| 2026-07-11 | Saturday | [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | poster | cobalt | reduce the proposition to a giant "JavaScript, Typed." plus one small typed-object proof | landed | [png](days/2026-07-11/02-TypeScript.png) | [2026-07-11](days/2026-07-11/) |
+| 2026-07-11 | Saturday | [tailscale/tailscale](https://github.com/tailscale/tailscale) | warm-minimal | indigo | make secure WireGuard+2FA approachable through a calm three-node tailnet map | landed | [png](days/2026-07-11/03-tailscale.png) | [2026-07-11](days/2026-07-11/) |
 | 2026-07-10 | Friday | [mattpocock/skills](https://github.com/mattpocock/skills) | brutalist | acid-yellow | turn "Skills for Real Engineers" into a hard-edged manifesto with one acid block behind REAL | landed | [png](days/2026-07-10/01-skills.png) | [2026-07-10](days/2026-07-10/) |
 | 2026-07-10 | Friday | [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills) | blueprint | cobalt | diagram portable Agent Skills as a Stitch MCP↔SKILL.md interface + compatibility rail | landed | [png](days/2026-07-10/02-stitch-skills.png) | [2026-07-10](days/2026-07-10/) |
 | 2026-07-10 | Friday | [oven-sh/bun](https://github.com/oven-sh/bun) | neon-noir | hot-orange | prove "all in one" as one uninterrupted init→install→test→build terminal journey | landed | [png](days/2026-07-10/03-bun.png) | [2026-07-10](days/2026-07-10/) |

@@ -1,9 +1,10 @@
 # Style — warm-minimal
 
-3 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+4 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-11](../days/2026-07-11/) | [tailscale/tailscale](https://github.com/tailscale/tailscale) | indigo | make secure WireGuard+2FA approachable through a calm three-node tailnet map | landed | [png](../days/2026-07-11/03-tailscale.png) |
 | [2026-07-05](../days/2026-07-05/) | [Zackriya-Solutions/meetily](https://github.com/Zackriya-Solutions/meetily) | sage | make "100% local, no cloud" feel calm via a soft cream device, transcription→summary | landed | [png](../days/2026-07-05/03-meetily.png) |
 | [2026-06-28](../days/2026-06-28/) | [altic-dev/FluidVoice](https://github.com/altic-dev/FluidVoice) | terracotta | fully-local dictation as a soft cream device, waveform becomes text | landed | [png](../days/2026-06-28/03-FluidVoice.png) |
 | [2026-06-23](../days/2026-06-23/) | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | sage | a four-word tagline as a warm growth card compounding context to instinct | mostly (week figures are invented scaffolding) | [png](../days/2026-06-23/03-hermes-agent.png) |

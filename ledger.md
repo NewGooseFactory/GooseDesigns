@@ -89,3 +89,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-10 — [rep](days/2026-07-10/) — mattpocock/skills — brutalist/acid-yellow — turn "Skills for Real Engineers" into a hard-edged manifesto with one acid block behind REAL → landed
 - 2026-07-10 — [rep](days/2026-07-10/) — google-labs-code/stitch-skills — blueprint/cobalt — diagram portable Agent Skills as a Stitch MCP↔SKILL.md interface + compatibility rail → landed
 - 2026-07-10 — [rep](days/2026-07-10/) — oven-sh/bun — neon-noir/hot-orange — prove "all in one" as one uninterrupted init→install→test→build terminal journey → landed
+- 2026-07-11 — [rep](days/2026-07-11/) — davila7/claude-code-templates — data-viz/violet — combine configuration promise with a live Claude Code session-monitor dashboard → landed
+- 2026-07-11 — [rep](days/2026-07-11/) — microsoft/TypeScript — poster/cobalt — reduce the proposition to a giant "JavaScript, Typed." plus one small typed-object proof → landed
+- 2026-07-11 — [rep](days/2026-07-11/) — tailscale/tailscale — warm-minimal/indigo — make secure WireGuard+2FA approachable through a calm three-node tailnet map → landed
