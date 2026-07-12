@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-12](../days/2026-07-12/) | [ColeMurray/background-agents](https://github.com/ColeMurray/background-agents) | cobalt | make asynchronous coding work feel calm through a quiet durable queue rather than a noisy dashboard | landed | [png](../days/2026-07-12/02-background-agents.png) |
 | [2026-07-08](../days/2026-07-08/) | [obra/superpowers](https://github.com/obra/superpowers) | burgundy | treat an agentic methodology as a calm serif manifesto, one burgundy italic word, numbered principles | landed | [png](../days/2026-07-08/03-superpowers.png) |
 | [2026-07-01](../days/2026-07-01/) | [0xNyk/council-of-high-intelligence](https://github.com/0xNyk/council-of-high-intelligence) | burgundy | 18 personas as a newspaper council with a live for/against/abstain deliberation column | landed | [png](../days/2026-07-01/01-council-of-high-intelligence.png) |
 | [2026-06-26](../days/2026-06-26/) | [xbtlin/ai-berkshire](https://github.com/xbtlin/ai-berkshire) | forest-green | research desk that argues with itself, four lenses converge to one thesis | landed | [png](../days/2026-06-26/01-ai-berkshire.png) |

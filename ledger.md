@@ -92,3 +92,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-11 — [rep](days/2026-07-11/) — davila7/claude-code-templates — data-viz/violet — combine configuration promise with a live Claude Code session-monitor dashboard → landed
 - 2026-07-11 — [rep](days/2026-07-11/) — microsoft/TypeScript — poster/cobalt — reduce the proposition to a giant "JavaScript, Typed." plus one small typed-object proof → landed
 - 2026-07-11 — [rep](days/2026-07-11/) — tailscale/tailscale — warm-minimal/indigo — make secure WireGuard+2FA approachable through a calm three-node tailnet map → landed
+- 2026-07-12 — [rep](days/2026-07-12/) — Dicklesworthstone/destructive_command_guard — terminal-dark/danger-red — make the command boundary visible with one destructive action blocked and one safe inspection allowed → landed
+- 2026-07-12 — [rep](days/2026-07-12/) — ColeMurray/background-agents — editorial/cobalt — make asynchronous coding work feel calm through a quiet durable queue rather than a noisy dashboard → landed
+- 2026-07-12 — [rep](days/2026-07-12/) — Nutlope/hallmark — bauhaus/primary — demonstrate anti-slop taste through a committed primary-color composition + three review principles → landed

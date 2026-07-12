@@ -2,10 +2,11 @@
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-12](../days/2026-07-12/) | [Dicklesworthstone/destructive_command_guard](https://github.com/Dicklesworthstone/destructive_command_guard) | danger-red | make the command boundary visible with one destructive action blocked and one safe inspection allowed | landed | [png](../days/2026-07-12/01-destructive-command-guard.png) |
 | [2026-07-08](../days/2026-07-08/) | [wonderwhy-er/DesktopCommanderMCP](https://github.com/wonderwhy-er/DesktopCommanderMCP) | electric-cyan | prove "give Claude your terminal" by making the hero a live search→diff→apply→test session | landed | [png](../days/2026-07-08/01-DesktopCommanderMCP.png) |
 | [2026-06-30](../days/2026-06-30/) | [google/agents-cli](https://github.com/google/agents-cli) | google-blue | center the story on one terminal walking create→evaluate→deploy | landed | [png](../days/2026-06-30/02-agents-cli.png) |
 | [2026-06-26](../days/2026-06-26/) | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | amber | give your agent first-party AWS hands, register-the-toolkit terminal + 3 cards | landed | [png](../days/2026-06-26/02-agent-toolkit-for-aws.png) |

@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **90 mocks** across **30 days**. Newest first.
+Searchable master index. **93 mocks** across **31 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-12 | Sunday | [Dicklesworthstone/destructive_command_guard](https://github.com/Dicklesworthstone/destructive_command_guard) | terminal-dark | danger-red | make the command boundary visible with one destructive action blocked and one safe inspection allowed | landed | [png](days/2026-07-12/01-destructive-command-guard.png) | [2026-07-12](days/2026-07-12/) |
+| 2026-07-12 | Sunday | [ColeMurray/background-agents](https://github.com/ColeMurray/background-agents) | editorial | cobalt | make asynchronous coding work feel calm through a quiet durable queue rather than a noisy dashboard | landed | [png](days/2026-07-12/02-background-agents.png) | [2026-07-12](days/2026-07-12/) |
+| 2026-07-12 | Sunday | [Nutlope/hallmark](https://github.com/Nutlope/hallmark) | bauhaus | primary | demonstrate anti-slop taste through a committed primary-color composition + three review principles | landed | [png](days/2026-07-12/03-hallmark.png) | [2026-07-12](days/2026-07-12/) |
 | 2026-07-11 | Saturday | [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) | data-viz | violet | combine configuration promise with a live Claude Code session-monitor dashboard | landed | [png](days/2026-07-11/01-claude-code-templates.png) | [2026-07-11](days/2026-07-11/) |
 | 2026-07-11 | Saturday | [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | poster | cobalt | reduce the proposition to a giant "JavaScript, Typed." plus one small typed-object proof | landed | [png](days/2026-07-11/02-TypeScript.png) | [2026-07-11](days/2026-07-11/) |
 | 2026-07-11 | Saturday | [tailscale/tailscale](https://github.com/tailscale/tailscale) | warm-minimal | indigo | make secure WireGuard+2FA approachable through a calm three-node tailnet map | landed | [png](days/2026-07-11/03-tailscale.png) | [2026-07-11](days/2026-07-11/) |
