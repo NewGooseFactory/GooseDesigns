@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **93 mocks** across **31 days**. Newest first.
+Searchable master index. **96 mocks** across **32 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-13 | Monday | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | hud | radar-cyan | render a multi-format project knowledge graph as a live instrument with cross-system edges + query pulse | landed | [png](days/2026-07-13/01-graphify.png) | [2026-07-13](days/2026-07-13/) |
+| 2026-07-13 | Monday | [github/spec-kit](https://github.com/github/spec-kit) | swiss | red | embody spec-driven development as a strict specify→plan→tasks→implement grid + intent-to-plan proof | landed | [png](days/2026-07-13/02-spec-kit.png) | [2026-07-13](days/2026-07-13/) |
+| 2026-07-13 | Monday | [OpenCut-app/OpenCut](https://github.com/OpenCut-app/OpenCut) | glass | frost-violet | make the open-source video editor category immediate through one unified frosted editing surface | landed | [png](days/2026-07-13/03-OpenCut.png) | [2026-07-13](days/2026-07-13/) |
 | 2026-07-12 | Sunday | [Dicklesworthstone/destructive_command_guard](https://github.com/Dicklesworthstone/destructive_command_guard) | terminal-dark | danger-red | make the command boundary visible with one destructive action blocked and one safe inspection allowed | landed | [png](days/2026-07-12/01-destructive-command-guard.png) | [2026-07-12](days/2026-07-12/) |
 | 2026-07-12 | Sunday | [ColeMurray/background-agents](https://github.com/ColeMurray/background-agents) | editorial | cobalt | make asynchronous coding work feel calm through a quiet durable queue rather than a noisy dashboard | landed | [png](days/2026-07-12/02-background-agents.png) | [2026-07-12](days/2026-07-12/) |
 | 2026-07-12 | Sunday | [Nutlope/hallmark](https://github.com/Nutlope/hallmark) | bauhaus | primary | demonstrate anti-slop taste through a committed primary-color composition + three review principles | landed | [png](days/2026-07-12/03-hallmark.png) | [2026-07-12](days/2026-07-12/) |
