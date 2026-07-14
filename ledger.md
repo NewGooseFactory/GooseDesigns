@@ -98,3 +98,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-13 — [rep](days/2026-07-13/) — Graphify-Labs/graphify — hud/radar-cyan — render a multi-format project knowledge graph as a live instrument with cross-system edges + query pulse → landed
 - 2026-07-13 — [rep](days/2026-07-13/) — github/spec-kit — swiss/red — embody spec-driven development as a strict specify→plan→tasks→implement grid + intent-to-plan proof → landed
 - 2026-07-13 — [rep](days/2026-07-13/) — OpenCut-app/OpenCut — glass/frost-violet — make the open-source video editor category immediate through one unified frosted editing surface → landed
+- 2026-07-14 — [rep](days/2026-07-14/) — Shubhamsaboo/awesome-llm-apps — data-viz/teal — turn a 100+ runnable-app collection into a structured catalog map + clone→customize→ship pipeline → landed
+- 2026-07-14 — [rep](days/2026-07-14/) — penpot/penpot — blueprint/magenta — diagram scalable collaboration as component library + product flow feeding one shared workspace → landed
+- 2026-07-14 — [rep](days/2026-07-14/) — virattt/ai-hedge-fund — mono-zine/market-green — frame an AI hedge-fund team as coordinated committee judgment rather than a speculative trading chart → landed

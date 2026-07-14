@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **96 mocks** across **32 days**. Newest first.
+Searchable master index. **99 mocks** across **33 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-14 | Tuesday | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | data-viz | teal | turn a 100+ runnable-app collection into a structured catalog map + clone→customize→ship pipeline | landed | [png](days/2026-07-14/01-awesome-llm-apps.png) | [2026-07-14](days/2026-07-14/) |
+| 2026-07-14 | Tuesday | [penpot/penpot](https://github.com/penpot/penpot) | blueprint | magenta | diagram scalable collaboration as component library + product flow feeding one shared workspace | landed | [png](days/2026-07-14/02-penpot.png) | [2026-07-14](days/2026-07-14/) |
+| 2026-07-14 | Tuesday | [virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) | mono-zine | market-green | frame an AI hedge-fund team as coordinated committee judgment rather than a speculative trading chart | landed | [png](days/2026-07-14/03-ai-hedge-fund.png) | [2026-07-14](days/2026-07-14/) |
 | 2026-07-13 | Monday | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | hud | radar-cyan | render a multi-format project knowledge graph as a live instrument with cross-system edges + query pulse | landed | [png](days/2026-07-13/01-graphify.png) | [2026-07-13](days/2026-07-13/) |
 | 2026-07-13 | Monday | [github/spec-kit](https://github.com/github/spec-kit) | swiss | red | embody spec-driven development as a strict specify→plan→tasks→implement grid + intent-to-plan proof | landed | [png](days/2026-07-13/02-spec-kit.png) | [2026-07-13](days/2026-07-13/) |
 | 2026-07-13 | Monday | [OpenCut-app/OpenCut](https://github.com/OpenCut-app/OpenCut) | glass | frost-violet | make the open-source video editor category immediate through one unified frosted editing surface | landed | [png](days/2026-07-13/03-OpenCut.png) | [2026-07-13](days/2026-07-13/) |

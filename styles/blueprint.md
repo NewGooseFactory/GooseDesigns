@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-14](../days/2026-07-14/) | [penpot/penpot](https://github.com/penpot/penpot) | magenta | diagram scalable collaboration as component library + product flow feeding one shared workspace | landed | [png](../days/2026-07-14/02-penpot.png) |
 | [2026-07-10](../days/2026-07-10/) | [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills) | cobalt | diagram portable Agent Skills as a Stitch MCP↔SKILL.md interface + compatibility rail | landed | [png](../days/2026-07-10/02-stitch-skills.png) |
 | [2026-07-05](../days/2026-07-05/) | [alibaba/page-agent](https://github.com/alibaba/page-agent) | blueprint-blue | natural-language→DOM as an annotated page schematic with element callouts | landed | [png](../days/2026-07-05/01-page-agent.png) |
 | [2026-06-29](../days/2026-06-29/) | [logto-io/logto](https://github.com/logto-io/logto) | cyan | auth value as App→Logto→Tenant schematic on a drafting grid | landed | [png](../days/2026-06-29/03-logto.png) |
