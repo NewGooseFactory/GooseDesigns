@@ -101,3 +101,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-14 — [rep](days/2026-07-14/) — Shubhamsaboo/awesome-llm-apps — data-viz/teal — turn a 100+ runnable-app collection into a structured catalog map + clone→customize→ship pipeline → landed
 - 2026-07-14 — [rep](days/2026-07-14/) — penpot/penpot — blueprint/magenta — diagram scalable collaboration as component library + product flow feeding one shared workspace → landed
 - 2026-07-14 — [rep](days/2026-07-14/) — virattt/ai-hedge-fund — mono-zine/market-green — frame an AI hedge-fund team as coordinated committee judgment rather than a speculative trading chart → landed
+- 2026-07-15 — [rep](days/2026-07-15/) — openinterpreter/openinterpreter — brutalist/acid-lime — turn a low-cost coding agent into a blunt read→change→run→prove engineering promise → landed
+- 2026-07-15 — [rep](days/2026-07-15/) — HKUDS/DeepTutor — editorial/forest — frame lifelong personalized tutoring as an evolving relationship + quiet learning path rather than a dashboard → landed
+- 2026-07-15 — [rep](days/2026-07-15/) — moeru-ai/airi — neon-noir/magenta — make a self-hosted companion feel like a local presence through one orb + voice waveform + world modes → landed

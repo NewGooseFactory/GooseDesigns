@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **99 mocks** across **33 days**. Newest first.
+Searchable master index. **102 mocks** across **34 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-15 | Wednesday | [openinterpreter/openinterpreter](https://github.com/openinterpreter/openinterpreter) | brutalist | acid-lime | turn a low-cost coding agent into a blunt read→change→run→prove engineering promise | landed | [png](days/2026-07-15/01-openinterpreter.png) | [2026-07-15](days/2026-07-15/) |
+| 2026-07-15 | Wednesday | [HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor) | editorial | forest | frame lifelong personalized tutoring as an evolving relationship + quiet learning path rather than a dashboard | landed | [png](days/2026-07-15/02-DeepTutor.png) | [2026-07-15](days/2026-07-15/) |
+| 2026-07-15 | Wednesday | [moeru-ai/airi](https://github.com/moeru-ai/airi) | neon-noir | magenta | make a self-hosted companion feel like a local presence through one orb + voice waveform + world modes | landed | [png](days/2026-07-15/03-airi.png) | [2026-07-15](days/2026-07-15/) |
 | 2026-07-14 | Tuesday | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | data-viz | teal | turn a 100+ runnable-app collection into a structured catalog map + clone→customize→ship pipeline | landed | [png](days/2026-07-14/01-awesome-llm-apps.png) | [2026-07-14](days/2026-07-14/) |
 | 2026-07-14 | Tuesday | [penpot/penpot](https://github.com/penpot/penpot) | blueprint | magenta | diagram scalable collaboration as component library + product flow feeding one shared workspace | landed | [png](days/2026-07-14/02-penpot.png) | [2026-07-14](days/2026-07-14/) |
 | 2026-07-14 | Tuesday | [virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) | mono-zine | market-green | frame an AI hedge-fund team as coordinated committee judgment rather than a speculative trading chart | landed | [png](days/2026-07-14/03-ai-hedge-fund.png) | [2026-07-14](days/2026-07-14/) |
