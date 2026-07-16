@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-16](../days/2026-07-16/) | [PostHog/posthog](https://github.com/PostHog/posthog) | amber | instrument panel compresses observability into a capture→diagnose→ship agent loop | landed: operational without becoming game-like | [png](../days/2026-07-16/02-posthog.png) |
 | [2026-07-13](../days/2026-07-13/) | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | radar-cyan | render a multi-format project knowledge graph as a live instrument with cross-system edges + query pulse | landed | [png](../days/2026-07-13/01-graphify.png) |
 | [2026-07-08](../days/2026-07-08/) | [TencentCloud/TencentDB-Agent-Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) | amber | render a 4-tier memory pipeline as an instrument panel with stacked tier gauges + flow strip | landed | [png](../days/2026-07-08/02-TencentDB-Agent-Memory.png) |
 | [2026-07-02](../days/2026-07-02/) | [affaan-m/ECC](https://github.com/affaan-m/ECC) | phosphor-green | agent harness as an instrument panel, five subsystem gauges reading nominal | landed | [png](../days/2026-07-02/01-ECC.png) |

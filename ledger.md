@@ -104,3 +104,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-07-15 — [rep](days/2026-07-15/) — openinterpreter/openinterpreter — brutalist/acid-lime — turn a low-cost coding agent into a blunt read→change→run→prove engineering promise → landed
 - 2026-07-15 — [rep](days/2026-07-15/) — HKUDS/DeepTutor — editorial/forest — frame lifelong personalized tutoring as an evolving relationship + quiet learning path rather than a dashboard → landed
 - 2026-07-15 — [rep](days/2026-07-15/) — moeru-ai/airi — neon-noir/magenta — make a self-hosted companion feel like a local presence through one orb + voice waveform + world modes → landed
+- 2026-07-16 — [rep](days/2026-07-16/) — apache/ossie — swiss/ultramarine — strict grid frames semantic metadata as one shared contract across analytics, AI, and BI → landed: authoritative and vendor-neutral
+- 2026-07-16 — [rep](days/2026-07-16/) — PostHog/posthog — hud/amber — instrument panel compresses observability into a capture→diagnose→ship agent loop → landed: operational without becoming game-like
+- 2026-07-16 — [rep](days/2026-07-16/) — github/copilot-sdk — terminal-dark/electric-cyan — split hero pairs platform ambition with an illustrative integration session → landed: aspirational and technically credible
