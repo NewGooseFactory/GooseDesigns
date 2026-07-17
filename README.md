@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![105 mocks](https://img.shields.io/badge/mocks-105-1f6feb?style=flat-square) ![35 days](https://img.shields.io/badge/days-35-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![108 mocks](https://img.shields.io/badge/mocks-108-1f6feb?style=flat-square) ![36 days](https://img.shields.io/badge/days-36-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 105 mockups across 35 days and 14 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 108 mockups across 36 days and 14 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Thursday, July 16
+## Latest — Friday, July 17
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-07-16/"><img src="days/2026-07-16/01-ossie.png" width="320" alt="apache/ossie"></a><br><sub><b>apache/ossie</b><br>swiss</sub></td>
-<td align="center" width="33%"><a href="days/2026-07-16/"><img src="days/2026-07-16/02-posthog.png" width="320" alt="PostHog/posthog"></a><br><sub><b>PostHog/posthog</b><br>hud</sub></td>
-<td align="center" width="33%"><a href="days/2026-07-16/"><img src="days/2026-07-16/03-copilot-sdk.png" width="320" alt="github/copilot-sdk"></a><br><sub><b>github/copilot-sdk</b><br>terminal-dark</sub></td>
+<td align="center" width="33%"><a href="days/2026-07-17/"><img src="days/2026-07-17/01-code-review-graph.png" width="320" alt="tirth8205/code-review-graph"></a><br><sub><b>tirth8205/code-review-graph</b><br>blueprint</sub></td>
+<td align="center" width="33%"><a href="days/2026-07-17/"><img src="days/2026-07-17/02-maths-cs-ai-compendium.png" width="320" alt="HenryNdubuaku/maths-cs-ai-compendium"></a><br><sub><b>HenryNdubuaku/maths-cs-ai-compendium</b><br>poster</sub></td>
+<td align="center" width="33%"><a href="days/2026-07-17/"><img src="days/2026-07-17/03-build-your-own-x.png" width="320" alt="codecrafters-io/build-your-own-x"></a><br><sub><b>codecrafters-io/build-your-own-x</b><br>warm-minimal</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-07-16/)
+[See the full day →](days/2026-07-17/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-07-17 | Friday | 3 | blueprint, poster, warm-minimal | [open](days/2026-07-17/) |
 | 2026-07-16 | Thursday | 3 | swiss, hud, terminal-dark | [open](days/2026-07-16/) |
 | 2026-07-15 | Wednesday | 3 | brutalist, editorial, neon-noir | [open](days/2026-07-15/) |
 | 2026-07-14 | Tuesday | 3 | data-viz, blueprint, mono-zine | [open](days/2026-07-14/) |

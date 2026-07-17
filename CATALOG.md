@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **105 mocks** across **35 days**. Newest first.
+Searchable master index. **108 mocks** across **36 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-17 | Friday | [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph) | blueprint | cobalt | expose the persistent code map and narrow review scope as an annotated technical schematic | landed: context discipline is visible without fabricated metrics | [png](days/2026-07-17/01-code-review-graph.png) | [2026-07-17](days/2026-07-17/) |
+| 2026-07-17 | Friday | [HenryNdubuaku/maths-cs-ai-compendium](https://github.com/HenryNdubuaku/maths-cs-ai-compendium) | poster | vermilion | reduce a broad technical curriculum to one memorable depth-before-systems promise | landed: ambitious hierarchy with sober support | [png](days/2026-07-17/02-maths-cs-ai-compendium.png) | [2026-07-17](days/2026-07-17/) |
+| 2026-07-17 | Friday | [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | warm-minimal | marigold | reframe systems education as an approachable choose→deconstruct→rebuild→explain workbench | landed: friendly without diluting the technical premise | [png](days/2026-07-17/03-build-your-own-x.png) | [2026-07-17](days/2026-07-17/) |
 | 2026-07-16 | Thursday | [apache/ossie](https://github.com/apache/ossie) | swiss | ultramarine | strict grid frames semantic metadata as one shared contract across analytics, AI, and BI | landed: authoritative and vendor-neutral | [png](days/2026-07-16/01-ossie.png) | [2026-07-16](days/2026-07-16/) |
 | 2026-07-16 | Thursday | [PostHog/posthog](https://github.com/PostHog/posthog) | hud | amber | instrument panel compresses observability into a capture→diagnose→ship agent loop | landed: operational without becoming game-like | [png](days/2026-07-16/02-posthog.png) | [2026-07-16](days/2026-07-16/) |
 | 2026-07-16 | Thursday | [github/copilot-sdk](https://github.com/github/copilot-sdk) | terminal-dark | electric-cyan | split hero pairs platform ambition with an illustrative integration session | landed: aspirational and technically credible | [png](days/2026-07-16/03-copilot-sdk.png) | [2026-07-16](days/2026-07-16/) |
