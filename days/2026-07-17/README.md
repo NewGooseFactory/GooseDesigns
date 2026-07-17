@@ -9,8 +9,8 @@
 ![code-review-graph — blueprint](./01-code-review-graph.png)
 
 - **Style:** blueprint / cobalt
-- **Idea tested:** expose the persistent code map and narrow review scope as an annotated technical schematic
-- **Verdict:** landed: context discipline is visible without fabricated metrics
+- **Idea tested:** pair a restrained editorial headline with one focused impact-map proof
+- **Verdict:** landed: calmer, more credible, and more deliberate
 - [live .html](./01-code-review-graph.html) · [repo on GitHub](https://github.com/tirth8205/code-review-graph)
 
 ## [HenryNdubuaku/maths-cs-ai-compendium](https://github.com/HenryNdubuaku/maths-cs-ai-compendium)

@@ -1,18 +1,600 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Code Review Graph — Read Only What Matters</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Code Review Graph — Review the Consequence</title>
 <style>
-:root{--paper:#f4f6f2;--ink:#132238;--blue:#1559ff;--line:#a9b9d0;--soft:#e7edf6;--muted:#52647c}
-*{box-sizing:border-box}html{background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}body{margin:0;min-height:100vh;background-image:linear-gradient(rgba(21,89,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(21,89,255,.08) 1px,transparent 1px);background-size:32px 32px}.shell{min-height:100vh;padding:22px;display:grid;grid-template-rows:auto 1fr auto;gap:18px}.top,.foot{border:1px solid var(--ink);background:rgba(244,246,242,.94);min-height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font:11px ui-monospace,SFMono-Regular,Consolas,monospace;text-transform:uppercase;letter-spacing:.12em}.brand{display:flex;align-items:center;gap:11px;font-weight:700}.brand:before{content:"";width:12px;height:12px;background:var(--blue)}.status{color:var(--blue)}
-.hero{display:grid;grid-template-columns:minmax(0,.93fr) minmax(510px,1.07fr);border:1px solid var(--ink);background:rgba(244,246,242,.96);min-height:690px}.copy{padding:clamp(44px,6vw,86px);border-right:1px solid var(--ink);display:flex;flex-direction:column;justify-content:center}.kicker{font:11px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--blue);text-transform:uppercase;letter-spacing:.14em}.kicker:before{content:"B-01 / ";color:var(--muted)}h1{font-size:clamp(58px,7vw,108px);line-height:.87;letter-spacing:-.075em;margin:28px 0;text-transform:uppercase}h1 span{display:block;color:var(--blue)}.lede{font-size:18px;line-height:1.55;color:var(--muted);max-width:580px;margin:0}.actions{display:flex;gap:12px;margin-top:38px;flex-wrap:wrap}.btn{min-height:48px;padding:0 19px;display:inline-flex;align-items:center;border:1px solid var(--ink);background:var(--ink);color:white;text-decoration:none;font:700 12px ui-monospace,SFMono-Regular,Consolas,monospace}.btn.secondary{background:transparent;color:var(--ink)}.btn:hover,.btn:focus-visible{background:var(--blue);border-color:var(--blue);color:white}
-.diagram{padding:26px;display:grid;grid-template-rows:auto 1fr auto;gap:14px;position:relative}.diagram-head{display:flex;justify-content:space-between;font:10px ui-monospace,SFMono-Regular,Consolas,monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.board{border:1px solid var(--ink);position:relative;min-height:480px;overflow:hidden;background:rgba(255,255,255,.45)}.board:after{content:"illustrative code map";position:absolute;right:14px;bottom:12px;color:var(--muted);font:9px ui-monospace,SFMono-Regular,Consolas,monospace;text-transform:uppercase;letter-spacing:.12em}.node{position:absolute;width:142px;border:1px solid var(--ink);background:var(--paper);padding:13px;box-shadow:5px 5px 0 var(--soft)}.node small{display:block;font:9px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--blue);text-transform:uppercase;margin-bottom:6px}.node b{font-size:13px}.n1{left:9%;top:12%}.n2{right:8%;top:17%}.n3{left:34%;top:43%;border-color:var(--blue);box-shadow:5px 5px 0 rgba(21,89,255,.15)}.n4{left:10%;bottom:12%}.n5{right:10%;bottom:10%}.wire{position:absolute;height:1px;background:var(--blue);transform-origin:left center}.w1{left:29%;top:25%;width:35%;transform:rotate(1deg)}.w2{left:24%;top:33%;width:27%;transform:rotate(31deg)}.w3{left:48%;top:57%;width:31%;transform:rotate(34deg)}.w4{left:26%;top:73%;width:27%;transform:rotate(-25deg)}.focus{position:absolute;left:30%;top:36%;width:42%;height:33%;border:2px solid var(--blue);pointer-events:none}.focus:before{content:"READ SCOPE";position:absolute;top:-19px;left:-2px;background:var(--blue);color:white;padding:4px 8px;font:9px ui-monospace,SFMono-Regular,Consolas,monospace}.legend{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink)}.legend div{padding:12px;border-right:1px solid var(--ink);font:9px ui-monospace,SFMono-Regular,Consolas,monospace;text-transform:uppercase;color:var(--muted)}.legend div:last-child{border-right:0}.legend b{display:block;color:var(--ink);font-size:11px;margin-top:5px;text-transform:none}.foot strong{font-weight:500;color:var(--blue)}
-@media(max-width:920px){.hero{grid-template-columns:1fr}.copy{border-right:0;border-bottom:1px solid var(--ink)}.diagram{min-height:650px}.shell{padding:10px}.top,.foot{gap:14px;flex-wrap:wrap;padding-block:14px}.board{min-height:500px}}
-@media(max-width:560px){.copy{padding:54px 24px}.diagram{padding:14px}.node{width:112px;padding:9px}.legend{grid-template-columns:1fr}.legend div{border-right:0;border-bottom:1px solid var(--ink)}}
-@media(prefers-reduced-motion:no-preference){.copy>*{animation:rise .6s cubic-bezier(.22,1,.36,1) both}.copy h1{animation-delay:.06s}.copy .lede{animation-delay:.11s}.copy .actions{animation-delay:.16s}.focus{animation:pulse 2.6s 1s ease-in-out infinite}@keyframes rise{from{opacity:0;transform:translateY(16px)}}@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(21,89,255,.08)}}}
-</style></head>
-<body><main class="shell"><header class="top"><div class="brand">code-review-graph</div><div class="status">local-first / persistent map</div></header>
-<section class="hero"><div class="copy"><div class="kicker">Code intelligence for MCP + CLI</div><h1>Read only<span>what matters.</span></h1><p class="lede">A local-first code intelligence graph that builds a persistent map of your codebase so AI coding tools can focus each review on relevant context.</p><div class="actions"><a class="btn" href="https://github.com/tirth8205/code-review-graph">Inspect the repository ↗</a><a class="btn secondary" href="#map">Read the blueprint ↓</a></div></div>
-<div class="diagram" id="map"><div class="diagram-head"><span>Persistent relationship map</span><span>scope / dependency / review</span></div><div class="board"><i class="wire w1"></i><i class="wire w2"></i><i class="wire w3"></i><i class="wire w4"></i><div class="node n1"><small>entry</small><b>changed file</b></div><div class="node n2"><small>contract</small><b>public API</b></div><div class="node n3"><small>focus</small><b>review context</b></div><div class="node n4"><small>dependency</small><b>callers</b></div><div class="node n5"><small>proof</small><b>tests</b></div><div class="focus"></div></div><div class="legend"><div>Layer 01<b>Map once</b></div><div>Layer 02<b>Query locally</b></div><div>Layer 03<b>Review precisely</b></div></div></div></section>
-<footer class="foot"><span>Persistent code intelligence without rereading the whole repository.</span><strong>Technical schematic / B-01</strong></footer></main></body></html>
+:root {
+  --paper: #f3f1e9;
+  --surface: #fbfaf6;
+  --ink: #171c26;
+  --muted: #667080;
+  --line: #d4d6d2;
+  --blue: #2457e6;
+  --blue-soft: #e7ecff;
+  --shadow: 0 24px 70px rgba(28, 33, 43, .11);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+a { color: inherit; }
+
+.page {
+  min-height: 100vh;
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 0 34px 28px;
+  display: grid;
+  grid-template-rows: 78px 1fr auto;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  font: 600 11px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--ink);
+  position: relative;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--blue);
+}
+
+.brand-mark::before {
+  width: 5px;
+  height: 5px;
+  top: 5px;
+  left: 5px;
+  box-shadow: 10px 10px 0 var(--blue);
+}
+
+.brand-mark::after {
+  width: 11px;
+  height: 1px;
+  top: 12px;
+  left: 7px;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+.nav-meta {
+  color: var(--muted);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(400px, .83fr) minmax(560px, 1.17fr);
+  gap: clamp(36px, 6vw, 94px);
+  align-items: center;
+  padding: clamp(54px, 7vh, 90px) 2vw;
+}
+
+.copy {
+  max-width: 650px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--blue);
+  font: 600 11px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: var(--blue);
+}
+
+h1 {
+  max-width: 690px;
+  margin: 28px 0 25px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(58px, 6.4vw, 96px);
+  font-weight: 400;
+  line-height: .93;
+  letter-spacing: -.055em;
+}
+
+h1 em {
+  color: var(--blue);
+  font-style: italic;
+}
+
+.lede {
+  max-width: 590px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.62;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 35px;
+  flex-wrap: wrap;
+}
+
+.button {
+  min-height: 48px;
+  padding: 0 19px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.button.secondary {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--blue);
+  background: var(--blue);
+  color: white;
+}
+
+.proof-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 54px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.proof-points span {
+  display: block;
+  color: var(--muted);
+  font: 500 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.proof-points strong {
+  display: block;
+  margin-top: 7px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.map-card {
+  min-height: 610px;
+  border: 1px solid rgba(23, 28, 38, .16);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.map-head {
+  height: 56px;
+  padding: 0 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font: 500 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.map-head strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.canvas {
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(36, 87, 230, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 87, 230, .045) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.canvas-label {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  z-index: 2;
+  color: var(--muted);
+  font: 500 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.canvas-label strong {
+  display: block;
+  margin-top: 7px;
+  color: var(--ink);
+  font: 650 15px Inter, "Segoe UI", Arial, sans-serif;
+  letter-spacing: -.01em;
+  text-transform: none;
+}
+
+.connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.connections path {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 5 7;
+  opacity: .74;
+}
+
+.connections circle {
+  fill: var(--surface);
+  stroke: var(--blue);
+  stroke-width: 1.4;
+}
+
+.node {
+  position: absolute;
+  z-index: 2;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(251, 250, 246, .98);
+  box-shadow: 0 10px 26px rgba(28, 33, 43, .08);
+}
+
+.node small {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font: 500 9px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.node b {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.node.changed {
+  top: 35%;
+  left: 31%;
+  width: 39%;
+  padding: 0;
+  border-color: rgba(36, 87, 230, .48);
+  box-shadow: 0 16px 42px rgba(36, 87, 230, .12);
+}
+
+.changed-title {
+  padding: 13px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.changed-title span {
+  color: var(--blue);
+  font: 600 9px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.code {
+  padding: 13px 15px 16px;
+  font: 11px/1.75 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.code-line {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  color: var(--muted);
+}
+
+.code-line mark {
+  padding: 0 3px;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.n-api { top: 16%; right: 8%; width: 24%; }
+.n-caller { left: 7%; bottom: 16%; width: 23%; }
+.n-test { right: 8%; bottom: 13%; width: 23%; }
+
+.scope {
+  position: absolute;
+  left: 25%;
+  top: 29%;
+  width: 51%;
+  height: 45%;
+  border: 1px solid rgba(36, 87, 230, .33);
+  border-radius: 14px;
+}
+
+.scope::before {
+  content: "relevant review context";
+  position: absolute;
+  top: -22px;
+  right: 0;
+  color: var(--blue);
+  font: 600 9px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.map-foot {
+  min-height: 54px;
+  padding: 0 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font: 500 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.map-foot strong {
+  color: var(--blue);
+  font-weight: 650;
+}
+
+.page-foot {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font: 500 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.page-foot strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+@media (max-width: 980px) {
+  .page {
+    padding-inline: 20px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding-inline: 0;
+  }
+
+  .copy {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 620px) {
+  .page {
+    padding-inline: 15px;
+  }
+
+  .nav-meta {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 42px;
+  }
+
+  h1 {
+    font-size: clamp(51px, 15vw, 70px);
+  }
+
+  .proof-points {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .map-card {
+    min-height: 560px;
+  }
+
+  .canvas {
+    min-height: 450px;
+  }
+
+  .node.changed {
+    left: 15%;
+    width: 70%;
+  }
+
+  .n-api { right: 4%; width: 34%; }
+  .n-caller { left: 4%; width: 34%; }
+  .n-test { right: 4%; width: 34%; }
+  .scope { left: 10%; width: 80%; }
+
+  .page-foot {
+    padding-block: 18px;
+    gap: 12px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .copy > * {
+    animation: rise 620ms cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  .copy h1 { animation-delay: 55ms; }
+  .copy .lede { animation-delay: 100ms; }
+  .copy .actions { animation-delay: 145ms; }
+  .copy .proof-points { animation-delay: 190ms; }
+
+  .map-card {
+    animation: arrive 700ms 90ms cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  .connections path {
+    stroke-dashoffset: 44;
+    animation: draw 850ms 420ms cubic-bezier(.22, 1, .36, 1) forwards;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+  }
+
+  @keyframes arrive {
+    from { opacity: 0; transform: translateY(20px) scale(.985); }
+  }
+
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <nav class="nav">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>code-review-graph</span>
+    </div>
+    <span class="nav-meta">Local-first code intelligence / MCP + CLI</span>
+  </nav>
+
+  <section class="hero">
+    <div class="copy">
+      <div class="eyebrow">Persistent code context</div>
+      <h1>Review the change.<br><em>See the consequence.</em></h1>
+      <p class="lede">A local-first code intelligence graph that builds a persistent map of your codebase, helping AI coding tools read only what matters for each review.</p>
+
+      <div class="actions">
+        <a class="button" href="https://github.com/tirth8205/code-review-graph">Explore the repository ↗</a>
+        <a class="button secondary" href="#impact-map">See the impact map ↓</a>
+      </div>
+
+      <div class="proof-points" aria-label="Product qualities">
+        <div><span>Context</span><strong>Persistent map</strong></div>
+        <div><span>Interface</span><strong>MCP + CLI</strong></div>
+        <div><span>Posture</span><strong>Local-first</strong></div>
+      </div>
+    </div>
+
+    <div class="map-card" id="impact-map">
+      <div class="map-head">
+        <strong>Change impact</strong>
+        <span>Illustrative query</span>
+      </div>
+
+      <div class="canvas">
+        <div class="canvas-label">Review target<strong>auth/session.ts</strong></div>
+
+        <svg class="connections" viewBox="0 0 800 500" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M400 250 C520 210 590 155 676 118"></path>
+          <path d="M390 270 C280 315 220 365 126 410"></path>
+          <path d="M425 278 C540 330 600 375 684 420"></path>
+          <circle cx="400" cy="258" r="5"></circle>
+          <circle cx="676" cy="118" r="4"></circle>
+          <circle cx="126" cy="410" r="4"></circle>
+          <circle cx="684" cy="420" r="4"></circle>
+        </svg>
+
+        <div class="scope"></div>
+
+        <div class="node n-api">
+          <small>Affected contract</small>
+          <b>Session API</b>
+        </div>
+
+        <div class="node changed">
+          <div class="changed-title">
+            <b>auth/session.ts</b>
+            <span>changed file</span>
+          </div>
+          <div class="code" aria-label="Illustrative code change">
+            <div class="code-line"><span>41</span><span>if (!token) return null</span></div>
+            <div class="code-line"><span>42</span><span><mark>return validate(token)</mark></span></div>
+            <div class="code-line"><span>43</span><span>export { createSession }</span></div>
+          </div>
+        </div>
+
+        <div class="node n-caller">
+          <small>Relevant caller</small>
+          <b>Login handler</b>
+        </div>
+
+        <div class="node n-test">
+          <small>Relevant proof</small>
+          <b>Session tests</b>
+        </div>
+      </div>
+
+      <div class="map-foot">
+        <span>Persistent map → focused query</span>
+        <strong>Read scope isolated</strong>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-foot">
+    <span>Code intelligence that keeps review context deliberate.</span>
+    <strong>Blueprint / cobalt</strong>
+  </footer>
+</main>
+</body>
+</html>
