@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **108 mocks** across **36 days**. Newest first.
+Searchable master index. **111 mocks** across **37 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-18 | Saturday | [Robbyant/lingbot-map](https://github.com/Robbyant/lingbot-map) | constellation | lidar-cyan | show streaming reconstruction as a quiet point field forming into a room | landed: technical and cinematic without generic AI spectacle | [png](days/2026-07-18/01-lingbot-map.png) | [2026-07-18](days/2026-07-18/) |
+| 2026-07-18 | Saturday | [ibelick/ui-skills](https://github.com/ibelick/ui-skills) | bauhaus | vermillion-cobalt | turn design engineering into a see→decide→refine practice with committed geometry | landed: playful enough to demonstrate taste, structured enough to teach it | [png](days/2026-07-18/02-ui-skills.png) | [2026-07-18](days/2026-07-18/) |
+| 2026-07-18 | Saturday | [KnockOutEZ/wigolo](https://github.com/KnockOutEZ/wigolo) | mono-zine | safety-orange | make local-first research tangible as one search→fetch→crawl→research terminal journey | landed: the no-key, no-cloud proposition reads as infrastructure | [png](days/2026-07-18/03-wigolo.png) | [2026-07-18](days/2026-07-18/) |
 | 2026-07-17 | Friday | [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph) | blueprint | cobalt | pair a restrained editorial headline with one focused impact-map proof | landed: calmer, more credible, and more deliberate | [png](days/2026-07-17/01-code-review-graph.png) | [2026-07-17](days/2026-07-17/) |
 | 2026-07-17 | Friday | [HenryNdubuaku/maths-cs-ai-compendium](https://github.com/HenryNdubuaku/maths-cs-ai-compendium) | poster | vermilion | reduce a broad technical curriculum to one memorable depth-before-systems promise | landed: ambitious hierarchy with sober support | [png](days/2026-07-17/02-maths-cs-ai-compendium.png) | [2026-07-17](days/2026-07-17/) |
 | 2026-07-17 | Friday | [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | warm-minimal | marigold | reframe systems education as an approachable choose→deconstruct→rebuild→explain workbench | landed: friendly without diluting the technical premise | [png](days/2026-07-17/03-build-your-own-x.png) | [2026-07-17](days/2026-07-17/) |
