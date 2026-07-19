@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **111 mocks** across **37 days**. Newest first.
+Searchable master index. **114 mocks** across **38 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-19 | Sunday | [kvcache-ai/ktransformers](https://github.com/kvcache-ai/ktransformers) | data-viz | cobalt-amber | explain heterogeneous optimization as deliberate workload placement across compute paths | landed: flexibility is visible without invented benchmarks | [png](days/2026-07-19/01-ktransformers.png) | [2026-07-19](days/2026-07-19/) |
+| 2026-07-19 | Sunday | [jamiepine/voicebox](https://github.com/jamiepine/voicebox) | glass | signal-violet | make open-source voice creation intimate through one restrained frosted studio surface | landed: polished and creator-controlled without generic gradient spectacle | [png](days/2026-07-19/02-voicebox.png) | [2026-07-19](days/2026-07-19/) |
+| 2026-07-19 | Sunday | [1jehuang/jcode](https://github.com/1jehuang/jcode) | brutalist | acid-yellow | expose the harness as intent→plan→execute→verify with no invisible magic | landed: the operating philosophy is unmistakable | [png](days/2026-07-19/03-jcode.png) | [2026-07-19](days/2026-07-19/) |
 | 2026-07-18 | Saturday | [Robbyant/lingbot-map](https://github.com/Robbyant/lingbot-map) | constellation | lidar-cyan | show streaming reconstruction as a quiet point field forming into a room | landed: technical and cinematic without generic AI spectacle | [png](days/2026-07-18/01-lingbot-map.png) | [2026-07-18](days/2026-07-18/) |
 | 2026-07-18 | Saturday | [ibelick/ui-skills](https://github.com/ibelick/ui-skills) | bauhaus | vermillion-cobalt | turn design engineering into a see→decide→refine practice with committed geometry | landed: playful enough to demonstrate taste, structured enough to teach it | [png](days/2026-07-18/02-ui-skills.png) | [2026-07-18](days/2026-07-18/) |
 | 2026-07-18 | Saturday | [KnockOutEZ/wigolo](https://github.com/KnockOutEZ/wigolo) | mono-zine | safety-orange | make local-first research tangible as one search→fetch→crawl→research terminal journey | landed: the no-key, no-cloud proposition reads as infrastructure | [png](days/2026-07-18/03-wigolo.png) | [2026-07-18](days/2026-07-18/) |

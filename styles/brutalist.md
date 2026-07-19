@@ -1,9 +1,10 @@
 # Style — brutalist
 
-5 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-19](../days/2026-07-19/) | [1jehuang/jcode](https://github.com/1jehuang/jcode) | acid-yellow | expose the harness as intent→plan→execute→verify with no invisible magic | landed: the operating philosophy is unmistakable | [png](../days/2026-07-19/03-jcode.png) |
 | [2026-07-15](../days/2026-07-15/) | [openinterpreter/openinterpreter](https://github.com/openinterpreter/openinterpreter) | acid-lime | turn a low-cost coding agent into a blunt read→change→run→prove engineering promise | landed | [png](../days/2026-07-15/01-openinterpreter.png) |
 | [2026-07-10](../days/2026-07-10/) | [mattpocock/skills](https://github.com/mattpocock/skills) | acid-yellow | turn "Skills for Real Engineers" into a hard-edged manifesto with one acid block behind REAL | landed | [png](../days/2026-07-10/01-skills.png) |
 | [2026-07-02](../days/2026-07-02/) | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | orange | headline is the joke, before/after token bar visibly shrinks to prove 65% | landed | [png](../days/2026-07-02/02-caveman.png) |
