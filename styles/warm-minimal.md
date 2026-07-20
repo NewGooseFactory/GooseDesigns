@@ -1,9 +1,10 @@
 # Style — warm-minimal
 
-5 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-20](../days/2026-07-20/) | [topoteretes/cognee](https://github.com/topoteretes/cognee) | moss | make persistent agent memory calm through a soft graph of decisions, evidence, constraints, and actions | landed: retained context rather than mystical intelligence | [png](../days/2026-07-20/02-cognee.png) |
 | [2026-07-17](../days/2026-07-17/) | [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | marigold | reframe systems education as an approachable choose→deconstruct→rebuild→explain workbench | landed: friendly without diluting the technical premise | [png](../days/2026-07-17/03-build-your-own-x.png) |
 | [2026-07-11](../days/2026-07-11/) | [tailscale/tailscale](https://github.com/tailscale/tailscale) | indigo | make secure WireGuard+2FA approachable through a calm three-node tailnet map | landed | [png](../days/2026-07-11/03-tailscale.png) |
 | [2026-07-05](../days/2026-07-05/) | [Zackriya-Solutions/meetily](https://github.com/Zackriya-Solutions/meetily) | sage | make "100% local, no cloud" feel calm via a soft cream device, transcription→summary | landed | [png](../days/2026-07-05/03-meetily.png) |
