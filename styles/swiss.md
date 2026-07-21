@@ -1,9 +1,10 @@
 # Style — swiss
 
-6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-21](../days/2026-07-21/) | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | signal-red | present specialized agents as an accountable roster of roles and deliverables | landed: specialization feels operational and outcome-driven | [png](../days/2026-07-21/02-agency-agents.png) |
 | [2026-07-16](../days/2026-07-16/) | [apache/ossie](https://github.com/apache/ossie) | ultramarine | strict grid frames semantic metadata as one shared contract across analytics, AI, and BI | landed: authoritative and vendor-neutral | [png](../days/2026-07-16/01-ossie.png) |
 | [2026-07-13](../days/2026-07-13/) | [github/spec-kit](https://github.com/github/spec-kit) | red | embody spec-driven development as a strict specify→plan→tasks→implement grid + intent-to-plan proof | landed | [png](../days/2026-07-13/02-spec-kit.png) |
 | [2026-07-09](../days/2026-07-09/) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | red | make a design-system tool prove itself via a strict grid + DESIGN.md→UI input/output split | landed | [png](../days/2026-07-09/01-awesome-design-md.png) |

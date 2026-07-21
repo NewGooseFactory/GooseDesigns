@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-21](../days/2026-07-21/) | [microsoft/Ontology-Playground](https://github.com/microsoft/Ontology-Playground) | ontology-blue | show ontology learning as an annotated semantic diagram connecting intent, loops, relations, and outcomes | landed: abstract meaning becomes inspectable without overstatement | [png](../days/2026-07-21/03-ontology-playground.png) |
 | [2026-07-17](../days/2026-07-17/) | [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph) | cobalt | pair a restrained editorial headline with one focused impact-map proof | landed: calmer, more credible, and more deliberate | [png](../days/2026-07-17/01-code-review-graph.png) |
 | [2026-07-14](../days/2026-07-14/) | [penpot/penpot](https://github.com/penpot/penpot) | magenta | diagram scalable collaboration as component library + product flow feeding one shared workspace | landed | [png](../days/2026-07-14/02-penpot.png) |
 | [2026-07-10](../days/2026-07-10/) | [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills) | cobalt | diagram portable Agent Skills as a Stitch MCP↔SKILL.md interface + compatibility rail | landed | [png](../days/2026-07-10/02-stitch-skills.png) |

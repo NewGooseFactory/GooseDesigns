@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **117 mocks** across **39 days**. Newest first.
+Searchable master index. **120 mocks** across **40 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-21 | Tuesday | [bojieli/ai-agent-book](https://github.com/bojieli/ai-agent-book) | poster | vermilion | treat a technical agent book as a bold systems manifesto with one conceptual center | landed: engineering material gains intellectual weight without academic wallpaper | [png](days/2026-07-21/01-ai-agent-book.png) | [2026-07-21](days/2026-07-21/) |
+| 2026-07-21 | Tuesday | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | swiss | signal-red | present specialized agents as an accountable roster of roles and deliverables | landed: specialization feels operational and outcome-driven | [png](days/2026-07-21/02-agency-agents.png) | [2026-07-21](days/2026-07-21/) |
+| 2026-07-21 | Tuesday | [microsoft/Ontology-Playground](https://github.com/microsoft/Ontology-Playground) | blueprint | ontology-blue | show ontology learning as an annotated semantic diagram connecting intent, loops, relations, and outcomes | landed: abstract meaning becomes inspectable without overstatement | [png](days/2026-07-21/03-ontology-playground.png) | [2026-07-21](days/2026-07-21/) |
 | 2026-07-20 | Monday | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | hud | signal-amber | present quota-aware fallback as an aviation-style route controller | landed: operational resilience without game UI | [png](days/2026-07-20/01-omniroute.png) | [2026-07-20](days/2026-07-20/) |
 | 2026-07-20 | Monday | [topoteretes/cognee](https://github.com/topoteretes/cognee) | warm-minimal | moss | make persistent agent memory calm through a soft graph of decisions, evidence, constraints, and actions | landed: retained context rather than mystical intelligence | [png](days/2026-07-20/02-cognee.png) | [2026-07-20](days/2026-07-20/) |
 | 2026-07-20 | Monday | [PrefectHQ/fastmcp](https://github.com/PrefectHQ/fastmcp) | editorial | python-blue | pair an editorial promise with one small illustrative Python surface | landed: technical proof without turning the hero into documentation | [png](days/2026-07-20/03-fastmcp.png) | [2026-07-20](days/2026-07-20/) |
