@@ -1,9 +1,10 @@
 # Style — warm-minimal
 
-6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-22](../days/2026-07-22/) | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | field-green | frame model selection as a calm hardware-fit decision with explicit constraints | landed: local compatibility matters more than abstract prestige | [png](../days/2026-07-22/03-llmfit.png) |
 | [2026-07-20](../days/2026-07-20/) | [topoteretes/cognee](https://github.com/topoteretes/cognee) | moss | make persistent agent memory calm through a soft graph of decisions, evidence, constraints, and actions | landed: retained context rather than mystical intelligence | [png](../days/2026-07-20/02-cognee.png) |
 | [2026-07-17](../days/2026-07-17/) | [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | marigold | reframe systems education as an approachable choose→deconstruct→rebuild→explain workbench | landed: friendly without diluting the technical premise | [png](../days/2026-07-17/03-build-your-own-x.png) |
 | [2026-07-11](../days/2026-07-11/) | [tailscale/tailscale](https://github.com/tailscale/tailscale) | indigo | make secure WireGuard+2FA approachable through a calm three-node tailnet map | landed | [png](../days/2026-07-11/03-tailscale.png) |

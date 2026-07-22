@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-22](../days/2026-07-22/) | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | safety-orange | turn language intent into an annotated drafting surface with visible dimensions and constraints | landed: physical outcomes feel inspectable rather than magical | [png](../days/2026-07-22/02-text-to-cad.png) |
 | [2026-07-21](../days/2026-07-21/) | [microsoft/Ontology-Playground](https://github.com/microsoft/Ontology-Playground) | ontology-blue | show ontology learning as an annotated semantic diagram connecting intent, loops, relations, and outcomes | landed: abstract meaning becomes inspectable without overstatement | [png](../days/2026-07-21/03-ontology-playground.png) |
 | [2026-07-17](../days/2026-07-17/) | [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph) | cobalt | pair a restrained editorial headline with one focused impact-map proof | landed: calmer, more credible, and more deliberate | [png](../days/2026-07-17/01-code-review-graph.png) |
 | [2026-07-14](../days/2026-07-14/) | [penpot/penpot](https://github.com/penpot/penpot) | magenta | diagram scalable collaboration as component library + product flow feeding one shared workspace | landed | [png](../days/2026-07-14/02-penpot.png) |

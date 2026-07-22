@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **120 mocks** across **40 days**. Newest first.
+Searchable master index. **123 mocks** across **41 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-22 | Wednesday | [koala73/worldmonitor](https://github.com/koala73/worldmonitor) | data-viz | radar-green | unify global intelligence as a restrained signal field with three event classes | landed: situational awareness without manufactured urgency | [png](days/2026-07-22/01-worldmonitor.png) | [2026-07-22](days/2026-07-22/) |
+| 2026-07-22 | Wednesday | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | blueprint | safety-orange | turn language intent into an annotated drafting surface with visible dimensions and constraints | landed: physical outcomes feel inspectable rather than magical | [png](days/2026-07-22/02-text-to-cad.png) | [2026-07-22](days/2026-07-22/) |
+| 2026-07-22 | Wednesday | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | warm-minimal | field-green | frame model selection as a calm hardware-fit decision with explicit constraints | landed: local compatibility matters more than abstract prestige | [png](days/2026-07-22/03-llmfit.png) | [2026-07-22](days/2026-07-22/) |
 | 2026-07-21 | Tuesday | [bojieli/ai-agent-book](https://github.com/bojieli/ai-agent-book) | poster | vermilion | treat a technical agent book as a bold systems manifesto with one conceptual center | landed: engineering material gains intellectual weight without academic wallpaper | [png](days/2026-07-21/01-ai-agent-book.png) | [2026-07-21](days/2026-07-21/) |
 | 2026-07-21 | Tuesday | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | swiss | signal-red | present specialized agents as an accountable roster of roles and deliverables | landed: specialization feels operational and outcome-driven | [png](days/2026-07-21/02-agency-agents.png) | [2026-07-21](days/2026-07-21/) |
 | 2026-07-21 | Tuesday | [microsoft/Ontology-Playground](https://github.com/microsoft/Ontology-Playground) | blueprint | ontology-blue | show ontology learning as an annotated semantic diagram connecting intent, loops, relations, and outcomes | landed: abstract meaning becomes inspectable without overstatement | [png](days/2026-07-21/03-ontology-playground.png) | [2026-07-21](days/2026-07-21/) |
