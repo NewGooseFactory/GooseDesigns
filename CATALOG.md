@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **123 mocks** across **41 days**. Newest first.
+Searchable master index. **126 mocks** across **42 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-23 | Thursday | [block/buzz](https://github.com/block/buzz) | bauhaus | honey-primary | turn hive-mind communication into a share→connect→converge→act sequence using committed cells | landed: memorable coordination without chat-bubble cliches | [png](days/2026-07-23/01-buzz.png) | [2026-07-23](days/2026-07-23/) |
+| 2026-07-23 | Thursday | [citrolabs/ego-lite](https://github.com/citrolabs/ego-lite) | glass | signal-lime | show a shared browser as visible human-judgment and agent-execution lanes | landed: controlled parallelism without autonomous theater | [png](days/2026-07-23/02-ego-lite.png) | [2026-07-23](days/2026-07-23/) |
+| 2026-07-23 | Thursday | [likec4/likec4](https://github.com/likec4/likec4) | terminal-dark | architecture-orange | make living architecture a code-linked map that visibly updates after source change | landed: currency becomes the core product promise | [png](days/2026-07-23/03-likec4.png) | [2026-07-23](days/2026-07-23/) |
 | 2026-07-22 | Wednesday | [koala73/worldmonitor](https://github.com/koala73/worldmonitor) | data-viz | radar-green | unify global intelligence as a restrained signal field with three event classes | landed: situational awareness without manufactured urgency | [png](days/2026-07-22/01-worldmonitor.png) | [2026-07-22](days/2026-07-22/) |
 | 2026-07-22 | Wednesday | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | blueprint | safety-orange | turn language intent into an annotated drafting surface with visible dimensions and constraints | landed: physical outcomes feel inspectable rather than magical | [png](days/2026-07-22/02-text-to-cad.png) | [2026-07-22](days/2026-07-22/) |
 | 2026-07-22 | Wednesday | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | warm-minimal | field-green | frame model selection as a calm hardware-fit decision with explicit constraints | landed: local compatibility matters more than abstract prestige | [png](days/2026-07-22/03-llmfit.png) | [2026-07-22](days/2026-07-22/) |

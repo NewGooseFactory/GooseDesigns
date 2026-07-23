@@ -2,10 +2,11 @@
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-23](../days/2026-07-23/) | [likec4/likec4](https://github.com/likec4/likec4) | architecture-orange | make living architecture a code-linked map that visibly updates after source change | landed: currency becomes the core product promise | [png](../days/2026-07-23/03-likec4.png) |
 | [2026-07-16](../days/2026-07-16/) | [github/copilot-sdk](https://github.com/github/copilot-sdk) | electric-cyan | split hero pairs platform ambition with an illustrative integration session | landed: aspirational and technically credible | [png](../days/2026-07-16/03-copilot-sdk.png) |
 | [2026-07-12](../days/2026-07-12/) | [Dicklesworthstone/destructive_command_guard](https://github.com/Dicklesworthstone/destructive_command_guard) | danger-red | make the command boundary visible with one destructive action blocked and one safe inspection allowed | landed | [png](../days/2026-07-12/01-destructive-command-guard.png) |
 | [2026-07-08](../days/2026-07-08/) | [wonderwhy-er/DesktopCommanderMCP](https://github.com/wonderwhy-er/DesktopCommanderMCP) | electric-cyan | prove "give Claude your terminal" by making the hero a live search→diff→apply→test session | landed | [png](../days/2026-07-08/01-DesktopCommanderMCP.png) |
