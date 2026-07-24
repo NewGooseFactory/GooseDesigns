@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+20 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-24](../days/2026-07-24/) | [Automattic/harper](https://github.com/Automattic/harper) | rust-sage | make offline grammar checking a quiet editorial companion with one local edit | landed: privacy becomes behavior rather than a badge | [png](../days/2026-07-24/03-harper.png) |
 | [2026-07-20](../days/2026-07-20/) | [PrefectHQ/fastmcp](https://github.com/PrefectHQ/fastmcp) | python-blue | pair an editorial promise with one small illustrative Python surface | landed: technical proof without turning the hero into documentation | [png](../days/2026-07-20/03-fastmcp.png) |
 | [2026-07-15](../days/2026-07-15/) | [HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor) | forest | frame lifelong personalized tutoring as an evolving relationship + quiet learning path rather than a dashboard | landed | [png](../days/2026-07-15/02-DeepTutor.png) |
 | [2026-07-12](../days/2026-07-12/) | [ColeMurray/background-agents](https://github.com/ColeMurray/background-agents) | cobalt | make asynchronous coding work feel calm through a quiet durable queue rather than a noisy dashboard | landed | [png](../days/2026-07-12/02-background-agents.png) |

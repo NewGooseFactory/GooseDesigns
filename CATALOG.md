@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **126 mocks** across **42 days**. Newest first.
+Searchable master index. **129 mocks** across **43 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-24 | Friday | [Lordog/dive-into-llms](https://github.com/Lordog/dive-into-llms) | poster | ink-blue | turn an LLM tutorial into a learn→build→test manifesto rather than a course catalogue | landed: practice feels consequential without pretending it is effortless | [png](days/2026-07-24/01-dive-into-llms.png) | [2026-07-24](days/2026-07-24/) |
+| 2026-07-24 | Friday | [ruvnet/RuView](https://github.com/ruvnet/RuView) | hud | radar-cyan | show camera-free presence as a restrained radar instrument with explicit sensing source | landed: spatial intelligence is tangible while privacy stays central | [png](days/2026-07-24/02-ruview.png) | [2026-07-24](days/2026-07-24/) |
+| 2026-07-24 | Friday | [Automattic/harper](https://github.com/Automattic/harper) | editorial | rust-sage | make offline grammar checking a quiet editorial companion with one local edit | landed: privacy becomes behavior rather than a badge | [png](days/2026-07-24/03-harper.png) | [2026-07-24](days/2026-07-24/) |
 | 2026-07-23 | Thursday | [block/buzz](https://github.com/block/buzz) | bauhaus | honey-primary | turn hive-mind communication into a share→connect→converge→act sequence using committed cells | landed: memorable coordination without chat-bubble cliches | [png](days/2026-07-23/01-buzz.png) | [2026-07-23](days/2026-07-23/) |
 | 2026-07-23 | Thursday | [citrolabs/ego-lite](https://github.com/citrolabs/ego-lite) | glass | signal-lime | show a shared browser as visible human-judgment and agent-execution lanes | landed: controlled parallelism without autonomous theater | [png](days/2026-07-23/02-ego-lite.png) | [2026-07-23](days/2026-07-23/) |
 | 2026-07-23 | Thursday | [likec4/likec4](https://github.com/likec4/likec4) | terminal-dark | architecture-orange | make living architecture a code-linked map that visibly updates after source change | landed: currency becomes the core product promise | [png](days/2026-07-23/03-likec4.png) | [2026-07-23](days/2026-07-23/) |

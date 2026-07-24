@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-20 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+21 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-24](../days/2026-07-24/) | [ruvnet/RuView](https://github.com/ruvnet/RuView) | radar-cyan | show camera-free presence as a restrained radar instrument with explicit sensing source | landed: spatial intelligence is tangible while privacy stays central | [png](../days/2026-07-24/02-ruview.png) |
 | [2026-07-20](../days/2026-07-20/) | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | signal-amber | present quota-aware fallback as an aviation-style route controller | landed: operational resilience without game UI | [png](../days/2026-07-20/01-omniroute.png) |
 | [2026-07-16](../days/2026-07-16/) | [PostHog/posthog](https://github.com/PostHog/posthog) | amber | instrument panel compresses observability into a capture→diagnose→ship agent loop | landed: operational without becoming game-like | [png](../days/2026-07-16/02-posthog.png) |
 | [2026-07-13](../days/2026-07-13/) | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | radar-cyan | render a multi-format project knowledge graph as a live instrument with cross-system edges + query pulse | landed | [png](../days/2026-07-13/01-graphify.png) |
