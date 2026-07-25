@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **129 mocks** across **43 days**. Newest first.
+Searchable master index. **132 mocks** across **44 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-25 | Saturday | [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | brutalist | acid-yellow | expose hybrid review as parse→rules→agent→comment separating precision from judgment | landed: trust without an AI reviewer persona | [png](days/2026-07-25/01-open-code-review.png) | [2026-07-25](days/2026-07-25/) |
+| 2026-07-25 | Saturday | [affaan-m/ECC](https://github.com/affaan-m/ECC) | data-viz | teal-orange | frame harness optimization as measured skills, memory, research, security, and verification | landed: whole-system performance becomes the product | [png](days/2026-07-25/02-ecc.png) | [2026-07-25](days/2026-07-25/) |
+| 2026-07-25 | Saturday | [yorukot/superfile](https://github.com/yorukot/superfile) | mono-zine | amber-green | make terminal file management immediately usable through a tree, file list, and local operation | landed: modern without losing keyboard-first clarity | [png](days/2026-07-25/03-superfile.png) | [2026-07-25](days/2026-07-25/) |
 | 2026-07-24 | Friday | [Lordog/dive-into-llms](https://github.com/Lordog/dive-into-llms) | poster | ink-blue | turn an LLM tutorial into a learn→build→test manifesto rather than a course catalogue | landed: practice feels consequential without pretending it is effortless | [png](days/2026-07-24/01-dive-into-llms.png) | [2026-07-24](days/2026-07-24/) |
 | 2026-07-24 | Friday | [ruvnet/RuView](https://github.com/ruvnet/RuView) | hud | radar-cyan | show camera-free presence as a restrained radar instrument with explicit sensing source | landed: spatial intelligence is tangible while privacy stays central | [png](days/2026-07-24/02-ruview.png) | [2026-07-24](days/2026-07-24/) |
 | 2026-07-24 | Friday | [Automattic/harper](https://github.com/Automattic/harper) | editorial | rust-sage | make offline grammar checking a quiet editorial companion with one local edit | landed: privacy becomes behavior rather than a badge | [png](days/2026-07-24/03-harper.png) | [2026-07-24](days/2026-07-24/) |

@@ -1,9 +1,10 @@
 # Style — data-viz
 
-8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-25](../days/2026-07-25/) | [affaan-m/ECC](https://github.com/affaan-m/ECC) | teal-orange | frame harness optimization as measured skills, memory, research, security, and verification | landed: whole-system performance becomes the product | [png](../days/2026-07-25/02-ecc.png) |
 | [2026-07-22](../days/2026-07-22/) | [koala73/worldmonitor](https://github.com/koala73/worldmonitor) | radar-green | unify global intelligence as a restrained signal field with three event classes | landed: situational awareness without manufactured urgency | [png](../days/2026-07-22/01-worldmonitor.png) |
 | [2026-07-19](../days/2026-07-19/) | [kvcache-ai/ktransformers](https://github.com/kvcache-ai/ktransformers) | cobalt-amber | explain heterogeneous optimization as deliberate workload placement across compute paths | landed: flexibility is visible without invented benchmarks | [png](../days/2026-07-19/01-ktransformers.png) |
 | [2026-07-14](../days/2026-07-14/) | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | teal | turn a 100+ runnable-app collection into a structured catalog map + clone→customize→ship pipeline | landed | [png](../days/2026-07-14/01-awesome-llm-apps.png) |
