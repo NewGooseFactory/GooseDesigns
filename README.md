@@ -20,7 +20,7 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 <table><tr>
 <td align="center" width="33%"><a href="days/2026-07-25/"><img src="days/2026-07-25/01-open-code-review.png" width="320" alt="alibaba/open-code-review"></a><br><sub><b>alibaba/open-code-review</b><br>brutalist</sub></td>
 <td align="center" width="33%"><a href="days/2026-07-25/"><img src="days/2026-07-25/02-ecc.png" width="320" alt="affaan-m/ECC"></a><br><sub><b>affaan-m/ECC</b><br>data-viz</sub></td>
-<td align="center" width="33%"><a href="days/2026-07-25/"><img src="days/2026-07-25/03-superfile.png" width="320" alt="yorukot/superfile"></a><br><sub><b>yorukot/superfile</b><br>mono-zine</sub></td>
+<td align="center" width="33%"><a href="days/2026-07-25/"><img src="days/2026-07-25/03-bitchat.png" width="320" alt="permissionlesstech/bitchat"></a><br><sub><b>permissionlesstech/bitchat</b><br>mono-zine</sub></td>
 </tr></table>
 
 [See the full day →](days/2026-07-25/)

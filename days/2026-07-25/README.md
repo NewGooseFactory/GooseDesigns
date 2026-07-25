@@ -22,12 +22,12 @@
 - **Verdict:** landed: whole-system performance becomes the product
 - [live .html](./02-ecc.html) · [repo on GitHub](https://github.com/affaan-m/ECC)
 
-## [yorukot/superfile](https://github.com/yorukot/superfile)
+## [permissionlesstech/bitchat](https://github.com/permissionlesstech/bitchat)
 
-![superfile — mono-zine](./03-superfile.png)
+![bitchat — mono-zine](./03-bitchat.png)
 
 - **Style:** mono-zine / amber-green
-- **Idea tested:** make terminal file management immediately usable through a tree, file list, and local operation
-- **Verdict:** landed: modern without losing keyboard-first clarity
-- [live .html](./03-superfile.html) · [repo on GitHub](https://github.com/yorukot/superfile)
+- **Idea tested:** make peer-to-peer communication tangible as a Bluetooth mesh with IRC-style messages
+- **Verdict:** landed: resilience feels structural rather than marketed
+- [live .html](./03-bitchat.html) · [repo on GitHub](https://github.com/permissionlesstech/bitchat)
 
