@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-20 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+21 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-26](../days/2026-07-26/) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | plum | present a design language as calm editorial reasoning with one instruction sample | landed: argues for judgment and demonstrates it simultaneously | [png](../days/2026-07-26/01-impeccable.png) |
 | [2026-07-24](../days/2026-07-24/) | [Automattic/harper](https://github.com/Automattic/harper) | rust-sage | make offline grammar checking a quiet editorial companion with one local edit | landed: privacy becomes behavior rather than a badge | [png](../days/2026-07-24/03-harper.png) |
 | [2026-07-20](../days/2026-07-20/) | [PrefectHQ/fastmcp](https://github.com/PrefectHQ/fastmcp) | python-blue | pair an editorial promise with one small illustrative Python surface | landed: technical proof without turning the hero into documentation | [png](../days/2026-07-20/03-fastmcp.png) |
 | [2026-07-15](../days/2026-07-15/) | [HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor) | forest | frame lifelong personalized tutoring as an evolving relationship + quiet learning path rather than a dashboard | landed | [png](../days/2026-07-15/02-DeepTutor.png) |

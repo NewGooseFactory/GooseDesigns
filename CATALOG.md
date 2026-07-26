@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **132 mocks** across **44 days**. Newest first.
+Searchable master index. **135 mocks** across **45 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-26 | Sunday | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | editorial | plum | present a design language as calm editorial reasoning with one instruction sample | landed: argues for judgment and demonstrates it simultaneously | [png](days/2026-07-26/01-impeccable.png) | [2026-07-26](days/2026-07-26/) |
+| 2026-07-26 | Sunday | [andrewyng/aisuite](https://github.com/andrewyng/aisuite) | terminal-dark | signal-cyan | prove provider portability through one unchanged call shape above interchangeable targets | landed: abstraction reads as engineering leverage | [png](days/2026-07-26/02-aisuite.png) | [2026-07-26](days/2026-07-26/) |
+| 2026-07-26 | Sunday | [CoreBunch/Instatic](https://github.com/CoreBunch/Instatic) | bauhaus | primary | express a self-hosted CMS as compose→control→extend→deliver capability blocks | landed: ownership feels structural while editing stays inviting | [png](days/2026-07-26/03-instatic.png) | [2026-07-26](days/2026-07-26/) |
 | 2026-07-25 | Saturday | [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | brutalist | acid-yellow | expose hybrid review as parse→rules→agent→comment separating precision from judgment | landed: trust without an AI reviewer persona | [png](days/2026-07-25/01-open-code-review.png) | [2026-07-25](days/2026-07-25/) |
 | 2026-07-25 | Saturday | [affaan-m/ECC](https://github.com/affaan-m/ECC) | data-viz | teal-orange | frame harness optimization as measured skills, memory, research, security, and verification | landed: whole-system performance becomes the product | [png](days/2026-07-25/02-ecc.png) | [2026-07-25](days/2026-07-25/) |
 | 2026-07-25 | Saturday | [permissionlesstech/bitchat](https://github.com/permissionlesstech/bitchat) | mono-zine | amber-green | make peer-to-peer communication tangible as a Bluetooth mesh with IRC-style messages | landed: resilience feels structural rather than marketed | [png](days/2026-07-25/03-bitchat.png) | [2026-07-25](days/2026-07-25/) |
