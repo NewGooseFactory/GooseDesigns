@@ -1,9 +1,10 @@
 # Style — warm-minimal
 
-7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-27](../days/2026-07-27/) | [yorukot/superfile](https://github.com/yorukot/superfile) | terracotta | make a terminal file manager calm and navigable through soft structure | landed: speed and comfort coexist without losing keyboard-first character | [png](../days/2026-07-27/03-superfile.png) |
 | [2026-07-22](../days/2026-07-22/) | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | field-green | frame model selection as a calm hardware-fit decision with explicit constraints | landed: local compatibility matters more than abstract prestige | [png](../days/2026-07-22/03-llmfit.png) |
 | [2026-07-20](../days/2026-07-20/) | [topoteretes/cognee](https://github.com/topoteretes/cognee) | moss | make persistent agent memory calm through a soft graph of decisions, evidence, constraints, and actions | landed: retained context rather than mystical intelligence | [png](../days/2026-07-20/02-cognee.png) |
 | [2026-07-17](../days/2026-07-17/) | [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | marigold | reframe systems education as an approachable choose→deconstruct→rebuild→explain workbench | landed: friendly without diluting the technical premise | [png](../days/2026-07-17/03-build-your-own-x.png) |

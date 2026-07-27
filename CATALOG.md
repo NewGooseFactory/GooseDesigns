@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **135 mocks** across **45 days**. Newest first.
+Searchable master index. **138 mocks** across **46 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-27 | Monday | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | hud | signal-amber | render multi-community research as an instrument sweep with sources visible beneath the synthesis | landed: grounded claims stay traceable | [png](days/2026-07-27/01-last30days-skill.png) | [2026-07-27](days/2026-07-27/) |
+| 2026-07-27 | Monday | [bradautomates/claude-video](https://github.com/bradautomates/claude-video) | poster | signal-red | give a new model capability poster-scale clarity while listing the mechanism explicitly | landed: bold ambition without hiding how it works | [png](days/2026-07-27/02-claude-video.png) | [2026-07-27](days/2026-07-27/) |
+| 2026-07-27 | Monday | [yorukot/superfile](https://github.com/yorukot/superfile) | warm-minimal | terracotta | make a terminal file manager calm and navigable through soft structure | landed: speed and comfort coexist without losing keyboard-first character | [png](days/2026-07-27/03-superfile.png) | [2026-07-27](days/2026-07-27/) |
 | 2026-07-26 | Sunday | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | editorial | plum | present a design language as calm editorial reasoning with one instruction sample | landed: argues for judgment and demonstrates it simultaneously | [png](days/2026-07-26/01-impeccable.png) | [2026-07-26](days/2026-07-26/) |
 | 2026-07-26 | Sunday | [andrewyng/aisuite](https://github.com/andrewyng/aisuite) | terminal-dark | signal-cyan | prove provider portability through one unchanged call shape above interchangeable targets | landed: abstraction reads as engineering leverage | [png](days/2026-07-26/02-aisuite.png) | [2026-07-26](days/2026-07-26/) |
 | 2026-07-26 | Sunday | [CoreBunch/Instatic](https://github.com/CoreBunch/Instatic) | bauhaus | primary | express a self-hosted CMS as compose→control→extend→deliver capability blocks | landed: ownership feels structural while editing stays inviting | [png](days/2026-07-26/03-instatic.png) | [2026-07-26](days/2026-07-26/) |

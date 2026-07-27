@@ -1,9 +1,10 @@
 # Style — poster
 
-7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-27](../days/2026-07-27/) | [bradautomates/claude-video](https://github.com/bradautomates/claude-video) | signal-red | give a new model capability poster-scale clarity while listing the mechanism explicitly | landed: bold ambition without hiding how it works | [png](../days/2026-07-27/02-claude-video.png) |
 | [2026-07-24](../days/2026-07-24/) | [Lordog/dive-into-llms](https://github.com/Lordog/dive-into-llms) | ink-blue | turn an LLM tutorial into a learn→build→test manifesto rather than a course catalogue | landed: practice feels consequential without pretending it is effortless | [png](../days/2026-07-24/01-dive-into-llms.png) |
 | [2026-07-21](../days/2026-07-21/) | [bojieli/ai-agent-book](https://github.com/bojieli/ai-agent-book) | vermilion | treat a technical agent book as a bold systems manifesto with one conceptual center | landed: engineering material gains intellectual weight without academic wallpaper | [png](../days/2026-07-21/01-ai-agent-book.png) |
 | [2026-07-17](../days/2026-07-17/) | [HenryNdubuaku/maths-cs-ai-compendium](https://github.com/HenryNdubuaku/maths-cs-ai-compendium) | vermilion | reduce a broad technical curriculum to one memorable depth-before-systems promise | landed: ambitious hierarchy with sober support | [png](../days/2026-07-17/02-maths-cs-ai-compendium.png) |
