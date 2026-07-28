@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **138 mocks** across **46 days**. Newest first.
+Searchable master index. **141 mocks** across **47 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-28 | Tuesday | [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit) | blueprint | governance-blue | draw governance as identity, policy, sandbox, and reliability gates around one agent action | landed: enforcement reads as architecture rather than compliance decoration | [png](days/2026-07-28/01-agent-governance-toolkit.png) | [2026-07-28](days/2026-07-28/) |
+| 2026-07-28 | Tuesday | [huggingface/speech-to-speech](https://github.com/huggingface/speech-to-speech) | glass | aqua | present a local voice loop as one frosted listen→understand→respond stack | landed: on-device conversation feels calm and credible | [png](days/2026-07-28/02-speech-to-speech.png) | [2026-07-28](days/2026-07-28/) |
+| 2026-07-28 | Tuesday | [virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill) | poster | signal-red | compress book-to-skill conversion into one poster claim with honest transformation states | landed: memorable promise with visible mechanism | [png](days/2026-07-28/03-book-to-skill.png) | [2026-07-28](days/2026-07-28/) |
 | 2026-07-27 | Monday | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | hud | signal-amber | render multi-community research as an instrument sweep with sources visible beneath the synthesis | landed: grounded claims stay traceable | [png](days/2026-07-27/01-last30days-skill.png) | [2026-07-27](days/2026-07-27/) |
 | 2026-07-27 | Monday | [bradautomates/claude-video](https://github.com/bradautomates/claude-video) | poster | signal-red | give a new model capability poster-scale clarity while listing the mechanism explicitly | landed: bold ambition without hiding how it works | [png](days/2026-07-27/02-claude-video.png) | [2026-07-27](days/2026-07-27/) |
 | 2026-07-27 | Monday | [yorukot/superfile](https://github.com/yorukot/superfile) | warm-minimal | terracotta | make a terminal file manager calm and navigable through soft structure | landed: speed and comfort coexist without losing keyboard-first character | [png](days/2026-07-27/03-superfile.png) | [2026-07-27](days/2026-07-27/) |

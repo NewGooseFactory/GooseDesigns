@@ -1,9 +1,10 @@
 # Style — poster
 
-8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-28](../days/2026-07-28/) | [virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill) | signal-red | compress book-to-skill conversion into one poster claim with honest transformation states | landed: memorable promise with visible mechanism | [png](../days/2026-07-28/03-book-to-skill.png) |
 | [2026-07-27](../days/2026-07-27/) | [bradautomates/claude-video](https://github.com/bradautomates/claude-video) | signal-red | give a new model capability poster-scale clarity while listing the mechanism explicitly | landed: bold ambition without hiding how it works | [png](../days/2026-07-27/02-claude-video.png) |
 | [2026-07-24](../days/2026-07-24/) | [Lordog/dive-into-llms](https://github.com/Lordog/dive-into-llms) | ink-blue | turn an LLM tutorial into a learn→build→test manifesto rather than a course catalogue | landed: practice feels consequential without pretending it is effortless | [png](../days/2026-07-24/01-dive-into-llms.png) |
 | [2026-07-21](../days/2026-07-21/) | [bojieli/ai-agent-book](https://github.com/bojieli/ai-agent-book) | vermilion | treat a technical agent book as a bold systems manifesto with one conceptual center | landed: engineering material gains intellectual weight without academic wallpaper | [png](../days/2026-07-21/01-ai-agent-book.png) |
