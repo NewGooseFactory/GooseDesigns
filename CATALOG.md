@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **141 mocks** across **47 days**. Newest first.
+Searchable master index. **144 mocks** across **48 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-29 | Wednesday | [1jehuang/jcode](https://github.com/1jehuang/jcode) | swiss | signal-red | make a resource constraint the headline claim with memory budget as primary commitment | landed: efficiency reads as engineering intent | [png](days/2026-07-29/01-jcode.png) | [2026-07-29](days/2026-07-29/) |
+| 2026-07-29 | Wednesday | [different-ai/openwork](https://github.com/different-ai/openwork) | mono-zine | lime | show an open collaboration stack as inspectable direction, execution, and record lanes | landed: openness feels operational instead of ideological | [png](days/2026-07-29/02-openwork.png) | [2026-07-29](days/2026-07-29/) |
+| 2026-07-29 | Wednesday | [MoonshotAI/FlashKDA](https://github.com/MoonshotAI/FlashKDA) | data-viz | violet-amber | give a performance kernel a measured profile instead of superlative language | landed: the page invites verification rather than belief | [png](days/2026-07-29/03-flashkda.png) | [2026-07-29](days/2026-07-29/) |
 | 2026-07-28 | Tuesday | [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit) | blueprint | governance-blue | draw governance as identity, policy, sandbox, and reliability gates around one agent action | landed: enforcement reads as architecture rather than compliance decoration | [png](days/2026-07-28/01-agent-governance-toolkit.png) | [2026-07-28](days/2026-07-28/) |
 | 2026-07-28 | Tuesday | [huggingface/speech-to-speech](https://github.com/huggingface/speech-to-speech) | glass | aqua | present a local voice loop as one frosted listen→understand→respond stack | landed: on-device conversation feels calm and credible | [png](days/2026-07-28/02-speech-to-speech.png) | [2026-07-28](days/2026-07-28/) |
 | 2026-07-28 | Tuesday | [virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill) | poster | signal-red | compress book-to-skill conversion into one poster claim with honest transformation states | landed: memorable promise with visible mechanism | [png](days/2026-07-28/03-book-to-skill.png) | [2026-07-28](days/2026-07-28/) |

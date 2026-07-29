@@ -1,9 +1,10 @@
 # Style — mono-zine
 
-6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-29](../days/2026-07-29/) | [different-ai/openwork](https://github.com/different-ai/openwork) | lime | show an open collaboration stack as inspectable direction, execution, and record lanes | landed: openness feels operational instead of ideological | [png](../days/2026-07-29/02-openwork.png) |
 | [2026-07-25](../days/2026-07-25/) | [permissionlesstech/bitchat](https://github.com/permissionlesstech/bitchat) | amber-green | make peer-to-peer communication tangible as a Bluetooth mesh with IRC-style messages | landed: resilience feels structural rather than marketed | [png](../days/2026-07-25/03-bitchat.png) |
 | [2026-07-18](../days/2026-07-18/) | [KnockOutEZ/wigolo](https://github.com/KnockOutEZ/wigolo) | safety-orange | make local-first research tangible as one search→fetch→crawl→research terminal journey | landed: the no-key, no-cloud proposition reads as infrastructure | [png](../days/2026-07-18/03-wigolo.png) |
 | [2026-07-14](../days/2026-07-14/) | [virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) | market-green | frame an AI hedge-fund team as coordinated committee judgment rather than a speculative trading chart | landed | [png](../days/2026-07-14/03-ai-hedge-fund.png) |

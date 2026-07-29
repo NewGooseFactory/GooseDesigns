@@ -1,9 +1,10 @@
 # Style — swiss
 
-7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-29](../days/2026-07-29/) | [1jehuang/jcode](https://github.com/1jehuang/jcode) | signal-red | make a resource constraint the headline claim with memory budget as primary commitment | landed: efficiency reads as engineering intent | [png](../days/2026-07-29/01-jcode.png) |
 | [2026-07-21](../days/2026-07-21/) | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | signal-red | present specialized agents as an accountable roster of roles and deliverables | landed: specialization feels operational and outcome-driven | [png](../days/2026-07-21/02-agency-agents.png) |
 | [2026-07-16](../days/2026-07-16/) | [apache/ossie](https://github.com/apache/ossie) | ultramarine | strict grid frames semantic metadata as one shared contract across analytics, AI, and BI | landed: authoritative and vendor-neutral | [png](../days/2026-07-16/01-ossie.png) |
 | [2026-07-13](../days/2026-07-13/) | [github/spec-kit](https://github.com/github/spec-kit) | red | embody spec-driven development as a strict specify→plan→tasks→implement grid + intent-to-plan proof | landed | [png](../days/2026-07-13/02-spec-kit.png) |
