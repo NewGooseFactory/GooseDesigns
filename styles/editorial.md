@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-21 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+22 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-30](../days/2026-07-30/) | [obra/superpowers](https://github.com/obra/superpowers) | indigo | give the frame→apply→confirm method equal weight with the headline claim | landed: reads as a working practice rather than a capability catalogue | [png](../days/2026-07-30/01-superpowers.png) |
 | [2026-07-26](../days/2026-07-26/) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | plum | present a design language as calm editorial reasoning with one instruction sample | landed: argues for judgment and demonstrates it simultaneously | [png](../days/2026-07-26/01-impeccable.png) |
 | [2026-07-24](../days/2026-07-24/) | [Automattic/harper](https://github.com/Automattic/harper) | rust-sage | make offline grammar checking a quiet editorial companion with one local edit | landed: privacy becomes behavior rather than a badge | [png](../days/2026-07-24/03-harper.png) |
 | [2026-07-20](../days/2026-07-20/) | [PrefectHQ/fastmcp](https://github.com/PrefectHQ/fastmcp) | python-blue | pair an editorial promise with one small illustrative Python surface | landed: technical proof without turning the hero into documentation | [png](../days/2026-07-20/03-fastmcp.png) |

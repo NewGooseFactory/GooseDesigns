@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **144 mocks** across **48 days**. Newest first.
+Searchable master index. **147 mocks** across **49 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-30 | Thursday | [obra/superpowers](https://github.com/obra/superpowers) | editorial | indigo | give the frame→apply→confirm method equal weight with the headline claim | landed: reads as a working practice rather than a capability catalogue | [png](days/2026-07-30/01-superpowers.png) | [2026-07-30](days/2026-07-30/) |
+| 2026-07-30 | Thursday | [microsoft/VibeVoice](https://github.com/microsoft/VibeVoice) | neon-noir | magenta | carry frontier voice research with one restrained orb and waveform instead of spectacle | landed: ambition stays legible without demo theatrics | [png](days/2026-07-30/02-vibevoice.png) | [2026-07-30](days/2026-07-30/) |
+| 2026-07-30 | Thursday | [maderix/ANE](https://github.com/maderix/ANE) | blueprint | research-blue | diagram an unofficial training path while labeling the boundary explicitly | landed: exploration feels rigorous because limits are stated | [png](days/2026-07-30/03-ane.png) | [2026-07-30](days/2026-07-30/) |
 | 2026-07-29 | Wednesday | [1jehuang/jcode](https://github.com/1jehuang/jcode) | swiss | signal-red | make a resource constraint the headline claim with memory budget as primary commitment | landed: efficiency reads as engineering intent | [png](days/2026-07-29/01-jcode.png) | [2026-07-29](days/2026-07-29/) |
 | 2026-07-29 | Wednesday | [different-ai/openwork](https://github.com/different-ai/openwork) | mono-zine | lime | show an open collaboration stack as inspectable direction, execution, and record lanes | landed: openness feels operational instead of ideological | [png](days/2026-07-29/02-openwork.png) | [2026-07-29](days/2026-07-29/) |
 | 2026-07-29 | Wednesday | [MoonshotAI/FlashKDA](https://github.com/MoonshotAI/FlashKDA) | data-viz | violet-amber | give a performance kernel a measured profile instead of superlative language | landed: the page invites verification rather than belief | [png](days/2026-07-29/03-flashkda.png) | [2026-07-29](days/2026-07-29/) |
