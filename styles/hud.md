@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-22 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+23 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-31](../days/2026-07-31/) | [zhaoxuya520/reverse-skill](https://github.com/zhaoxuya520/reverse-skill) | signal-amber | render skill routing as a dispatch console from task to tools to recorded findings | landed: routing reads as operational dispatch with authorized use stated | [png](../days/2026-07-31/01-reverse-skill.png) |
 | [2026-07-27](../days/2026-07-27/) | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | signal-amber | render multi-community research as an instrument sweep with sources visible beneath the synthesis | landed: grounded claims stay traceable | [png](../days/2026-07-27/01-last30days-skill.png) |
 | [2026-07-24](../days/2026-07-24/) | [ruvnet/RuView](https://github.com/ruvnet/RuView) | radar-cyan | show camera-free presence as a restrained radar instrument with explicit sensing source | landed: spatial intelligence is tangible while privacy stays central | [png](../days/2026-07-24/02-ruview.png) |
 | [2026-07-20](../days/2026-07-20/) | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | signal-amber | present quota-aware fallback as an aviation-style route controller | landed: operational resilience without game UI | [png](../days/2026-07-20/01-omniroute.png) |

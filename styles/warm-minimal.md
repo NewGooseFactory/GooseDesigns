@@ -1,9 +1,10 @@
 # Style — warm-minimal
 
-8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-07-31](../days/2026-07-31/) | [usekaneo/kaneo](https://github.com/usekaneo/kaneo) | sage | make restraint the product argument with three calm columns and no ceremony | landed: minimalism feels considered rather than incomplete | [png](../days/2026-07-31/03-kaneo.png) |
 | [2026-07-27](../days/2026-07-27/) | [yorukot/superfile](https://github.com/yorukot/superfile) | terracotta | make a terminal file manager calm and navigable through soft structure | landed: speed and comfort coexist without losing keyboard-first character | [png](../days/2026-07-27/03-superfile.png) |
 | [2026-07-22](../days/2026-07-22/) | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | field-green | frame model selection as a calm hardware-fit decision with explicit constraints | landed: local compatibility matters more than abstract prestige | [png](../days/2026-07-22/03-llmfit.png) |
 | [2026-07-20](../days/2026-07-20/) | [topoteretes/cognee](https://github.com/topoteretes/cognee) | moss | make persistent agent memory calm through a soft graph of decisions, evidence, constraints, and actions | landed: retained context rather than mystical intelligence | [png](../days/2026-07-20/02-cognee.png) |

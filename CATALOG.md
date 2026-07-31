@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **147 mocks** across **49 days**. Newest first.
+Searchable master index. **150 mocks** across **50 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-07-31 | Friday | [zhaoxuya520/reverse-skill](https://github.com/zhaoxuya520/reverse-skill) | hud | signal-amber | render skill routing as a dispatch console from task to tools to recorded findings | landed: routing reads as operational dispatch with authorized use stated | [png](days/2026-07-31/01-reverse-skill.png) | [2026-07-31](days/2026-07-31/) |
+| 2026-07-31 | Friday | [agavra/tuicr](https://github.com/agavra/tuicr) | mono-zine | phosphor-green | prove a keyboard-first review tool with a real diff and comment inside the terminal frame | landed: demonstration respects reviewer habits instead of selling them | [png](days/2026-07-31/02-tuicr.png) | [2026-07-31](days/2026-07-31/) |
+| 2026-07-31 | Friday | [usekaneo/kaneo](https://github.com/usekaneo/kaneo) | warm-minimal | sage | make restraint the product argument with three calm columns and no ceremony | landed: minimalism feels considered rather than incomplete | [png](days/2026-07-31/03-kaneo.png) | [2026-07-31](days/2026-07-31/) |
 | 2026-07-30 | Thursday | [obra/superpowers](https://github.com/obra/superpowers) | editorial | indigo | give the frame→apply→confirm method equal weight with the headline claim | landed: reads as a working practice rather than a capability catalogue | [png](days/2026-07-30/01-superpowers.png) | [2026-07-30](days/2026-07-30/) |
 | 2026-07-30 | Thursday | [microsoft/VibeVoice](https://github.com/microsoft/VibeVoice) | neon-noir | magenta | carry frontier voice research with one restrained orb and waveform instead of spectacle | landed: ambition stays legible without demo theatrics | [png](days/2026-07-30/02-vibevoice.png) | [2026-07-30](days/2026-07-30/) |
 | 2026-07-30 | Thursday | [maderix/ANE](https://github.com/maderix/ANE) | blueprint | research-blue | diagram an unofficial training path while labeling the boundary explicitly | landed: exploration feels rigorous because limits are stated | [png](days/2026-07-30/03-ane.png) | [2026-07-30](days/2026-07-30/) |
