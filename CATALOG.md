@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **150 mocks** across **50 days**. Newest first.
+Searchable master index. **153 mocks** across **51 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-01 | Saturday | [github/copilot-sdk](https://github.com/github/copilot-sdk) | terminal-dark | electric-cyan | argue for embedded agents with one unchanged session shape above the surfaces it serves | landed: portability reads as engineering property not slogan | [png](days/2026-08-01/01-copilot-sdk.png) | [2026-08-01](days/2026-08-01/) |
+| 2026-08-01 | Saturday | [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) | bauhaus | primary | give an open curriculum a ground→model→apply→extend geometric arc instead of a lesson index | landed: the path feels deliberate and finishable | [png](days/2026-08-01/02-ai-for-beginners.png) | [2026-08-01](days/2026-08-01/) |
+| 2026-08-01 | Saturday | [geo-tp/ESP32-Bit-Pirate](https://github.com/geo-tp/ESP32-Bit-Pirate) | blueprint | hardware-orange | diagram many protocols converging into one web-based console | landed: a broad promise becomes concrete and inspectable | [png](days/2026-08-01/03-esp32-bit-pirate.png) | [2026-08-01](days/2026-08-01/) |
 | 2026-07-31 | Friday | [zhaoxuya520/reverse-skill](https://github.com/zhaoxuya520/reverse-skill) | hud | signal-amber | render skill routing as a dispatch console from task to tools to recorded findings | landed: routing reads as operational dispatch with authorized use stated | [png](days/2026-07-31/01-reverse-skill.png) | [2026-07-31](days/2026-07-31/) |
 | 2026-07-31 | Friday | [agavra/tuicr](https://github.com/agavra/tuicr) | mono-zine | phosphor-green | prove a keyboard-first review tool with a real diff and comment inside the terminal frame | landed: demonstration respects reviewer habits instead of selling them | [png](days/2026-07-31/02-tuicr.png) | [2026-07-31](days/2026-07-31/) |
 | 2026-07-31 | Friday | [usekaneo/kaneo](https://github.com/usekaneo/kaneo) | warm-minimal | sage | make restraint the product argument with three calm columns and no ceremony | landed: minimalism feels considered rather than incomplete | [png](days/2026-07-31/03-kaneo.png) | [2026-07-31](days/2026-07-31/) |
