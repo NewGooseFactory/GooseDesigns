@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeepSeek-Reasonix — leave it running</title>
+<style>
+:root{
+  --concrete:#cbc8bf;
+  --concrete2:#bdb9af;
+  --slab:#ffffff;
+  --dark:#141311;
+  --ink:#141311;
+  --ink2:#3d3a35;
+  --line:#141311;
+  --acc:#dd4310;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--concrete);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+a{color:inherit}
+.frame{max-width:1180px;margin:0 auto;border-left:2px solid var(--line);border-right:2px solid var(--line);min-height:100vh;background:var(--concrete)}
+
+.bar{
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:2px solid var(--line);padding:12px 20px;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.bar .tag{background:var(--acc);color:#fff;padding:5px 9px;letter-spacing:.16em}
+
+.hero{border-bottom:2px solid var(--line);padding:56px 20px 44px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;align-items:start}
+.spec{border:2px solid var(--line);background:var(--slab);margin-top:6px}
+.spec .sh{border-bottom:2px solid var(--line);padding:11px 16px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;background:var(--dark);color:#e9e6df}
+.srow{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:13px 16px;border-bottom:1px solid #d8d4cb;font-size:13px}
+.srow:last-child{border-bottom:0}
+.srow dt{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#6d685f;padding-top:2px;margin:0}
+.srow dd{margin:0;line-height:1.45;color:var(--ink)}
+.srow dd b{background:var(--acc);color:#fff;padding:1px 6px;font-weight:700}
+.kicker{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink2);margin:0 0 22px}
+h1{
+  margin:0;font-size:78px;line-height:.94;letter-spacing:-.035em;font-weight:800;text-transform:uppercase;
+  max-width:14ch;
+}
+h1 span{color:var(--acc);display:block}
+.sub{
+  margin:30px 0 0;font-size:19px;line-height:1.55;max-width:52ch;color:var(--ink2);
+  border-left:6px solid var(--acc);padding-left:18px;
+}
+.actions{margin-top:34px;display:flex;gap:0;flex-wrap:wrap}
+.b1,.b2{
+  border:2px solid var(--line);padding:14px 24px;font-size:14px;font-weight:700;
+  text-decoration:none;letter-spacing:.06em;text-transform:uppercase;
+}
+.b1{background:var(--dark);color:#fff}
+.b1:hover{background:var(--acc);border-color:var(--acc)}
+.b2{background:transparent;border-left:0}
+.b2:hover{background:var(--slab)}
+
+/* structural grid */
+.grid{display:grid;grid-template-columns:1.15fr 1fr;border-bottom:2px solid var(--line)}
+.left{border-right:2px solid var(--line)}
+.cellhead{
+  border-bottom:2px solid var(--line);padding:11px 20px;font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;background:var(--concrete2);
+}
+
+/* session slab */
+.session{background:var(--dark);color:#e9e6df;padding:0}
+.turn{border-bottom:1px solid #2c2a26;padding:15px 20px;display:grid;grid-template-columns:70px 1fr 96px;gap:14px;align-items:start;font-size:12.5px}
+.turn:last-child{border-bottom:0}
+.turn .id{color:#77726a;letter-spacing:.1em}
+.turn .txt{line-height:1.5;color:#e9e6df}
+.turn .st{text-align:right;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.hit{color:#5fb87a}
+.miss{color:var(--acc)}
+.turn.now{background:#1c1a17}
+.slabfoot{border-top:2px solid var(--line);background:var(--concrete2);padding:13px 20px;font-size:11.5px;letter-spacing:.05em}
+.slabfoot b{background:var(--acc);color:#fff;padding:2px 7px}
+
+/* claims */
+.claims{}
+.claim{border-bottom:2px solid var(--line);padding:22px 20px}
+.claim:last-child{border-bottom:0}
+.claim h3{margin:0 0 8px;font-size:15px;letter-spacing:.04em;text-transform:uppercase;font-weight:800}
+.claim p{margin:0;font-size:14px;line-height:1.6;color:var(--ink2)}
+.claim .mark{color:var(--acc)}
+
+.ticker{
+  border-bottom:2px solid var(--line);background:var(--dark);color:#e9e6df;
+  padding:14px 20px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  display:flex;gap:28px;flex-wrap:wrap;
+}
+.ticker span::before{content:"/ ";color:var(--acc)}
+
+.foot{padding:20px;font-size:11.5px;letter-spacing:.06em;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--ink2)}
+
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:32px}
+  h1{font-size:48px}
+  .grid{grid-template-columns:1fr}
+  .left{border-right:0;border-bottom:2px solid var(--line)}
+  .actions{flex-direction:column}
+  .b2{border-left:2px solid var(--line);border-top:0}
+}
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <div class="bar mono">
+    <span>esengine / DeepSeek-Reasonix</span>
+    <span class="tag">Terminal agent</span>
+  </div>
+
+  <header class="hero">
+   <div>
+    <p class="kicker mono">DeepSeek-native coding agent</p>
+    <h1>Leave it <span>running.</span></h1>
+    <p class="sub">A DeepSeek-native AI coding agent for your terminal, engineered around prefix-cache stability. The session prefix stays put, so the next turn starts where the last one stopped.</p>
+    <div class="actions">
+      <a class="b1" href="https://github.com/esengine/DeepSeek-Reasonix">Get the agent</a>
+      <a class="b2 mono" href="https://github.com/esengine/DeepSeek-Reasonix">github.com/esengine/DeepSeek-Reasonix</a>
+    </div>
+   </div>
+
+   <aside class="spec">
+     <div class="sh mono">Build sheet</div>
+     <dl class="srow"><dt class="mono">Model</dt><dd>DeepSeek, native</dd></dl>
+     <dl class="srow"><dt class="mono">Surface</dt><dd>Your terminal</dd></dl>
+     <dl class="srow"><dt class="mono">Built around</dt><dd><b>Prefix-cache stability</b></dd></dl>
+     <dl class="srow"><dt class="mono">Session</dt><dd>Long-lived, meant to stay open</dd></dl>
+     <dl class="srow"><dt class="mono">Costly move</dt><dd>Restarting it</dd></dl>
+   </aside>
+  </header>
+
+  <div class="grid">
+    <div class="left">
+      <div class="cellhead mono">Session / one long-lived prefix (illustrative)</div>
+      <div class="session mono">
+        <div class="turn"><span class="id">turn 01</span><span class="txt">open repo, read build config</span><span class="st miss">cold</span></div>
+        <div class="turn"><span class="id">turn 02</span><span class="txt">trace the failing test to its import</span><span class="st hit">prefix hit</span></div>
+        <div class="turn"><span class="id">turn 03</span><span class="txt">patch the module, re-run the suite</span><span class="st hit">prefix hit</span></div>
+        <div class="turn"><span class="id">turn 04</span><span class="txt">explain the fix, stage the diff</span><span class="st hit">prefix hit</span></div>
+        <div class="turn now"><span class="id">turn 05</span><span class="txt">still the same session, hours later</span><span class="st hit">prefix hit</span></div>
+      </div>
+      <div class="slabfoot mono">Restarting the agent is what costs you. <b>So do not restart it.</b></div>
+    </div>
+
+    <div class="claims">
+      <div class="cellhead mono">What the design is built around</div>
+      <div class="claim">
+        <h3><span class="mark">01</span> Prefix-cache stability</h3>
+        <p>The agent keeps the front of its context stable across turns instead of rebuilding it, which is the property the whole tool is engineered around.</p>
+      </div>
+      <div class="claim">
+        <h3><span class="mark">02</span> DeepSeek-native</h3>
+        <p>Built for DeepSeek models directly rather than wrapped over a generic provider layer.</p>
+      </div>
+      <div class="claim">
+        <h3><span class="mark">03</span> Terminal-resident</h3>
+        <p>It lives in your terminal, next to the repo and the test command, and it is meant to stay open.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker mono">
+    <span>DeepSeek-native</span>
+    <span>Prefix-cache stable</span>
+    <span>Terminal-first</span>
+    <span>Long-lived sessions</span>
+  </div>
+
+  <div class="foot mono">
+    <span>esengine/DeepSeek-Reasonix</span>
+    <span>Design study by Goose. Not affiliated with the project.</span>
+  </div>
+
+</div>
+</body>
+</html>
+
+

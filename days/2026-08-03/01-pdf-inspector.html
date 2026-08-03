@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pdf-inspector — classify before you extract</title>
+<style>
+:root{
+  --paper:#f8f5ee;
+  --card:#fffdf8;
+  --ink:#171310;
+  --ink2:#4c453a;
+  --ink3:#7d7466;
+  --rule:#d9d1bf;
+  --rule2:#c3b9a2;
+  --stamp:#9d2a1c;
+  --ok:#2f5d3a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+
+/* top bar */
+.top{border-bottom:1px solid var(--rule);}
+.topin{display:flex;align-items:baseline;justify-content:space-between;padding:22px 0;gap:24px}
+.brand{font-size:15px;letter-spacing:.02em}
+.brand b{font-weight:600}
+.topmeta{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+
+/* hero */
+.hero{padding:78px 0 64px;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:72px;align-items:start}
+.eyebrow{
+  display:inline-block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--stamp);border:1px solid var(--stamp);padding:5px 10px;border-radius:2px;margin-bottom:26px;
+}
+h1{
+  margin:0;font-weight:400;font-size:63px;line-height:1.04;letter-spacing:-.018em;
+}
+h1 em{font-style:italic;color:var(--stamp)}
+.lede{margin:26px 0 0;font-size:19px;line-height:1.62;color:var(--ink2);max-width:34em}
+.factrow{margin-top:38px;border-top:1px solid var(--rule);}
+.fact{display:grid;grid-template-columns:132px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.fact dt{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);padding-top:4px}
+.fact dd{margin:0;font-size:15.5px;line-height:1.5;color:var(--ink)}
+.cta{margin-top:36px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:15px;text-decoration:none;color:var(--paper);background:var(--ink);
+  padding:13px 24px;border-radius:2px;border:1px solid var(--ink);
+  transition:background .16s ease,color .16s ease;
+}
+.btn:hover{background:var(--stamp);border-color:var(--stamp)}
+.btn2{font-size:14.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule2);padding-bottom:2px}
+.btn2:hover{color:var(--stamp);border-color:var(--stamp)}
+
+/* specimen card */
+.spec{position:relative}
+.card{
+  background:var(--card);border:1px solid var(--rule2);border-radius:2px;
+  box-shadow:0 1px 0 rgba(23,19,16,.05), 0 18px 34px -26px rgba(23,19,16,.42);
+}
+.cardhead{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 20px;border-bottom:1px solid var(--rule);
+}
+.cardhead span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
+.stamp{
+  position:absolute;top:-16px;right:-10px;transform:rotate(-7deg);
+  border:2px solid var(--stamp);color:var(--stamp);border-radius:3px;
+  padding:7px 12px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  background:rgba(248,245,238,.94);
+}
+.row{padding:20px;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:0}
+.fname{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
+.fname .n{font-size:15px}
+.fname .b{font-size:12px;color:var(--ink3)}
+.bars{display:grid;grid-template-columns:1fr;gap:9px}
+.bar{display:grid;grid-template-columns:118px 1fr 52px;gap:12px;align-items:center;font-size:11.5px}
+.bar .lab{color:var(--ink3);letter-spacing:.07em;text-transform:uppercase;font-size:10px}
+.track{display:block;height:7px;background:#ece5d5;border-radius:1px;overflow:hidden}
+.fill{display:block;height:100%;background:var(--ink2);width:var(--w)}
+.fill.red{background:var(--stamp)}
+.fill.grn{background:var(--ok)}
+.bar .v{text-align:right;color:var(--ink2)}
+
+.verdict{
+  display:flex;align-items:center;gap:10px;margin-top:16px;
+  font-size:12px;letter-spacing:.04em;
+}
+.pill{
+  border:1px solid currentColor;border-radius:2px;padding:4px 9px;
+  font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+}
+.pill.red{color:var(--stamp)}
+.pill.grn{color:var(--ok)}
+.route{color:var(--ink3);font-size:12px}
+.route b{color:var(--ink);font-weight:600}
+.caption{margin-top:14px;font-size:11px;color:var(--ink3);letter-spacing:.03em;font-style:italic}
+
+/* strip */
+.strip{border-top:1px solid var(--rule);background:#f2eee4}
+.stripin{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.cell{padding:34px 34px 34px 0;border-right:1px solid var(--rule)}
+.cell:last-child{border-right:0;padding-right:0}
+.cell:not(:first-child){padding-left:34px}
+.cell h3{margin:0 0 10px;font-size:17px;font-weight:400}
+.cell p{margin:0;font-size:14px;line-height:1.6;color:var(--ink2)}
+.cell .num{font-size:10.5px;letter-spacing:.2em;color:var(--stamp);display:block;margin-bottom:12px}
+.foot{padding:26px 0 46px;font-size:12px;color:var(--ink3);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media (max-width:980px){
+  .wrap{padding:0 24px}
+  .hero{grid-template-columns:1fr;gap:48px;padding:52px 0 44px}
+  h1{font-size:44px}
+  .stripin{grid-template-columns:1fr}
+  .cell{border-right:0;border-bottom:1px solid var(--rule);padding:26px 0}
+  .cell:not(:first-child){padding-left:0}
+  .cell:last-child{border-bottom:0}
+}
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap topin">
+    <div class="brand mono"><b>firecrawl</b> / pdf-inspector</div>
+    <div class="topmeta">Rust library &middot; PDF triage</div>
+  </div>
+</header>
+
+<main class="wrap hero">
+  <section>
+    <span class="eyebrow">Classification before extraction</span>
+    <h1>Know what kind of PDF you have <em>before</em> you pay to read it.</h1>
+    <p class="lede">pdf-inspector is a fast Rust library for PDF inspection, classification, and text extraction. It detects scanned versus text-based PDFs so a pipeline can route each file to the cheap path or the OCR path on purpose.</p>
+
+    <dl class="factrow">
+      <div class="fact"><dt>Language</dt><dd>Rust</dd></div>
+      <div class="fact"><dt>Does</dt><dd>Inspection, classification, text extraction</dd></div>
+      <div class="fact"><dt>Decides</dt><dd>Scanned image pages versus embedded text</dd></div>
+      <div class="fact"><dt>Enables</dt><dd>Smart routing decisions upstream of OCR</dd></div>
+    </dl>
+
+    <div class="cta">
+      <a class="btn" href="https://github.com/firecrawl/pdf-inspector">Read the source</a>
+      <a class="btn2" href="https://github.com/firecrawl/pdf-inspector">github.com/firecrawl/pdf-inspector</a>
+    </div>
+  </section>
+
+  <section class="spec">
+    <div class="stamp mono">Specimen</div>
+    <div class="card">
+      <div class="cardhead">
+        <span class="mono">Inspection sheet</span>
+        <span class="mono">Illustrative</span>
+      </div>
+
+      <div class="row">
+        <div class="fname">
+          <div class="n mono">contract-1998-scan.pdf</div>
+          <div class="b mono">42 pages</div>
+        </div>
+        <div class="bars">
+          <div class="bar"><span class="lab">Embedded text</span><span class="track"><span class="fill red" style="--w:6%"></span></span><span class="v mono">6%</span></div>
+          <div class="bar"><span class="lab">Image coverage</span><span class="track"><span class="fill" style="--w:97%"></span></span><span class="v mono">97%</span></div>
+          <div class="bar"><span class="lab">Font objects</span><span class="track"><span class="fill" style="--w:3%"></span></span><span class="v mono">0</span></div>
+        </div>
+        <div class="verdict">
+          <span class="pill red mono">Scanned</span>
+          <span class="route">route &rarr; <b>OCR pipeline</b></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="fname">
+          <div class="n mono">q3-report-export.pdf</div>
+          <div class="b mono">18 pages</div>
+        </div>
+        <div class="bars">
+          <div class="bar"><span class="lab">Embedded text</span><span class="track"><span class="fill grn" style="--w:99%"></span></span><span class="v mono">99%</span></div>
+          <div class="bar"><span class="lab">Image coverage</span><span class="track"><span class="fill" style="--w:11%"></span></span><span class="v mono">11%</span></div>
+          <div class="bar"><span class="lab">Font objects</span><span class="track"><span class="fill" style="--w:64%"></span></span><span class="v mono">7</span></div>
+        </div>
+        <div class="verdict">
+          <span class="pill grn mono">Text-based</span>
+          <span class="route">route &rarr; <b>direct extraction</b></span>
+        </div>
+      </div>
+    </div>
+    <p class="caption">Sheet values are illustrative. The library reports the signals; the routing policy is yours.</p>
+  </section>
+</main>
+
+<section class="strip">
+  <div class="wrap stripin">
+    <div class="cell">
+      <span class="num mono">01</span>
+      <h3>Inspect</h3>
+      <p>Read the document structure and report what the file actually contains, page by page.</p>
+    </div>
+    <div class="cell">
+      <span class="num mono">02</span>
+      <h3>Classify</h3>
+      <p>Separate scanned image pages from pages that already carry selectable text.</p>
+    </div>
+    <div class="cell">
+      <span class="num mono">03</span>
+      <h3>Extract</h3>
+      <p>Pull text where text exists, and hand the rest to whatever OCR stage you run.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap foot">
+  <span class="mono">firecrawl/pdf-inspector</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>
+

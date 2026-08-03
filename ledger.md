@@ -1,4 +1,4 @@
-# Design Taste Ledger
+﻿# Design Taste Ledger
 
 Append-only record — one line per mock: date · repo · style · idea tested → verdict.
 
@@ -158,3 +158,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-02 — [rep](days/2026-08-02/) — Panniantong/Agent-Reach — swiss/signal-red — put the access claim in the largest type and let a source rail carry breadth → landed: promise stated once, proven underneath
 - 2026-08-02 — [rep](days/2026-08-02/) — TencentCloud/TencentDB-Agent-Memory — glass/teal — name all four memory assets on one frosted panel as owned inventory → landed: assets stay concrete and governance replaces adjectives
 - 2026-08-02 — [rep](days/2026-08-02/) — lyogavin/airllm — data-viz/violet-amber — chart the stated 4GB budget against 70B parameters with layer residency → landed: the constraint is the argument with nothing invented
+- 2026-08-03 — [rep](days/2026-08-03/) — firecrawl/pdf-inspector — specimen/stamp-red — make the classifier verdict the hero and route each file explicitly → landed: the decision is legible before any speed claim
+- 2026-08-03 — [rep](days/2026-08-03/) — esengine/DeepSeek-Reasonix — brutalist/harsh-orange — turn leave it running into an architectural claim with one long-lived session slab → landed: exposed structure matches a tool built on a stable prefix
+- 2026-08-03 — [rep](days/2026-08-03/) — antirez/ds4 — poster/oxide — spend the whole page on one sentence with three backends as the only proof → landed: restraint reads as confidence when the claim stays small

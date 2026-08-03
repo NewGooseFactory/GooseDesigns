@@ -1,4 +1,4 @@
-# Design Rep — Friday, July 24
+﻿# Design Rep — Friday, July 24
 
 > 3 mocks — poster, hud, editorial
 

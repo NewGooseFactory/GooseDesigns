@@ -1,11 +1,14 @@
-# Catalog — every design rep
+﻿# Catalog — every design rep
 
-Searchable master index. **156 mocks** across **52 days**. Newest first.
+Searchable master index. **159 mocks** across **53 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-03 | Monday | [firecrawl/pdf-inspector](https://github.com/firecrawl/pdf-inspector) | specimen | stamp-red | make the classifier verdict the hero and route each file explicitly | landed: the decision is legible before any speed claim | [png](days/2026-08-03/01-pdf-inspector.png) | [2026-08-03](days/2026-08-03/) |
+| 2026-08-03 | Monday | [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) | brutalist | harsh-orange | turn leave it running into an architectural claim with one long-lived session slab | landed: exposed structure matches a tool built on a stable prefix | [png](days/2026-08-03/02-deepseek-reasonix.png) | [2026-08-03](days/2026-08-03/) |
+| 2026-08-03 | Monday | [antirez/ds4](https://github.com/antirez/ds4) | poster | oxide | spend the whole page on one sentence with three backends as the only proof | landed: restraint reads as confidence when the claim stays small | [png](days/2026-08-03/03-ds4.png) | [2026-08-03](days/2026-08-03/) |
 | 2026-08-02 | Sunday | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | swiss | signal-red | put the access claim in the largest type and let a source rail carry breadth | landed: promise stated once, proven underneath | [png](days/2026-08-02/01-agent-reach.png) | [2026-08-02](days/2026-08-02/) |
 | 2026-08-02 | Sunday | [TencentCloud/TencentDB-Agent-Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) | glass | teal | name all four memory assets on one frosted panel as owned inventory | landed: assets stay concrete and governance replaces adjectives | [png](days/2026-08-02/02-tencentdb-agent-memory.png) | [2026-08-02](days/2026-08-02/) |
 | 2026-08-02 | Sunday | [lyogavin/airllm](https://github.com/lyogavin/airllm) | data-viz | violet-amber | chart the stated 4GB budget against 70B parameters with layer residency | landed: the constraint is the argument with nothing invented | [png](days/2026-08-02/03-airllm.png) | [2026-08-02](days/2026-08-02/) |

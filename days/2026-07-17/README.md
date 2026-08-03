@@ -1,4 +1,4 @@
-# Design Rep — Friday, July 17
+﻿# Design Rep — Friday, July 17
 
 > 3 mocks — blueprint, poster, warm-minimal
 

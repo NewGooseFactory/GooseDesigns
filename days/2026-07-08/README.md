@@ -1,4 +1,4 @@
-# Design Rep — Wednesday, July 8
+﻿# Design Rep — Wednesday, July 8
 
 > 3 mocks — terminal-dark, hud, editorial
 

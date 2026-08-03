@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ds4 — local inference on the GPU you already own</title>
+<style>
+:root{
+  --ink:#0c0b0a;
+  --paper:#f2ede2;
+  --paper2:#a8a196;
+  --paper3:#6f6961;
+  --oxide:#cf6a2e;
+  --hair:#2a2724;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:"Helvetica Neue",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(242,237,226,.055) 1px, transparent 0);
+  background-size:4px 4px;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.sheet{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:0 48px;display:flex;flex-direction:column;min-height:100vh}
+
+.rule{height:1px;background:var(--hair)}
+.head{display:flex;justify-content:space-between;align-items:baseline;padding:26px 0;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--paper2)}
+.head b{color:var(--paper);font-weight:600;letter-spacing:.2em}
+
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:70px 0 56px}
+
+h1{
+  margin:0;font-weight:800;font-size:112px;line-height:.9;letter-spacing:-.045em;
+  max-width:15ch;
+}
+h1 .ox{color:var(--oxide)}
+.lede{
+  margin:40px 0 0;font-size:20px;line-height:1.55;color:var(--paper2);max-width:44ch;
+}
+.lede b{color:var(--paper);font-weight:500}
+
+.models{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+.chip{
+  border:1px solid var(--hair);padding:9px 15px;font-size:12.5px;letter-spacing:.09em;
+  color:var(--paper);
+}
+.chip i{font-style:normal;color:var(--oxide);margin-right:8px}
+
+.rail{margin-top:64px;border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(3,1fr)}
+.back{padding:28px 30px 26px 0;border-right:1px solid var(--hair)}
+.back:last-child{border-right:0}
+.back:not(:first-child){padding-left:30px}
+.back .name{font-size:34px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+.back .who{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper3)}
+.back .dot{display:inline-block;width:7px;height:7px;background:var(--oxide);margin-right:9px;vertical-align:middle}
+
+.foot{padding:24px 0 34px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:11.5px;letter-spacing:.09em;color:var(--paper3)}
+.link{
+  color:var(--paper);text-decoration:none;border-bottom:1px solid var(--oxide);padding-bottom:3px;
+  font-size:14px;letter-spacing:.04em;transition:color .16s ease;
+}
+.link:hover{color:var(--oxide)}
+
+@media (max-width:1040px){
+  h1{font-size:72px}
+}
+@media (max-width:760px){
+  .sheet{padding:0 24px}
+  h1{font-size:46px;max-width:none}
+  .lede{font-size:17px}
+  .rail{grid-template-columns:1fr}
+  .back{border-right:0;border-bottom:1px solid var(--hair);padding:22px 0}
+  .back:not(:first-child){padding-left:0}
+  .back:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="head mono">
+    <span><b>antirez</b> / ds4</span>
+    <span>Local inference engine</span>
+  </div>
+  <div class="rule"></div>
+
+  <main class="body">
+    <h1>Runs DeepSeek&nbsp;4 on the GPU <span class="ox">you already own.</span></h1>
+
+    <p class="lede">ds4 is a local inference engine for <b>DeepSeek 4 Flash</b> and <b>DeepSeek 4 PRO</b>, built for Metal, CUDA and ROCm. Same engine, three backends, no service in the middle.</p>
+
+    <div class="models">
+      <span class="chip mono"><i>&#9679;</i>DeepSeek 4 Flash</span>
+      <span class="chip mono"><i>&#9679;</i>DeepSeek 4 PRO</span>
+    </div>
+
+    <div class="rail">
+      <div class="back">
+        <p class="name">Metal</p>
+        <p class="who mono"><span class="dot"></span>Apple GPUs</p>
+      </div>
+      <div class="back">
+        <p class="name">CUDA</p>
+        <p class="who mono"><span class="dot"></span>NVIDIA GPUs</p>
+      </div>
+      <div class="back">
+        <p class="name">ROCm</p>
+        <p class="who mono"><span class="dot"></span>AMD GPUs</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="rule"></div>
+  <div class="foot mono">
+    <a class="link" href="https://github.com/antirez/ds4">github.com/antirez/ds4</a>
+    <span>Design study by Goose. Not affiliated with the project.</span>
+  </div>
+
+</div>
+</body>
+</html>

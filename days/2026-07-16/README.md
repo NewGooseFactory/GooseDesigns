@@ -1,4 +1,4 @@
-# Design Rep — Thursday, July 16
+﻿# Design Rep — Thursday, July 16
 
 > 3 mocks — swiss, hud, terminal-dark
 
