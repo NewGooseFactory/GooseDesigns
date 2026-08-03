@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **153 mocks** across **51 days**. Newest first.
+Searchable master index. **156 mocks** across **52 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-02 | Sunday | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | swiss | signal-red | put the access claim in the largest type and let a source rail carry breadth | landed: promise stated once, proven underneath | [png](days/2026-08-02/01-agent-reach.png) | [2026-08-02](days/2026-08-02/) |
+| 2026-08-02 | Sunday | [TencentCloud/TencentDB-Agent-Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) | glass | teal | name all four memory assets on one frosted panel as owned inventory | landed: assets stay concrete and governance replaces adjectives | [png](days/2026-08-02/02-tencentdb-agent-memory.png) | [2026-08-02](days/2026-08-02/) |
+| 2026-08-02 | Sunday | [lyogavin/airllm](https://github.com/lyogavin/airllm) | data-viz | violet-amber | chart the stated 4GB budget against 70B parameters with layer residency | landed: the constraint is the argument with nothing invented | [png](days/2026-08-02/03-airllm.png) | [2026-08-02](days/2026-08-02/) |
 | 2026-08-01 | Saturday | [github/copilot-sdk](https://github.com/github/copilot-sdk) | terminal-dark | electric-cyan | argue for embedded agents with one unchanged session shape above the surfaces it serves | landed: portability reads as engineering property not slogan | [png](days/2026-08-01/01-copilot-sdk.png) | [2026-08-01](days/2026-08-01/) |
 | 2026-08-01 | Saturday | [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) | bauhaus | primary | give an open curriculum a ground→model→apply→extend geometric arc instead of a lesson index | landed: the path feels deliberate and finishable | [png](days/2026-08-01/02-ai-for-beginners.png) | [2026-08-01](days/2026-08-01/) |
 | 2026-08-01 | Saturday | [geo-tp/ESP32-Bit-Pirate](https://github.com/geo-tp/ESP32-Bit-Pirate) | blueprint | hardware-orange | diagram many protocols converging into one web-based console | landed: a broad promise becomes concrete and inspectable | [png](days/2026-08-01/03-esp32-bit-pirate.png) | [2026-08-01](days/2026-08-01/) |

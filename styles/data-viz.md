@@ -1,9 +1,10 @@
 # Style — data-viz
 
-10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-02](../days/2026-08-02/) | [lyogavin/airllm](https://github.com/lyogavin/airllm) | violet-amber | chart the stated 4GB budget against 70B parameters with layer residency | landed: the constraint is the argument with nothing invented | [png](../days/2026-08-02/03-airllm.png) |
 | [2026-07-29](../days/2026-07-29/) | [MoonshotAI/FlashKDA](https://github.com/MoonshotAI/FlashKDA) | violet-amber | give a performance kernel a measured profile instead of superlative language | landed: the page invites verification rather than belief | [png](../days/2026-07-29/03-flashkda.png) |
 | [2026-07-25](../days/2026-07-25/) | [affaan-m/ECC](https://github.com/affaan-m/ECC) | teal-orange | frame harness optimization as measured skills, memory, research, security, and verification | landed: whole-system performance becomes the product | [png](../days/2026-07-25/02-ecc.png) |
 | [2026-07-22](../days/2026-07-22/) | [koala73/worldmonitor](https://github.com/koala73/worldmonitor) | radar-green | unify global intelligence as a restrained signal field with three event classes | landed: situational awareness without manufactured urgency | [png](../days/2026-07-22/01-worldmonitor.png) |
