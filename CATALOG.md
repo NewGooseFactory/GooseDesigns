@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **159 mocks** across **53 days**. Newest first.
+Searchable master index. **162 mocks** across **54 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-04 | Tuesday | [uber/ADR](https://github.com/uber/ADR) | editorial | ink-blue | give an agent security tool the calm of an essay with three disciplines at equal weight | landed: restraint suits a claim about scrutiny | [png](days/2026-08-04/01-adr.png) | [2026-08-04](days/2026-08-04/) |
+| 2026-08-04 | Tuesday | [livekit/agents](https://github.com/livekit/agents) | waveform | signal-coral | draw realtime as a waveform gap between two turns instead of claiming it | landed: the product becomes visible with no benchmark figure | [png](days/2026-08-04/02-livekit-agents.png) | [2026-08-04](days/2026-08-04/) |
+| 2026-08-04 | Tuesday | [gabime/spdlog](https://github.com/gabime/spdlog) | mono-zine | amber | make the library's own output the largest block on the page | landed: a logging library sells itself by showing the lines it writes | [png](days/2026-08-04/03-spdlog.png) | [2026-08-04](days/2026-08-04/) |
 | 2026-08-03 | Monday | [firecrawl/pdf-inspector](https://github.com/firecrawl/pdf-inspector) | specimen | stamp-red | make the classifier verdict the hero and route each file explicitly | landed: the decision is legible before any speed claim | [png](days/2026-08-03/01-pdf-inspector.png) | [2026-08-03](days/2026-08-03/) |
 | 2026-08-03 | Monday | [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) | brutalist | harsh-orange | turn leave it running into an architectural claim with one long-lived session slab | landed: exposed structure matches a tool built on a stable prefix | [png](days/2026-08-03/02-deepseek-reasonix.png) | [2026-08-03](days/2026-08-03/) |
 | 2026-08-03 | Monday | [antirez/ds4](https://github.com/antirez/ds4) | poster | oxide | spend the whole page on one sentence with three backends as the only proof | landed: restraint reads as confidence when the claim stays small | [png](days/2026-08-03/03-ds4.png) | [2026-08-03](days/2026-08-03/) |

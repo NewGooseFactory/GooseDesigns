@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>livekit/agents — realtime voice AI agents</title>
+<style>
+:root{
+  --bg:#0a0f14;
+  --bg2:#0e151c;
+  --line:#1e2a34;
+  --fg:#e8edf2;
+  --fg2:#94a3b0;
+  --fg3:#5f6f7c;
+  --coral:#ff6a4d;
+  --coral-dim:#8a3625;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1160px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;padding:19px 0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3)}
+.topin b{color:var(--fg);font-weight:600}
+.live{display:inline-flex;align-items:center;gap:8px;color:var(--coral)}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--coral);display:inline-block}
+
+.hero{padding:76px 0 54px}
+h1{margin:0;font-size:66px;line-height:1.02;letter-spacing:-.035em;font-weight:700;max-width:15ch}
+h1 .c{color:var(--coral)}
+.lede{margin:28px 0 0;font-size:19px;line-height:1.62;color:var(--fg2);max-width:46ch}
+.cta{margin-top:34px;display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.btn{background:var(--coral);color:#160603;text-decoration:none;font-size:15px;font-weight:600;padding:13px 26px;border-radius:3px;transition:filter .16s ease}
+.btn:hover{filter:brightness(1.12)}
+.alt{font-size:14px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.alt:hover{color:var(--coral);border-color:var(--coral)}
+
+/* waveform spine */
+.spine{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);padding:0}
+.spinehead{display:flex;justify-content:space-between;padding:13px 0;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3);border-bottom:1px solid var(--line)}
+
+.wave{display:flex;align-items:flex-end;gap:2px;height:92px;padding:22px 0 0}
+.wave b{flex:1 1 auto;background:var(--coral-dim);border-radius:0;display:block;min-width:2px}
+.wave b.hot{background:var(--coral)}
+
+.track{position:relative;padding:22px 0 30px}
+.axis{height:1px;background:var(--line);position:relative}
+.stages{display:grid;grid-template-columns:repeat(6,1fr);margin-top:-7px}
+.st{position:relative;padding-top:22px}
+.st::before{
+  content:"";position:absolute;top:-7px;left:0;width:13px;height:13px;
+  border:2px solid var(--coral);background:var(--bg2);border-radius:50%;
+}
+.st .n{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:var(--fg)}
+.st .d{display:block;margin-top:5px;font-size:11.5px;line-height:1.5;color:var(--fg3);padding-right:16px}
+.spinenote{padding:0 0 24px;font-size:11.5px;color:var(--fg3);font-style:italic}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--line)}
+.g{padding:34px 30px 38px 0;border-right:1px solid var(--line)}
+.g:last-child{border-right:0;padding-right:0}
+.g:not(:first-child){padding-left:30px}
+.g h3{margin:0 0 10px;font-size:16px;font-weight:600;letter-spacing:-.005em}
+.g p{margin:0;font-size:14px;line-height:1.62;color:var(--fg2)}
+.g .tick{color:var(--coral);font-size:11px;letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:12px}
+
+.foot{padding:22px 0 46px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:11.5px;color:var(--fg3)}
+
+@media (max-width:980px){
+  .wrap{padding:0 24px}
+  h1{font-size:42px}
+  .hero{padding:48px 0 36px}
+  .stages{grid-template-columns:1fr;gap:18px}
+  .st{padding-top:0;padding-left:26px}
+  .st::before{top:2px}
+  .grid3{grid-template-columns:1fr}
+  .g{border-right:0;border-bottom:1px solid var(--line);padding:26px 0}
+  .g:not(:first-child){padding-left:0}
+  .g:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap topin mono">
+    <span><b>livekit</b> / agents</span>
+    <span class="live"><i></i>Realtime</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Voice agents that answer <span class="c">while you are still talking.</span></h1>
+    <p class="lede">livekit/agents is a framework for building realtime voice AI agents. The whole design problem is the gap between a person finishing a sentence and an agent starting one.</p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/livekit/agents">Build an agent</a>
+      <a class="alt mono" href="https://github.com/livekit/agents">github.com/livekit/agents</a>
+    </div>
+  </section>
+</main>
+
+<section class="spine">
+  <div class="wrap">
+    <div class="spinehead mono"><span>One turn, end to end</span><span>Illustrative pipeline</span></div>
+
+    <div class="wave">
+      <b style="height:4%"></b>
+      <b style="height:7%"></b>
+      <b style="height:11%"></b>
+      <b style="height:21%"></b>
+      <b style="height:19%"></b>
+      <b style="height:31%"></b>
+      <b style="height:38%"></b>
+      <b style="height:44%"></b>
+      <b style="height:49%"></b>
+      <b style="height:60%"></b>
+      <b style="height:40%"></b>
+      <b style="height:65%"></b>
+      <b style="height:69%"></b>
+      <b style="height:62%"></b>
+      <b style="height:75%"></b>
+      <b style="height:68%"></b>
+      <b style="height:74%"></b>
+      <b style="height:87%"></b>
+      <b style="height:73%"></b>
+      <b style="height:78%"></b>
+      <b style="height:88%"></b>
+      <b style="height:81%"></b>
+      <b style="height:72%"></b>
+      <b style="height:74%"></b>
+      <b style="height:66%"></b>
+      <b style="height:73%"></b>
+      <b style="height:68%"></b>
+      <b style="height:56%"></b>
+      <b style="height:88%"></b>
+      <b style="height:84%"></b>
+      <b style="height:48%"></b>
+      <b style="height:60%"></b>
+      <b style="height:47%"></b>
+      <b style="height:70%"></b>
+      <b style="height:45%"></b>
+      <b style="height:55%"></b>
+      <b style="height:53%"></b>
+      <b style="height:34%"></b>
+      <b style="height:36%"></b>
+      <b style="height:32%"></b>
+      <b style="height:23%"></b>
+      <b style="height:12%"></b>
+      <b style="height:9%"></b>
+      <b style="height:7%"></b>
+      <b style="height:5%"></b>
+      <b style="height:6%"></b>
+      <b style="height:4%"></b>
+      <b style="height:4%"></b>
+      <b style="height:4%"></b>
+      <b style="height:6%"></b>
+      <b style="height:5%"></b>
+      <b style="height:4%"></b>
+      <b class="hot" style="height:4%"></b>
+      <b class="hot" style="height:6%"></b>
+      <b class="hot" style="height:9%"></b>
+      <b class="hot" style="height:12%"></b>
+      <b class="hot" style="height:22%"></b>
+      <b class="hot" style="height:20%"></b>
+      <b class="hot" style="height:36%"></b>
+      <b class="hot" style="height:45%"></b>
+      <b class="hot" style="height:39%"></b>
+      <b class="hot" style="height:52%"></b>
+      <b class="hot" style="height:62%"></b>
+      <b class="hot" style="height:67%"></b>
+      <b class="hot" style="height:73%"></b>
+      <b class="hot" style="height:68%"></b>
+      <b class="hot" style="height:71%"></b>
+      <b class="hot" style="height:81%"></b>
+      <b class="hot" style="height:59%"></b>
+      <b class="hot" style="height:91%"></b>
+      <b class="hot" style="height:76%"></b>
+      <b class="hot" style="height:64%"></b>
+      <b class="hot" style="height:60%"></b>
+      <b class="hot" style="height:83%"></b>
+      <b class="hot" style="height:98%"></b>
+      <b class="hot" style="height:87%"></b>
+      <b class="hot" style="height:70%"></b>
+      <b class="hot" style="height:74%"></b>
+      <b class="hot" style="height:83%"></b>
+      <b class="hot" style="height:65%"></b>
+      <b class="hot" style="height:63%"></b>
+      <b class="hot" style="height:59%"></b>
+      <b class="hot" style="height:79%"></b>
+      <b class="hot" style="height:79%"></b>
+      <b class="hot" style="height:45%"></b>
+      <b class="hot" style="height:63%"></b>
+      <b class="hot" style="height:65%"></b>
+      <b class="hot" style="height:50%"></b>
+      <b class="hot" style="height:50%"></b>
+      <b class="hot" style="height:32%"></b>
+      <b class="hot" style="height:28%"></b>
+      <b class="hot" style="height:34%"></b>
+      <b class="hot" style="height:24%"></b>
+      <b class="hot" style="height:20%"></b>
+      <b class="hot" style="height:11%"></b>
+      <b class="hot" style="height:7%"></b>
+    </div>
+
+    <div class="track">
+      <div class="axis"></div>
+      <div class="stages">
+        <div class="st"><span class="n">Speech in</span><span class="d mono">audio arrives over the room connection</span></div>
+        <div class="st"><span class="n">Turn detection</span><span class="d mono">decide the person actually stopped</span></div>
+        <div class="st"><span class="n">Transcribe</span><span class="d mono">speech becomes text the model can read</span></div>
+        <div class="st"><span class="n">Reason</span><span class="d mono">the agent picks what to say and do</span></div>
+        <div class="st"><span class="n">Synthesize</span><span class="d mono">text becomes audio, streamed early</span></div>
+        <div class="st"><span class="n">Speech out</span><span class="d mono">the reply plays back in the room</span></div>
+      </div>
+    </div>
+    <p class="spinenote">Stage order is the pipeline shape, drawn illustratively. No timing numbers are claimed here.</p>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="grid3">
+    <div class="g">
+      <span class="tick mono">Realtime</span>
+      <h3>Latency is the interface</h3>
+      <p>A voice agent is judged on the pause before it speaks, which makes every stage in the pipeline a design decision.</p>
+    </div>
+    <div class="g">
+      <span class="tick mono">Framework</span>
+      <h3>You bring the agent</h3>
+      <p>The framework owns transport, turn handling, and the audio path, so your code can be about what the agent should say.</p>
+    </div>
+    <div class="g">
+      <span class="tick mono">Voice</span>
+      <h3>Built for spoken turns</h3>
+      <p>Interruptions, overlaps, and half-finished sentences are normal input here rather than error cases.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap foot mono">
+  <span>livekit/agents</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>

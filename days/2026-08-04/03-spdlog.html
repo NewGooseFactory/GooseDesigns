@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>spdlog — fast C++ logging library</title>
+<style>
+:root{
+  --bg:#07080a;
+  --bg2:#0c0e11;
+  --line:#20242a;
+  --fg:#d9dde2;
+  --fg2:#8b939c;
+  --fg3:#5a626b;
+  --amber:#ffb02e;
+  --grn:#6fcf8a;
+  --red:#ff6b5e;
+  --cy:#5ec9d6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono","DejaVu Sans Mono",monospace;
+  font-size:15px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 40px}
+.hr{color:var(--line);white-space:pre;overflow:hidden;font-size:14px;line-height:1.1;user-select:none}
+
+.top{display:flex;justify-content:space-between;padding:20px 0 14px;font-size:12px;letter-spacing:.1em;color:var(--fg3);text-transform:uppercase}
+.top b{color:var(--amber);font-weight:600}
+
+.hero{padding:44px 0 34px}
+.cmt{color:var(--fg3);font-size:13.5px;line-height:1.8}
+.cmt span{color:var(--amber)}
+h1{
+  margin:22px 0 0;font-size:70px;line-height:1;letter-spacing:-.05em;font-weight:700;color:var(--fg);
+}
+h1 .b{color:var(--amber)}
+.sub{margin:22px 0 0;font-size:17px;line-height:1.65;color:var(--fg2);max-width:56ch}
+.sub em{color:var(--fg);font-style:normal}
+
+.tags{margin-top:26px;display:flex;gap:0;flex-wrap:wrap;font-size:12.5px}
+.tags span{border:1px solid var(--line);padding:7px 13px;color:var(--fg2);margin:0 -1px -1px 0}
+.tags span b{color:var(--amber);font-weight:400}
+
+.cta{margin-top:32px;display:flex;gap:0;flex-wrap:wrap;font-size:14px}
+.b1{background:var(--amber);color:#150d00;text-decoration:none;padding:12px 24px;font-weight:700;letter-spacing:.02em}
+.b1:hover{filter:brightness(1.1)}
+.b2{border:1px solid var(--line);border-left:0;padding:12px 24px;color:var(--fg2);text-decoration:none}
+.b2:hover{color:var(--amber);border-color:var(--amber)}
+
+.panel{margin:46px 0 0;border:1px solid var(--line);background:var(--bg2)}
+.ph{display:flex;justify-content:space-between;padding:11px 18px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3)}
+.log{padding:16px 18px;font-size:13.5px;line-height:2.05;overflow-x:auto;white-space:nowrap}
+.log div span.t{color:var(--fg3)}
+.log div span.n{color:var(--cy)}
+.log div span.L{font-weight:700}
+.log div span.trace{color:var(--fg3)}
+.log div span.debug{color:var(--fg2)}
+.log div span.info{color:var(--grn)}
+.log div span.warn{color:var(--amber)}
+.log div span.error{color:var(--red)}
+.log div span.m{color:var(--fg)}
+.pn{padding:11px 18px;border-top:1px solid var(--line);font-size:11.5px;color:var(--fg3)}
+
+.three{margin:46px 0 0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.c{padding:26px 26px 30px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:26px}
+.c h3{margin:0 0 9px;font-size:14px;color:var(--amber);letter-spacing:.03em;font-weight:700}
+.c p{margin:0;font-size:13.5px;line-height:1.7;color:var(--fg2)}
+
+.foot{padding:26px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--fg3)}
+
+@media (max-width:900px){
+  .wrap{padding:0 22px}
+  h1{font-size:40px}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+  .hr{font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top"><span><b>gabime</b> / spdlog</span><span>C++ &middot; header-only or compiled</span></div>
+  <div class="hr">============================================================================================================================================================================================================================</div>
+
+  <section class="hero">
+    <p class="cmt">// <span>spdlog</span><br>// Fast C++ logging library.</p>
+    <h1>Log it.<br><span class="b">Then get out of the way.</span></h1>
+    <p class="sub">spdlog is a fast C++ logging library. The whole point is that <em>writing a line costs almost nothing</em>, so nobody has to decide whether this code path deserves logging.</p>
+
+    <div class="tags">
+      <span><b>&gt;</b> C++</span>
+      <span><b>&gt;</b> Fast</span>
+      <span><b>&gt;</b> Logging</span>
+      <span><b>&gt;</b> Library</span>
+    </div>
+
+    <div class="cta">
+      <a class="b1" href="https://github.com/gabime/spdlog">Get spdlog</a>
+      <a class="b2" href="https://github.com/gabime/spdlog">github.com/gabime/spdlog</a>
+    </div>
+  </section>
+
+  <div class="panel">
+    <div class="ph"><span>stdout</span><span>illustrative output</span></div>
+    <div class="log">
+      <div><span class="t">[2026-08-04 06:00:11.204]</span> <span class="n">[ingest]</span> <span class="L info">[info]</span>  <span class="m">worker pool started, 8 threads</span></div>
+      <div><span class="t">[2026-08-04 06:00:11.207]</span> <span class="n">[ingest]</span> <span class="L debug">[debug]</span> <span class="m">queue depth 0, backpressure off</span></div>
+      <div><span class="t">[2026-08-04 06:00:11.891]</span> <span class="n">[parser]</span> <span class="L trace">[trace]</span> <span class="m">frame 41208 decoded</span></div>
+      <div><span class="t">[2026-08-04 06:00:12.004]</span> <span class="n">[parser]</span> <span class="L warn">[warn]</span>  <span class="m">unexpected field order, falling back to slow path</span></div>
+      <div><span class="t">[2026-08-04 06:00:12.010]</span> <span class="n">[sink]</span>   <span class="L error">[error]</span> <span class="m">rotate failed: destination is read only</span></div>
+      <div><span class="t">[2026-08-04 06:00:12.011]</span> <span class="n">[sink]</span>   <span class="L info">[info]</span>  <span class="m">switched to fallback sink, no lines dropped</span></div>
+    </div>
+    <div class="pn">Output above is illustrative. Levels, named loggers, and sinks are the real shape of the library.</div>
+  </div>
+
+  <div class="three">
+    <div class="c">
+      <h3>Cheap enough to leave in</h3>
+      <p>A logging call you can afford in a hot loop is the difference between having the record and guessing afterward.</p>
+    </div>
+    <div class="c">
+      <h3>Named loggers</h3>
+      <p>Separate loggers per subsystem keep the stream readable when three components write at once.</p>
+    </div>
+    <div class="c">
+      <h3>Sinks are swappable</h3>
+      <p>Console today, rotating file tomorrow, both at once when an incident makes you want them.</p>
+    </div>
+  </div>
+
+  <div class="hr" style="margin-top:34px">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+  <div class="foot"><span>gabime/spdlog</span><span>Design study by Goose. Not affiliated with the project.</span></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADR — agent defense and response</title>
+<style>
+:root{
+  --paper:#fbfaf7;
+  --ink:#14181c;
+  --ink2:#454e57;
+  --ink3:#77808a;
+  --rule:#dfdcd4;
+  --rule2:#c9c5ba;
+  --blue:#1a4e77;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--rule)}
+.topin{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;font-size:12.5px;letter-spacing:.02em;color:var(--ink3)}
+.topin b{color:var(--ink);font-weight:600}
+
+.hero{padding:86px 0 22px;display:grid;grid-template-columns:148px minmax(0,1fr);gap:44px;align-items:start}
+.rail{font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--blue);line-height:2;padding-top:20px}
+.rail span{display:block;color:var(--ink3)}
+h1{
+  margin:0;font-weight:400;font-size:60px;line-height:1.08;letter-spacing:-.02em;max-width:17ch;
+}
+.lede{margin:30px 0 0;font-size:19.5px;line-height:1.68;color:var(--ink2);max-width:40em}
+.lede b{color:var(--ink);font-weight:600}
+.byline{margin:24px 0 0;font-size:14px;color:var(--ink3);border-left:3px solid var(--blue);padding-left:14px;line-height:1.55}
+.cta{margin-top:38px;display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.btn{
+  background:var(--blue);color:#fff;text-decoration:none;font-size:15px;padding:13px 26px;
+  border-radius:3px;transition:background .16s ease;
+}
+.btn:hover{background:#123a5a}
+.alt{font-size:14.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule2);padding-bottom:2px}
+.alt:hover{color:var(--blue);border-color:var(--blue)}
+
+.three{margin-top:76px;border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(3,1fr)}
+.col{padding:34px 34px 40px 0;border-right:1px solid var(--rule)}
+.col:last-child{border-right:0;padding-right:0}
+.col:not(:first-child){padding-left:34px}
+.col .idx{font-size:10.5px;letter-spacing:.2em;color:var(--blue);display:block;margin-bottom:14px}
+.col h2{margin:0 0 11px;font-size:22px;font-weight:400;letter-spacing:-.01em}
+.col p{margin:0;font-size:15px;line-height:1.65;color:var(--ink2)}
+
+.evidence{margin:0 0 84px;border:1px solid var(--rule2);background:#fff;border-radius:3px}
+.evhead{display:flex;justify-content:space-between;padding:13px 20px;border-bottom:1px solid var(--rule);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
+.ev{display:grid;grid-template-columns:132px 1fr 128px;gap:18px;padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13.5px;align-items:center}
+.ev:last-child{border-bottom:0}
+.ev .k{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.ev .v{color:var(--ink);line-height:1.5}
+.ev .s{text-align:right;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--blue)}
+.evnote{padding:12px 20px;font-size:11.5px;color:var(--ink3);font-style:italic;border-top:1px solid var(--rule)}
+
+.foot{border-top:1px solid var(--rule);padding:22px 0 44px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--ink3)}
+
+@media (max-width:900px){
+  .wrap{padding:0 24px}
+  .hero{grid-template-columns:1fr;gap:24px;padding:52px 0 18px}
+  .rail{padding-top:0}
+  h1{font-size:38px}
+  .three{grid-template-columns:1fr}
+  .col{border-right:0;border-bottom:1px solid var(--rule);padding:26px 0}
+  .col:not(:first-child){padding-left:0}
+  .col:last-child{border-bottom:0}
+  .ev{grid-template-columns:1fr;gap:6px}
+  .ev .s{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap topin">
+    <span class="mono"><b>uber</b> / ADR</span>
+    <span class="mono">Agent detection and response</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="rail mono">
+      Observability<span>Benchmarking</span><span>Threat detection</span>
+    </div>
+    <div>
+      <h1 class="serif">Enterprise agents need the same scrutiny as the people they act for.</h1>
+      <p class="lede">ADR secures enterprise AI agents through <b>observability</b>, <b>security benchmarking</b>, and <b>threat detection</b>. It watches what an agent actually did, measures it against a security bar, and raises the cases that do not clear it.</p>
+      <p class="byline">Deployed at Uber.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/uber/ADR">Read the project</a>
+        <a class="alt mono" href="https://github.com/uber/ADR">github.com/uber/ADR</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="col">
+      <span class="idx mono">01</span>
+      <h2 class="serif">Observability</h2>
+      <p>See what the agent did, in order, with the tools it called and the data it touched. Review needs a record, not a recollection.</p>
+    </div>
+    <div class="col">
+      <span class="idx mono">02</span>
+      <h2 class="serif">Security benchmarking</h2>
+      <p>Hold agent behavior against a stated security bar so the answer to "is this safe enough" comes from a test, not an opinion.</p>
+    </div>
+    <div class="col">
+      <span class="idx mono">03</span>
+      <h2 class="serif">Threat detection</h2>
+      <p>Surface the runs that break the pattern, so a security team gets a short queue of real cases instead of a full log.</p>
+    </div>
+  </section>
+
+  <section class="evidence">
+    <div class="evhead mono"><span>Review record</span><span>Illustrative</span></div>
+    <div class="ev"><span class="k mono">Trace</span><span class="v">Agent ran a refund workflow across three internal tools</span><span class="s mono">Observed</span></div>
+    <div class="ev"><span class="k mono">Benchmark</span><span class="v">Behavior compared against the stated security bar</span><span class="s mono">Scored</span></div>
+    <div class="ev"><span class="k mono">Detection</span><span class="v">One run diverged from the pattern and went to review</span><span class="s mono">Raised</span></div>
+    <p class="evnote">Record shape is illustrative. The point is that each stage leaves something a human can read.</p>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <span class="mono">uber/ADR</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>
