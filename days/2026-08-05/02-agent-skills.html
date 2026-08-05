@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>agent-skills — production-grade engineering skills for AI coding agents</title>
+<style>
+:root{
+  --cream:#f6f2ea;
+  --card:#fffdf9;
+  --ink:#231f1a;
+  --ink2:#5d564c;
+  --ink3:#8d8578;
+  --edge:#e6dfd2;
+  --terra:#b6543a;
+  --sage:#5f7a5c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--cream);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+
+.top{padding:24px 0}
+.topin{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink3)}
+.topin b{color:var(--ink);font-weight:600}
+
+.hero{padding:56px 0 22px;display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);gap:60px;align-items:center}
+.heroL{max-width:none}
+.heroL .lede{max-width:42ch}
+.fileCard{background:var(--card);border:1px solid var(--edge);border-radius:14px;box-shadow:0 1px 2px rgba(35,31,26,.05),0 20px 40px -28px rgba(35,31,26,.42);overflow:hidden}
+.fcH{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--edge);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.fcH .dots{display:flex;gap:6px}
+.fcH .dots i{width:9px;height:9px;border-radius:50%;background:var(--edge);display:block}
+.fcB{padding:20px 20px 6px;font-size:13.5px;line-height:1.95}
+.fcB .h{color:var(--terra);font-weight:600}
+.fcB .k{color:var(--sage)}
+.fcB .p{color:var(--ink2)}
+.fcB .c{color:var(--ink3)}
+.fcF{padding:12px 16px;border-top:1px solid var(--edge);margin-top:14px;font-size:11.5px;color:var(--ink3);font-style:italic}
+.pill{
+  display:inline-block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:#efe7da;color:var(--terra);padding:6px 13px;border-radius:100px;margin-bottom:24px;
+}
+h1{margin:0;font-size:50px;line-height:1.07;letter-spacing:-.028em;font-weight:600;max-width:14ch}
+h1 .t{color:var(--terra)}
+.lede{margin:24px 0 0;font-size:17.5px;line-height:1.66;color:var(--ink2);max-width:42ch}
+.cta{margin-top:32px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.b1{
+  background:var(--ink);color:var(--cream);text-decoration:none;font-size:15px;font-weight:500;
+  padding:13px 26px;border-radius:9px;box-shadow:0 1px 2px rgba(35,31,26,.16),0 8px 20px -12px rgba(35,31,26,.4);
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.b1:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(35,31,26,.18),0 14px 26px -14px rgba(35,31,26,.44)}
+.b2{font-size:14.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--edge);padding-bottom:2px}
+.b2:hover{color:var(--terra);border-color:var(--terra)}
+
+.shelf{margin:56px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sk{
+  background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:22px 22px 24px;
+  box-shadow:0 1px 2px rgba(35,31,26,.04),0 14px 28px -24px rgba(35,31,26,.38);
+}
+.sk .tag{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);display:block;margin-bottom:13px}
+.sk h3{margin:0 0 9px;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.sk p{margin:0;font-size:14px;line-height:1.62;color:var(--ink2)}
+.sk .file{
+  margin-top:16px;font-size:11.5px;color:var(--ink3);border-top:1px solid var(--edge);padding-top:12px;
+}
+
+.note{
+  margin:22px 0 0;font-size:12.5px;color:var(--ink3);
+}
+
+.band{margin:56px 0 0;background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:30px 30px 34px}
+.band h2{margin:0 0 8px;font-size:21px;font-weight:600;letter-spacing:-.012em}
+.band p{margin:0 0 22px;font-size:15px;line-height:1.65;color:var(--ink2);max-width:60ch}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.step{padding-right:26px;border-right:1px solid var(--edge)}
+.step:last-child{border-right:0;padding-right:0}
+.step:not(:first-child){padding-left:26px}
+.step .num{
+  width:26px;height:26px;border-radius:50%;background:var(--terra);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;margin-bottom:12px;
+}
+.step h4{margin:0 0 6px;font-size:14.5px;font-weight:600}
+.step p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+.foot{padding:30px 0 46px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink3)}
+
+@media (max-width:900px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:32px;padding:38px 0 12px}
+  .heroL{max-width:none}
+  h1{font-size:36px}
+  .shelf{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:22px}
+  .step{border-right:0;padding-right:0}
+  .step:not(:first-child){padding-left:0;border-top:1px solid var(--edge);padding-top:22px}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <div class="topin">
+    <span class="mono"><b>addyosmani</b> / agent-skills</span>
+    <span class="mono">Skills for AI coding agents</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+   <div class="heroL">
+    <span class="pill">Production-grade</span>
+    <h1>Give your coding agent the habits of a <span class="t">senior engineer.</span></h1>
+    <p class="lede">agent-skills is a set of production-grade engineering skills for AI coding agents. Each skill is a written practice the agent can load and follow, instead of a prompt you rewrite from memory every session.</p>
+    <div class="cta">
+      <a class="b1" href="https://github.com/addyosmani/agent-skills">Browse the skills</a>
+      <a class="b2 mono" href="https://github.com/addyosmani/agent-skills">github.com/addyosmani/agent-skills</a>
+    </div>
+   </div>
+
+   <aside class="fileCard">
+     <div class="fcH mono"><span class="dots"><i></i><i></i><i></i></span><span>SKILL.md</span></div>
+     <div class="fcB mono">
+       <div class="c"># the practice, committed to a file</div>
+       <div><span class="h">name:</span> <span class="p">incremental-refactor</span></div>
+       <div><span class="h">when:</span> <span class="p">changing code with existing tests</span></div>
+       <div>&nbsp;</div>
+       <div class="k">1.</div><div class="p" style="margin-left:18px;margin-top:-28px">read the tests before the implementation</div>
+       <div class="k">2.</div><div class="p" style="margin-left:18px;margin-top:-28px">change one thing, run the suite</div>
+       <div class="k">3.</div><div class="p" style="margin-left:18px;margin-top:-28px">keep the reasoning in the commit body</div>
+     </div>
+     <div class="fcF">File contents are illustrative. The project describes these as production-grade engineering skills.</div>
+   </aside>
+  </section>
+
+  <section class="shelf">
+    <article class="sk">
+      <span class="tag mono">Skill</span>
+      <h3>A practice, written down</h3>
+      <p>Engineering judgment that usually lives in a senior reviewer's head gets committed to a file the agent can read.</p>
+      <p class="file mono">skills/&lt;name&gt;/SKILL.md</p>
+    </article>
+    <article class="sk">
+      <span class="tag mono">Loadable</span>
+      <h3>Read at the moment it applies</h3>
+      <p>The agent pulls the skill when the task calls for it, so the guidance arrives in context rather than in a preamble.</p>
+      <p class="file mono">loaded on demand</p>
+    </article>
+    <article class="sk">
+      <span class="tag mono">Reusable</span>
+      <h3>Same practice, every repo</h3>
+      <p>A skill written once travels to the next project, which is the difference between a habit and a lucky prompt.</p>
+      <p class="file mono">portable across projects</p>
+    </article>
+  </section>
+
+  <p class="note mono">Card structure above is illustrative. The project description defines these as production-grade engineering skills for AI coding agents.</p>
+
+  <section class="band">
+    <h2>Why write the skill down</h2>
+    <p>An agent that gets told the practice once forgets it at the next context boundary. An agent that can read the practice keeps it.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h4>Capture</h4>
+        <p>Write the engineering practice as text, with the reasoning attached, not just the rule.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h4>Load</h4>
+        <p>The agent reads it when the work matches, so the standard is present during the work.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h4>Reuse</h4>
+        <p>The same file applies on the next repository, and improving it improves every future run.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <span class="mono">addyosmani/agent-skills</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>

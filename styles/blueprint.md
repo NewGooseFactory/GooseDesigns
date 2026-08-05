@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-05](../days/2026-08-05/) | [roboflow/supervision](https://github.com/roboflow/supervision) | ink-blue | draw detection output as a drafting sheet with dimension lines instead of a demo screenshot | landed: a schematic names the primitives better than a real frame | [png](../days/2026-08-05/03-supervision.png) |
 | [2026-08-01](../days/2026-08-01/) | [geo-tp/ESP32-Bit-Pirate](https://github.com/geo-tp/ESP32-Bit-Pirate) | hardware-orange | diagram many protocols converging into one web-based console | landed: a broad promise becomes concrete and inspectable | [png](../days/2026-08-01/03-esp32-bit-pirate.png) |
 | [2026-07-30](../days/2026-07-30/) | [maderix/ANE](https://github.com/maderix/ANE) | research-blue | diagram an unofficial training path while labeling the boundary explicitly | landed: exploration feels rigorous because limits are stated | [png](../days/2026-07-30/03-ane.png) |
 | [2026-07-28](../days/2026-07-28/) | [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit) | governance-blue | draw governance as identity, policy, sandbox, and reliability gates around one agent action | landed: enforcement reads as architecture rather than compliance decoration | [png](../days/2026-07-28/01-agent-governance-toolkit.png) |

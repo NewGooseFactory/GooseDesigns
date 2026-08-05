@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **162 mocks** across **54 days**. Newest first.
+Searchable master index. **165 mocks** across **55 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-05 | Wednesday | [huangruiteng/loopx](https://github.com/huangruiteng/loopx) | hud | signal-amber | show kernel state as an instrument cluster with a held goal and an armed quota gauge | landed: a state kernel is believable when you can see the state | [png](days/2026-08-05/01-loopx.png) | [2026-08-05](days/2026-08-05/) |
+| 2026-08-05 | Wednesday | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | warm-minimal | terracotta | put a SKILL.md card beside the claim so the abstraction has a file | landed: warmth keeps a rigor claim from reading as scolding | [png](days/2026-08-05/02-agent-skills.png) | [2026-08-05](days/2026-08-05/) |
+| 2026-08-05 | Wednesday | [roboflow/supervision](https://github.com/roboflow/supervision) | blueprint | ink-blue | draw detection output as a drafting sheet with dimension lines instead of a demo screenshot | landed: a schematic names the primitives better than a real frame | [png](days/2026-08-05/03-supervision.png) | [2026-08-05](days/2026-08-05/) |
 | 2026-08-04 | Tuesday | [uber/ADR](https://github.com/uber/ADR) | editorial | ink-blue | give an agent security tool the calm of an essay with three disciplines at equal weight | landed: restraint suits a claim about scrutiny | [png](days/2026-08-04/01-adr.png) | [2026-08-04](days/2026-08-04/) |
 | 2026-08-04 | Tuesday | [livekit/agents](https://github.com/livekit/agents) | waveform | signal-coral | draw realtime as a waveform gap between two turns instead of claiming it | landed: the product becomes visible with no benchmark figure | [png](days/2026-08-04/02-livekit-agents.png) | [2026-08-04](days/2026-08-04/) |
 | 2026-08-04 | Tuesday | [gabime/spdlog](https://github.com/gabime/spdlog) | mono-zine | amber | make the library's own output the largest block on the page | landed: a logging library sells itself by showing the lines it writes | [png](days/2026-08-04/03-spdlog.png) | [2026-08-04](days/2026-08-04/) |

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>supervision — reusable computer vision tools</title>
+<style>
+:root{
+  --paper:#eef2f5;
+  --grid:#d7e0e7;
+  --grid2:#c5d2dc;
+  --ink:#14232e;
+  --ink2:#40596b;
+  --ink3:#7a8c9a;
+  --line:#a9bccb;
+  --ink-accent:#1b62a8;
+  --mag:#b03c6e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+    linear-gradient(var(--grid2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid2) 1px,transparent 1px);
+  background-size:20px 20px,20px 20px,100px 100px,100px 100px;
+  opacity:.75;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.sheet{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 40px}
+
+.tb{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink3)}
+.tb b{color:var(--ink-accent);font-weight:700}
+
+.hero{padding:56px 0 40px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:52px;align-items:center}
+.tick{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-accent);margin:0 0 18px}
+h1{margin:0;font-size:50px;line-height:1.14;letter-spacing:-.024em;font-weight:600}
+h1 .u{border-bottom:3px solid var(--mag);padding-bottom:3px;display:inline-block}
+.lede{margin:24px 0 0;font-size:17.5px;line-height:1.66;color:var(--ink2);max-width:44ch}
+.cta{margin-top:30px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--ink-accent);color:#fff;text-decoration:none;font-size:14.5px;padding:12px 24px;border-radius:2px}
+.b1:hover{background:#15507f}
+.b2{font-size:13.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.b2:hover{color:var(--ink-accent);border-color:var(--ink-accent)}
+
+/* annotated frame */
+.frame{position:relative;border:1px solid var(--line);background:#fbfcfd;border-radius:2px;padding:0}
+.fh{display:flex;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+.stage{position:relative;height:264px;background:
+  repeating-linear-gradient(0deg,#f2f6f8 0 19px,#eaf0f4 19px 20px),
+  repeating-linear-gradient(90deg,#f2f6f8 0 19px,#eaf0f4 19px 20px);
+}
+.box{position:absolute;border:2px solid var(--ink-accent);border-radius:1px}
+.box.m{border-color:var(--mag)}
+.box span{
+  position:absolute;top:-19px;left:-2px;background:var(--ink-accent);color:#fff;
+  font-size:9.5px;letter-spacing:.09em;padding:2px 6px;white-space:nowrap;
+}
+.box.m span{background:var(--mag)}
+.trail{position:absolute;height:2px;background:var(--mag);opacity:.42}
+.dim{position:absolute;font-size:9.5px;color:var(--ink3);letter-spacing:.07em}
+.dimline{position:absolute;background:var(--ink3);opacity:.55}
+.fn{padding:10px 14px;border-top:1px solid var(--line);font-size:10.5px;color:var(--ink3);font-style:italic}
+
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.c{padding:26px 28px 32px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:28px}
+.c .n{font-size:10px;letter-spacing:.2em;color:var(--mag);display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c p{margin:0;font-size:14px;line-height:1.62;color:var(--ink2)}
+
+.foot{border-top:1px solid var(--line);padding:18px 0 42px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.08em;color:var(--ink3)}
+
+@media (max-width:980px){
+  .sheet{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:38px 0 28px}
+  h1{font-size:36px}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="tb mono"><span><b>roboflow</b> / supervision</span><span>Reusable computer vision tools</span></div>
+
+  <section class="hero">
+    <div>
+      <p class="tick mono">Drawing 001 &middot; detection utilities</p>
+      <h1>You already wrote this<br><span class="u">box-drawing code</span><br>three times.</h1>
+      <p class="lede">supervision writes your reusable computer vision tools, so the parts every detection project rebuilds by hand come as a library instead of a copied file.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/roboflow/supervision">Open the toolkit</a>
+        <a class="b2 mono" href="https://github.com/roboflow/supervision">github.com/roboflow/supervision</a>
+      </div>
+    </div>
+
+    <div class="frame">
+      <div class="fh mono"><span>Annotated frame</span><span>Illustrative</span></div>
+      <div class="stage">
+        <div class="box" style="left:44px;top:52px;width:150px;height:118px"><span class="mono">detection 01</span></div>
+        <div class="box m" style="left:236px;top:104px;width:120px;height:96px"><span class="mono">tracked id 7</span></div>
+        <div class="box" style="left:372px;top:72px;width:88px;height:80px"><span class="mono">detection 03</span></div>
+
+        <div class="trail" style="left:150px;top:152px;width:90px"></div>
+        <div class="trail" style="left:120px;top:172px;width:60px;opacity:.24"></div>
+
+        <div class="dimline" style="left:44px;top:196px;width:150px;height:1px"></div>
+        <div class="dimline" style="left:44px;top:192px;width:1px;height:9px"></div>
+        <div class="dimline" style="left:193px;top:192px;width:1px;height:9px"></div>
+        <div class="dim mono" style="left:44px;top:202px">box coordinates</div>
+
+        <div class="dimline" style="left:356px;top:104px;width:1px;height:96px"></div>
+        <div class="dim mono" style="left:300px;top:212px">zone edge</div>
+      </div>
+      <p class="fn">Frame is a schematic drawing, not project output. Boxes, tracks, and zones are the kinds of primitive the library covers.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="n mono">A</span>
+      <h3>Reusable, on purpose</h3>
+      <p>The utilities around a detector are the part that gets rewritten most and reviewed least, which is exactly what belongs in a library.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">B</span>
+      <h3>Model agnostic</h3>
+      <p>The tools sit next to whatever detector you picked, so swapping models does not mean rewriting the plumbing.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">C</span>
+      <h3>Drawing is engineering</h3>
+      <p>Boxes, labels, tracks, and zones are how a vision system gets debugged, so they deserve real code.</p>
+    </div>
+  </section>
+
+  <div class="foot mono"><span>roboflow/supervision</span><span>Design study by Goose. Not affiliated with the project.</span></div>
+
+</div>
+</body>
+</html>

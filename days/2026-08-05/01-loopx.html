@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>loopx — loop engineering state kernel</title>
+<style>
+:root{
+  --bg:#080b09;
+  --panel:#0d120f;
+  --grid:#16211b;
+  --line:#1e2c24;
+  --fg:#d6e2da;
+  --fg2:#8ba296;
+  --fg3:#5b6e64;
+  --amber:#ffb43a;
+  --grn:#57d98a;
+  --dim:#2a4436;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px;opacity:.5;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 40px}
+
+.bar{border-bottom:1px solid var(--line);background:rgba(8,11,9,.86)}
+.barin{display:flex;justify-content:space-between;align-items:center;padding:13px 0;font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:var(--fg3)}
+.barin b{color:var(--amber);font-weight:600}
+.stat{display:inline-flex;align-items:center;gap:8px;color:var(--grn)}
+.stat i{width:6px;height:6px;border-radius:50%;background:var(--grn);display:inline-block;box-shadow:0 0 6px var(--grn)}
+
+.hero{padding:66px 0 46px;display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,1fr);gap:56px;align-items:start}
+.kick{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin:0 0 20px}
+h1{margin:0;font-size:56px;line-height:1.06;letter-spacing:-.025em;font-weight:600;max-width:16ch}
+h1 .a{color:var(--amber)}
+.lede{margin:26px 0 0;font-size:17.5px;line-height:1.66;color:var(--fg2);max-width:50ch}
+.lede b{color:var(--fg);font-weight:500}
+.agn{margin:22px 0 0;font-size:13px;color:var(--fg3);letter-spacing:.02em}
+.agn span{color:var(--fg2);border:1px solid var(--line);padding:4px 9px;margin-right:6px;display:inline-block;margin-bottom:6px}
+.cta{margin-top:32px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--amber);color:#160e00;text-decoration:none;font-size:14.5px;font-weight:600;padding:12px 24px;border-radius:2px}
+.b1:hover{filter:brightness(1.1)}
+.b2{font-size:13.5px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.b2:hover{color:var(--amber);border-color:var(--amber)}
+
+/* instrument cluster */
+.inst{border:1px solid var(--line);background:var(--panel);border-radius:2px}
+.ih{display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3)}
+.gauge{padding:18px 16px;border-bottom:1px solid var(--line)}
+.gauge:last-of-type{border-bottom:0}
+.glabel{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);margin-bottom:10px}
+.glabel b{color:var(--fg);font-weight:500;letter-spacing:.02em;font-size:12.5px}
+.seg{display:flex;gap:3px;height:9px}
+.seg i{flex:1;background:var(--dim);border-radius:1px;display:block}
+.seg i.on{background:var(--grn)}
+.seg i.warn{background:var(--amber)}
+.gnote{margin-top:9px;font-size:11px;color:var(--fg3);line-height:1.5}
+
+.todo{padding:16px}
+.trow{display:grid;grid-template-columns:22px 1fr 78px;gap:10px;align-items:center;font-size:12.5px;padding:7px 0;border-bottom:1px solid var(--line)}
+.trow:last-child{border-bottom:0}
+.trow .k{color:var(--grn)}
+.trow .k.pend{color:var(--fg3)}
+.trow .t{color:var(--fg2)}
+.trow .t.done{color:var(--fg)}
+.trow .s{text-align:right;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg3)}
+.trow .s.ok{color:var(--grn)}
+.ifoot{padding:11px 16px;border-top:1px solid var(--line);font-size:10.5px;color:var(--fg3);font-style:italic}
+
+.four{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
+.c{padding:26px 24px 32px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:24px}
+.c .n{font-size:10px;letter-spacing:.2em;color:var(--amber);display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:15px;font-weight:600;letter-spacing:-.005em}
+.c p{margin:0;font-size:13.5px;line-height:1.6;color:var(--fg2)}
+
+.foot{border-top:1px solid var(--line);padding:20px 0 42px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;color:var(--fg3);letter-spacing:.08em}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:36px;padding:44px 0 32px}
+  h1{font-size:38px}
+  .four{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap barin mono">
+    <span><b>huangruiteng</b> / loopx</span>
+    <span class="stat"><i></i>Loop kernel online</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="kick mono">Loop engineering state kernel</p>
+      <h1>The agent restarts. The <span class="a">goal does not.</span></h1>
+      <p class="lede">loopx is a lightweight loop engineering state kernel for long-running AI agent teams. It holds <b>durable goals</b>, <b>executable todos</b>, <b>evidence logs</b>, and <b>verifiable handoffs</b> outside any single agent process, so the loop survives a context reset.</p>
+
+      <p class="agn mono">
+        Agent-loop agnostic:
+        <span>Codex</span><span>Claude Code</span><span>other coding agents</span>
+      </p>
+
+      <div class="cta">
+        <a class="b1" href="https://github.com/huangruiteng/loopx">Read the kernel</a>
+        <a class="b2 mono" href="https://github.com/huangruiteng/loopx">github.com/huangruiteng/loopx</a>
+      </div>
+    </div>
+
+    <aside class="inst">
+      <div class="ih mono"><span>Kernel state</span><span>Illustrative</span></div>
+
+      <div class="gauge">
+        <div class="glabel mono"><span>Durable goal</span><span>held</span></div>
+        <div class="glabel"><b>Ship the ingest rewrite behind a flag</b></div>
+        <div class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+        <p class="gnote">Survives agent restart. The kernel owns it, not the session.</p>
+      </div>
+
+      <div class="gauge">
+        <div class="glabel mono"><span>Quota</span><span>auto-wake armed</span></div>
+        <div class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="warn"></i><i></i><i></i></div>
+        <p class="gnote">When the budget refills, the loop wakes itself and resumes.</p>
+      </div>
+
+      <div class="todo">
+        <div class="glabel mono" style="margin-bottom:12px"><span>Executable todos</span><span>evidence logged</span></div>
+        <div class="trow"><span class="k mono">[x]</span><span class="t done">migrate the parser module</span><span class="s ok mono">verified</span></div>
+        <div class="trow"><span class="k mono">[x]</span><span class="t done">add the fallback path</span><span class="s ok mono">verified</span></div>
+        <div class="trow"><span class="k pend mono">[ ]</span><span class="t">wire the flag into config</span><span class="s mono">queued</span></div>
+        <div class="trow"><span class="k pend mono">[ ]</span><span class="t">hand off with the evidence log</span><span class="s mono">queued</span></div>
+      </div>
+
+      <div class="ifoot">Panel content is illustrative. The kernel primitives named here come from the project description.</div>
+    </aside>
+  </section>
+
+  <section class="four">
+    <div class="c">
+      <span class="n mono">01</span>
+      <h3>Durable goals</h3>
+      <p>The objective lives in the kernel, so losing a session does not lose what the team was trying to do.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">02</span>
+      <h3>Quota-aware auto-wake</h3>
+      <p>The loop knows when it ran out of budget and when it can pick the work back up.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">03</span>
+      <h3>Evidence logs</h3>
+      <p>Each step leaves a record, which is what makes the next agent able to trust the last one.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">04</span>
+      <h3>Verifiable handoffs</h3>
+      <p>Work moves between agents with something checkable attached instead of a summary.</p>
+    </div>
+  </section>
+</main>
+
+<div class="wrap foot mono">
+  <span>huangruiteng/loopx</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</div>
+
+</body>
+</html>
