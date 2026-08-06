@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TencentDB Agent Memory - four governed memory assets</title>
+<style>
+:root{
+  --linen:#f3f0e9;
+  --card:#fdfcf9;
+  --ink:#1d2320;
+  --ink2:#4f5a54;
+  --ink3:#8b968f;
+  --edge:#ddd7ca;
+  --edge2:#c6bfae;
+  --teal:#1f6f63;
+  --clay:#a35a3c;
+  --slate:#3f5a72;
+  --olive:#6b7433;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--linen);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1140px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--edge2)}
+.topin{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3)}
+.topin b{color:var(--teal);font-weight:700}
+
+.hero{padding:60px 0 34px;max-width:64ch}
+.kick{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);margin:0 0 20px}
+h1{margin:0;font-size:52px;line-height:1.06;letter-spacing:-.026em;font-weight:650;max-width:19ch}
+h1 .t{color:var(--teal)}
+.lede{margin:24px 0 0;font-size:18px;line-height:1.66;color:var(--ink2);max-width:56ch}
+.lede b{color:var(--ink);font-weight:600}
+.cta{margin-top:30px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--teal);color:#f4faf8;text-decoration:none;font-size:14.5px;font-weight:600;padding:12px 25px;border-radius:4px}
+.b1:hover{background:#175a50}
+.b2{font-size:13.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--edge2);padding-bottom:2px}
+.b2:hover{color:var(--teal);border-color:var(--teal)}
+
+/* ledger of four assets */
+.ledger{margin:46px 0 0;border:1px solid var(--edge2);background:var(--card);border-radius:4px;overflow:hidden}
+.lh{display:grid;grid-template-columns:30px 1.05fr 1.55fr 128px;gap:16px;padding:12px 18px;border-bottom:1px solid var(--edge2);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink3);background:#f7f4ed}
+.lr{display:grid;grid-template-columns:30px 1.05fr 1.55fr 128px;gap:16px;padding:16px 18px;border-bottom:1px solid var(--edge);align-items:center}
+.lr:last-of-type{border-bottom:0}
+.lr .mk{width:12px;height:12px;border-radius:2px;display:block}
+.lr .nm{font-size:16px;font-weight:600;letter-spacing:-.008em}
+.lr .ds{font-size:14px;line-height:1.55;color:var(--ink2)}
+.lr .gv{text-align:right;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.lr .gv b{display:block;color:var(--teal);font-size:11px;letter-spacing:.1em;font-weight:600}
+.lf{padding:13px 18px;border-top:1px solid var(--edge2);font-size:11.5px;color:var(--ink3);font-style:italic;background:#f7f4ed}
+
+.three{margin:44px 0 0;border-top:1px solid var(--edge2);display:grid;grid-template-columns:repeat(3,1fr)}
+.c{padding:26px 28px 32px 0;border-right:1px solid var(--edge)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:28px}
+.c .n{font-size:10px;letter-spacing:.19em;text-transform:uppercase;color:var(--clay);display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c p{margin:0;font-size:14px;line-height:1.62;color:var(--ink2)}
+
+.foot{border-top:1px solid var(--edge2);margin-top:44px;padding:18px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--ink3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  h1{font-size:36px;max-width:none}
+  .hero{max-width:none;padding:44px 0 26px}
+  .lh{display:none}
+  .lr{grid-template-columns:20px 1fr;gap:12px;row-gap:6px}
+  .lr .ds{grid-column:2}
+  .lr .gv{grid-column:2;text-align:left}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--edge);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topin mono">
+    <span><b>TencentCloud</b> / TencentDB-Agent-Memory</span>
+    <span>Team-level memory hub</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="kick mono">Four reusable memory assets</p>
+    <h1>Your team's context is already written. It is just <span class="t">not an asset yet.</span></h1>
+    <p class="lede">TencentDB Agent Memory is a team-level memory hub for AI agents. It turns conversations, docs, and code into <b>four reusable memory assets</b> that are governed, shared, and equipped across agents and frameworks.</p>
+    <div class="cta">
+      <a class="b1" href="https://github.com/TencentCloud/TencentDB-Agent-Memory">Read the project</a>
+      <a class="b2 mono" href="https://github.com/TencentCloud/TencentDB-Agent-Memory">github.com/TencentCloud/TencentDB-Agent-Memory</a>
+    </div>
+  </section>
+
+  <section class="ledger">
+    <div class="lh mono"><span></span><span>Asset</span><span>Made from</span><span>Status</span></div>
+
+    <div class="lr">
+      <span class="mk" style="background:var(--teal)"></span>
+      <span class="nm">Chat Memory</span>
+      <span class="ds">Conversations the team already had, kept where the next agent can find them.</span>
+      <span class="gv mono">governed<b>shared</b></span>
+    </div>
+
+    <div class="lr">
+      <span class="mk" style="background:var(--clay)"></span>
+      <span class="nm">Skill</span>
+      <span class="ds">Practice extracted from the work, equipped across agents and frameworks.</span>
+      <span class="gv mono">governed<b>equipped</b></span>
+    </div>
+
+    <div class="lr">
+      <span class="mk" style="background:var(--slate)"></span>
+      <span class="nm">LLM-Wiki</span>
+      <span class="ds">Docs turned into something a model can read without a fresh ingest every time.</span>
+      <span class="gv mono">governed<b>shared</b></span>
+    </div>
+
+    <div class="lr">
+      <span class="mk" style="background:var(--olive)"></span>
+      <span class="nm">Code-Graph</span>
+      <span class="ds">The codebase as structure, so questions about it stop being a grep.</span>
+      <span class="gv mono">governed<b>shared</b></span>
+    </div>
+
+    <p class="lf">Asset names and the governed, shared, equipped wording come from the project description. Row layout is a design choice.</p>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="n mono">Team-level</span>
+      <h3>Memory that is not per-agent</h3>
+      <p>One hub the team owns, so a second agent does not start from zero on work the first one already did.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">Governed</span>
+      <h3>Someone is accountable</h3>
+      <p>Memory that can be shared across a team needs rules about what goes in and who can reach it.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">Cross-framework</span>
+      <h3>Assets outlive the tool</h3>
+      <p>The four assets are equipped across agents and frameworks, so switching stacks does not throw the memory away.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot mono">
+  <span>TencentCloud/TencentDB-Agent-Memory</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>

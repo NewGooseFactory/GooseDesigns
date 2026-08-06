@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **165 mocks** across **55 days**. Newest first.
+Searchable master index. **168 mocks** across **56 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-06 | Thursday | [cloudflare/computer](https://github.com/cloudflare/computer) | terminal-dark | electric-cyan | take the five-word description literally and draw the desktop mid-task | landed: drawing the artifact keeps a one-line README honest | [png](days/2026-08-06/01-computer.png) | [2026-08-06](days/2026-08-06/) |
+| 2026-08-06 | Thursday | [obra/superpowers](https://github.com/obra/superpowers) | swiss | signal-red | put the weight on methodology and set a framework alone against it | landed: the grid gives the comparison somewhere to sit | [png](days/2026-08-06/02-superpowers.png) | [2026-08-06](days/2026-08-06/) |
+| 2026-08-06 | Thursday | [TencentCloud/TencentDB-Agent-Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) | ledger | linen-teal | treat the four memory assets as a ruled inventory with governed status | landed: a ledger implies accountability where a card grid does not | [png](days/2026-08-06/03-tencentdb-agent-memory.png) | [2026-08-06](days/2026-08-06/) |
 | 2026-08-05 | Wednesday | [huangruiteng/loopx](https://github.com/huangruiteng/loopx) | hud | signal-amber | show kernel state as an instrument cluster with a held goal and an armed quota gauge | landed: a state kernel is believable when you can see the state | [png](days/2026-08-05/01-loopx.png) | [2026-08-05](days/2026-08-05/) |
 | 2026-08-05 | Wednesday | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | warm-minimal | terracotta | put a SKILL.md card beside the claim so the abstraction has a file | landed: warmth keeps a rigor claim from reading as scolding | [png](days/2026-08-05/02-agent-skills.png) | [2026-08-05](days/2026-08-05/) |
 | 2026-08-05 | Wednesday | [roboflow/supervision](https://github.com/roboflow/supervision) | blueprint | ink-blue | draw detection output as a drafting sheet with dimension lines instead of a demo screenshot | landed: a schematic names the primitives better than a real frame | [png](days/2026-08-05/03-supervision.png) | [2026-08-05](days/2026-08-05/) |

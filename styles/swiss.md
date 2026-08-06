@@ -1,9 +1,10 @@
 ﻿# Style — swiss
 
-9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-06](../days/2026-08-06/) | [obra/superpowers](https://github.com/obra/superpowers) | signal-red | put the weight on methodology and set a framework alone against it | landed: the grid gives the comparison somewhere to sit | [png](../days/2026-08-06/02-superpowers.png) |
 | [2026-08-02](../days/2026-08-02/) | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | signal-red | put the access claim in the largest type and let a source rail carry breadth | landed: promise stated once, proven underneath | [png](../days/2026-08-02/01-agent-reach.png) |
 | [2026-07-29](../days/2026-07-29/) | [1jehuang/jcode](https://github.com/1jehuang/jcode) | signal-red | make a resource constraint the headline claim with memory budget as primary commitment | landed: efficiency reads as engineering intent | [png](../days/2026-07-29/01-jcode.png) |
 | [2026-07-21](../days/2026-07-21/) | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | signal-red | present specialized agents as an accountable roster of roles and deliverables | landed: specialization feels operational and outcome-driven | [png](../days/2026-07-21/02-agency-agents.png) |

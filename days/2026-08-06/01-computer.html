@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cloudflare/computer - give your agent a computer</title>
+<style>
+:root{
+  --bg:#07090c;
+  --panel:#0c1015;
+  --chrome:#131a21;
+  --line:#1c262f;
+  --fg:#e3e9ee;
+  --fg2:#8f9fac;
+  --fg3:#5c6b77;
+  --cyan:#3fd8e8;
+  --dimcy:#154149;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3)}
+.topin b{color:var(--fg);font-weight:600}
+.badge{display:inline-flex;align-items:center;gap:8px;color:var(--cyan)}
+.badge i{width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block;box-shadow:0 0 7px var(--cyan)}
+
+.hero{padding:70px 0 46px;display:grid;grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);gap:56px;align-items:center}
+.kick{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);margin:0 0 20px}
+h1{margin:0;font-size:58px;line-height:1.04;letter-spacing:-.032em;font-weight:650;max-width:13ch}
+h1 .c{color:var(--cyan)}
+.lede{margin:26px 0 0;font-size:18px;line-height:1.66;color:var(--fg2);max-width:44ch}
+.lede b{color:var(--fg);font-weight:500}
+.cta{margin-top:32px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--cyan);color:#04181c;text-decoration:none;font-size:14.5px;font-weight:650;padding:12px 25px;border-radius:3px}
+.b1:hover{filter:brightness(1.1)}
+.b2{font-size:13.5px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.b2:hover{color:var(--cyan);border-color:var(--cyan)}
+
+/* the machine */
+.machine{border:1px solid var(--line);background:var(--panel);border-radius:6px;overflow:hidden}
+.mchrome{display:flex;align-items:center;gap:14px;padding:9px 14px;background:var(--chrome);border-bottom:1px solid var(--line)}
+.dots{display:flex;gap:6px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#26323c;display:block}
+.mtitle{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3);flex:1}
+.mtag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid var(--dimcy);padding:3px 8px;border-radius:2px}
+
+.desktop{position:relative;height:272px;background:
+  repeating-linear-gradient(0deg,#0a0e12 0 23px,#0b1015 23px 24px),
+  repeating-linear-gradient(90deg,#0a0e12 0 23px,#0b1015 23px 24px);
+  padding:16px}
+.win{position:absolute;border:1px solid var(--line);background:#0e141a;border-radius:3px;overflow:hidden}
+.wh{display:flex;justify-content:space-between;padding:6px 9px;background:#121a21;border-bottom:1px solid var(--line);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg3)}
+.wb{padding:9px;font-size:11px;line-height:1.7;color:var(--fg2)}
+.wb .u{color:var(--fg)}
+.wb .g{color:var(--cyan)}
+.wb .row{border-bottom:1px solid #131c23;padding:3px 0}
+.wb .row:last-child{border-bottom:0}
+
+.cursor{
+  position:absolute;width:0;height:0;
+  border-left:8px solid var(--cyan);border-top:5px solid transparent;border-bottom:9px solid transparent;
+  filter:drop-shadow(0 0 5px rgba(63,216,232,.6));
+}
+
+.mfoot{padding:11px 14px;border-top:1px solid var(--line);font-size:10.5px;color:var(--fg3);font-style:italic;background:var(--panel)}
+
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.c3{padding:28px 28px 34px 0;border-right:1px solid var(--line)}
+.c3:last-child{border-right:0;padding-right:0}
+.c3:not(:first-child){padding-left:28px}
+.c3 .n{font-size:10px;letter-spacing:.2em;color:var(--cyan);display:block;margin-bottom:12px}
+.c3 h3{margin:0 0 9px;font-size:16px;font-weight:600;letter-spacing:-.008em}
+.c3 p{margin:0;font-size:14px;line-height:1.62;color:var(--fg2)}
+
+.foot{border-top:1px solid var(--line);padding:20px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.08em;color:var(--fg3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:36px;padding:46px 0 32px}
+  h1{font-size:38px;max-width:none}
+  .desktop{height:250px}
+  .three{grid-template-columns:1fr}
+  .c3{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c3:not(:first-child){padding-left:0}
+  .c3:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topin mono">
+    <span><b>cloudflare</b> / computer</span>
+    <span class="badge"><i></i>Agent workstation</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="kick mono">Give your agent a computer</p>
+      <h1>Stop handing it an <span class="c">API. Hand it a desktop.</span></h1>
+      <p class="lede">cloudflare/computer gives your agent a computer. Instead of wiring one integration per service, the agent gets a machine and uses <b>the same software a person would</b>.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/cloudflare/computer">Read the project</a>
+        <a class="b2 mono" href="https://github.com/cloudflare/computer">github.com/cloudflare/computer</a>
+      </div>
+    </div>
+
+    <div class="machine">
+      <div class="mchrome">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="mtitle mono">Agent session</span>
+        <span class="mtag mono">Illustrative</span>
+      </div>
+
+      <div class="desktop">
+        <div class="win" style="left:14px;top:14px;width:228px">
+          <div class="wh mono"><span>terminal</span><span>1</span></div>
+          <div class="wb mono">
+            <div class="row"><span class="g">$</span> <span class="u">git clone repo</span></div>
+            <div class="row"><span class="g">$</span> <span class="u">npm test</span></div>
+            <div class="row">14 passing, 1 failing</div>
+          </div>
+        </div>
+
+        <div class="win" style="left:250px;top:36px;width:246px">
+          <div class="wh mono"><span>browser</span><span>2</span></div>
+          <div class="wb mono">
+            <div class="row"><span class="u">docs.example.dev/errors</span></div>
+            <div class="row">reading the failure code</div>
+            <div class="row"><span class="g">found:</span> config flag missing</div>
+          </div>
+        </div>
+
+        <div class="win" style="left:92px;top:150px;width:286px">
+          <div class="wh mono"><span>editor</span><span>3</span></div>
+          <div class="wb mono">
+            <div class="row"><span class="u">config/app.toml</span></div>
+            <div class="row"><span class="g">+</span> <span class="u">strict_parse = true</span></div>
+            <div class="row">saved, re-running the suite</div>
+          </div>
+        </div>
+
+        <div class="cursor" style="left:302px;top:198px"></div>
+      </div>
+
+      <p class="mfoot">Desktop content is illustrative. The project description is one line: give your agent a computer.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c3">
+      <span class="n mono">01</span>
+      <h3>One surface, not fifty</h3>
+      <p>A computer covers whatever the agent needs to touch, so capability stops being a list of integrations you maintain.</p>
+    </div>
+    <div class="c3">
+      <span class="n mono">02</span>
+      <h3>The software already exists</h3>
+      <p>Terminal, browser, editor. The tools a person uses to do the work are the tools the agent gets to use.</p>
+    </div>
+    <div class="c3">
+      <span class="n mono">03</span>
+      <h3>Watchable by default</h3>
+      <p>Work done on a screen is work you can look at, which makes review a matter of watching rather than reconstructing.</p>
+    </div>
+  </section>
+</main>
+
+<div class="wrap foot mono">
+  <span>cloudflare/computer</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</div>
+
+</body>
+</html>

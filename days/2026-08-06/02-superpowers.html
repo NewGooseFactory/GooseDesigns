@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>obra/superpowers - a methodology that works</title>
+<style>
+:root{
+  --paper:#ffffff;
+  --ink:#111111;
+  --ink2:#4a4a4a;
+  --ink3:#8a8a8a;
+  --rule:#111111;
+  --hair:#d8d8d8;
+  --red:#e02718;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"Helvetica Neue",Helvetica,Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.grid{max-width:1200px;margin:0 auto;padding:0 48px}
+
+.mast{border-bottom:2px solid var(--rule);padding:20px 0}
+.mastin{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:baseline}
+.mastin .a{grid-column:1 / span 5;font-size:14px;font-weight:700;letter-spacing:-.01em}
+.mastin .b{grid-column:9 / span 4;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);text-align:right}
+
+.hero{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:64px 0 0}
+.num{grid-column:1 / span 2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);padding-top:12px}
+.head{grid-column:3 / span 9}
+h1{
+  margin:0;font-size:92px;line-height:.92;letter-spacing:-.045em;font-weight:700;
+}
+h1 .r{color:var(--red)}
+.sub{
+  grid-column:3 / span 5;margin:34px 0 0;font-size:19px;line-height:1.55;color:var(--ink2);
+}
+.sub b{color:var(--ink);font-weight:600}
+.aside{
+  grid-column:9 / span 4;margin:34px 0 0;font-size:13px;line-height:1.65;color:var(--ink3);
+  border-left:2px solid var(--red);padding-left:14px;
+}
+.cta{grid-column:3 / span 9;margin:38px 0 0;display:flex;gap:0;flex-wrap:wrap}
+.b1{background:var(--ink);color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:14px 28px;letter-spacing:.02em}
+.b1:hover{background:var(--red)}
+.b2{border:1px solid var(--hair);border-left:0;padding:14px 24px;font-size:13.5px;color:var(--ink2);text-decoration:none}
+.b2:hover{color:var(--red);border-color:var(--red)}
+
+.rule{border-top:2px solid var(--rule);margin-top:62px}
+
+.split{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:38px 0 0}
+.lbl{grid-column:1 / span 2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+.two{grid-column:3 / span 10;display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--hair)}
+.col{padding:24px 26px 28px}
+.col:first-child{border-right:1px solid var(--hair)}
+.col h3{margin:0 0 14px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.col.f h3{color:var(--ink3)}
+.col.s h3{color:var(--red)}
+.col ul{margin:0;padding:0;list-style:none}
+.col li{font-size:14.5px;line-height:1.5;color:var(--ink2);padding:9px 0;border-bottom:1px solid var(--hair);display:grid;grid-template-columns:20px 1fr;gap:10px}
+.col li:last-child{border-bottom:0}
+.col li span{color:var(--ink3);font-size:12px;padding-top:2px}
+.col.s li span{color:var(--red)}
+.col.s li{color:var(--ink)}
+
+.steps{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:46px 0 0}
+.stepsL{grid-column:1 / span 2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+.stepsR{grid-column:3 / span 10;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--hair)}
+.st{padding:22px 26px 26px 0;border-right:1px solid var(--hair)}
+.st:last-child{border-right:0;padding-right:0}
+.st:not(:first-child){padding-left:26px}
+.st .k{font-size:34px;font-weight:700;letter-spacing:-.03em;color:var(--red);display:block;margin-bottom:8px;line-height:1}
+.st h4{margin:0 0 7px;font-size:15px;font-weight:700}
+.st p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+.foot{border-top:2px solid var(--rule);margin-top:56px;padding:18px 0 46px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--ink3);letter-spacing:.05em}
+
+@media (max-width:1000px){
+  .grid{padding:0 22px}
+  h1{font-size:44px}
+  .num,.head,.sub,.aside,.cta,.lbl,.two,.stepsL,.stepsR{grid-column:1 / span 12}
+  .num,.lbl,.stepsL{padding-bottom:12px}
+  .two{grid-template-columns:1fr}
+  .col:first-child{border-right:0;border-bottom:1px solid var(--hair)}
+  .stepsR{grid-template-columns:1fr}
+  .st{border-right:0;border-bottom:1px solid var(--hair);padding:20px 0}
+  .st:not(:first-child){padding-left:0}
+  .st:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="grid mastin">
+    <span class="a mono">obra / superpowers</span>
+    <span class="b mono">Agentic skills framework</span>
+  </div>
+</header>
+
+<main class="grid">
+  <section class="hero">
+    <div class="num mono">01<br>Method</div>
+    <div class="head">
+      <h1>A framework is easy.<br>A <span class="r">methodology</span><br>is the hard part.</h1>
+    </div>
+    <p class="sub">superpowers is an agentic skills framework and a software development methodology <b>that works</b>. The skills are the delivery mechanism. The method is the thing being delivered.</p>
+    <p class="aside">Most agent tooling ships capability and leaves the process to the operator. This project ships both and says so in one sentence.</p>
+    <div class="cta">
+      <a class="b1" href="https://github.com/obra/superpowers">Read the methodology</a>
+      <a class="b2 mono" href="https://github.com/obra/superpowers">github.com/obra/superpowers</a>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="split">
+    <div class="lbl mono">02<br>Distinction</div>
+    <div class="two">
+      <div class="col f">
+        <h3>A framework alone</h3>
+        <ul>
+          <li><span class="mono">01</span>Gives the agent more things it can do</li>
+          <li><span class="mono">02</span>Leaves the order of work to the prompt</li>
+          <li><span class="mono">03</span>Gets rebuilt from memory each session</li>
+        </ul>
+      </div>
+      <div class="col s">
+        <h3>A methodology</h3>
+        <ul>
+          <li><span class="mono">01</span>Says which thing to do next, and why</li>
+          <li><span class="mono">02</span>Survives the operator changing</li>
+          <li><span class="mono">03</span>Can be judged by whether it worked</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="stepsL mono">03<br>Claim</div>
+    <div class="stepsR">
+      <div class="st">
+        <span class="k">S</span>
+        <h4>Skills</h4>
+        <p>Written capability the agent can load, which is how the method reaches the work.</p>
+      </div>
+      <div class="st">
+        <span class="k">M</span>
+        <h4>Method</h4>
+        <p>A development process the framework is built to carry, rather than an afterthought.</p>
+      </div>
+      <div class="st">
+        <span class="k">W</span>
+        <h4>Works</h4>
+        <p>The project puts that word in its own description, which is a claim you can hold it to.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="grid foot mono">
+  <span>obra/superpowers</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>
