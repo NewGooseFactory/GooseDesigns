@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>authentik - the authentication glue you need</title>
+<style>
+:root{
+  --bg:#06070a;
+  --panel:#0a0c11;
+  --line:#171b24;
+  --line2:#222836;
+  --fg:#dfe4ec;
+  --fg2:#8b95a6;
+  --fg3:#586274;
+  --neon:#ff3d81;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3)}
+.topin b{color:var(--fg);font-weight:600}
+
+.hero{padding:74px 0 52px;text-align:center}
+.kick{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--fg3);margin:0 0 26px}
+h1{margin:0;font-size:64px;line-height:1.04;letter-spacing:-.032em;font-weight:650;max-width:16ch;margin-left:auto;margin-right:auto}
+h1 .n{color:var(--neon)}
+.lede{margin:26px auto 0;font-size:18px;line-height:1.65;color:var(--fg2);max-width:52ch}
+.cta{margin-top:32px;display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap}
+.b1{background:var(--neon);color:#12030a;text-decoration:none;font-size:14.5px;font-weight:650;padding:12px 26px;border-radius:3px}
+.b1:hover{filter:brightness(1.1)}
+.b2{font-size:13.5px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:2px}
+.b2:hover{color:var(--neon);border-color:var(--neon)}
+
+/* the glue diagram */
+.diagram{margin:20px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:38px 0}
+.dh{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3);margin-bottom:30px}
+.rows{display:grid;grid-template-columns:1fr 168px 1fr;gap:0;align-items:center}
+.side{display:flex;flex-direction:column;gap:11px}
+.node{
+  border:1px solid var(--line2);background:var(--panel);border-radius:3px;
+  padding:12px 15px;font-size:13px;color:var(--fg2);display:flex;justify-content:space-between;align-items:center;
+}
+.node b{color:var(--fg);font-weight:500}
+.node span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3)}
+.side.right .node{border-color:var(--line2)}
+
+.hub{display:flex;flex-direction:column;align-items:center;gap:0;padding:0 14px}
+.hubbox{
+  border:1px solid var(--neon);border-radius:4px;padding:20px 14px;text-align:center;width:100%;
+  background:rgba(255,61,129,.05);
+}
+.hubbox .t{font-size:16px;font-weight:650;letter-spacing:-.01em;color:var(--fg);display:block}
+.hubbox .s{margin-top:7px;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--neon);display:block}
+.wires{display:flex;justify-content:space-between;width:100%;margin-top:0}
+.dn{padding:0 0 0 0}
+.dnote{margin-top:28px;font-size:11px;color:var(--fg3);font-style:italic;text-align:center}
+
+.three{display:grid;grid-template-columns:repeat(3,1fr);padding:0}
+.c{padding:30px 30px 36px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:30px}
+.c .n{font-size:10px;letter-spacing:.19em;text-transform:uppercase;color:var(--fg3);display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c p{margin:0;font-size:14px;line-height:1.62;color:var(--fg2)}
+
+.foot{border-top:1px solid var(--line);padding:18px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.07em;color:var(--fg3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  h1{font-size:38px}
+  .rows{grid-template-columns:1fr;gap:20px}
+  .hub{padding:0}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topin mono">
+    <span><b>goauthentik</b> / authentik</span>
+    <span>Identity provider</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="kick mono">Open source identity provider</p>
+    <h1>The authentication <span class="n">glue</span> you need.</h1>
+    <p class="lede">Every service speaks a slightly different dialect of login. authentik sits in the middle and speaks all of them, so the wiring stops being a per-application project.</p>
+    <div class="cta">
+      <a class="b1" href="https://github.com/goauthentik/authentik">Read the project</a>
+      <a class="b2 mono" href="https://github.com/goauthentik/authentik">github.com/goauthentik/authentik</a>
+    </div>
+  </section>
+
+  <section class="diagram">
+    <div class="wrap dh mono" style="padding:0">
+      <span>What sits on each side</span>
+      <span>Illustrative</span>
+    </div>
+
+    <div class="rows">
+      <div class="side left">
+        <div class="node mono"><b>Directory</b><span>source</span></div>
+        <div class="node mono"><b>Social login</b><span>source</span></div>
+        <div class="node mono"><b>Existing user store</b><span>source</span></div>
+      </div>
+
+      <div class="hub">
+        <div class="hubbox">
+          <span class="t">authentik</span>
+          <span class="s mono">the glue</span>
+        </div>
+      </div>
+
+      <div class="side right">
+        <div class="node mono"><b>Internal apps</b><span>consumer</span></div>
+        <div class="node mono"><b>SaaS tools</b><span>consumer</span></div>
+        <div class="node mono"><b>Infrastructure</b><span>consumer</span></div>
+      </div>
+    </div>
+
+    <p class="dnote">Node labels are illustrative categories. The project description is one line: the authentication glue you need.</p>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="n mono">01</span>
+      <h3>Glue is a real category</h3>
+      <p>The hard part of authentication is rarely one protocol. It is the count of pairs you have to connect and keep working.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">02</span>
+      <h3>One place to change it</h3>
+      <p>When policy lives in the middle, updating who can reach what is one edit rather than a sweep across every app.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">03</span>
+      <h3>Self-hosted</h3>
+      <p>Identity is the system everything else trusts, which is a reasonable thing to want to run yourself.</p>
+    </div>
+  </section>
+</main>
+
+<div class="wrap foot mono">
+  <span>goauthentik/authentik</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</div>
+
+</body>
+</html>

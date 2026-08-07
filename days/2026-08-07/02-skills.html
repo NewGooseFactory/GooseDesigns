@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mattpocock/skills - skills for real engineers</title>
+<style>
+:root{
+  --paper:#fcfbf8;
+  --ink:#16171a;
+  --ink2:#4b4e55;
+  --ink3:#858992;
+  --rule:#e2e0da;
+  --rule2:#c9c6be;
+  --ink-accent:#2f4b8c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1160px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--rule)}
+.topin{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;font-size:12.5px;color:var(--ink3)}
+.topin b{color:var(--ink);font-weight:600}
+
+.hero{padding:70px 0 18px;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:60px;align-items:center}
+.heroL{max-width:none}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-accent);margin:0 0 24px;white-space:nowrap}
+h1{margin:0;font-weight:400;font-size:58px;line-height:1.05;letter-spacing:-.018em;max-width:12ch}
+h1 em{font-style:italic;color:var(--ink-accent)}
+.lede{margin:28px 0 0;font-size:18.5px;line-height:1.64;color:var(--ink2);max-width:40ch}
+.lede b{color:var(--ink);font-weight:600}
+.cta{margin-top:34px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;padding:13px 26px;border-radius:2px;border:1px solid var(--ink)}
+.b1:hover{background:var(--ink-accent);border-color:var(--ink-accent)}
+.b2{font-size:14.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule2);padding-bottom:2px}
+.b2:hover{color:var(--ink-accent);border-color:var(--ink-accent)}
+
+.pull{
+  margin:58px 0 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:32px 0;display:grid;grid-template-columns:160px 1fr;gap:34px;align-items:start;
+}
+.pull .lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);padding-top:8px}
+.pull p{margin:0;font-size:26px;line-height:1.42;letter-spacing:-.012em;max-width:26ch}
+.pull p span{color:var(--ink-accent)}
+
+.body{margin:48px 0 0;display:grid;grid-template-columns:160px 1fr;gap:34px;align-items:start}
+.body .lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);padding-top:5px}
+.cols{columns:2;column-gap:44px}
+.cols p{margin:0 0 17px;font-size:15.5px;line-height:1.68;color:var(--ink2);break-inside:avoid}
+.cols p:last-child{margin-bottom:0}
+.cols b{color:var(--ink);font-weight:600}
+
+.dir{margin:48px 0 0;display:grid;grid-template-columns:160px 1fr;gap:34px;align-items:start}
+.dir .lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);padding-top:5px}
+.tree{border:1px solid var(--rule2);background:#fff;border-radius:2px;overflow:hidden}
+.th{display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--rule);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);background:#f7f5f1}
+.tb{padding:15px 16px;font-size:13.5px;line-height:2.05;color:var(--ink2)}
+.tb .d{color:var(--ink-accent)}
+.tb .f{color:var(--ink)}
+.tb .c{color:var(--ink3)}
+.tf{padding:11px 16px;border-top:1px solid var(--rule);font-size:11px;color:var(--ink3);font-style:italic}
+
+.foot{border-top:1px solid var(--rule);margin-top:52px;padding:20px 0 46px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--ink3)}
+
+@media (max-width:900px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:32px;padding:50px 0 12px}
+  h1{font-size:40px}
+  .pull,.body,.dir{grid-template-columns:1fr;gap:16px}
+  .pull p{font-size:21px;max-width:none}
+  .cols{columns:1}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap topin">
+    <span class="mono"><b>mattpocock</b> / skills</span>
+    <span class="mono">Agent skills</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+   <div class="heroL">
+    <p class="eyebrow mono">Straight from my .agents directory</p>
+    <h1 class="serif">Skills for <em>real</em> engineers.</h1>
+    <p class="lede">These are the skills Matt Pocock actually keeps in his <b>.agents</b> directory. Published as they are used, rather than written up for an audience.</p>
+    <div class="cta">
+      <a class="b1" href="https://github.com/mattpocock/skills">Read the skills</a>
+      <a class="b2 mono" href="https://github.com/mattpocock/skills">github.com/mattpocock/skills</a>
+    </div>
+   </div>
+
+   <div class="tree">
+     <div class="th mono"><span>.agents</span><span>Illustrative</span></div>
+     <div class="tb mono">
+       <div><span class="d">.agents/</span></div>
+       <div>&nbsp;&nbsp;<span class="d">skills/</span></div>
+       <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="f">&lt;skill-name&gt;/SKILL.md</span></div>
+       <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c">the practice, in the words that worked</span></div>
+       <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="f">&lt;skill-name&gt;/SKILL.md</span></div>
+       <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c">kept because it earned its place</span></div>
+       <div>&nbsp;&nbsp;<span class="c">no polish pass, no audience voice</span></div>
+     </div>
+     <p class="tf">Directory shape is illustrative. The project describes itself as skills straight from the author&#39;s .agents directory.</p>
+   </div>
+  </section>
+
+  <section class="pull">
+    <span class="lbl mono">The claim</span>
+    <p class="serif">A skill you use daily and a skill you wrote for a README are <span>not the same document.</span></p>
+  </section>
+
+  <section class="body">
+    <span class="lbl mono">Why it matters</span>
+    <div class="cols">
+      <p>Most published agent guidance is written to be read. It gets tidied, generalized, and stripped of the specific decisions that made it useful in the first place.</p>
+      <p>A working <b>.agents</b> directory has the opposite problem, and that is the point. It is messy in the places where the real judgment lives, and it carries the exact wording that made an agent behave the way its author wanted.</p>
+      <p>Publishing that directory is a stronger claim than publishing a guide. The author has to live with whatever is in it.</p>
+      <p>For anyone building their own skill library, the value is in seeing which decisions were worth writing down at all.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap foot">
+  <span class="mono">mattpocock/skills</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>

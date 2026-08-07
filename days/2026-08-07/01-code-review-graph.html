@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>code-review-graph - local-first code intelligence graph</title>
+<style>
+:root{
+  --bg:#0b0d11;
+  --panel:#111520;
+  --line:#1f2634;
+  --line2:#2a3345;
+  --fg:#e6ebf2;
+  --fg2:#93a1b5;
+  --fg3:#5f6d82;
+  --v1:#7c6cf0;
+  --v2:#38b2a8;
+  --v3:#d9a441;
+  --v4:#c2566e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg3)}
+.topin b{color:var(--fg);font-weight:600}
+.local{display:inline-flex;align-items:center;gap:8px;color:var(--v2)}
+.local i{width:6px;height:6px;border-radius:50%;background:var(--v2);display:inline-block}
+
+.hero{padding:62px 0 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:54px;align-items:start}
+.kick{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--v1);margin:0 0 20px}
+h1{margin:0;font-size:52px;line-height:1.06;letter-spacing:-.028em;font-weight:650;max-width:15ch}
+h1 .a{color:var(--v1)}
+.lede{margin:24px 0 0;font-size:17.5px;line-height:1.65;color:var(--fg2);max-width:46ch}
+.lede b{color:var(--fg);font-weight:500}
+.chips{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}
+.chips span{border:1px solid var(--line2);padding:6px 12px;font-size:11.5px;color:var(--fg2);border-radius:2px}
+.cta{margin-top:30px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--v1);color:#0b0713;text-decoration:none;font-size:14.5px;font-weight:650;padding:12px 25px;border-radius:3px}
+.b1:hover{filter:brightness(1.1)}
+.b2{font-size:13.5px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:2px}
+.b2:hover{color:var(--v1);border-color:var(--v1)}
+
+/* chart panel */
+.chart{border:1px solid var(--line);background:var(--panel);border-radius:4px;overflow:hidden}
+.ch{display:flex;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3)}
+.cb{padding:20px 18px 8px}
+.bar{margin-bottom:20px}
+.blab{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;margin-bottom:8px}
+.blab .t{color:var(--fg)}
+.blab .v{color:var(--fg3);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.track{display:block;height:22px;background:#161c28;border-radius:2px;overflow:hidden;position:relative}
+.seg{display:block;height:100%;position:absolute;top:0;left:0}
+.legend{display:flex;gap:18px;flex-wrap:wrap;padding:0 18px 16px;font-size:11px;color:var(--fg3)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:9px;height:9px;border-radius:2px;display:block}
+.cf{padding:12px 18px;border-top:1px solid var(--line);font-size:10.5px;color:var(--fg3);font-style:italic}
+
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.c{padding:26px 28px 32px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:28px}
+.c .n{font-size:10px;letter-spacing:.19em;text-transform:uppercase;display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c p{margin:0;font-size:14px;line-height:1.62;color:var(--fg2)}
+
+.foot{border-top:1px solid var(--line);padding:18px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.07em;color:var(--fg3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:44px 0 30px}
+  h1{font-size:36px;max-width:none}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topin mono">
+    <span><b>tirth8205</b> / code-review-graph</span>
+    <span class="local"><i></i>Local-first</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="kick mono">Code intelligence graph for MCP and CLI</p>
+      <h1>Your agent reads the whole repo. It <span class="a">needs four files.</span></h1>
+      <p class="lede">code-review-graph builds a <b>persistent map of your codebase</b> so AI coding tools read only what matters. It runs local-first and reports benchmarked context reductions on reviews and large-repo workflows.</p>
+      <div class="chips mono">
+        <span>MCP</span><span>CLI</span><span>Persistent graph</span><span>Local-first</span>
+      </div>
+      <div class="cta">
+        <a class="b1" href="https://github.com/tirth8205/code-review-graph">Read the project</a>
+        <a class="b2 mono" href="https://github.com/tirth8205/code-review-graph">github.com/tirth8205/code-review-graph</a>
+      </div>
+    </div>
+
+    <div class="chart">
+      <div class="ch mono"><span>What the agent actually reads</span><span>Illustrative</span></div>
+      <div class="cb">
+
+        <div class="bar">
+          <div class="blab"><span class="t mono">Whole-repo read</span><span class="v mono">everything, every time</span></div>
+          <span class="track">
+            <span class="seg" style="width:34%;background:var(--v1)"></span>
+            <span class="seg" style="left:34%;width:28%;background:var(--v2)"></span>
+            <span class="seg" style="left:62%;width:21%;background:var(--v3)"></span>
+            <span class="seg" style="left:83%;width:17%;background:var(--v4)"></span>
+          </span>
+        </div>
+
+        <div class="bar">
+          <div class="blab"><span class="t mono">Graph-routed read</span><span class="v mono">only what the change touches</span></div>
+          <span class="track">
+            <span class="seg" style="width:9%;background:var(--v1)"></span>
+            <span class="seg" style="left:9%;width:5%;background:var(--v2)"></span>
+          </span>
+        </div>
+
+      </div>
+      <div class="legend mono">
+        <span><i style="background:var(--v1)"></i>changed files</span>
+        <span><i style="background:var(--v2)"></i>direct callers</span>
+        <span><i style="background:var(--v3)"></i>unrelated modules</span>
+        <span><i style="background:var(--v4)"></i>vendored code</span>
+      </div>
+      <p class="cf">Bar proportions are illustrative. The project states it benchmarks context reductions; no number is invented here.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="n mono" style="color:var(--v1)">Persistent</span>
+      <h3>Built once, reused</h3>
+      <p>The map lives on disk between runs, so the second review does not pay to rediscover the codebase.</p>
+    </div>
+    <div class="c">
+      <span class="n mono" style="color:var(--v2)">Local-first</span>
+      <h3>The graph stays home</h3>
+      <p>Structure of a private repository is itself sensitive, which makes local a design decision rather than a limitation.</p>
+    </div>
+    <div class="c">
+      <span class="n mono" style="color:var(--v3)">Benchmarked</span>
+      <h3>Reduction is measured</h3>
+      <p>The project reports context reductions on reviews and large-repo workflows, so the claim has a number behind it.</p>
+    </div>
+  </section>
+</main>
+
+<div class="wrap foot mono">
+  <span>tirth8205/code-review-graph</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</div>
+
+</body>
+</html>

@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **168 mocks** across **56 days**. Newest first.
+Searchable master index. **171 mocks** across **57 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-07 | Friday | [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph) | data-viz | violet-teal | show the context reduction as two stacked bars with no invented percentage | landed: the gap carries the argument and the chart stays credible | [png](days/2026-08-07/01-code-review-graph.png) | [2026-08-07](days/2026-08-07/) |
+| 2026-08-07 | Friday | [mattpocock/skills](https://github.com/mattpocock/skills) | editorial | ink-blue | make provenance the headline and put the .agents directory beside the claim | landed: showing the directory proves the claim instead of restating it | [png](days/2026-08-07/02-skills.png) | [2026-08-07](days/2026-08-07/) |
+| 2026-08-07 | Friday | [goauthentik/authentik](https://github.com/goauthentik/authentik) | neon-noir | magenta | draw the word glue with sources left, consumers right, one lit hub in the middle | landed: one neon element keeps the style from turning decorative | [png](days/2026-08-07/03-authentik.png) | [2026-08-07](days/2026-08-07/) |
 | 2026-08-06 | Thursday | [cloudflare/computer](https://github.com/cloudflare/computer) | terminal-dark | electric-cyan | take the five-word description literally and draw the desktop mid-task | landed: drawing the artifact keeps a one-line README honest | [png](days/2026-08-06/01-computer.png) | [2026-08-06](days/2026-08-06/) |
 | 2026-08-06 | Thursday | [obra/superpowers](https://github.com/obra/superpowers) | swiss | signal-red | put the weight on methodology and set a framework alone against it | landed: the grid gives the comparison somewhere to sit | [png](days/2026-08-06/02-superpowers.png) | [2026-08-06](days/2026-08-06/) |
 | 2026-08-06 | Thursday | [TencentCloud/TencentDB-Agent-Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) | ledger | linen-teal | treat the four memory assets as a ruled inventory with governed status | landed: a ledger implies accountability where a card grid does not | [png](days/2026-08-06/03-tencentdb-agent-memory.png) | [2026-08-06](days/2026-08-06/) |
