@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TradingAgents - multi-agents LLM financial trading framework</title>
+<style>
+:root{
+  --bg:#0a0e14;
+  --glass:rgba(255,255,255,.045);
+  --glass2:rgba(255,255,255,.028);
+  --edge:rgba(255,255,255,.11);
+  --fg:#e6ecf3;
+  --fg2:#94a2b2;
+  --fg3:#61707f;
+  --teal:#3ecfb2;
+  --line:#18202a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(900px 520px at 74% 24%, rgba(62,207,178,.09), transparent 68%);
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3)}
+.topin b{color:var(--fg);font-weight:600}
+
+.hero{padding:66px 0 44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);gap:52px;align-items:center}
+.kick{font-size:10.5px;letter-spacing:.23em;text-transform:uppercase;color:var(--teal);margin:0 0 20px}
+h1{margin:0;font-size:54px;line-height:1.05;letter-spacing:-.03em;font-weight:650;max-width:14ch}
+h1 .t{color:var(--teal)}
+.lede{margin:24px 0 0;font-size:17.5px;line-height:1.64;color:var(--fg2);max-width:44ch}
+.lede b{color:var(--fg);font-weight:500}
+.cta{margin-top:30px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--teal);color:#04231d;text-decoration:none;font-size:14.5px;font-weight:650;padding:12px 25px;border-radius:6px}
+.b1:hover{filter:brightness(1.08)}
+.b2{font-size:13.5px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--edge);padding-bottom:2px}
+.b2:hover{color:var(--teal);border-color:var(--teal)}
+
+/* one frosted panel */
+.panel{
+  background:var(--glass);border:1px solid var(--edge);border-radius:14px;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 24px 60px -34px rgba(0,0,0,.9);overflow:hidden;
+}
+.ph{display:flex;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--edge);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3)}
+.pb{padding:16px 18px 8px}
+.seat{
+  display:grid;grid-template-columns:112px 1fr 104px;gap:14px;align-items:center;
+  padding:13px 14px;margin-bottom:9px;border-radius:8px;
+  background:var(--glass2);border:1px solid var(--edge);
+}
+.seat .role{font-size:13px;font-weight:600;letter-spacing:-.005em}
+.seat .say{font-size:12.5px;line-height:1.5;color:var(--fg2)}
+.seat .pos,.verdict .pos{text-align:right;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg3)}
+.seat .pos b,.verdict .pos b{display:block;margin-top:3px;font-size:11px;letter-spacing:.09em;font-weight:600}
+.pos.bull b{color:var(--teal)}
+.pos.bear b{color:#e8785f}
+.pos.hold b{color:var(--fg2)}
+.verdict{
+  display:grid;grid-template-columns:112px 1fr 104px;gap:14px;align-items:center;
+  padding:14px;border-radius:8px;border:1px solid var(--teal);
+  background:rgba(62,207,178,.08);margin-top:4px;
+}
+.verdict .role{color:var(--teal)}
+.pf{padding:12px 18px;border-top:1px solid var(--edge);font-size:10.5px;color:var(--fg3);font-style:italic}
+
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.c{padding:28px 28px 34px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:28px}
+.c .n{font-size:10px;letter-spacing:.19em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c p{margin:0;font-size:14px;line-height:1.62;color:var(--fg2)}
+
+.foot{border-top:1px solid var(--line);padding:18px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.07em;color:var(--fg3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:44px 0 30px}
+  h1{font-size:37px;max-width:none}
+  .seat,.verdict{grid-template-columns:1fr;gap:7px}
+  .seat .pos,.verdict .pos{text-align:left}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topin mono">
+    <span><b>TauricResearch</b> / TradingAgents</span>
+    <span>Multi-agent LLM framework</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="kick mono">Multi-agents LLM financial trading framework</p>
+      <h1>One model agreeing with itself is <span class="t">not a desk.</span></h1>
+      <p class="lede">TradingAgents is a <b>multi-agent LLM financial trading framework</b>. Separate agents hold separate roles, so a position has to survive disagreement before it becomes a decision.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/TauricResearch/TradingAgents">Read the framework</a>
+        <a class="b2 mono" href="https://github.com/TauricResearch/TradingAgents">github.com/TauricResearch/TradingAgents</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph mono"><span>Roles at the table</span><span>Illustrative</span></div>
+      <div class="pb">
+
+        <div class="seat">
+          <span class="role">Research</span>
+          <span class="say">reads the filings and the news flow</span>
+          <span class="pos bull mono">stance<b>bullish</b></span>
+        </div>
+
+        <div class="seat">
+          <span class="role">Risk</span>
+          <span class="say">asks what this costs when it is wrong</span>
+          <span class="pos bear mono">stance<b>bearish</b></span>
+        </div>
+
+        <div class="seat">
+          <span class="role">Trader</span>
+          <span class="say">sizes it against what the book already holds</span>
+          <span class="pos hold mono">stance<b>hold</b></span>
+        </div>
+
+        <div class="verdict">
+          <span class="role">Decision</span>
+          <span class="say">taken after the disagreement, not before it</span>
+          <span class="pos bull mono">output<b>logged</b></span>
+        </div>
+
+      </div>
+      <p class="pf">Role names and stances are illustrative. The project describes itself as a multi-agent LLM financial trading framework. Nothing here is advice or a result.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="n mono">01</span>
+      <h3>Roles, not personas</h3>
+      <p>A research seat and a risk seat want different things, and that conflict is the reason to run more than one agent.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">02</span>
+      <h3>Disagreement is the product</h3>
+      <p>A decision that no agent argued against tells you less than one that survived an argument.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">03</span>
+      <h3>A framework, not a strategy</h3>
+      <p>The repository gives the structure for running the desk. What it trades and how well remains yours to answer.</p>
+    </div>
+  </section>
+</main>
+
+<div class="wrap foot mono">
+  <span>TauricResearch/TradingAgents</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</div>
+
+</body>
+</html>

@@ -1,9 +1,10 @@
 ﻿# Style — bauhaus
 
-8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-08](../days/2026-08-08/) | [PrimeIntellect-ai/prime-agent](https://github.com/PrimeIntellect-ai/prime-agent) | primary | build the hero out of the loop itself with four quadrants around a hub | landed: the geometry is a cycle so the decoration does work | [png](../days/2026-08-08/01-prime-agent.png) |
 | [2026-08-01](../days/2026-08-01/) | [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) | primary | give an open curriculum a ground→model→apply→extend geometric arc instead of a lesson index | landed: the path feels deliberate and finishable | [png](../days/2026-08-01/02-ai-for-beginners.png) |
 | [2026-07-26](../days/2026-07-26/) | [CoreBunch/Instatic](https://github.com/CoreBunch/Instatic) | primary | express a self-hosted CMS as compose→control→extend→deliver capability blocks | landed: ownership feels structural while editing stays inviting | [png](../days/2026-07-26/03-instatic.png) |
 | [2026-07-23](../days/2026-07-23/) | [block/buzz](https://github.com/block/buzz) | honey-primary | turn hive-mind communication into a share→connect→converge→act sequence using committed cells | landed: memorable coordination without chat-bubble cliches | [png](../days/2026-07-23/01-buzz.png) |

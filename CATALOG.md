@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **171 mocks** across **57 days**. Newest first.
+Searchable master index. **174 mocks** across **58 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-08 | Saturday | [PrimeIntellect-ai/prime-agent](https://github.com/PrimeIntellect-ai/prime-agent) | bauhaus | primary | build the hero out of the loop itself with four quadrants around a hub | landed: the geometry is a cycle so the decoration does work | [png](days/2026-08-08/01-prime-agent.png) | [2026-08-08](days/2026-08-08/) |
+| 2026-08-08 | Saturday | [denoland/celld](https://github.com/denoland/celld) | cell-grid | amber | make single ownership visible with one lit cell across three node panels | landed: the rule you can see beats the rule explained in a paragraph | [png](days/2026-08-08/02-celld.png) | [2026-08-08](days/2026-08-08/) |
+| 2026-08-08 | Saturday | [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents) | glass | teal | show the disagreement between seats instead of returns | landed: structure carries credibility where a number would have been fake | [png](days/2026-08-08/03-tradingagents.png) | [2026-08-08](days/2026-08-08/) |
 | 2026-08-07 | Friday | [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph) | data-viz | violet-teal | show the context reduction as two stacked bars with no invented percentage | landed: the gap carries the argument and the chart stays credible | [png](days/2026-08-07/01-code-review-graph.png) | [2026-08-07](days/2026-08-07/) |
 | 2026-08-07 | Friday | [mattpocock/skills](https://github.com/mattpocock/skills) | editorial | ink-blue | make provenance the headline and put the .agents directory beside the claim | landed: showing the directory proves the claim instead of restating it | [png](days/2026-08-07/02-skills.png) | [2026-08-07](days/2026-08-07/) |
 | 2026-08-07 | Friday | [goauthentik/authentik](https://github.com/goauthentik/authentik) | neon-noir | magenta | draw the word glue with sources left, consumers right, one lit hub in the middle | landed: one neon element keeps the style from turning decorative | [png](days/2026-08-07/03-authentik.png) | [2026-08-07](days/2026-08-07/) |

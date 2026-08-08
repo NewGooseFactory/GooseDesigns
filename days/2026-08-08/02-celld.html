@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>celld - self-hosted, distributed Durable Objects</title>
+<style>
+:root{
+  --bg:#080a0d;
+  --bg2:#0c1014;
+  --line:#1a2129;
+  --line2:#26313c;
+  --fg:#e2e8ee;
+  --fg2:#8d9aa8;
+  --fg3:#5a6672;
+  --amber:#f0b429;
+  --amber-dim:#4a3a12;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1160px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3)}
+.topin b{color:var(--fg);font-weight:600}
+.self{display:inline-flex;align-items:center;gap:8px;color:var(--amber)}
+.self i{width:6px;height:6px;border-radius:50%;background:var(--amber);display:inline-block}
+
+.hero{padding:64px 0 46px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);gap:52px;align-items:center}
+.kick{font-size:10.5px;letter-spacing:.23em;text-transform:uppercase;color:var(--amber);margin:0 0 20px}
+h1{margin:0;font-size:56px;line-height:1.04;letter-spacing:-.032em;font-weight:650;max-width:14ch}
+h1 .a{color:var(--amber)}
+.lede{margin:24px 0 0;font-size:17.5px;line-height:1.64;color:var(--fg2);max-width:44ch}
+.lede b{color:var(--fg);font-weight:500}
+.tags{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}
+.tags span{border:1px solid var(--line2);padding:6px 12px;font-size:11.5px;color:var(--fg2);border-radius:2px}
+.cta{margin-top:30px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--amber);color:#180f00;text-decoration:none;font-size:14.5px;font-weight:650;padding:12px 25px;border-radius:3px}
+.b1:hover{filter:brightness(1.1)}
+.b2{font-size:13.5px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:2px}
+.b2:hover{color:var(--amber);border-color:var(--amber)}
+
+/* cell grid */
+.rack{border:1px solid var(--line);background:var(--bg2);border-radius:4px;overflow:hidden}
+.rh{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3)}
+.nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);padding:1px}
+.node{background:var(--bg2);padding:16px 14px 18px}
+.nh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg3)}
+.nh b{color:var(--fg);font-weight:600;letter-spacing:.02em;font-size:12px}
+.cells{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.cell{aspect-ratio:1/1;border:1px solid var(--line2);border-radius:2px;background:#0f151b}
+.cell.on{background:var(--amber-dim);border-color:var(--amber)}
+.nfoot{margin-top:12px;font-size:10.5px;color:var(--fg3);letter-spacing:.05em}
+.nfoot b{color:var(--amber);font-weight:600}
+.rf{padding:12px 16px;border-top:1px solid var(--line);font-size:10.5px;color:var(--fg3);font-style:italic}
+
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.c{padding:28px 28px 34px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:28px}
+.c .n{font-size:10px;letter-spacing:.19em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c p{margin:0;font-size:14px;line-height:1.62;color:var(--fg2)}
+
+.foot{border-top:1px solid var(--line);padding:18px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.07em;color:var(--fg3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:44px 0 30px}
+  h1{font-size:38px;max-width:none}
+  .nodes{grid-template-columns:1fr}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topin mono">
+    <span><b>denoland</b> / celld</span>
+    <span class="self"><i></i>Self-hosted</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="kick mono">Distributed Durable Objects</p>
+      <h1>Durable Objects, on <span class="a">your own machines.</span></h1>
+      <p class="lede">celld is <b>self-hosted, distributed Durable Objects</b>. The same single-owner stateful object model, running on infrastructure you control instead of someone else's platform.</p>
+      <div class="tags mono">
+        <span>Self-hosted</span><span>Distributed</span><span>Durable Objects</span>
+      </div>
+      <div class="cta">
+        <a class="b1" href="https://github.com/denoland/celld">Read the project</a>
+        <a class="b2 mono" href="https://github.com/denoland/celld">github.com/denoland/celld</a>
+      </div>
+    </div>
+
+    <div class="rack">
+      <div class="rh mono"><span>Objects across your nodes</span><span>Illustrative</span></div>
+      <div class="nodes">
+
+        <div class="node">
+          <div class="nh mono"><b>node-a</b><span>eu</span></div>
+          <div class="cells">
+            <span class="cell on"></span><span class="cell"></span><span class="cell on"></span><span class="cell"></span>
+            <span class="cell"></span><span class="cell on"></span><span class="cell"></span><span class="cell"></span>
+          </div>
+          <p class="nfoot mono"><b>3</b> objects owned here</p>
+        </div>
+
+        <div class="node">
+          <div class="nh mono"><b>node-b</b><span>us</span></div>
+          <div class="cells">
+            <span class="cell"></span><span class="cell on"></span><span class="cell"></span><span class="cell on"></span>
+            <span class="cell on"></span><span class="cell"></span><span class="cell on"></span><span class="cell"></span>
+          </div>
+          <p class="nfoot mono"><b>4</b> objects owned here</p>
+        </div>
+
+        <div class="node">
+          <div class="nh mono"><b>node-c</b><span>ap</span></div>
+          <div class="cells">
+            <span class="cell"></span><span class="cell"></span><span class="cell on"></span><span class="cell"></span>
+            <span class="cell on"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          </div>
+          <p class="nfoot mono"><b>2</b> objects owned here</p>
+        </div>
+
+      </div>
+      <p class="rf">Node names and counts are illustrative. The lit cell means one object, owned by exactly one node at a time.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="n mono">01</span>
+      <h3>One owner per object</h3>
+      <p>The model earns its name from single ownership, which is what makes state predictable without a lock protocol on top.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">02</span>
+      <h3>Self-hosted</h3>
+      <p>Running it yourself turns a platform primitive into something you can place, price, and audit on your own terms.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">03</span>
+      <h3>Distributed</h3>
+      <p>Objects live across nodes, so the unit of failure is one object rather than the whole store.</p>
+    </div>
+  </section>
+</main>
+
+<div class="wrap foot mono">
+  <span>denoland/celld</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</div>
+
+</body>
+</html>
