@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>code-graph-rag - RAG for your monorepo</title>
+<style>
+:root{
+  --bg:#070a12;
+  --fg:#dfe5f0;
+  --fg2:#8f9bb3;
+  --fg3:#5d6780;
+  --line:#161d2c;
+  --cy:#5ad8e6;
+  --py:#b58cf0;
+  --gd:#e8c06a;
+  --gr:#6fd99a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(1px 1px at 12% 22%, rgba(223,229,240,.30), transparent 60%),
+    radial-gradient(1px 1px at 78% 14%, rgba(223,229,240,.22), transparent 60%),
+    radial-gradient(1px 1px at 42% 78%, rgba(223,229,240,.20), transparent 60%),
+    radial-gradient(1px 1px at 88% 62%, rgba(223,229,240,.18), transparent 60%),
+    radial-gradient(1px 1px at 24% 58%, rgba(223,229,240,.16), transparent 60%),
+    radial-gradient(1px 1px at 62% 36%, rgba(223,229,240,.20), transparent 60%),
+    radial-gradient(1px 1px at 8% 84%, rgba(223,229,240,.14), transparent 60%),
+    radial-gradient(1px 1px at 94% 88%, rgba(223,229,240,.16), transparent 60%);
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg3)}
+.topin b{color:var(--fg);font-weight:600}
+
+.hero{padding:60px 0 40px;display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:50px;align-items:center}
+.kick{font-size:10.5px;letter-spacing:.23em;text-transform:uppercase;color:var(--cy);margin:0 0 20px}
+h1{margin:0;font-size:54px;line-height:1.05;letter-spacing:-.03em;font-weight:650;max-width:14ch}
+h1 .c{color:var(--cy)}
+.lede{margin:24px 0 0;font-size:17.5px;line-height:1.64;color:var(--fg2);max-width:44ch}
+.lede b{color:var(--fg);font-weight:500}
+.langs{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap;font-size:11.5px}
+.langs span{border:1px solid var(--line);padding:6px 12px;border-radius:2px;color:var(--fg2);display:inline-flex;align-items:center;gap:7px}
+.langs i{width:8px;height:8px;border-radius:50%;display:block}
+.cta{margin-top:30px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--cy);color:#03181c;text-decoration:none;font-size:14.5px;font-weight:650;padding:12px 25px;border-radius:3px}
+.b1:hover{filter:brightness(1.1)}
+.b2{font-size:13.5px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.b2:hover{color:var(--cy);border-color:var(--cy)}
+
+/* constellation */
+.sky{border:1px solid var(--line);border-radius:4px;background:rgba(10,14,24,.55);overflow:hidden}
+.sh{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3)}
+.field{position:relative;height:326px}
+.edge{position:absolute;height:1px;background:linear-gradient(90deg,rgba(90,216,230,.06),rgba(90,216,230,.42),rgba(90,216,230,.06));transform-origin:0 0}
+.n{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px}
+.n .dot{width:11px;height:11px;border-radius:50%;border:1.5px solid;background:var(--bg)}
+.n .lb{font-size:10.5px;letter-spacing:.05em;color:var(--fg2);white-space:nowrap;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+.n.big .dot{width:16px;height:16px}
+.n.big .lb{color:var(--fg);font-size:11.5px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;padding:0 16px 14px;font-size:10.5px;color:var(--fg3)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:8px;height:8px;border-radius:50%;display:block}
+.sf{padding:12px 16px;border-top:1px solid var(--line);font-size:10.5px;color:var(--fg3);font-style:italic}
+
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.c3{padding:28px 28px 34px 0;border-right:1px solid var(--line)}
+.c3:last-child{border-right:0;padding-right:0}
+.c3:not(:first-child){padding-left:28px}
+.c3 .n2{font-size:10px;letter-spacing:.19em;text-transform:uppercase;color:var(--cy);display:block;margin-bottom:11px}
+.c3 h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c3 p{margin:0;font-size:14px;line-height:1.62;color:var(--fg2)}
+
+.foot{border-top:1px solid var(--line);padding:18px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.07em;color:var(--fg3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:44px 0 28px}
+  h1{font-size:37px;max-width:none}
+  .field{height:260px}
+  .three{grid-template-columns:1fr}
+  .c3{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c3:not(:first-child){padding-left:0}
+  .c3:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topin mono">
+    <span><b>vitali87</b> / code-graph-rag</span>
+    <span>Knowledge graph over a monorepo</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="kick mono">Multi-language codebases</p>
+      <h1>A monorepo is a <span class="c">graph, not a folder.</span></h1>
+      <p class="lede">code-graph-rag is a RAG for your monorepo. It lets you <b>query, understand, and edit multi-language codebases</b> using AI and knowledge graphs, so retrieval follows the edges instead of guessing at filenames.</p>
+      <div class="langs mono">
+        <span><i style="background:var(--cy)"></i>service</span>
+        <span><i style="background:var(--py)"></i>library</span>
+        <span><i style="background:var(--gd)"></i>schema</span>
+        <span><i style="background:var(--gr)"></i>tooling</span>
+      </div>
+      <div class="cta">
+        <a class="b1" href="https://github.com/vitali87/code-graph-rag">Read the project</a>
+        <a class="b2 mono" href="https://github.com/vitali87/code-graph-rag">github.com/vitali87/code-graph-rag</a>
+      </div>
+    </div>
+
+    <div class="sky">
+      <div class="sh mono"><span>One query, followed along edges</span><span>Illustrative</span></div>
+      <div class="field">
+        <div class="edge" style="left:190px;top:150px;width:118px;transform:rotate(-32deg)"></div>
+        <div class="edge" style="left:190px;top:150px;width:134px;transform:rotate(26deg)"></div>
+        <div class="edge" style="left:190px;top:150px;width:96px;transform:rotate(146deg)"></div>
+        <div class="edge" style="left:308px;top:88px;width:110px;transform:rotate(34deg)"></div>
+        <div class="edge" style="left:324px;top:216px;width:104px;transform:rotate(-38deg)"></div>
+        <div class="edge" style="left:418px;top:150px;width:96px;transform:rotate(-24deg)"></div>
+
+        <div class="n big" style="left:190px;top:150px">
+          <span class="dot" style="border-color:var(--cy);box-shadow:0 0 14px rgba(90,216,230,.55)"></span>
+          <span class="lb">billing-api</span>
+        </div>
+        <div class="n" style="left:308px;top:88px">
+          <span class="dot" style="border-color:var(--py)"></span>
+          <span class="lb">money-utils</span>
+        </div>
+        <div class="n" style="left:324px;top:216px">
+          <span class="dot" style="border-color:var(--gd)"></span>
+          <span class="lb">invoice.proto</span>
+        </div>
+        <div class="n" style="left:110px;top:206px">
+          <span class="dot" style="border-color:var(--gr)"></span>
+          <span class="lb">deploy.yaml</span>
+        </div>
+        <div class="n" style="left:418px;top:150px">
+          <span class="dot" style="border-color:var(--py)"></span>
+          <span class="lb">tax-rules</span>
+        </div>
+        <div class="n" style="left:506px;top:112px">
+          <span class="dot" style="border-color:var(--cy)"></span>
+          <span class="lb">ledger-svc</span>
+        </div>
+      </div>
+      <div class="legend mono">
+        <span><i style="background:var(--cy)"></i>service</span>
+        <span><i style="background:var(--py)"></i>library</span>
+        <span><i style="background:var(--gd)"></i>schema</span>
+        <span><i style="background:var(--gr)"></i>tooling</span>
+      </div>
+      <p class="sf">Node names and edges are illustrative. The project describes a knowledge graph over a multi-language monorepo.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c3">
+      <span class="n2 mono">Query</span>
+      <h3>Ask across languages</h3>
+      <p>A monorepo question rarely stays inside one language, and a graph does not care which one an edge crosses into.</p>
+    </div>
+    <div class="c3">
+      <span class="n2 mono">Understand</span>
+      <h3>Retrieval with a reason</h3>
+      <p>Edges give a reason for pulling a file, so context arrives because it connects rather than because it scored well.</p>
+    </div>
+    <div class="c3">
+      <span class="n2 mono">Edit</span>
+      <h3>Change with the blast radius</h3>
+      <p>The same map that answered the question also shows what the edit reaches.</p>
+    </div>
+  </section>
+</main>
+
+<div class="wrap foot mono">
+  <span>vitali87/code-graph-rag</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</div>
+
+</body>
+</html>

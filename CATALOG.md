@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **174 mocks** across **58 days**. Newest first.
+Searchable master index. **177 mocks** across **59 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-09 | Sunday | [pranshuparmar/witr](https://github.com/pranshuparmar/witr) | mono-zine | phosphor-green | ask the tool's own question in the hero and run the trace beside it | landed: one question answered beats any feature list | [png](days/2026-08-09/01-witr.png) | [2026-08-09](days/2026-08-09/) |
+| 2026-08-09 | Sunday | [vitali87/code-graph-rag](https://github.com/vitali87/code-graph-rag) | constellation | cyan | make the retrieval unit visible with one lit node and four typed edges | landed: retrieval by connection becomes a picture instead of a claim | [png](days/2026-08-09/02-code-graph-rag.png) | [2026-08-09](days/2026-08-09/) |
+| 2026-08-09 | Sunday | [harveyai/harvey-labs](https://github.com/harveyai/harvey-labs) | hud | signal-amber | read evaluate and improve back as two gauges and keep the word supporting | landed: quantitative layout with no invented score | [png](days/2026-08-09/03-harvey-labs.png) | [2026-08-09](days/2026-08-09/) |
 | 2026-08-08 | Saturday | [PrimeIntellect-ai/prime-agent](https://github.com/PrimeIntellect-ai/prime-agent) | bauhaus | primary | build the hero out of the loop itself with four quadrants around a hub | landed: the geometry is a cycle so the decoration does work | [png](days/2026-08-08/01-prime-agent.png) | [2026-08-08](days/2026-08-08/) |
 | 2026-08-08 | Saturday | [denoland/celld](https://github.com/denoland/celld) | cell-grid | amber | make single ownership visible with one lit cell across three node panels | landed: the rule you can see beats the rule explained in a paragraph | [png](days/2026-08-08/02-celld.png) | [2026-08-08](days/2026-08-08/) |
 | 2026-08-08 | Saturday | [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents) | glass | teal | show the disagreement between seats instead of returns | landed: structure carries credibility where a number would have been fake | [png](days/2026-08-08/03-tradingagents.png) | [2026-08-08](days/2026-08-08/) |

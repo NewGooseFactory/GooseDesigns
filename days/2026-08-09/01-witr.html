@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>witr - why is this running</title>
+<style>
+:root{
+  --bg:#050607;
+  --panel:#0a0c0e;
+  --line:#1c2225;
+  --fg:#d8ded9;
+  --fg2:#899289;
+  --fg3:#5a635b;
+  --grn:#57e08a;
+  --amber:#ffb84d;
+  --red:#ff6b5e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono","DejaVu Sans Mono",monospace;
+  font-size:15px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 40px}
+.hr{color:var(--line);white-space:pre;overflow:hidden;font-size:13px;line-height:1.1;user-select:none}
+
+.top{display:flex;justify-content:space-between;padding:20px 0 12px;font-size:11.5px;letter-spacing:.13em;color:var(--fg3);text-transform:uppercase}
+.top b{color:var(--grn);font-weight:600}
+
+.hero{padding:42px 0 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:48px;align-items:center}
+.cmt{color:var(--fg3);font-size:13px;line-height:1.85}
+.cmt span{color:var(--grn)}
+h1{margin:20px 0 0;font-size:60px;line-height:1;letter-spacing:-.048em;font-weight:700}
+h1 .a{color:var(--amber);display:block}
+.sub{margin:22px 0 0;font-size:16px;line-height:1.7;color:var(--fg2);max-width:48ch}
+.sub em{color:var(--fg);font-style:normal}
+.tags{margin-top:24px;display:flex;flex-wrap:wrap;font-size:12.5px}
+.tags span{border:1px solid var(--line);padding:7px 13px;color:var(--fg2);margin:0 -1px -1px 0}
+.tags span b{color:var(--grn);font-weight:400}
+.cta{margin-top:28px;display:flex;flex-wrap:wrap;font-size:14px}
+.b1{background:var(--grn);color:#03170c;text-decoration:none;padding:12px 24px;font-weight:700}
+.b1:hover{filter:brightness(1.1)}
+.b2{border:1px solid var(--line);border-left:0;padding:12px 24px;color:var(--fg2);text-decoration:none}
+.b2:hover{color:var(--grn);border-color:var(--grn)}
+
+/* trace panel */
+.panel{border:1px solid var(--line);background:var(--panel)}
+.ph{display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3)}
+.pb{padding:16px 16px 8px;font-size:13px;line-height:1.6}
+.q{color:var(--amber);margin-bottom:14px}
+.q b{color:var(--fg);font-weight:400}
+.chain{margin:0 0 6px}
+.row{display:grid;grid-template-columns:20px 1fr 92px;gap:10px;align-items:baseline;padding:7px 0}
+.row .tick{color:var(--fg3)}
+.row .body{color:var(--fg2)}
+.row .body b{color:var(--fg);font-weight:400}
+.row .kind{text-align:right;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3)}
+.row.origin .tick{color:var(--red)}
+.row.origin .kind{color:var(--red)}
+.row.leaf .tick{color:var(--grn)}
+.row.leaf .kind{color:var(--grn)}
+.pipe{color:var(--line);padding-left:3px;line-height:1.1;font-size:12px}
+.pf{padding:12px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--fg3);font-style:italic}
+
+.three{margin-top:38px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.c{padding:24px 26px 30px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:26px}
+.c h3{margin:0 0 9px;font-size:14px;color:var(--amber);font-weight:700;letter-spacing:.02em}
+.c p{margin:0;font-size:13.5px;line-height:1.7;color:var(--fg2)}
+
+.foot{padding:22px 0 42px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--fg3)}
+
+@media (max-width:960px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:32px;padding:32px 0 26px}
+  h1{font-size:38px}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:20px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+  .hr{font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top"><span><b>pranshuparmar</b> / witr</span><span>CLI + TUI</span></div>
+  <div class="hr">------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+
+  <section class="hero">
+    <div>
+      <p class="cmt">// <span>witr</span><br>// Why is this running?</p>
+      <h1>Something owns<span class="a">port 8080.</span></h1>
+      <p class="sub">witr traces any process, port, container, or file back to <em>what started it</em>. One question, answered as a chain instead of a PID you still have to look up.</p>
+
+      <div class="tags">
+        <span><b>&gt;</b> process</span>
+        <span><b>&gt;</b> port</span>
+        <span><b>&gt;</b> container</span>
+        <span><b>&gt;</b> file</span>
+      </div>
+
+      <div class="cta">
+        <a class="b1" href="https://github.com/pranshuparmar/witr">Get witr</a>
+        <a class="b2" href="https://github.com/pranshuparmar/witr">github.com/pranshuparmar/witr</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><span>trace</span><span>illustrative</span></div>
+      <div class="pb">
+        <p class="q">$ witr <b>port 8080</b></p>
+
+        <div class="chain">
+          <div class="row leaf"><span class="tick">&#9679;</span><span class="body"><b>node</b> server.js, pid 4821</span><span class="kind">listener</span></div>
+          <div class="pipe">&nbsp;&#9474;</div>
+          <div class="row"><span class="tick">&#9679;</span><span class="body">npm run dev, pid 4790</span><span class="kind">parent</span></div>
+          <div class="pipe">&nbsp;&#9474;</div>
+          <div class="row"><span class="tick">&#9679;</span><span class="body">docker-compose up, pid 3312</span><span class="kind">container</span></div>
+          <div class="pipe">&nbsp;&#9474;</div>
+          <div class="row origin"><span class="tick">&#9679;</span><span class="body">systemd unit <b>dev-stack.service</b></span><span class="kind">origin</span></div>
+        </div>
+      </div>
+      <p class="pf">Chain content is illustrative. witr traces a process, port, container, or file back to what started it.</p>
+    </div>
+  </section>
+
+  <div class="three">
+    <div class="c">
+      <h3>The answer is a chain</h3>
+      <p>Knowing the pid is where the question starts. witr keeps walking until it reaches the thing a person actually configured.</p>
+    </div>
+    <div class="c">
+      <h3>Four entry points</h3>
+      <p>Process, port, container, or file. Whichever end of the mystery you are holding, the trace runs the same direction.</p>
+    </div>
+    <div class="c">
+      <h3>CLI and TUI</h3>
+      <p>One shape for scripts and log paste, another for the moment you are still poking at the machine.</p>
+    </div>
+  </div>
+
+  <div class="hr" style="margin-top:32px">------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+  <div class="foot"><span>pranshuparmar/witr</span><span>Design study by Goose. Not affiliated with the project.</span></div>
+</div>
+
+</body>
+</html>
