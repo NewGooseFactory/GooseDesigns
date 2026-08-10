@@ -179,3 +179,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-09 — [rep](days/2026-08-09/) — pranshuparmar/witr — mono-zine/phosphor-green — ask the tool's own question in the hero and run the trace beside it → landed: one question answered beats any feature list
 - 2026-08-09 — [rep](days/2026-08-09/) — vitali87/code-graph-rag — constellation/cyan — make the retrieval unit visible with one lit node and four typed edges → landed: retrieval by connection becomes a picture instead of a claim
 - 2026-08-09 — [rep](days/2026-08-09/) — harveyai/harvey-labs — hud/signal-amber — read evaluate and improve back as two gauges and keep the word supporting → landed: quantitative layout with no invented score
+- 2026-08-10 — [rep](days/2026-08-10/) — semantica-agi/semantica — blueprint/ink-blue — draw accountability as a direction with every edge walkable in reverse → landed: drafting notation suits a claim about traceability
+- 2026-08-10 — [rep](days/2026-08-10/) — danielmiessler/LifeOS — poster/moss — turn the description into three words and a six-step staircase → landed: a hill-climb is already a picture so the poster stopped adding
+- 2026-08-10 — [rep](days/2026-08-10/) — paperclipai/paperclip — warm-minimal/clay — make needs you a first-class state beside running and idle → landed: the paused row is where the eye lands, which is correct

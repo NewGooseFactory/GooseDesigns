@@ -1,9 +1,10 @@
 ﻿# Style — warm-minimal
 
-10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-10](../days/2026-08-10/) | [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | clay | make needs you a first-class state beside running and idle | landed: the paused row is where the eye lands, which is correct | [png](../days/2026-08-10/03-paperclip.png) |
 | [2026-08-05](../days/2026-08-05/) | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | terracotta | put a SKILL.md card beside the claim so the abstraction has a file | landed: warmth keeps a rigor claim from reading as scolding | [png](../days/2026-08-05/02-agent-skills.png) |
 | [2026-07-31](../days/2026-07-31/) | [usekaneo/kaneo](https://github.com/usekaneo/kaneo) | sage | make restraint the product argument with three calm columns and no ceremony | landed: minimalism feels considered rather than incomplete | [png](../days/2026-07-31/03-kaneo.png) |
 | [2026-07-27](../days/2026-07-27/) | [yorukot/superfile](https://github.com/yorukot/superfile) | terracotta | make a terminal file manager calm and navigable through soft structure | landed: speed and comfort coexist without losing keyboard-first character | [png](../days/2026-07-27/03-superfile.png) |

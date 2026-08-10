@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>semantica - graph-native infrastructure for accountable AI</title>
+<style>
+:root{
+  --paper:#eef1f3;
+  --grid:#d9dfe4;
+  --grid2:#c6cfd6;
+  --ink:#16222b;
+  --ink2:#43596a;
+  --ink3:#7b8e9c;
+  --line:#a7bac7;
+  --blue:#17558f;
+  --rust:#a8502e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+    linear-gradient(var(--grid2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid2) 1px,transparent 1px);
+  background-size:20px 20px,20px 20px,100px 100px,100px 100px;
+  opacity:.72;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.sheet{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:0 42px}
+
+.tb{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink3)}
+.tb b{color:var(--blue);font-weight:700}
+
+.hero{padding:54px 0 38px;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1.08fr);gap:50px;align-items:center}
+.tick{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin:0 0 18px}
+h1{margin:0;font-size:50px;line-height:1.07;letter-spacing:-.026em;font-weight:600;max-width:15ch}
+h1 .r{color:var(--rust)}
+.lede{margin:24px 0 0;font-size:17.5px;line-height:1.65;color:var(--ink2);max-width:46ch}
+.lede b{color:var(--ink);font-weight:600}
+.cta{margin-top:30px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--blue);color:#fff;text-decoration:none;font-size:14.5px;padding:12px 24px;border-radius:2px}
+.b1:hover{background:#0f4372}
+.b2{font-size:13.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.b2:hover{color:var(--blue);border-color:var(--blue)}
+
+/* annotated schematic */
+.dwg{border:1px solid var(--line);background:#fafbfc;border-radius:2px;overflow:hidden}
+.dh{display:flex;justify-content:space-between;padding:10px 15px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.19em;text-transform:uppercase;color:var(--ink3)}
+.stage{position:relative;height:300px}
+.nd{
+  position:absolute;border:1.5px solid var(--blue);background:#fff;border-radius:2px;
+  padding:8px 11px;font-size:11.5px;font-family:"SFMono-Regular",Menlo,Consolas,monospace;color:var(--ink);
+}
+.nd small{display:block;margin-top:3px;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3)}
+.nd.r{border-color:var(--rust)}
+.ed{position:absolute;height:1.5px;background:var(--blue);transform-origin:0 50%;opacity:.55}
+.ed.r{background:var(--rust);opacity:.7}
+.edlab{position:absolute;font-size:9px;letter-spacing:.1em;color:var(--ink3);font-family:"SFMono-Regular",Menlo,Consolas,monospace;background:#fafbfc;padding:0 4px}
+.dimline{position:absolute;background:var(--ink3);opacity:.5}
+.dim{position:absolute;font-size:9px;letter-spacing:.09em;color:var(--ink3);font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+.df{padding:10px 15px;border-top:1px solid var(--line);font-size:10.5px;color:var(--ink3);font-style:italic}
+
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.c{padding:26px 28px 32px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:28px}
+.c .n{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c p{margin:0;font-size:14px;line-height:1.62;color:var(--ink2)}
+
+.foot{border-top:1px solid var(--line);padding:18px 0 42px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.08em;color:var(--ink3)}
+
+@media (max-width:1000px){
+  .sheet{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:38px 0 26px}
+  h1{font-size:34px;max-width:none}
+  .stage{height:262px}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="tb mono"><span><b>semantica-agi</b> / semantica</span><span>Graph-native infrastructure</span></div>
+
+  <section class="hero">
+    <div>
+      <p class="tick mono">Drawing 001 &middot; context and accountability</p>
+      <h1>Context an auditor can <span class="r">follow backwards.</span></h1>
+      <p class="lede">semantica is <b>graph-native infrastructure for context and accountable AI systems</b>. When context is a graph rather than a blob of retrieved text, every answer has an edge you can walk back to its source.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/semantica-agi/semantica">Read the project</a>
+        <a class="b2 mono" href="https://github.com/semantica-agi/semantica">github.com/semantica-agi/semantica</a>
+      </div>
+    </div>
+
+    <div class="dwg">
+      <div class="dh mono"><span>Schematic</span><span>Illustrative</span></div>
+      <div class="stage">
+
+        <div class="ed" style="left:126px;top:74px;width:96px;transform:rotate(23deg)"></div>
+        <div class="ed" style="left:126px;top:158px;width:96px;transform:rotate(-16deg)"></div>
+        <div class="ed" style="left:126px;top:236px;width:118px;transform:rotate(-46deg)"></div>
+        <div class="ed r" style="left:300px;top:132px;width:100px;transform:rotate(0deg)"></div>
+        
+        <div class="nd" style="left:22px;top:58px">source doc<small>ingested</small></div>
+        <div class="nd" style="left:22px;top:142px">code symbol<small>ingested</small></div>
+        <div class="nd" style="left:22px;top:224px">prior answer<small>ingested</small></div>
+
+        <div class="nd" style="left:216px;top:110px">context node<small>graph-native</small></div>
+
+        <div class="nd r" style="left:400px;top:110px">answer<small>accountable</small></div>
+
+        <div class="edlab" style="left:170px;top:78px">derives</div>
+        <div class="edlab" style="left:170px;top:142px">derives</div>
+        <div class="edlab" style="left:166px;top:198px">derives</div>
+        <div class="edlab" style="left:332px;top:118px">cites</div>
+
+        <div class="dimline" style="left:216px;top:270px;width:265px;height:1px"></div>
+        <div class="dimline" style="left:216px;top:266px;width:1px;height:9px"></div>
+        <div class="dimline" style="left:480px;top:266px;width:1px;height:9px"></div>
+        <div class="dim" style="left:216px;top:276px">every edge is walkable in reverse</div>
+      </div>
+      <p class="df">Node and edge names are a schematic drawing, not project API. The project describes graph-native infrastructure for context and accountable AI systems.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="n mono">A</span>
+      <h3>Graph-native, not graph-flavored</h3>
+      <p>Context stored as nodes and edges keeps its shape, so a later question can travel the same path the first answer took.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">B</span>
+      <h3>Accountability needs an edge</h3>
+      <p>An answer you can trace beats an answer you have to trust, and tracing requires the link to have been recorded at write time.</p>
+    </div>
+    <div class="c">
+      <span class="n mono">C</span>
+      <h3>Infrastructure, stated plainly</h3>
+      <p>The project calls itself infrastructure, which is a claim about what other systems sit on top rather than about a single application.</p>
+    </div>
+  </section>
+
+  <div class="foot mono"><span>semantica-agi/semantica</span><span>Design study by Goose. Not affiliated with the project.</span></div>
+
+</div>
+</body>
+</html>

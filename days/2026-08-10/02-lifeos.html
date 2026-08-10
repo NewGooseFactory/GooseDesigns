@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LifeOS - a general hill-climbing AI harness</title>
+<style>
+:root{
+  --bg:#0d0e0c;
+  --fg:#f2efe6;
+  --fg2:#9d9a8f;
+  --fg3:#6b6961;
+  --line:#232520;
+  --moss:#7fae4e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:"Helvetica Neue",Helvetica,Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.sheet{max-width:1180px;margin:0 auto;padding:0 48px;display:flex;flex-direction:column;min-height:100vh}
+
+.rule{height:1px;background:var(--line)}
+.head{display:flex;justify-content:space-between;align-items:baseline;padding:24px 0;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3)}
+.head b{color:var(--fg);font-weight:600}
+
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0 32px}
+
+h1{
+  margin:0;font-weight:800;font-size:104px;line-height:.92;letter-spacing:-.05em;max-width:13ch;
+}
+h1 .m{color:var(--moss)}
+.lede{margin:36px 0 0;font-size:19.5px;line-height:1.56;color:var(--fg2);max-width:44ch}
+.lede b{color:var(--fg);font-weight:500}
+
+/* the climb */
+.climb{margin-top:44px;border-top:1px solid var(--line);padding-top:24px}
+.clab{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--fg3);margin-bottom:34px}
+.steps{display:flex;align-items:flex-end;gap:4px;height:120px;min-height:120px}
+.st{flex:1 1 0;position:relative;height:100%;display:block}
+.st .bar{position:absolute;left:0;right:0;bottom:0;background:#1e2b16;border-top:2px solid var(--moss);display:block}
+.st.now .bar{background:#2c4020}
+.st .t{position:absolute;top:-15px;left:0;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg3);font-family:"SFMono-Regular",Menlo,Consolas,monospace;white-space:nowrap}
+.st.now .t{color:var(--moss)}
+.ends{display:flex;justify-content:space-between;margin-top:12px;font-size:12.5px;color:var(--fg2)}
+.ends b{color:var(--fg);font-weight:500}
+.cnote{margin-top:14px;font-size:11px;color:var(--fg3);font-style:italic}
+
+.foot{padding:24px 0 36px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:11.5px;letter-spacing:.09em;color:var(--fg3)}
+.link{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--moss);padding-bottom:3px;font-size:14px;letter-spacing:.03em}
+.link:hover{color:var(--moss)}
+
+@media (max-width:1040px){ h1{font-size:66px} }
+@media (max-width:760px){
+  .sheet{padding:0 24px}
+  h1{font-size:42px;max-width:none}
+  .lede{font-size:17px}
+  .steps{height:92px;min-height:92px}
+  .st .t{display:none}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="head mono">
+    <span><b>danielmiessler</b> / LifeOS</span>
+    <span>Hill-climbing AI harness</span>
+  </div>
+  <div class="rule"></div>
+
+  <main class="body">
+    <h1>Current state. <span class="m">Ideal state.</span> Repeat.</h1>
+
+    <p class="lede">LifeOS is a <b>general hill-climbing AI harness</b> that helps you move from current state to ideal state in both life and work. The harness is the part that keeps asking which way is up.</p>
+
+    <div class="climb">
+      <div class="clab mono"><span>One climb, step by step</span><span>Illustrative</span></div>
+
+      <div class="steps">
+        <div class="st"><span class="t">observe</span><span class="bar" style="height:18%"></span></div>
+        <div class="st"><span class="t">compare</span><span class="bar" style="height:31%"></span></div>
+        <div class="st"><span class="t">choose</span><span class="bar" style="height:44%"></span></div>
+        <div class="st"><span class="t">act</span><span class="bar" style="height:58%"></span></div>
+        <div class="st"><span class="t">measure</span><span class="bar" style="height:71%"></span></div>
+        <div class="st now"><span class="t">repeat</span><span class="bar" style="height:88%"></span></div>
+      </div>
+
+      <div class="ends">
+        <span><b>Current state</b></span>
+        <span><b>Ideal state</b></span>
+      </div>
+      <p class="cnote">Step names describe the shape of a hill-climb. The two endpoints are the ones the project names in its own description.</p>
+    </div>
+  </main>
+
+  <div class="rule"></div>
+  <div class="foot mono">
+    <a class="link" href="https://github.com/danielmiessler/LifeOS">github.com/danielmiessler/LifeOS</a>
+    <span>Design study by Goose. Not affiliated with the project.</span>
+  </div>
+
+</div>
+</body>
+</html>

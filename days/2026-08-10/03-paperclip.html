@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>paperclip - manage agents at work</title>
+<style>
+:root{
+  --cream:#f7f4ef;
+  --card:#fffefb;
+  --ink:#1f1c18;
+  --ink2:#5b544a;
+  --ink3:#8e8779;
+  --edge:#e5dfd3;
+  --edge2:#cec6b6;
+  --clay:#c05a3e;
+  --sage:#5d7a56;
+  --sky:#41688f;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--cream);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+
+.top{padding:24px 0}
+.topin{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink3)}
+.topin b{color:var(--ink);font-weight:600}
+
+.hero{padding:52px 0 22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);gap:56px;align-items:center}
+.pill{
+  display:inline-block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+  background:#efe8dc;color:var(--clay);padding:6px 13px;border-radius:100px;margin-bottom:22px;
+}
+h1{margin:0;font-size:50px;line-height:1.08;letter-spacing:-.028em;font-weight:600;max-width:14ch}
+h1 .c{color:var(--clay)}
+.lede{margin:24px 0 0;font-size:18px;line-height:1.66;color:var(--ink2);max-width:42ch}
+.lede b{color:var(--ink);font-weight:600}
+.cta{margin-top:30px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.b1{
+  background:var(--ink);color:var(--cream);text-decoration:none;font-size:15px;font-weight:500;
+  padding:13px 26px;border-radius:9px;box-shadow:0 1px 2px rgba(31,28,24,.15),0 8px 20px -12px rgba(31,28,24,.4);
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.b1:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(31,28,24,.18),0 14px 26px -14px rgba(31,28,24,.44)}
+.b2{font-size:14.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--edge2);padding-bottom:2px}
+.b2:hover{color:var(--clay);border-color:var(--clay)}
+
+/* roster card */
+.roster{
+  background:var(--card);border:1px solid var(--edge);border-radius:16px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(31,28,24,.05),0 20px 44px -30px rgba(31,28,24,.4);
+}
+.rh{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--edge);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.row{display:grid;grid-template-columns:34px 1fr 96px;gap:14px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--edge)}
+.row:last-of-type{border-bottom:0}
+.av{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;color:#fff}
+.who{min-width:0}
+.who .nm{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.005em}
+.who .ds{display:block;margin-top:3px;font-size:12.5px;line-height:1.45;color:var(--ink2)}
+.stt{text-align:right;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3)}
+.stt b{display:block;margin-top:3px;font-size:11.5px;letter-spacing:.05em;font-weight:600}
+.stt.run b{color:var(--sage)}
+.stt.wait b{color:var(--clay)}
+.stt.idle b{color:var(--ink3)}
+.rf{padding:12px 18px;border-top:1px solid var(--edge);font-size:11.5px;color:var(--ink3);font-style:italic;background:#faf7f2}
+
+.three{margin:52px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.three .c{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:22px 22px 24px;box-shadow:0 1px 2px rgba(31,28,24,.04),0 14px 28px -24px rgba(31,28,24,.36)}
+.three .c .tag{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);display:block;margin-bottom:13px}
+.three .c h3{margin:0 0 9px;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.three .c p{margin:0;font-size:14px;line-height:1.62;color:var(--ink2)}
+
+.foot{padding:34px 0 46px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:38px 0 14px}
+  h1{font-size:34px;max-width:none}
+  .three{grid-template-columns:1fr}
+  .row{grid-template-columns:34px 1fr;row-gap:6px}
+  .stt{grid-column:2;text-align:left}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <div class="topin">
+    <span class="mono"><b>paperclipai</b> / paperclip</span>
+    <span class="mono">Open source</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <span class="pill">Manage agents at work</span>
+      <h1>Six agents running. Who is <span class="c">accountable for each?</span></h1>
+      <p class="lede">paperclip is <b>the open-source app everyone uses to manage agents at work</b>. Once agents outnumber the people watching them, management stops being a metaphor.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/paperclipai/paperclip">Open the app</a>
+        <a class="b2 mono" href="https://github.com/paperclipai/paperclip">github.com/paperclipai/paperclip</a>
+      </div>
+    </div>
+
+    <aside class="roster">
+      <div class="rh mono"><span>Agents at work</span><span>Illustrative</span></div>
+
+      <div class="row">
+        <span class="av" style="background:var(--sky)">RS</span>
+        <span class="who"><span class="nm">Release summarizer</span><span class="ds">drafts the changelog from merged PRs</span></span>
+        <span class="stt run mono">state<b>running</b></span>
+      </div>
+
+      <div class="row">
+        <span class="av" style="background:var(--clay)">TR</span>
+        <span class="who"><span class="nm">Ticket triager</span><span class="ds">waiting on a human to confirm a priority bump</span></span>
+        <span class="stt wait mono">state<b>needs you</b></span>
+      </div>
+
+      <div class="row">
+        <span class="av" style="background:var(--sage)">DW</span>
+        <span class="who"><span class="nm">Docs watcher</span><span class="ds">flags pages that drifted from the code</span></span>
+        <span class="stt run mono">state<b>running</b></span>
+      </div>
+
+      <div class="row">
+        <span class="av" style="background:#7a6f9c">OC</span>
+        <span class="who"><span class="nm">Oncall digest</span><span class="ds">scheduled, next run at the shift handover</span></span>
+        <span class="stt idle mono">state<b>idle</b></span>
+      </div>
+
+      <p class="rf">Roster contents are illustrative. The project describes itself as the open-source app everyone uses to manage agents at work.</p>
+    </aside>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="tag mono">Roster</span>
+      <h3>A list beats a memory</h3>
+      <p>Knowing what is running is the first management problem, and it arrives long before anyone asks whether it ran well.</p>
+    </div>
+    <div class="c">
+      <span class="tag mono">Handoff</span>
+      <h3>Needs you is a state</h3>
+      <p>An agent that pauses for a person is working correctly, and the queue of those pauses is the real interface.</p>
+    </div>
+    <div class="c">
+      <span class="tag mono">Open source</span>
+      <h3>Inspectable by default</h3>
+      <p>Software that supervises other software is a reasonable thing to want to read before you trust it.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <span class="mono">paperclipai/paperclip</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>
