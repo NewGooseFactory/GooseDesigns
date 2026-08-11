@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeepTutor - lifelong personalized tutoring</title>
+<style>
+:root{
+  --paper:#fbfaf6;
+  --card:#ffffff;
+  --ink:#191713;
+  --ink2:#4e4a42;
+  --ink3:#8b8579;
+  --rule:#e4e0d5;
+  --rule2:#c9c3b4;
+  --plum:#6b3f6e;
+  --sage:#5f7a52;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1120px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--rule)}
+.topin{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;font-size:12.5px;color:var(--ink3)}
+.topin b{color:var(--ink);font-weight:600}
+
+.hero{padding:66px 0 20px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--plum);margin:0 0 24px}
+h1{margin:0;font-weight:400;font-size:56px;line-height:1.06;letter-spacing:-.018em;max-width:13ch}
+h1 em{font-style:italic;color:var(--plum)}
+.lede{margin:26px 0 0;font-size:18.5px;line-height:1.66;color:var(--ink2);max-width:40ch}
+.lede b{color:var(--ink);font-weight:600}
+.cta{margin-top:32px;display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;padding:13px 26px;border-radius:2px;border:1px solid var(--ink)}
+.b1:hover{background:var(--plum);border-color:var(--plum)}
+.b2{font-size:14.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule2);padding-bottom:2px}
+.b2:hover{color:var(--plum);border-color:var(--plum)}
+
+/* the long record */
+.rec{background:var(--card);border:1px solid var(--rule2);border-radius:3px;overflow:hidden}
+.rh{display:flex;justify-content:space-between;padding:12px 17px;border-bottom:1px solid var(--rule);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);background:#f8f6f0}
+.ent{display:grid;grid-template-columns:74px 1fr;gap:16px;padding:14px 17px;border-bottom:1px solid var(--rule)}
+.ent:last-of-type{border-bottom:0}
+.ent .when{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);padding-top:3px}
+.ent .what{font-size:14px;line-height:1.55;color:var(--ink2)}
+.ent .what b{color:var(--ink);font-weight:600;display:block;margin-bottom:2px}
+.ent.now{background:#f7f4f8}
+.ent.now .what b{color:var(--plum)}
+.rf{padding:11px 17px;border-top:1px solid var(--rule);font-size:11px;color:var(--ink3);font-style:italic;background:#f8f6f0}
+
+.pull{
+  margin:56px 0 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:30px 0;display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:start;
+}
+.pull .lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);padding-top:8px}
+.pull p{margin:0;font-size:25px;line-height:1.44;letter-spacing:-.012em;max-width:27ch}
+.pull p span{color:var(--plum)}
+
+.body{margin:46px 0 0;display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:start}
+.body .lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);padding-top:5px}
+.cols{columns:2;column-gap:42px}
+.cols p{margin:0 0 16px;font-size:15.5px;line-height:1.68;color:var(--ink2);break-inside:avoid}
+.cols p:last-child{margin-bottom:0}
+.cols b{color:var(--ink);font-weight:600}
+
+.foot{border-top:1px solid var(--rule);margin-top:52px;padding:20px 0 46px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--ink3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:44px 0 12px}
+  h1{font-size:36px;max-width:none}
+  .pull,.body{grid-template-columns:1fr;gap:16px}
+  .pull p{font-size:20px;max-width:none}
+  .cols{columns:1}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap topin">
+    <span class="mono"><b>HKUDS</b> / DeepTutor</span>
+    <span class="mono">Personalized tutoring</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="eyebrow mono">Lifelong personalized tutoring</p>
+      <h1 class="serif">A tutor who remembers <em>last term.</em></h1>
+      <p class="lede">DeepTutor is <b>lifelong personalized tutoring</b>. The word lifelong is the whole design constraint, because a tutor who forgets you is starting over every session.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/HKUDS/DeepTutor">Read the project</a>
+        <a class="b2 mono" href="https://github.com/HKUDS/DeepTutor">github.com/HKUDS/DeepTutor</a>
+      </div>
+    </div>
+
+    <aside class="rec">
+      <div class="rh mono"><span>One learner, kept</span><span>Illustrative</span></div>
+
+      <div class="ent">
+        <span class="when mono">term 1</span>
+        <span class="what"><b>Struggled with limits</b>needed the intuition before the notation</span>
+      </div>
+      <div class="ent">
+        <span class="when mono">term 2</span>
+        <span class="what"><b>Derivatives clicked</b>the earlier intuition did the work</span>
+      </div>
+      <div class="ent">
+        <span class="when mono">term 3</span>
+        <span class="what"><b>Integration by parts</b>same weak spot returned, caught faster</span>
+      </div>
+      <div class="ent now">
+        <span class="when mono">today</span>
+        <span class="what"><b>Series convergence</b>the tutor already knows where to slow down</span>
+      </div>
+
+      <p class="rf">Record content is illustrative. The project describes itself as lifelong personalized tutoring.</p>
+    </aside>
+  </section>
+
+  <section class="pull">
+    <span class="lbl mono">The claim</span>
+    <p class="serif">Personalization without memory is <span>a survey you retake every week.</span></p>
+  </section>
+
+  <section class="body">
+    <span class="lbl mono">Why lifelong</span>
+    <div class="cols">
+      <p>Most tutoring systems personalize inside a session. They read the last few answers, adjust difficulty, and then the context ends.</p>
+      <p>A lifelong record changes which mistakes are interesting. The second time a learner stalls on the same idea is <b>a pattern</b>, and it can only look like one if the first time was written down.</p>
+      <p>That also changes what the system owes the learner. A record held across terms is worth explaining and worth correcting when it gets a learner wrong.</p>
+      <p>For anyone building agent memory, tutoring is a clean version of the problem, because the ground truth arrives later and repeatedly.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <span class="mono">HKUDS/DeepTutor</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>

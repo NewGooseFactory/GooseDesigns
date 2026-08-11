@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anthropics/skills - public repository for Agent Skills</title>
+<style>
+:root{
+  --paper:#ffffff;
+  --ink:#101010;
+  --ink2:#4a4a4a;
+  --ink3:#8c8c8c;
+  --rule:#101010;
+  --hair:#dcdcdc;
+  --red:#d93a26;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"Helvetica Neue",Helvetica,Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.grid{max-width:1220px;margin:0 auto;padding:0 48px}
+
+.mast{border-bottom:2px solid var(--rule);padding:18px 0}
+.mastin{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:baseline}
+.mastin .a{grid-column:1 / span 6;font-size:14px;font-weight:700;letter-spacing:-.01em}
+.mastin .b{grid-column:9 / span 4;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);text-align:right}
+
+.hero{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:60px 0 0}
+.num{grid-column:1 / span 2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);padding-top:14px;line-height:1.7}
+.head{grid-column:3 / span 10}
+h1{margin:0;font-size:88px;line-height:.94;letter-spacing:-.045em;font-weight:700}
+h1 .r{color:var(--red)}
+.sub{grid-column:3 / span 5;margin:32px 0 0;font-size:19px;line-height:1.55;color:var(--ink2)}
+.sub b{color:var(--ink);font-weight:600}
+.aside{grid-column:9 / span 4;margin:32px 0 0;font-size:13px;line-height:1.65;color:var(--ink3);border-left:2px solid var(--red);padding-left:14px}
+.cta{grid-column:3 / span 10;margin:36px 0 0;display:flex;flex-wrap:wrap}
+.b1{background:var(--ink);color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:14px 28px;letter-spacing:.02em}
+.b1:hover{background:var(--red)}
+.b2{border:1px solid var(--hair);border-left:0;padding:14px 24px;font-size:13.5px;color:var(--ink2);text-decoration:none}
+.b2:hover{color:var(--red);border-color:var(--red)}
+
+.rule{border-top:2px solid var(--rule);margin-top:58px}
+
+.split{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:36px 0 0}
+.lbl{grid-column:1 / span 2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);line-height:1.7}
+.frame{grid-column:3 / span 10;border:1px solid var(--hair)}
+.fh{display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--hair);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);background:#fafafa}
+.frows{padding:0}
+.frow{display:grid;grid-template-columns:26px 1fr 1.5fr;gap:16px;align-items:baseline;padding:14px 16px;border-bottom:1px solid var(--hair)}
+.frow:last-child{border-bottom:0}
+.frow .k{font-size:11px;color:var(--red);letter-spacing:.1em}
+.frow .p{font-size:14px;font-weight:600;letter-spacing:-.005em}
+.frow .d{font-size:13.5px;line-height:1.55;color:var(--ink2)}
+.ff{padding:11px 16px;border-top:1px solid var(--hair);font-size:11px;color:var(--ink3);font-style:italic;background:#fafafa}
+
+.steps{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:44px 0 0}
+.stepsL{grid-column:1 / span 2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);line-height:1.7}
+.stepsR{grid-column:3 / span 10;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--hair)}
+.st{padding:22px 26px 26px 0;border-right:1px solid var(--hair)}
+.st:last-child{border-right:0;padding-right:0}
+.st:not(:first-child){padding-left:26px}
+.st h4{margin:0 0 7px;font-size:15px;font-weight:700}
+.st p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+.foot{border-top:2px solid var(--rule);margin-top:54px;padding:18px 0 46px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--ink3);letter-spacing:.05em}
+
+@media (max-width:1000px){
+  .grid{padding:0 22px}
+  h1{font-size:42px}
+  .num,.head,.sub,.aside,.cta,.lbl,.frame,.stepsL,.stepsR{grid-column:1 / span 12}
+  .num,.lbl,.stepsL{padding-bottom:12px}
+  .frow{grid-template-columns:26px 1fr;row-gap:5px}
+  .frow .d{grid-column:2}
+  .stepsR{grid-template-columns:1fr}
+  .st{border-right:0;border-bottom:1px solid var(--hair);padding:20px 0}
+  .st:not(:first-child){padding-left:0}
+  .st:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="grid mastin">
+    <span class="a mono">anthropics / skills</span>
+    <span class="b mono">Public repository</span>
+  </div>
+</header>
+
+<main class="grid">
+  <section class="hero">
+    <div class="num mono">01<br>Public</div>
+    <div class="head">
+      <h1>The vendor put its<br>own skills where<br>you can <span class="r">read them.</span></h1>
+    </div>
+    <p class="sub">anthropics/skills is the <b>public repository for Agent Skills</b>. Skills that ship with the product are readable, copyable, and open to correction by anyone who uses them.</p>
+    <p class="aside">Three separate skill libraries trended this week from independent authors. This one comes from the vendor, which changes what a disagreement about a skill looks like.</p>
+    <div class="cta">
+      <a class="b1" href="https://github.com/anthropics/skills">Read the skills</a>
+      <a class="b2 mono" href="https://github.com/anthropics/skills">github.com/anthropics/skills</a>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="split">
+    <div class="lbl mono">02<br>Why<br>public</div>
+    <div class="frame">
+      <div class="fh mono"><span>What changes when the file is public</span><span>Reading of the repo name</span></div>
+      <div class="frows">
+        <div class="frow"><span class="k mono">A</span><span class="p">You can read it</span><span class="d">Behavior that used to be inferred from output is stated in a file you can open.</span></div>
+        <div class="frow"><span class="k mono">B</span><span class="p">You can copy it</span><span class="d">A house style becomes a starting point for your own library rather than a black box.</span></div>
+        <div class="frow"><span class="k mono">C</span><span class="p">You can argue with it</span><span class="d">A public file takes issues and pull requests, which is a different relationship than a changelog.</span></div>
+      </div>
+      <p class="ff">Row content is a reading of the repository name and description. The project describes itself as the public repository for Agent Skills.</p>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="stepsL mono">03<br>Shape</div>
+    <div class="stepsR">
+      <div class="st">
+        <h4>Agent Skills</h4>
+        <p>Written practice an agent loads when the work calls for it, rather than instruction pasted into a prompt.</p>
+      </div>
+      <div class="st">
+        <h4>Public repository</h4>
+        <p>The distribution channel is a git repo, so versioning and history come for free.</p>
+      </div>
+      <div class="st">
+        <h4>From anthropics</h4>
+        <p>The author is the vendor, which makes these the reference implementation whether or not you agree with them.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="grid foot mono">
+  <span>anthropics/skills</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>

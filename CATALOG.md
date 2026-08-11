@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **180 mocks** across **60 days**. Newest first.
+Searchable master index. **183 mocks** across **61 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-11 | Tuesday | [stablyai/orca](https://github.com/stablyai/orca) | terminal-dark | cyan | argue the category name with five lanes at different depths and one blocked | landed: parallel reads as a scheduling problem not a feature word | [png](days/2026-08-11/01-orca.png) | [2026-08-11](days/2026-08-11/) |
+| 2026-08-11 | Tuesday | [anthropics/skills](https://github.com/anthropics/skills) | swiss | signal-red | take the word public seriously and show what changes when the file is readable | landed: the grid holds an argument without inventing product claims | [png](days/2026-08-11/02-skills.png) | [2026-08-11](days/2026-08-11/) |
+| 2026-08-11 | Tuesday | [HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor) | editorial | plum | make lifelong load-bearing with one learner across four dated terms | landed: a repeated mistake is only a pattern if the first was recorded | [png](days/2026-08-11/03-deeptutor.png) | [2026-08-11](days/2026-08-11/) |
 | 2026-08-10 | Monday | [semantica-agi/semantica](https://github.com/semantica-agi/semantica) | blueprint | ink-blue | draw accountability as a direction with every edge walkable in reverse | landed: drafting notation suits a claim about traceability | [png](days/2026-08-10/01-semantica.png) | [2026-08-10](days/2026-08-10/) |
 | 2026-08-10 | Monday | [danielmiessler/LifeOS](https://github.com/danielmiessler/LifeOS) | poster | moss | turn the description into three words and a six-step staircase | landed: a hill-climb is already a picture so the poster stopped adding | [png](days/2026-08-10/02-lifeos.png) | [2026-08-10](days/2026-08-10/) |
 | 2026-08-10 | Monday | [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | warm-minimal | clay | make needs you a first-class state beside running and idle | landed: the paused row is where the eye lands, which is correct | [png](days/2026-08-10/03-paperclip.png) | [2026-08-10](days/2026-08-10/) |
