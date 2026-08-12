@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAGFlow - a context layer for LLMs</title>
+<style>
+:root{
+  --bg:#0a0c10;
+  --panel:#0f1218;
+  --line:#1b202a;
+  --line2:#262d3a;
+  --fg:#e4e9f0;
+  --fg2:#8f9bad;
+  --fg3:#5c687a;
+  --c1:#4aa9e8;
+  --c2:#43c9a4;
+  --c3:#d9a13f;
+  --c4:#b57ad6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg3)}
+.topin b{color:var(--fg);font-weight:600}
+.oss{display:inline-flex;align-items:center;gap:8px;color:var(--c2)}
+.oss i{width:6px;height:6px;border-radius:50%;background:var(--c2);display:inline-block}
+
+.hero{padding:58px 0 38px;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:50px;align-items:center}
+.kick{font-size:10.5px;letter-spacing:.23em;text-transform:uppercase;color:var(--c1);margin:0 0 20px}
+h1{margin:0;font-size:52px;line-height:1.06;letter-spacing:-.03em;font-weight:650;max-width:15ch}
+h1 .a{color:var(--c1)}
+.lede{margin:24px 0 0;font-size:17.5px;line-height:1.64;color:var(--fg2);max-width:46ch}
+.lede b{color:var(--fg);font-weight:500}
+.cta{margin-top:30px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.b1{background:var(--c1);color:#04161f;text-decoration:none;font-size:14.5px;font-weight:650;padding:12px 25px;border-radius:3px}
+.b1:hover{filter:brightness(1.1)}
+.b2{font-size:13.5px;color:var(--fg2);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:2px}
+.b2:hover{color:var(--c1);border-color:var(--c1)}
+
+/* context layer chart */
+.chart{border:1px solid var(--line);background:var(--panel);border-radius:4px;overflow:hidden}
+.chh{display:flex;justify-content:space-between;padding:12px 17px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3)}
+.chb{padding:18px 17px 6px}
+.grp{margin-bottom:18px}
+.glab{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;margin-bottom:9px}
+.glab .t{color:var(--fg)}
+.glab .s{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg3)}
+.stack{display:flex;height:22px;border-radius:2px;overflow:hidden;background:#141922}
+.seg{height:100%;display:block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:0 17px 15px;font-size:10.5px;color:var(--fg3)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:9px;height:9px;border-radius:2px;display:block}
+.chf{padding:12px 17px;border-top:1px solid var(--line);font-size:10.5px;color:var(--fg3);font-style:italic}
+
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.c{padding:28px 28px 34px 0;border-right:1px solid var(--line)}
+.c:last-child{border-right:0;padding-right:0}
+.c:not(:first-child){padding-left:28px}
+.c .n{font-size:10px;letter-spacing:.19em;text-transform:uppercase;display:block;margin-bottom:11px}
+.c h3{margin:0 0 8px;font-size:16px;font-weight:600}
+.c p{margin:0;font-size:14px;line-height:1.62;color:var(--fg2)}
+
+.foot{border-top:1px solid var(--line);padding:18px 0 44px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11px;letter-spacing:.07em;color:var(--fg3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:34px;padding:42px 0 28px}
+  h1{font-size:35px;max-width:none}
+  .three{grid-template-columns:1fr}
+  .c{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .c:not(:first-child){padding-left:0}
+  .c:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topin mono">
+    <span><b>infiniflow</b> / ragflow</span>
+    <span class="oss"><i></i>Open source</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="kick mono">RAG plus agent capabilities</p>
+      <h1>Retrieval is one <span class="a">layer of the context.</span></h1>
+      <p class="lede">RAGFlow is an open-source retrieval-augmented generation engine that fuses RAG with agent capabilities to create a <b>context layer for LLMs</b>. The word layer matters, because retrieved chunks are one input among several.</p>
+      <div class="cta">
+        <a class="b1" href="https://github.com/infiniflow/ragflow">Read the engine</a>
+        <a class="b2 mono" href="https://github.com/infiniflow/ragflow">github.com/infiniflow/ragflow</a>
+      </div>
+    </div>
+
+    <div class="chart">
+      <div class="chh mono"><span>What fills the window</span><span>Illustrative</span></div>
+      <div class="chb">
+
+        <div class="grp">
+          <div class="glab"><span class="t mono">Retrieval only</span><span class="s mono">chunks and instruction</span></div>
+          <div class="stack">
+            <span class="seg" style="width:18%;background:var(--c1)"></span>
+            <span class="seg" style="width:60%;background:var(--c2)"></span>
+          </div>
+        </div>
+
+        <div class="grp">
+          <div class="glab"><span class="t mono">Context layer</span><span class="s mono">retrieval plus agent work</span></div>
+          <div class="stack">
+            <span class="seg" style="width:16%;background:var(--c1)"></span>
+            <span class="seg" style="width:34%;background:var(--c2)"></span>
+            <span class="seg" style="width:28%;background:var(--c3)"></span>
+            <span class="seg" style="width:22%;background:var(--c4)"></span>
+          </div>
+        </div>
+
+      </div>
+      <div class="legend mono">
+        <span><i style="background:var(--c1)"></i>instruction</span>
+        <span><i style="background:var(--c2)"></i>retrieved chunks</span>
+        <span><i style="background:var(--c3)"></i>tool results</span>
+        <span><i style="background:var(--c4)"></i>prior steps</span>
+      </div>
+      <p class="chf">Proportions are illustrative. The project describes fusing RAG with agent capabilities to create a context layer for LLMs.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c">
+      <span class="n mono" style="color:var(--c1)">Retrieval</span>
+      <h3>Chunks still matter</h3>
+      <p>Getting the right passage is the part everyone built first, and it stays load-bearing.</p>
+    </div>
+    <div class="c">
+      <span class="n mono" style="color:var(--c3)">Agent</span>
+      <h3>Some context is produced</h3>
+      <p>A tool call generates context that no document contained, which is a different source with different failure modes.</p>
+    </div>
+    <div class="c">
+      <span class="n mono" style="color:var(--c4)">Layer</span>
+      <h3>One place to assemble it</h3>
+      <p>Naming it a layer says the assembly is a component you can inspect rather than prompt code scattered across an app.</p>
+    </div>
+  </section>
+</main>
+
+<div class="wrap foot mono">
+  <span>infiniflow/ragflow</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</div>
+
+</body>
+</html>

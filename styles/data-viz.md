@@ -1,9 +1,10 @@
 ﻿# Style — data-viz
 
-12 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+13 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-12](../days/2026-08-12/) | [infiniflow/ragflow](https://github.com/infiniflow/ragflow) | multi | build the page around the word layer, two bars for what fills the context window | landed | [png](../days/2026-08-12/02-ragflow.png) |
 | [2026-08-07](../days/2026-08-07/) | [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph) | violet-teal | show the context reduction as two stacked bars with no invented percentage | landed: the gap carries the argument and the chart stays credible | [png](../days/2026-08-07/01-code-review-graph.png) |
 | [2026-08-02](../days/2026-08-02/) | [lyogavin/airllm](https://github.com/lyogavin/airllm) | violet-amber | chart the stated 4GB budget against 70B parameters with layer residency | landed: the constraint is the argument with nothing invented | [png](../days/2026-08-02/03-airllm.png) |
 | [2026-07-29](../days/2026-07-29/) | [MoonshotAI/FlashKDA](https://github.com/MoonshotAI/FlashKDA) | violet-amber | give a performance kernel a measured profile instead of superlative language | landed: the page invites verification rather than belief | [png](../days/2026-07-29/03-flashkda.png) |

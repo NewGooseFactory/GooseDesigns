@@ -185,3 +185,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-11 — [rep](days/2026-08-11/) — stablyai/orca — terminal-dark/cyan — argue the category name with five lanes at different depths and one blocked → landed: parallel reads as a scheduling problem not a feature word
 - 2026-08-11 — [rep](days/2026-08-11/) — anthropics/skills — swiss/signal-red — take the word public seriously and show what changes when the file is readable → landed: the grid holds an argument without inventing product claims
 - 2026-08-11 — [rep](days/2026-08-11/) — HKUDS/DeepTutor — editorial/plum — make lifelong load-bearing with one learner across four dated terms → landed: a repeated mistake is only a pattern if the first was recorded
+- 2026-08-12 — [rep](days/2026-08-12/) — cathrynlavery/diagram-design — specimen/stamp-red — anti-goals as the product, a specimen sheet of rejected vs accepted renderings → landed
+- 2026-08-12 — [rep](days/2026-08-12/) — infiniflow/ragflow — data-viz/multi — build the page around the word layer, two bars for what fills the context window → landed
+- 2026-08-12 — [rep](days/2026-08-12/) — macro-inc/macro — glass/iris — show the at-mention doing work across four surfaces → landed

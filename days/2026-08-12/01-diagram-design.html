@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>diagram-design - 29 editorial diagram types</title>
+<style>
+:root{
+  --paper:#f7f4ed;
+  --card:#fffdf8;
+  --ink:#141210;
+  --ink2:#4a453d;
+  --ink3:#7d766a;
+  --rule:#ddd6c6;
+  --rule2:#c4bba6;
+  --stamp:#1f4f6b;
+  --neg:#9e3226;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:1140px;margin:0 auto;padding:0 42px}
+
+.top{border-bottom:1px solid var(--rule)}
+.topin{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0}
+.brand{font-size:15px}
+.brand b{font-weight:600}
+.topmeta{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3)}
+
+.hero{padding:62px 0 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);gap:56px;align-items:start}
+.eyebrow{
+  display:inline-block;font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--stamp);border:1px solid var(--stamp);padding:5px 10px;border-radius:2px;margin-bottom:24px;
+}
+h1{margin:0;font-weight:400;font-size:56px;line-height:1.06;letter-spacing:-.018em;max-width:15ch}
+h1 em{font-style:italic;color:var(--stamp)}
+.lede{margin:26px 0 0;font-size:18.5px;line-height:1.62;color:var(--ink2);max-width:36em}
+.negs{margin-top:26px;display:flex;flex-direction:column;gap:9px}
+.neg{display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:baseline;font-size:15px;color:var(--ink2)}
+.neg span{color:var(--neg);font-size:14px}
+.neg.ok span{color:var(--stamp)}
+.cta{margin-top:34px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.btn{font-family:inherit;font-size:15px;text-decoration:none;color:var(--paper);background:var(--ink);padding:13px 24px;border-radius:2px;border:1px solid var(--ink)}
+.btn:hover{background:var(--stamp);border-color:var(--stamp)}
+.alt{font-size:14.5px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule2);padding-bottom:2px}
+.alt:hover{color:var(--stamp);border-color:var(--stamp)}
+
+/* specimen sheet */
+.spec{position:relative}
+.card{background:var(--card);border:1px solid var(--rule2);border-radius:2px;box-shadow:0 1px 0 rgba(20,18,16,.05),0 18px 34px -26px rgba(20,18,16,.4)}
+.stamp{
+  position:absolute;top:-15px;right:-8px;transform:rotate(-6deg);
+  border:2px solid var(--stamp);color:var(--stamp);border-radius:3px;padding:6px 11px;
+  font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;background:rgba(247,244,237,.95);
+}
+.ch{display:flex;justify-content:space-between;padding:13px 18px;border-bottom:1px solid var(--rule)}
+.ch span{font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink3)}
+.plates{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule)}
+.plate{background:var(--card);padding:14px 14px 12px}
+.figure{height:74px;position:relative;margin-bottom:10px}
+.plab{font-size:10.5px;letter-spacing:.05em;color:var(--ink2);font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+.pn{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);display:block;margin-top:2px;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+.bar{position:absolute;bottom:0;background:var(--stamp)}
+.ln{position:absolute;background:var(--stamp);height:1.5px;transform-origin:0 50%}
+.bx{position:absolute;border:1.5px solid var(--stamp)}
+.dt{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--stamp)}
+.cf{padding:12px 18px;border-top:1px solid var(--rule);font-size:11px;color:var(--ink3);font-style:italic}
+
+.strip{border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(3,1fr)}
+.cell{padding:28px 30px 34px 0;border-right:1px solid var(--rule)}
+.cell:last-child{border-right:0;padding-right:0}
+.cell:not(:first-child){padding-left:30px}
+.cell .num{font-size:10.5px;letter-spacing:.19em;color:var(--stamp);display:block;margin-bottom:12px;font-family:"SFMono-Regular",Menlo,Consolas,monospace}
+.cell h3{margin:0 0 9px;font-size:18px;font-weight:400}
+.cell p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink2)}
+
+.foot{border-top:1px solid var(--rule);padding:20px 0 44px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--ink3)}
+
+@media (max-width:1000px){
+  .wrap{padding:0 22px}
+  .hero{grid-template-columns:1fr;gap:40px;padding:44px 0 30px}
+  h1{font-size:36px;max-width:none}
+  .plates{grid-template-columns:1fr 1fr}
+  .strip{grid-template-columns:1fr}
+  .cell{border-right:0;border-bottom:1px solid var(--rule);padding:22px 0}
+  .cell:not(:first-child){padding-left:0}
+  .cell:last-child{border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap topin">
+    <div class="brand mono"><b>cathrynlavery</b> / diagram-design</div>
+    <div class="topmeta mono">HTML + SVG &middot; for Claude Code</div>
+  </div>
+</header>
+
+<main class="wrap hero">
+  <section>
+    <span class="eyebrow mono">29 editorial diagram types</span>
+    <h1>A diagram is a <em>drawing decision,</em> not a render target.</h1>
+    <p class="lede">diagram-design gives Claude Code 29 editorial diagram types as self-contained HTML and SVG. The constraints are stated in the description, and they are the interesting part.</p>
+
+    <div class="negs sans">
+      <div class="neg"><span>&times;</span><span>No shadows</span></div>
+      <div class="neg"><span>&times;</span><span>No Mermaid-slop</span></div>
+      <div class="neg ok"><span>&#10003;</span><span>Self-contained HTML and SVG</span></div>
+    </div>
+
+    <div class="cta">
+      <a class="btn" href="https://github.com/cathrynlavery/diagram-design">Read the project</a>
+      <a class="alt mono" href="https://github.com/cathrynlavery/diagram-design">github.com/cathrynlavery/diagram-design</a>
+    </div>
+  </section>
+
+  <section class="spec">
+    <div class="stamp mono">Specimen</div>
+    <div class="card">
+      <div class="ch"><span class="mono">Plate sheet</span><span class="mono">Illustrative</span></div>
+
+      <div class="plates">
+        <div class="plate">
+          <div class="figure">
+            <span class="bar" style="left:4px;width:14px;height:26px"></span>
+            <span class="bar" style="left:24px;width:14px;height:44px"></span>
+            <span class="bar" style="left:44px;width:14px;height:60px"></span>
+            <span class="bar" style="left:64px;width:14px;height:38px"></span>
+          </div>
+          <p class="plab">column</p><span class="pn">comparison</span>
+        </div>
+
+        <div class="plate">
+          <div class="figure">
+            <span class="ln" style="left:4px;top:56px;width:34px;transform:rotate(-28deg)"></span>
+            <span class="ln" style="left:34px;top:40px;width:32px;transform:rotate(14deg)"></span>
+            <span class="ln" style="left:64px;top:48px;width:30px;transform:rotate(-34deg)"></span>
+            <span class="dt" style="left:1px;top:53px"></span>
+            <span class="dt" style="left:31px;top:37px"></span>
+            <span class="dt" style="left:61px;top:45px"></span>
+            <span class="dt" style="left:87px;top:28px"></span>
+          </div>
+          <p class="plab">line</p><span class="pn">trend</span>
+        </div>
+
+        <div class="plate">
+          <div class="figure">
+            <span class="bx" style="left:4px;top:12px;width:36px;height:22px"></span>
+            <span class="bx" style="left:58px;top:12px;width:36px;height:22px"></span>
+            <span class="bx" style="left:31px;top:50px;width:36px;height:22px"></span>
+            <span class="ln" style="left:40px;top:23px;width:18px"></span>
+            <span class="ln" style="left:38px;top:34px;width:22px;transform:rotate(48deg)"></span>
+          </div>
+          <p class="plab">node graph</p><span class="pn">relation</span>
+        </div>
+
+        <div class="plate">
+          <div class="figure">
+            <span class="bx" style="left:4px;top:8px;width:88px;height:16px"></span>
+            <span class="bx" style="left:14px;top:32px;width:68px;height:16px"></span>
+            <span class="bx" style="left:26px;top:56px;width:44px;height:16px"></span>
+          </div>
+          <p class="plab">funnel</p><span class="pn">narrowing</span>
+        </div>
+
+        <div class="plate">
+          <div class="figure">
+            <span class="ln" style="left:4px;top:36px;width:88px"></span>
+            <span class="dt" style="left:6px;top:33px"></span>
+            <span class="dt" style="left:34px;top:33px"></span>
+            <span class="dt" style="left:62px;top:33px"></span>
+            <span class="dt" style="left:86px;top:33px"></span>
+            <span class="bx" style="left:6px;top:18px;width:1.5px;height:15px;border:0;background:var(--stamp)"></span>
+            <span class="bx" style="left:62px;top:18px;width:1.5px;height:15px;border:0;background:var(--stamp)"></span>
+          </div>
+          <p class="plab">timeline</p><span class="pn">sequence</span>
+        </div>
+
+        <div class="plate">
+          <div class="figure">
+            <span class="bx" style="left:4px;top:10px;width:42px;height:26px"></span>
+            <span class="bx" style="left:52px;top:10px;width:42px;height:26px"></span>
+            <span class="bx" style="left:4px;top:44px;width:42px;height:26px"></span>
+            <span class="bx" style="left:52px;top:44px;width:42px;height:26px"></span>
+          </div>
+          <p class="plab">quadrant</p><span class="pn">positioning</span>
+        </div>
+      </div>
+
+      <p class="cf">Six plates drawn illustratively. The project states 29 editorial diagram types, self-contained HTML and SVG, with no shadows and no Mermaid-slop.</p>
+    </div>
+  </section>
+</main>
+
+<section class="wrap strip">
+  <div class="cell">
+    <span class="num">01</span>
+    <h3>Editorial, not generated</h3>
+    <p>A diagram type carries a point of view about what the reader should compare. Rendering a graph is the easy half.</p>
+  </div>
+  <div class="cell">
+    <span class="num">02</span>
+    <h3>Self-contained output</h3>
+    <p>HTML and SVG with nothing to install means the artifact travels into a doc, a PR, or a page without a build step.</p>
+  </div>
+  <div class="cell">
+    <span class="num">03</span>
+    <h3>The constraints are the product</h3>
+    <p>No shadows and no Mermaid-slop are design rules stated up front, which tells you what the author is refusing.</p>
+  </div>
+</section>
+
+<footer class="wrap foot">
+  <span class="mono">cathrynlavery/diagram-design</span>
+  <span>Design study by Goose. Not affiliated with the project.</span>
+</footer>
+
+</body>
+</html>

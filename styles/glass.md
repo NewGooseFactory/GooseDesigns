@@ -1,9 +1,10 @@
 ﻿# Style — glass
 
-9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-12](../days/2026-08-12/) | [macro-inc/macro](https://github.com/macro-inc/macro) | iris | show the at-mention doing work across four surfaces | landed | [png](../days/2026-08-12/03-macro.png) |
 | [2026-08-08](../days/2026-08-08/) | [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents) | teal | show the disagreement between seats instead of returns | landed: structure carries credibility where a number would have been fake | [png](../days/2026-08-08/03-tradingagents.png) |
 | [2026-08-02](../days/2026-08-02/) | [TencentCloud/TencentDB-Agent-Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) | teal | name all four memory assets on one frosted panel as owned inventory | landed: assets stay concrete and governance replaces adjectives | [png](../days/2026-08-02/02-tencentdb-agent-memory.png) |
 | [2026-07-28](../days/2026-07-28/) | [huggingface/speech-to-speech](https://github.com/huggingface/speech-to-speech) | aqua | present a local voice loop as one frosted listen→understand→respond stack | landed: on-device conversation feels calm and credible | [png](../days/2026-07-28/02-speech-to-speech.png) |

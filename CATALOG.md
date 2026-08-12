@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **183 mocks** across **61 days**. Newest first.
+Searchable master index. **186 mocks** across **62 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-12 | Wednesday | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | specimen | stamp-red | anti-goals as the product, a specimen sheet of rejected vs accepted renderings | landed | [png](days/2026-08-12/01-diagram-design.png) | [2026-08-12](days/2026-08-12/) |
+| 2026-08-12 | Wednesday | [infiniflow/ragflow](https://github.com/infiniflow/ragflow) | data-viz | multi | build the page around the word layer, two bars for what fills the context window | landed | [png](days/2026-08-12/02-ragflow.png) | [2026-08-12](days/2026-08-12/) |
+| 2026-08-12 | Wednesday | [macro-inc/macro](https://github.com/macro-inc/macro) | glass | iris | show the at-mention doing work across four surfaces | landed | [png](days/2026-08-12/03-macro.png) | [2026-08-12](days/2026-08-12/) |
 | 2026-08-11 | Tuesday | [stablyai/orca](https://github.com/stablyai/orca) | terminal-dark | cyan | argue the category name with five lanes at different depths and one blocked | landed: parallel reads as a scheduling problem not a feature word | [png](days/2026-08-11/01-orca.png) | [2026-08-11](days/2026-08-11/) |
 | 2026-08-11 | Tuesday | [anthropics/skills](https://github.com/anthropics/skills) | swiss | signal-red | take the word public seriously and show what changes when the file is readable | landed: the grid holds an argument without inventing product claims | [png](days/2026-08-11/02-skills.png) | [2026-08-11](days/2026-08-11/) |
 | 2026-08-11 | Tuesday | [HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor) | editorial | plum | make lifelong load-bearing with one learner across four dated terms | landed: a repeated mistake is only a pattern if the first was recorded | [png](days/2026-08-11/03-deeptutor.png) | [2026-08-11](days/2026-08-11/) |
