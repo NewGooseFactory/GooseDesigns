@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agency Agents</title>
+<style>
+  :root{
+    --paper:#F6F2EA;
+    --plate:#FFFDF8;
+    --ink:#191512;
+    --body:#413A33;
+    --mute:#8A7F73;
+    --rule:#D8CFC1;
+    --rule2:#E8E1D4;
+    --rust:#B04A26;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);
+       font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+  .num{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+
+  header{border-bottom:1px solid var(--rule)}
+  .hdr{display:flex;justify-content:space-between;align-items:center;padding:17px 0;
+       font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.16em;
+       text-transform:uppercase;color:var(--mute)}
+  .hdr b{color:var(--ink);font-weight:700}
+  .stamp{color:var(--rust);border:1px solid var(--rust);padding:3px 8px;letter-spacing:.14em}
+
+  .hero{display:grid;grid-template-columns:1fr 1.02fr;gap:56px;padding:66px 0 46px;align-items:start}
+  .eyebrow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.2em;
+           text-transform:uppercase;color:var(--rust);margin-bottom:20px}
+  h1{font-size:56px;line-height:1.06;letter-spacing:-.028em;font-weight:700;margin-bottom:22px}
+  h1 u{text-decoration:none;box-shadow:inset 0 -0.085em 0 rgba(176,74,38,.30);white-space:nowrap}
+  .lede{font-size:17.5px;line-height:1.66;color:var(--body);max-width:48ch;margin-bottom:18px}
+  .lede b{font-weight:650;color:var(--ink)}
+  .cta{display:flex;align-items:center;gap:20px;margin-top:26px;flex-wrap:wrap}
+  .btn{background:var(--ink);color:var(--paper);padding:13px 22px;border-radius:4px;font-weight:600;
+       font-size:15px;text-decoration:none;display:inline-block}
+  .lnk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--body);
+       text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:2px}
+
+  /* register plate */
+  .plate{background:var(--plate);border:1px solid var(--rule);border-radius:3px;
+         box-shadow:0 1px 0 rgba(25,21,18,.05)}
+  .ptop{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;
+        border-bottom:1px solid var(--rule);font-family:ui-monospace,Menlo,Consolas,monospace;
+        font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+  table.reg{width:100%;border-collapse:collapse}
+  table.reg th{text-align:left;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;
+               letter-spacing:.15em;text-transform:uppercase;color:var(--mute);font-weight:600;
+               padding:10px 18px;border-bottom:1px solid var(--rule)}
+  table.reg th.r{text-align:right}
+  table.reg td{padding:13px 18px;border-bottom:1px solid var(--rule2);vertical-align:middle}
+  table.reg tr:last-child td{border-bottom:0}
+  .rid{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--mute);width:1%;white-space:nowrap}
+  .rname{font-size:15px;font-weight:600;letter-spacing:-.008em}
+  .rsub{font-size:12.5px;color:var(--mute);margin-top:2px}
+  .rmark{text-align:right;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;
+         color:var(--rust);letter-spacing:.1em;white-space:nowrap}
+  .pfoot{padding:12px 18px;font-size:12.5px;color:var(--mute);font-style:italic;line-height:1.55;
+         border-top:1px solid var(--rule)}
+
+  /* install strip */
+  .install{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:26px 0 28px;margin-top:8px}
+  .ilab{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.17em;
+        text-transform:uppercase;color:var(--mute);margin-bottom:16px}
+  .hosts{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .host{display:flex;align-items:center;gap:9px;background:var(--plate);border:1px solid var(--rule);
+        border-radius:3px;padding:9px 14px}
+  .tick{width:15px;height:15px;border:1px solid var(--rust);border-radius:2px;position:relative;flex:0 0 auto}
+  .tick::after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
+               border-right:2px solid var(--rust);border-bottom:2px solid var(--rust);transform:rotate(42deg)}
+  .hname{font-size:14px;font-weight:550;white-space:nowrap}
+  .imore{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--mute);padding-left:4px}
+  .inote{font-size:13px;color:var(--mute);margin-top:15px;line-height:1.6;max-width:82ch}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;padding:42px 0 50px}
+  .c3 .t{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.17em;
+         text-transform:uppercase;color:var(--rust);margin-bottom:11px}
+  .c3 h3{font-size:19px;font-weight:650;letter-spacing:-.012em;margin-bottom:9px}
+  .c3 p{font-size:14.5px;line-height:1.62;color:var(--body)}
+
+  footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;padding:17px 0;
+         font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--mute)}
+
+  @media (max-width:920px){
+    .hero{grid-template-columns:1fr;gap:34px;padding:44px 0 32px}
+    h1{font-size:40px}
+    .three{grid-template-columns:1fr;gap:26px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div><b>MSITARZEWSKI</b> / AGENCY-AGENTS</div>
+    <div class="stamp">Roster</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">A complete AI agency</div>
+      <h1>The roster is<br>the <u>product.</u></h1>
+      <p class="lede">Agency Agents collects specialized experts, each with its own <b>personality, processes, and
+      proven deliverables</b>. What changed is distribution: a native app browses the whole roster and installs it
+      into your coding tool with a click.</p>
+      <p class="lede">A prompt is easy to copy. A roster with a shared shape is what makes the twentieth agent as
+      predictable as the first.</p>
+      <div class="cta">
+        <a class="btn" href="#">Browse the roster</a>
+        <a class="lnk" href="#">github.com/msitarzewski/agency-agents</a>
+      </div>
+    </div>
+
+    <div class="plate">
+      <div class="ptop"><span>Specialists the project names</span><span>Quoted from the description</span></div>
+      <table class="reg">
+        <tr>
+          <th>#</th>
+          <th>Specialist</th>
+          <th class="r">Register</th>
+        </tr>
+        <tr>
+          <td class="rid">01</td>
+          <td><div class="rname">Frontend wizards</div><div class="rsub">Build the surface a user touches</div></td>
+          <td class="rmark">ENTERED</td>
+        </tr>
+        <tr>
+          <td class="rid">02</td>
+          <td><div class="rname">Reddit community ninjas</div><div class="rsub">Work where the audience already is</div></td>
+          <td class="rmark">ENTERED</td>
+        </tr>
+        <tr>
+          <td class="rid">03</td>
+          <td><div class="rname">Whimsy injectors</div><div class="rsub">Add the character a spec never asks for</div></td>
+          <td class="rmark">ENTERED</td>
+        </tr>
+        <tr>
+          <td class="rid">04</td>
+          <td><div class="rname">Reality checkers</div><div class="rsub">Say the thing the other three will not</div></td>
+          <td class="rmark">ENTERED</td>
+        </tr>
+      </table>
+      <div class="pfoot">These four are the categories the project description names. The register framing is the
+      design study, not a claim about roster size.</div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="install">
+    <div class="ilab">Installs into</div>
+    <div class="hosts">
+      <div class="host"><span class="tick"></span><span class="hname">Claude Code</span></div>
+      <div class="host"><span class="tick"></span><span class="hname">Cursor</span></div>
+      <div class="host"><span class="tick"></span><span class="hname">Codex</span></div>
+      <div class="host"><span class="tick"></span><span class="hname">Gemini</span></div>
+      <div class="host"><span class="tick"></span><span class="hname">Osaurus</span></div>
+      <span class="imore">and more</span>
+    </div>
+    <p class="inote">The README lists these hosts for the native macOS, Linux, and Windows app, and says installation
+    takes a click with no clone and no scripts, with automatic updates.</p>
+  </section>
+
+  <section class="three">
+    <div class="c3">
+      <div class="t">Personality</div>
+      <h3>Voice is a spec</h3>
+      <p>Giving each agent a stated personality makes its output recognizable, which is how you notice when one drifts.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Processes</div>
+      <h3>A repeatable path</h3>
+      <p>The description pairs every specialist with a process, so the agent is a procedure you can audit rather than a mood.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Deliverables</div>
+      <h3>Something lands</h3>
+      <p>Naming a deliverable per agent sets the finish line, and a finish line is what turns a chat into work.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>msitarzewski/agency-agents</div>
+    <div>Design study by Goose. Not affiliated with the project.</div>
+  </footer>
+</div>
+
+</body>
+</html>

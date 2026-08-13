@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Switchyard</title>
+<style>
+  :root{
+    --paper:#F1EFE9;
+    --ink:#0C0C0B;
+    --rule:#0C0C0B;
+    --mute:#57544C;
+    --acid:#C6F000;
+    --panel:#E4E1D8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink)}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+  }
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  header{border-bottom:2px solid var(--rule)}
+  .hdr{display:flex;justify-content:space-between;align-items:center;padding:14px 0;
+       font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .hdr b{font-weight:800}
+  .hdr .sep{color:var(--mute);padding:0 6px}
+  .hdr .rt{color:var(--mute)}
+
+  .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:0;border-bottom:2px solid var(--rule)}
+  .hl{padding:56px 28px 52px 0;border-right:2px solid var(--rule)}
+  .eyebrow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.18em;
+           text-transform:uppercase;color:var(--ink);background:var(--acid);display:inline-block;
+           padding:5px 9px;margin-bottom:22px;font-weight:700}
+  h1{font-size:60px;line-height:1.0;letter-spacing:-.032em;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;display:block}
+  .lede{font-size:17.5px;line-height:1.62;color:#2B2925;max-width:46ch;margin-bottom:26px}
+  .lede b{font-weight:700;color:var(--ink);background:var(--acid);padding:0 3px}
+  .cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .btn{display:inline-block;background:var(--ink);color:var(--paper);border:2px solid var(--ink);
+       padding:12px 20px;font-weight:700;font-size:14.5px;letter-spacing:.01em;text-decoration:none}
+  .lnk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:#2B2925;
+       text-decoration:none;border-bottom:2px solid var(--ink);padding-bottom:1px}
+
+  .hr-right{padding:0}
+  .panel{border-bottom:2px solid var(--rule)}
+  .panel:last-child{border-bottom:0}
+  .ptitle{display:flex;justify-content:space-between;align-items:center;
+          font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.16em;
+          text-transform:uppercase;padding:11px 20px;border-bottom:2px solid var(--rule);background:var(--panel)}
+  .ptitle span{color:var(--mute)}
+
+  table.wire{width:100%;border-collapse:collapse;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+  table.wire th{
+    text-align:left;padding:9px 20px;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--mute);font-weight:700;border-bottom:2px solid var(--rule);background:var(--panel)
+  }
+  table.wire th.b{border-left:2px solid var(--rule)}
+  table.wire td{padding:11px 20px;border-bottom:1px solid #C9C5BA;vertical-align:top;color:#22201C}
+  table.wire td.b{border-left:2px solid var(--rule)}
+  table.wire tr:last-child td{border-bottom:0}
+  .fld{color:var(--ink);font-weight:700}
+  .note{font-size:12.5px;color:var(--mute);padding:13px 20px;font-style:italic;line-height:1.55}
+
+  .routes{padding:15px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .routes .lab{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.15em;
+               text-transform:uppercase;color:var(--mute);margin-right:4px}
+  .chip{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;border:2px solid var(--ink);
+        padding:4px 9px;background:var(--paper);white-space:nowrap}
+
+  .warn{display:flex;align-items:stretch;border-bottom:2px solid var(--rule);background:var(--acid)}
+  .warn .tag{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.16em;
+             text-transform:uppercase;font-weight:800;padding:13px 18px;border-right:2px solid var(--rule);
+             white-space:nowrap;display:flex;align-items:center}
+  .warn .txt{padding:13px 18px;font-size:14px;display:flex;align-items:center;line-height:1.5}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr)}
+  .cell{padding:32px 26px 34px 0;border-right:2px solid var(--rule)}
+  .cell:nth-child(2){padding-left:26px}
+  .cell:nth-child(3){padding-left:26px;border-right:0}
+  .knum{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.15em;
+        color:var(--ink);background:var(--acid);display:inline-block;padding:3px 7px;font-weight:700;margin-bottom:13px}
+  .cell h3{font-size:19px;letter-spacing:-.012em;margin-bottom:9px;font-weight:800}
+  .cell p{font-size:14.5px;line-height:1.6;color:#3A3831}
+
+  footer{border-top:2px solid var(--rule);display:flex;justify-content:space-between;
+         font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--mute);
+         padding:15px 0;letter-spacing:.04em}
+
+  .met{padding:16px 20px}
+  .met .lab{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.15em;
+            text-transform:uppercase;color:var(--mute);margin-bottom:12px}
+  .mrow{display:grid;grid-template-columns:1fr 150px;gap:14px;align-items:center;
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;
+        padding:8px 0;border-bottom:1px solid #C9C5BA}
+  .mrow:last-of-type{border-bottom:0}
+  .mrow .n{color:var(--ink);font-weight:700}
+  .bar{display:block;height:10px;background:var(--acid);border:1px solid var(--ink)}
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr}
+    .hl{border-right:0;border-bottom:2px solid var(--rule);padding:40px 0 36px}
+    h1{font-size:42px}
+    .three{grid-template-columns:1fr}
+    .cell{border-right:0;border-bottom:2px solid var(--rule);padding:26px 0}
+    .cell:nth-child(2),.cell:nth-child(3){padding-left:0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div><b>NVIDIA-NEMO</b><span class="sep">/</span>SWITCHYARD</div>
+    <div class="rt">RUST <span class="sep">/</span> PRE-ALPHA</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hl">
+      <div class="eyebrow">A proxy for LLM traffic</div>
+      <h1>Your agent keeps<em>speaking its own</em><em>API.</em></h1>
+      <p class="lede">Switchyard is a Rust proxy and library that routes requests across providers and
+      <b>translates between the OpenAI Chat, Anthropic Messages, and OpenAI Responses formats</b>. Point Claude Code
+      or Codex at a local model and neither side has to learn the other's dialect.</p>
+      <div class="cta">
+        <a class="btn" href="#">Read the proxy</a>
+        <a class="lnk mono" href="#">github.com/NVIDIA-NeMo/Switchyard</a>
+      </div>
+    </div>
+
+    <div class="hr-right">
+      <div class="panel">
+        <div class="ptitle">What the translation touches <span>Illustrative</span></div>
+        <table class="wire">
+          <tr>
+            <th>Agent sends</th>
+            <th class="b">Backend receives</th>
+          </tr>
+          <tr>
+            <td><span class="fld">POST /v1/messages</span><br>Anthropic Messages</td>
+            <td class="b"><span class="fld">POST /v1/chat/completions</span><br>OpenAI Chat</td>
+          </tr>
+          <tr>
+            <td><span class="fld">system:</span> top level string</td>
+            <td class="b"><span class="fld">messages[0]</span> with role system</td>
+          </tr>
+          <tr>
+            <td><span class="fld">stop_sequences:</span> [ ]</td>
+            <td class="b"><span class="fld">stop:</span> [ ]</td>
+          </tr>
+          <tr>
+            <td><span class="fld">content:</span> block list</td>
+            <td class="b"><span class="fld">content:</span> string or parts</td>
+          </tr>
+        </table>
+        <div class="note">Field shapes are illustrative. The project lists protocol translation across OpenAI Chat,
+        Anthropic Messages, and OpenAI Responses as its first feature.</div>
+      </div>
+
+      <div class="panel">
+        <div class="routes">
+          <span class="lab">Routes to</span>
+          <span class="chip">vLLM</span>
+          <span class="chip">NVIDIA NIM</span>
+          <span class="chip">Ollama</span>
+          <span class="chip">any OpenAI-compatible endpoint</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="met">
+          <div class="lab">What the metrics cover</div>
+          <div class="mrow"><span class="n">requests</span><span><span class="bar" style="width:100%"></span></span></div>
+          <div class="mrow"><span class="n">errors</span><span><span class="bar" style="width:34%"></span></span></div>
+          <div class="mrow"><span class="n">latency</span><span><span class="bar" style="width:78%"></span></span></div>
+          <div class="mrow"><span class="n">tokens</span><span><span class="bar" style="width:62%"></span></span></div>
+          <div class="mrow"><span class="n">routing overhead</span><span><span class="bar" style="width:18%"></span></span></div>
+        </div>
+        <div class="note">Bar widths are illustrative. The five named series are the ones the README lists for its
+        Prometheus metrics. A proxy that measures its own overhead is one you can argue with.</div>
+      </div>    </div>
+  </section>
+
+  <section class="warn">
+    <div class="tag">Maturity</div>
+    <div class="txt">The README calls this pre-alpha and experimental software, not for production use. The API and
+    algorithms are expected to change before v1.0.</div>
+  </section>
+
+  <section class="three">
+    <div class="cell">
+      <div class="knum">01</div>
+      <h3>Protocol translation</h3>
+      <p>Convert between OpenAI Chat, Anthropic Messages, and OpenAI Responses so the agent never changes clients.</p>
+    </div>
+    <div class="cell">
+      <div class="knum">02</div>
+      <h3>Multi-backend routing</h3>
+      <p>Random routing, LLM-as-classifier routing, a signal-driven stage router, or an algorithm you write yourself.</p>
+    </div>
+    <div class="cell">
+      <div class="knum">03</div>
+      <h3>Operational metrics</h3>
+      <p>Prometheus metrics cover requests, errors, latency, tokens, and the routing overhead the proxy itself adds.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>NVIDIA-NeMo/Switchyard</div>
+    <div>Design study by Goose. Not affiliated with the project.</div>
+  </footer>
+</div>
+
+</body>
+</html>

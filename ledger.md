@@ -188,3 +188,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-12 — [rep](days/2026-08-12/) — cathrynlavery/diagram-design — specimen/stamp-red — anti-goals as the product, a specimen sheet of rejected vs accepted renderings → landed
 - 2026-08-12 — [rep](days/2026-08-12/) — infiniflow/ragflow — data-viz/multi — build the page around the word layer, two bars for what fills the context window → landed
 - 2026-08-12 — [rep](days/2026-08-12/) — macro-inc/macro — glass/iris — show the at-mention doing work across four surfaces → landed
+- 2026-08-13 — [rep](days/2026-08-13/) — NVIDIA-NeMo/Switchyard — brutalist/acid-lime — put the translation on the wire with paired request shapes and an exposed maturity band → landed
+- 2026-08-13 — [rep](days/2026-08-13/) — shiyu-coder/Kronos — waveform/tide-blue — take the word language literally, a bar sequence plus the vocabulary it is drawn from → landed
+- 2026-08-13 — [rep](days/2026-08-13/) — msitarzewski/agency-agents — ledger/ink-rust — treat the roster as the artifact, a quoted register plus the install targets → landed

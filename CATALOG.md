@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **186 mocks** across **62 days**. Newest first.
+Searchable master index. **189 mocks** across **63 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-13 | Thursday | [NVIDIA-NeMo/Switchyard](https://github.com/NVIDIA-NeMo/Switchyard) | brutalist | acid-lime | put the translation on the wire with paired request shapes and an exposed maturity band | landed | [png](days/2026-08-13/01-switchyard.png) | [2026-08-13](days/2026-08-13/) |
+| 2026-08-13 | Thursday | [shiyu-coder/Kronos](https://github.com/shiyu-coder/Kronos) | waveform | tide-blue | take the word language literally, a bar sequence plus the vocabulary it is drawn from | landed | [png](days/2026-08-13/02-kronos.png) | [2026-08-13](days/2026-08-13/) |
+| 2026-08-13 | Thursday | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | ledger | ink-rust | treat the roster as the artifact, a quoted register plus the install targets | landed | [png](days/2026-08-13/03-agency-agents.png) | [2026-08-13](days/2026-08-13/) |
 | 2026-08-12 | Wednesday | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | specimen | stamp-red | anti-goals as the product, a specimen sheet of rejected vs accepted renderings | landed | [png](days/2026-08-12/01-diagram-design.png) | [2026-08-12](days/2026-08-12/) |
 | 2026-08-12 | Wednesday | [infiniflow/ragflow](https://github.com/infiniflow/ragflow) | data-viz | multi | build the page around the word layer, two bars for what fills the context window | landed | [png](days/2026-08-12/02-ragflow.png) | [2026-08-12](days/2026-08-12/) |
 | 2026-08-12 | Wednesday | [macro-inc/macro](https://github.com/macro-inc/macro) | glass | iris | show the at-mention doing work across four surfaces | landed | [png](days/2026-08-12/03-macro.png) | [2026-08-12](days/2026-08-12/) |

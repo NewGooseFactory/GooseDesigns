@@ -1,9 +1,10 @@
 ﻿# Style — brutalist
 
-8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-13](../days/2026-08-13/) | [NVIDIA-NeMo/Switchyard](https://github.com/NVIDIA-NeMo/Switchyard) | acid-lime | put the translation on the wire with paired request shapes and an exposed maturity band | landed | [png](../days/2026-08-13/01-switchyard.png) |
 | [2026-08-03](../days/2026-08-03/) | [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) | harsh-orange | turn leave it running into an architectural claim with one long-lived session slab | landed: exposed structure matches a tool built on a stable prefix | [png](../days/2026-08-03/02-deepseek-reasonix.png) |
 | [2026-07-25](../days/2026-07-25/) | [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | acid-yellow | expose hybrid review as parse→rules→agent→comment separating precision from judgment | landed: trust without an AI reviewer persona | [png](../days/2026-07-25/01-open-code-review.png) |
 | [2026-07-19](../days/2026-07-19/) | [1jehuang/jcode](https://github.com/1jehuang/jcode) | acid-yellow | expose the harness as intent→plan→execute→verify with no invisible magic | landed: the operating philosophy is unmistakable | [png](../days/2026-07-19/03-jcode.png) |
