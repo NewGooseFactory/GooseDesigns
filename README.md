@@ -2,33 +2,34 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![189 mocks](https://img.shields.io/badge/mocks-189-1f6feb?style=flat-square) ![63 days](https://img.shields.io/badge/days-63-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![192 mocks](https://img.shields.io/badge/mocks-192-1f6feb?style=flat-square) ![64 days](https://img.shields.io/badge/days-64-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 189 mockups across 63 days and 18 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 192 mockups across 64 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
 - **[Full catalog](CATALOG.md)** — every mock in one searchable table
-- **By style:** [bauhaus](styles/bauhaus.md) · [blueprint](styles/blueprint.md) · [brutalist](styles/brutalist.md) · [cell-grid](styles/cell-grid.md) · [constellation](styles/constellation.md) · [data-viz](styles/data-viz.md) · [editorial](styles/editorial.md) · [glass](styles/glass.md) · [hud](styles/hud.md) · [ledger](styles/ledger.md) · [mono-zine](styles/mono-zine.md) · [neon-noir](styles/neon-noir.md) · [poster](styles/poster.md) · [specimen](styles/specimen.md) · [swiss](styles/swiss.md) · [terminal-dark](styles/terminal-dark.md) · [warm-minimal](styles/warm-minimal.md) · [waveform](styles/waveform.md)
+- **By style:** [bauhaus](styles/bauhaus.md) · [blueprint](styles/blueprint.md) · [brutalist](styles/brutalist.md) · [cell-grid](styles/cell-grid.md) · [constellation](styles/constellation.md) · [data-viz](styles/data-viz.md) · [editorial](styles/editorial.md) · [glass](styles/glass.md) · [hud](styles/hud.md) · [ledger](styles/ledger.md) · [mono-zine](styles/mono-zine.md) · [neon-noir](styles/neon-noir.md) · [poster](styles/poster.md) · [specimen](styles/specimen.md) · [strata](styles/strata.md) · [swiss](styles/swiss.md) · [terminal-dark](styles/terminal-dark.md) · [warm-minimal](styles/warm-minimal.md) · [waveform](styles/waveform.md)
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Thursday, August 13
+## Latest — Friday, August 14
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-08-13/"><img src="days/2026-08-13/01-switchyard.png" width="320" alt="NVIDIA-NeMo/Switchyard"></a><br><sub><b>NVIDIA-NeMo/Switchyard</b><br>brutalist</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-13/"><img src="days/2026-08-13/02-kronos.png" width="320" alt="shiyu-coder/Kronos"></a><br><sub><b>shiyu-coder/Kronos</b><br>waveform</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-13/"><img src="days/2026-08-13/03-agency-agents.png" width="320" alt="msitarzewski/agency-agents"></a><br><sub><b>msitarzewski/agency-agents</b><br>ledger</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-14/"><img src="days/2026-08-14/01-needle.png" width="320" alt="cactus-compute/needle"></a><br><sub><b>cactus-compute/needle</b><br>hud</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-14/"><img src="days/2026-08-14/02-ego-lite.png" width="320" alt="citrolabs/ego-lite"></a><br><sub><b>citrolabs/ego-lite</b><br>strata</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-14/"><img src="days/2026-08-14/03-spec-kit.png" width="320" alt="github/spec-kit"></a><br><sub><b>github/spec-kit</b><br>blueprint</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-08-13/)
+[See the full day →](days/2026-08-14/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-08-14 | Friday | 3 | hud, strata, blueprint | [open](days/2026-08-14/) |
 | 2026-08-13 | Thursday | 3 | brutalist, waveform, ledger | [open](days/2026-08-13/) |
 | 2026-08-12 | Wednesday | 3 | specimen, data-viz, glass | [open](days/2026-08-12/) |
 | 2026-08-11 | Tuesday | 3 | terminal-dark, swiss, editorial | [open](days/2026-08-11/) |

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Needle 2</title>
+<style>
+  :root{
+    --bg:#080A09;
+    --panel:#0D110F;
+    --panel2:#101614;
+    --rule:#1D2622;
+    --rule2:#26332D;
+    --txt:#E4EDE8;
+    --mute:#78877F;
+    --grn:#54D18C;
+    --amb:#E0A63C;
+    --dim:#3A4A42;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--txt);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.5;
+    background-image:linear-gradient(var(--panel) 1px,transparent 1px),linear-gradient(90deg,var(--panel) 1px,transparent 1px);
+    background-size:56px 56px;
+  }
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  header{border-bottom:1px solid var(--rule);background:rgba(8,10,9,.86)}
+  .hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 0;
+       font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.17em;
+       text-transform:uppercase;color:var(--mute)}
+  .hdr b{color:var(--txt);font-weight:700}
+  .lamp{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--grn);
+        margin-right:8px;vertical-align:1px;box-shadow:0 0 8px rgba(84,209,140,.7)}
+
+  .hero{display:grid;grid-template-columns:1fr 1.06fr;gap:52px;padding:64px 0 44px;align-items:start}
+  .eyebrow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.2em;
+           text-transform:uppercase;color:var(--amb);margin-bottom:20px}
+  h1{font-size:54px;line-height:1.06;letter-spacing:-.028em;font-weight:700;margin-bottom:20px}
+  h1 span{color:var(--grn)}
+  .lede{font-size:17px;line-height:1.66;color:#A6B4AC;max-width:47ch;margin-bottom:16px}
+  .lede b{color:var(--txt);font-weight:600}
+  .cta{display:flex;align-items:center;gap:20px;margin-top:26px;flex-wrap:wrap}
+  .btn{background:var(--grn);color:#06120C;padding:13px 22px;border-radius:5px;font-weight:650;
+       font-size:15px;text-decoration:none;display:inline-block}
+  .lnk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:#8E9C94;
+       text-decoration:none;border-bottom:1px solid var(--rule2);padding-bottom:2px}
+
+  .inst{border:1px solid var(--rule2);border-radius:4px;background:var(--panel);overflow:hidden}
+  .itop{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;
+        border-bottom:1px solid var(--rule2);background:var(--panel2);
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.16em;
+        text-transform:uppercase;color:var(--mute)}
+  .itop .rt{color:var(--dim)}
+
+  .gauge{padding:20px 18px 18px;border-bottom:1px solid var(--rule)}
+  .glab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .gname{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.13em;
+         text-transform:uppercase;color:#93A29A}
+  .gval{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:22px;color:var(--grn);
+        font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .gval small{font-size:12px;color:var(--mute);letter-spacing:.06em;margin-left:3px}
+
+  .track{position:relative;height:64px;border-left:1px solid var(--rule2);border-bottom:1px solid var(--rule2)}
+  .tgrid{position:absolute;left:0;right:0;height:1px;background:#141C18}
+  .tline{position:absolute;left:0;right:0;height:2px;background:var(--grn);opacity:.9}
+  .tdot{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--bg);
+        border:2px solid var(--grn);transform:translate(-50%,-50%)}
+  .tcap{display:flex;justify-content:space-between;padding-top:9px;
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;color:var(--dim);letter-spacing:.11em}
+
+  .dial{padding:20px 18px 18px;border-bottom:1px solid var(--rule)}
+  .scale{position:relative;height:34px;border:1px solid var(--rule2);border-radius:3px;overflow:hidden;
+         background:#0A0F0D}
+  .zone{position:absolute;top:0;bottom:0}
+  .zesc{left:0;width:62%;background:rgba(224,166,60,.14);border-right:1px solid rgba(224,166,60,.5)}
+  .zact{left:62%;right:0;background:rgba(84,209,140,.13)}
+  .zlab{position:absolute;top:9px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;
+        letter-spacing:.15em;text-transform:uppercase}
+  .needle{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--txt);left:74%}
+  .needle::after{content:"";position:absolute;top:-4px;left:-3px;width:8px;height:8px;background:var(--txt);
+                 transform:rotate(45deg)}
+  .dcap{display:flex;justify-content:space-between;padding-top:10px;
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;color:var(--dim);letter-spacing:.11em}
+
+  .note{padding:13px 18px;font-size:12.5px;color:var(--mute);font-style:italic;line-height:1.6}
+
+  .strip{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--rule2);
+         border-bottom:1px solid var(--rule2);background:var(--panel)}
+  .sc{padding:20px 18px;border-right:1px solid var(--rule)}
+  .sc:last-child{border-right:0}
+  .sv{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:26px;color:var(--txt);
+      font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-bottom:5px}
+  .sv i{font-style:normal;color:var(--amb);font-size:14px;margin-left:2px}
+  .sl{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--mute);line-height:1.5}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:42px;padding:42px 0 48px}
+  .c3 .t{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.17em;
+         text-transform:uppercase;color:var(--amb);margin-bottom:11px}
+  .c3 h3{font-size:19px;font-weight:650;letter-spacing:-.012em;margin-bottom:9px}
+  .c3 p{font-size:14.5px;line-height:1.62;color:#96A59D}
+
+  footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;padding:17px 0;
+         font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:#5D6B63}
+
+  @media (max-width:960px){
+    .hero{grid-template-columns:1fr;gap:34px;padding:42px 0 30px}
+    h1{font-size:38px}
+    .strip{grid-template-columns:repeat(2,1fr)}
+    .three{grid-template-columns:1fr;gap:26px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div><b>CACTUS-COMPUTE</b> / NEEDLE</div>
+    <div><span class="lamp"></span>ON DEVICE</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">45M parameters, one 14MB binary</div>
+      <h1>The memory<br>budget does not<br><span>move.</span></h1>
+      <p class="lede">Needle 2 is an open 45M-parameter model for tool calling, device use, and structured
+      extraction. The whole model is <b>a single 14MB binary that runs a full session in about 28MB of RAM</b>.</p>
+      <p class="lede">A 256-token sliding window keeps the tools pinned as KV sinks, so the number on the gauge
+      stays flat however long the conversation runs. That is the property a wearable actually needs.</p>
+      <div class="cta">
+        <a class="btn" href="#">Read the model</a>
+        <a class="lnk" href="#">github.com/cactus-compute/needle</a>
+      </div>
+    </div>
+
+    <div class="inst">
+      <div class="itop"><span>Session instrument</span><span class="rt">Illustrative</span></div>
+
+      <div class="gauge">
+        <div class="glab">
+          <span class="gname">Resident memory</span>
+          <span class="gval">28<small>MB</small></span>
+        </div>
+        <div class="track">
+          <div class="tgrid" style="top:16px"></div>
+          <div class="tgrid" style="top:32px"></div>
+          <div class="tgrid" style="top:48px"></div>
+          <div class="tline" style="top:31px"></div>
+          <div class="tdot" style="left:8%;top:32px"></div>
+          <div class="tdot" style="left:34%;top:32px"></div>
+          <div class="tdot" style="left:62%;top:32px"></div>
+          <div class="tdot" style="left:92%;top:32px"></div>
+        </div>
+        <div class="tcap"><span>TURN 1</span><span>TURN 20</span><span>TURN 90</span><span>TURN 400</span></div>
+      </div>
+
+      <div class="dial">
+        <div class="glab">
+          <span class="gname">Confidence gate</span>
+          <span class="gval">ACT</span>
+        </div>
+        <div class="scale">
+          <div class="zone zesc"><span class="zlab" style="left:12px;color:#E0A63C">ESCALATE</span></div>
+          <div class="zone zact"><span class="zlab" style="left:14px;color:#54D18C">ACT</span></div>
+          <div class="needle"></div>
+        </div>
+        <div class="dcap"><span>THRESHOLD YOU SET</span><span>THIS RESPONSE</span></div>
+      </div>
+
+      <div class="note">Gauge positions are illustrative. The README states a 14MB binary, roughly 28MB of RAM per
+      session, a 256-token sliding window with tools pinned as KV sinks, and a calibrated confidence head you
+      threshold against.</div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="strip">
+    <div class="sc"><div class="sv">45<i>M</i></div><div class="sl">Parameters</div></div>
+    <div class="sc"><div class="sv">14<i>MB</i></div><div class="sl">Single binary</div></div>
+    <div class="sc"><div class="sv">28<i>MB</i></div><div class="sl">Session RAM</div></div>
+    <div class="sc"><div class="sv">256</div><div class="sl">Token window</div></div>
+    <div class="sc"><div class="sv">5</div><div class="sl">Tools per turn</div></div>
+  </section>
+
+  <section class="three">
+    <div class="c3">
+      <div class="t">Self-contained</div>
+      <h3>Nothing else to build</h3>
+      <p>Weights are baked into the engine, there are no separate model files to manage, and inference does no network.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Simple contract</div>
+      <h3>Text in, JSON out</h3>
+      <p>A byte-level grammar compiled from your schemas constrains every token, so tool calls come back as structured data.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Tool retrieval</div>
+      <h3>Five at a time</h3>
+      <p>Declare a large catalogue and a retrieval head renders only the top five tools per turn, with the grammar held to that subset.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>cactus-compute/needle</div>
+    <div>Design study by Goose. Not affiliated with the project.</div>
+  </footer>
+</div>
+
+</body>
+</html>

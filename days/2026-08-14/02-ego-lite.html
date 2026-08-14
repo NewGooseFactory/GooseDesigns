@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ego lite</title>
+<style>
+  :root{
+    --bg:#0B0E12;
+    --p1:#161B22;
+    --p2:#12171E;
+    --p3:#0E1319;
+    --edge:#232B36;
+    --edge2:#2E3947;
+    --txt:#E7ECF3;
+    --mute:#7E8C9E;
+    --dim:#4C5A6B;
+    --cy:#3FC7D6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);
+       font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+
+  header{border-bottom:1px solid var(--edge)}
+  .hdr{display:flex;justify-content:space-between;align-items:center;padding:17px 0;
+       font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.17em;
+       text-transform:uppercase;color:var(--mute)}
+  .hdr b{color:var(--txt);font-weight:700}
+
+  .hero{display:grid;grid-template-columns:1fr 1.14fr;gap:52px;padding:62px 0 40px;align-items:start}
+  .hcopy{max-width:52ch}
+  .eyebrow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.2em;
+           text-transform:uppercase;color:var(--cy);margin-bottom:22px}
+  h1{font-size:52px;line-height:1.05;letter-spacing:-.03em;font-weight:700;margin-bottom:20px}
+  h1 span{color:var(--cy)}
+  .lede{font-size:17px;line-height:1.64;color:#A3B1C2;max-width:47ch;margin-bottom:14px}
+  .lede b{color:var(--txt);font-weight:600}
+  .cta{display:flex;align-items:center;gap:22px;margin-top:28px;flex-wrap:wrap}
+  .btn{background:var(--cy);color:#04161A;padding:13px 22px;border-radius:6px;font-weight:650;
+       font-size:15px;text-decoration:none;display:inline-block}
+  .lnk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:#93A2B4;
+       text-decoration:none;border-bottom:1px solid var(--edge2);padding-bottom:2px}
+
+  /* strata */
+  .strata{padding:0}
+  .slab{display:flex;justify-content:space-between;align-items:center;
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.17em;
+        text-transform:uppercase;color:var(--mute);margin-bottom:18px}
+  .stack{position:relative}
+  .plane{border:1px solid var(--edge);border-radius:5px;margin-bottom:-1px}
+  .pa{background:var(--p1);margin-left:0;margin-right:96px;position:relative;z-index:3}
+  .pb{background:var(--p2);margin-left:48px;margin-right:48px;position:relative;z-index:2}
+  .pc{background:var(--p3);margin-left:96px;margin-right:0;position:relative;z-index:1;
+      border-color:var(--edge2)}
+  .phead{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;
+         border-bottom:1px solid var(--edge)}
+  .pname{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.15em;
+         text-transform:uppercase;color:#93A2B4}
+  .powner{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.13em;
+          text-transform:uppercase;color:var(--dim)}
+  .pc .powner{color:var(--cy)}
+  .pbody{padding:14px 16px 16px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+
+  .tab{display:flex;align-items:center;gap:8px;border:1px solid var(--edge2);border-radius:4px;
+       padding:8px 13px;background:rgba(255,255,255,.02);white-space:nowrap}
+  .tab .dot{width:6px;height:6px;border-radius:50%;background:var(--dim);flex:0 0 auto}
+  .tab .txt{font-size:13.5px;color:#C3CEDC}
+  .tab.mine .dot{background:#9AA8BA}
+  .tab.agent{border-color:rgba(63,199,214,.38);background:rgba(63,199,214,.06)}
+  .tab.agent .dot{background:var(--cy)}
+  .tab.agent .txt{color:#D3E4E9}
+  .run{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.12em;
+       color:var(--cy);border:1px solid rgba(63,199,214,.34);border-radius:3px;padding:2px 6px}
+
+  .cred{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;width:100%}
+  .cr{border:1px solid var(--edge2);border-radius:4px;padding:11px 13px;background:rgba(63,199,214,.045)}
+  .crn{font-size:13.5px;color:#CBD6E3;margin-bottom:5px;min-height:2.9em;line-height:1.35}
+  .crs{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.12em;
+       text-transform:uppercase;color:var(--cy)}
+
+  .scap{font-size:12.5px;color:var(--mute);font-style:italic;line-height:1.6;padding:20px 0 0}
+
+  .vs{border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);margin-top:8px;
+      display:grid;grid-template-columns:1fr 1fr}
+  .vsc{padding:28px 34px 30px}
+  .vsc:first-child{border-right:1px solid var(--edge)}
+  .vt{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.17em;
+      text-transform:uppercase;color:var(--dim);margin-bottom:13px}
+  .vsc:last-child .vt{color:var(--cy)}
+  .vsc h3{font-size:20px;font-weight:650;letter-spacing:-.014em;margin-bottom:10px}
+  .vsc p{font-size:14.5px;line-height:1.64;color:#93A2B4;max-width:44ch}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:42px;padding:42px 0 48px}
+  .c3 .t{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.17em;
+         text-transform:uppercase;color:var(--cy);margin-bottom:11px}
+  .c3 h3{font-size:19px;font-weight:650;letter-spacing:-.012em;margin-bottom:9px}
+  .c3 p{font-size:14.5px;line-height:1.62;color:#93A2B4}
+
+  footer{border-top:1px solid var(--edge);display:flex;justify-content:space-between;padding:17px 0;
+         font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:#5F6D7E}
+
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr;gap:34px;padding:42px 0 28px}
+    h1{font-size:38px}
+    .pa,.pb,.pc{margin-left:0;margin-right:0}
+    .cred{grid-template-columns:repeat(2,1fr)}
+    .vs{grid-template-columns:1fr}
+    .vsc:first-child{border-right:0;border-bottom:1px solid var(--edge)}
+    .three{grid-template-columns:1fr;gap:26px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div><b>CITROLABS</b> / EGO-LITE</div>
+    <div>Zero cost, zero config</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hcopy">
+    <div class="eyebrow">One browser, two operators</div>
+    <h1>Your tabs stay <span>yours.</span></h1>
+    <p class="lede">ego lite is a browser where you and your AI agents work in parallel. <b>Agents run their
+    browser tasks in their own Spaces while your tabs stay yours</b>, and the agent still reaches your real
+    logins through ego-browser.</p>
+    <p class="lede">The framework approach drives a second browser, so logins never carry cleanly and the two of
+    you end up fighting over the same tab. Sharing one session store is the whole difference.</p>
+    <div class="cta">
+      <a class="btn" href="#">Read the browser</a>
+      <a class="lnk">github.com/citrolabs/ego-lite</a>
+    </div>
+    </div>
+
+    <div class="strata">
+    <div class="slab"><span>Three planes, one session</span><span>Illustrative</span></div>
+    <div class="stack">
+
+      <div class="plane pa">
+        <div class="phead"><span class="pname">Your window</span><span class="powner">You are driving</span></div>
+        <div class="pbody">
+          <span class="tab mine"><span class="dot"></span><span class="txt">Inbox</span></span>
+          <span class="tab mine"><span class="dot"></span><span class="txt">Pull request 4127</span></span>
+          <span class="tab mine"><span class="dot"></span><span class="txt">Docs</span></span>
+        </div>
+      </div>
+
+      <div class="plane pb">
+        <div class="phead"><span class="pname">Agent Spaces</span><span class="powner">Codex and Claude Code</span></div>
+        <div class="pbody">
+          <span class="tab agent"><span class="dot"></span><span class="txt">Space 01</span><span class="run">RUNNING</span></span>
+          <span class="tab agent"><span class="dot"></span><span class="txt">Space 02</span><span class="run">RUNNING</span></span>
+          <span class="tab agent"><span class="dot"></span><span class="txt">Space 03</span><span class="run">QUEUED</span></span>
+        </div>
+      </div>
+
+      <div class="plane pc">
+        <div class="phead"><span class="pname">Session store</span><span class="powner">Shared by both planes</span></div>
+        <div class="pbody">
+          <div class="cred">
+            <div class="cr"><div class="crn">Cookies</div><div class="crs">Carried</div></div>
+            <div class="cr"><div class="crn">Local storage</div><div class="crs">Carried</div></div>
+            <div class="cr"><div class="crn">Auth tokens</div><div class="crs">Carried</div></div>
+            <div class="cr"><div class="crn">Your real logins</div><div class="crs">Carried</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="scap">Tab names and Space contents are illustrative. The README describes agents running multiple
+    browser tasks in their own Spaces while your tabs stay yours, with the agent reaching your real logins and
+    tabs through ego-browser.</p>
+    </div>
+  </section>
+
+  <section class="vs">
+    <div class="vsc">
+      <div class="vt">Automation framework</div>
+      <h3>Two browsers, one fight</h3>
+      <p>A framework needs a separate browser to drive. Logins do not carry cleanly, and you and the agent compete
+      for the same tabs.</p>
+    </div>
+    <div class="vsc">
+      <div class="vt">ego lite</div>
+      <h3>One browser, two planes</h3>
+      <p>The project describes a browser designed from the start for the two of you to share, with no extra setup.</p>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="c3">
+      <div class="t">Parallel</div>
+      <h3>Tasks, not turns</h3>
+      <p>Agents run several browser tasks at once in Spaces, so the work does not queue behind whatever you have open.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Logged in</div>
+      <h3>The hard part is auth</h3>
+      <p>Most browser automation dies at the login wall, which is why sharing real session state is the feature and not a detail.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Undisturbed</div>
+      <h3>You keep working</h3>
+      <p>The project states agents work without disturbing you, which is a claim about focus rather than throughput.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>citrolabs/ego-lite</div>
+    <div>Design study by Goose. Not affiliated with the project.</div>
+  </footer>
+</div>
+
+</body>
+</html>

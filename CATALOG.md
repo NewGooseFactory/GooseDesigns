@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **189 mocks** across **63 days**. Newest first.
+Searchable master index. **192 mocks** across **64 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-14 | Friday | [cactus-compute/needle](https://github.com/cactus-compute/needle) | hud | instrument-green | make the flat line the hero, a memory readout that does not move across 400 turns | landed | [png](days/2026-08-14/01-needle.png) | [2026-08-14](days/2026-08-14/) |
+| 2026-08-14 | Friday | [citrolabs/ego-lite](https://github.com/citrolabs/ego-lite) | strata | slate-cyan | draw the ownership boundary as three offset planes over one shared session store | landed | [png](days/2026-08-14/02-ego-lite.png) | [2026-08-14](days/2026-08-14/) |
+| 2026-08-14 | Friday | [github/spec-kit](https://github.com/github/spec-kit) | blueprint | drafting-red | strike the old word out and keep it visible, one source card and three derived | landed | [png](days/2026-08-14/03-spec-kit.png) | [2026-08-14](days/2026-08-14/) |
 | 2026-08-13 | Thursday | [NVIDIA-NeMo/Switchyard](https://github.com/NVIDIA-NeMo/Switchyard) | brutalist | acid-lime | put the translation on the wire with paired request shapes and an exposed maturity band | landed | [png](days/2026-08-13/01-switchyard.png) | [2026-08-13](days/2026-08-13/) |
 | 2026-08-13 | Thursday | [shiyu-coder/Kronos](https://github.com/shiyu-coder/Kronos) | waveform | tide-blue | take the word language literally, a bar sequence plus the vocabulary it is drawn from | landed | [png](days/2026-08-13/02-kronos.png) | [2026-08-13](days/2026-08-13/) |
 | 2026-08-13 | Thursday | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | ledger | ink-rust | treat the roster as the artifact, a quoted register plus the install targets | landed | [png](days/2026-08-13/03-agency-agents.png) | [2026-08-13](days/2026-08-13/) |

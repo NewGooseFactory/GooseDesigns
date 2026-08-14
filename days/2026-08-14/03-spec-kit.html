@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spec Kit</title>
+<style>
+  :root{
+    --paper:#EFF1EE;
+    --plate:#FAFBF9;
+    --ink:#141816;
+    --body:#3B433F;
+    --mute:#7C857F;
+    --grid:#DDE2DD;
+    --grid2:#D0D6D0;
+    --rule:#C3CAC4;
+    --red:#B3341F;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.5;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:24px 24px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  header{border-bottom:1px solid var(--rule);background:rgba(239,241,238,.9)}
+  .hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 0;
+       font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.17em;
+       text-transform:uppercase;color:var(--mute)}
+  .hdr b{color:var(--ink);font-weight:700}
+  .rev{border:1px solid var(--red);color:var(--red);padding:3px 8px;letter-spacing:.14em}
+
+  .hero{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;padding:60px 0 42px;align-items:start}
+  .eyebrow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.2em;
+           text-transform:uppercase;color:var(--red);margin-bottom:20px}
+  h1{font-size:55px;line-height:1.05;letter-spacing:-.03em;font-weight:700;margin-bottom:22px}
+  h1 span{color:var(--red)}
+  .lede{font-size:17px;line-height:1.66;color:var(--body);max-width:47ch;margin-bottom:15px}
+  .lede b{color:var(--ink);font-weight:650}
+  .strike{text-decoration:line-through;text-decoration-color:rgba(179,52,31,.75);
+          text-decoration-thickness:2px;color:var(--mute)}
+  .cta{display:flex;align-items:center;gap:20px;margin-top:26px;flex-wrap:wrap}
+  .btn{background:var(--ink);color:var(--paper);padding:13px 22px;border-radius:4px;font-weight:620;
+       font-size:15px;text-decoration:none;display:inline-block}
+  .lnk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--body);
+       text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:2px}
+
+  /* drawing */
+  .draw{background:var(--plate);border:1px solid var(--rule);border-radius:2px}
+  .dtop{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;
+        border-bottom:1px solid var(--rule);
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.16em;
+        text-transform:uppercase;color:var(--mute)}
+  .dbody{padding:26px 22px 20px}
+
+  .flow{position:relative;padding-left:34px}
+  .spine{position:absolute;left:12px;top:8px;bottom:34px;width:1px;background:var(--grid2)}
+  .step{position:relative;margin-bottom:15px}
+  .step:last-of-type{margin-bottom:0}
+  .knob{position:absolute;left:-28px;top:11px;width:11px;height:11px;border-radius:50%;
+        background:var(--plate);border:2px solid var(--rule)}
+  .step.src .knob{border-color:var(--red);background:var(--red)}
+  .card{border:1px solid var(--rule);border-radius:3px;padding:12px 15px;background:var(--paper)}
+  .step.src .card{border-color:var(--red);border-width:1.5px;background:rgba(179,52,31,.045)}
+  .ctop{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .cname{font-size:15.5px;font-weight:650;letter-spacing:-.008em}
+  .cfile{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--mute);white-space:nowrap}
+  .step.src .cfile{color:var(--red)}
+  .cdesc{font-size:13.5px;color:var(--body);margin-top:5px;line-height:1.55}
+
+  .genarrow{position:relative;height:34px;margin:2px 0 8px}
+  .gline{position:absolute;left:-22px;top:0;bottom:0;border-left:1.5px dashed var(--red)}
+  .gline::after{content:"";position:absolute;left:-4px;bottom:-1px;width:7px;height:7px;
+                border-right:1.5px solid var(--red);border-bottom:1.5px solid var(--red);
+                transform:rotate(45deg)}
+  .glab{position:absolute;left:-4px;top:9px;font-family:ui-monospace,Menlo,Consolas,monospace;
+        font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+
+  .dim{display:flex;align-items:center;gap:10px;padding-top:16px;margin-top:6px;
+       border-top:1px dashed var(--grid2)}
+  .dimtxt{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.13em;
+          text-transform:uppercase;color:var(--mute)}
+  .dnote{padding:13px 18px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--mute);
+         font-style:italic;line-height:1.6}
+
+  .agents{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:24px 0 26px}
+  .alab{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.17em;
+        text-transform:uppercase;color:var(--mute);margin-bottom:15px}
+  .arow{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+  .ag{border:1px solid var(--rule);border-radius:3px;padding:9px 14px;background:var(--plate);
+      font-size:14px;white-space:nowrap}
+  .anote{font-size:13px;color:var(--mute);margin-top:14px;line-height:1.6;max-width:84ch}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:42px;padding:40px 0 48px}
+  .c3 .t{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.17em;
+         text-transform:uppercase;color:var(--red);margin-bottom:11px}
+  .c3 h3{font-size:19px;font-weight:650;letter-spacing:-.012em;margin-bottom:9px}
+  .c3 p{font-size:14.5px;line-height:1.62;color:var(--body)}
+
+  footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;padding:17px 0;
+         font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--mute)}
+
+  @media (max-width:960px){
+    .hero{grid-template-columns:1fr;gap:34px;padding:42px 0 30px}
+    h1{font-size:38px}
+    .three{grid-template-columns:1fr;gap:26px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div><b>GITHUB</b> / SPEC-KIT</div>
+    <div class="rev">Spec-driven development</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Define what to build before building it</div>
+      <h1>The spec stops<br>being <span class="strike">scaffolding</span></h1>
+      <p class="lede">Spec Kit is an open-source toolkit for building software with any AI coding agent. Its claim
+      is a reversal: <b>specifications become executable, directly generating working implementations rather than
+      just guiding them</b>.</p>
+      <p class="lede">For decades code was king and the spec was scaffolding you built and discarded once the real
+      work began. Flip that and the document you were going to throw away becomes the thing under version control.</p>
+      <div class="cta">
+        <a class="btn" href="#">Read the toolkit</a>
+        <a class="lnk">github.com/github/spec-kit</a>
+      </div>
+    </div>
+
+    <div class="draw">
+      <div class="dtop"><span>Order of authority</span><span>Illustrative</span></div>
+      <div class="dbody">
+        <div class="flow">
+          <div class="spine"></div>
+
+          <div class="step src">
+            <div class="knob"></div>
+            <div class="card">
+              <div class="ctop"><span class="cname">Specification</span><span class="cfile">the source</span></div>
+              <div class="cdesc">What to build and why, written before anything is generated.</div>
+            </div>
+          </div>
+
+          <div class="genarrow">
+            <div class="gline"></div>
+            <span class="glab">Generates</span>
+          </div>
+
+          <div class="step">
+            <div class="knob"></div>
+            <div class="card">
+              <div class="ctop"><span class="cname">Plan</span><span class="cfile">derived</span></div>
+              <div class="cdesc">The approach the agent will take, traceable back to a line in the spec.</div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="knob"></div>
+            <div class="card">
+              <div class="ctop"><span class="cname">Tasks</span><span class="cfile">derived</span></div>
+              <div class="cdesc">Work broken into pieces small enough to check one at a time.</div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="knob"></div>
+            <div class="card">
+              <div class="ctop"><span class="cname">Implementation</span><span class="cfile">derived</span></div>
+              <div class="cdesc">Code, which is now the output of the process instead of its origin.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="dim">
+          <span class="dimtxt">Edit here</span>
+          <span class="dimtxt" style="color:#B3341F">&#8593; the spec, not the code below it</span>
+        </div>
+      </div>
+      <div class="dnote">Stage names are the design study. The README states that specifications become executable
+      and directly generate working implementations rather than just guiding them.</div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="agents">
+    <div class="alab">Works with any AI coding agent</div>
+    <div class="arow">
+      <span class="ag">Bring your own agent</span>
+      <span class="ag">Ready-to-use process</span>
+      <span class="ag">Or bring your own process</span>
+      <span class="ag">Extensions and presets</span>
+      <span class="ag">Role-based bundles</span>
+    </div>
+    <p class="anote">The README describes a ready-to-use spec-driven process that you can replace with your own,
+    extended through presets and bundles, and built to work with any AI coding agent rather than one vendor.</p>
+  </section>
+
+  <section class="three">
+    <div class="c3">
+      <div class="t">Executable</div>
+      <h3>A spec that runs</h3>
+      <p>Calling the spec executable is what makes it worth maintaining, because a document nobody runs goes stale in a week.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Agent-neutral</div>
+      <h3>Any coding agent</h3>
+      <p>Keeping the process separate from the agent means the artifact survives when you switch tools next quarter.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Organizational</div>
+      <h3>Built for the whole team</h3>
+      <p>Bundles and presets exist because a methodology only holds if the second engineer gets the same setup as the first.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>github/spec-kit</div>
+    <div>Design study by Goose. Not affiliated with the project.</div>
+  </footer>
+</div>
+
+</body>
+</html>

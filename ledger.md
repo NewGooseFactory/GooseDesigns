@@ -191,3 +191,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-13 — [rep](days/2026-08-13/) — NVIDIA-NeMo/Switchyard — brutalist/acid-lime — put the translation on the wire with paired request shapes and an exposed maturity band → landed
 - 2026-08-13 — [rep](days/2026-08-13/) — shiyu-coder/Kronos — waveform/tide-blue — take the word language literally, a bar sequence plus the vocabulary it is drawn from → landed
 - 2026-08-13 — [rep](days/2026-08-13/) — msitarzewski/agency-agents — ledger/ink-rust — treat the roster as the artifact, a quoted register plus the install targets → landed
+- 2026-08-14 — [rep](days/2026-08-14/) — cactus-compute/needle — hud/instrument-green — make the flat line the hero, a memory readout that does not move across 400 turns → landed
+- 2026-08-14 — [rep](days/2026-08-14/) — citrolabs/ego-lite — strata/slate-cyan — draw the ownership boundary as three offset planes over one shared session store → landed
+- 2026-08-14 — [rep](days/2026-08-14/) — github/spec-kit — blueprint/drafting-red — strike the old word out and keep it visible, one source card and three derived → landed
