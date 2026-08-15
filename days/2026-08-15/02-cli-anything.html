@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLI-Anything</title>
+<style>
+  :root{
+    --bg:#08090B;
+    --ink:#E8E6E1;
+    --mute:#8B8779;
+    --dim:#55524A;
+    --rule:#1E1F21;
+    --rule2:#2B2D30;
+    --amber:#F0A93B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+       font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+       -webkit-font-smoothing:antialiased;line-height:1.55;font-size:14px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 40px}
+
+  .rule{border-top:1px solid var(--rule)}
+  .dbl{border-top:1px solid var(--rule2);border-bottom:1px solid var(--rule2);height:4px}
+
+  header{padding:16px 0;border-bottom:1px solid var(--rule2)}
+  .hdr{display:flex;justify-content:space-between;align-items:center;
+       font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+  .hdr b{color:var(--ink);font-weight:700}
+  .hdr .amb{color:var(--amber)}
+
+  .hero{display:grid;grid-template-columns:1fr .92fr;gap:48px;padding:56px 0 34px;align-items:start}
+  .hcopy{max-width:52ch}
+  .kicker{font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:24px}
+  h1{font-size:46px;line-height:1.12;letter-spacing:-.02em;font-weight:700;margin-bottom:8px;
+     max-width:22ch}
+  h1 em{font-style:normal;color:var(--amber)}
+  .bridge{border:1px solid var(--rule2);background:#0B0D0E;padding:22px 20px 20px}
+  .btitle{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:20px;
+          display:flex;justify-content:space-between}
+  .ascii{color:#6E6A5F;font-size:12.5px;line-height:1.5;letter-spacing:.02em;white-space:pre;overflow:hidden;margin-bottom:20px}
+  .ascii b{color:var(--amber);font-weight:400}
+  .brow{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:9px 0;border-top:1px solid var(--rule)}
+  .bk{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);white-space:nowrap;padding-top:2px}
+  .bv{font-size:13px;color:#A9A599;line-height:1.6}
+  .bv b{color:var(--amber);font-weight:400}
+  .lede{font-size:14.5px;line-height:1.72;color:#B4B0A5;max-width:64ch;margin-bottom:13px}
+  .lede b{color:var(--ink);font-weight:700}
+  .cta{display:flex;align-items:center;gap:9px;margin-top:24px;flex-wrap:wrap}
+  .btn{border:1px solid var(--amber);color:var(--amber);padding:11px 18px;font-size:13px;
+       letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block}
+  .btn.solid{background:var(--amber);color:#120C02;font-weight:700}
+  .lnk{font-size:12.5px;color:#8B8779;text-decoration:none;border-bottom:1px solid var(--rule2);
+       padding-bottom:2px;margin-left:10px}
+
+  /* the two-column argument */
+  .arg{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule2);
+       border-bottom:1px solid var(--rule2)}
+  .col{padding:26px 28px 28px}
+  .col:first-child{border-right:1px solid var(--rule2)}
+  .ctag{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:16px}
+  .col.b .ctag{color:var(--amber)}
+  .ch{font-size:19px;letter-spacing:-.012em;font-weight:700;margin-bottom:16px}
+
+  .term{border:1px solid var(--rule2);background:#0B0D0E;padding:14px 15px 15px;min-height:196px}
+  .tl{font-size:12.5px;line-height:1.85;color:#9C988C;white-space:pre-wrap}
+  .tl .p{color:var(--dim)}
+  .tl .c{color:var(--ink)}
+  .tl .a{color:var(--amber)}
+  .tl .x{color:#C86A5E}
+  .tl .ok{color:#63B98A}
+  .tl .g{color:var(--dim);font-style:italic}
+
+  .cnote{font-size:12.5px;color:var(--mute);line-height:1.65;margin-top:15px;font-style:italic}
+
+  /* hub strip */
+  .hub{padding:26px 0 28px;border-bottom:1px solid var(--rule2)}
+  .hlab{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin-bottom:16px}
+  .hgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule2)}
+  .hc{padding:15px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .hc:nth-child(3n){border-right:0}
+  .hc:nth-child(n+4){border-bottom:0}
+  .hcmd{font-size:13px;color:var(--ink);margin-bottom:5px}
+  .hcmd .amb{color:var(--amber)}
+  .hd{font-size:12px;color:var(--mute);line-height:1.55}
+  .hnote{font-size:12.5px;color:var(--mute);margin-top:15px;line-height:1.65;font-style:italic}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:38px;padding:34px 0 42px}
+  .c3 .t{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:11px}
+  .c3 h3{font-size:16.5px;font-weight:700;letter-spacing:-.01em;margin-bottom:9px}
+  .c3 p{font-size:13.5px;line-height:1.68;color:#9C988C}
+
+  footer{border-top:1px solid var(--rule2);display:flex;justify-content:space-between;padding:16px 0;
+         font-size:11.5px;color:var(--dim);letter-spacing:.06em}
+
+  @media (max-width:940px){
+    .hero{grid-template-columns:1fr;gap:30px}
+    h1{font-size:32px}
+    .arg{grid-template-columns:1fr}
+    .col:first-child{border-right:0;border-bottom:1px solid var(--rule2)}
+    .hgrid{grid-template-columns:1fr}
+    .three{grid-template-columns:1fr;gap:24px}
+    .ascii{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div><b>HKUDS</b> / CLI-ANYTHING</div>
+    <div class="amb">CLI-HUB</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hcopy">
+    <div class="kicker">Making all software agent-native</div>
+    <h1>Today's software<br>serves humans.<br><em>Tomorrow's users<br>will be agents.</em></h1>
+
+    <p class="lede">CLI-Anything writes command line harnesses for software that never shipped one, so an agent
+    can drive it the same way it drives anything else. <b>The bridge is the CLI</b>, and CLI-Hub is where the
+    community-built ones live.</p>
+    <p class="lede">Most software assumes a person with a mouse. An agent has neither, so the gap is not
+    intelligence. It is an interface that takes text and returns text.</p>
+    <div class="cta">
+      <a class="btn solid">pip install cli-anything-hub</a>
+      <a class="btn">cli-hub install &lt;name&gt;</a>
+      <a class="lnk">github.com/HKUDS/CLI-Anything</a>
+    </div>
+    </div>
+
+    <div class="bridge">
+      <div class="btitle"><span>The bridge</span><span>Four hops</span></div>
+      <div class="ascii">   +-----------+
+   |   AGENT   |   has no mouse, reads and writes text
+   +-----------+
+         |
+         v
+   +-----------+
+   | <b>  CLI  </b>  |   <b>the layer this project generates</b>
+   +-----------+
+         |
+         v
+   +-----------+
+   | SOFTWARE  |   was written for a person
+   +-----------+
+         |
+         v
+   +-----------+
+   | ARTIFACT  |   a file you can open and diff
+   +-----------+</div>
+      <div class="brow"><span class="bk">Install</span><span class="bv">pip install <b>cli-anything-hub</b></span></div>
+      <div class="brow"><span class="bk">Add one</span><span class="bv">cli-hub install <b>&lt;name&gt;</b></span></div>
+      <div class="brow"><span class="bk">Contribute</span><span class="bv">open a PR, the hub updates instantly</span></div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="arg">
+    <div class="col a">
+      <div class="ctag">Software built for a person</div>
+      <div class="ch">The agent stalls at the GUI</div>
+      <div class="term">
+        <div class="tl"><span class="p">agent &gt;</span> <span class="c">open the CAD file and extrude the base 4mm</span>
+
+<span class="g">no command surface found</span>
+<span class="g">falling back to screen control</span>
+
+<span class="x">click (612, 344)</span>   <span class="g">toolbar moved after update</span>
+<span class="x">click (598, 351)</span>   <span class="g">wrong panel</span>
+<span class="x">retry 3 of 3</span>
+
+<span class="x">FAILED</span> <span class="g">no artifact produced</span></div>
+      </div>
+      <p class="cnote">Pixel driving breaks the moment a layout changes, and nothing about the failure is
+      reusable by the next agent.</p>
+    </div>
+
+    <div class="col b">
+      <div class="ctag">Same software, with a harness</div>
+      <div class="ch">The agent runs a command</div>
+      <div class="term">
+        <div class="tl"><span class="p">agent &gt;</span> <span class="c">open the CAD file and extrude the base 4mm</span>
+
+<span class="a">$ cad-cli open part.step</span>
+<span class="a">$ cad-cli select face --name base</span>
+<span class="a">$ cad-cli extrude --distance 4mm</span>
+<span class="a">$ cad-cli preview --out preview.png</span>
+
+<span class="ok">OK</span> <span class="g">artifact written: part_v2.step</span>
+<span class="ok">OK</span> <span class="g">preview loop: 1 pass</span></div>
+      </div>
+      <p class="cnote">Commands are inspectable, repeatable, and diffable. The README describes preview, live
+      preview, and trajectory loops feeding real artifacts.</p>
+    </div>
+  </section>
+
+  <section class="hub">
+    <div class="hlab">Artifacts the demos produce</div>
+    <div class="hgrid">
+      <div class="hc"><div class="hcmd"><span class="amb">&gt;</span> CAD builds</div><div class="hd">Parametric models driven from a command instead of a toolbar.</div></div>
+      <div class="hc"><div class="hcmd"><span class="amb">&gt;</span> 3D scenes</div><div class="hd">Scene assembly an agent can re-run after a review comment.</div></div>
+      <div class="hc"><div class="hcmd"><span class="amb">&gt;</span> Diagrams</div><div class="hd">Generated from text, so the diff is readable.</div></div>
+      <div class="hc"><div class="hcmd"><span class="amb">&gt;</span> Gameplay</div><div class="hd">Interactive software reached through a text surface.</div></div>
+      <div class="hc"><div class="hcmd"><span class="amb">&gt;</span> Subtitles</div><div class="hd">Media work that used to need a timeline UI.</div></div>
+      <div class="hc"><div class="hcmd"><span class="amb">&gt;</span> Your own harness</div><div class="hd">Open a PR and the hub updates instantly.</div></div>
+    </div>
+    <p class="hnote">These six are the artifact types the README lists for its demos. Terminal transcripts above
+    are illustrative.</p>
+  </section>
+
+  <section class="three">
+    <div class="c3">
+      <div class="t">The claim</div>
+      <h3>Agent-native, not agent-adapted</h3>
+      <p>Wrapping a GUI in vision is adaptation. Generating a command surface changes what the software is to a caller.</p>
+    </div>
+    <div class="c3">
+      <div class="t">The hub</div>
+      <h3>One install path</h3>
+      <p>cli-hub install means a harness someone else wrote is a dependency rather than a fork of their setup.</p>
+    </div>
+    <div class="c3">
+      <div class="t">The loop</div>
+      <h3>Preview closes it</h3>
+      <p>A command that renders a preview lets the agent check its own work, which is what makes the next call better than a guess.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>HKUDS/CLI-Anything</div>
+    <div>Design study by Goose. Not affiliated with the project.</div>
+  </footer>
+</div>
+
+</body>
+</html>

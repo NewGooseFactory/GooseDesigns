@@ -194,3 +194,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-14 — [rep](days/2026-08-14/) — cactus-compute/needle — hud/instrument-green — make the flat line the hero, a memory readout that does not move across 400 turns → landed
 - 2026-08-14 — [rep](days/2026-08-14/) — citrolabs/ego-lite — strata/slate-cyan — draw the ownership boundary as three offset planes over one shared session store → landed
 - 2026-08-14 — [rep](days/2026-08-14/) — github/spec-kit — blueprint/drafting-red — strike the old word out and keep it visible, one source card and three derived → landed
+- 2026-08-15 — [rep](days/2026-08-15/) — MakazhanAlpamys/Soup — data-viz/vram-green — draw the constraint then the thing that beats it, one card limit across two VRAM tracks → landed
+- 2026-08-15 — [rep](days/2026-08-15/) — HKUDS/CLI-Anything — mono-zine/amber — show the failure before the fix, a stalled GUI run beside four working commands → landed
+- 2026-08-15 — [rep](days/2026-08-15/) — cursor/plugins — editorial/ochre — build the page on the repository layout, manifest card beside the headline → landed

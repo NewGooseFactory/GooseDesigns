@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **192 mocks** across **64 days**. Newest first.
+Searchable master index. **195 mocks** across **65 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-15 | Saturday | [MakazhanAlpamys/Soup](https://github.com/MakazhanAlpamys/Soup) | data-viz | vram-green | draw the constraint then the thing that beats it, one card limit across two VRAM tracks | landed | [png](days/2026-08-15/01-soup.png) | [2026-08-15](days/2026-08-15/) |
+| 2026-08-15 | Saturday | [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything) | mono-zine | amber | show the failure before the fix, a stalled GUI run beside four working commands | landed | [png](days/2026-08-15/02-cli-anything.png) | [2026-08-15](days/2026-08-15/) |
+| 2026-08-15 | Saturday | [cursor/plugins](https://github.com/cursor/plugins) | editorial | ochre | build the page on the repository layout, manifest card beside the headline | landed | [png](days/2026-08-15/03-cursor-plugins.png) | [2026-08-15](days/2026-08-15/) |
 | 2026-08-14 | Friday | [cactus-compute/needle](https://github.com/cactus-compute/needle) | hud | instrument-green | make the flat line the hero, a memory readout that does not move across 400 turns | landed | [png](days/2026-08-14/01-needle.png) | [2026-08-14](days/2026-08-14/) |
 | 2026-08-14 | Friday | [citrolabs/ego-lite](https://github.com/citrolabs/ego-lite) | strata | slate-cyan | draw the ownership boundary as three offset planes over one shared session store | landed | [png](days/2026-08-14/02-ego-lite.png) | [2026-08-14](days/2026-08-14/) |
 | 2026-08-14 | Friday | [github/spec-kit](https://github.com/github/spec-kit) | blueprint | drafting-red | strike the old word out and keep it visible, one source card and three derived | landed | [png](days/2026-08-14/03-spec-kit.png) | [2026-08-14](days/2026-08-14/) |

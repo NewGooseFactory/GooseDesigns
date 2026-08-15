@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soup</title>
+<style>
+  :root{
+    --bg:#07090A;
+    --panel:#0C1012;
+    --panel2:#101618;
+    --rule:#1A2225;
+    --rule2:#263236;
+    --txt:#E9F0F1;
+    --mute:#7A8B8E;
+    --dim:#465558;
+    --amb:#E9A23B;
+    --grn:#4CC38A;
+    --vram:#3E8EDE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);
+       font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+
+  header{border-bottom:1px solid var(--rule)}
+  .hdr{display:flex;justify-content:space-between;align-items:center;padding:17px 0;
+       font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.17em;
+       text-transform:uppercase;color:var(--mute)}
+  .hdr b{color:var(--txt);font-weight:700}
+  .beta{color:var(--amb);border:1px solid rgba(233,162,59,.45);padding:3px 8px;letter-spacing:.14em}
+
+  .hero{display:grid;grid-template-columns:1fr 1.12fr;gap:50px;padding:60px 0 40px;align-items:start}
+  .eyebrow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.2em;
+           text-transform:uppercase;color:var(--amb);margin-bottom:20px}
+  h1{font-size:53px;line-height:1.05;letter-spacing:-.03em;font-weight:700;margin-bottom:20px}
+  h1 span{color:var(--grn)}
+  .lede{font-size:17px;line-height:1.65;color:#9FB0B3;max-width:47ch;margin-bottom:14px}
+  .lede b{color:var(--txt);font-weight:600}
+  .cmd{border:1px solid var(--rule2);border-radius:5px;background:var(--panel);padding:13px 16px;
+       font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:#C6D4D6;margin:22px 0 4px;
+       display:flex;gap:11px;align-items:center}
+  .cmd.block{display:block;line-height:2.05}
+  .cmd .p{color:var(--dim)}
+  .cmd .k{color:var(--grn)}
+  .cta{display:flex;align-items:center;gap:20px;margin-top:22px;flex-wrap:wrap}
+  .btn{background:var(--grn);color:#04140D;padding:13px 22px;border-radius:5px;font-weight:650;
+       font-size:15px;text-decoration:none;display:inline-block}
+  .lnk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:#8FA0A3;
+       text-decoration:none;border-bottom:1px solid var(--rule2);padding-bottom:2px}
+
+  .rig{border:1px solid var(--rule2);border-radius:5px;background:var(--panel);overflow:hidden}
+  .rtop{display:flex;justify-content:space-between;align-items:center;padding:11px 17px;
+        border-bottom:1px solid var(--rule2);background:var(--panel2);
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.16em;
+        text-transform:uppercase;color:var(--mute)}
+  .rtop .rt{color:var(--dim)}
+
+  .card{padding:17px 17px 15px;border-bottom:1px solid var(--rule)}
+  .card:last-of-type{border-bottom:0}
+  .ctop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px}
+  .cname{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.14em;
+         text-transform:uppercase;color:#8FA0A3}
+  .cnum{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--dim);
+        font-variant-numeric:tabular-nums}
+
+  .vbar{position:relative;height:30px;border:1px solid var(--rule2);border-radius:3px;background:#080C0D;
+        overflow:hidden}
+  .cap{position:absolute;top:0;bottom:0;left:0;width:100%;
+       background:repeating-linear-gradient(90deg,#0B1113 0 5px,#0E1518 5px 10px)}
+  .fill{position:absolute;top:0;bottom:0;left:0;display:flex;align-items:center;padding-left:11px;overflow:hidden;
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.05em;
+        white-space:nowrap;color:#04140D;font-weight:700}
+  .over{background:rgba(224,90,80,.20);border-right:1px solid #E05A50;color:#F0B6B1}
+  .fit{background:var(--grn)}
+  .lim{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--vram);left:50%}
+  .limlab span{position:absolute;left:50%;margin-left:9px}
+  .limlab{position:relative;height:15px;margin-top:5px;
+          font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.12em;
+          color:var(--vram)}
+
+  .strm{padding:16px 17px;border-bottom:1px solid var(--rule);background:#090D0F}
+  .slab{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.15em;
+        text-transform:uppercase;color:var(--mute);margin-bottom:12px}
+  .lanes{display:flex;gap:3px;align-items:flex-end;height:38px}
+  .ln{flex:1;background:#12191B;border-radius:1px;height:12px}
+  .ln.on{background:var(--grn);height:38px}
+  .ln.next{background:rgba(76,195,138,.32);height:24px}
+  .scap{display:flex;justify-content:space-between;padding-top:9px;
+        font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;color:var(--dim);letter-spacing:.1em}
+
+  .note{padding:13px 17px;font-size:12.5px;color:var(--mute);font-style:italic;line-height:1.6}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule2);
+         border-bottom:1px solid var(--rule2);background:var(--panel)}
+  .f{padding:20px 18px;border-right:1px solid var(--rule)}
+  .f:last-child{border-right:0}
+  .fv{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:25px;color:var(--txt);
+      font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-bottom:5px}
+  .fv i{font-style:normal;color:var(--amb);font-size:13px;margin-left:2px}
+  .fl{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.13em;
+      text-transform:uppercase;color:var(--mute);line-height:1.5}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:42px;padding:40px 0 48px}
+  .c3 .t{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.17em;
+         text-transform:uppercase;color:var(--amb);margin-bottom:11px}
+  .c3 h3{font-size:19px;font-weight:650;letter-spacing:-.012em;margin-bottom:9px}
+  .c3 p{font-size:14.5px;line-height:1.62;color:#93A4A7}
+
+  footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;padding:17px 0;
+         font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:#5B6A6D}
+
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr;gap:34px;padding:42px 0 28px}
+    h1{font-size:38px}
+    .facts{grid-template-columns:repeat(2,1fr)}
+    .three{grid-template-columns:1fr;gap:26px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div><b>MAKAZHANALPAMYS</b> / SOUP</div>
+    <div class="beta">Layer streaming is beta</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Fine-tune LLMs from one YAML</div>
+      <h1>The base model<br>never has to<br><span>fit.</span></h1>
+      <p class="lede">Soup fine-tunes and post-trains LLMs in one command. The interesting part is
+      <b>layer streaming, which keeps the frozen base out of VRAM and feeds it to the GPU one decoder layer at
+      a time</b>.</p>
+      <p class="lede">That turns the question from how much model fits in your card into how much of one layer
+      fits, which is a far smaller number.</p>
+      <div class="cmd block"><div><span class="p">$</span> pip install "soup-cli[train]"</div><div><span class="p">$</span> <span class="k">soup</span> init --template chat</div><div><span class="p">$</span> <span class="k">soup</span> train</div></div>
+      <div class="cta">
+        <a class="btn" href="#">Read the trainer</a>
+        <a class="lnk">github.com/MakazhanAlpamys/Soup</a>
+      </div>
+    </div>
+
+    <div class="rig">
+      <div class="rtop"><span>RTX 3050 Laptop, 4 GB</span><span class="rt">Figures from the README</span></div>
+
+      <div class="card">
+        <div class="ctop">
+          <span class="cname">Resident base in VRAM</span>
+          <span class="cnum">does not fit</span>
+        </div>
+        <div class="vbar">
+          <div class="cap"></div>
+          <div class="fill over" style="width:100%">Llama-3.1-8B frozen base</div>
+          <div class="lim"></div>
+        </div>
+        <div class="limlab"><span>4.00 GB CARD LIMIT</span></div>
+      </div>
+
+      <div class="card">
+        <div class="ctop">
+          <span class="cname">Layer streaming, one layer at a time</span>
+          <span class="cnum">3.32 GB peak</span>
+        </div>
+        <div class="vbar">
+          <div class="cap"></div>
+          <div class="fill fit" style="width:41.5%">3.32 GB peak</div>
+          <div class="lim"></div>
+        </div>
+        <div class="limlab"><span>4.00 GB CARD LIMIT</span></div>
+      </div>
+
+      <div class="strm">
+        <div class="slab">Decoder layers, streamed</div>
+        <div class="lanes">
+          <span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span>
+          <span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span>
+          <span class="ln on"></span><span class="ln next"></span>
+          <span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span>
+          <span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span>
+          <span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span>
+        </div>
+        <div class="scap"><span>ON DISK</span><span>IN VRAM NOW</span><span>ON DISK</span></div>
+      </div>
+
+      <div class="note">Lane widths are illustrative. The measured figures are the README numbers: 119.6 tok/s at
+      3.32 GB peak on a 4 GB RTX 3050 Laptop, bit-exact against a resident run, reproduced on an H100 at
+      113.00 tok/s in the same 3.32 GB. The README notes the tok/s figure was taken on v0.72.2, before a
+      v0.73.0 correctness repair, and has not been re-run on a 4 GB card since.</div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="facts">
+    <div class="f"><div class="fv">8<i>B</i></div><div class="fl">Model trained</div></div>
+    <div class="f"><div class="fv">4<i>GB</i></div><div class="fl">Laptop GPU</div></div>
+    <div class="f"><div class="fv">3.32<i>GB</i></div><div class="fl">Peak VRAM</div></div>
+    <div class="f"><div class="fv">119.6</div><div class="fl">Tokens per second</div></div>
+  </section>
+
+  <section class="three">
+    <div class="c3">
+      <div class="t">One config</div>
+      <h3>No SSH, no config hell</h3>
+      <p>The README states the whole workflow is one config and one command, which is the part that decides whether a fine-tune actually gets attempted.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Bit-exact</div>
+      <h3>Same result, less memory</h3>
+      <p>Streaming only counts if the output matches. The project reports the streamed run is bit-exact against a normal resident run.</p>
+    </div>
+    <div class="c3">
+      <div class="t">Opt-in</div>
+      <h3>stream_layers: true</h3>
+      <p>The feature is off by default and marked beta, so the default path stays the one people already trust.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>MakazhanAlpamys/Soup</div>
+    <div>Design study by Goose. Not affiliated with the project.</div>
+  </footer>
+</div>
+
+</body>
+</html>
