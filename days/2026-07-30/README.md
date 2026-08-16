@@ -1,4 +1,4 @@
-﻿# Design Rep — Thursday, July 30
+# Design Rep — Thursday, July 30
 
 > 3 mocks — editorial, neon-noir, blueprint
 

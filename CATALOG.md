@@ -1,11 +1,14 @@
-﻿# Catalog — every design rep
+# Catalog — every design rep
 
-Searchable master index. **195 mocks** across **65 days**. Newest first.
+Searchable master index. **198 mocks** across **66 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-16 | Sunday | [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | terminal-dark | cobalt | make the handoff the hero, one shared store between two dated vendor CLI panes | landed | [png](days/2026-08-16/01-ai-memory.png) | [2026-08-16](days/2026-08-16/) |
+| 2026-08-16 | Sunday | [cordiverse/cordis](https://github.com/cordiverse/cordis) | poster | copper | split a five-word abstraction onto two axes and let the third word land full width | landed | [png](days/2026-08-16/02-cordis.png) | [2026-08-16](days/2026-08-16/) |
+| 2026-08-16 | Sunday | [unslothai/unsloth](https://github.com/unslothai/unsloth) | bauhaus | primary-blue | treat the six named models as the layout and quote "and more" as the seventh tile | landed | [png](days/2026-08-16/03-unsloth.png) | [2026-08-16](days/2026-08-16/) |
 | 2026-08-15 | Saturday | [MakazhanAlpamys/Soup](https://github.com/MakazhanAlpamys/Soup) | data-viz | vram-green | draw the constraint then the thing that beats it, one card limit across two VRAM tracks | landed | [png](days/2026-08-15/01-soup.png) | [2026-08-15](days/2026-08-15/) |
 | 2026-08-15 | Saturday | [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything) | mono-zine | amber | show the failure before the fix, a stalled GUI run beside four working commands | landed | [png](days/2026-08-15/02-cli-anything.png) | [2026-08-15](days/2026-08-15/) |
 | 2026-08-15 | Saturday | [cursor/plugins](https://github.com/cursor/plugins) | editorial | ochre | build the page on the repository layout, manifest card beside the headline | landed | [png](days/2026-08-15/03-cursor-plugins.png) | [2026-08-15](days/2026-08-15/) |

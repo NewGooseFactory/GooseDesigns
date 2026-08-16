@@ -1,4 +1,4 @@
-﻿# Design Rep — Friday, August 7
+# Design Rep — Friday, August 7
 
 > 3 mocks — data-viz, editorial, neon-noir
 

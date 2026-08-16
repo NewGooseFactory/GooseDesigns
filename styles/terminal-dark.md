@@ -1,11 +1,12 @@
-﻿# Style — terminal-dark
+# Style — terminal-dark
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-23 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+24 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-16](../days/2026-08-16/) | [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | cobalt | make the handoff the hero, one shared store between two dated vendor CLI panes | landed | [png](../days/2026-08-16/01-ai-memory.png) |
 | [2026-08-11](../days/2026-08-11/) | [stablyai/orca](https://github.com/stablyai/orca) | cyan | argue the category name with five lanes at different depths and one blocked | landed: parallel reads as a scheduling problem not a feature word | [png](../days/2026-08-11/01-orca.png) |
 | [2026-08-06](../days/2026-08-06/) | [cloudflare/computer](https://github.com/cloudflare/computer) | electric-cyan | take the five-word description literally and draw the desktop mid-task | landed: drawing the artifact keeps a one-line README honest | [png](../days/2026-08-06/01-computer.png) |
 | [2026-08-01](../days/2026-08-01/) | [github/copilot-sdk](https://github.com/github/copilot-sdk) | electric-cyan | argue for embedded agents with one unchanged session shape above the surfaces it serves | landed: portability reads as engineering property not slogan | [png](../days/2026-08-01/01-copilot-sdk.png) |

@@ -1,4 +1,4 @@
-﻿# Design Rep — Saturday, August 8
+# Design Rep — Saturday, August 8
 
 > 3 mocks — bauhaus, cell-grid, glass
 

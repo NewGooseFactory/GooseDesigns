@@ -1,4 +1,4 @@
-﻿# Design Rep — Monday, July 27
+# Design Rep — Monday, July 27
 
 > 3 mocks — hud, poster, warm-minimal
 

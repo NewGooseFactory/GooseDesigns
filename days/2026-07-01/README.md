@@ -1,4 +1,4 @@
-﻿# Design Rep — Wednesday, July 1
+# Design Rep — Wednesday, July 1
 
 > 3 mocks — editorial, glass, mono-zine
 

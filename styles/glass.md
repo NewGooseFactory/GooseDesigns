@@ -1,4 +1,4 @@
-﻿# Style — glass
+# Style — glass
 
 10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 

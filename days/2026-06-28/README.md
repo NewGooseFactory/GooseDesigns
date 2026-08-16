@@ -1,4 +1,4 @@
-﻿# Design Rep — Sunday, June 28
+# Design Rep — Sunday, June 28
 
 > 3 mocks — constellation, brutalist, warm-minimal
 

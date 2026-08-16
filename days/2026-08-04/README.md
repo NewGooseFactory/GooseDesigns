@@ -1,4 +1,4 @@
-﻿# Design Rep — Tuesday, August 4
+# Design Rep — Tuesday, August 4
 
 > 3 mocks — editorial, waveform, mono-zine
 

@@ -1,4 +1,4 @@
-﻿# Design Rep — Sunday, July 19
+# Design Rep — Sunday, July 19
 
 > 3 mocks — data-viz, glass, brutalist
 

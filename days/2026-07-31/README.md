@@ -1,4 +1,4 @@
-﻿# Design Rep — Friday, July 31
+# Design Rep — Friday, July 31
 
 > 3 mocks — hud, mono-zine, warm-minimal
 

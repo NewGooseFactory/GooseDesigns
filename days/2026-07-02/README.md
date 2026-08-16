@@ -1,4 +1,4 @@
-﻿# Design Rep — Thursday, July 2
+# Design Rep — Thursday, July 2
 
 > 3 mocks — hud, brutalist, swiss
 

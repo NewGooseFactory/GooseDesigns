@@ -1,4 +1,4 @@
-﻿# Design Rep — Friday, June 26
+# Design Rep — Friday, June 26
 
 > 3 mocks — editorial, terminal-dark, blueprint
 

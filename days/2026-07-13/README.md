@@ -1,4 +1,4 @@
-﻿# Design Rep — Monday, July 13
+# Design Rep — Monday, July 13
 
 > 3 mocks — hud, swiss, glass
 

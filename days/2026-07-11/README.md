@@ -1,4 +1,4 @@
-﻿# Design Rep — Saturday, July 11
+# Design Rep — Saturday, July 11
 
 > 3 mocks — data-viz, poster, warm-minimal
 

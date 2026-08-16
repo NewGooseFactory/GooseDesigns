@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cordis — Meta-Framework of Spatiotemporal Composability</title>
+<style>
+  :root{
+    --paper:#F2EEE7; --ink:#141110; --ink-2:#4A423B; --ink-3:#8B8177;
+    --rule:#D3CABC; --copper:#A2521F;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+  .sheet{max-width:1240px;margin:0 auto;padding:0 44px 52px}
+
+  .top{display:flex;align-items:baseline;gap:18px;padding:20px 0 11px;border-bottom:1.5px solid var(--ink)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+  .top .slug span{color:var(--ink-3)}
+  .top .right{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2)}
+  .top .right b{color:var(--copper);font-weight:600}
+
+  .axis-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:4px}
+
+  /* shared full-bleed word */
+  .word{display:flex;justify-content:space-between;white-space:nowrap;line-height:.82;font-weight:800;letter-spacing:-.02em}
+  .word span{display:block;animation:fadein 400ms var(--out) backwards}
+
+  /* AXIS 1 : SPACE */
+  .space{padding:34px 0 0}
+  .w-space{font-size:clamp(60px,12.4vw,158px)}
+  .w-space span:nth-child(1){animation-delay:40ms}.w-space span:nth-child(2){animation-delay:85ms}
+  .w-space span:nth-child(3){animation-delay:130ms}.w-space span:nth-child(4){animation-delay:175ms}
+  .w-space span:nth-child(5){animation-delay:220ms}.w-space span:nth-child(6){animation-delay:265ms}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .ruler{margin-top:12px;height:8px;border-top:1.5px solid var(--ink);
+    background:repeating-linear-gradient(90deg,var(--ink) 0 1.5px,transparent 1.5px 100%);
+    background-size:calc(100%/12) 7px;background-repeat:repeat-x}
+  .ruler-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--ink-3);letter-spacing:.1em;margin-top:4px}
+
+  /* AXIS 2 : TIME */
+  .time{display:grid;grid-template-columns:74px minmax(0,1fr) minmax(0,330px);gap:0 30px;padding:26px 0 0}
+  .ticks{border-right:1.5px solid var(--ink);padding-right:12px;text-align:right;padding-top:5px}
+  .ticks div{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.12em;height:clamp(40px,4.9vw,60px);line-height:1}
+  .ticks div b{color:var(--copper);font-weight:600}
+  .stair div{
+    font-size:clamp(40px,5.1vw,62px);line-height:clamp(40px,4.9vw,60px);letter-spacing:-.035em;font-weight:800;
+    animation:slidein 460ms var(--out) backwards}
+  .stair div:nth-child(1){margin-left:0;animation-delay:300ms}
+  .stair div:nth-child(2){margin-left:7%;animation-delay:370ms}
+  .stair div:nth-child(3){margin-left:14%;animation-delay:440ms}
+  @keyframes slidein{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+
+  .gloss{border-left:1.5px solid var(--rule);padding-left:22px;padding-top:4px}
+  .gloss p{font-size:15px;line-height:1.62;color:var(--ink-2);margin-bottom:13px}
+  .gloss p.first{color:var(--ink);font-size:16px}
+  .gloss .q{font-family:var(--mono);font-size:11.5px;color:var(--copper);letter-spacing:.01em;display:block;margin-bottom:11px;line-height:1.5}
+
+  /* RESOLVE BAND */
+  .band{margin-top:26px;border-top:1.5px solid var(--ink);padding-top:16px}
+  .w-comp{font-size:clamp(38px,7.55vw,96px);color:var(--copper)}
+  .w-comp span{animation-delay:520ms}
+  .band-foot{display:flex;align-items:baseline;gap:20px;margin-top:12px}
+  .band-foot .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper)}
+  .band-foot .n{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.03em}
+
+  .resolve{margin-top:34px;border-top:1.5px solid var(--rule);padding-top:20px;
+           display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
+  .resolve h2{font-size:clamp(26px,3.5vw,44px);line-height:1.02;letter-spacing:-.034em;font-weight:800;max-width:20ch}
+  .resolve h2 em{font-style:normal;color:var(--copper)}
+  .actions{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;white-space:nowrap;transition:background 160ms var(--out)}
+  .cmd:hover{background:var(--copper)}
+  .cmd i{color:#C99163;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none;border-bottom:1.5px solid var(--rule);padding-bottom:2px;transition:color 160ms var(--out),border-color 160ms var(--out)}
+  .lnk:hover{color:var(--copper);border-color:var(--copper)}
+  .colophon{margin-top:22px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;line-height:1.7;max-width:96ch}
+
+  @media (max-width:920px){
+    .sheet{padding:0 22px 40px}
+    .time{grid-template-columns:56px 1fr;gap:0 14px}
+    .gloss{grid-column:1/-1;border-left:none;padding-left:0;border-top:1.5px solid var(--rule);margin-top:24px;padding-top:16px}
+    .resolve{grid-template-columns:1fr}
+    .actions{align-items:flex-start;flex-direction:row;flex-wrap:wrap}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">cordiverse<span> / </span>cordis</div>
+    <div class="right">TypeScript &nbsp;·&nbsp; No.1 on GitHub Trending, 16 Aug 2026 &nbsp;·&nbsp; <b>599 stars today</b></div>
+  </div>
+
+  <section class="space">
+    <div class="axis-tag">Axis one &nbsp;/&nbsp; where</div>
+    <div class="word w-space"><span>S</span><span>P</span><span>A</span><span>T</span><span>I</span><span>O</span></div>
+    <div class="ruler"></div>
+    <div class="ruler-labels"><span>NODE</span><span>NODE</span><span>NODE</span><span>NODE</span><span>NODE</span><span>NODE</span></div>
+  </section>
+
+  <section class="time">
+    <div class="ticks">
+      <div>t<b>0</b></div>
+      <div>t<b>1</b></div>
+      <div>t<b>n</b></div>
+    </div>
+    <div class="stair">
+      <div>TEMP</div>
+      <div>OR</div>
+      <div>AL</div>
+    </div>
+    <div class="gloss">
+      <span class="q">"Meta-Framework of Spatiotemporal Composability"</span>
+      <p class="first">Five words is the entire public description. So this page takes them at face value instead of inventing features to fill a hero.</p>
+      <p>Space runs across. Time runs down. The third row is what you get when a framework refuses to treat those two as separate problems.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="word w-comp"><span>C</span><span>O</span><span>M</span><span>P</span><span>O</span><span>S</span><span>A</span><span>B</span><span>I</span><span>L</span><span>I</span><span>T</span><span>Y</span></div>
+    <div class="band-foot">
+      <span class="t">Axis three &nbsp;/&nbsp; what falls out</span>
+      <span class="n">both axes, one API surface</span>
+    </div>
+  </section>
+
+  <section class="resolve">
+    <h2>Read the <em>abstraction</em> before you read the API.</h2>
+    <div class="actions">
+      <div class="cmd"><i>$</i>npm install cordis</div>
+      <a class="lnk" href="https://github.com/cordiverse/cordis">github.com/cordiverse/cordis</a>
+    </div>
+  </section>
+
+  <p class="colophon">Concept mock, not affiliated with the project. Every claim here comes from the repository's one-line description on GitHub Trending; nothing about the API, adoption, or performance is asserted, because none of it was published on that page.</p>
+</div>
+</body>
+</html>

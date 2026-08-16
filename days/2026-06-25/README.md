@@ -1,4 +1,4 @@
-﻿# Design Rep — Thursday, June 25
+# Design Rep — Thursday, June 25
 
 > 3 mocks — poster, glass, hud
 

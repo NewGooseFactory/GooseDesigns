@@ -1,4 +1,4 @@
-﻿# Style — cell-grid
+# Style — cell-grid
 
 1 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 

@@ -1,4 +1,4 @@
-﻿# Design Rep — Saturday, June 13
+# Design Rep — Saturday, June 13
 
 > 3 mocks — hud
 

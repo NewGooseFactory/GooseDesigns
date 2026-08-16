@@ -1,4 +1,4 @@
-﻿# Style — neon-noir
+# Style — neon-noir
 
 6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 

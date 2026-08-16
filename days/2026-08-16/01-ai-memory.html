@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ai-memory — long term memory for agent coding CLIs</title>
+<style>
+  :root{
+    --bg:#0A0B0D; --panel:#101317; --panel-2:#0D1014;
+    --line:#1D222A; --line-2:#262D37;
+    --fg:#E8EBF1; --fg-2:#9AA2AF; --fg-3:#6C7480;
+    --accent:#4C8DFF; --accent-dim:#16294A;
+    --mono: ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --sans: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --out: cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{
+    background:var(--bg); color:var(--fg); font-family:var(--sans);
+    line-height:1.5; min-height:100vh;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px);
+    background-size:100% 88px; background-position:0 -1px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  /* nav */
+  nav{display:flex;align-items:baseline;gap:20px;padding:26px 0 0;border-bottom:1px solid var(--line);padding-bottom:20px}
+  .slug{font-family:var(--mono);font-size:13px;letter-spacing:.02em;color:var(--fg)}
+  .slug span{color:var(--fg-3)}
+  .meta{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--fg-3);letter-spacing:.04em}
+  .meta b{color:var(--accent);font-weight:500}
+
+  /* hero */
+  header{padding:76px 0 52px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:64px;align-items:start}
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .kicker::before{content:"";width:22px;height:1px;background:var(--accent)}
+  h1{font-size:clamp(38px,4.7vw,60px);line-height:1.04;letter-spacing:-.032em;font-weight:590;max-width:13ch}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{margin-top:24px;font-size:18.5px;line-height:1.62;color:var(--fg-2);max-width:44ch}
+  .cta{margin-top:36px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13.5px;background:var(--panel);border:1px solid var(--line-2);
+       padding:12px 16px;color:var(--fg);display:inline-flex;gap:11px;align-items:center;
+       transition:border-color 160ms var(--out),background 160ms var(--out)}
+  .cmd:hover{border-color:var(--accent);background:#12171F}
+  .cmd i{color:var(--accent);font-style:normal}
+  .ghost{font-family:var(--mono);font-size:13px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+         transition:color 160ms var(--out),border-color 160ms var(--out)}
+  .ghost:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* handoff diagram */
+  .rig{position:relative;padding-top:8px}
+  .rig-label{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);margin-bottom:14px;display:flex;justify-content:space-between}
+  .rig-label u{text-decoration:none;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px;font-size:9.5px;letter-spacing:.1em}
+
+  .pane{background:var(--panel-2);border:1px solid var(--line-2);position:relative;
+        animation:rise 520ms var(--out) backwards}
+  .pane:nth-of-type(1){animation-delay:60ms}
+  .pane:nth-of-type(2){animation-delay:220ms}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .pane-bar{display:flex;align-items:center;gap:8px;padding:9px 13px;border-bottom:1px solid var(--line);background:var(--panel)}
+  .dot{width:7px;height:7px;border-radius:50%;background:#2B323C}
+  .pane-name{font-family:var(--mono);font-size:11px;color:var(--fg-2);margin-left:4px;letter-spacing:.03em}
+  .pane-tag{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--fg-3);text-transform:uppercase}
+  .pane-body{padding:14px 15px;font-family:var(--mono);font-size:12.4px;line-height:1.85;color:var(--fg-2)}
+  .pane-body .p{color:var(--accent)}
+  .pane-body .c{color:var(--fg-3)}
+  .pane-body .w{color:var(--fg)}
+  .caret{display:inline-block;width:7px;height:14px;background:var(--accent);vertical-align:-2px;animation:blink 1.1s steps(1,end) infinite}
+  @keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+
+  .spine{margin:0;padding:16px 0 16px;position:relative}
+  .spine::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line-2)}
+  .store{border:1px solid var(--accent);background:var(--accent-dim);padding:11px 14px;position:relative;
+         display:flex;align-items:center;gap:12px}
+  .store b{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:#B9D2FF;font-weight:500}
+  .store s{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:11px;color:#7FA9F0}
+  .store-sub{font-family:var(--mono);font-size:11px;color:var(--fg-3);margin-top:8px;text-align:center;letter-spacing:.03em}
+
+  /* footer strip */
+  .strip{border-top:1px solid var(--line);padding:26px 0 44px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip h3{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:9px}
+  .strip p{font-size:14px;color:var(--fg-2);line-height:1.6;max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);padding-bottom:34px;letter-spacing:.03em}
+
+  @media (max-width:900px){
+    header{grid-template-columns:1fr;gap:44px;padding:52px 0 40px}
+    .strip{grid-template-columns:1fr;gap:24px}
+    .wrap{padding:0 24px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;opacity:1!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <div class="slug">akitaonrails<span> / </span>ai-memory</div>
+    <div class="meta">RUST &nbsp;·&nbsp; GITHUB TRENDING 16 AUG 2026 &nbsp;·&nbsp; <b>41 STARS TODAY</b></div>
+  </nav>
+
+  <header>
+    <div>
+      <div class="kicker">Memory that outlives the session</div>
+      <h1>Long term memory for <em>agent coding CLIs</em>.</h1>
+      <p class="lede">One store your tools read and write. Hand off between different agent vendors instead of re-explaining the codebase every time you switch.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> cargo install ai-memory</div>
+        <a class="ghost" href="https://github.com/akitaonrails/ai-memory">github.com/akitaonrails/ai-memory</a>
+      </div>
+    </div>
+
+    <div class="rig">
+      <div class="rig-label"><span>The handoff</span><u>Illustrative</u></div>
+
+      <div class="pane">
+        <div class="pane-bar"><i class="dot"></i><i class="dot"></i><span class="pane-name">vendor-a-cli</span><span class="pane-tag">Monday</span></div>
+        <div class="pane-body">
+          <div class="c"># decided during refactor</div>
+          <div><span class="w">write</span> "auth moved to middleware/"</div>
+          <div><span class="w">write</span> "retry budget is 3, not 5"</div>
+          <div class="c">session ends</div>
+        </div>
+      </div>
+
+      <div class="spine">
+        <div class="store">
+          <b>ai-memory</b><s>shared long term store</s>
+        </div>
+        <div class="store-sub">same facts, different vendor</div>
+      </div>
+
+      <div class="pane">
+        <div class="pane-bar"><i class="dot"></i><i class="dot"></i><span class="pane-name">vendor-b-cli</span><span class="pane-tag">Thursday</span></div>
+        <div class="pane-body">
+          <div><span class="p">read</span> project context</div>
+          <div><span class="w">auth</span> <span class="c">middleware/ &nbsp;(carried over)</span></div>
+          <div><span class="w">retries</span> <span class="c">3 &nbsp;(carried over)</span></div>
+          <div>continue<span class="caret"></span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div>
+      <h3>Written in Rust</h3>
+      <p>A single binary next to the CLIs you already run. No daemon to babysit, no editor plugin required.</p>
+    </div>
+    <div>
+      <h3>Vendor neutral</h3>
+      <p>The store does not belong to one agent product. That is the whole point of the handoff.</p>
+    </div>
+    <div>
+      <h3>Long term by default</h3>
+      <p>Context survives the session that produced it, so the next run starts from what you already decided.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock. Terminal pane contents are illustrative, not captured output. Description text is taken from the project's own GitHub summary.</p>
+</div>
+</body>
+</html>

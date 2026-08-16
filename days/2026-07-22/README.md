@@ -1,4 +1,4 @@
-﻿# Design Rep — Wednesday, July 22
+# Design Rep — Wednesday, July 22
 
 > 3 mocks — data-viz, blueprint, warm-minimal
 

@@ -1,4 +1,4 @@
-﻿# Style — data-viz
+# Style — data-viz
 
 14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 

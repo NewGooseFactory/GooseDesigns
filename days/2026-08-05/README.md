@@ -1,4 +1,4 @@
-﻿# Design Rep — Wednesday, August 5
+# Design Rep — Wednesday, August 5
 
 > 3 mocks — hud, warm-minimal, blueprint
 

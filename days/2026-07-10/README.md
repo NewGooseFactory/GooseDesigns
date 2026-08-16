@@ -1,4 +1,4 @@
-﻿# Design Rep — Friday, July 10
+# Design Rep — Friday, July 10
 
 > 3 mocks — brutalist, blueprint, neon-noir
 

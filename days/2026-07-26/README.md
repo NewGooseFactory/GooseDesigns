@@ -1,4 +1,4 @@
-﻿# Design Rep — Sunday, July 26
+# Design Rep — Sunday, July 26
 
 > 3 mocks — editorial, terminal-dark, bauhaus
 

@@ -1,4 +1,4 @@
-﻿# Design Rep — Saturday, July 18
+# Design Rep — Saturday, July 18
 
 > 3 mocks — constellation, bauhaus, mono-zine
 

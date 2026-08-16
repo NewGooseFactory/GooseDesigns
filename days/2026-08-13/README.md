@@ -1,4 +1,4 @@
-﻿# Design Rep — Thursday, August 13
+# Design Rep — Thursday, August 13
 
 > 3 mocks — brutalist, waveform, ledger
 

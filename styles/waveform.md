@@ -1,4 +1,4 @@
-﻿# Style — waveform
+# Style — waveform
 
 2 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 

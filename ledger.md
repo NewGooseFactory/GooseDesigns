@@ -1,4 +1,4 @@
-﻿# Design Taste Ledger
+# Design Taste Ledger
 
 Append-only record — one line per mock: date · repo · style · idea tested → verdict.
 
@@ -197,3 +197,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-15 — [rep](days/2026-08-15/) — MakazhanAlpamys/Soup — data-viz/vram-green — draw the constraint then the thing that beats it, one card limit across two VRAM tracks → landed
 - 2026-08-15 — [rep](days/2026-08-15/) — HKUDS/CLI-Anything — mono-zine/amber — show the failure before the fix, a stalled GUI run beside four working commands → landed
 - 2026-08-15 — [rep](days/2026-08-15/) — cursor/plugins — editorial/ochre — build the page on the repository layout, manifest card beside the headline → landed
+- 2026-08-16 — [rep](days/2026-08-16/) — akitaonrails/ai-memory — terminal-dark/cobalt — make the handoff the hero, one shared store between two dated vendor CLI panes → landed
+- 2026-08-16 — [rep](days/2026-08-16/) — cordiverse/cordis — poster/copper — split a five-word abstraction onto two axes and let the third word land full width → landed
+- 2026-08-16 — [rep](days/2026-08-16/) — unslothai/unsloth — bauhaus/primary-blue — treat the six named models as the layout and quote "and more" as the seventh tile → landed
