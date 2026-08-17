@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **198 mocks** across **66 days**. Newest first.
+Searchable master index. **201 mocks** across **67 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-17 | Monday | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | hud | instrument-amber | put the user hardware ceiling in the panel and let four anonymous bars fall either side of it | landed | [png](days/2026-08-17/01-llmfit.png) | [2026-08-17](days/2026-08-17/) |
+| 2026-08-17 | Monday | [usestrix/strix](https://github.com/usestrix/strix) | brutalist | acid-red | split the description on its own conjunction, FIND on paper and FIX inverted | landed | [png](days/2026-08-17/02-strix.png) | [2026-08-17](days/2026-08-17/) |
+| 2026-08-17 | Monday | [santifer/career-ops](https://github.com/santifer/career-ops) | warm-minimal | clay | make the scoring scale the product shot, A-F tiles resolving into the 1.0-5.0 number | landed | [png](days/2026-08-17/03-career-ops.png) | [2026-08-17](days/2026-08-17/) |
 | 2026-08-16 | Sunday | [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | terminal-dark | cobalt | make the handoff the hero, one shared store between two dated vendor CLI panes | landed | [png](days/2026-08-16/01-ai-memory.png) | [2026-08-16](days/2026-08-16/) |
 | 2026-08-16 | Sunday | [cordiverse/cordis](https://github.com/cordiverse/cordis) | poster | copper | split a five-word abstraction onto two axes and let the third word land full width | landed | [png](days/2026-08-16/02-cordis.png) | [2026-08-16](days/2026-08-16/) |
 | 2026-08-16 | Sunday | [unslothai/unsloth](https://github.com/unslothai/unsloth) | bauhaus | primary-blue | treat the six named models as the layout and quote "and more" as the seventh tile | landed | [png](days/2026-08-16/03-unsloth.png) | [2026-08-16](days/2026-08-16/) |

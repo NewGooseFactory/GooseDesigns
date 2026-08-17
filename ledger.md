@@ -200,3 +200,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-16 — [rep](days/2026-08-16/) — akitaonrails/ai-memory — terminal-dark/cobalt — make the handoff the hero, one shared store between two dated vendor CLI panes → landed
 - 2026-08-16 — [rep](days/2026-08-16/) — cordiverse/cordis — poster/copper — split a five-word abstraction onto two axes and let the third word land full width → landed
 - 2026-08-16 — [rep](days/2026-08-16/) — unslothai/unsloth — bauhaus/primary-blue — treat the six named models as the layout and quote "and more" as the seventh tile → landed
+- 2026-08-17 — [rep](days/2026-08-17/) — AlexsJones/llmfit — hud/instrument-amber — put the user hardware ceiling in the panel and let four anonymous bars fall either side of it → landed
+- 2026-08-17 — [rep](days/2026-08-17/) — usestrix/strix — brutalist/acid-red — split the description on its own conjunction, FIND on paper and FIX inverted → landed
+- 2026-08-17 — [rep](days/2026-08-17/) — santifer/career-ops — warm-minimal/clay — make the scoring scale the product shot, A-F tiles resolving into the 1.0-5.0 number → landed

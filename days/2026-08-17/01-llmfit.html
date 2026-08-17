@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>llmfit — one command to find what runs on your hardware</title>
+<style>
+  :root{
+    --bg:#07090C; --panel:#0D1116; --panel-2:#11161D;
+    --grid:#141B24; --line:#1B242F; --line-2:#26323F;
+    --fg:#E6EDF5; --fg-2:#93A1B1; --fg-3:#5F6C7B;
+    --amber:#E8A33D; --amber-dim:#3A2A10;
+    --green:#4FCF8B; --red:#E2564A;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:100% 46px, 46px 100%;
+  }
+  .frame{max-width:1200px;margin:0 auto;padding:0 38px 48px}
+
+  /* instrument bezel */
+  .bezel{border-left:1px solid var(--line);border-right:1px solid var(--line);
+         background:linear-gradient(180deg,rgba(13,17,22,.94),rgba(7,9,12,.94));padding:0 30px}
+
+  .rail{display:flex;align-items:center;gap:14px;padding:16px 0 13px;border-bottom:1px solid var(--line)}
+  .rail .id{font-size:12.5px;letter-spacing:.04em}
+  .rail .id span{color:var(--fg-3)}
+  .rail .r{margin-left:auto;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-3)}
+  .rail .r b{color:var(--amber);font-weight:400}
+  .lamp{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green)}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,392px);gap:52px;align-items:center;padding:52px 0 44px}
+  .eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:20px;display:flex;align-items:center;gap:11px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--amber-dim),transparent)}
+  h1{font-size:clamp(34px,4.3vw,54px);line-height:1.06;letter-spacing:-.03em;font-weight:600;max-width:15ch}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{margin-top:22px;font-size:14.5px;line-height:1.72;color:var(--fg-2);max-width:46ch}
+  .cta{margin-top:32px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-size:13.5px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;display:inline-flex;gap:11px;align-items:center;
+       transition:border-color 150ms var(--out),background 150ms var(--out)}
+  .cmd:hover{border-color:var(--amber);background:#161C24}
+  .cmd i{color:var(--amber);font-style:normal}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--amber);border-color:var(--amber)}
+
+  /* fit gauge */
+  .gauge{border:1px solid var(--line-2);background:var(--panel);padding:0}
+  .gauge-hd{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .gauge-hd b{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:400;color:var(--fg-2)}
+  .gauge-hd u{text-decoration:none;margin-left:auto;font-size:9px;letter-spacing:.12em;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 6px}
+  .gauge-bd{padding:15px 14px 16px}
+
+  .row{display:grid;grid-template-columns:88px 1fr 54px;gap:11px;align-items:center;margin-bottom:11px;
+       animation:slide 460ms var(--out) backwards}
+  .row:nth-child(1){animation-delay:120ms}
+  .row:nth-child(2){animation-delay:200ms}
+  .row:nth-child(3){animation-delay:280ms}
+  .row:nth-child(4){animation-delay:360ms}
+  @keyframes slide{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+  .row .nm{font-size:11.5px;color:var(--fg-2);letter-spacing:.01em}
+  .track{height:12px;background:#0A0E13;border:1px solid var(--line);position:relative;overflow:hidden}
+  .fill{position:absolute;left:0;top:0;bottom:0;
+        background-image:repeating-linear-gradient(90deg,currentColor 0 2px,transparent 2px 4px);
+        animation:grow 700ms var(--out) backwards}
+  @keyframes grow{from{width:0}}
+  .row .vd{font-size:10px;letter-spacing:.1em;text-align:right;text-transform:uppercase}
+  .ok{color:var(--green)} .warn{color:var(--amber)} .no{color:var(--red)}
+
+  .ceiling{position:absolute;top:-4px;bottom:-4px;width:1px;background:var(--fg-3)}
+  .cap{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.11em;color:var(--fg-3);
+       border-top:1px solid var(--line);margin-top:14px;padding-top:10px;text-transform:uppercase}
+
+  .strip{border-top:1px solid var(--line);padding:26px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip h3{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12.5px;line-height:1.72;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.75;padding-top:26px;letter-spacing:.02em}
+
+  @media (max-width:940px){
+    .frame{padding:0 18px 40px}.bezel{padding:0 16px}
+    header{grid-template-columns:1fr;gap:36px;padding:36px 0 30px}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="frame"><div class="bezel">
+
+  <div class="rail">
+    <i class="lamp"></i>
+    <div class="id">AlexsJones<span> / </span>llmfit</div>
+    <div class="r">RUST &nbsp;·&nbsp; GITHUB TRENDING 17 AUG 2026 &nbsp;·&nbsp; <b>187 STARS TODAY</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Fit check, not a leaderboard</div>
+      <h1>Hundreds of models. <em>One command</em> to find what runs on your hardware.</h1>
+      <p class="lede">The question is never which model is best. It is which model your machine can actually hold. llmfit answers that one, across hundreds of models and providers.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> llmfit</div>
+        <a class="lnk" href="https://github.com/AlexsJones/llmfit">github.com/AlexsJones/llmfit</a>
+      </div>
+    </div>
+
+    <div class="gauge">
+      <div class="gauge-hd"><b>Fit readout</b><u>Illustrative</u></div>
+      <div class="gauge-bd">
+        <div class="row"><span class="nm">model A</span><span class="track"><i class="fill ok" style="width:38%"></i><i class="ceiling" style="left:74%"></i></span><span class="vd ok">fits</span></div>
+        <div class="row"><span class="nm">model B</span><span class="track"><i class="fill ok" style="width:57%"></i><i class="ceiling" style="left:74%"></i></span><span class="vd ok">fits</span></div>
+        <div class="row"><span class="nm">model C</span><span class="track"><i class="fill warn" style="width:72%"></i><i class="ceiling" style="left:74%"></i></span><span class="vd warn">tight</span></div>
+        <div class="row"><span class="nm">model D</span><span class="track"><i class="fill no" style="width:100%"></i><i class="ceiling" style="left:74%"></i></span><span class="vd no">over</span></div>
+        <div class="cap"><span>0</span><span>your ceiling</span><span>over</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div>
+      <h3>One command</h3>
+      <p>No config file to fill in before the first useful answer. You run it, it reads the machine, it prints the list.</p>
+    </div>
+    <div>
+      <h3>Hundreds of providers</h3>
+      <p>The catalogue is the point. A tool that only knows the models you already run tells you nothing new.</p>
+    </div>
+    <div>
+      <h3>Written in Rust</h3>
+      <p>A single binary you drop next to the runtimes you already have installed.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The four bars carry no model names and no memory figures because the repository publishes none on its trending page; the panel is marked illustrative for that reason. The headline is quoted from the project's own description.</p>
+
+</div></div>
+</body>
+</html>

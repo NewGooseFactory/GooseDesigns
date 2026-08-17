@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>career-ops — open-source AI job search that runs in your CLI</title>
+<style>
+  :root{
+    --paper:#FBF7F0; --card:#FFFFFF; --sink:#F2ECE2;
+    --ink:#241F1A; --ink-2:#5C544B; --ink-3:#8E857A;
+    --hair:#E4DCD0; --clay:#B4562F; --clay-soft:#F3E3DA;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.55}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px 52px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:22px 0 14px;border-bottom:1px solid var(--hair)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--clay);font-weight:600}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,430px);gap:56px;align-items:center;padding:56px 0 48px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--clay);margin-bottom:18px}
+  h1{font-size:clamp(34px,4.2vw,52px);line-height:1.1;letter-spacing:-.028em;font-weight:650;max-width:15ch}
+  h1 em{font-style:normal;color:var(--clay)}
+  .lede{margin-top:20px;font-size:16.5px;line-height:1.68;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:30px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair);border-radius:9px;padding:12px 17px;
+       box-shadow:0 1px 2px rgba(36,31,26,.05),0 4px 12px rgba(36,31,26,.045);
+       transition:transform 160ms var(--out),box-shadow 160ms var(--out)}
+  .cmd:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(36,31,26,.06),0 8px 20px rgba(36,31,26,.07)}
+  .cmd i{color:var(--clay);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--clay);border-color:var(--clay)}
+
+  /* rubric card */
+  .rub{background:var(--card);border:1px solid var(--hair);border-radius:14px;overflow:hidden;
+       box-shadow:0 1px 2px rgba(36,31,26,.05),0 10px 30px rgba(36,31,26,.06)}
+  .rub-hd{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .rub-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .rub-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+            border:1px solid var(--hair);border-radius:5px;padding:3px 7px}
+  .rub-bd{padding:18px}
+
+  .scale{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:18px}
+  .g{border-radius:9px;padding:11px 0 10px;text-align:center;border:1px solid var(--hair);background:var(--sink);
+     animation:pop 400ms var(--out) backwards}
+  .g:nth-child(1){animation-delay:80ms}.g:nth-child(2){animation-delay:150ms}
+  .g:nth-child(3){animation-delay:220ms}.g:nth-child(4){animation-delay:290ms}
+  .g:nth-child(5){animation-delay:360ms}
+  @keyframes pop{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  .g b{display:block;font-size:20px;font-weight:650;letter-spacing:-.02em}
+  .g i{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;color:var(--ink-3);margin-top:3px}
+  .g.hot{background:var(--clay-soft);border-color:#E4C4B4}
+  .g.hot b{color:var(--clay)}
+
+  .arrow{display:flex;align-items:center;gap:12px;padding:14px 0 16px;border-top:1px dashed var(--hair);border-bottom:1px dashed var(--hair);margin-bottom:16px}
+  .arrow .from,.arrow .to{font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+  .arrow .to{color:var(--clay);font-weight:600}
+  .arrow .mid{flex:1;height:1px;background:linear-gradient(90deg,var(--hair),var(--clay))}
+  .arrow .cap{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+
+  .steps{display:grid;gap:9px}
+  .step{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  .step u{text-decoration:none;width:19px;height:19px;border-radius:50%;background:var(--sink);border:1px solid var(--hair);
+          display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--ink-3);flex:none}
+
+  .strip{border-top:1px solid var(--hair);padding:28px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--clay);margin-bottom:9px;font-weight:500}
+  .strip p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .wrap{padding:0 20px 40px}
+    header{grid-template-columns:1fr;gap:38px;padding:38px 0 32px}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">santifer<span> / </span>career-ops</div>
+    <div class="r">JavaScript &nbsp;·&nbsp; GitHub Trending 17 Aug 2026 &nbsp;·&nbsp; <b>147 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Runs locally in your AI coding CLI</div>
+      <h1>A job search that grades the listing <em>before</em> you write the cover letter.</h1>
+      <p class="lede">Scan the portals, score each listing against a structured rubric, tailor the CV, track what you sent. The whole loop stays inside the CLI you already have open.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> career-ops scan</div>
+        <a class="lnk" href="https://github.com/santifer/career-ops">github.com/santifer/career-ops</a>
+      </div>
+    </div>
+
+    <div class="rub">
+      <div class="rub-hd"><b>The rubric</b><u>Illustrative</u></div>
+      <div class="rub-bd">
+        <div class="scale">
+          <div class="g"><b>A</b><i>grade</i></div>
+          <div class="g"><b>B</b><i>grade</i></div>
+          <div class="g hot"><b>C</b><i>grade</i></div>
+          <div class="g"><b>D</b><i>grade</i></div>
+          <div class="g"><b>F</b><i>grade</i></div>
+        </div>
+        <div class="arrow">
+          <span class="from">A-F</span>
+          <span class="mid"></span>
+          <span class="cap">resolves to</span>
+          <span class="to">1.0 - 5.0</span>
+        </div>
+        <div class="steps">
+          <div class="step"><u>1</u> scan job portals</div>
+          <div class="step"><u>2</u> evaluate against the rubric</div>
+          <div class="step"><u>3</u> tailor the CV to what scored</div>
+          <div class="step"><u>4</u> track the application</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div>
+      <h3>Structured, not vibes</h3>
+      <p>A letter grade that collapses to a number on a fixed 1.0 to 5.0 range is a thing you can sort. An impression is not.</p>
+    </div>
+    <div>
+      <h3>Bring your own CLI</h3>
+      <p>The README names Claude Code, Codex, OpenCode and Antigravity. The tool assumes you already picked one.</p>
+    </div>
+    <div>
+      <h3>Local by default</h3>
+      <p>Your CV and your rejections stay on your machine. For this particular corpus that matters more than usual.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The A-F scale and the 1.0-5.0 range are quoted from the repository's own description; the highlighted grade and the four numbered steps are marked illustrative because no sample scoring output is published on the trending page.</p>
+</div>
+</body>
+</html>
