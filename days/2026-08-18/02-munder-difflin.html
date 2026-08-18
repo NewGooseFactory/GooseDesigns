@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>munder-difflin — local multi-agent harness</title>
+<style>
+  :root{
+    --paper:#F4F2ED; --ink:#111112; --ink-2:#43434A; --ink-3:#8A8A93;
+    --rule:#111112; --hair:#DAD7D0; --red:#D22A20;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .grid{max-width:1240px;margin:0 auto;padding:0 40px 50px}
+
+  .head{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;align-items:baseline;padding:20px 0 12px;border-bottom:2px solid var(--rule)}
+  .head .slug{grid-column:1/5;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+  .head .slug span{color:var(--ink-3)}
+  .head .r{grid-column:8/13;text-align:right;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .head .r b{color:var(--red);font-weight:600}
+
+  /* asymmetric swiss hero */
+  header{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;padding:60px 0 46px;align-items:start}
+  .kick{grid-column:1/4;font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--red);padding-top:11px}
+  h1{grid-column:4/13;font-size:clamp(46px,8.2vw,116px);line-height:.9;letter-spacing:-.045em;font-weight:700}
+  h1 .l2{display:block;padding-left:12%}
+  h1 .l3{display:block;padding-left:26%;color:var(--red)}
+
+  .under{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;padding-bottom:44px;border-bottom:2px solid var(--rule)}
+  .lede{grid-column:4/9;font-size:17px;line-height:1.6;color:var(--ink-2);max-width:42ch}
+  .cta{grid-column:9/13;display:flex;flex-direction:column;gap:11px;align-items:flex-start}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;
+       transition:background 150ms var(--out)}
+  .cmd:hover{background:var(--red)}
+  .cmd i{color:#E88A83;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:2px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--red);border-color:var(--red)}
+
+  /* three-word anatomy */
+  .anat{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;padding:40px 0 0}
+  .anat-lbl{grid-column:1/4;font-family:var(--mono);font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3);padding-top:6px}
+  .words{grid-column:4/13;display:grid;gap:0}
+  .word{display:grid;grid-template-columns:minmax(0,240px) 1fr;gap:28px;align-items:baseline;
+        padding:20px 0;border-top:1px solid var(--hair);animation:fade 420ms var(--out) backwards}
+  .word:nth-child(1){animation-delay:100ms}
+  .word:nth-child(2){animation-delay:180ms}
+  .word:nth-child(3){animation-delay:260ms}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .word b{font-size:clamp(24px,3.1vw,40px);line-height:1;letter-spacing:-.032em;font-weight:700}
+  .word:nth-child(1) b{color:var(--red)}
+  .word p{font-family:var(--mono);font-size:12.5px;line-height:1.75;color:var(--ink-2);max-width:52ch}
+
+  .foot{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;padding-top:36px}
+  .foot p{grid-column:4/13;font-family:var(--mono);font-size:10.5px;line-height:1.8;color:var(--ink-3)}
+
+  @media (max-width:920px){
+    .grid{padding:0 18px 40px}
+    .head .slug,.head .r{grid-column:1/13;text-align:left}
+    header,.under,.anat,.foot{grid-template-columns:1fr}
+    .kick,h1,.lede,.cta,.anat-lbl,.words,.foot p{grid-column:1/-1}
+    h1 .l2,h1 .l3{padding-left:0}
+    .cta{flex-direction:row;flex-wrap:wrap;align-items:center;margin-top:20px}
+    .word{grid-template-columns:1fr;gap:10px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="grid">
+
+  <div class="head">
+    <div class="slug">chaitanyagiri<span> / </span>munder-difflin</div>
+    <div class="r">TypeScript &nbsp;·&nbsp; No.2 on GitHub Trending, 18 Aug 2026 &nbsp;·&nbsp; <b>256 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="kick">Three words, no more</div>
+    <h1>local<span class="l2">multi-agent</span><span class="l3">harness</span></h1>
+  </header>
+
+  <div class="under">
+    <p class="lede">That is the entire published description. So this page sets the three words at the size they were given and explains what each one commits the project to, rather than inventing a feature list around them.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>npm install munder-difflin</div>
+      <a class="lnk" href="https://github.com/chaitanyagiri/munder-difflin">github.com/chaitanyagiri/munder-difflin</a>
+    </div>
+  </div>
+
+  <section class="anat">
+    <div class="anat-lbl">Word by word</div>
+    <div class="words">
+      <div class="word">
+        <b>local</b>
+        <p>The first word, and the one that decides who this is for. Nothing leaves the machine, so the agents you run are the ones you can inspect and the traces stay yours.</p>
+      </div>
+      <div class="word">
+        <b>multi-agent</b>
+        <p>Plural, which means the hard part is coordination rather than capability. Anything calling itself multi-agent owes you an answer about who runs when and what they share.</p>
+      </div>
+      <div class="word">
+        <b>harness</b>
+        <p>The load-bearing word. A framework asks you to build inside it; a harness wraps what you already have and holds it while it runs. That is a smaller promise and an easier one to keep.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <p>Concept mock, not affiliated with the project. The three words are quoted verbatim from the repository's full description on GitHub Trending, 18 August 2026. No architecture, agent count, benchmark, or runtime detail is represented on this page because none is published there.</p>
+  </div>
+</div>
+</body>
+</html>

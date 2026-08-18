@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **201 mocks** across **67 days**. Newest first.
+Searchable master index. **204 mocks** across **68 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-18 | Tuesday | [volcengine/OpenViking](https://github.com/volcengine/OpenViking) | blueprint | drafting-cyan | draw the word unify, three source boxes converging by leader line into one plate | landed | [png](days/2026-08-18/01-openviking.png) | [2026-08-18](days/2026-08-18/) |
+| 2026-08-18 | Tuesday | [chaitanyagiri/munder-difflin](https://github.com/chaitanyagiri/munder-difflin) | swiss | signal-red | set a three-word description as the hero staircase and annotate each word | landed | [png](days/2026-08-18/02-munder-difflin.png) | [2026-08-18](days/2026-08-18/) |
+| 2026-08-18 | Tuesday | [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | data-viz | six-lane | draw six lanes at equal width because the split is not published | landed | [png](days/2026-08-18/03-cybersecurity-skills.png) | [2026-08-18](days/2026-08-18/) |
 | 2026-08-17 | Monday | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | hud | instrument-amber | put the user hardware ceiling in the panel and let four anonymous bars fall either side of it | landed | [png](days/2026-08-17/01-llmfit.png) | [2026-08-17](days/2026-08-17/) |
 | 2026-08-17 | Monday | [usestrix/strix](https://github.com/usestrix/strix) | brutalist | acid-red | split the description on its own conjunction, FIND on paper and FIX inverted | landed | [png](days/2026-08-17/02-strix.png) | [2026-08-17](days/2026-08-17/) |
 | 2026-08-17 | Monday | [santifer/career-ops](https://github.com/santifer/career-ops) | warm-minimal | clay | make the scoring scale the product shot, A-F tiles resolving into the 1.0-5.0 number | landed | [png](days/2026-08-17/03-career-ops.png) | [2026-08-17](days/2026-08-17/) |

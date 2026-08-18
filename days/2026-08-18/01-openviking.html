@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenViking — self-evolving context database for AI agents</title>
+<style>
+  :root{
+    --bg:#0B1220; --ink-line:#16233A; --ink-line-2:#22334F;
+    --panel:#0E1626; --panel-2:#111C30;
+    --fg:#DCE6F5; --fg-2:#8FA3C0; --fg-3:#5F739A;
+    --cyan:#38B6C8;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;
+    background-image:
+      linear-gradient(var(--ink-line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--ink-line) 1px,transparent 1px);
+    background-size:32px 32px,32px 32px;
+  }
+  .sheet{max-width:1200px;margin:0 auto;padding:0 40px 50px}
+
+  .title-block{display:flex;align-items:flex-start;gap:20px;padding:20px 0 14px;border-bottom:1px solid var(--ink-line-2)}
+  .title-block .slug{font-size:12.5px;letter-spacing:.03em}
+  .title-block .slug span{color:var(--fg-3)}
+  .title-block .r{margin-left:auto;text-align:right;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);line-height:1.7}
+  .title-block .r b{color:var(--cyan);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);gap:52px;align-items:center;padding:50px 0 44px}
+  .eyebrow{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--cyan)}
+  h1{font-size:clamp(32px,4vw,50px);line-height:1.1;letter-spacing:-.028em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--cyan)}
+  .lede{margin-top:22px;font-size:13.5px;line-height:1.78;color:var(--fg-2);max-width:47ch}
+  .cta{margin-top:32px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-size:13px;background:var(--panel-2);border:1px solid var(--ink-line-2);padding:12px 17px;display:inline-flex;gap:11px;align-items:center;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--cyan)}
+  .cmd i{color:var(--cyan);font-style:normal}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px dashed var(--ink-line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--cyan);border-color:var(--cyan)}
+
+  /* unify diagram */
+  .plate{border:1px solid var(--ink-line-2);background:var(--panel)}
+  .plate-hd{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid var(--ink-line);background:var(--panel-2)}
+  .plate-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .plate-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--ink-line-2);padding:2px 6px}
+  .plate-bd{padding:22px 20px 20px}
+
+  .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+  .src{border:1px solid var(--ink-line-2);background:#0C1424;padding:12px 8px 11px;text-align:center;min-width:0}
+  .src b{display:block;font-size:11px;letter-spacing:.01em;color:var(--fg);white-space:nowrap}
+  .src i{display:block;font-style:normal;font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3);margin-top:6px;white-space:nowrap}
+
+  .leaders{height:34px}
+  .leaders svg{width:100%;height:34px;display:block}
+  .leaders path{stroke:var(--cyan);stroke-width:1;fill:none}
+
+  .unified{border:1px solid var(--cyan);background:#0B2028;padding:13px 10px;text-align:center}
+  .unified b{display:block;font-size:12px;letter-spacing:.05em;color:#9FE2EC}
+  .unified i{display:block;font-style:normal;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#6FA9B6;margin-top:6px}
+
+  .loop{display:flex;align-items:center;gap:11px;margin-top:16px;padding-top:14px;border-top:1px dashed var(--ink-line-2);
+        font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .loop span.k{color:var(--cyan)}
+  .loop .bar{flex:1;height:1px;background:linear-gradient(90deg,var(--ink-line-2),var(--cyan))}
+
+  .notes-grid{border-top:1px solid var(--ink-line-2);padding:26px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .notes-grid h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:9px;font-weight:400}
+  .notes-grid p{font-size:12.5px;line-height:1.75;color:var(--fg-2);max-width:34ch}
+  .foot{font-size:10px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .sheet{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:36px;padding:34px 0 30px}
+    .notes-grid{grid-template-columns:1fr;gap:22px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="title-block">
+    <div class="slug">volcengine<span> / </span>OpenViking</div>
+    <div class="r">Python &nbsp;·&nbsp; GitHub Trending 18 Aug 2026<br><b>239 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Context database</div>
+      <h1>Three stores an agent already keeps, <em>held in one place</em>.</h1>
+      <p class="lede">Memory, knowledge retrieval and skills usually live in three systems that never agree. OpenViking publishes itself as the layer that unifies them, and then keeps evolving what it holds.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> pip install openviking</div>
+        <a class="lnk" href="https://github.com/volcengine/OpenViking">github.com/volcengine/OpenViking</a>
+      </div>
+    </div>
+
+    <div class="plate">
+      <div class="plate-hd"><b>Unification</b><u>Illustrative</u></div>
+      <div class="plate-bd">
+        <div class="three">
+          <div class="src"><b>Memory</b><i>what ran</i></div>
+          <div class="src"><b>Knowledge</b><i>RAG</i></div>
+          <div class="src"><b>Skills</b><i>what it can do</i></div>
+        </div>
+
+        <div class="leaders">
+          <svg viewBox="0 0 300 34" preserveAspectRatio="none">
+            <path d="M50 0 L50 17 L150 17"/>
+            <path d="M250 0 L250 17 L150 17"/>
+            <path d="M150 0 L150 34"/>
+          </svg>
+        </div>
+
+        <div class="unified">
+          <b>one context database</b>
+          <i>queried as a single surface</i>
+        </div>
+
+        <div class="loop">
+          <span>self-evolving</span>
+          <span class="bar"></span>
+          <span class="k">the store rewrites itself as the agent runs</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="notes-grid">
+    <div>
+      <h3>Why one surface</h3>
+      <p>An agent that queries three systems has to decide which one is authoritative when they disagree. Merging them moves that decision out of the prompt.</p>
+    </div>
+    <div>
+      <h3>Skills as stored context</h3>
+      <p>Filing capability next to memory and documents is the unusual half of this claim. Most stacks treat skills as code, not as something the database owns.</p>
+    </div>
+    <div>
+      <h3>What is not claimed here</h3>
+      <p>No latency figures, no recall scores, no corpus sizes. The trending description publishes none, so this page prints none.</p>
+    </div>
+  </section>
+
+  <p class="foot">Concept mock, not affiliated with the project. The three source boxes and the unified plate are drawn from the repository's own one-line description on GitHub Trending, 18 August 2026: "Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills." The diagram is marked illustrative because no schema or architecture drawing is published on that page.</p>
+</div>
+</body>
+</html>

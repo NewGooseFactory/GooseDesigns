@@ -203,3 +203,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-17 — [rep](days/2026-08-17/) — AlexsJones/llmfit — hud/instrument-amber — put the user hardware ceiling in the panel and let four anonymous bars fall either side of it → landed
 - 2026-08-17 — [rep](days/2026-08-17/) — usestrix/strix — brutalist/acid-red — split the description on its own conjunction, FIND on paper and FIX inverted → landed
 - 2026-08-17 — [rep](days/2026-08-17/) — santifer/career-ops — warm-minimal/clay — make the scoring scale the product shot, A-F tiles resolving into the 1.0-5.0 number → landed
+- 2026-08-18 — [rep](days/2026-08-18/) — volcengine/OpenViking — blueprint/drafting-cyan — draw the word unify, three source boxes converging by leader line into one plate → landed
+- 2026-08-18 — [rep](days/2026-08-18/) — chaitanyagiri/munder-difflin — swiss/signal-red — set a three-word description as the hero staircase and annotate each word → landed
+- 2026-08-18 — [rep](days/2026-08-18/) — mukul975/Anthropic-Cybersecurity-Skills — data-viz/six-lane — draw six lanes at equal width because the split is not published → landed

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anthropic-Cybersecurity-Skills — 817 skills mapped to six frameworks</title>
+<style>
+  :root{
+    --bg:#0C0D0F; --panel:#131519; --panel-2:#171A1F;
+    --line:#212630; --line-2:#2C333F;
+    --fg:#E9ECF1; --fg-2:#98A1AE; --fg-3:#646D7B;
+    --c1:#5B8DEF; --c2:#48B98A; --c3:#D9A03C; --c4:#C2688C; --c5:#6FA8C4; --c6:#9A7FD1;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px 50px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--c1);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:50px;align-items:center;padding:48px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--c1);margin-bottom:18px}
+  h1{font-size:clamp(32px,4vw,50px);line-height:1.08;letter-spacing:-.028em;font-weight:600;max-width:17ch}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:46ch}
+  .cta{margin-top:30px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--c1)}
+  .cmd i{color:var(--c1);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--c1);border-color:var(--c1)}
+
+  /* the number */
+  .bignum{text-align:right}
+  .bignum b{display:block;font-family:var(--mono);font-size:clamp(64px,9vw,116px);line-height:.86;letter-spacing:-.05em;font-weight:600;font-variant-numeric:tabular-nums}
+  .bignum i{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--fg-3);margin-top:12px}
+  .bignum s{display:block;text-decoration:none;font-family:var(--mono);font-size:11.5px;color:var(--fg-2);margin-top:8px}
+
+  /* framework map */
+  .map{border:1px solid var(--line-2);background:var(--panel)}
+  .map-hd{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .map-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .map-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .map-bd{padding:18px 16px 16px}
+
+  .fw{display:grid;grid-template-columns:minmax(0,168px) 1fr;gap:16px;align-items:center;padding:9px 0;
+      animation:slide 440ms var(--out) backwards}
+  .fw:nth-child(1){animation-delay:80ms}.fw:nth-child(2){animation-delay:140ms}
+  .fw:nth-child(3){animation-delay:200ms}.fw:nth-child(4){animation-delay:260ms}
+  .fw:nth-child(5){animation-delay:320ms}.fw:nth-child(6){animation-delay:380ms}
+  @keyframes slide{from{opacity:0;transform:translateX(-9px)}to{opacity:1;transform:none}}
+  .fw .nm{font-family:var(--mono);font-size:12px;color:var(--fg);letter-spacing:.01em;display:flex;align-items:center;gap:9px}
+  .fw .sw{width:9px;height:9px;flex:none}
+  .fw .lane{height:9px;background:#0E1116;border:1px solid var(--line);position:relative}
+  .fw .lane i{position:absolute;left:0;top:0;bottom:0;width:100%;opacity:.55}
+
+  .legend{display:flex;gap:18px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+          font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line-2);border-right:none;margin-top:38px}
+  .stat{border-right:1px solid var(--line-2);padding:18px 18px 16px}
+  .stat b{display:block;font-family:var(--mono);font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-bottom:7px}
+  .stat i{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .stat:nth-child(1) b{color:var(--c1)}.stat:nth-child(2) b{color:var(--c2)}
+  .stat:nth-child(3) b{color:var(--c3)}.stat:nth-child(4) b{color:var(--c4)}
+
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:34px 0 28px}
+    .bignum{text-align:left}
+    .stats{grid-template-columns:repeat(2,1fr);border-right:1px solid var(--line-2)}
+    .fw{grid-template-columns:1fr;gap:7px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">mukul975<span> / </span>Anthropic-Cybersecurity-Skills</div>
+    <div class="r">Python &nbsp;·&nbsp; GitHub Trending 18 Aug 2026 &nbsp;·&nbsp; <b>198 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">agentskills.io standard &nbsp;·&nbsp; Apache 2.0</div>
+      <h1>Skills an agent can carry into a security team's own vocabulary.</h1>
+      <p class="lede">Every skill is mapped to named frameworks, so a finding lands in the language the team already reports in. The counts below are the repository's own published figures.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone Anthropic-Cybersecurity-Skills</div>
+        <a class="lnk" href="https://github.com/mukul975/Anthropic-Cybersecurity-Skills">github.com/mukul975/Anthropic-Cybersecurity-Skills</a>
+      </div>
+    </div>
+    <div class="bignum">
+      <b>817</b>
+      <i>structured skills</i>
+      <s>published count</s>
+    </div>
+  </header>
+
+  <div class="map">
+    <div class="map-hd"><b>Mapped to six frameworks</b><u>Names as published</u></div>
+    <div class="map-bd">
+      <div class="fw"><span class="nm"><i class="sw" style="background:var(--c1)"></i>MITRE ATT&amp;CK</span><span class="lane"><i style="background:var(--c1)"></i></span></div>
+      <div class="fw"><span class="nm"><i class="sw" style="background:var(--c2)"></i>NIST CSF 2.0</span><span class="lane"><i style="background:var(--c2)"></i></span></div>
+      <div class="fw"><span class="nm"><i class="sw" style="background:var(--c3)"></i>MITRE ATLAS</span><span class="lane"><i style="background:var(--c3)"></i></span></div>
+      <div class="fw"><span class="nm"><i class="sw" style="background:var(--c4)"></i>D3FEND</span><span class="lane"><i style="background:var(--c4)"></i></span></div>
+      <div class="fw"><span class="nm"><i class="sw" style="background:var(--c5)"></i>NIST AI RMF</span><span class="lane"><i style="background:var(--c5)"></i></span></div>
+      <div class="fw"><span class="nm"><i class="sw" style="background:var(--c6)"></i>MITRE F3</span><span class="lane"><i style="background:var(--c6)"></i></span></div>
+      <div class="legend">
+        <span>lanes carry no per-framework counts</span>
+        <span>the repository publishes six names, not a split</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>817</b><i>skills</i></div>
+    <div class="stat"><b>6</b><i>frameworks</i></div>
+    <div class="stat"><b>29</b><i>security domains</i></div>
+    <div class="stat"><b>20+</b><i>platforms</i></div>
+  </div>
+
+  <p class="note">Concept mock, not affiliated with the project. Every number and framework name above is quoted from the repository's own description on GitHub Trending, 18 August 2026. The six lanes are drawn at equal width on purpose: the project publishes which frameworks it maps to, not how the 817 skills divide among them, and inventing that split would be the one lie this page could tell.</p>
+</div>
+</body>
+</html>

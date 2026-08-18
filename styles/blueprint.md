@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-18](../days/2026-08-18/) | [volcengine/OpenViking](https://github.com/volcengine/OpenViking) | drafting-cyan | draw the word unify, three source boxes converging by leader line into one plate | landed | [png](../days/2026-08-18/01-openviking.png) |
 | [2026-08-14](../days/2026-08-14/) | [github/spec-kit](https://github.com/github/spec-kit) | drafting-red | strike the old word out and keep it visible, one source card and three derived | landed | [png](../days/2026-08-14/03-spec-kit.png) |
 | [2026-08-10](../days/2026-08-10/) | [semantica-agi/semantica](https://github.com/semantica-agi/semantica) | ink-blue | draw accountability as a direction with every edge walkable in reverse | landed: drafting notation suits a claim about traceability | [png](../days/2026-08-10/01-semantica.png) |
 | [2026-08-05](../days/2026-08-05/) | [roboflow/supervision](https://github.com/roboflow/supervision) | ink-blue | draw detection output as a drafting sheet with dimension lines instead of a demo screenshot | landed: a schematic names the primitives better than a real frame | [png](../days/2026-08-05/03-supervision.png) |

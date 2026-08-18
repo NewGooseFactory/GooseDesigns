@@ -1,9 +1,10 @@
 # Style — swiss
 
-11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+12 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-18](../days/2026-08-18/) | [chaitanyagiri/munder-difflin](https://github.com/chaitanyagiri/munder-difflin) | signal-red | set a three-word description as the hero staircase and annotate each word | landed | [png](../days/2026-08-18/02-munder-difflin.png) |
 | [2026-08-11](../days/2026-08-11/) | [anthropics/skills](https://github.com/anthropics/skills) | signal-red | take the word public seriously and show what changes when the file is readable | landed: the grid holds an argument without inventing product claims | [png](../days/2026-08-11/02-skills.png) |
 | [2026-08-06](../days/2026-08-06/) | [obra/superpowers](https://github.com/obra/superpowers) | signal-red | put the weight on methodology and set a framework alone against it | landed: the grid gives the comparison somewhere to sit | [png](../days/2026-08-06/02-superpowers.png) |
 | [2026-08-02](../days/2026-08-02/) | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | signal-red | put the access claim in the largest type and let a source rail carry breadth | landed: promise stated once, proven underneath | [png](../days/2026-08-02/01-agent-reach.png) |
