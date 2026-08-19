@@ -206,3 +206,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-18 — [rep](days/2026-08-18/) — volcengine/OpenViking — blueprint/drafting-cyan — draw the word unify, three source boxes converging by leader line into one plate → landed
 - 2026-08-18 — [rep](days/2026-08-18/) — chaitanyagiri/munder-difflin — swiss/signal-red — set a three-word description as the hero staircase and annotate each word → landed
 - 2026-08-18 — [rep](days/2026-08-18/) — mukul975/Anthropic-Cybersecurity-Skills — data-viz/six-lane — draw six lanes at equal width because the split is not published → landed
+- 2026-08-19 — [rep](days/2026-08-19/) — jundot/omlx — glass/frost-teal — let the interface choice be the hero, one frosted menu bar dropdown as the whole product shot → landed
+- 2026-08-19 — [rep](days/2026-08-19/) — basecamp/omarchy — editorial/wine — treat three adjectives as a three-column argument with the risky one set apart → landed
+- 2026-08-19 — [rep](days/2026-08-19/) — harry0703/MoneyPrinterTurbo — neon-noir/magenta — draw the width of the gap, one seed box widening across five stages into a 9:16 artifact → landed

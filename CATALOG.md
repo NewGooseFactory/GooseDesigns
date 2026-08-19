@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **204 mocks** across **68 days**. Newest first.
+Searchable master index. **207 mocks** across **69 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-19 | Wednesday | [jundot/omlx](https://github.com/jundot/omlx) | glass | frost-teal | let the interface choice be the hero, one frosted menu bar dropdown as the whole product shot | landed | [png](days/2026-08-19/01-omlx.png) | [2026-08-19](days/2026-08-19/) |
+| 2026-08-19 | Wednesday | [basecamp/omarchy](https://github.com/basecamp/omarchy) | editorial | wine | treat three adjectives as a three-column argument with the risky one set apart | landed | [png](days/2026-08-19/02-omarchy.png) | [2026-08-19](days/2026-08-19/) |
+| 2026-08-19 | Wednesday | [harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) | neon-noir | magenta | draw the width of the gap, one seed box widening across five stages into a 9:16 artifact | landed | [png](days/2026-08-19/03-moneyprinterturbo.png) | [2026-08-19](days/2026-08-19/) |
 | 2026-08-18 | Tuesday | [volcengine/OpenViking](https://github.com/volcengine/OpenViking) | blueprint | drafting-cyan | draw the word unify, three source boxes converging by leader line into one plate | landed | [png](days/2026-08-18/01-openviking.png) | [2026-08-18](days/2026-08-18/) |
 | 2026-08-18 | Tuesday | [chaitanyagiri/munder-difflin](https://github.com/chaitanyagiri/munder-difflin) | swiss | signal-red | set a three-word description as the hero staircase and annotate each word | landed | [png](days/2026-08-18/02-munder-difflin.png) | [2026-08-18](days/2026-08-18/) |
 | 2026-08-18 | Tuesday | [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | data-viz | six-lane | draw six lanes at equal width because the split is not published | landed | [png](days/2026-08-18/03-cybersecurity-skills.png) | [2026-08-18](days/2026-08-18/) |

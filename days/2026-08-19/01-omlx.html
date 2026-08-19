@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>omlx — LLM inference server for Apple Silicon, from the menu bar</title>
+<style>
+  :root{
+    --bg:#0A0C11; --bg-2:#0E1118;
+    --stroke:#1E2430; --stroke-2:#2A3242;
+    --fg:#EDF1F7; --fg-2:#9AA5B6; --fg-3:#6B7688;
+    --frost:#38D0C4;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:
+      radial-gradient(900px 500px at 78% 14%, rgba(56,208,196,.10), transparent 62%),
+      radial-gradient(700px 420px at 12% 82%, rgba(56,208,196,.05), transparent 60%);
+  }
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px 52px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 14px;border-bottom:1px solid var(--stroke)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--frost);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,392px);gap:54px;align-items:center;padding:54px 0 46px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--frost);margin-bottom:19px}
+  h1{font-size:clamp(33px,4.1vw,52px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:15ch}
+  h1 em{font-style:normal;color:var(--frost)}
+  .lede{margin-top:21px;font-size:16px;line-height:1.68;color:var(--fg-2);max-width:45ch}
+  .cta{margin-top:31px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:rgba(255,255,255,.045);border:1px solid var(--stroke-2);border-radius:9px;padding:12px 17px;
+       transition:border-color 150ms var(--out),background 150ms var(--out)}
+  .cmd:hover{border-color:var(--frost);background:rgba(56,208,196,.08)}
+  .cmd i{color:var(--frost);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--stroke-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--frost);border-color:var(--frost)}
+
+  /* the one frosted panel: a menu bar dropdown */
+  .stage{display:flex;justify-content:flex-end;padding-top:6px}
+  .macbar{width:100%;max-width:392px}
+  .strip{display:flex;align-items:center;gap:9px;height:26px;padding:0 12px;
+         background:rgba(255,255,255,.07);border:1px solid var(--stroke-2);border-bottom:none;
+         border-radius:9px 9px 0 0;font-family:var(--mono);font-size:10px;color:var(--fg-2);letter-spacing:.04em}
+  .strip .dot{width:6px;height:6px;border-radius:50%;background:var(--frost);box-shadow:0 0 6px var(--frost);flex:none}
+  .strip .sp{margin-left:auto;color:var(--fg-3);letter-spacing:.1em}
+
+  .panel{
+    background:rgba(20,26,36,.72);
+    -webkit-backdrop-filter:blur(22px) saturate(150%);
+    backdrop-filter:blur(22px) saturate(150%);
+    border:1px solid var(--stroke-2);border-radius:0 0 13px 13px;
+    box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 22px 46px rgba(0,0,0,.5);
+    padding:15px 15px 14px;
+  }
+  @media (prefers-reduced-transparency:reduce){ .panel{background:#141A24;backdrop-filter:none;-webkit-backdrop-filter:none} }
+
+  .prow{display:flex;align-items:center;gap:11px;padding:9px 3px;border-bottom:1px solid rgba(255,255,255,.055)}
+  .prow:last-of-type{border-bottom:none}
+  .prow .k{font-family:var(--mono);font-size:11.5px;color:var(--fg-2);letter-spacing:.01em}
+  .prow .v{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--fg);font-variant-numeric:tabular-nums}
+  .prow .v.on{color:var(--frost)}
+  .pill{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+        border:1px solid var(--stroke-2);border-radius:5px;padding:2px 7px;margin-left:auto}
+
+  .batch{margin-top:11px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
+  .batch .hd{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
+  .batch .hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);font-weight:400}
+  .lanes{display:grid;gap:5px}
+  .lane{height:8px;border-radius:3px;background:rgba(255,255,255,.06);position:relative;overflow:hidden}
+  .lane i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--frost);opacity:.72}
+  .cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;letter-spacing:.09em;
+       text-transform:uppercase;color:var(--fg-3);margin-top:9px}
+
+  .strip3{border-top:1px solid var(--stroke);padding:28px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--frost);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:36px;padding:34px 0 30px}
+    .stage{justify-content:flex-start}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">jundot<span> / </span>omlx</div>
+    <div class="r">Python &nbsp;·&nbsp; GitHub Trending 19 Aug 2026 &nbsp;·&nbsp; <b>370 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Apple Silicon</div>
+      <h1>An inference server that lives <em>in the menu bar</em>.</h1>
+      <p class="lede">Continuous batching and SSD caching, managed from the same strip as your wifi and your battery. The server is a background fact rather than a terminal you keep open.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> pip install omlx</div>
+        <a class="lnk" href="https://github.com/jundot/omlx">github.com/jundot/omlx</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="macbar">
+        <div class="strip"><i class="dot"></i>omlx<span class="sp">MENU BAR</span></div>
+        <div class="panel">
+          <div class="prow"><span class="k">server</span><span class="v on">running</span></div>
+          <div class="prow"><span class="k">batching</span><span class="v">continuous</span></div>
+          <div class="prow"><span class="k">cache</span><span class="v">SSD</span></div>
+          <div class="prow"><span class="k">backend</span><span class="pill">Apple Silicon</span></div>
+
+          <div class="batch">
+            <div class="hd"><b>requests in flight</b></div>
+            <div class="lanes">
+              <div class="lane"><i style="width:82%"></i></div>
+              <div class="lane"><i style="width:64%"></i></div>
+              <div class="lane"><i style="width:47%"></i></div>
+              <div class="lane"><i style="width:29%"></i></div>
+            </div>
+            <div class="cap"><span>one batch</span><span>illustrative</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Continuous batching</h3>
+      <p>New requests join a batch already in progress rather than queueing behind it. That is the difference between a demo server and one you leave running.</p>
+    </div>
+    <div>
+      <h3>SSD caching</h3>
+      <p>The disk carries what will not fit in unified memory. On a laptop that is the constraint the whole design has to answer.</p>
+    </div>
+    <div>
+      <h3>Managed from the menu bar</h3>
+      <p>A macOS-native surface for a thing most projects ship as a daemon plus a README. The interface choice is the opinion.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The four lanes are marked illustrative and carry no request counts, latencies, or token rates, because the repository publishes none on its trending page. Every capability named above is quoted from its own description: "LLM inference server with continuous batching and SSD caching for Apple Silicon, managed from the macOS menu bar."</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>omarchy — beautiful, modern and opinionated Linux</title>
+<style>
+  :root{
+    --paper:#FBFAF7; --sink:#F1EEE7;
+    --ink:#191714; --ink-2:#4B453D; --ink-3:#8B8378;
+    --hair:#DFD9CE; --rule:#191714; --wine:#8C2F39;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",Times,serif;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1140px;margin:0 auto;padding:0 44px 54px}
+
+  .masthead{display:flex;align-items:baseline;gap:16px;padding:22px 0 13px;border-bottom:1px solid var(--rule)}
+  .masthead .slug{font-family:var(--mono);font-size:12.5px}
+  .masthead .slug span{color:var(--ink-3)}
+  .masthead .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .masthead .r b{color:var(--wine);font-weight:600}
+
+  header{padding:62px 0 46px;max-width:22ch}
+  .kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--wine);margin-bottom:22px}
+  h1{font-family:var(--serif);font-size:clamp(44px,6.4vw,86px);line-height:1.02;letter-spacing:-.024em;font-weight:400}
+  h1 em{font-style:italic;color:var(--wine)}
+
+  .deck{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:56px;align-items:start;
+        padding-bottom:44px;border-bottom:1px solid var(--rule)}
+  .deck .lede{font-size:19px;line-height:1.62;color:var(--ink-2);max-width:40ch}
+  .deck .lede b{color:var(--ink);font-weight:600}
+  .aside{border-left:2px solid var(--wine);padding-left:20px;padding-top:3px}
+  .aside p{font-family:var(--mono);font-size:12.5px;line-height:1.8;color:var(--ink-2)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;
+       transition:background 150ms var(--out)}
+  .cmd:hover{background:var(--wine)}
+  .cmd i{color:#DFA0A6;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--wine);border-color:var(--wine)}
+
+  /* the three-adjective essay */
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-top:6px}
+  .col{padding:34px 30px 30px;border-right:1px solid var(--hair)}
+  .col:first-child{padding-left:0}
+  .col:last-child{border-right:none;padding-right:0}
+  .col .no{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--ink-3);margin-bottom:14px}
+  .col h2{font-family:var(--serif);font-size:clamp(26px,3.2vw,38px);line-height:1.06;letter-spacing:-.02em;font-weight:400;margin-bottom:14px}
+  .col:nth-child(3) h2{color:var(--wine);font-style:italic}
+  .col p{font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+
+  .pullquote{margin-top:40px;padding:30px 0 0;border-top:1px solid var(--rule);
+             display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:50px;align-items:start}
+  .pullquote q{font-family:var(--serif);font-size:clamp(21px,2.6vw,29px);line-height:1.32;letter-spacing:-.014em;color:var(--ink);quotes:none;display:block;max-width:26ch}
+  .pullquote .src{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.03em;margin-top:14px}
+  .pullquote .side p{font-family:var(--mono);font-size:12px;line-height:1.78;color:var(--ink-2)}
+  .pullquote .side h3{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--wine);margin-bottom:10px;font-weight:400}
+
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:30px}
+
+  @media (max-width:920px){
+    .page{padding:0 20px 40px}
+    header{max-width:none;padding:38px 0 30px}
+    .deck{grid-template-columns:1fr;gap:28px}
+    .aside{border-left:none;border-top:2px solid var(--wine);padding-left:0;padding-top:16px}
+    .cols{grid-template-columns:1fr}
+    .col{border-right:none;border-bottom:1px solid var(--hair);padding:24px 0}
+    .col:last-child{border-bottom:none}
+    .pullquote{grid-template-columns:1fr;gap:26px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="slug">basecamp<span> / </span>omarchy</div>
+    <div class="r">Shell &nbsp;·&nbsp; GitHub Trending 19 Aug 2026 &nbsp;·&nbsp; <b>356 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="kick">Three adjectives, one distro</div>
+    <h1>Beautiful, modern and <em>opinionated</em>.</h1>
+  </header>
+
+  <div class="deck">
+    <p class="lede">Most Linux projects sell you configurability. This one leads its description with three adjectives and puts the argumentative word last. <b>Opinionated is the load-bearing claim</b>, and the other two are what it buys you.</p>
+    <div class="aside">
+      <p>A distribution that ships an opinion is making a bet: that the defaults it picked are better than the ones you would have assembled, and that the time you save is worth the choices you gave up.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i>omarchy</div>
+        <a class="lnk" href="https://github.com/basecamp/omarchy">github.com/basecamp/omarchy</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="cols">
+    <div class="col">
+      <div class="no">01</div>
+      <h2>Beautiful</h2>
+      <p>An unusual first word for a distro. It puts the visual result ahead of the package manager, which tells you who the project expects to be looking at the screen.</p>
+    </div>
+    <div class="col">
+      <div class="no">02</div>
+      <h2>Modern</h2>
+      <p>The word every project claims, so it carries the least on its own. Here it reads as a promise about what was left out rather than what was added.</p>
+    </div>
+    <div class="col">
+      <div class="no">03</div>
+      <h2>Opinionated</h2>
+      <p>The one that costs something to say. It is a warning as much as a feature: someone already made the calls, and disagreeing with them means going elsewhere.</p>
+    </div>
+  </section>
+
+  <div class="pullquote">
+    <div>
+      <q>Beautiful, Modern and Opinionated Linux</q>
+      <div class="src">the repository's complete published description, 19 August 2026</div>
+    </div>
+    <div class="side">
+      <h3>What this page does not say</h3>
+      <p>No package counts, no boot times, no hardware support matrix, no desktop environment name. The trending description publishes none of it, so none of it appears here. Five words is what there was to work with, and five words turned out to be enough for a layout.</p>
+    </div>
+  </div>
+
+  <p class="note">Concept mock, not affiliated with the project. The three column headings are the three adjectives from the repository's own description, in the order it wrote them.</p>
+</div>
+</body>
+</html>

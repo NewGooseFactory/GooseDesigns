@@ -1,9 +1,10 @@
 # Style — neon-noir
 
-6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-19](../days/2026-08-19/) | [harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) | magenta | draw the width of the gap, one seed box widening across five stages into a 9:16 artifact | landed | [png](../days/2026-08-19/03-moneyprinterturbo.png) |
 | [2026-08-07](../days/2026-08-07/) | [goauthentik/authentik](https://github.com/goauthentik/authentik) | magenta | draw the word glue with sources left, consumers right, one lit hub in the middle | landed: one neon element keeps the style from turning decorative | [png](../days/2026-08-07/03-authentik.png) |
 | [2026-07-30](../days/2026-07-30/) | [microsoft/VibeVoice](https://github.com/microsoft/VibeVoice) | magenta | carry frontier voice research with one restrained orb and waveform instead of spectacle | landed: ambition stays legible without demo theatrics | [png](../days/2026-07-30/02-vibevoice.png) |
 | [2026-07-15](../days/2026-07-15/) | [moeru-ai/airi](https://github.com/moeru-ai/airi) | magenta | make a self-hosted companion feel like a local presence through one orb + voice waveform + world modes | landed | [png](../days/2026-07-15/03-airi.png) |

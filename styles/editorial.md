@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-26 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+27 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-19](../days/2026-08-19/) | [basecamp/omarchy](https://github.com/basecamp/omarchy) | wine | treat three adjectives as a three-column argument with the risky one set apart | landed | [png](../days/2026-08-19/02-omarchy.png) |
 | [2026-08-15](../days/2026-08-15/) | [cursor/plugins](https://github.com/cursor/plugins) | ochre | build the page on the repository layout, manifest card beside the headline | landed | [png](../days/2026-08-15/03-cursor-plugins.png) |
 | [2026-08-11](../days/2026-08-11/) | [HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor) | plum | make lifelong load-bearing with one learner across four dated terms | landed: a repeated mistake is only a pattern if the first was recorded | [png](../days/2026-08-11/03-deeptutor.png) |
 | [2026-08-07](../days/2026-08-07/) | [mattpocock/skills](https://github.com/mattpocock/skills) | ink-blue | make provenance the headline and put the .agents directory beside the claim | landed: showing the directory proves the claim instead of restating it | [png](../days/2026-08-07/02-skills.png) |

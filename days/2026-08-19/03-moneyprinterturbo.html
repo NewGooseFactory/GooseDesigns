@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MoneyPrinterTurbo — one keyword to a finished short video</title>
+<style>
+  :root{
+    --void:#07070B; --panel:#0C0C13; --panel-2:#10101A;
+    --line:#1A1A26; --line-2:#262637;
+    --fg:#E7E7F0; --fg-2:#9494A8; --fg-3:#5E5E72;
+    --neon:#FF2E88;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh;position:relative;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:2;
+    background:repeating-linear-gradient(180deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);
+  }
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px 52px;position:relative;z-index:1}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 14px;border-bottom:1px solid var(--line)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--neon);font-weight:400}
+
+  header{padding:52px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--neon);margin-bottom:20px}
+  h1{font-size:clamp(34px,4.6vw,58px);line-height:1.05;letter-spacing:-.032em;font-weight:600;max-width:19ch}
+  .lede{margin-top:22px;font-size:16px;line-height:1.68;color:var(--fg-2);max-width:52ch}
+  .cta{margin-top:30px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--neon)}
+  .cmd i{color:var(--neon);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--neon);border-color:var(--neon)}
+
+  /* the pipeline: one input widening into one artifact */
+  .pipe{border:1px solid var(--line-2);background:var(--panel);margin-top:8px}
+  .pipe-hd{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .pipe-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .pipe-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .pipe-bd{padding:26px 22px 22px;display:grid;grid-template-columns:170px 1fr 210px;gap:22px;align-items:center}
+
+  .seed{border:1px solid var(--neon);background:rgba(255,46,136,.07);padding:15px 12px;text-align:center}
+  .seed b{display:block;font-family:var(--mono);font-size:13px;color:#FF7FB4;letter-spacing:.02em}
+  .seed i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);margin-top:8px}
+
+  .stages{display:grid;gap:8px}
+  .stagegrid{display:grid;grid-template-columns:22px minmax(0,1fr) 84px;gap:12px;align-items:center}
+  .stagegrid u{text-decoration:none;font-family:var(--mono);font-size:9.5px;color:var(--fg-3);text-align:right}
+  .stagegrid .b{height:11px;background:var(--panel-2);border:1px solid var(--line-2);position:relative;min-width:0}
+  .stagegrid .b i{position:absolute;left:0;top:0;bottom:0;background:var(--neon);opacity:.38}
+  .stagegrid .lab{font-family:var(--mono);font-size:10.5px;color:var(--fg-2);letter-spacing:.02em}
+
+  .out{border:1px solid var(--line-2);background:var(--panel-2);padding:0;overflow:hidden}
+  .out .scr{aspect-ratio:9/16;max-height:186px;margin:0 auto;background:
+      linear-gradient(180deg,rgba(255,46,136,.16),rgba(255,46,136,.03) 42%,transparent 70%),var(--void);
+      border-bottom:1px solid var(--line);display:flex;align-items:flex-end;justify-content:center;padding:12px 10px}
+  .out .scr span{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+  .out .meta{padding:11px 12px;display:flex;align-items:center;gap:8px}
+  .out .meta b{font-family:var(--mono);font-size:11px;color:var(--fg)}
+  .out .meta s{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+
+  .strip3{border-top:1px solid var(--line);padding:28px 0 0;margin-top:38px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--neon);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{padding:34px 0 28px}
+    .pipe-bd{grid-template-columns:1fr;gap:20px}
+    .out .scr{max-height:220px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">harry0703<span> / </span>MoneyPrinterTurbo</div>
+    <div class="r">Python &nbsp;·&nbsp; No.1 on GitHub Trending, 19 Aug 2026 &nbsp;·&nbsp; <b>2,304 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="eyebrow">Automated workflow</div>
+    <h1>A topic goes in. An HD short video comes out.</h1>
+    <p class="lede">The interesting part of this project is the width of the gap it closes. One keyword is the entire input, and a finished vertical video is the entire output, with the workflow in between doing everything a person would otherwise sit through.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i> python main.py</div>
+      <a class="lnk" href="https://github.com/harry0703/MoneyPrinterTurbo">github.com/harry0703/MoneyPrinterTurbo</a>
+    </div>
+  </header>
+
+  <div class="pipe">
+    <div class="pipe-hd"><b>Input to artifact</b><u>Illustrative</u></div>
+    <div class="pipe-bd">
+      <div class="seed">
+        <b>"a topic"</b>
+        <i>or one keyword</i>
+      </div>
+
+      <div class="stages">
+        <div class="stagegrid"><u>01</u><span class="b"><i style="width:26%"></i></span><span class="lab">script</span></div>
+        <div class="stagegrid"><u>02</u><span class="b"><i style="width:44%"></i></span><span class="lab">footage</span></div>
+        <div class="stagegrid"><u>03</u><span class="b"><i style="width:62%"></i></span><span class="lab">voice</span></div>
+        <div class="stagegrid"><u>04</u><span class="b"><i style="width:80%"></i></span><span class="lab">subtitles</span></div>
+        <div class="stagegrid"><u>05</u><span class="b"><i style="width:100%"></i></span><span class="lab">render</span></div>
+      </div>
+
+      <div class="out">
+        <div class="scr"><span>vertical HD</span></div>
+        <div class="meta"><b>short.mp4</b><s>output</s></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>One input</h3>
+      <p>A topic or a keyword. That is the whole brief the project asks you for, which is what makes the claim ambitious rather than convenient.</p>
+    </div>
+    <div>
+      <h3>Automated in between</h3>
+      <p>The description says workflow, not model. The work is the orchestration of several steps, and any of them failing quietly is what would sink the result.</p>
+    </div>
+    <div>
+      <h3>What is not claimed</h3>
+      <p>No render times, no clip lengths, no quality scores, no named models. The trending description publishes none, so this page prints none.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The five pipeline stages are labelled generically and marked illustrative; the repository's trending description names neither its steps nor its models, and inventing a specific pipeline would be a claim this page cannot support. The input and the output are quoted from that description: "Generate HD short videos from a topic or keyword with an automated AI workflow."</p>
+</div>
+</body>
+</html>
