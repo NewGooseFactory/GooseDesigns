@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>superpowers — an agentic skills framework and software development methodology</title>
+<style>
+  :root{
+    --paper:#F7F4EE; --card:#FFFFFF; --sink:#EDE8DE;
+    --ink:#1C1A17; --ink-2:#514B43; --ink-3:#8A8175;
+    --hair:#DDD6C9; --stamp:#2F5D50;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1160px;margin:0 auto;padding:0 40px 50px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--hair)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--stamp);font-weight:600}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:52px;align-items:center;padding:50px 0 44px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--stamp);margin-bottom:18px}
+  h1{font-size:clamp(32px,4.1vw,50px);line-height:1.1;letter-spacing:-.028em;font-weight:650;max-width:16ch}
+  h1 em{font-style:normal;color:var(--stamp)}
+  .lede{margin-top:20px;font-size:16px;line-height:1.66;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair);border-radius:8px;padding:12px 17px;
+       box-shadow:0 1px 2px rgba(28,26,23,.05);transition:transform 150ms var(--out),box-shadow 150ms var(--out)}
+  .cmd:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(28,26,23,.09)}
+  .cmd i{color:var(--stamp);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--stamp);border-color:var(--stamp)}
+
+  /* the stamp */
+  .stampbox{display:flex;justify-content:flex-end}
+  .stamp{
+    border:3px solid var(--stamp);color:var(--stamp);
+    padding:20px 24px 18px;text-align:center;transform:rotate(-6deg);
+    max-width:262px;position:relative;background:rgba(47,93,80,.045);
+  }
+  .stamp .sm{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.8}
+  .stamp .big{font-size:38px;line-height:1;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;margin:9px 0 8px}
+  .stamp .rule{height:2px;background:var(--stamp);opacity:.55;margin:9px 0}
+  .stamp .fine{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;opacity:.75;line-height:1.7}
+
+  /* two-noun split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+  .half{padding:30px 30px 28px;border-right:1px solid var(--hair)}
+  .half:last-child{border-right:none;background:var(--sink)}
+  .half .no{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:13px}
+  .half h2{font-size:clamp(24px,3vw,34px);line-height:1.06;letter-spacing:-.026em;font-weight:700;margin-bottom:13px}
+  .half:last-child h2{color:var(--stamp)}
+  .half p{font-size:14.5px;line-height:1.7;color:var(--ink-2);max-width:40ch}
+
+  .tail{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;padding:32px 0 0}
+  .tail h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--stamp);margin-bottom:9px;font-weight:500}
+  .tail p{font-size:14px;line-height:1.7;color:var(--ink-2);max-width:46ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:920px){
+    .page{padding:0 20px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:34px 0 30px}
+    .stampbox{justify-content:flex-start}
+    .split{grid-template-columns:1fr}
+    .half{border-right:none;border-bottom:1px solid var(--hair)}
+    .half:last-child{border-bottom:none}
+    .tail{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">obra<span> / </span>superpowers</div>
+    <div class="r">Shell &nbsp;·&nbsp; GitHub Trending 20 Aug 2026 &nbsp;·&nbsp; <b>557 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Framework and methodology</div>
+      <h1>Two products in one sentence, and <em>one claim at the end</em>.</h1>
+      <p class="lede">An agentic skills framework and a software development methodology, sold together. The description closes on three words that most projects would never risk putting in writing.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone obra/superpowers</div>
+        <a class="lnk" href="https://github.com/obra/superpowers">github.com/obra/superpowers</a>
+      </div>
+    </div>
+
+    <div class="stampbox">
+      <div class="stamp">
+        <div class="sm">the closing claim</div>
+        <div class="big">that works</div>
+        <div class="rule"></div>
+        <div class="fine">quoted verbatim<br>from the description</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="split">
+    <div class="half">
+      <div class="no">Noun one</div>
+      <h2>A skills framework</h2>
+      <p>The mechanical half. Something an agent loads, with a shape other people can write against. This is the part you can inspect before you commit to it.</p>
+    </div>
+    <div class="half">
+      <div class="no">Noun two</div>
+      <h2>A methodology</h2>
+      <p>The opinionated half, and the harder sell. A methodology asks you to change how you work rather than what you install, which is why most tools quietly avoid the word.</p>
+    </div>
+  </section>
+
+  <section class="tail">
+    <div>
+      <h3>Why the stamp</h3>
+      <p>"That works" is a durability claim, and it is unusual because it invites the exact test that would disprove it. A project that ends its own description that way has decided the risk is worth the signal.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No skill count, no adoption number, no named methodology steps, no benchmark. The trending description publishes none of it, and a stamp is only credible when nothing around it is invented.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The full description quoted here is "An agentic skills framework and software development methodology that works," from GitHub Trending, 20 August 2026.</p>
+</div>
+</body>
+</html>

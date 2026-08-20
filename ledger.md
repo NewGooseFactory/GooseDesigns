@@ -209,3 +209,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-19 — [rep](days/2026-08-19/) — jundot/omlx — glass/frost-teal — let the interface choice be the hero, one frosted menu bar dropdown as the whole product shot → landed
 - 2026-08-19 — [rep](days/2026-08-19/) — basecamp/omarchy — editorial/wine — treat three adjectives as a three-column argument with the risky one set apart → landed
 - 2026-08-19 — [rep](days/2026-08-19/) — harry0703/MoneyPrinterTurbo — neon-noir/magenta — draw the width of the gap, one seed box widening across five stages into a 9:16 artifact → landed
+- 2026-08-20 — [rep](days/2026-08-20/) — mattpocock/skills — mono-zine/phosphor-green — make provenance the product shot, draw the .agents directory instead of a feature list → landed
+- 2026-08-20 — [rep](days/2026-08-20/) — AprilNEA/OpenLogi — terminal-dark/rust-orange — render the description as arithmetic, three plus rows over two minus rows → landed
+- 2026-08-20 — [rep](days/2026-08-20/) — obra/superpowers — specimen/stamp-green — isolate the three words the project risked and stamp them as evidence → landed

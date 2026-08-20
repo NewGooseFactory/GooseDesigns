@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mattpocock/skills — straight from my .agents directory</title>
+<style>
+  :root{
+    --void:#080A09; --panel:#0C100E; --panel-2:#101613;
+    --rule:#1A231E; --rule-2:#26332B;
+    --fg:#DDE7E0; --fg-2:#8C9C92; --fg-3:#5D6B63;
+    --green:#63D68C;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px;line-height:1.6}
+  .sheet{max-width:1080px;margin:0 auto;padding:0 36px 48px}
+
+  .rule{border-top:1px solid var(--rule);height:0;margin:0}
+  .top{display:flex;align-items:baseline;gap:14px;padding:20px 0 12px}
+  .top .slug{font-size:13px;letter-spacing:.02em}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--green);font-weight:400}
+
+  header{padding:46px 0 38px}
+  .ascii{color:var(--fg-3);font-size:11px;line-height:1.25;white-space:pre;margin-bottom:26px;letter-spacing:.04em}
+  .kick{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:18px}
+  h1{font-size:clamp(28px,3.7vw,46px);line-height:1.12;letter-spacing:-.024em;font-weight:600;max-width:22ch}
+  h1 em{font-style:normal;color:var(--green)}
+  .lede{margin-top:20px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:58ch}
+  .cta{margin-top:28px;display:flex;gap:0;align-items:stretch;flex-wrap:wrap;border:1px solid var(--rule-2);width:fit-content}
+  .cmd{font-size:13px;background:var(--panel-2);padding:12px 17px}
+  .cmd i{color:var(--green);font-style:normal;margin-right:10px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;padding:12px 17px;border-left:1px solid var(--rule-2);display:flex;align-items:center;
+       transition:color 150ms var(--out),background 150ms var(--out)}
+  .lnk:hover{color:var(--green);background:var(--panel)}
+
+  /* the directory listing */
+  .tree{border:1px solid var(--rule-2);background:var(--panel);margin-top:6px}
+  .tree-hd{display:flex;align-items:center;gap:9px;padding:10px 15px;border-bottom:1px solid var(--rule);background:var(--panel-2)}
+  .tree-hd b{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .tree-hd u{text-decoration:none;margin-left:auto;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--rule-2);padding:2px 7px}
+  .tree-bd{padding:16px 15px 15px;font-size:12.5px;line-height:1.95;color:var(--fg-2);white-space:pre}
+  .tree-bd .d{color:var(--green)}
+  .tree-bd .c{color:var(--fg-3)}
+  .tree-bd .f{color:var(--fg)}
+
+  /* claim ledger */
+  .claims{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--rule-2);border-right:none;margin-top:34px}
+  .claim{border-right:1px solid var(--rule-2);padding:20px 20px 18px}
+  .claim b{display:block;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:10px;font-weight:400}
+  .claim p{font-size:12.5px;line-height:1.8;color:var(--fg-2);max-width:44ch}
+  .claim q{quotes:none;display:block;color:var(--fg);font-size:13px;margin-bottom:9px}
+
+  .note{font-size:10.5px;color:var(--fg-3);line-height:1.85;padding-top:26px}
+
+  @media (max-width:880px){
+    .sheet{padding:0 18px 40px}
+    header{padding:32px 0 28px}
+    .ascii{font-size:9px}
+    .claims{grid-template-columns:1fr;border-right:1px solid var(--rule-2)}
+    .claim{border-right:none;border-bottom:1px solid var(--rule-2)}
+    .claim:last-child{border-bottom:none}
+    .tree-bd{font-size:11px;overflow-x:auto}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">mattpocock<span> / </span>skills</div>
+    <div class="r">Shell &nbsp;·&nbsp; No.2 on GitHub Trending, 20 Aug 2026 &nbsp;·&nbsp; <b>1,894 stars today</b></div>
+  </div>
+  <hr class="rule">
+
+  <header>
+    <pre class="ascii">+------------------------------------------+
+|  not a framework. not a product.          |
+|  a directory someone actually uses.       |
++------------------------------------------+</pre>
+    <div class="kick">Skills for real engineers</div>
+    <h1>Straight from <em>my .agents directory</em>.</h1>
+    <p class="lede">The whole pitch is provenance. These are not skills written to be published; they are the ones already sitting in a working engineer's agent directory, copied out as-is. That sentence is doing more work than any feature list would.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>git clone mattpocock/skills</div>
+      <a class="lnk" href="https://github.com/mattpocock/skills">github.com/mattpocock/skills</a>
+    </div>
+  </header>
+
+  <div class="tree">
+    <div class="tree-hd"><b>~/.agents</b><u>Shape only, not contents</u></div>
+    <div class="tree-bd"><span class="c">the directory the description points at</span>
+
+<span class="d">.agents/</span>
+  <span class="d">skills/</span>
+    <span class="c">|-- </span><span class="f">&lt;skill&gt;/</span>
+    <span class="c">|     '-- SKILL.md</span>
+    <span class="c">|-- </span><span class="f">&lt;skill&gt;/</span>
+    <span class="c">|     '-- SKILL.md</span>
+    <span class="c">'-- ...</span>
+
+<span class="c">no file names are invented here. the repository
+publishes a description, not a manifest.</span></div>
+  </div>
+
+  <div class="claims">
+    <div class="claim">
+      <b>What the title claims</b>
+      <q>"Skills for Real Engineers"</q>
+      <p>An unusual boundary to draw in public. It sorts the audience before the README does, and it sets an expectation that these were load-bearing before they were shared.</p>
+    </div>
+    <div class="claim">
+      <b>What the second line claims</b>
+      <q>"Straight from my .agents directory."</q>
+      <p>A sourcing claim, and the only kind that cannot be faked cheaply. Anyone can write a skill; publishing the one you already depend on is a different bet.</p>
+    </div>
+  </div>
+
+  <p class="note">Concept mock, not affiliated with the project. The directory shape above is drawn from the .agents convention the description names; no skill names, file counts, or contents are represented, because the repository's trending description publishes none. Both quoted lines are verbatim from that description, 20 August 2026.</p>
+</div>
+</body>
+</html>

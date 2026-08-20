@@ -1,9 +1,10 @@
 # Style — mono-zine
 
-11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+12 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-20](../days/2026-08-20/) | [mattpocock/skills](https://github.com/mattpocock/skills) | phosphor-green | make provenance the product shot, draw the .agents directory instead of a feature list | landed | [png](../days/2026-08-20/01-skills.png) |
 | [2026-08-15](../days/2026-08-15/) | [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything) | amber | show the failure before the fix, a stalled GUI run beside four working commands | landed | [png](../days/2026-08-15/02-cli-anything.png) |
 | [2026-08-09](../days/2026-08-09/) | [pranshuparmar/witr](https://github.com/pranshuparmar/witr) | phosphor-green | ask the tool's own question in the hero and run the trace beside it | landed: one question answered beats any feature list | [png](../days/2026-08-09/01-witr.png) |
 | [2026-08-04](../days/2026-08-04/) | [gabime/spdlog](https://github.com/gabime/spdlog) | amber | make the library's own output the largest block on the page | landed: a logging library sells itself by showing the lines it writes | [png](../days/2026-08-04/03-spdlog.png) |

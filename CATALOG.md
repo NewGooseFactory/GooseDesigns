@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **207 mocks** across **69 days**. Newest first.
+Searchable master index. **210 mocks** across **70 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-20 | Thursday | [mattpocock/skills](https://github.com/mattpocock/skills) | mono-zine | phosphor-green | make provenance the product shot, draw the .agents directory instead of a feature list | landed | [png](days/2026-08-20/01-skills.png) | [2026-08-20](days/2026-08-20/) |
+| 2026-08-20 | Thursday | [AprilNEA/OpenLogi](https://github.com/AprilNEA/OpenLogi) | terminal-dark | rust-orange | render the description as arithmetic, three plus rows over two minus rows | landed | [png](days/2026-08-20/02-openlogi.png) | [2026-08-20](days/2026-08-20/) |
+| 2026-08-20 | Thursday | [obra/superpowers](https://github.com/obra/superpowers) | specimen | stamp-green | isolate the three words the project risked and stamp them as evidence | landed | [png](days/2026-08-20/03-superpowers.png) | [2026-08-20](days/2026-08-20/) |
 | 2026-08-19 | Wednesday | [jundot/omlx](https://github.com/jundot/omlx) | glass | frost-teal | let the interface choice be the hero, one frosted menu bar dropdown as the whole product shot | landed | [png](days/2026-08-19/01-omlx.png) | [2026-08-19](days/2026-08-19/) |
 | 2026-08-19 | Wednesday | [basecamp/omarchy](https://github.com/basecamp/omarchy) | editorial | wine | treat three adjectives as a three-column argument with the risky one set apart | landed | [png](days/2026-08-19/02-omarchy.png) | [2026-08-19](days/2026-08-19/) |
 | 2026-08-19 | Wednesday | [harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) | neon-noir | magenta | draw the width of the gap, one seed box widening across five stages into a 9:16 artifact | landed | [png](days/2026-08-19/03-moneyprinterturbo.png) | [2026-08-19](days/2026-08-19/) |

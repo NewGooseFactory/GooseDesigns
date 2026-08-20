@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenLogi — a native, local-first alternative to Logitech Options+</title>
+<style>
+  :root{
+    --bg:#0B0C0E; --panel:#101216; --panel-2:#14171C;
+    --line:#1C2027; --line-2:#282E38;
+    --fg:#E8EBEF; --fg-2:#98A0AC; --fg-3:#646D7A;
+    --rust:#D2601A;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px 50px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 14px;border-bottom:1px solid var(--line)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--rust);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,410px);gap:52px;align-items:center;padding:50px 0 42px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);margin-bottom:19px}
+  h1{font-size:clamp(32px,4.1vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--rust)}
+  .lede{margin-top:21px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:46ch}
+  .cta{margin-top:30px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--rust)}
+  .cmd i{color:var(--rust);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--rust);border-color:var(--rust)}
+
+  /* the subtraction ledger */
+  .ledger{border:1px solid var(--line-2);background:var(--panel)}
+  .ledger-hd{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .ledger-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .ledger-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .ledger-bd{padding:6px 16px 14px}
+
+  .lrow{display:grid;grid-template-columns:26px 1fr auto;gap:13px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+  .lrow:last-child{border-bottom:none}
+  .lrow .mk{font-family:var(--mono);font-size:15px;text-align:center;line-height:1}
+  .lrow.no .mk{color:var(--fg-3)}
+  .lrow.yes .mk{color:var(--rust)}
+  .lrow .k{font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  .lrow.yes .k{color:var(--fg)}
+  .lrow .tag{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 8px}
+  .lrow.yes .tag{color:#E8A470;border-color:#4A2C15}
+
+  .proto{margin-top:14px;padding-top:13px;border-top:1px dashed var(--line-2);display:flex;align-items:center;gap:11px;
+         font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+  .proto b{color:var(--rust);font-weight:400;letter-spacing:.06em}
+  .proto .bar2{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--rust))}
+
+  .strip3{border-top:1px solid var(--line);padding:28px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--rust);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:34px 0 28px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">AprilNEA<span> / </span>OpenLogi</div>
+    <div class="r">Rust &nbsp;·&nbsp; No.3 on GitHub Trending, 20 Aug 2026 &nbsp;·&nbsp; <b>1,225 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Local-first &nbsp;·&nbsp; HID++</div>
+      <h1>Your mouse settings, <em>without the account</em>.</h1>
+      <p class="lede">Remap buttons, DPI and SmartShift by talking to the device directly over HID++. A native alternative to the vendor utility, written in Rust, with the parts you never asked for removed.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> cargo install openlogi</div>
+        <a class="lnk" href="https://github.com/AprilNEA/OpenLogi">github.com/AprilNEA/OpenLogi</a>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="ledger-hd"><b>What it keeps, what it drops</b><u>As published</u></div>
+      <div class="ledger-bd">
+        <div class="lrow yes"><span class="mk">+</span><span class="k">remap buttons</span><span class="tag">kept</span></div>
+        <div class="lrow yes"><span class="mk">+</span><span class="k">DPI</span><span class="tag">kept</span></div>
+        <div class="lrow yes"><span class="mk">+</span><span class="k">SmartShift</span><span class="tag">kept</span></div>
+        <div class="lrow no"><span class="mk">&minus;</span><span class="k">account</span><span class="tag">no</span></div>
+        <div class="lrow no"><span class="mk">&minus;</span><span class="k">telemetry</span><span class="tag">no</span></div>
+        <div class="proto">
+          <span>over</span><b>HID++</b><span class="bar2"></span><span>native, local-first</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Three kept, two dropped</h3>
+      <p>The description is a subtraction. Three capabilities carry over from the vendor tool, and two things get deleted, which is the entire argument for switching.</p>
+    </div>
+    <div>
+      <h3>Talks HID++ directly</h3>
+      <p>Naming the protocol is what separates this from a wrapper. The device already speaks it; the vendor application is one possible client, not the interface.</p>
+    </div>
+    <div>
+      <h3>Written in Rust</h3>
+      <p>A single native binary for a job usually shipped as a background service with an updater and a login screen attached.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project or with Logitech. Every row in the ledger is quoted from the repository's own description on GitHub Trending, 20 August 2026: "A native, local-first alternative to Logitech Options+, written in Rust, remap buttons, DPI, and SmartShift over HID++. No account, no telemetry." No device model, compatibility list, or benchmark is represented, because none is published there.</p>
+</div>
+</body>
+</html>
