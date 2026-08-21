@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>modular — the Modular Platform, includes MAX and Mojo</title>
+<style>
+  :root{
+    --paper:#F5F3EF; --ink:#101013; --ink-2:#45454C; --ink-3:#84848E;
+    --hair:#D9D5CD; --rule:#101013; --flame:#E8541F;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+  .page{max-width:1240px;margin:0 auto;padding:0 42px 52px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:2px solid var(--rule)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--flame);font-weight:600}
+
+  /* the word, full bleed */
+  header{padding:44px 0 0}
+  .kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.21em;text-transform:uppercase;color:var(--flame);margin-bottom:14px}
+  .word{display:flex;justify-content:space-between;white-space:nowrap;line-height:.82;font-weight:800;letter-spacing:-.045em;
+        font-size:clamp(52px,12.6vw,164px)}
+  .word span{display:block}
+  .word.two{color:var(--flame);font-size:clamp(30px,7.3vw,96px);margin-top:10px}
+
+  .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:52px;align-items:start;
+         padding:34px 0 40px;border-bottom:2px solid var(--rule);margin-top:22px}
+  .lede{font-size:18px;line-height:1.62;color:var(--ink-2);max-width:40ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-direction:column;gap:11px;align-items:flex-start;padding-top:3px}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;transition:background 150ms var(--out)}
+  .cmd:hover{background:var(--flame)}
+  .cmd i{color:#F0A184;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:2px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--flame);border-color:var(--flame)}
+
+  /* parenthesis anatomy */
+  .anat{display:grid;grid-template-columns:200px 1fr;gap:34px;padding:36px 0 0}
+  .anat-lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3);padding-top:7px;line-height:1.8}
+  .rows{display:grid}
+  .row{display:grid;grid-template-columns:minmax(0,200px) 1fr;gap:30px;align-items:baseline;
+       padding:22px 0;border-top:1px solid var(--hair)}
+  .row b{font-size:clamp(26px,3.4vw,42px);line-height:1;letter-spacing:-.034em;font-weight:800}
+  .row:first-child b{color:var(--flame)}
+  .row p{font-family:var(--mono);font-size:12.5px;line-height:1.76;color:var(--ink-2);max-width:54ch}
+
+  .foot{padding-top:34px}
+  .foot p{font-family:var(--mono);font-size:10.5px;line-height:1.8;color:var(--ink-3);max-width:104ch}
+
+  @media (max-width:920px){
+    .page{padding:0 18px 40px}
+    .under{grid-template-columns:1fr;gap:26px}
+    .cta{flex-direction:row;flex-wrap:wrap;align-items:center}
+    .anat{grid-template-columns:1fr;gap:16px}
+    .row{grid-template-columns:1fr;gap:10px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">modular<span> / </span>modular</div>
+    <div class="r">Mojo &nbsp;·&nbsp; No.1 on GitHub Trending, 21 Aug 2026 &nbsp;·&nbsp; <b>268 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="kick">Six words, one of them twice</div>
+    <div class="word"><span>P</span><span>L</span><span>A</span><span>T</span><span>F</span><span>O</span><span>R</span><span>M</span></div>
+    <div class="word two"><span>(</span><span>M</span><span>A</span><span>X</span><span>&nbsp;</span><span>+</span><span>&nbsp;</span><span>M</span><span>O</span><span>J</span><span>O</span><span>)</span></div>
+  </header>
+
+  <div class="under">
+    <p class="lede">The entire published description is "The Modular Platform (includes MAX and Mojo)". <b>The parenthesis is the interesting part</b>: two named things get folded inside one word, and the word chosen to hold them is the most contested noun in developer tooling.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>git clone modular/modular</div>
+      <a class="lnk" href="https://github.com/modular/modular">github.com/modular/modular</a>
+    </div>
+  </div>
+
+  <section class="anat">
+    <div class="anat-lbl">What the sentence<br>commits to</div>
+    <div class="rows">
+      <div class="row">
+        <b>Platform</b>
+        <p>A word that promises more than a library and less than an operating system. Using it means the pieces are meant to be adopted together, and that the seams between them are the vendor's problem rather than yours.</p>
+      </div>
+      <div class="row">
+        <b>MAX</b>
+        <p>Named first inside the parenthesis. Naming a component in the one-line description is a decision to make it findable on its own, which is what you do when people already search for it by name.</p>
+      </div>
+      <div class="row">
+        <b>Mojo</b>
+        <p>The repository's own language tag on the trending board, which makes it the only part of the sentence the page can verify from outside. Everything else here is the project describing itself.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <p>Concept mock, not affiliated with the project. The three rows above annotate words taken from the repository's complete GitHub Trending description on 21 August 2026. No performance figure, release version, component list, or adoption number is represented, because that description contains none.</p>
+  </div>
+</div>
+</body>
+</html>

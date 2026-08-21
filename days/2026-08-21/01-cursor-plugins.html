@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cursor/plugins — a specification, and the plugins that follow it</title>
+<style>
+  :root{
+    --bg:#0E1116; --grid:#161B23; --line:#1E2530; --line-2:#2A3441;
+    --panel:#12161D; --panel-2:#161C25;
+    --fg:#E4E9F0; --fg-2:#94A0AF; --fg-3:#616D7C;
+    --ink:#4EA8DE;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:28px 28px,28px 28px;
+  }
+  .sheet{max-width:1180px;margin:0 auto;padding:0 40px 50px}
+
+  .tb{display:flex;align-items:flex-start;gap:18px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .tb .slug{font-size:12.5px;letter-spacing:.03em}
+  .tb .slug span{color:var(--fg-3)}
+  .tb .r{margin-left:auto;text-align:right;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);line-height:1.7}
+  .tb .r b{color:var(--ink);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,436px);gap:50px;align-items:center;padding:50px 0 44px}
+  .eyebrow{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:19px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--ink)}
+  h1{font-size:clamp(30px,3.9vw,48px);line-height:1.1;letter-spacing:-.028em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--ink)}
+  .lede{margin-top:21px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:50ch}
+  .cta{margin-top:30px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--ink)}
+  .cmd i{color:var(--ink);font-style:normal;margin-right:9px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px dashed var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--ink);border-color:var(--ink)}
+
+  /* spec plate: one source, many conformers */
+  .plate{border:1px solid var(--line-2);background:var(--panel)}
+  .plate-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .plate-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .plate-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .plate-bd{padding:20px 18px 18px}
+
+  .spec{border:1px solid var(--ink);background:rgba(78,168,222,.07);padding:13px 14px;text-align:center}
+  .spec b{display:block;font-size:12.5px;letter-spacing:.05em;color:#A5D5F2}
+  .spec i{display:block;font-style:normal;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-top:7px}
+
+  .fan{height:36px}
+  .fan svg{width:100%;height:36px;display:block}
+  .fan path{stroke:var(--ink);stroke-width:1;fill:none;opacity:.75}
+
+  .conf{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+  .c{border:1px solid var(--line-2);background:#0F141B;padding:12px 9px 11px;text-align:center;min-width:0}
+  .c b{display:block;font-size:11px;color:var(--fg);white-space:nowrap}
+  .c i{display:block;font-style:normal;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-top:6px;white-space:nowrap}
+  .c.official{border-color:var(--ink)}
+  .c.official b{color:#A5D5F2}
+
+  .annot{margin-top:15px;padding-top:12px;border-top:1px dashed var(--line-2);display:flex;align-items:center;gap:11px;
+         font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+  .annot .bar{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--ink))}
+  .annot b{color:var(--ink);font-weight:400}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:12.5px;line-height:1.78;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:26px}
+
+  @media (max-width:940px){
+    .sheet{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:34px 0 28px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="tb">
+    <div class="slug">cursor<span> / </span>plugins</div>
+    <div class="r">TypeScript &nbsp;·&nbsp; GitHub Trending 21 Aug 2026<br><b>449 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Specification first</div>
+      <h1>The spec is the product. The plugins are <em>the proof</em>.</h1>
+      <p class="lede">Two things ship in one repository: a plugin specification, and the official plugins written against it. Publishing both is how you demonstrate that the format is implementable rather than aspirational.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone cursor/plugins</div>
+        <a class="lnk" href="https://github.com/cursor/plugins">github.com/cursor/plugins</a>
+      </div>
+    </div>
+
+    <div class="plate">
+      <div class="plate-hd"><b>One source, conforming implementations</b><u>Shape only</u></div>
+      <div class="plate-bd">
+        <div class="spec">
+          <b>plugin specification</b>
+          <i>the contract</i>
+        </div>
+
+        <div class="fan">
+          <svg viewBox="0 0 300 36" preserveAspectRatio="none">
+            <path d="M150 0 L150 15 L50 15 L50 36"/>
+            <path d="M150 0 L150 36"/>
+            <path d="M150 0 L150 15 L250 15 L250 36"/>
+          </svg>
+        </div>
+
+        <div class="conf">
+          <div class="c official"><b>official</b><i>in repo</i></div>
+          <div class="c official"><b>official</b><i>in repo</i></div>
+          <div class="c"><b>yours</b><i>same contract</i></div>
+        </div>
+
+        <div class="annot">
+          <span>written against</span><b>one spec</b><span class="bar"></span><span>no count published</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Why ship both</h3>
+      <p>A specification alone is a document. A specification with working implementations beside it is a format other people can trust enough to build on.</p>
+    </div>
+    <div>
+      <h3>Official is a position</h3>
+      <p>The word draws a line between what the vendor maintains and what the ecosystem writes. Both sit in one repository, which makes the line visible rather than implied.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No plugin count, no API surface, no version number, no marketplace figures. The trending description publishes none, so none appears here.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The plate is labelled shape only: the three conformer boxes are generic and carry no plugin names, because the repository's trending description is one line and names none. That line is "Cursor plugin specification and official plugins", read 21 August 2026.</p>
+</div>
+</body>
+</html>

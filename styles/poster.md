@@ -1,9 +1,10 @@
 # Style — poster
 
-12 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+13 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-21](../days/2026-08-21/) | [modular/modular](https://github.com/modular/modular) | flame | set the parenthesis as the second line of the headline, one word holding two | landed | [png](../days/2026-08-21/02-modular.png) |
 | [2026-08-16](../days/2026-08-16/) | [cordiverse/cordis](https://github.com/cordiverse/cordis) | copper | split a five-word abstraction onto two axes and let the third word land full width | landed | [png](../days/2026-08-16/02-cordis.png) |
 | [2026-08-10](../days/2026-08-10/) | [danielmiessler/LifeOS](https://github.com/danielmiessler/LifeOS) | moss | turn the description into three words and a six-step staircase | landed: a hill-climb is already a picture so the poster stopped adding | [png](../days/2026-08-10/02-lifeos.png) |
 | [2026-08-03](../days/2026-08-03/) | [antirez/ds4](https://github.com/antirez/ds4) | oxide | spend the whole page on one sentence with three backends as the only proof | landed: restraint reads as confidence when the claim stays small | [png](../days/2026-08-03/03-ds4.png) |

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>agent-substrate/substrate — the core system</title>
+<style>
+  :root{
+    --bg:#0A0B0D; --tier-1:#101318; --tier-2:#141922; --tier-3:#19202B;
+    --line:#1D242F; --line-2:#2B3644;
+    --fg:#E5EAF1; --fg-2:#909BAA; --fg-3:#5E6875;
+    --slate:#7C9CBF;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px 50px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 14px;border-bottom:1px solid var(--line)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--slate);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:52px;align-items:center;padding:50px 0 44px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin-bottom:19px}
+  h1{font-size:clamp(31px,4vw,48px);line-height:1.1;letter-spacing:-.03em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--slate)}
+  .lede{margin-top:21px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:45ch}
+  .cta{margin-top:30px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--tier-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--slate)}
+  .cmd i{color:var(--slate);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--slate);border-color:var(--slate)}
+
+  /* stratum stack: the layer that sits underneath */
+  .strata{position:relative}
+  .lyr{border:1px solid var(--line-2);padding:15px 16px;position:relative}
+  .lyr b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+  .lyr i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-top:7px}
+  .l1{background:var(--tier-3);margin-left:34px;color:var(--fg-2)}
+  .l2{background:var(--tier-2);margin-left:17px;margin-top:-1px;color:var(--fg-2)}
+  .l3{background:var(--tier-1);margin-top:-1px;border-color:var(--slate);
+      box-shadow:0 0 0 1px rgba(124,156,191,.18) inset}
+  .l3 b{color:#B4CCE4;letter-spacing:.05em}
+  .l3 i{color:#7F9AB5}
+
+  .depth{display:flex;align-items:center;gap:11px;margin-top:15px;padding-top:13px;border-top:1px dashed var(--line-2);
+         font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+  .depth .bar2{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--slate))}
+  .depth b{color:var(--slate);font-weight:400}
+
+  .cap{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);
+       text-align:right;margin-bottom:10px}
+
+  .strip3{border-top:1px solid var(--line);padding:28px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:34px 0 28px}
+    .l1{margin-left:20px}.l2{margin-left:10px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">agent-substrate<span> / </span>substrate</div>
+    <div class="r">Go &nbsp;·&nbsp; GitHub Trending 21 Aug 2026 &nbsp;·&nbsp; <b>22 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Four words</div>
+      <h1>Everything else on this board sits <em>on top of something</em>.</h1>
+      <p class="lede">"Agent Substrate: the core system." Four words, and both halves are positional. Substrate names what is underneath, and core names what does not get swapped out. The claim is about depth in the stack rather than features.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> go install substrate</div>
+        <a class="lnk" href="https://github.com/agent-substrate/substrate">github.com/agent-substrate/substrate</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="cap">Position, not architecture</div>
+      <div class="strata">
+        <div class="lyr l1"><b>your agents</b><i>whatever you run</i></div>
+        <div class="lyr l2"><b>frameworks and harnesses</b><i>the layer people usually ship</i></div>
+        <div class="lyr l3"><b>substrate</b><i>the core system</i></div>
+      </div>
+      <div class="depth">
+        <span>claims this position</span><b>underneath</b><span class="bar2"></span><span>no components named</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Substrate is a position</h3>
+      <p>The word only means something relative to what sits above it. Choosing it commits the project to being depended on rather than to being the thing you interact with.</p>
+    </div>
+    <div>
+      <h3>Core is a promise about churn</h3>
+      <p>Core parts are the ones you do not rewrite each quarter. Naming yourself core is a bet that the interface will still be right after the layers above it change.</p>
+    </div>
+    <div>
+      <h3>22 stars today</h3>
+      <p>The smallest number on the board by a wide margin, next to repos pulling four figures. Early enough that the description is genuinely all there is to read.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The stack is labelled position, not architecture: the two upper layers are generic descriptions of where other tools sit, not components this project publishes. Its complete GitHub Trending description on 21 August 2026 is "Agent Substrate: the core system", and the 22 stars figure is that page's own count for the day.</p>
+</div>
+</body>
+</html>

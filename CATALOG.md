@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **210 mocks** across **70 days**. Newest first.
+Searchable master index. **213 mocks** across **71 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-21 | Friday | [cursor/plugins](https://github.com/cursor/plugins) | blueprint | spec-blue | draw the relationship, one spec box fanning by leader line into three conforming implementations | landed | [png](days/2026-08-21/01-cursor-plugins.png) | [2026-08-21](days/2026-08-21/) |
+| 2026-08-21 | Friday | [modular/modular](https://github.com/modular/modular) | poster | flame | set the parenthesis as the second line of the headline, one word holding two | landed | [png](days/2026-08-21/02-modular.png) | [2026-08-21](days/2026-08-21/) |
+| 2026-08-21 | Friday | [agent-substrate/substrate](https://github.com/agent-substrate/substrate) | strata | slate-blue | draw a claim about position not capability, three offset planes with the lowest lit | landed | [png](days/2026-08-21/03-substrate.png) | [2026-08-21](days/2026-08-21/) |
 | 2026-08-20 | Thursday | [mattpocock/skills](https://github.com/mattpocock/skills) | mono-zine | phosphor-green | make provenance the product shot, draw the .agents directory instead of a feature list | landed | [png](days/2026-08-20/01-skills.png) | [2026-08-20](days/2026-08-20/) |
 | 2026-08-20 | Thursday | [AprilNEA/OpenLogi](https://github.com/AprilNEA/OpenLogi) | terminal-dark | rust-orange | render the description as arithmetic, three plus rows over two minus rows | landed | [png](days/2026-08-20/02-openlogi.png) | [2026-08-20](days/2026-08-20/) |
 | 2026-08-20 | Thursday | [obra/superpowers](https://github.com/obra/superpowers) | specimen | stamp-green | isolate the three words the project risked and stamp them as evidence | landed | [png](days/2026-08-20/03-superpowers.png) | [2026-08-20](days/2026-08-20/) |

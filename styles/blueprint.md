@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-21](../days/2026-08-21/) | [cursor/plugins](https://github.com/cursor/plugins) | spec-blue | draw the relationship, one spec box fanning by leader line into three conforming implementations | landed | [png](../days/2026-08-21/01-cursor-plugins.png) |
 | [2026-08-18](../days/2026-08-18/) | [volcengine/OpenViking](https://github.com/volcengine/OpenViking) | drafting-cyan | draw the word unify, three source boxes converging by leader line into one plate | landed | [png](../days/2026-08-18/01-openviking.png) |
 | [2026-08-14](../days/2026-08-14/) | [github/spec-kit](https://github.com/github/spec-kit) | drafting-red | strike the old word out and keep it visible, one source card and three derived | landed | [png](../days/2026-08-14/03-spec-kit.png) |
 | [2026-08-10](../days/2026-08-10/) | [semantica-agi/semantica](https://github.com/semantica-agi/semantica) | ink-blue | draw accountability as a direction with every edge walkable in reverse | landed: drafting notation suits a claim about traceability | [png](../days/2026-08-10/01-semantica.png) |

@@ -212,3 +212,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-20 — [rep](days/2026-08-20/) — mattpocock/skills — mono-zine/phosphor-green — make provenance the product shot, draw the .agents directory instead of a feature list → landed
 - 2026-08-20 — [rep](days/2026-08-20/) — AprilNEA/OpenLogi — terminal-dark/rust-orange — render the description as arithmetic, three plus rows over two minus rows → landed
 - 2026-08-20 — [rep](days/2026-08-20/) — obra/superpowers — specimen/stamp-green — isolate the three words the project risked and stamp them as evidence → landed
+- 2026-08-21 — [rep](days/2026-08-21/) — cursor/plugins — blueprint/spec-blue — draw the relationship, one spec box fanning by leader line into three conforming implementations → landed
+- 2026-08-21 — [rep](days/2026-08-21/) — modular/modular — poster/flame — set the parenthesis as the second line of the headline, one word holding two → landed
+- 2026-08-21 — [rep](days/2026-08-21/) — agent-substrate/substrate — strata/slate-blue — draw a claim about position not capability, three offset planes with the lowest lit → landed
