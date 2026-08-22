@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PostHog — the context agents need to diagnose problems</title>
+<style>
+  :root{
+    --bg:#080A0C; --grid:#101418; --panel:#0D1114; --panel-2:#11161A;
+    --line:#1A2126; --line-2:#26313A;
+    --fg:#E4EBEF; --fg-2:#8FA0AB; --fg-3:#5F6E79;
+    --cyan:#3FBFD4; --amber:#D9A441; --dim:#2A3D45;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:44px 44px,44px 44px;
+  }
+  .frame{max-width:1200px;margin:0 auto;padding:0 38px 48px}
+  .bezel{border-left:1px solid var(--line);border-right:1px solid var(--line);padding:0 28px;
+         background:linear-gradient(180deg,rgba(13,17,20,.92),rgba(8,10,12,.92))}
+
+  .rail{display:flex;align-items:center;gap:13px;padding:16px 0 13px;border-bottom:1px solid var(--line)}
+  .lamp{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 7px var(--cyan);flex:none}
+  .rail .id{font-size:12.5px;letter-spacing:.03em}
+  .rail .id span{color:var(--fg-3)}
+  .rail .r{margin-left:auto;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .rail .r b{color:var(--cyan);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,428px);gap:48px;align-items:center;padding:48px 0 40px}
+  .eyebrow{font-size:10.5px;letter-spacing:.21em;text-transform:uppercase;color:var(--cyan);margin-bottom:19px;display:flex;align-items:center;gap:10px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--dim),transparent)}
+  h1{font-size:clamp(29px,3.7vw,45px);line-height:1.12;letter-spacing:-.026em;font-weight:600;max-width:19ch}
+  h1 em{font-style:normal;color:var(--cyan)}
+  .lede{margin-top:20px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:50ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--cyan)}
+  .cmd i{color:var(--cyan);font-style:normal;margin-right:10px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--cyan);border-color:var(--cyan)}
+
+  /* instrument stack */
+  .inst{border:1px solid var(--line-2);background:var(--panel)}
+  .inst-hd{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .inst-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .inst-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .inst-bd{padding:15px 14px 14px}
+
+  .src{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+  .s{border:1px solid var(--line-2);background:#0A0E11;padding:9px 5px 8px;text-align:center;min-width:0}
+  .s b{display:block;font-size:9.5px;color:var(--fg);white-space:nowrap;letter-spacing:.01em}
+  .s i{display:block;font-style:normal;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-top:5px}
+  .s.lit{border-color:var(--cyan)}
+  .s.lit b{color:#9EDCE8}
+
+  .funnel{height:30px}
+  .funnel svg{width:100%;height:30px;display:block}
+  .funnel path{stroke:var(--cyan);stroke-width:1;fill:none;opacity:.7}
+
+  .ctx{border:1px solid var(--cyan);background:rgba(63,191,212,.07);padding:12px;text-align:center;margin-bottom:13px}
+  .ctx b{display:block;font-size:11.5px;letter-spacing:.06em;color:#9EDCE8}
+  .ctx i{display:block;font-style:normal;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:#5F97A3;margin-top:6px}
+
+  .verbs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .v{border:1px solid var(--line-2);background:#0A0E11;padding:9px 4px;text-align:center}
+  .v b{display:block;font-size:10px;color:var(--amber);letter-spacing:.02em;white-space:nowrap}
+  .v i{display:block;font-style:normal;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-top:5px}
+
+  .steer{margin-top:13px;padding-top:11px;border-top:1px dashed var(--line-2);display:flex;align-items:center;gap:10px;
+         font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .steer b{color:var(--cyan);font-weight:400}
+  .steer .bar{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--cyan))}
+
+  .strip{border-top:1px solid var(--line);padding:26px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12.5px;line-height:1.76;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:24px}
+
+  @media (max-width:960px){
+    .frame{padding:0 16px 40px}.bezel{padding:0 14px}
+    header{grid-template-columns:1fr;gap:34px;padding:32px 0 28px}
+    .src{grid-template-columns:repeat(2,1fr)}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="frame"><div class="bezel">
+
+  <div class="rail">
+    <i class="lamp"></i>
+    <div class="id">PostHog<span> / </span>posthog</div>
+    <div class="r">PYTHON &nbsp;·&nbsp; GITHUB TRENDING 22 AUG 2026 &nbsp;·&nbsp; <b>335 STARS TODAY</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Context, then diagnosis</div>
+      <h1>Every tool on the panel exists to <em>feed one reading</em>.</h1>
+      <p class="lede">The description lists seven developer tools and then says what they are for: capturing all the context agents need. The instruments are the input, not the product. What comes out is a diagnosis an agent can act on.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone PostHog/posthog</div>
+        <a class="lnk" href="https://github.com/PostHog/posthog">github.com/PostHog/posthog</a>
+      </div>
+    </div>
+
+    <div class="inst">
+      <div class="inst-hd"><b>Capture to action</b><u>Names as published</u></div>
+      <div class="inst-bd">
+        <div class="src">
+          <div class="s lit"><b>AI observ.</b><i>listed</i></div>
+          <div class="s"><b>analytics</b><i>listed</i></div>
+          <div class="s"><b>replay</b><i>listed</i></div>
+          <div class="s"><b>flags</b><i>listed</i></div>
+          <div class="s"><b>experiments</b><i>listed</i></div>
+          <div class="s"><b>errors</b><i>listed</i></div>
+          <div class="s"><b>logs</b><i>listed</i></div>
+          <div class="s"><b>and more</b><i>verbatim</i></div>
+        </div>
+
+        <div class="funnel">
+          <svg viewBox="0 0 300 30" preserveAspectRatio="none">
+            <path d="M20 0 L20 14 L150 14"/>
+            <path d="M110 0 L110 14 L150 14"/>
+            <path d="M190 0 L190 14 L150 14"/>
+            <path d="M280 0 L280 14 L150 14"/>
+            <path d="M150 14 L150 30"/>
+          </svg>
+        </div>
+
+        <div class="ctx">
+          <b>all the context agents need</b>
+          <i>the stated purpose</i>
+        </div>
+
+        <div class="verbs">
+          <div class="v"><b>diagnose</b><i>problems</i></div>
+          <div class="v"><b>uncover</b><i>opportunities</i></div>
+          <div class="v"><b>ship</b><i>fixes</i></div>
+        </div>
+
+        <div class="steer">
+          <span>steer from</span><b>Slack / web / desktop / MCP</b><span class="bar"></span><span>as published</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div>
+      <h3>The MCP is on the list</h3>
+      <p>Slack, web, desktop and the MCP are named as equal control surfaces. Putting a protocol beside three apps is a statement about who the operator is expected to be.</p>
+    </div>
+    <div>
+      <h3>Seven tools, one sentence</h3>
+      <p>The tool list reads long, but the clause after it does the work. Everything captured is justified by what an agent can do with it afterwards.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No event volumes, no latency, no customer counts, no pricing. The trending description publishes none, so the panel carries names and no numbers.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. Every tool name, verb, and control surface above is quoted from the repository's own GitHub Trending description on 22 August 2026. The lit cell and the funnel show which names feed the stated purpose; they carry no measurements, because none is published there.</p>
+
+</div></div>
+</body>
+</html>

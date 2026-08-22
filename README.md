@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![213 mocks](https://img.shields.io/badge/mocks-213-1f6feb?style=flat-square) ![71 days](https://img.shields.io/badge/days-71-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![216 mocks](https://img.shields.io/badge/mocks-216-1f6feb?style=flat-square) ![72 days](https://img.shields.io/badge/days-72-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 213 mockups across 71 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 216 mockups across 72 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Friday, August 21
+## Latest — Saturday, August 22
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-08-21/"><img src="days/2026-08-21/01-cursor-plugins.png" width="320" alt="cursor/plugins"></a><br><sub><b>cursor/plugins</b><br>blueprint</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-21/"><img src="days/2026-08-21/02-modular.png" width="320" alt="modular/modular"></a><br><sub><b>modular/modular</b><br>poster</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-21/"><img src="days/2026-08-21/03-substrate.png" width="320" alt="agent-substrate/substrate"></a><br><sub><b>agent-substrate/substrate</b><br>strata</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-22/"><img src="days/2026-08-22/01-posthog.png" width="320" alt="PostHog/posthog"></a><br><sub><b>PostHog/posthog</b><br>hud</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-22/"><img src="days/2026-08-22/02-typescript.png" width="320" alt="microsoft/TypeScript"></a><br><sub><b>microsoft/TypeScript</b><br>swiss</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-22/"><img src="days/2026-08-22/03-timeline.png" width="320" alt="mahlernim/google-timeline-visualizer"></a><br><sub><b>mahlernim/google-timeline-visualizer</b><br>bauhaus</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-08-21/)
+[See the full day →](days/2026-08-22/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-08-22 | Saturday | 3 | hud, swiss, bauhaus | [open](days/2026-08-22/) |
 | 2026-08-21 | Friday | 3 | blueprint, poster, strata | [open](days/2026-08-21/) |
 | 2026-08-20 | Thursday | 3 | mono-zine, terminal-dark, specimen | [open](days/2026-08-20/) |
 | 2026-08-19 | Wednesday | 3 | glass, editorial, neon-noir | [open](days/2026-08-19/) |

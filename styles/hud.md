@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-27 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+28 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-22](../days/2026-08-22/) | [PostHog/posthog](https://github.com/PostHog/posthog) | instrument-cyan | treat a seven-item feature list as the input side of a funnel into one stated purpose | landed | [png](../days/2026-08-22/01-posthog.png) |
 | [2026-08-17](../days/2026-08-17/) | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | instrument-amber | put the user hardware ceiling in the panel and let four anonymous bars fall either side of it | landed | [png](../days/2026-08-17/01-llmfit.png) |
 | [2026-08-14](../days/2026-08-14/) | [cactus-compute/needle](https://github.com/cactus-compute/needle) | instrument-green | make the flat line the hero, a memory readout that does not move across 400 turns | landed | [png](../days/2026-08-14/01-needle.png) |
 | [2026-08-09](../days/2026-08-09/) | [harveyai/harvey-labs](https://github.com/harveyai/harvey-labs) | signal-amber | read evaluate and improve back as two gauges and keep the word supporting | landed: quantitative layout with no invented score | [png](../days/2026-08-09/03-harvey-labs.png) |

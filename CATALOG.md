@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **213 mocks** across **71 days**. Newest first.
+Searchable master index. **216 mocks** across **72 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-22 | Saturday | [PostHog/posthog](https://github.com/PostHog/posthog) | hud | instrument-cyan | treat a seven-item feature list as the input side of a funnel into one stated purpose | landed | [png](days/2026-08-22/01-posthog.png) | [2026-08-22](days/2026-08-22/) |
+| 2026-08-22 | Saturday | [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | swiss | signal-blue | build the page on the language badge, the metadata column everyone scrolls past | landed | [png](days/2026-08-22/02-typescript.png) | [2026-08-22](days/2026-08-22/) |
+| 2026-08-22 | Saturday | [mahlernim/google-timeline-visualizer](https://github.com/mahlernim/google-timeline-visualizer) | bauhaus | primary-red | let the noun pick the grid, a year gives you twelve cells for free | landed | [png](days/2026-08-22/03-timeline.png) | [2026-08-22](days/2026-08-22/) |
 | 2026-08-21 | Friday | [cursor/plugins](https://github.com/cursor/plugins) | blueprint | spec-blue | draw the relationship, one spec box fanning by leader line into three conforming implementations | landed | [png](days/2026-08-21/01-cursor-plugins.png) | [2026-08-21](days/2026-08-21/) |
 | 2026-08-21 | Friday | [modular/modular](https://github.com/modular/modular) | poster | flame | set the parenthesis as the second line of the headline, one word holding two | landed | [png](days/2026-08-21/02-modular.png) | [2026-08-21](days/2026-08-21/) |
 | 2026-08-21 | Friday | [agent-substrate/substrate](https://github.com/agent-substrate/substrate) | strata | slate-blue | draw a claim about position not capability, three offset planes with the lowest lit | landed | [png](days/2026-08-21/03-substrate.png) | [2026-08-21](days/2026-08-21/) |

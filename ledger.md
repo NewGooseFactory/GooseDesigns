@@ -215,3 +215,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-21 — [rep](days/2026-08-21/) — cursor/plugins — blueprint/spec-blue — draw the relationship, one spec box fanning by leader line into three conforming implementations → landed
 - 2026-08-21 — [rep](days/2026-08-21/) — modular/modular — poster/flame — set the parenthesis as the second line of the headline, one word holding two → landed
 - 2026-08-21 — [rep](days/2026-08-21/) — agent-substrate/substrate — strata/slate-blue — draw a claim about position not capability, three offset planes with the lowest lit → landed
+- 2026-08-22 — [rep](days/2026-08-22/) — PostHog/posthog — hud/instrument-cyan — treat a seven-item feature list as the input side of a funnel into one stated purpose → landed
+- 2026-08-22 — [rep](days/2026-08-22/) — microsoft/TypeScript — swiss/signal-blue — build the page on the language badge, the metadata column everyone scrolls past → landed
+- 2026-08-22 — [rep](days/2026-08-22/) — mahlernim/google-timeline-visualizer — bauhaus/primary-red — let the noun pick the grid, a year gives you twelve cells for free → landed

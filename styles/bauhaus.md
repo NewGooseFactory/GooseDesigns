@@ -1,9 +1,10 @@
 # Style — bauhaus
 
-10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-22](../days/2026-08-22/) | [mahlernim/google-timeline-visualizer](https://github.com/mahlernim/google-timeline-visualizer) | primary-red | let the noun pick the grid, a year gives you twelve cells for free | landed | [png](../days/2026-08-22/03-timeline.png) |
 | [2026-08-16](../days/2026-08-16/) | [unslothai/unsloth](https://github.com/unslothai/unsloth) | primary-blue | treat the six named models as the layout and quote "and more" as the seventh tile | landed | [png](../days/2026-08-16/03-unsloth.png) |
 | [2026-08-08](../days/2026-08-08/) | [PrimeIntellect-ai/prime-agent](https://github.com/PrimeIntellect-ai/prime-agent) | primary | build the hero out of the loop itself with four quadrants around a hub | landed: the geometry is a cycle so the decoration does work | [png](../days/2026-08-08/01-prime-agent.png) |
 | [2026-08-01](../days/2026-08-01/) | [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) | primary | give an open curriculum a ground→model→apply→extend geometric arc instead of a lesson index | landed: the path feels deliberate and finishable | [png](../days/2026-08-01/02-ai-for-beginners.png) |

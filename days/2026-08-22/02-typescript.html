@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>microsoft/TypeScript — three languages in one row</title>
+<style>
+  :root{
+    --paper:#F4F3F1; --ink:#0F1012; --ink-2:#44464B; --ink-3:#83868D;
+    --hair:#DCDAD6; --rule:#0F1012; --sig:#2A6FD6;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .grid{max-width:1240px;margin:0 auto;padding:0 42px 52px}
+
+  .head{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;align-items:baseline;padding:20px 0 12px;border-bottom:2px solid var(--rule)}
+  .head .slug{grid-column:1/5;font-family:var(--mono);font-size:12.5px}
+  .head .slug span{color:var(--ink-3)}
+  .head .r{grid-column:7/13;text-align:right;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .head .r b{color:var(--sig);font-weight:600}
+
+  /* asymmetric hero */
+  header{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;padding:56px 0 0;align-items:start}
+  .kick{grid-column:1/4;font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--sig);padding-top:12px;line-height:1.8}
+  h1{grid-column:4/13;font-size:clamp(38px,6.4vw,88px);line-height:.96;letter-spacing:-.042em;font-weight:700}
+  h1 .in{display:block;color:var(--ink-3)}
+  h1 .hit{display:block;color:var(--sig)}
+
+  /* the three-language row */
+  .row3{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;padding:44px 0 0}
+  .row3-lbl{grid-column:1/4;font-family:var(--mono);font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3);padding-top:8px;line-height:1.8}
+  .langs{grid-column:4/13;display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--rule);border-right:none}
+  .lang{border-right:2px solid var(--rule);padding:20px 18px 18px}
+  .lang .pos{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+  .lang b{display:block;font-size:clamp(22px,2.9vw,34px);line-height:1;letter-spacing:-.03em;font-weight:700;margin-bottom:11px}
+  .lang.mid b{color:var(--sig)}
+  .lang p{font-family:var(--mono);font-size:11.5px;line-height:1.76;color:var(--ink-2);max-width:32ch}
+  .lang .src{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:12px;
+             border-top:1px solid var(--hair);padding-top:9px}
+
+  .under{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;padding:40px 0 0;border-top:2px solid var(--rule);margin-top:44px}
+  .lede{grid-column:4/9;font-size:17px;line-height:1.62;color:var(--ink-2);max-width:44ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{grid-column:9/13;display:flex;flex-direction:column;gap:11px;align-items:flex-start;padding-top:3px}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;transition:background 150ms var(--out)}
+  .cmd:hover{background:var(--sig)}
+  .cmd i{color:#9CC0F0;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:2px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--sig);border-color:var(--sig)}
+
+  .foot{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;padding-top:34px}
+  .foot p{grid-column:4/13;font-family:var(--mono);font-size:10.5px;line-height:1.8;color:var(--ink-3)}
+
+  @media (max-width:940px){
+    .grid{padding:0 18px 40px}
+    .head .slug,.head .r{grid-column:1/13;text-align:left}
+    header,.row3,.under,.foot{grid-template-columns:1fr}
+    .kick,h1,.row3-lbl,.langs,.lede,.cta,.foot p{grid-column:1/-1}
+    .langs{grid-template-columns:1fr;border-right:2px solid var(--rule)}
+    .lang{border-right:none;border-bottom:2px solid var(--rule)}
+    .lang:last-child{border-bottom:none}
+    .cta{flex-direction:row;flex-wrap:wrap;align-items:center;margin-top:20px}
+  }
+</style>
+</head>
+<body>
+<div class="grid">
+
+  <div class="head">
+    <div class="slug">microsoft<span> / </span>TypeScript</div>
+    <div class="r">Go &nbsp;·&nbsp; GitHub Trending 22 Aug 2026 &nbsp;·&nbsp; <b>65 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="kick">One row on the<br>trending board</div>
+    <h1>
+      <span class="in">TypeScript,</span>
+      <span class="hit">written in Go,</span>
+      <span class="in">emits JavaScript.</span>
+    </h1>
+  </header>
+
+  <section class="row3">
+    <div class="row3-lbl">Three languages,<br>one repository</div>
+    <div class="langs">
+      <div class="lang">
+        <div class="pos">the name</div>
+        <b>TypeScript</b>
+        <p>What the repository is called, and the language the tool accepts as input.</p>
+        <div class="src">from the repo name</div>
+      </div>
+      <div class="lang mid">
+        <div class="pos">the language tag</div>
+        <b>Go</b>
+        <p>What GitHub reports the repository is written in today. This is the column most people scroll past, and here it is the surprising one.</p>
+        <div class="src">from the trending row</div>
+      </div>
+      <div class="lang">
+        <div class="pos">the output</div>
+        <b>JavaScript</b>
+        <p>What the description says comes out the other end: clean JavaScript output.</p>
+        <div class="src">from the description</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="under">
+    <p class="lede">The one-line description has not changed in years: a superset of JavaScript that compiles to clean JavaScript output. <b>The language badge is what moved.</b> A compiler is one of the few programs where the implementation language is a genuine engineering headline rather than trivia.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>npm install typescript</div>
+      <a class="lnk" href="https://github.com/microsoft/TypeScript">github.com/microsoft/TypeScript</a>
+    </div>
+  </div>
+
+  <div class="foot">
+    <p>Concept mock, not affiliated with the project. Three facts are quoted from one row of GitHub Trending on 22 August 2026: the repository name, the language tag reading Go, and the description "TypeScript is a superset of JavaScript that compiles to clean JavaScript output." No performance figure, release version, or migration detail is represented, because that row publishes none.</p>
+  </div>
+</div>
+</body>
+</html>
