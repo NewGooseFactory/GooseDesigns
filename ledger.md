@@ -218,3 +218,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-22 — [rep](days/2026-08-22/) — PostHog/posthog — hud/instrument-cyan — treat a seven-item feature list as the input side of a funnel into one stated purpose → landed
 - 2026-08-22 — [rep](days/2026-08-22/) — microsoft/TypeScript — swiss/signal-blue — build the page on the language badge, the metadata column everyone scrolls past → landed
 - 2026-08-22 — [rep](days/2026-08-22/) — mahlernim/google-timeline-visualizer — bauhaus/primary-red — let the noun pick the grid, a year gives you twelve cells for free → landed
+- 2026-08-23 — [rep](days/2026-08-23/) — apache/maka — ledger/ink-teal — draw the data structure, five numbered rows and an append rail that forbids edit and delete → landed
+- 2026-08-23 — [rep](days/2026-08-23/) — openai/codex — cell-grid/lime — one word per cell, light only the two that carry the claim → landed
+- 2026-08-23 — [rep](days/2026-08-23/) — tinyhumansai/openhuman — constellation/violet — put the load-bearing role at the hub and hang the other two off it → landed

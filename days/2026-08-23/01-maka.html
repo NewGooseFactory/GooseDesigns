@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apache Maka — a local-first AI agent workspace with an append-only log</title>
+<style>
+  :root{
+    --paper:#FAF8F3; --rule-paper:#F3EFE6; --card:#FFFFFF;
+    --ink:#181713; --ink-2:#4C4842; --ink-3:#8B8579;
+    --hair:#DED8CA; --hair-2:#C9C1AF;
+    --teal:#1D6B63;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1200px;margin:0 auto;padding:0 40px 50px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--hair-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--teal);font-weight:600}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,452px);gap:50px;align-items:center;padding:48px 0 42px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:18px}
+  h1{font-size:clamp(31px,4vw,48px);line-height:1.09;letter-spacing:-.028em;font-weight:650;max-width:16ch}
+  h1 em{font-style:normal;color:var(--teal)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--ink-2);max-width:45ch}
+  .cta{margin-top:29px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--teal)}
+  .cmd i{color:var(--teal);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--teal);border-color:var(--teal)}
+
+  /* the ledger */
+  .book{background:var(--card);border:1px solid var(--hair-2)}
+  .book-hd{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--hair);background:var(--rule-paper)}
+  .book-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .book-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+             border:1px solid var(--hair-2);padding:2px 7px}
+
+  .lrow{display:grid;grid-template-columns:34px 1fr 92px;gap:12px;align-items:center;
+        padding:11px 16px;border-bottom:1px solid var(--hair)}
+  .lrow .n{font-family:var(--mono);font-size:10px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+  .lrow .k{font-family:var(--mono);font-size:12.5px;color:var(--ink);letter-spacing:.01em}
+  .lrow .t{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-align:right}
+  .lrow.head{background:var(--rule-paper);border-bottom:1px solid var(--hair-2)}
+  .lrow.head .k,.lrow.head .n,.lrow.head .t{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+
+  .append{padding:13px 16px;background:var(--rule-paper);border-top:1px solid var(--hair-2);
+          display:flex;align-items:center;gap:11px}
+  .append .caret{font-family:var(--mono);font-size:12.5px;color:var(--teal)}
+  .append .txt{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);letter-spacing:.02em}
+  .append .rule{flex:1;height:1px;background:var(--hair-2)}
+  .append .tag{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+
+  .noedit{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--hair-2);border-top:none}
+  .ne{padding:12px 16px;border-right:1px solid var(--hair-2);display:flex;align-items:center;gap:10px}
+  .ne:last-child{border-right:none}
+  .ne s{text-decoration:none;font-family:var(--mono);font-size:13px;color:var(--ink-3)}
+  .ne b{font-family:var(--mono);font-size:11.5px;font-weight:400;color:var(--ink-2)}
+
+  .strip3{border-top:1px solid var(--hair-2);padding:28px 0 0;margin-top:38px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:9px;font-weight:500}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .page{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:32px 0 28px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+    .noedit{grid-template-columns:1fr}
+    .ne{border-right:none;border-bottom:1px solid var(--hair-2)}
+    .ne:last-child{border-bottom:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">apache<span> / </span>maka</div>
+    <div class="r">TypeScript &nbsp;·&nbsp; GitHub Trending 23 Aug 2026 &nbsp;·&nbsp; <b>49 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Incubating &nbsp;·&nbsp; local-first</div>
+      <h1>Five kinds of event, written down <em>and never revised</em>.</h1>
+      <p class="lede">The description names exactly what the workspace records and then names the property that matters more than any of it: the log only ever grows. What an agent did is a fact you can go back to, rather than a state you have to trust.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone apache/maka</div>
+        <a class="lnk" href="https://github.com/apache/maka">github.com/apache/maka</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="book">
+        <div class="book-hd"><b>The recorded events</b><u>Names as published</u></div>
+        <div class="lrow head"><span class="n">seq</span><span class="k">entry</span><span class="t">kind</span></div>
+        <div class="lrow"><span class="n">001</span><span class="k">model messages</span><span class="t">recorded</span></div>
+        <div class="lrow"><span class="n">002</span><span class="k">tool calls</span><span class="t">recorded</span></div>
+        <div class="lrow"><span class="n">003</span><span class="k">tool results</span><span class="t">recorded</span></div>
+        <div class="lrow"><span class="n">004</span><span class="k">permission decisions</span><span class="t">recorded</span></div>
+        <div class="lrow"><span class="n">005</span><span class="k">termination events</span><span class="t">recorded</span></div>
+        <div class="append">
+          <span class="caret">&gt;</span>
+          <span class="txt">006 appends here</span>
+          <span class="rule"></span>
+          <span class="tag">append-only</span>
+        </div>
+      </div>
+      <div class="noedit">
+        <div class="ne"><s>&times;</s><b>no edit in place</b></div>
+        <div class="ne"><s>&times;</s><b>no delete</b></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Permission decisions are entries</h3>
+      <p>Most systems treat an approval as a gate and then forget it happened. Filing it in the same log as the tool call is what makes a run reconstructable afterwards.</p>
+    </div>
+    <div>
+      <h3>Termination is an event</h3>
+      <p>How a run ended is recorded next to what it did. That is the line most agent traces are missing when you go looking for why something stopped.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No schema, no format, no retention window, no throughput. The trending description publishes five event names and one property, so that is all the ledger carries.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. Every entry in the ledger is quoted from the repository's own GitHub Trending description on 23 August 2026: "Apache Maka (Incubating) is a local-first AI agent workspace. Model messages, tool calls, tool results, permission decisions, and termination events are recorded as an append-only log." Sequence numbers are positional only; no sample run, timestamp, or payload is represented here.</p>
+</div>
+</body>
+</html>

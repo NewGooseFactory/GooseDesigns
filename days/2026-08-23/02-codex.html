@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>openai/codex — lightweight coding agent that runs in your terminal</title>
+<style>
+  :root{
+    --bg:#0C0C0D; --cell:#111213; --cell-2:#151617; --cell-lit:#17201C;
+    --line:#1E2021; --line-2:#2A2D2F;
+    --fg:#E9EAEB; --fg-2:#9A9DA0; --fg-3:#65686B;
+    --lime:#7BD88F;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px}
+  .sheet{max-width:1180px;margin:0 auto;padding:0 38px 50px}
+
+  .top{display:flex;align-items:baseline;gap:15px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-size:12.5px;letter-spacing:.03em}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--lime);font-weight:400}
+
+  header{padding:48px 0 34px}
+  .eyebrow{font-size:10.5px;letter-spacing:.21em;text-transform:uppercase;color:var(--lime);margin-bottom:20px}
+  h1{font-size:clamp(28px,3.6vw,44px);line-height:1.14;letter-spacing:-.024em;font-weight:600;max-width:22ch}
+  h1 em{font-style:normal;color:var(--lime)}
+  .lede{margin-top:20px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:56ch}
+
+  /* the cell grid: eight words, two that carry the claim */
+  .gridwrap{border:1px solid var(--line-2);background:var(--cell)}
+  .grid-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--cell-2)}
+  .grid-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .grid-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+
+  .cells{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .c{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 14px 18px;min-height:104px;min-width:0;
+     display:flex;flex-direction:column;justify-content:space-between}
+  .c .w{font-size:clamp(15px,1.8vw,22px);letter-spacing:-.015em;color:var(--fg-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .c .tag{font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);margin-top:14px}
+  .c.lit{background:var(--cell-lit)}
+  .c.lit .w{color:var(--lime)}
+  .c.lit .tag{color:#5C9E70}
+
+  .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,330px);gap:44px;align-items:start;padding:30px 0 0}
+  .why{font-size:13px;line-height:1.8;color:var(--fg-2);max-width:52ch}
+  .why b{color:var(--fg);font-weight:600}
+  .cta{display:flex;flex-direction:column;gap:11px;align-items:flex-start}
+  .cmd{font-size:13px;background:var(--cell-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--lime)}
+  .cmd i{color:var(--lime);font-style:normal;margin-right:10px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--lime);border-color:var(--lime)}
+
+  .strip{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12.5px;line-height:1.78;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:26px}
+
+  @media (max-width:920px){
+    .sheet{padding:0 16px 40px}
+    header{padding:32px 0 26px}
+    .cells{grid-template-columns:repeat(2,1fr)}
+    .under{grid-template-columns:1fr;gap:24px}
+    .cta{flex-direction:row;flex-wrap:wrap;align-items:center}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">openai<span> / </span>codex</div>
+    <div class="r">RUST &nbsp;·&nbsp; NO.1 ON GITHUB TRENDING, 23 AUG 2026 &nbsp;·&nbsp; <b>1,544 STARS TODAY</b></div>
+  </div>
+
+  <header>
+    <div class="eyebrow">Eight words, no second sentence</div>
+    <h1>The frontier lab shipped the <em>small</em> one.</h1>
+    <p class="lede">"Lightweight coding agent that runs in your terminal." Every word is a limit rather than a capability, and the two doing the work are the adjective at the front and the place at the end.</p>
+  </header>
+
+  <div class="gridwrap">
+    <div class="grid-hd"><b>The description, one word per cell</b><u>Verbatim</u></div>
+    <div class="cells">
+      <div class="c lit"><span class="w">Lightweight</span><span class="tag">the constraint</span></div>
+      <div class="c"><span class="w">coding</span><span class="tag">the domain</span></div>
+      <div class="c"><span class="w">agent</span><span class="tag">the noun</span></div>
+      <div class="c"><span class="w">that</span><span class="tag">&nbsp;</span></div>
+      <div class="c"><span class="w">runs</span><span class="tag">&nbsp;</span></div>
+      <div class="c"><span class="w">in</span><span class="tag">&nbsp;</span></div>
+      <div class="c"><span class="w">your</span><span class="tag">possessive</span></div>
+      <div class="c lit"><span class="w">terminal</span><span class="tag">the venue</span></div>
+    </div>
+  </div>
+
+  <div class="under">
+    <p class="why"><b>Two cells carry the argument.</b> Lightweight is a promise about what was left out, which is an unusual thing for a well-funded lab to lead with. Terminal is a promise about where it lives, which rules out the surface most products would have chosen. Everything between them is grammar.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>npm i -g @openai/codex</div>
+      <a class="lnk" href="https://github.com/openai/codex">github.com/openai/codex</a>
+    </div>
+  </div>
+
+  <section class="strip">
+    <div>
+      <h3>Written in Rust</h3>
+      <p>The trending row tags this repository as Rust. For something whose first claim is lightweight, the implementation language is part of the argument rather than trivia.</p>
+    </div>
+    <div>
+      <h3>No second sentence</h3>
+      <p>There is no feature list to summarise. A one-line description at the top of the board is a decision about how much explaining the product should need.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No binary size, no memory figure, no model name, no benchmark. The trending row publishes none, so the grid holds words and nothing else.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The eight cells are the repository's complete GitHub Trending description on 23 August 2026, one word per cell, in order. The two lit cells are an editorial reading of which words carry the claim; nothing about size, speed, or capability is asserted, because that row publishes no figures.</p>
+</div>
+</body>
+</html>

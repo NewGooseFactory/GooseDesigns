@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **216 mocks** across **72 days**. Newest first.
+Searchable master index. **219 mocks** across **73 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-23 | Sunday | [apache/maka](https://github.com/apache/maka) | ledger | ink-teal | draw the data structure, five numbered rows and an append rail that forbids edit and delete | landed | [png](days/2026-08-23/01-maka.png) | [2026-08-23](days/2026-08-23/) |
+| 2026-08-23 | Sunday | [openai/codex](https://github.com/openai/codex) | cell-grid | lime | one word per cell, light only the two that carry the claim | landed | [png](days/2026-08-23/02-codex.png) | [2026-08-23](days/2026-08-23/) |
+| 2026-08-23 | Sunday | [tinyhumansai/openhuman](https://github.com/tinyhumansai/openhuman) | constellation | violet | put the load-bearing role at the hub and hang the other two off it | landed | [png](days/2026-08-23/03-openhuman.png) | [2026-08-23](days/2026-08-23/) |
 | 2026-08-22 | Saturday | [PostHog/posthog](https://github.com/PostHog/posthog) | hud | instrument-cyan | treat a seven-item feature list as the input side of a funnel into one stated purpose | landed | [png](days/2026-08-22/01-posthog.png) | [2026-08-22](days/2026-08-22/) |
 | 2026-08-22 | Saturday | [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | swiss | signal-blue | build the page on the language badge, the metadata column everyone scrolls past | landed | [png](days/2026-08-22/02-typescript.png) | [2026-08-22](days/2026-08-22/) |
 | 2026-08-22 | Saturday | [mahlernim/google-timeline-visualizer](https://github.com/mahlernim/google-timeline-visualizer) | bauhaus | primary-red | let the noun pick the grid, a year gives you twelve cells for free | landed | [png](days/2026-08-22/03-timeline.png) | [2026-08-22](days/2026-08-22/) |

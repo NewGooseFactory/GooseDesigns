@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>openhuman — a brain, an orchestrator, and a deep researcher</title>
+<style>
+  :root{
+    --void:#08080C; --panel:#0C0C12; --panel-2:#101018;
+    --line:#17172180; --line-s:#1A1A26; --line-2:#262636;
+    --fg:#E6E6F0; --fg-2:#9494A6; --fg-3:#5E5E70;
+    --violet:#9B7BE8;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:
+      radial-gradient(760px 420px at 74% 22%, rgba(155,123,232,.10), transparent 64%),
+      radial-gradient(560px 340px at 14% 84%, rgba(155,123,232,.05), transparent 62%);
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px 50px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 14px;border-bottom:1px solid var(--line-s)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--violet);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:center;padding:48px 0 42px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);margin-bottom:19px}
+  h1{font-size:clamp(30px,3.9vw,47px);line-height:1.1;letter-spacing:-.028em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--violet)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:45ch}
+  .cta{margin-top:29px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--violet)}
+  .cmd i{color:var(--violet);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--violet);border-color:var(--violet)}
+
+  /* constellation: one centre, three named roles */
+  .sky{width:400px;height:340px;position:relative;justify-self:end;flex:none;
+       border:1px solid var(--line-2);background:var(--panel)}
+  .sky-hd{position:absolute;left:0;right:0;top:0;padding:9px 13px;border-bottom:1px solid var(--line-s);
+          display:flex;align-items:center;gap:8px;background:var(--panel-2)}
+  .sky-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .sky-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+            border:1px solid var(--line-2);padding:2px 6px}
+
+  .sky svg{position:absolute;left:0;top:32px;width:400px;height:308px}
+  .sky svg line{stroke:var(--violet);stroke-width:1;opacity:.42}
+  .sky svg circle.hub{fill:#1A1428;stroke:var(--violet);stroke-width:1.5}
+  .sky svg circle.node{fill:#12121C;stroke:var(--violet);stroke-width:1;opacity:.9}
+  .sky svg circle.dust{fill:var(--violet);opacity:.28}
+  .sky svg text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;fill:var(--fg-2);font-size:9px;letter-spacing:.04em}
+  .sky svg text.hubt{fill:#C7B2F5;font-size:9.5px;letter-spacing:.09em}
+  .sky svg text.sub{fill:var(--fg-3);font-size:7.5px;letter-spacing:.09em}
+
+  .strip3{border-top:1px solid var(--line-s);padding:28px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--violet);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:32px 0 28px}
+    .sky{justify-self:start;width:100%;max-width:400px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">tinyhumansai<span> / </span>openhuman</div>
+    <div class="r">Rust &nbsp;·&nbsp; GitHub Trending 23 Aug 2026 &nbsp;·&nbsp; <b>51 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Three roles, one machine</div>
+      <h1>A memory, a fleet commander, and <em>a researcher</em>.</h1>
+      <p class="lede">The description assigns itself three jobs and puts local-first memory at the centre of them. The other two are things you can only do well once something has been keeping the record.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> cargo install openhuman</div>
+        <a class="lnk" href="https://github.com/tinyhumansai/openhuman">github.com/tinyhumansai/openhuman</a>
+      </div>
+    </div>
+
+    <div class="sky">
+      <div class="sky-hd"><b>Roles as published</b><u>No architecture</u></div>
+      <svg viewBox="0 0 400 308">
+        <circle class="dust" cx="52" cy="42" r="1.2"/>
+        <circle class="dust" cx="348" cy="60" r="1"/>
+        <circle class="dust" cx="88" cy="262" r="1.1"/>
+        <circle class="dust" cx="322" cy="248" r="1.3"/>
+        <circle class="dust" cx="200" cy="26" r="1"/>
+        <circle class="dust" cx="36" cy="160" r="1"/>
+        <circle class="dust" cx="368" cy="176" r="1.2"/>
+
+        <line x1="200" y1="150" x2="200" y2="72"/>
+        <line x1="200" y1="150" x2="104" y2="228"/>
+        <line x1="200" y1="150" x2="300" y2="228"/>
+
+        <circle class="hub" cx="200" cy="150" r="26"/>
+        <text class="hubt" x="200" y="153" text-anchor="middle">brain</text>
+        <text class="sub" x="200" y="192" text-anchor="middle">LOCAL-FIRST MEMORY</text>
+
+        <circle class="node" cx="200" cy="72" r="7"/>
+        <text x="200" y="55" text-anchor="middle">memory of your life</text>
+
+        <circle class="node" cx="104" cy="228" r="7"/>
+        <text x="104" y="252" text-anchor="middle">agent fleets</text>
+        <text class="sub" x="104" y="264" text-anchor="middle">ORCHESTRATOR</text>
+
+        <circle class="node" cx="300" cy="228" r="7"/>
+        <text x="300" y="252" text-anchor="middle">deep researcher</text>
+        <text class="sub" x="300" y="264" text-anchor="middle">ROLE THREE</text>
+      </svg>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Memory is the load-bearing one</h3>
+      <p>Orchestrating fleets and researching deeply are both downstream of having a record. The project puts the record first in its own sentence, which is the right order.</p>
+    </div>
+    <div>
+      <h3>Local-first, about your life</h3>
+      <p>The corpus here is personal by definition. Where it is stored stops being an implementation detail and becomes the reason to use this rather than a service.</p>
+    </div>
+    <div>
+      <h3>51 stars today</h3>
+      <p>Early, and the description is genuinely all there is to read. Three claimed roles is a wide surface for a project this new, which is worth watching rather than judging.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The three nodes are the roles named in the repository's own GitHub Trending description on 23 August 2026: "Your Personal AI super intelligence. A brain that builds a local-first memory of your life, a fantastic orchestrator of agent fleets and workflows, and a deep researcher." The panel is labelled no architecture: it draws which roles were claimed, not how any of them is built.</p>
+</div>
+</body>
+</html>
