@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>block/buzz — a hive mind communication platform</title>
+<style>
+  :root{
+    --bg:#08090B; --panel:#0C0E11; --panel-2:#101318;
+    --line:#171B21; --line-2:#232A33;
+    --fg:#E6EAEF; --fg-2:#8E99A6; --fg-3:#5C6672;
+    --amber:#E0A33C; --amber-dim:#3B2C12;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px}
+  .sheet{max-width:1180px;margin:0 auto;padding:0 38px 50px}
+
+  .top{display:flex;align-items:baseline;gap:15px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-size:12.5px;letter-spacing:.03em}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--amber);font-weight:400}
+
+  header{padding:48px 0 36px}
+  .eyebrow{font-size:10.5px;letter-spacing:.21em;text-transform:uppercase;color:var(--amber);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+  .eyebrow::after{content:"";flex:1;max-width:180px;height:1px;background:linear-gradient(90deg,var(--amber-dim),transparent)}
+  h1{font-size:clamp(28px,3.6vw,44px);line-height:1.12;letter-spacing:-.024em;font-weight:600;max-width:21ch}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{margin-top:20px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:54ch}
+
+  /* waveform panel: many traces, one carrier */
+  .scope{border:1px solid var(--line-2);background:var(--panel);margin-top:8px}
+  .scope-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .scope-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .scope-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .scope-bd{padding:16px 16px 14px}
+
+  .trace{display:grid;grid-template-columns:74px 1fr 58px;gap:14px;align-items:center;padding:7px 0}
+  .trace .lbl{font-size:10.5px;color:var(--fg-3);letter-spacing:.05em;text-align:right}
+  .trace .wv{height:30px;position:relative}
+  .trace .wv svg{width:100%;height:30px;display:block}
+  .trace .wv path{fill:none;stroke:var(--fg-3);stroke-width:1;opacity:.62}
+  .trace .st{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);text-align:right}
+
+  .sum{display:grid;grid-template-columns:74px 1fr 58px;gap:14px;align-items:center;padding:14px 0 4px;margin-top:8px;border-top:1px solid var(--line-2)}
+  .sum .lbl{font-size:11px;color:var(--amber);letter-spacing:.06em;text-align:right}
+  .sum .wv{height:44px}
+  .sum .wv svg{width:100%;height:44px;display:block}
+  .sum .wv path{fill:none;stroke:var(--amber);stroke-width:1.6}
+  .sum .st{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);text-align:right}
+
+  .cap{display:flex;align-items:center;gap:11px;margin-top:12px;padding-top:11px;border-top:1px dashed var(--line-2);
+       font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .cap .bar{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--amber))}
+  .cap b{color:var(--amber);font-weight:400}
+
+  .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:44px;align-items:start;padding:32px 0 0}
+  .why{font-size:13px;line-height:1.8;color:var(--fg-2);max-width:52ch}
+  .why b{color:var(--fg);font-weight:600}
+  .cta{display:flex;flex-direction:column;gap:11px;align-items:flex-start}
+  .cmd{font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--amber)}
+  .cmd i{color:var(--amber);font-style:normal;margin-right:10px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--amber);border-color:var(--amber)}
+
+  .strip{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12.5px;line-height:1.78;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:26px}
+
+  @media (max-width:920px){
+    .sheet{padding:0 16px 40px}
+    header{padding:32px 0 26px}
+    .trace,.sum{grid-template-columns:52px 1fr 46px;gap:10px}
+    .under{grid-template-columns:1fr;gap:24px}
+    .cta{flex-direction:row;flex-wrap:wrap;align-items:center}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">block<span> / </span>buzz</div>
+    <div class="r">RUST &nbsp;·&nbsp; GITHUB TRENDING 24 AUG 2026 &nbsp;·&nbsp; <b>410 STARS TODAY</b></div>
+  </div>
+
+  <header>
+    <div class="eyebrow">Five words</div>
+    <h1>Many senders. <em>One signal</em> that reads as a decision.</h1>
+    <p class="lede">"A hive mind communication platform." The metaphor is doing all the work, and it commits to something specific: individual chatter is the input, and what comes out is supposed to be coherent enough to act on.</p>
+  </header>
+
+  <div class="scope">
+    <div class="scope-hd"><b>The metaphor, drawn</b><u>Illustrative</u></div>
+    <div class="scope-bd">
+
+      <div class="trace">
+        <span class="lbl">sender</span>
+        <span class="wv"><svg viewBox="0 0 600 30" preserveAspectRatio="none"><path d="M0 15 Q15 4 30 15 T60 15 T90 15 T120 15 T150 15 T180 15 T210 15 T240 15 T270 15 T300 15 T330 15 T360 15 T390 15 T420 15 T450 15 T480 15 T510 15 T540 15 T570 15 T600 15"/></svg></span>
+        <span class="st">one</span>
+      </div>
+
+      <div class="trace">
+        <span class="lbl">sender</span>
+        <span class="wv"><svg viewBox="0 0 600 30" preserveAspectRatio="none"><path d="M0 15 Q10 24 20 15 T40 15 T60 15 T80 15 T100 15 T120 15 T140 15 T160 15 T180 15 T200 15 T220 15 T240 15 T260 15 T280 15 T300 15 T320 15 T340 15 T360 15 T380 15 T400 15 T420 15 T440 15 T460 15 T480 15 T500 15 T520 15 T540 15 T560 15 T580 15 T600 15"/></svg></span>
+        <span class="st">two</span>
+      </div>
+
+      <div class="trace">
+        <span class="lbl">sender</span>
+        <span class="wv"><svg viewBox="0 0 600 30" preserveAspectRatio="none"><path d="M0 15 Q22 6 44 15 T88 15 T132 15 T176 15 T220 15 T264 15 T308 15 T352 15 T396 15 T440 15 T484 15 T528 15 T572 15 T616 15"/></svg></span>
+        <span class="st">three</span>
+      </div>
+
+      <div class="trace">
+        <span class="lbl">sender</span>
+        <span class="wv"><svg viewBox="0 0 600 30" preserveAspectRatio="none"><path d="M0 15 Q8 22 16 15 T32 15 T48 15 T64 15 T80 15 T96 15 T112 15 T128 15 T144 15 T160 15 T176 15 T192 15 T208 15 T224 15 T240 15 T256 15 T272 15 T288 15 T304 15 T320 15 T336 15 T352 15 T368 15 T384 15 T400 15 T416 15 T432 15 T448 15 T464 15 T480 15 T496 15 T512 15 T528 15 T544 15 T560 15 T576 15 T592 15 T608 15"/></svg></span>
+        <span class="st">four</span>
+      </div>
+
+      <div class="sum">
+        <span class="lbl">hive</span>
+        <span class="wv"><svg viewBox="0 0 600 44" preserveAspectRatio="none"><path d="M0 22 Q30 6 60 22 T120 22 Q150 40 180 22 T240 22 Q270 4 300 22 T360 22 Q390 38 420 22 T480 22 Q510 8 540 22 T600 22"/></svg></span>
+        <span class="st">out</span>
+      </div>
+
+      <div class="cap">
+        <span>four in</span><b>one out</b><span class="bar"></span><span>no protocol published</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="under">
+    <p class="why"><b>The hard part is the bottom trace.</b> Aggregating messages is routing, and every chat product already does it. A hive mind claims the combined output carries more than the sum of the inputs, which is a much larger promise and the one worth checking a repository against.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>cargo install buzz</div>
+      <a class="lnk" href="https://github.com/block/buzz">github.com/block/buzz</a>
+    </div>
+  </div>
+
+  <section class="strip">
+    <div>
+      <h3>Platform, not client</h3>
+      <p>The last word of five sets the scope. A platform expects other things to be built on it, which means the message format matters more than any interface shipped with it.</p>
+    </div>
+    <div>
+      <h3>Written in Rust</h3>
+      <p>The trending row tags this repository as Rust. For something sitting between many senders, the implementation language is a statement about the failure modes it wants.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No protocol, no transport, no participant limit, no latency. The trending description is five words and names none of it, so the scope carries none.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The traces are marked illustrative and carry no data: they draw the shape the phrase "hive mind" implies, four inputs resolving into one output, and nothing about how this project routes, encodes, or combines messages. Its complete GitHub Trending description on 24 August 2026 is "A hive mind communication platform."</p>
+</div>
+</body>
+</html>

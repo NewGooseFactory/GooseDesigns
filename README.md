@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![219 mocks](https://img.shields.io/badge/mocks-219-1f6feb?style=flat-square) ![73 days](https://img.shields.io/badge/days-73-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![222 mocks](https://img.shields.io/badge/mocks-222-1f6feb?style=flat-square) ![74 days](https://img.shields.io/badge/days-74-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 219 mockups across 73 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 222 mockups across 74 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Sunday, August 23
+## Latest — Monday, August 24
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-08-23/"><img src="days/2026-08-23/01-maka.png" width="320" alt="apache/maka"></a><br><sub><b>apache/maka</b><br>ledger</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-23/"><img src="days/2026-08-23/02-codex.png" width="320" alt="openai/codex"></a><br><sub><b>openai/codex</b><br>cell-grid</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-23/"><img src="days/2026-08-23/03-openhuman.png" width="320" alt="tinyhumansai/openhuman"></a><br><sub><b>tinyhumansai/openhuman</b><br>constellation</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-24/"><img src="days/2026-08-24/01-buzz.png" width="320" alt="block/buzz"></a><br><sub><b>block/buzz</b><br>waveform</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-24/"><img src="days/2026-08-24/02-ecc.png" width="320" alt="affaan-m/ECC"></a><br><sub><b>affaan-m/ECC</b><br>brutalist</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-24/"><img src="days/2026-08-24/03-free-claude-code.png" width="320" alt="Alishahryar1/free-claude-code"></a><br><sub><b>Alishahryar1/free-claude-code</b><br>warm-minimal</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-08-23/)
+[See the full day →](days/2026-08-24/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-08-24 | Monday | 3 | waveform, brutalist, warm-minimal | [open](days/2026-08-24/) |
 | 2026-08-23 | Sunday | 3 | ledger, cell-grid, constellation | [open](days/2026-08-23/) |
 | 2026-08-22 | Saturday | 3 | hud, swiss, bauhaus | [open](days/2026-08-22/) |
 | 2026-08-21 | Friday | 3 | blueprint, poster, strata | [open](days/2026-08-21/) |

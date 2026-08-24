@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>affaan-m/ECC — the agent harness performance optimization system</title>
+<style>
+  :root{
+    --paper:#F0EFEC; --ink:#0D0D0E; --ink-2:#3F4044; --ink-3:#76777D;
+    --rule:#0D0D0E; --hair:#CFCDC8; --burn:#C2410C;
+    --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sys);min-height:100vh}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 34px 48px}
+
+  .top{border-bottom:3px solid var(--rule);display:flex;align-items:baseline;gap:16px;padding:16px 0 12px}
+  .top .slug{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:-.01em}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--burn)}
+
+  header{padding:44px 0 0;border-bottom:3px solid var(--rule)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--burn);margin-bottom:16px}
+  h1{font-size:clamp(34px,5vw,66px);line-height:1.0;letter-spacing:-.035em;font-weight:800;max-width:16ch}
+  h1 em{font-style:normal;color:var(--burn)}
+  .hsplit{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:42px;align-items:end;padding-bottom:32px}
+  .lede{font-family:var(--mono);font-size:13px;line-height:1.8;color:var(--ink-2);max-width:42ch;border-left:3px solid var(--burn);padding-left:16px}
+  .cta{margin-top:22px;display:flex;align-items:stretch;flex-wrap:wrap;border:3px solid var(--rule);width:fit-content}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:13px 18px}
+  .cmd i{color:#F0A97A;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-decoration:none;padding:13px 18px;border-left:3px solid var(--rule);display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--burn);color:#fff}
+
+  /* the five concerns, exposed as structure */
+  .conc-hd{display:flex;align-items:baseline;gap:16px;padding:26px 0 14px}
+  .conc-hd h2{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:700}
+  .conc-hd span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;margin-left:auto}
+
+  .conc{display:grid;grid-template-columns:repeat(5,1fr);border:3px solid var(--rule);border-right:none}
+  .c{border-right:3px solid var(--rule);padding:18px 14px 16px;min-width:0}
+  .c .n{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:11px}
+  .c b{display:block;font-size:clamp(15px,1.7vw,20px);line-height:1.1;letter-spacing:-.02em;font-weight:800;margin-bottom:9px}
+  .c.hot b{color:var(--burn)}
+  .c p{font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--ink-2)}
+
+  /* the four hosts */
+  .hosts{display:grid;grid-template-columns:repeat(4,1fr);border:3px solid var(--rule);border-top:none;border-right:none}
+  .h{border-right:3px solid var(--rule);padding:13px 14px;display:flex;align-items:center;gap:9px;min-width:0}
+  .h s{text-decoration:none;font-family:var(--mono);font-size:12px;color:var(--burn)}
+  .h b{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .beyond{border:3px solid var(--rule);border-top:none;padding:11px 14px;font-family:var(--mono);font-size:11px;color:var(--ink-2);
+          display:flex;align-items:center;gap:10px}
+  .beyond u{text-decoration:none;margin-left:auto;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+  .tail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:38px;padding:30px 0 0}
+  .tail h3{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--burn);margin-bottom:9px}
+  .tail p{font-family:var(--mono);font-size:12.5px;line-height:1.74;color:var(--ink-2);max-width:48ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:24px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    .hsplit{grid-template-columns:1fr;gap:24px;align-items:start}
+    .conc{grid-template-columns:1fr;border-right:3px solid var(--rule)}
+    .c{border-right:none;border-bottom:3px solid var(--rule)}
+    .c:last-child{border-bottom:none}
+    .hosts{grid-template-columns:repeat(2,1fr);border-right:3px solid var(--rule)}
+    .tail{grid-template-columns:1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">affaan-m<span> / ECC</span></div>
+    <div class="r">JavaScript &nbsp;·&nbsp; GitHub Trending 24 Aug 2026 &nbsp;·&nbsp; <b>427 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="eyebrow">The harness layer</div>
+    <div class="hsplit">
+      <div>
+        <h1>The thing you tune when the model is <em>fixed</em>.</h1>
+        <div class="cta">
+          <div class="cmd"><i>$</i>git clone affaan-m/ECC</div>
+          <a class="lnk" href="https://github.com/affaan-m/ECC">github.com/affaan-m/ECC</a>
+        </div>
+      </div>
+      <p class="lede">The description calls itself a performance optimization system for the harness rather than for the agent. That distinction is the whole product: every lever it names sits outside the model.</p>
+    </div>
+  </header>
+
+  <div class="conc-hd">
+    <h2>Five concerns, as listed</h2>
+    <span>order preserved from the description</span>
+  </div>
+
+  <div class="conc">
+    <div class="c"><div class="n">01</div><b>Skills</b><p>What the harness can be taught to do without retraining anything.</p></div>
+    <div class="c hot"><div class="n">02</div><b>Instincts</b><p>The unusual one. No other project on today's board uses this word.</p></div>
+    <div class="c"><div class="n">03</div><b>Memory</b><p>The third repo on this board this week to put memory in its own one-line pitch.</p></div>
+    <div class="c"><div class="n">04</div><b>Security</b><p>Named alongside capability rather than after it, which is a scheduling decision.</p></div>
+    <div class="c"><div class="n">05</div><b>Research-first</b><p>A development order, not a feature. It describes how work gets sequenced.</p></div>
+  </div>
+
+  <div class="hosts">
+    <div class="h"><s>+</s><b>Claude Code</b></div>
+    <div class="h"><s>+</s><b>Codex</b></div>
+    <div class="h"><s>+</s><b>Opencode</b></div>
+    <div class="h"><s>+</s><b>Cursor</b></div>
+  </div>
+  <div class="beyond">
+    <span>and beyond</span>
+    <u>quoted verbatim</u>
+  </div>
+
+  <section class="tail">
+    <div>
+      <h3>Why instincts is the interesting word</h3>
+      <p>Skills are written down and memory is stored. An instinct is neither: it implies behaviour the harness applies without being asked each time. That is a real claim about where judgement lives, and it is the line worth reading the repository to check.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No benchmark, no latency, no token figure, no before-and-after. A project with optimization in its own name invites those numbers, and the trending description publishes none, so this page prints none.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The five concerns and four host names above are quoted in order from the repository's own GitHub Trending description on 24 August 2026: "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond."</p>
+</div>
+</body>
+</html>

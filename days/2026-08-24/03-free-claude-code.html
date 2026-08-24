@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>free-claude-code — four tools, four places</title>
+<style>
+  :root{
+    --paper:#F7F5F0; --card:#FFFFFF; --sink:#EFEBE2;
+    --ink:#1F211E; --ink-2:#535750; --ink-3:#8B8F86;
+    --hair:#DCD8CD;
+    --moss:#4A6B3E; --moss-soft:#E4EBDF;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1160px;margin:0 auto;padding:0 40px 50px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:22px 0 14px;border-bottom:1px solid var(--hair)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--moss);font-weight:600}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,410px);gap:52px;align-items:center;padding:52px 0 44px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);margin-bottom:18px}
+  h1{font-size:clamp(32px,4.1vw,50px);line-height:1.1;letter-spacing:-.028em;font-weight:650;max-width:15ch}
+  h1 em{font-style:normal;color:var(--moss)}
+  .lede{margin-top:20px;font-size:16px;line-height:1.66;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:29px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair);border-radius:9px;padding:12px 17px;
+       box-shadow:0 1px 2px rgba(31,33,30,.05),0 4px 12px rgba(31,33,30,.04);
+       transition:transform 160ms var(--out),box-shadow 160ms var(--out)}
+  .cmd:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(31,33,30,.06),0 8px 20px rgba(31,33,30,.07)}
+  .cmd i{color:var(--moss);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--moss);border-color:var(--moss)}
+
+  /* the matrix card */
+  .card{background:var(--card);border:1px solid var(--hair);border-radius:14px;overflow:hidden;
+        box-shadow:0 1px 2px rgba(31,33,30,.05),0 10px 30px rgba(31,33,30,.055)}
+  .card-hd{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .card-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .card-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+             border:1px solid var(--hair);border-radius:5px;padding:3px 7px}
+  .card-bd{padding:18px}
+
+  .mx{display:grid;grid-template-columns:86px repeat(4,1fr);gap:6px;align-items:center}
+  .mx .corner{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);line-height:1.3}
+  .mx .ch{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);text-align:center;
+          padding-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mx .rh{font-family:var(--mono);font-size:11px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mx .cell{height:30px;border-radius:7px;background:var(--moss-soft);border:1px solid #CFDCC6;
+            display:flex;align-items:center;justify-content:center}
+  .mx .cell s{text-decoration:none;font-family:var(--mono);font-size:11px;color:var(--moss)}
+
+  .tok{margin-top:17px;padding-top:15px;border-top:1px dashed var(--hair);display:flex;align-items:flex-end;gap:14px}
+  .tok .big{font-family:var(--mono);font-size:34px;line-height:1;letter-spacing:-.03em;color:var(--moss);font-variant-numeric:tabular-nums}
+  .tok .txt{font-family:var(--mono);font-size:10.5px;line-height:1.6;color:var(--ink-3);letter-spacing:.03em;padding-bottom:3px}
+  .tok .txt b{display:block;color:var(--ink-2);font-weight:500}
+
+  .strip3{border-top:1px solid var(--hair);padding:28px 0 0;margin-top:38px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:9px;font-weight:500}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .page{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:34px 0 28px}
+    .mx{grid-template-columns:70px repeat(4,1fr);gap:4px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">Alishahryar1<span> / </span>free-claude-code</div>
+    <div class="r">Python &nbsp;·&nbsp; GitHub Trending 24 Aug 2026 &nbsp;·&nbsp; <b>1,081 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Four tools, four places</div>
+      <h1>The description is already a <em>matrix</em>.</h1>
+      <p class="lede">Four named coding tools on one axis, four places you might be sitting on the other, and a token figure attached to the offer. Every claim on this page belongs to the project, and the page says so rather than repeating it as fact.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone free-claude-code</div>
+        <a class="lnk" href="https://github.com/Alishahryar1/free-claude-code">github.com/Alishahryar1/free-claude-code</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><b>Named tools by named surfaces</b><u>As published</u></div>
+      <div class="card-bd">
+        <div class="mx">
+          <div class="corner">tool<br>/ place</div>
+          <div class="ch">terminal</div>
+          <div class="ch">app</div>
+          <div class="ch">IDE</div>
+          <div class="ch">phone</div>
+
+          <div class="rh">Claude Code</div>
+          <div class="cell"><s>+</s></div><div class="cell"><s>+</s></div><div class="cell"><s>+</s></div><div class="cell"><s>+</s></div>
+
+          <div class="rh">Codex</div>
+          <div class="cell"><s>+</s></div><div class="cell"><s>+</s></div><div class="cell"><s>+</s></div><div class="cell"><s>+</s></div>
+
+          <div class="rh">Pi</div>
+          <div class="cell"><s>+</s></div><div class="cell"><s>+</s></div><div class="cell"><s>+</s></div><div class="cell"><s>+</s></div>
+
+          <div class="rh">OpenCode</div>
+          <div class="cell"><s>+</s></div><div class="cell"><s>+</s></div><div class="cell"><s>+</s></div><div class="cell"><s>+</s></div>
+        </div>
+
+        <div class="tok">
+          <span class="big">1.3B+</span>
+          <span class="txt"><b>free tokens</b>the project's own figure, unverified here</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Both axes are named</h3>
+      <p>Four tools and four surfaces are each listed explicitly, which is what makes a matrix the honest layout. Neither axis was invented to fill the grid.</p>
+    </div>
+    <div>
+      <h3>The claim in parentheses</h3>
+      <p>The description ends with "ToS friendly" in its own words. That is the project's assertion about its own compliance, and it belongs in quotation marks rather than in a headline.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No provider, no rate limit, no expiry, no mechanism. The trending description names none, so the card carries the two axes and one figure and stops.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The four tools, four surfaces, and the 1.3B+ token figure are quoted from the repository's own GitHub Trending description on 24 August 2026. Every filled cell means the pair was named in that description, not that it was tested; the token count and the project's "ToS friendly" claim are reproduced as its statements and are not verified here.</p>
+</div>
+</body>
+</html>

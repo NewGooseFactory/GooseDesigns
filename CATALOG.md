@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **219 mocks** across **73 days**. Newest first.
+Searchable master index. **222 mocks** across **74 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-24 | Monday | [block/buzz](https://github.com/block/buzz) | waveform | signal-amber | draw the metaphor, four sender traces resolving into one carrier | landed | [png](days/2026-08-24/01-buzz.png) | [2026-08-24](days/2026-08-24/) |
+| 2026-08-24 | Monday | [affaan-m/ECC](https://github.com/affaan-m/ECC) | brutalist | burnt-orange | keep the published list order and mark the one word no other repo uses | landed | [png](days/2026-08-24/02-ecc.png) | [2026-08-24](days/2026-08-24/) |
+| 2026-08-24 | Monday | [Alishahryar1/free-claude-code](https://github.com/Alishahryar1/free-claude-code) | warm-minimal | moss | when both axes are published the matrix is the layout, attribute every figure | landed | [png](days/2026-08-24/03-free-claude-code.png) | [2026-08-24](days/2026-08-24/) |
 | 2026-08-23 | Sunday | [apache/maka](https://github.com/apache/maka) | ledger | ink-teal | draw the data structure, five numbered rows and an append rail that forbids edit and delete | landed | [png](days/2026-08-23/01-maka.png) | [2026-08-23](days/2026-08-23/) |
 | 2026-08-23 | Sunday | [openai/codex](https://github.com/openai/codex) | cell-grid | lime | one word per cell, light only the two that carry the claim | landed | [png](days/2026-08-23/02-codex.png) | [2026-08-23](days/2026-08-23/) |
 | 2026-08-23 | Sunday | [tinyhumansai/openhuman](https://github.com/tinyhumansai/openhuman) | constellation | violet | put the load-bearing role at the hub and hang the other two off it | landed | [png](days/2026-08-23/03-openhuman.png) | [2026-08-23](days/2026-08-23/) |

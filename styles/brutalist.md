@@ -1,9 +1,10 @@
 # Style — brutalist
 
-10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-24](../days/2026-08-24/) | [affaan-m/ECC](https://github.com/affaan-m/ECC) | burnt-orange | keep the published list order and mark the one word no other repo uses | landed | [png](../days/2026-08-24/02-ecc.png) |
 | [2026-08-17](../days/2026-08-17/) | [usestrix/strix](https://github.com/usestrix/strix) | acid-red | split the description on its own conjunction, FIND on paper and FIX inverted | landed | [png](../days/2026-08-17/02-strix.png) |
 | [2026-08-13](../days/2026-08-13/) | [NVIDIA-NeMo/Switchyard](https://github.com/NVIDIA-NeMo/Switchyard) | acid-lime | put the translation on the wire with paired request shapes and an exposed maturity band | landed | [png](../days/2026-08-13/01-switchyard.png) |
 | [2026-08-03](../days/2026-08-03/) | [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) | harsh-orange | turn leave it running into an architectural claim with one long-lived session slab | landed: exposed structure matches a tool built on a stable prefix | [png](../days/2026-08-03/02-deepseek-reasonix.png) |
