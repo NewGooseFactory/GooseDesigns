@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>andrej-karpathy-skills: a single CLAUDE.md file</title>
+<style>
+  :root{
+    --paper:#EFEEEB; --ink:#0F1012; --ink-2:#42444A; --ink-3:#7E8188;
+    --hair:#D6D4CF; --rule:#0F1012; --slate:#2F5FA8;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+  .page{max-width:1260px;margin:0 auto;padding:0 42px 52px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:2px solid var(--rule)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--slate);font-weight:600}
+
+  header{padding:46px 0 0}
+  .kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.21em;text-transform:uppercase;color:var(--slate);margin-bottom:16px}
+  .filename{font-family:var(--mono);font-weight:700;letter-spacing:-.05em;line-height:.86;
+            font-size:clamp(52px,13.4vw,178px);white-space:nowrap;display:flex;justify-content:space-between}
+  .filename span{display:block}
+  .filename .dot{color:var(--slate)}
+  .filename .ext{color:var(--ink-3)}
+  .undertitle{display:flex;align-items:baseline;gap:14px;margin-top:12px;padding-top:11px;border-top:2px solid var(--rule)}
+  .undertitle .one{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+  .undertitle .cnt{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+
+  .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:52px;align-items:start;padding:34px 0 40px}
+  .lede{font-size:18px;line-height:1.62;color:var(--ink-2);max-width:42ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-direction:column;gap:11px;align-items:flex-start;padding-top:3px}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;transition:background 150ms var(--out)}
+  .cmd:hover{background:var(--slate)}
+  .cmd i{color:#9FC0EE;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:2px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--slate);border-color:var(--slate)}
+
+  .chain{border-top:2px solid var(--rule);padding-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .step{padding:0 26px 0 0;border-right:1px solid var(--hair)}
+  .step:last-child{border-right:none;padding-right:0}
+  .step:not(:first-child){padding-left:26px}
+  .step .n{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+  .step h3{font-size:clamp(19px,2.3vw,26px);line-height:1.1;letter-spacing:-.024em;font-weight:700;margin-bottom:11px}
+  .step:nth-child(3) h3{color:var(--slate)}
+  .step p{font-family:var(--mono);font-size:12px;line-height:1.76;color:var(--ink-2);max-width:38ch}
+
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:32px;max-width:112ch}
+
+  @media (max-width:940px){
+    .page{padding:0 18px 40px}
+    .filename{letter-spacing:-.04em}
+    .under{grid-template-columns:1fr;gap:26px}
+    .cta{flex-direction:row;flex-wrap:wrap;align-items:center}
+    .chain{grid-template-columns:1fr;gap:22px}
+    .step{border-right:none;border-bottom:1px solid var(--hair);padding:0 0 20px 0}
+    .step:not(:first-child){padding-left:0;padding-top:20px}
+    .step:last-child{border-bottom:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">multica-ai<span> / </span>andrej-karpathy-skills</div>
+    <div class="r">GitHub Trending 25 Aug 2026 &nbsp;·&nbsp; <b>588 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="kick">The entire deliverable</div>
+    <div class="filename">
+      <span>C</span><span>L</span><span>A</span><span>U</span><span>D</span><span>E</span><span class="dot">.</span><span class="ext">m</span><span class="ext">d</span>
+    </div>
+    <div class="undertitle">
+      <span class="one">one file</span>
+      <span class="cnt">no package, no install step, no runtime</span>
+    </div>
+  </header>
+
+  <div class="under">
+    <p class="lede">The description says a single file that improves Claude Code behaviour, derived from Andrej Karpathy's observations on LLM coding pitfalls. <b>The filename is the product.</b> Everything a page like this would normally show, a feature grid or an architecture diagram, would be larger than the thing being shipped.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>cp CLAUDE.md ./</div>
+      <a class="lnk" href="https://github.com/multica-ai/andrej-karpathy-skills">github.com/multica-ai/andrej-karpathy-skills</a>
+    </div>
+  </div>
+
+  <section class="chain">
+    <div class="step">
+      <div class="n">Source</div>
+      <h3>Observations</h3>
+      <p>Karpathy's published notes on where LLMs go wrong when writing code. The repository names him as the origin rather than claiming the findings itself.</p>
+    </div>
+    <div class="step">
+      <div class="n">Transform</div>
+      <h3>Derived</h3>
+      <p>The word the description uses. Someone read the observations and turned them into instructions, which is an editorial act with a name attached to it.</p>
+    </div>
+    <div class="step">
+      <div class="n">Artifact</div>
+      <h3>One markdown file</h3>
+      <p>The format matters as much as the content. A file you can read in full before adopting it is a different kind of dependency from a package you install.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project or with Andrej Karpathy. The complete GitHub Trending description on 25 August 2026 is "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls." No rule count, file length, benchmark, or before-and-after result is represented here, because that description publishes none.</p>
+</div>
+</body>
+</html>

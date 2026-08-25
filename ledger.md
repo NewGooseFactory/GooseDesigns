@@ -224,3 +224,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-24 — [rep](days/2026-08-24/) — block/buzz — waveform/signal-amber — draw the metaphor, four sender traces resolving into one carrier → landed
 - 2026-08-24 — [rep](days/2026-08-24/) — affaan-m/ECC — brutalist/burnt-orange — keep the published list order and mark the one word no other repo uses → landed
 - 2026-08-24 — [rep](days/2026-08-24/) — Alishahryar1/free-claude-code — warm-minimal/moss — when both axes are published the matrix is the layout, attribute every figure → landed
+- 2026-08-25 — [rep](days/2026-08-25/) — NousResearch/hermes-agent — data-viz/axis-blue — draw the axes the claim implies and leave the series empty → landed
+- 2026-08-25 — [rep](days/2026-08-25/) — multica-ai/andrej-karpathy-skills — poster/slate — set the filename as the entire hero when the deliverable is one file → landed
+- 2026-08-25 — [rep](days/2026-08-25/) — AgriciDaniel/claude-obsidian — editorial/indigo — ownership clause in the headline, mechanism in the panel, every node a note.md → landed

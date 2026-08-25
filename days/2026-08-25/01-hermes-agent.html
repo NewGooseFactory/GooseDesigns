@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hermes-agent: the agent that grows with you</title>
+<style>
+  :root{
+    --bg:#0B0D10; --panel:#0F1216; --panel-2:#13171C;
+    --line:#1B2028; --line-2:#28303A;
+    --fg:#E7ECF1; --fg-2:#909BA8; --fg-3:#5F6975;
+    --ink:#5B9BD5; --ink-2:#7FB7E8;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px}
+  .sheet{max-width:1180px;margin:0 auto;padding:0 38px 50px}
+
+  .top{display:flex;align-items:baseline;gap:15px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-size:12.5px;letter-spacing:.03em}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--ink);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);gap:48px;align-items:center;padding:48px 0 40px}
+  .eyebrow{font-size:10.5px;letter-spacing:.21em;text-transform:uppercase;color:var(--ink);margin-bottom:20px}
+  h1{font-size:clamp(28px,3.6vw,44px);line-height:1.12;letter-spacing:-.024em;font-weight:600;max-width:19ch}
+  h1 em{font-style:normal;color:var(--ink)}
+  .lede{margin-top:20px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:50ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--ink)}
+  .cmd i{color:var(--ink);font-style:normal;margin-right:10px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--ink);border-color:var(--ink)}
+
+  /* the empty plot */
+  .plot{border:1px solid var(--line-2);background:var(--panel)}
+  .plot-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .plot-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .plot-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .plot-bd{padding:18px 16px 14px}
+
+  .chart{position:relative;height:236px;border-left:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+  .chart .g{position:absolute;left:0;right:0;height:1px;background:var(--line)}
+  .chart .gv{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+  .chart .empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center}
+  .chart .empty b{display:block;font-size:12px;color:var(--ink-2);letter-spacing:.04em;font-weight:400;margin-bottom:9px}
+  .chart .empty s{display:block;text-decoration:none;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .chart .empty .box{border:1px dashed var(--line-2);padding:16px 24px;text-align:center}
+
+  .ylab{position:absolute;left:-8px;top:50%;transform:translate(-100%,-50%) rotate(180deg);writing-mode:vertical-rl;
+        font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);white-space:nowrap}
+  .xlab{display:flex;justify-content:space-between;margin-top:9px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .axwrap{position:relative;padding-left:26px}
+
+  .foot-rail{display:flex;align-items:center;gap:11px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-2);
+             font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .foot-rail b{color:var(--ink);font-weight:400}
+  .foot-rail .bar{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--ink))}
+
+  .words{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line-2);border-right:none;margin-top:36px}
+  .w{border-right:1px solid var(--line-2);padding:15px 13px 13px}
+  .w b{display:block;font-size:15px;letter-spacing:-.01em;color:var(--fg-2);margin-bottom:8px}
+  .w.hot b{color:var(--ink)}
+  .w p{font-size:11px;line-height:1.72;color:var(--fg-3)}
+
+  .strip{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12.5px;line-height:1.78;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:26px}
+
+  @media (max-width:960px){
+    .sheet{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:32px 0 28px}
+    .words{grid-template-columns:1fr;border-right:1px solid var(--line-2)}
+    .w{border-right:none;border-bottom:1px solid var(--line-2)}
+    .w:last-child{border-bottom:none}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">NousResearch<span> / </span>hermes-agent</div>
+    <div class="r">PYTHON &nbsp;·&nbsp; GITHUB TRENDING 25 AUG 2026 &nbsp;·&nbsp; <b>896 STARS TODAY</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Five words, one preposition</div>
+      <h1>The claim has a shape. It does not yet have <em>a curve</em>.</h1>
+      <p class="lede">"The agent that grows with you." Growth over time is a measurable claim, so this page draws the axes that claim implies and leaves the series blank, because the project publishes no measurement to plot.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> pip install hermes-agent</div>
+        <a class="lnk" href="https://github.com/NousResearch/hermes-agent">github.com/NousResearch/hermes-agent</a>
+      </div>
+    </div>
+
+    <div class="plot">
+      <div class="plot-hd"><b>The axes the sentence implies</b><u>No series plotted</u></div>
+      <div class="plot-bd">
+        <div class="axwrap">
+          <span class="ylab">agent capability</span>
+          <div class="chart">
+            <i class="g" style="top:25%"></i><i class="g" style="top:50%"></i><i class="g" style="top:75%"></i>
+            <i class="gv" style="left:25%"></i><i class="gv" style="left:50%"></i><i class="gv" style="left:75%"></i>
+            <div class="empty">
+              <div class="box">
+                <b>no growth curve published</b>
+                <s>nothing plotted here</s>
+              </div>
+            </div>
+          </div>
+          <div class="xlab"><span>your time with it</span><span>later</span></div>
+        </div>
+
+        <div class="foot-rail">
+          <span>the load-bearing word</span><b>with</b><span class="bar"></span><span>indexed to you</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="words">
+    <div class="w"><b>The</b><p>Definite. One agent, singular, where the category usually ships a framework.</p></div>
+    <div class="w"><b>agent</b><p>The category. Says nothing on its own in 2026.</p></div>
+    <div class="w"><b>that grows</b><p>A claim about change over time, which invites a measurement.</p></div>
+    <div class="w hot"><b>with</b><p>The pivot. Growth tracks your use rather than a release schedule.</p></div>
+    <div class="w"><b>you</b><p>Singular. The unit of adaptation is one person.</p></div>
+  </div>
+
+  <section class="strip">
+    <div>
+      <h3>Why the empty plot</h3>
+      <p>A page that draws a rising line here would be inventing the result. The axes are real because the sentence implies them; the series is absent because the repository has not published one.</p>
+    </div>
+    <div>
+      <h3>Growth is falsifiable</h3>
+      <p>Most agent copy makes claims you cannot check. This one can be checked, which is the reason it deserves a chart frame rather than a feature grid.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No benchmark, no session count, no model, no adaptation mechanism. The trending description is five words and names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 25 August 2026 is "The agent that grows with you." Both axis labels are inferences from that sentence and are marked as such; no data series, benchmark, or measurement is drawn, because the project publishes none on that page.</p>
+</div>
+</body>
+</html>

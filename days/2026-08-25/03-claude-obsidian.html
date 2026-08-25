@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>claude-obsidian: a self-organizing second brain in plain Markdown</title>
+<style>
+  :root{
+    --paper:#FBFAF7; --sink:#F2EFE9; --card:#FFFFFF;
+    --ink:#191712; --ink-2:#4B463D; --ink-3:#8A8376;
+    --hair:#DFD9CC; --rule:#191712; --indigo:#3B4B96;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",Times,serif;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1180px;margin:0 auto;padding:0 44px 52px}
+
+  .masthead{display:flex;align-items:baseline;gap:16px;padding:22px 0 13px;border-bottom:1px solid var(--rule)}
+  .masthead .slug{font-family:var(--mono);font-size:12.5px}
+  .masthead .slug span{color:var(--ink-3)}
+  .masthead .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .masthead .r b{color:var(--indigo);font-weight:600}
+
+  header{padding:56px 0 40px}
+  .kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--indigo);margin-bottom:20px}
+  h1{font-family:var(--serif);font-size:clamp(36px,5.2vw,68px);line-height:1.06;letter-spacing:-.022em;font-weight:400;max-width:15ch}
+  h1 em{font-style:italic;color:var(--indigo)}
+
+  .deck{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,392px);gap:54px;align-items:start;
+        padding-bottom:42px;border-bottom:1px solid var(--rule)}
+  .lede{font-size:18.5px;line-height:1.62;color:var(--ink-2);max-width:40ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;transition:background 150ms var(--out)}
+  .cmd:hover{background:var(--indigo)}
+  .cmd i{color:#A5B0E0;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--indigo);border-color:var(--indigo)}
+
+  /* the vault panel */
+  .vault{background:var(--card);border:1px solid var(--hair);overflow:hidden}
+  .vault-hd{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .vault-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .vault-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+              border:1px solid var(--hair);padding:2px 7px}
+  .vault-bd{padding:16px 15px 15px}
+
+  .drop{border:1px dashed var(--hair);padding:11px 13px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);
+        display:flex;align-items:center;gap:10px;margin-bottom:13px}
+  .drop b{color:var(--ink-2);font-weight:400}
+  .drop s{text-decoration:none;margin-left:auto;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+
+  .verbs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}
+  .v{border:1px solid var(--hair);background:var(--sink);padding:9px 6px;text-align:center}
+  .v b{display:block;font-family:var(--mono);font-size:11.5px;color:var(--indigo);letter-spacing:.02em}
+  .v i{display:block;font-style:normal;font-family:var(--mono);font-size:8px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+
+  .graph{height:150px;border:1px solid var(--hair);background:var(--sink);position:relative;margin-bottom:12px}
+  .graph svg{width:100%;height:150px;display:block}
+  .graph line{stroke:var(--indigo);stroke-width:1;opacity:.42}
+  .graph circle{fill:var(--card);stroke:var(--indigo);stroke-width:1.2}
+  .graph text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:7.5px;fill:var(--ink-3);letter-spacing:.05em}
+
+  .own{display:flex;align-items:center;gap:10px;padding-top:11px;border-top:1px solid var(--hair);
+       font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .own b{color:var(--indigo);font-weight:400}
+  .own .bar{flex:1;height:1px;background:var(--hair)}
+
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-top:34px}
+  .col{padding:0 28px 0 0;border-right:1px solid var(--hair)}
+  .col:last-child{border-right:none;padding-right:0}
+  .col:not(:first-child){padding-left:28px}
+  .col h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--indigo);margin-bottom:10px;font-weight:500}
+  .col p{font-size:14.5px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:30px}
+
+  @media (max-width:960px){
+    .page{padding:0 20px 40px}
+    header{max-width:none;padding:36px 0 30px}
+    .deck{grid-template-columns:1fr;gap:30px}
+    .cols{grid-template-columns:1fr}
+    .col{border-right:none;border-bottom:1px solid var(--hair);padding:0 0 20px 0}
+    .col:not(:first-child){padding-left:0;padding-top:20px}
+    .col:last-child{border-bottom:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="slug">AgriciDaniel<span> / </span>claude-obsidian</div>
+    <div class="r">Python &nbsp;·&nbsp; No.12 on GitHub Trending, 25 Aug 2026 &nbsp;·&nbsp; <b>310 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="kick">Plain Markdown you own</div>
+    <h1>The filing is automatic. The <em>files</em> are still yours.</h1>
+  </header>
+
+  <div class="deck">
+    <div>
+      <p class="lede">Drop any source in and it gets read, linked, and filed into one connected graph. <b>The output stays plain Markdown on your disk</b>, which is the line that separates this from every hosted notes product it compares itself against.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i>git clone claude-obsidian</div>
+        <a class="lnk" href="https://github.com/AgriciDaniel/claude-obsidian">github.com/AgriciDaniel/claude-obsidian</a>
+      </div>
+    </div>
+
+    <div class="vault">
+      <div class="vault-hd"><b>Drop, then file</b><u>Shape only</u></div>
+      <div class="vault-bd">
+        <div class="drop"><b>any source</b><s>in</s></div>
+
+        <div class="verbs">
+          <div class="v"><b>reads</b><i>step one</i></div>
+          <div class="v"><b>links</b><i>step two</i></div>
+          <div class="v"><b>files</b><i>step three</i></div>
+        </div>
+
+        <div class="graph">
+          <svg viewBox="0 0 380 150" preserveAspectRatio="xMidYMid meet">
+            <line x1="190" y1="72" x2="96" y2="38"/>
+            <line x1="190" y1="72" x2="292" y2="42"/>
+            <line x1="190" y1="72" x2="112" y2="116"/>
+            <line x1="190" y1="72" x2="272" y2="118"/>
+            <line x1="96" y1="38" x2="112" y2="116"/>
+            <line x1="292" y1="42" x2="272" y2="118"/>
+            <circle cx="190" cy="72" r="9"/>
+            <circle cx="96" cy="38" r="6"/>
+            <circle cx="292" cy="42" r="6"/>
+            <circle cx="112" cy="116" r="6"/>
+            <circle cx="272" cy="118" r="6"/>
+            <text x="190" y="94" text-anchor="middle">one connected graph</text>
+            <text x="96" y="26" text-anchor="middle">note.md</text>
+            <text x="292" y="30" text-anchor="middle">note.md</text>
+            <text x="112" y="134" text-anchor="middle">note.md</text>
+            <text x="272" y="136" text-anchor="middle">note.md</text>
+          </svg>
+        </div>
+
+        <div class="own">
+          <span>every node is a file</span><b>you own</b><span class="bar"></span><span>no node names invented</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cols">
+    <div class="col">
+      <h3>Three verbs in order</h3>
+      <p>Reads, links, files. The middle one is where the value sits, because linking is the step a human skips when they are busy and the step a graph needs to be worth having.</p>
+    </div>
+    <div class="col">
+      <h3>Plain Markdown you own</h3>
+      <p>The description says it twice over, in the format and in the possessive. For a second brain that phrase is the exit clause: you can leave and the notes still open.</p>
+    </div>
+    <div class="col">
+      <h3>Based on a named pattern</h3>
+      <p>The repository credits Karpathy's LLM Wiki pattern. That makes two projects on today's board deriving their design from one person's published notes.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The three verbs, the phrase "one connected knowledge graph of plain Markdown you own", and the Karpathy LLM Wiki credit are quoted from the repository's own GitHub Trending description on 25 August 2026. The graph panel is labelled shape only: five generic nodes with no note titles, no counts, and no vault contents, because none is published there.</p>
+</div>
+</body>
+</html>

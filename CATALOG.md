@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **222 mocks** across **74 days**. Newest first.
+Searchable master index. **225 mocks** across **75 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-25 | Tuesday | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | data-viz | axis-blue | draw the axes the claim implies and leave the series empty | landed | [png](days/2026-08-25/01-hermes-agent.png) | [2026-08-25](days/2026-08-25/) |
+| 2026-08-25 | Tuesday | [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | poster | slate | set the filename as the entire hero when the deliverable is one file | landed | [png](days/2026-08-25/02-karpathy-skills.png) | [2026-08-25](days/2026-08-25/) |
+| 2026-08-25 | Tuesday | [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian) | editorial | indigo | ownership clause in the headline, mechanism in the panel, every node a note.md | landed | [png](days/2026-08-25/03-claude-obsidian.png) | [2026-08-25](days/2026-08-25/) |
 | 2026-08-24 | Monday | [block/buzz](https://github.com/block/buzz) | waveform | signal-amber | draw the metaphor, four sender traces resolving into one carrier | landed | [png](days/2026-08-24/01-buzz.png) | [2026-08-24](days/2026-08-24/) |
 | 2026-08-24 | Monday | [affaan-m/ECC](https://github.com/affaan-m/ECC) | brutalist | burnt-orange | keep the published list order and mark the one word no other repo uses | landed | [png](days/2026-08-24/02-ecc.png) | [2026-08-24](days/2026-08-24/) |
 | 2026-08-24 | Monday | [Alishahryar1/free-claude-code](https://github.com/Alishahryar1/free-claude-code) | warm-minimal | moss | when both axes are published the matrix is the layout, attribute every figure | landed | [png](days/2026-08-24/03-free-claude-code.png) | [2026-08-24](days/2026-08-24/) |
