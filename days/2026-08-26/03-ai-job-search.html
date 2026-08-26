@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ai-job-search: the job search that runs on your machine</title>
+<style>
+  :root{
+    --paper:#F1EFEA; --card:#FFFFFF; --ink:#131311; --ink-2:#4A4A45; --ink-3:#87877F;
+    --hair:#D8D5CD; --rule:#131311; --stamp:#7A3B12;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1200px;margin:0 auto;padding:0 40px 50px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:2px solid var(--rule)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--stamp);font-weight:600}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:center;padding:50px 0 42px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--stamp);margin-bottom:18px}
+  h1{font-size:clamp(32px,4.2vw,52px);line-height:1.08;letter-spacing:-.028em;font-weight:700;max-width:15ch}
+  h1 em{font-style:normal;color:var(--stamp)}
+  .lede{margin-top:20px;font-size:16px;line-height:1.66;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:28px;display:flex;align-items:stretch;flex-wrap:wrap;border:2px solid var(--rule);width:fit-content}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px}
+  .cmd i{color:#D9A277;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-decoration:none;padding:12px 18px;border-left:2px solid var(--rule);display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--stamp);color:#fff}
+
+  /* the fork stamp */
+  .stampbox{display:flex;justify-content:flex-end}
+  .stamp{border:3px solid var(--stamp);color:var(--stamp);padding:19px 22px 17px;text-align:center;transform:rotate(-5deg);
+         max-width:258px;background:rgba(122,59,18,.05)}
+  .stamp .sm{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.82}
+  .stamp .big{font-size:33px;line-height:1.04;letter-spacing:-.028em;font-weight:800;text-transform:uppercase;margin:9px 0 8px}
+  .stamp .rule{height:2px;background:var(--stamp);opacity:.5;margin:9px 0}
+  .stamp .fine{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;opacity:.78;line-height:1.7}
+
+  /* four verbs in a specimen row */
+  .row-hd{display:flex;align-items:baseline;gap:16px;padding:24px 0 13px;border-top:2px solid var(--rule)}
+  .row-hd h2{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:700}
+  .row-hd span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;margin-left:auto}
+
+  .verbs{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--rule);border-right:none}
+  .v{border-right:2px solid var(--rule);padding:17px 14px 15px;min-width:0}
+  .v .n{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+  .v b{display:block;font-size:clamp(16px,1.9vw,22px);line-height:1.1;letter-spacing:-.02em;font-weight:800;margin-bottom:9px}
+  .v p{font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--ink-2)}
+
+  .base{display:grid;grid-template-columns:repeat(2,1fr);border:2px solid var(--rule);border-top:none}
+  .b{padding:13px 15px;border-right:2px solid var(--rule);display:flex;align-items:center;gap:10px}
+  .b:last-child{border-right:none}
+  .b s{text-decoration:none;font-family:var(--mono);font-size:12px;color:var(--stamp)}
+  .b b{font-family:var(--mono);font-size:11.5px;font-weight:400;color:var(--ink-2)}
+
+  .tail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:38px;padding:30px 0 0}
+  .tail h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--stamp);margin-bottom:9px}
+  .tail p{font-size:14.5px;line-height:1.68;color:var(--ink-2);max-width:46ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .page{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:32px;padding:34px 0 28px}
+    .stampbox{justify-content:flex-start}
+    .verbs{grid-template-columns:repeat(2,1fr);border-right:2px solid var(--rule)}
+    .base{grid-template-columns:1fr}
+    .b{border-right:none;border-bottom:2px solid var(--rule)}
+    .b:last-child{border-bottom:none}
+    .tail{grid-template-columns:1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">MadsLorentzen<span> / </span>ai-job-search</div>
+    <div class="r">Python &nbsp;·&nbsp; No.3 on GitHub Trending, 26 Aug 2026 &nbsp;·&nbsp; <b>1,265 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Runs on your machine</div>
+      <h1>Four steps of a job hunt, all of them <em>local</em>.</h1>
+      <p class="lede">Evaluate postings, tailor CVs, write cover letters, prep interviews. The corpus is your rejections and your salary history, so where the work happens is the first thing the description settles.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i>git clone ai-job-search</div>
+        <a class="lnk" href="https://github.com/MadsLorentzen/ai-job-search">github.com/MadsLorentzen/ai-job-search</a>
+      </div>
+    </div>
+
+    <div class="stampbox">
+      <div class="stamp">
+        <div class="sm">the closing instruction</div>
+        <div class="big">fork it<br>and own it</div>
+        <div class="rule"></div>
+        <div class="fine">quoted verbatim<br>from the description</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="row-hd">
+    <h2>Four verbs, as published</h2>
+    <span>order preserved</span>
+  </div>
+
+  <div class="verbs">
+    <div class="v"><div class="n">01</div><b>Evaluate postings</b><p>Reading the listing before writing anything, which is the step people skip when applying in volume.</p></div>
+    <div class="v"><div class="n">02</div><b>Tailor CVs</b><p>One document per role. The tedious part, and the part that decides most screens.</p></div>
+    <div class="v"><div class="n">03</div><b>Write cover letters</b><p>The output nobody enjoys producing and few hiring managers finish reading.</p></div>
+    <div class="v"><div class="n">04</div><b>Prep interviews</b><p>The only verb pointed at a live conversation rather than a document.</p></div>
+  </div>
+
+  <div class="base">
+    <div class="b"><s>+</s><b>built on Claude Code</b></div>
+    <div class="b"><s>+</s><b>the job search that runs on your machine</b></div>
+  </div>
+
+  <section class="tail">
+    <div>
+      <h3>Why the stamp</h3>
+      <p>"Fork it and own it" is an instruction rather than a feature. It tells you the maintainer expects divergence, which is a different contract from a product that wants you on the latest release.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No placement rate, no response numbers, no portal list, no time saved. A job search tool invites exactly those figures, and the trending description publishes none, so this page prints none.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The four verbs, the Claude Code base, and the closing instruction are quoted in order from the repository's own GitHub Trending description on 26 August 2026: "The job search that runs on your machine. AI job application framework built on Claude Code: evaluate postings, tailor CVs, write cover letters, prep interviews. Fork it and own it."</p>
+</div>
+</body>
+</html>

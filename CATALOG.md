@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **225 mocks** across **75 days**. Newest first.
+Searchable master index. **228 mocks** across **76 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-26 | Wednesday | [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) | mono-zine | amber | count the parties in each sentence and light the only one with a witness | landed | [png](days/2026-08-26/01-ai-engineering.png) | [2026-08-26](days/2026-08-26/) |
+| 2026-08-26 | Wednesday | [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | blueprint | mirror-blue | draw the direction of travel when a repository refuses input | landed | [png](days/2026-08-26/02-claude-plugins.png) | [2026-08-26](days/2026-08-26/) |
+| 2026-08-26 | Wednesday | [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search) | specimen | stamp-rust | stamp the instruction the project closes on, four published verbs beneath | landed | [png](days/2026-08-26/03-ai-job-search.png) | [2026-08-26](days/2026-08-26/) |
 | 2026-08-25 | Tuesday | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | data-viz | axis-blue | draw the axes the claim implies and leave the series empty | landed | [png](days/2026-08-25/01-hermes-agent.png) | [2026-08-25](days/2026-08-25/) |
 | 2026-08-25 | Tuesday | [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | poster | slate | set the filename as the entire hero when the deliverable is one file | landed | [png](days/2026-08-25/02-karpathy-skills.png) | [2026-08-25](days/2026-08-25/) |
 | 2026-08-25 | Tuesday | [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian) | editorial | indigo | ownership clause in the headline, mechanism in the panel, every node a note.md | landed | [png](days/2026-08-25/03-claude-obsidian.png) | [2026-08-25](days/2026-08-25/) |

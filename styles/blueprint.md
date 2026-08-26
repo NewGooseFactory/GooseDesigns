@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+20 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-26](../days/2026-08-26/) | [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | mirror-blue | draw the direction of travel when a repository refuses input | landed | [png](../days/2026-08-26/02-claude-plugins.png) |
 | [2026-08-21](../days/2026-08-21/) | [cursor/plugins](https://github.com/cursor/plugins) | spec-blue | draw the relationship, one spec box fanning by leader line into three conforming implementations | landed | [png](../days/2026-08-21/01-cursor-plugins.png) |
 | [2026-08-18](../days/2026-08-18/) | [volcengine/OpenViking](https://github.com/volcengine/OpenViking) | drafting-cyan | draw the word unify, three source boxes converging by leader line into one plate | landed | [png](../days/2026-08-18/01-openviking.png) |
 | [2026-08-14](../days/2026-08-14/) | [github/spec-kit](https://github.com/github/spec-kit) | drafting-red | strike the old word out and keep it visible, one source card and three derived | landed | [png](../days/2026-08-14/03-spec-kit.png) |

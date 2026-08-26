@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>claude-plugins-community: a read-only mirror with one door in</title>
+<style>
+  :root{
+    --bg:#0A0C10; --grid:#12161C; --line:#1A1F27; --line-2:#262E39;
+    --panel:#0E1116; --panel-2:#12161C;
+    --fg:#E3E9F0; --fg-2:#8F9AA8; --fg-3:#5D6773;
+    --ink:#4C8FC0;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:30px 30px,30px 30px;
+  }
+  .sheet{max-width:1180px;margin:0 auto;padding:0 38px 50px}
+
+  .tb{display:flex;align-items:flex-start;gap:18px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .tb .slug{font-size:12.5px;letter-spacing:.03em}
+  .tb .slug span{color:var(--fg-3)}
+  .tb .r{margin-left:auto;text-align:right;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);line-height:1.7}
+  .tb .r b{color:var(--ink);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,442px);gap:48px;align-items:center;padding:48px 0 42px}
+  .eyebrow{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:19px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--ink)}
+  h1{font-size:clamp(28px,3.7vw,45px);line-height:1.12;letter-spacing:-.026em;font-weight:600;max-width:18ch}
+  h1 em{font-style:normal;color:var(--ink)}
+  .lede{margin-top:20px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:50ch}
+  .cta{margin-top:29px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--ink)}
+  .cmd i{color:var(--ink);font-style:normal;margin-right:9px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px dashed var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--ink);border-color:var(--ink)}
+
+  /* one-way plate */
+  .plate{border:1px solid var(--line-2);background:var(--panel)}
+  .plate-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .plate-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .plate-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .plate-bd{padding:20px 18px 18px}
+
+  .node{border:1px solid var(--line-2);background:#0B0E12;padding:13px 12px;text-align:center}
+  .node b{display:block;font-size:11.5px;color:var(--fg);letter-spacing:.02em}
+  .node i{display:block;font-style:normal;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);margin-top:6px}
+  .node.door{border-color:var(--ink);background:rgba(76,143,192,.08)}
+  .node.door b{color:#9CC8E4}
+  .node.mirror{border-style:dashed}
+
+  .flow{height:34px}
+  .flow svg{width:100%;height:34px;display:block}
+  .flow path{stroke:var(--ink);stroke-width:1;fill:none}
+  .flow path.dim{stroke:var(--line-2)}
+  .flow text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:7.5px;fill:var(--fg-3);letter-spacing:.09em}
+
+  .blocked{margin-top:14px;padding:11px 13px;border:1px solid var(--line-2);background:#0B0E12;
+           display:flex;align-items:center;gap:11px}
+  .blocked s{text-decoration:none;font-size:13px;color:var(--fg-3)}
+  .blocked b{font-size:11.5px;font-weight:400;color:var(--fg-2)}
+  .blocked u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+
+  .strip{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12.5px;line-height:1.78;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:26px}
+
+  @media (max-width:940px){
+    .sheet{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:34px;padding:32px 0 28px}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="tb">
+    <div class="slug">anthropics<span> / </span>claude-plugins-community</div>
+    <div class="r">PYTHON &nbsp;·&nbsp; No.2 ON GITHUB TRENDING, 26 AUG 2026<br><b>351 STARS TODAY</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Read-only mirror</div>
+      <h1>You can read everything here. You submit <em>somewhere else</em>.</h1>
+      <p class="lede">A marketplace repository that accepts no pull requests. The description names the mirror and then names the one door that does take input, which is an unusual amount of plumbing to put in a single line.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone claude-plugins-community</div>
+        <a class="lnk" href="https://github.com/anthropics/claude-plugins-community">github.com/anthropics/claude-plugins-community</a>
+      </div>
+    </div>
+
+    <div class="plate">
+      <div class="plate-hd"><b>Where things flow</b><u>As published</u></div>
+      <div class="plate-bd">
+
+        <div class="node door">
+          <b>clau.de/plugin-directory-submission</b>
+          <i>the one door in</i>
+        </div>
+
+        <div class="flow">
+          <svg viewBox="0 0 380 34" preserveAspectRatio="none">
+            <path d="M190 0 L190 24"/>
+            <path d="M184 18 L190 26 L196 18"/>
+            <text x="200" y="16">submissions go here</text>
+          </svg>
+        </div>
+
+        <div class="node mirror">
+          <b>this repository</b>
+          <i>read-only mirror</i>
+        </div>
+
+        <div class="blocked">
+          <s>&times;</s><b>no pull request path</b><u>what a mirror means</u>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div>
+      <h3>Two products named</h3>
+      <p>Claude Cowork and Claude Code share this marketplace. Naming both in one line makes the plugin format the thing they have in common.</p>
+    </div>
+    <div>
+      <h3>A mirror is a promise</h3>
+      <p>Read-only tells contributors where their time goes. A repository that quietly ignores pull requests wastes more of it than one that says so up front.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No plugin count, no categories, no review criteria, no publishing cadence. The trending description names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 26 August 2026 is "Community plugin marketplace for Claude Cowork and Claude Code. Read-only mirror, submit plugins at clau.de/plugin-directory-submission." The plate draws only what that sentence states about direction of flow; no plugin, count, or review step is represented.</p>
+</div>
+</body>
+</html>

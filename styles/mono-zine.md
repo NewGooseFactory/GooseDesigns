@@ -1,9 +1,10 @@
 # Style — mono-zine
 
-12 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+13 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-26](../days/2026-08-26/) | [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) | amber | count the parties in each sentence and light the only one with a witness | landed | [png](../days/2026-08-26/01-ai-engineering.png) |
 | [2026-08-20](../days/2026-08-20/) | [mattpocock/skills](https://github.com/mattpocock/skills) | phosphor-green | make provenance the product shot, draw the .agents directory instead of a feature list | landed | [png](../days/2026-08-20/01-skills.png) |
 | [2026-08-15](../days/2026-08-15/) | [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything) | amber | show the failure before the fix, a stalled GUI run beside four working commands | landed | [png](../days/2026-08-15/02-cli-anything.png) |
 | [2026-08-09](../days/2026-08-09/) | [pranshuparmar/witr](https://github.com/pranshuparmar/witr) | phosphor-green | ask the tool's own question in the hero and run the trace beside it | landed: one question answered beats any feature list | [png](../days/2026-08-09/01-witr.png) |

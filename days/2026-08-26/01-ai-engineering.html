@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ai-engineering-from-scratch: learn it, build it, ship it for others</title>
+<style>
+  :root{
+    --void:#07080A; --panel:#0C0E11; --panel-2:#101317;
+    --line:#171B21; --line-2:#232932;
+    --fg:#E7EAEE; --fg-2:#8E97A3; --fg-3:#5C6570;
+    --amber:#E4A93C;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px;line-height:1.6}
+  .sheet{max-width:1060px;margin:0 auto;padding:0 36px 50px}
+
+  .top{display:flex;align-items:baseline;gap:14px;padding:20px 0 12px}
+  .top .slug{font-size:12.5px;letter-spacing:.03em}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--amber);font-weight:400}
+  .hr{height:0;border-top:1px solid var(--line-2)}
+
+  header{padding:44px 0 34px}
+  .ascii{color:var(--fg-3);font-size:11px;line-height:1.3;white-space:pre;margin-bottom:26px;letter-spacing:.03em}
+  .ascii b{color:var(--amber);font-weight:400}
+  .kick{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+  h1{font-size:clamp(26px,3.4vw,42px);line-height:1.14;letter-spacing:-.02em;font-weight:600;max-width:24ch}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{margin-top:20px;font-size:13px;line-height:1.82;color:var(--fg-2);max-width:58ch}
+  .cta{margin-top:28px;display:flex;gap:0;align-items:stretch;flex-wrap:wrap;border:1px solid var(--line-2);width:fit-content}
+  .cmd{font-size:13px;background:var(--panel-2);padding:12px 17px}
+  .cmd i{color:var(--amber);font-style:normal;margin-right:10px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;padding:12px 17px;border-left:1px solid var(--line-2);display:flex;align-items:center;
+       transition:color 150ms var(--out),background 150ms var(--out)}
+  .lnk:hover{color:var(--amber);background:var(--panel)}
+
+  /* three verbs as a stepped ASCII ladder */
+  .ladder{border:1px solid var(--line-2);background:var(--panel);margin-top:8px}
+  .ladder-hd{display:flex;align-items:center;gap:9px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .ladder-hd b{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .ladder-hd u{text-decoration:none;margin-left:auto;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .ladder-bd{padding:18px 16px 16px}
+
+  .rung{display:grid;grid-template-columns:26px 1fr;gap:14px;align-items:start;padding:13px 0;border-bottom:1px dashed var(--line-2)}
+  .rung:last-of-type{border-bottom:none}
+  .rung .n{font-size:10px;color:var(--fg-3);padding-top:6px}
+  .rung .body{min-width:0}
+  .rung .verb{font-size:clamp(18px,2.4vw,28px);letter-spacing:-.02em;color:var(--fg);line-height:1.05}
+  .rung.last .verb{color:var(--amber)}
+  .rung .gloss{font-size:11.5px;line-height:1.76;color:var(--fg-2);margin-top:9px;max-width:52ch}
+  .rung .bar{height:6px;background:#0B0D10;border:1px solid var(--line-2);margin-top:11px;position:relative}
+  .rung .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--amber);opacity:.32}
+  .rung.last .bar i{opacity:.72}
+
+  .tail-rail{display:flex;align-items:center;gap:11px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line-2);
+             font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .tail-rail b{color:var(--amber);font-weight:400}
+  .tail-rail .bar2{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--amber))}
+
+  .strip{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .strip h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12px;line-height:1.8;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:26px}
+
+  @media (max-width:900px){
+    .sheet{padding:0 16px 40px}
+    header{padding:30px 0 24px}
+    .ascii{font-size:9px}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">rohitg00<span> / </span>ai-engineering-from-scratch</div>
+    <div class="r">PYTHON &nbsp;·&nbsp; GITHUB TRENDING 26 AUG 2026 &nbsp;·&nbsp; <b>569 STARS TODAY</b></div>
+  </div>
+  <div class="hr"></div>
+
+  <header>
+    <pre class="ascii">   learn  ---&gt;  build  ---&gt;  <b>ship it for others</b>
+     .            .              |
+     '------------'--------------'
+              three sentences</pre>
+    <div class="kick">Six words, three periods</div>
+    <h1>Two verbs are for you. The third one is <em>for someone else</em>.</h1>
+    <p class="lede">"Learn it. Build it. Ship it for others." Most teaching repositories stop after the second sentence. This one attaches a recipient to the last verb, which changes what finishing means.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>git clone ai-engineering-from-scratch</div>
+      <a class="lnk" href="https://github.com/rohitg00/ai-engineering-from-scratch">github.com/rohitg00/ai-engineering-from-scratch</a>
+    </div>
+  </header>
+
+  <div class="ladder">
+    <div class="ladder-hd"><b>Three sentences, in order</b><u>Verbatim</u></div>
+    <div class="ladder-bd">
+
+      <div class="rung">
+        <span class="n">01</span>
+        <div class="body">
+          <div class="verb">Learn it.</div>
+          <div class="gloss">Private. Nobody can check whether this happened, and no artifact comes out the other side.</div>
+          <div class="bar"><i style="width:33%"></i></div>
+        </div>
+      </div>
+
+      <div class="rung">
+        <span class="n">02</span>
+        <div class="body">
+          <div class="verb">Build it.</div>
+          <div class="gloss">Still private, but now there is a thing on disk. Most courses end here and call it a portfolio.</div>
+          <div class="bar"><i style="width:66%"></i></div>
+        </div>
+      </div>
+
+      <div class="rung last">
+        <span class="n">03</span>
+        <div class="body">
+          <div class="verb">Ship it for others.</div>
+          <div class="gloss">The only sentence with a second party in it. Someone has to receive the thing, which is a harder bar than finishing it.</div>
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+      </div>
+
+      <div class="tail-rail">
+        <span>the clause that moves the bar</span><b>for others</b><span class="bar2"></span><span>quoted verbatim</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="strip">
+    <div>
+      <h3>Why the third rung is longer</h3>
+      <p>Learning and building are states you can declare. Shipping to someone is an event with a witness, so it fails in public when it fails.</p>
+    </div>
+    <div>
+      <h3>From scratch</h3>
+      <p>The repository name sets the starting point, and the three sentences set the finish line. Between them the whole curriculum is implied without a syllabus.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No module list, no hour count, no prerequisite, no project catalogue. The trending description is six words and names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 26 August 2026 is "Learn it. Build it. Ship it for others." The three bars are positional and carry no progress, completion, or enrollment data, because the repository publishes none on that page.</p>
+</div>
+</body>
+</html>

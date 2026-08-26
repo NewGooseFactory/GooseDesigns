@@ -227,3 +227,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-25 — [rep](days/2026-08-25/) — NousResearch/hermes-agent — data-viz/axis-blue — draw the axes the claim implies and leave the series empty → landed
 - 2026-08-25 — [rep](days/2026-08-25/) — multica-ai/andrej-karpathy-skills — poster/slate — set the filename as the entire hero when the deliverable is one file → landed
 - 2026-08-25 — [rep](days/2026-08-25/) — AgriciDaniel/claude-obsidian — editorial/indigo — ownership clause in the headline, mechanism in the panel, every node a note.md → landed
+- 2026-08-26 — [rep](days/2026-08-26/) — rohitg00/ai-engineering-from-scratch — mono-zine/amber — count the parties in each sentence and light the only one with a witness → landed
+- 2026-08-26 — [rep](days/2026-08-26/) — anthropics/claude-plugins-community — blueprint/mirror-blue — draw the direction of travel when a repository refuses input → landed
+- 2026-08-26 — [rep](days/2026-08-26/) — MadsLorentzen/ai-job-search — specimen/stamp-rust — stamp the instruction the project closes on, four published verbs beneath → landed
