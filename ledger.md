@@ -230,3 +230,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-26 — [rep](days/2026-08-26/) — rohitg00/ai-engineering-from-scratch — mono-zine/amber — count the parties in each sentence and light the only one with a witness → landed
 - 2026-08-26 — [rep](days/2026-08-26/) — anthropics/claude-plugins-community — blueprint/mirror-blue — draw the direction of travel when a repository refuses input → landed
 - 2026-08-26 — [rep](days/2026-08-26/) — MadsLorentzen/ai-job-search — specimen/stamp-rust — stamp the instruction the project closes on, four published verbs beneath → landed
+- 2026-08-27 — [rep](days/2026-08-27/) — DietrichGebert/ponytail — swiss/slate-teal — set the target number as the hero when the target is zero → landed
+- 2026-08-27 — [rep](days/2026-08-27/) — K-Dense-AI/scientific-agent-skills — data-viz/four-lane — pick the adjective over the number for the headline, attribute every count → landed
+- 2026-08-27 — [rep](days/2026-08-27/) — thedotmack/claude-mem — glass/frost-teal — draw the boundary the product exists to cross, three verbs between two sessions → landed

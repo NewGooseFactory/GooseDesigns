@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ponytail: the best code is the code you never wrote</title>
+<style>
+  :root{
+    --paper:#F3F1EC; --card:#FFFFFF; --sink:#E9E5DC;
+    --ink:#111110; --ink-2:#464540; --ink-3:#83817A;
+    --hair:#D5D1C8; --rule:#111110; --slate:#2E5A63;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+  .page{max-width:1240px;margin:0 auto;padding:0 42px 52px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:2px solid var(--rule)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--slate);font-weight:600}
+
+  header{padding:48px 0 0}
+  .kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin-bottom:16px}
+  .zero{font-weight:800;letter-spacing:-.05em;line-height:.82;
+        font-size:clamp(64px,15.6vw,208px);display:flex;justify-content:space-between;white-space:nowrap}
+  .zero span{display:block}
+  .zero .dim{color:var(--ink-3)}
+  .zeroline{display:flex;align-items:baseline;gap:14px;margin-top:12px;padding-top:11px;border-top:2px solid var(--rule)}
+  .zeroline .l{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+  .zeroline .rr{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink-3)}
+
+  .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,346px);gap:50px;align-items:start;padding:34px 0 40px}
+  .lede{font-size:18px;line-height:1.62;color:var(--ink-2);max-width:42ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-direction:column;gap:11px;align-items:flex-start;padding-top:3px}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;transition:background 150ms var(--out)}
+  .cmd:hover{background:var(--slate)}
+  .cmd i{color:#8FC0C8;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:2px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--slate);border-color:var(--slate)}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--rule)}
+  .half{padding:28px 30px 26px;border-right:2px solid var(--rule)}
+  .half:last-child{border-right:none;background:var(--sink)}
+  .half .n{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+  .half h3{font-size:clamp(21px,2.6vw,30px);line-height:1.06;letter-spacing:-.026em;font-weight:800;margin-bottom:12px}
+  .half:last-child h3{color:var(--slate)}
+  .half p{font-family:var(--mono);font-size:12px;line-height:1.78;color:var(--ink-2);max-width:40ch}
+  .half q{quotes:none;display:block;font-family:var(--mono);font-size:12.5px;color:var(--ink);margin-bottom:10px}
+
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:30px;max-width:108ch}
+
+  @media (max-width:940px){
+    .page{padding:0 18px 40px}
+    .under{grid-template-columns:1fr;gap:26px}
+    .cta{flex-direction:row;flex-wrap:wrap;align-items:center}
+    .two{grid-template-columns:1fr}
+    .half{border-right:none;border-bottom:2px solid var(--rule)}
+    .half:last-child{border-bottom:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">DietrichGebert<span> / </span>ponytail</div>
+    <div class="r">JavaScript &nbsp;·&nbsp; GitHub Trending 27 Aug 2026 &nbsp;·&nbsp; <b>1,598 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="kick">The target line count</div>
+    <div class="zero">
+      <span>Z</span><span>E</span><span>R</span><span>O</span><span class="dim">L</span><span class="dim">O</span><span class="dim">C</span>
+    </div>
+    <div class="zeroline">
+      <span class="l">the best outcome this tool aims for</span>
+      <span class="rr">every other number is worse</span>
+    </div>
+  </header>
+
+  <div class="under">
+    <p class="lede">"Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote." <b>Laziest is the operative word</b>, and it is doing something specific: pointing the agent at deletion and refusal rather than output volume.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>npm install ponytail</div>
+      <a class="lnk" href="https://github.com/DietrichGebert/ponytail">github.com/DietrichGebert/ponytail</a>
+    </div>
+  </div>
+
+  <section class="two">
+    <div class="half">
+      <div class="n">What every other agent optimises</div>
+      <h3>Lines produced</h3>
+      <p>Generation is the easy metric and the one that demos well. An agent that writes more looks more capable in a screenshot and costs more to maintain afterwards.</p>
+    </div>
+    <div class="half">
+      <div class="n">What this one optimises</div>
+      <h3>Lines avoided</h3>
+      <q>"the laziest senior dev in the room"</q>
+      <p>Seniority here means knowing which request does not need code. The description picks a person rather than a technique, which is a sharper way to specify a behaviour.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. Both quoted phrases come from the repository's own GitHub Trending description on 27 August 2026: "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote." No benchmark, diff size, token figure, or acceptance rate is represented here, because that description publishes none.</p>
+</div>
+</body>
+</html>

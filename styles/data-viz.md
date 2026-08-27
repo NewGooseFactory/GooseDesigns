@@ -1,9 +1,10 @@
 # Style — data-viz
 
-16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-27](../days/2026-08-27/) | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | four-lane | pick the adjective over the number for the headline, attribute every count | landed | [png](../days/2026-08-27/02-scientific-skills.png) |
 | [2026-08-25](../days/2026-08-25/) | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | axis-blue | draw the axes the claim implies and leave the series empty | landed | [png](../days/2026-08-25/01-hermes-agent.png) |
 | [2026-08-18](../days/2026-08-18/) | [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | six-lane | draw six lanes at equal width because the split is not published | landed | [png](../days/2026-08-18/03-cybersecurity-skills.png) |
 | [2026-08-15](../days/2026-08-15/) | [MakazhanAlpamys/Soup](https://github.com/MakazhanAlpamys/Soup) | vram-green | draw the constraint then the thing that beats it, one card limit across two VRAM tracks | landed | [png](../days/2026-08-15/01-soup.png) |

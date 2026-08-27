@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>claude-mem: persistent context across sessions</title>
+<style>
+  :root{
+    --bg:#090A0D; --panel:#0D0F13; --panel-2:#111419;
+    --line:#171B21; --line-2:#242A33;
+    --fg:#E6E9EF; --fg-2:#8E96A3; --fg-3:#5C6470;
+    --teal:#48C4B0;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:
+      radial-gradient(820px 460px at 76% 18%, rgba(72,196,176,.09), transparent 64%),
+      radial-gradient(600px 360px at 12% 86%, rgba(72,196,176,.045), transparent 62%);
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px 50px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 14px;border-bottom:1px solid var(--line-2)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--teal);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,424px);gap:48px;align-items:center;padding:48px 0 42px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:19px}
+  h1{font-size:clamp(30px,3.9vw,47px);line-height:1.1;letter-spacing:-.028em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--teal)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:45ch}
+  .cta{margin-top:29px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:rgba(255,255,255,.045);border:1px solid var(--line-2);border-radius:9px;padding:12px 17px;
+       transition:border-color 150ms var(--out),background 150ms var(--out)}
+  .cmd:hover{border-color:var(--teal);background:rgba(72,196,176,.08)}
+  .cmd i{color:var(--teal);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--teal);border-color:var(--teal)}
+
+  /* the one frosted panel: session to session */
+  .panel{
+    background:rgba(18,22,28,.72);
+    -webkit-backdrop-filter:blur(22px) saturate(150%);
+    backdrop-filter:blur(22px) saturate(150%);
+    border:1px solid var(--line-2);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 22px 46px rgba(0,0,0,.5);
+    overflow:hidden;
+  }
+  @media (prefers-reduced-transparency:reduce){ .panel{background:#12161C;backdrop-filter:none;-webkit-backdrop-filter:none} }
+  .panel-hd{display:flex;align-items:center;gap:9px;padding:11px 15px;border-bottom:1px solid rgba(255,255,255,.07)}
+  .panel-hd b{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .panel-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);
+              border:1px solid var(--line-2);border-radius:5px;padding:2px 7px}
+  .panel-bd{padding:16px 15px 15px}
+
+  .sess{border:1px solid var(--line-2);border-radius:9px;background:rgba(255,255,255,.02);padding:11px 13px}
+  .sess .lbl{font-family:var(--mono);font-size:10.5px;color:var(--fg-2);letter-spacing:.03em;display:flex;align-items:center;gap:9px}
+  .sess .lbl s{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .sess .body{font-family:var(--mono);font-size:11px;color:var(--fg-3);line-height:1.8;margin-top:8px}
+
+  .verbs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:11px 0}
+  .v{border:1px solid var(--line-2);border-radius:7px;background:rgba(255,255,255,.02);padding:9px 5px;text-align:center}
+  .v b{display:block;font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.02em}
+  .v i{display:block;font-style:normal;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-top:5px}
+
+  .arrow{height:22px;display:flex;align-items:center;justify-content:center}
+  .arrow svg{width:100%;height:22px}
+  .arrow path{stroke:var(--teal);stroke-width:1;fill:none;opacity:.7}
+
+  .hosts{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.07)}
+  .hosts span{font-family:var(--mono);font-size:9.5px;color:var(--fg-2);border:1px solid var(--line-2);border-radius:5px;padding:3px 7px}
+  .hosts span.more{color:var(--teal);border-color:#22453F}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:32px;padding:32px 0 28px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">thedotmack<span> / </span>claude-mem</div>
+    <div class="r">JavaScript &nbsp;·&nbsp; GitHub Trending 27 Aug 2026 &nbsp;·&nbsp; <b>133 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Across sessions</div>
+      <h1>The session ends. The <em>context</em> does not.</h1>
+      <p class="lede">Capture what happened, compress it, put the relevant part back at the start of the next run. Three verbs and one boundary, which is the whole shape of the problem this addresses.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> npm install claude-mem</div>
+        <a class="lnk" href="https://github.com/thedotmack/claude-mem">github.com/thedotmack/claude-mem</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hd"><b>Session to session</b><u>Shape only</u></div>
+      <div class="panel-bd">
+
+        <div class="sess">
+          <div class="lbl">session n<s>ends</s></div>
+          <div class="body">everything the agent did</div>
+        </div>
+
+        <div class="verbs">
+          <div class="v"><b>captures</b><i>step one</i></div>
+          <div class="v"><b>compresses</b><i>step two</i></div>
+          <div class="v"><b>injects</b><i>step three</i></div>
+        </div>
+
+        <div class="arrow">
+          <svg viewBox="0 0 380 22" preserveAspectRatio="none">
+            <path d="M190 0 L190 15"/>
+            <path d="M184 10 L190 17 L196 10"/>
+          </svg>
+        </div>
+
+        <div class="sess">
+          <div class="lbl">session n+1<s>starts</s></div>
+          <div class="body">the relevant part, already there</div>
+        </div>
+
+        <div class="hosts">
+          <span>Claude Code</span><span>OpenClaw</span><span>Codex</span><span>Gemini</span>
+          <span>Hermes</span><span>Copilot</span><span>OpenCode</span><span class="more">+ More</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Compression is the hard verb</h3>
+      <p>Capturing everything is cheap and injecting is mechanical. Deciding what survives the boundary is where a memory tool is actually judged.</p>
+    </div>
+    <div>
+      <h3>Seven hosts, one format</h3>
+      <p>The description names seven agent products and then says more. A memory layer that belongs to no single vendor is the only kind worth carrying between them.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No storage format, no compression ratio, no token budget, no retention window. The trending description names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The three verbs and the seven host names are quoted from the repository's own GitHub Trending description on 27 August 2026. The panel is labelled shape only: the two session boxes carry no transcript, no size, and no example, because the project publishes none there.</p>
+</div>
+</body>
+</html>

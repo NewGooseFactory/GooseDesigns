@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **228 mocks** across **76 days**. Newest first.
+Searchable master index. **231 mocks** across **77 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-27 | Thursday | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | swiss | slate-teal | set the target number as the hero when the target is zero | landed | [png](days/2026-08-27/01-ponytail.png) | [2026-08-27](days/2026-08-27/) |
+| 2026-08-27 | Thursday | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | data-viz | four-lane | pick the adjective over the number for the headline, attribute every count | landed | [png](days/2026-08-27/02-scientific-skills.png) | [2026-08-27](days/2026-08-27/) |
+| 2026-08-27 | Thursday | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | glass | frost-teal | draw the boundary the product exists to cross, three verbs between two sessions | landed | [png](days/2026-08-27/03-claude-mem.png) | [2026-08-27](days/2026-08-27/) |
 | 2026-08-26 | Wednesday | [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) | mono-zine | amber | count the parties in each sentence and light the only one with a witness | landed | [png](days/2026-08-26/01-ai-engineering.png) | [2026-08-26](days/2026-08-26/) |
 | 2026-08-26 | Wednesday | [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | blueprint | mirror-blue | draw the direction of travel when a repository refuses input | landed | [png](days/2026-08-26/02-claude-plugins.png) | [2026-08-26](days/2026-08-26/) |
 | 2026-08-26 | Wednesday | [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search) | specimen | stamp-rust | stamp the instruction the project closes on, four published verbs beneath | landed | [png](days/2026-08-26/03-ai-job-search.png) | [2026-08-26](days/2026-08-26/) |

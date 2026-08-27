@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>scientific-agent-skills: 163 skills and 100+ databases</title>
+<style>
+  :root{
+    --bg:#0A0C0E; --panel:#0E1114; --panel-2:#121619;
+    --line:#1A1F24; --line-2:#262E35;
+    --fg:#E5EAEE; --fg-2:#8D98A2; --fg-3:#5C666F;
+    --c1:#5FA8D3; --c2:#63B99A; --c3:#D3A45F; --c4:#B584C9;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px 50px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 14px;border-bottom:1px solid var(--line-2)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--c1);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:48px;align-items:center;padding:48px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--c1);margin-bottom:18px}
+  h1{font-size:clamp(30px,3.9vw,47px);line-height:1.1;letter-spacing:-.028em;font-weight:600;max-width:18ch}
+  h1 em{font-style:normal;color:var(--c1)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:47ch}
+  .cta{margin-top:29px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--c1)}
+  .cmd i{color:var(--c1);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--c1);border-color:var(--c1)}
+
+  .bignum{text-align:right}
+  .bignum b{display:block;font-family:var(--mono);font-size:clamp(58px,8vw,102px);line-height:.86;letter-spacing:-.05em;font-weight:600;font-variant-numeric:tabular-nums}
+  .bignum i{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-top:12px}
+  .bignum s{display:block;text-decoration:none;font-family:var(--mono);font-size:11px;color:var(--fg-2);margin-top:7px}
+
+  /* domain lanes */
+  .lanes{border:1px solid var(--line-2);background:var(--panel)}
+  .lanes-hd{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .lanes-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .lanes-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .lanes-bd{padding:18px 16px 16px}
+
+  .ln{display:grid;grid-template-columns:minmax(0,152px) 1fr;gap:16px;align-items:center;padding:9px 0}
+  .ln .nm{font-family:var(--mono);font-size:12px;color:var(--fg);display:flex;align-items:center;gap:9px}
+  .ln .sw{width:9px;height:9px;flex:none}
+  .ln .track{height:9px;background:#0B0E11;border:1px solid var(--line);position:relative}
+  .ln .track i{position:absolute;left:0;top:0;bottom:0;width:100%;opacity:.5}
+
+  .legend{display:flex;gap:18px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+          font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line-2);border-right:none;margin-top:36px}
+  .stat{border-right:1px solid var(--line-2);padding:18px 18px 16px}
+  .stat b{display:block;font-family:var(--mono);font-size:24px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-bottom:7px}
+  .stat i{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3)}
+  .stat:nth-child(1) b{color:var(--c1)}.stat:nth-child(2) b{color:var(--c2)}
+  .stat:nth-child(3) b{color:var(--c3)}.stat:nth-child(4) b{color:var(--c4)}
+
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:32px;padding:32px 0 28px}
+    .bignum{text-align:left}
+    .stats{grid-template-columns:repeat(2,1fr);border-right:1px solid var(--line-2)}
+    .ln{grid-template-columns:1fr;gap:7px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">K-Dense-AI<span> / </span>scientific-agent-skills</div>
+    <div class="r">Python &nbsp;·&nbsp; GitHub Trending 27 Aug 2026 &nbsp;·&nbsp; <b>138 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Open Agent Skills standard</div>
+      <h1>163 skills, and the word that matters is <em>validated</em>.</h1>
+      <p class="lede">A skills library for science has a different bar than one for code. The description says validated, names four domains, and counts the databases separately from the skills, which is the honest way to publish a corpus.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone scientific-agent-skills</div>
+        <a class="lnk" href="https://github.com/K-Dense-AI/scientific-agent-skills">github.com/K-Dense-AI/scientific-agent-skills</a>
+      </div>
+    </div>
+    <div class="bignum">
+      <b>163</b>
+      <i>validated skills</i>
+      <s>the project's own count</s>
+    </div>
+  </header>
+
+  <div class="lanes">
+    <div class="lanes-hd"><b>Four domains named</b><u>Names as published</u></div>
+    <div class="lanes-bd">
+      <div class="ln"><span class="nm"><i class="sw" style="background:var(--c1)"></i>biology</span><span class="track"><i style="background:var(--c1)"></i></span></div>
+      <div class="ln"><span class="nm"><i class="sw" style="background:var(--c2)"></i>chemistry</span><span class="track"><i style="background:var(--c2)"></i></span></div>
+      <div class="ln"><span class="nm"><i class="sw" style="background:var(--c3)"></i>medicine</span><span class="track"><i style="background:var(--c3)"></i></span></div>
+      <div class="ln"><span class="nm"><i class="sw" style="background:var(--c4)"></i>drug discovery</span><span class="track"><i style="background:var(--c4)"></i></span></div>
+      <div class="legend">
+        <span>lanes carry no per-domain counts</span>
+        <span>the project publishes four names and no split</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>163</b><i>skills</i></div>
+    <div class="stat"><b>100+</b><i>databases</i></div>
+    <div class="stat"><b>4</b><i>domains</i></div>
+    <div class="stat"><b>175,000+</b><i>scientists claimed</i></div>
+  </div>
+
+  <p class="note">Concept mock, not affiliated with the project. Every figure and domain name above is quoted from the repository's own GitHub Trending description on 27 August 2026. The four lanes are drawn at equal width on purpose: the project publishes which domains it covers and gives no per-domain split for the 163 skills. The 175,000+ user figure is the project's own claim and is reproduced here as its statement, unverified.</p>
+</div>
+</body>
+</html>

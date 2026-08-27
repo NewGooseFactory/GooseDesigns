@@ -1,9 +1,10 @@
 # Style — glass
 
-11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+12 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-08-27](../days/2026-08-27/) | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | frost-teal | draw the boundary the product exists to cross, three verbs between two sessions | landed | [png](../days/2026-08-27/03-claude-mem.png) |
 | [2026-08-19](../days/2026-08-19/) | [jundot/omlx](https://github.com/jundot/omlx) | frost-teal | let the interface choice be the hero, one frosted menu bar dropdown as the whole product shot | landed | [png](../days/2026-08-19/01-omlx.png) |
 | [2026-08-12](../days/2026-08-12/) | [macro-inc/macro](https://github.com/macro-inc/macro) | iris | show the at-mention doing work across four surfaces | landed | [png](../days/2026-08-12/03-macro.png) |
 | [2026-08-08](../days/2026-08-08/) | [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents) | teal | show the disagreement between seats instead of returns | landed: structure carries credibility where a number would have been fake | [png](../days/2026-08-08/03-tradingagents.png) |
