@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>go-modern-guidelines: help AI coding agents write modern Go</title>
+<style>
+  :root{
+    --paper:#F6F4F0; --card:#FFFFFF; --sink:#EDEAE3;
+    --ink:#16181A; --ink-2:#4A4E52; --ink-3:#878B90;
+    --hair:#DBD7CF; --rule:#16181A; --cyan:#1E6E8C;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",Times,serif;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1180px;margin:0 auto;padding:0 44px 52px}
+
+  .masthead{display:flex;align-items:baseline;gap:16px;padding:22px 0 13px;border-bottom:1px solid var(--rule)}
+  .masthead .slug{font-family:var(--mono);font-size:12.5px}
+  .masthead .slug span{color:var(--ink-3)}
+  .masthead .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .masthead .r b{color:var(--cyan);font-weight:600}
+
+  header{padding:54px 0 38px}
+  .kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+  h1{font-family:var(--serif);font-size:clamp(36px,5.2vw,68px);line-height:1.05;letter-spacing:-.022em;font-weight:400;max-width:16ch}
+  h1 em{font-style:italic;color:var(--cyan)}
+
+  .deck{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,388px);gap:52px;align-items:start;
+        padding-bottom:40px;border-bottom:1px solid var(--rule)}
+  .lede{font-size:18px;line-height:1.62;color:var(--ink-2);max-width:40ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:12px 18px;transition:background 150ms var(--out)}
+  .cmd:hover{background:var(--cyan)}
+  .cmd i{color:#8CC4D6;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--cyan);border-color:var(--cyan)}
+
+  /* the audience card */
+  .card{background:var(--card);border:1px solid var(--hair)}
+  .card-hd{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .card-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .card-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+             border:1px solid var(--hair);padding:2px 7px}
+  .card-bd{padding:18px 16px 16px}
+
+  .aud{border:1px solid var(--hair);padding:13px 14px;margin-bottom:12px}
+  .aud .lb{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+  .aud b{display:block;font-family:var(--mono);font-size:13px;color:var(--ink);letter-spacing:.01em}
+  .aud.hot{border-color:var(--cyan);background:rgba(30,110,140,.05)}
+  .aud.hot b{color:var(--cyan)}
+
+  .arrow{height:26px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .arrow svg{width:100%;height:26px}
+  .arrow path{stroke:var(--cyan);stroke-width:1;fill:none}
+  .arrow text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:8px;fill:var(--ink-3);letter-spacing:.09em}
+
+  .rail{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px solid var(--hair);
+        font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .rail b{color:var(--cyan);font-weight:400}
+  .rail .bar{flex:1;height:1px;background:var(--hair)}
+
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-top:34px}
+  .col{padding:0 28px 0 0;border-right:1px solid var(--hair)}
+  .col:last-child{border-right:none;padding-right:0}
+  .col:not(:first-child){padding-left:28px}
+  .col h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;font-weight:500}
+  .col p{font-size:14.5px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:30px}
+
+  @media (max-width:960px){
+    .page{padding:0 20px 40px}
+    header{padding:36px 0 28px}
+    .deck{grid-template-columns:1fr;gap:30px}
+    .cols{grid-template-columns:1fr}
+    .col{border-right:none;border-bottom:1px solid var(--hair);padding:0 0 20px 0}
+    .col:not(:first-child){padding-left:0;padding-top:20px}
+    .col:last-child{border-bottom:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="slug">JetBrains<span> / </span>go-modern-guidelines</div>
+    <div class="r">Go &nbsp;·&nbsp; GitHub Trending 28 Aug 2026 &nbsp;·&nbsp; <b>300 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="kick">Six words</div>
+    <h1>Style guides used to be written <em>for people</em>.</h1>
+  </header>
+
+  <div class="deck">
+    <div>
+      <p class="lede">"Help AI coding agents write modern Go." <b>The audience noun is the whole story.</b> A guidelines repository from a tooling vendor that names agents as its reader is a different document from one aimed at a team, and it will be read differently: loaded, not skimmed.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i>git clone go-modern-guidelines</div>
+        <a class="lnk" href="https://github.com/JetBrains/go-modern-guidelines">github.com/JetBrains/go-modern-guidelines</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><b>Who the document addresses</b><u>As published</u></div>
+      <div class="card-bd">
+
+        <div class="aud">
+          <div class="lb">the usual reader of a style guide</div>
+          <b>a developer on the team</b>
+        </div>
+
+        <div class="arrow">
+          <svg viewBox="0 0 340 26" preserveAspectRatio="none">
+            <path d="M170 0 L170 17"/>
+            <path d="M164 12 L170 19 L176 12"/>
+            <text x="182" y="12">this one addresses</text>
+          </svg>
+        </div>
+
+        <div class="aud hot">
+          <div class="lb">the reader named here</div>
+          <b>AI coding agents</b>
+        </div>
+
+        <div class="rail">
+          <span>and the target is</span><b>modern Go</b><span class="bar"></span><span>no rule count published</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cols">
+    <div class="col">
+      <h3>Modern is a moving word</h3>
+      <p>Every Go release changes what modern means. A guidelines document indexed to that word is committing to revision rather than to a fixed position.</p>
+    </div>
+    <div class="col">
+      <h3>Help, not enforce</h3>
+      <p>The verb is soft on purpose. This reads as context an agent loads rather than a linter that blocks a commit, which is a different place in the toolchain.</p>
+    </div>
+    <div class="col">
+      <h3>A vendor writing for agents</h3>
+      <p>JetBrains sells an IDE to humans. Publishing guidance aimed at agents is that company describing who else is now typing in its editor.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 28 August 2026 is "Help AI coding agents write modern Go." The upper card is a generic description of who style guides usually address and is drawn for contrast; no rule, count, or document content from this repository is represented here.</p>
+</div>
+</body>
+</html>

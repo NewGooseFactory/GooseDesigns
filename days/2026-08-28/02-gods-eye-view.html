@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gods-eye-view: a satellite simulator where the data is real</title>
+<style>
+  :root{
+    --void:#06070A; --panel:#0A0C11; --panel-2:#0E1116;
+    --line:#141821; --line-2:#1F2530;
+    --fg:#E5E9F0; --fg-2:#8B95A4; --fg-3:#59626F;
+    --amber:#D9A441; --green:#4FB07A;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--void);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px;
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:100% 52px, 52px 100%;
+  }
+  .frame{max-width:1200px;margin:0 auto;padding:0 38px 48px}
+  .bezel{border-left:1px solid var(--line-2);border-right:1px solid var(--line-2);padding:0 28px;
+         background:linear-gradient(180deg,rgba(10,12,17,.94),rgba(6,7,10,.94))}
+
+  .rail{display:flex;align-items:center;gap:12px;padding:16px 0 13px;border-bottom:1px solid var(--line-2)}
+  .lamp{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);flex:none}
+  .rail .id{font-size:12.5px;letter-spacing:.03em}
+  .rail .id span{color:var(--fg-3)}
+  .rail .r{margin-left:auto;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .rail .r b{color:var(--amber);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,428px);gap:46px;align-items:center;padding:46px 0 40px}
+  .eyebrow{font-size:10.5px;letter-spacing:.21em;text-transform:uppercase;color:var(--amber);margin-bottom:19px;display:flex;align-items:center;gap:10px}
+  .eyebrow::after{content:"";flex:1;max-width:170px;height:1px;background:linear-gradient(90deg,#3A2C12,transparent)}
+  h1{font-size:clamp(28px,3.6vw,44px);line-height:1.12;letter-spacing:-.024em;font-weight:600;max-width:19ch}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{margin-top:20px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:50ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--amber)}
+  .cmd i{color:var(--amber);font-style:normal;margin-right:9px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--amber);border-color:var(--amber)}
+
+  /* the instrument: sim frame, real feed */
+  .inst{border:1px solid var(--line-2);background:var(--panel)}
+  .inst-hd{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .inst-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .inst-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .inst-bd{padding:16px 14px 14px}
+
+  .row{display:grid;grid-template-columns:112px 1fr 78px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+  .row:last-of-type{border-bottom:none}
+  .row .k{font-size:11px;color:var(--fg-2);letter-spacing:.02em}
+  .row .v{font-size:11.5px;color:var(--fg);letter-spacing:.02em}
+  .row .t{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;text-align:right}
+  .row.sim .t{color:var(--fg-3)}
+  .row.real .t{color:var(--green)}
+  .row.real .v{color:#8FD3AC}
+
+  .split{margin-top:13px;padding-top:12px;border-top:1px dashed var(--line-2);display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .sp{border:1px solid var(--line-2);background:#080A0E;padding:11px 11px 10px}
+  .sp .lb{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-bottom:7px}
+  .sp b{display:block;font-size:12px;letter-spacing:.02em}
+  .sp.a b{color:var(--fg-2)}
+  .sp.b{border-color:var(--green)}
+  .sp.b b{color:#8FD3AC}
+
+  .cap{display:flex;align-items:center;gap:10px;margin-top:13px;padding-top:11px;border-top:1px solid var(--line);
+       font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .cap b{color:var(--green);font-weight:400}
+  .cap .bar{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--green))}
+
+  .strip{border-top:1px solid var(--line-2);padding:26px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12.5px;line-height:1.78;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:24px}
+
+  @media (max-width:960px){
+    .frame{padding:0 16px 40px}.bezel{padding:0 14px}
+    header{grid-template-columns:1fr;gap:32px;padding:30px 0 26px}
+    .row{grid-template-columns:1fr;gap:5px}
+    .row .t{text-align:left}
+    .split{grid-template-columns:1fr}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="frame"><div class="bezel">
+
+  <div class="rail">
+    <i class="lamp"></i>
+    <div class="id">bilawalsidhu<span> / </span>gods-eye-view</div>
+    <div class="r">JAVASCRIPT &nbsp;·&nbsp; No.1 ON GITHUB TRENDING, 28 AUG 2026 &nbsp;·&nbsp; <b>1,984 STARS TODAY</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Open source spatial intelligence</div>
+      <h1>The instrument is a simulation. The <em>data underneath is not</em>.</h1>
+      <p class="lede">A spy satellite simulator with a real feed behind the glass. The description makes the split explicit in its own sentence, which is the honest way to ship something that looks like a toy and reads like a source.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone gods-eye-view</div>
+        <a class="lnk" href="https://github.com/bilawalsidhu/gods-eye-view">github.com/bilawalsidhu/gods-eye-view</a>
+      </div>
+    </div>
+
+    <div class="inst">
+      <div class="inst-hd"><b>What is simulated, what is live</b><u>As published</u></div>
+      <div class="inst-bd">
+        <div class="row sim"><span class="k">the interface</span><span class="v">spy satellite simulator</span><span class="t">simulated</span></div>
+        <div class="row sim"><span class="k">the surface</span><span class="v">photorealistic 3D globe</span><span class="t">rendered</span></div>
+        <div class="row real"><span class="k">the feed</span><span class="v">live open source spatial intel</span><span class="t">real</span></div>
+        <div class="row sim"><span class="k">the venue</span><span class="v">in your browser</span><span class="t">no install</span></div>
+
+        <div class="split">
+          <div class="sp a"><div class="lb">what it looks like</div><b>a game</b></div>
+          <div class="sp b"><div class="lb">what it reads from</div><b>open sources</b></div>
+        </div>
+
+        <div class="cap">
+          <span>the clause that changes everything</span><b>except the data is real</b><span class="bar"></span><span>quoted verbatim</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div>
+      <h3>The word except</h3>
+      <p>One conjunction carries the whole pitch. Everything before it sets an expectation of make believe, and the clause after it withdraws that expectation.</p>
+    </div>
+    <div>
+      <h3>Open source intelligence</h3>
+      <p>The material is public by definition, which is what makes a browser toy an acceptable delivery vehicle for it.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No provider, no refresh rate, no coverage area, no resolution. The trending description names none of it, so the readout carries labels and no figures.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. Every row label is quoted from the repository's own GitHub Trending description on 28 August 2026: "A spy satellite simulator in your browser, except the data is real. Live open source spatial intelligence on a photorealistic 3D globe." No satellite, source, coordinate, or measurement is represented here.</p>
+
+</div></div>
+</body>
+</html>

@@ -233,3 +233,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-27 — [rep](days/2026-08-27/) — DietrichGebert/ponytail — swiss/slate-teal — set the target number as the hero when the target is zero → landed
 - 2026-08-27 — [rep](days/2026-08-27/) — K-Dense-AI/scientific-agent-skills — data-viz/four-lane — pick the adjective over the number for the headline, attribute every count → landed
 - 2026-08-27 — [rep](days/2026-08-27/) — thedotmack/claude-mem — glass/frost-teal — draw the boundary the product exists to cross, three verbs between two sessions → landed
+- 2026-08-28 — [rep](days/2026-08-28/) — tt-a1i/archify — blueprint/draft-blue — grade the three adjectives by which one can fail a check → landed
+- 2026-08-28 — [rep](days/2026-08-28/) — bilawalsidhu/gods-eye-view — hud/instrument-amber — split the readout by simulated and live, colour exactly one row → landed
+- 2026-08-28 — [rep](days/2026-08-28/) — JetBrains/go-modern-guidelines — editorial/cyan — make the audience noun the headline and stack it against the usual reader → landed

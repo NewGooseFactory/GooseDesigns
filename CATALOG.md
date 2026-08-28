@@ -1,11 +1,14 @@
 # Catalog — every design rep
 
-Searchable master index. **231 mocks** across **77 days**. Newest first.
+Searchable master index. **234 mocks** across **78 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-28 | Friday | [tt-a1i/archify](https://github.com/tt-a1i/archify) | blueprint | draft-blue | grade the three adjectives by which one can fail a check | landed | [png](days/2026-08-28/01-archify.png) | [2026-08-28](days/2026-08-28/) |
+| 2026-08-28 | Friday | [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) | hud | instrument-amber | split the readout by simulated and live, colour exactly one row | landed | [png](days/2026-08-28/02-gods-eye-view.png) | [2026-08-28](days/2026-08-28/) |
+| 2026-08-28 | Friday | [JetBrains/go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines) | editorial | cyan | make the audience noun the headline and stack it against the usual reader | landed | [png](days/2026-08-28/03-go-guidelines.png) | [2026-08-28](days/2026-08-28/) |
 | 2026-08-27 | Thursday | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | swiss | slate-teal | set the target number as the hero when the target is zero | landed | [png](days/2026-08-27/01-ponytail.png) | [2026-08-27](days/2026-08-27/) |
 | 2026-08-27 | Thursday | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | data-viz | four-lane | pick the adjective over the number for the headline, attribute every count | landed | [png](days/2026-08-27/02-scientific-skills.png) | [2026-08-27](days/2026-08-27/) |
 | 2026-08-27 | Thursday | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | glass | frost-teal | draw the boundary the product exists to cross, three verbs between two sessions | landed | [png](days/2026-08-27/03-claude-mem.png) | [2026-08-27](days/2026-08-27/) |

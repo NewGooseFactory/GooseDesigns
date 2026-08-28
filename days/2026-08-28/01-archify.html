@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>archify: verifiable diagrams that export clean</title>
+<style>
+  :root{
+    --bg:#0A0B0E; --grid:#12151A; --line:#181D24; --line-2:#252D37;
+    --panel:#0D1014; --panel-2:#11151A;
+    --fg:#E4E9EF; --fg-2:#8D98A5; --fg-3:#5B6570;
+    --ink:#5B93D6;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:26px 26px,26px 26px;
+  }
+  .sheet{max-width:1200px;margin:0 auto;padding:0 38px 50px}
+
+  .tb{display:flex;align-items:flex-start;gap:18px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .tb .slug{font-size:12.5px;letter-spacing:.03em}
+  .tb .slug span{color:var(--fg-3)}
+  .tb .r{margin-left:auto;text-align:right;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);line-height:1.7}
+  .tb .r b{color:var(--ink);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,452px);gap:46px;align-items:center;padding:46px 0 40px}
+  .eyebrow{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:19px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--ink)}
+  h1{font-size:clamp(28px,3.7vw,45px);line-height:1.12;letter-spacing:-.026em;font-weight:600;max-width:18ch}
+  h1 em{font-style:normal;color:var(--ink)}
+  .lede{margin-top:20px;font-size:13.5px;line-height:1.8;color:var(--fg-2);max-width:50ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--ink)}
+  .cmd i{color:var(--ink);font-style:normal;margin-right:9px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px dashed var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--ink);border-color:var(--ink)}
+
+  /* the five diagram kinds as drafting stamps */
+  .plate{border:1px solid var(--line-2);background:var(--panel)}
+  .plate-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .plate-hd b{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .plate-hd u{text-decoration:none;margin-left:auto;font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line-2);padding:2px 7px}
+  .plate-bd{padding:16px 15px 14px}
+
+  .kinds{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
+  .kd{border:1px solid var(--line-2);background:#0B0E12;padding:11px 5px 10px;text-align:center;min-width:0}
+  .kd .ic{height:26px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .kd .ic svg{width:26px;height:26px}
+  .kd .ic path,.kd .ic rect,.kd .ic circle,.kd .ic line{stroke:var(--ink);stroke-width:1.1;fill:none}
+  .kd b{display:block;font-size:8.5px;letter-spacing:.06em;color:var(--fg-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .exp{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .ex{border:1px solid var(--line-2);background:#0B0E12;padding:11px 12px;display:flex;align-items:center;gap:10px}
+  .ex s{text-decoration:none;font-size:12px;color:var(--ink)}
+  .ex b{font-size:11px;font-weight:400;color:var(--fg-2)}
+  .ex.solo{grid-column:1/-1;border-color:var(--ink);background:rgba(91,147,214,.07)}
+  .ex.solo b{color:#A6C8ED}
+
+  .rail{display:flex;align-items:center;gap:11px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-2);
+        font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .rail b{color:var(--ink);font-weight:400}
+  .rail .bar{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--ink))}
+
+  .strip{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:9px;font-weight:400}
+  .strip p{font-size:12.5px;line-height:1.78;color:var(--fg-2);max-width:34ch}
+  .note{font-size:10px;color:var(--fg-3);line-height:1.85;padding-top:26px}
+
+  @media (max-width:960px){
+    .sheet{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:32px;padding:30px 0 26px}
+    .kinds{grid-template-columns:repeat(3,1fr)}
+    .exp{grid-template-columns:1fr}
+    .strip{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="tb">
+    <div class="slug">tt-a1i<span> / </span>archify</div>
+    <div class="r">JAVASCRIPT &nbsp;·&nbsp; No.4 ON GITHUB TRENDING, 28 AUG 2026<br><b>4,239 STARS TODAY</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Agent skill</div>
+      <h1>Three adjectives for a diagram, and only one of them <em>can fail a check</em>.</h1>
+      <p class="lede">Beautiful is taste and self-contained is a file property. Verifiable is the word that puts a diagram under review, which is an unusual promise for generated output to make about itself.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> npx archify</div>
+        <a class="lnk" href="https://github.com/tt-a1i/archify">github.com/tt-a1i/archify</a>
+      </div>
+    </div>
+
+    <div class="plate">
+      <div class="plate-hd"><b>Five kinds, one output format</b><u>Names as published</u></div>
+      <div class="plate-bd">
+
+        <div class="kinds">
+          <div class="kd">
+            <div class="ic"><svg viewBox="0 0 26 26"><rect x="3" y="4" width="8" height="6"/><rect x="15" y="4" width="8" height="6"/><rect x="9" y="16" width="8" height="6"/><line x1="7" y1="10" x2="13" y2="16"/><line x1="19" y1="10" x2="13" y2="16"/></svg></div>
+            <b>architecture</b>
+          </div>
+          <div class="kd">
+            <div class="ic"><svg viewBox="0 0 26 26"><rect x="3" y="10" width="6" height="6"/><rect x="17" y="10" width="6" height="6"/><line x1="9" y1="13" x2="17" y2="13"/><path d="M14 10 L17 13 L14 16"/></svg></div>
+            <b>workflow</b>
+          </div>
+          <div class="kd">
+            <div class="ic"><svg viewBox="0 0 26 26"><line x1="7" y1="3" x2="7" y2="23"/><line x1="19" y1="3" x2="19" y2="23"/><line x1="7" y1="9" x2="19" y2="9"/><line x1="19" y1="16" x2="7" y2="16"/></svg></div>
+            <b>sequence</b>
+          </div>
+          <div class="kd">
+            <div class="ic"><svg viewBox="0 0 26 26"><circle cx="6" cy="13" r="3"/><circle cx="20" cy="13" r="3"/><line x1="9" y1="13" x2="17" y2="13"/><line x1="13" y1="6" x2="13" y2="10"/><line x1="13" y1="16" x2="13" y2="20"/></svg></div>
+            <b>data-flow</b>
+          </div>
+          <div class="kd">
+            <div class="ic"><svg viewBox="0 0 26 26"><circle cx="13" cy="13" r="8"/><path d="M13 5 L13 13 L19 16"/></svg></div>
+            <b>lifecycle</b>
+          </div>
+        </div>
+
+        <div class="exp">
+          <div class="ex"><s>+</s><b>self-contained HTML</b></div>
+          <div class="ex"><s>+</s><b>with motion</b></div>
+          <div class="ex solo"><s>+</s><b>crisp export</b></div>
+        </div>
+
+        <div class="rail">
+          <span>the adjective under review</span><b>verifiable</b><span class="bar"></span><span>no check published</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div>
+      <h3>Why verifiable is the risk</h3>
+      <p>A generated diagram that claims to be checkable invites someone to check it. That is a promise with a failure mode attached, which most output tools avoid making.</p>
+    </div>
+    <div>
+      <h3>Export is the tell</h3>
+      <p>Naming crisp export means the artifact leaves the tool. A diagram you can drop into a document outlives the session that produced it.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No verification method, no example diagram, no export format list. The trending description names five kinds and three adjectives and nothing else.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The five diagram kinds and the three output claims are quoted from the repository's own GitHub Trending description on 28 August 2026: "Agent skill for beautiful, verifiable architecture, workflow, sequence, data-flow, and lifecycle diagrams, self-contained HTML with motion and crisp export." The five icons are generic drafting marks drawn for this mock and represent no output from the tool.</p>
+</div>
+</body>
+</html>
