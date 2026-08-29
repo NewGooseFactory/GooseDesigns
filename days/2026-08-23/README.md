@@ -1,4 +1,4 @@
-# Design Rep — Sunday, August 23
+﻿# Design Rep — Sunday, August 23
 
 > 3 mocks — ledger, cell-grid, constellation
 

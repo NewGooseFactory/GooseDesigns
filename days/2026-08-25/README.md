@@ -1,4 +1,4 @@
-# Design Rep — Tuesday, August 25
+﻿# Design Rep — Tuesday, August 25
 
 > 3 mocks — data-viz, poster, editorial
 

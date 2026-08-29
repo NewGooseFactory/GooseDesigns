@@ -1,4 +1,4 @@
-# Design Rep — Monday, August 10
+﻿# Design Rep — Monday, August 10
 
 > 3 mocks — blueprint, poster, warm-minimal
 

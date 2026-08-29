@@ -1,4 +1,4 @@
-# Design Rep — Tuesday, August 18
+﻿# Design Rep — Tuesday, August 18
 
 > 3 mocks — blueprint, swiss, data-viz
 

@@ -1,4 +1,4 @@
-# Design Taste Ledger
+﻿# Design Taste Ledger
 
 Append-only record — one line per mock: date · repo · style · idea tested → verdict.
 
@@ -236,3 +236,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-28 — [rep](days/2026-08-28/) — tt-a1i/archify — blueprint/draft-blue — grade the three adjectives by which one can fail a check → landed
 - 2026-08-28 — [rep](days/2026-08-28/) — bilawalsidhu/gods-eye-view — hud/instrument-amber — split the readout by simulated and live, colour exactly one row → landed
 - 2026-08-28 — [rep](days/2026-08-28/) — JetBrains/go-modern-guidelines — editorial/cyan — make the audience noun the headline and stack it against the usual reader → landed
+- 2026-08-29 — [rep](days/2026-08-29/) — abhigyanpatwari/GitNexus — constellation/violet — draw the artifact but label it shape only with generic nodes → works, hub circle needed r=35 to hold its label
+- 2026-08-29 — [rep](days/2026-08-29/) — tailscale/tailcat — brutalist/wire-rust — plus panel and minus panel mirroring the sentence structure → strongest of the three, fourteen words fill a screen honestly
+- 2026-08-29 — [rep](days/2026-08-29/) — abi/screenshot-to-code — warm-minimal/amber — put the contested adjective on a review line → works, fan lines a hair off chip centers

@@ -1,4 +1,4 @@
-# Design Rep — Tuesday, July 14
+﻿# Design Rep — Tuesday, July 14
 
 > 3 mocks — data-viz, blueprint, mono-zine
 

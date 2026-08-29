@@ -1,4 +1,4 @@
-# Design Rep — Wednesday, August 26
+﻿# Design Rep — Wednesday, August 26
 
 > 3 mocks — mono-zine, blueprint, specimen
 

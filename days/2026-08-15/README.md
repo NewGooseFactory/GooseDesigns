@@ -1,4 +1,4 @@
-# Design Rep — Saturday, August 15
+﻿# Design Rep — Saturday, August 15
 
 > 3 mocks — data-viz, mono-zine, editorial
 

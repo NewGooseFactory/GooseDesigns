@@ -1,4 +1,4 @@
-# Design Rep — Wednesday, August 19
+﻿# Design Rep — Wednesday, August 19
 
 > 3 mocks — glass, editorial, neon-noir
 

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitNexus: a code knowledge graph with no server</title>
+<style>
+  :root{
+    --void:#08090C; --panel:#0C0E12; --panel-2:#101318;
+    --line:#161A21; --line-2:#232A34;
+    --fg:#E5E9F0; --fg-2:#8C96A4; --fg-3:#5A6470;
+    --violet:#8B7BE0;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:
+      radial-gradient(780px 440px at 74% 20%, rgba(139,123,224,.10), transparent 64%),
+      radial-gradient(560px 340px at 12% 84%, rgba(139,123,224,.05), transparent 62%);
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px 50px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 14px;border-bottom:1px solid var(--line-2)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--violet);font-weight:400}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:46px;align-items:center;padding:46px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);margin-bottom:19px}
+  h1{font-size:clamp(30px,3.9vw,47px);line-height:1.1;letter-spacing:-.028em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--violet)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:45ch}
+  .cta{margin-top:29px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--violet)}
+  .cmd i{color:var(--violet);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--violet);border-color:var(--violet)}
+
+  /* the constellation: drop in, graph out, nothing leaves */
+  .sky{width:400px;height:352px;position:relative;justify-self:end;flex:none;
+       border:1px solid var(--line-2);background:var(--panel)}
+  .sky-hd{position:absolute;left:0;right:0;top:0;padding:9px 13px;border-bottom:1px solid var(--line);
+          display:flex;align-items:center;gap:8px;background:var(--panel-2);z-index:2}
+  .sky-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .sky-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+            border:1px solid var(--line-2);padding:2px 6px}
+  .sky svg{position:absolute;left:0;top:32px;width:400px;height:284px}
+  .sky svg line{stroke:var(--violet);stroke-width:1;opacity:.34}
+  .sky svg line.hot{opacity:.7}
+  .sky svg circle.node{fill:#11121A;stroke:var(--violet);stroke-width:1;opacity:.92}
+  .sky svg circle.big{fill:#181430;stroke:var(--violet);stroke-width:1.5}
+  .sky svg circle.dust{fill:var(--violet);opacity:.22}
+  .sky svg text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;fill:var(--fg-2);font-size:8px;letter-spacing:.04em}
+  .sky svg text.lbl{fill:#BEB0F0;font-size:8.5px;letter-spacing:.08em}
+  .sky svg text.sub{fill:var(--fg-3);font-size:7px;letter-spacing:.08em}
+
+  .boundary{position:absolute;left:13px;right:13px;bottom:11px;display:flex;align-items:center;gap:9px;
+            font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+  .boundary b{color:var(--violet);font-weight:400}
+  .boundary .bar2{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),var(--violet))}
+
+  .inputs{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line-2);border-right:none;margin-top:34px}
+  .inp{border-right:1px solid var(--line-2);padding:14px 14px 12px}
+  .inp b{display:block;font-family:var(--mono);font-size:12px;color:var(--fg);margin-bottom:6px}
+  .inp i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--violet);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:32px;padding:30px 0 26px}
+    .sky{justify-self:start;width:100%;max-width:400px}
+    .inputs{grid-template-columns:repeat(2,1fr);border-right:1px solid var(--line-2)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">abhigyanpatwari<span> / </span>GitNexus</div>
+    <div class="r">TypeScript &nbsp;·&nbsp; GitHub Trending 29 Aug 2026 &nbsp;·&nbsp; <b>202 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Zero-server</div>
+      <h1>Your repository becomes a graph <em>without leaving the tab</em>.</h1>
+      <p class="lede">Drop in a repo or a ZIP and get an interactive knowledge graph with a Graph RAG agent built in. The whole thing runs client-side, which is the part that decides whether you can point it at work code.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> open GitNexus in browser</div>
+        <a class="lnk" href="https://github.com/abhigyanpatwari/GitNexus">github.com/abhigyanpatwari/GitNexus</a>
+      </div>
+    </div>
+
+    <div class="sky">
+      <div class="sky-hd"><b>What gets built</b><u>Shape only</u></div>
+      <svg viewBox="0 0 400 284">
+        <circle class="dust" cx="44" cy="38" r="1.2"/>
+        <circle class="dust" cx="352" cy="52" r="1"/>
+        <circle class="dust" cx="70" cy="240" r="1.1"/>
+        <circle class="dust" cx="330" cy="232" r="1.2"/>
+        <circle class="dust" cx="200" cy="24" r="1"/>
+
+        <line class="hot" x1="200" y1="132" x2="200" y2="70"/>
+        <line class="hot" x1="200" y1="132" x2="108" y2="196"/>
+        <line class="hot" x1="200" y1="132" x2="292" y2="196"/>
+        <line x1="200" y1="70" x2="108" y2="196"/>
+        <line x1="200" y1="70" x2="292" y2="196"/>
+        <line x1="108" y1="196" x2="292" y2="196"/>
+        <line x1="108" y1="196" x2="62" y2="132"/>
+        <line x1="292" y1="196" x2="338" y2="132"/>
+        <line x1="62" y1="132" x2="200" y2="70"/>
+        <line x1="338" y1="132" x2="200" y2="70"/>
+
+        <circle class="big" cx="200" cy="132" r="35"/>
+        <text class="lbl" x="200" y="130" text-anchor="middle">Graph RAG</text>
+        <text class="sub" x="200" y="143" text-anchor="middle">built in</text>
+
+        <circle class="node" cx="200" cy="70" r="6"/>
+        <text x="200" y="56" text-anchor="middle">node</text>
+        <circle class="node" cx="108" cy="196" r="6"/>
+        <text x="108" y="214" text-anchor="middle">node</text>
+        <circle class="node" cx="292" cy="196" r="6"/>
+        <text x="292" y="214" text-anchor="middle">node</text>
+        <circle class="node" cx="62" cy="132" r="5"/>
+        <circle class="node" cx="338" cy="132" r="5"/>
+      </svg>
+      <div class="boundary">
+        <span>nothing crosses</span><b>the browser</b><span class="bar2"></span><span>no node names invented</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="inputs">
+    <div class="inp"><b>GitHub</b><i>named source</i></div>
+    <div class="inp"><b>GitLab</b><i>named source</i></div>
+    <div class="inp"><b>Azure</b><i>named source</i></div>
+    <div class="inp"><b>ZIP or local</b><i>named source</i></div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Zero-server is the claim</h3>
+      <p>A code intelligence tool that never uploads is the difference between a demo on a public repo and something you can run against a private one.</p>
+    </div>
+    <div>
+      <h3>The agent is inside the graph</h3>
+      <p>Graph RAG ships with the graph rather than beside it, so the retrieval structure and the thing querying it are the same artifact.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No node counts, no language support list, no repo size limit, no parse time. The trending description names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The four sources, the Graph RAG agent, and the zero-server claim are quoted from the repository's own GitHub Trending description on 29 August 2026. The constellation is labelled shape only: generic nodes with no file names, no counts, and no repository contents, because the project publishes none there.</p>
+</div>
+</body>
+</html>

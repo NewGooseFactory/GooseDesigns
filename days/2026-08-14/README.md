@@ -1,4 +1,4 @@
-# Design Rep — Friday, August 14
+﻿# Design Rep — Friday, August 14
 
 > 3 mocks — hud, strata, blueprint
 

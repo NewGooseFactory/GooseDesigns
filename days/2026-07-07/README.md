@@ -1,4 +1,4 @@
-# Design Rep — Tuesday, July 7
+﻿# Design Rep — Tuesday, July 7
 
 > 3 mocks — poster, data-viz, bauhaus
 

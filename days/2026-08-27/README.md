@@ -1,4 +1,4 @@
-# Design Rep — Thursday, August 27
+﻿# Design Rep — Thursday, August 27
 
 > 3 mocks — swiss, data-viz, glass
 

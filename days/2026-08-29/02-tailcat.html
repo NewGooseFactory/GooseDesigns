@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tailcat: like netcat, over one plane and not the other</title>
+<style>
+  :root{
+    --paper:#F2F0EC; --card:#FFFFFF; --sink:#E8E5DE;
+    --ink:#101112; --ink-2:#43454A; --ink-3:#82858B;
+    --hair:#D6D3CB; --rule:#101112; --wire:#8A3324;
+    --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sys);min-height:100vh}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 34px 48px}
+
+  .top{border-bottom:3px solid var(--rule);display:flex;align-items:baseline;gap:16px;padding:16px 0 12px}
+  .top .slug{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:-.01em}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--wire)}
+
+  header{padding:44px 0 0;border-bottom:3px solid var(--rule)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--wire);margin-bottom:16px}
+  h1{font-size:clamp(32px,4.7vw,62px);line-height:1.0;letter-spacing:-.034em;font-weight:800;max-width:17ch}
+  h1 em{font-style:normal;color:var(--wire)}
+  .hsplit{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:end;padding-bottom:32px}
+  .lede{font-family:var(--mono);font-size:13px;line-height:1.8;color:var(--ink-2);max-width:42ch;border-left:3px solid var(--wire);padding-left:16px}
+  .cta{margin-top:22px;display:flex;align-items:stretch;flex-wrap:wrap;border:3px solid var(--rule);width:fit-content}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:13px 18px}
+  .cmd i{color:#D89886;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-decoration:none;padding:13px 18px;border-left:3px solid var(--rule);display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--wire);color:#fff}
+
+  /* the two planes */
+  .planes-hd{display:flex;align-items:baseline;gap:16px;padding:26px 0 14px}
+  .planes-hd h2{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:700}
+  .planes-hd span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;margin-left:auto}
+
+  .planes{display:grid;grid-template-columns:1fr 1fr;border:3px solid var(--rule)}
+  .pl{padding:24px 24px 22px;border-right:3px solid var(--rule)}
+  .pl:last-child{border-right:none;background:var(--sink)}
+  .pl .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+  .pl h3{font-size:clamp(22px,2.9vw,34px);line-height:1.04;letter-spacing:-.03em;font-weight:800;margin-bottom:12px}
+  .pl.use h3{color:var(--wire)}
+  .pl p{font-family:var(--mono);font-size:12px;line-height:1.78;color:var(--ink-2);max-width:40ch}
+  .pl .mark{font-family:var(--mono);font-size:22px;line-height:1;margin-bottom:12px;color:var(--ink-3)}
+  .pl.use .mark{color:var(--wire)}
+
+  .wirebar{border:3px solid var(--rule);border-top:none;padding:14px 18px;display:flex;align-items:center;gap:12px}
+  .wirebar b{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--ink-2)}
+  .wirebar .line{flex:1;height:3px;background:repeating-linear-gradient(90deg,var(--wire) 0 8px,transparent 8px 14px)}
+  .wirebar u{text-decoration:none;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+  .tail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:38px;padding:30px 0 0}
+  .tail h3{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--wire);margin-bottom:9px}
+  .tail p{font-family:var(--mono);font-size:12.5px;line-height:1.74;color:var(--ink-2);max-width:48ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .wrap{padding:0 16px 40px}
+    .hsplit{grid-template-columns:1fr;gap:24px;align-items:start}
+    .planes{grid-template-columns:1fr}
+    .pl{border-right:none;border-bottom:3px solid var(--rule)}
+    .pl:last-child{border-bottom:none}
+    .tail{grid-template-columns:1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">tailscale<span> / tailcat</span></div>
+    <div class="r">Go &nbsp;·&nbsp; GitHub Trending 29 Aug 2026 &nbsp;·&nbsp; <b>965 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="eyebrow">One sentence, two clauses</div>
+    <div class="hsplit">
+      <div>
+        <h1>Same tool as netcat. <em>Different wire</em>.</h1>
+        <div class="cta">
+          <div class="cmd"><i>$</i>go install tailcat</div>
+          <a class="lnk" href="https://github.com/tailscale/tailcat">github.com/tailscale/tailcat</a>
+        </div>
+      </div>
+      <p class="lede">The description names its own company twice and takes only half of it. Data plane yes, control plane no, which is a precise statement about what this depends on at runtime.</p>
+    </div>
+  </header>
+
+  <div class="planes-hd">
+    <h2>The two planes, as published</h2>
+    <span>both named in one sentence</span>
+  </div>
+
+  <div class="planes">
+    <div class="pl use">
+      <div class="mark">+</div>
+      <div class="tag">what it runs over</div>
+      <h3>the data plane</h3>
+      <p>The part that moves bytes between machines. Taking this means you get the network path a mesh VPN already established for you.</p>
+    </div>
+    <div class="pl">
+      <div class="mark">&minus;</div>
+      <div class="tag">what it goes without</div>
+      <h3>the control plane</h3>
+      <p>The coordination layer that decides who can reach whom. Declining it is the interesting half, because that is the part usually treated as mandatory.</p>
+    </div>
+  </div>
+
+  <div class="wirebar">
+    <b>machine</b>
+    <span class="line"></span>
+    <b>machine</b>
+    <u>over the data plane</u>
+  </div>
+
+  <section class="tail">
+    <div>
+      <h3>Why netcat is the comparison</h3>
+      <p>Naming netcat sets the interface expectation exactly: a pipe between two endpoints with no ceremony. Everything the description adds after that is about which wire the pipe sits on.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No throughput, no latency, no protocol detail, no flag list. The trending description is one comparison and two clauses, so this page carries the same.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 29 August 2026 is "like netcat, but over Tailscale's data plane, without Tailscale's control plane." The two panels restate that split and add no mechanism, measurement, or implementation detail, because none is published there.</p>
+</div>
+</body>
+</html>

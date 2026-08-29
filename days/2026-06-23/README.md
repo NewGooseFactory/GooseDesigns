@@ -1,4 +1,4 @@
-# Design Rep — Tuesday, June 23
+﻿# Design Rep — Tuesday, June 23
 
 > 3 mocks — mono-zine, bauhaus, warm-minimal
 

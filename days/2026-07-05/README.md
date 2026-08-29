@@ -1,4 +1,4 @@
-# Design Rep — Sunday, July 5
+﻿# Design Rep — Sunday, July 5
 
 > 3 mocks — blueprint, neon-noir, warm-minimal
 

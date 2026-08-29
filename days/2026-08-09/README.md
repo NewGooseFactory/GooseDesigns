@@ -1,4 +1,4 @@
-# Design Rep — Sunday, August 9
+﻿# Design Rep — Sunday, August 9
 
 > 3 mocks — mono-zine, constellation, hud
 

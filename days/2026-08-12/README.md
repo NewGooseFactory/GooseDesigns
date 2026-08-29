@@ -1,4 +1,4 @@
-# Design Rep — Wednesday, August 12
+﻿# Design Rep — Wednesday, August 12
 
 > 3 mocks — specimen, data-viz, glass
 

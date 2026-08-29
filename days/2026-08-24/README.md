@@ -1,4 +1,4 @@
-# Design Rep — Monday, August 24
+﻿# Design Rep — Monday, August 24
 
 > 3 mocks — waveform, brutalist, warm-minimal
 

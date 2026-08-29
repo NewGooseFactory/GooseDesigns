@@ -1,4 +1,4 @@
-# Design Rep — Thursday, August 20
+﻿# Design Rep — Thursday, August 20
 
 > 3 mocks — mono-zine, terminal-dark, specimen
 

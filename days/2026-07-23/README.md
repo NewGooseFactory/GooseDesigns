@@ -1,4 +1,4 @@
-# Design Rep — Thursday, July 23
+﻿# Design Rep — Thursday, July 23
 
 > 3 mocks — bauhaus, glass, terminal-dark
 

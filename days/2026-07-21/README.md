@@ -1,4 +1,4 @@
-# Design Rep — Tuesday, July 21
+﻿# Design Rep — Tuesday, July 21
 
 > 3 mocks — poster, swiss, blueprint
 

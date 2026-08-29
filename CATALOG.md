@@ -1,11 +1,14 @@
-# Catalog — every design rep
+﻿# Catalog — every design rep
 
-Searchable master index. **234 mocks** across **78 days**. Newest first.
+Searchable master index. **237 mocks** across **79 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-29 | Saturday | [abhigyanpatwari/GitNexus](https://github.com/abhigyanpatwari/GitNexus) | constellation | violet | draw the artifact but label it shape only with generic nodes | works, hub circle needed r=35 to hold its label | [png](days/2026-08-29/01-gitnexus.png) | [2026-08-29](days/2026-08-29/) |
+| 2026-08-29 | Saturday | [tailscale/tailcat](https://github.com/tailscale/tailcat) | brutalist | wire-rust | plus panel and minus panel mirroring the sentence structure | strongest of the three, fourteen words fill a screen honestly | [png](days/2026-08-29/02-tailcat.png) | [2026-08-29](days/2026-08-29/) |
+| 2026-08-29 | Saturday | [abi/screenshot-to-code](https://github.com/abi/screenshot-to-code) | warm-minimal | amber | put the contested adjective on a review line | works, fan lines a hair off chip centers | [png](days/2026-08-29/03-screenshot-to-code.png) | [2026-08-29](days/2026-08-29/) |
 | 2026-08-28 | Friday | [tt-a1i/archify](https://github.com/tt-a1i/archify) | blueprint | draft-blue | grade the three adjectives by which one can fail a check | landed | [png](days/2026-08-28/01-archify.png) | [2026-08-28](days/2026-08-28/) |
 | 2026-08-28 | Friday | [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) | hud | instrument-amber | split the readout by simulated and live, colour exactly one row | landed | [png](days/2026-08-28/02-gods-eye-view.png) | [2026-08-28](days/2026-08-28/) |
 | 2026-08-28 | Friday | [JetBrains/go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines) | editorial | cyan | make the audience noun the headline and stack it against the usual reader | landed | [png](days/2026-08-28/03-go-guidelines.png) | [2026-08-28](days/2026-08-28/) |

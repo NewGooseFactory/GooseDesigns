@@ -1,4 +1,4 @@
-# Design Rep — Monday, August 3
+﻿# Design Rep — Monday, August 3
 
 > 3 mocks — specimen, brutalist, poster
 

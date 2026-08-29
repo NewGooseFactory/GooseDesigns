@@ -1,12 +1,12 @@
-# GooseDesigns — Daily UI Design Inspiration from Trending GitHub Repos
+﻿# GooseDesigns — Daily UI Design Inspiration from Trending GitHub Repos
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![234 mocks](https://img.shields.io/badge/mocks-234-1f6feb?style=flat-square) ![78 days](https://img.shields.io/badge/days-78-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![237 mocks](https://img.shields.io/badge/mocks-237-1f6feb?style=flat-square) ![79 days](https://img.shields.io/badge/days-79-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 234 mockups across 78 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 237 mockups across 79 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Friday, August 28
+## Latest — Saturday, August 29
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-08-28/"><img src="days/2026-08-28/01-archify.png" width="320" alt="tt-a1i/archify"></a><br><sub><b>tt-a1i/archify</b><br>blueprint</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-28/"><img src="days/2026-08-28/02-gods-eye-view.png" width="320" alt="bilawalsidhu/gods-eye-view"></a><br><sub><b>bilawalsidhu/gods-eye-view</b><br>hud</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-28/"><img src="days/2026-08-28/03-go-guidelines.png" width="320" alt="JetBrains/go-modern-guidelines"></a><br><sub><b>JetBrains/go-modern-guidelines</b><br>editorial</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-29/"><img src="days/2026-08-29/01-gitnexus.png" width="320" alt="abhigyanpatwari/GitNexus"></a><br><sub><b>abhigyanpatwari/GitNexus</b><br>constellation</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-29/"><img src="days/2026-08-29/02-tailcat.png" width="320" alt="tailscale/tailcat"></a><br><sub><b>tailscale/tailcat</b><br>brutalist</sub></td>
+<td align="center" width="33%"><a href="days/2026-08-29/"><img src="days/2026-08-29/03-screenshot-to-code.png" width="320" alt="abi/screenshot-to-code"></a><br><sub><b>abi/screenshot-to-code</b><br>warm-minimal</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-08-28/)
+[See the full day →](days/2026-08-29/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-08-29 | Saturday | 3 | constellation, brutalist, warm-minimal | [open](days/2026-08-29/) |
 | 2026-08-28 | Friday | 3 | blueprint, hud, editorial | [open](days/2026-08-28/) |
 | 2026-08-27 | Thursday | 3 | swiss, data-viz, glass | [open](days/2026-08-27/) |
 | 2026-08-26 | Wednesday | 3 | mono-zine, blueprint, specimen | [open](days/2026-08-26/) |

@@ -1,4 +1,4 @@
-# Design Rep — Monday, August 17
+﻿# Design Rep — Monday, August 17
 
 > 3 mocks — hud, brutalist, warm-minimal
 

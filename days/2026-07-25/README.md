@@ -1,4 +1,4 @@
-# Design Rep — Saturday, July 25
+﻿# Design Rep — Saturday, July 25
 
 > 3 mocks — brutalist, data-viz, mono-zine
 

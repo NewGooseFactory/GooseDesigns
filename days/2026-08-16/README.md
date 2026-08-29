@@ -1,4 +1,4 @@
-# Design Rep — Sunday, August 16
+﻿# Design Rep — Sunday, August 16
 
 > 3 mocks — terminal-dark, poster, bauhaus
 

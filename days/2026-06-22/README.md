@@ -1,4 +1,4 @@
-# Design Rep — Monday, June 22
+﻿# Design Rep — Monday, June 22
 
 > 3 mocks — brutalist, data-viz, swiss
 

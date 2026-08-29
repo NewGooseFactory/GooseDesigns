@@ -1,4 +1,4 @@
-# Design Rep — Thursday, July 9
+﻿# Design Rep — Thursday, July 9
 
 > 3 mocks — swiss, mono-zine, glass
 

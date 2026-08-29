@@ -1,4 +1,4 @@
-# Design Rep — Thursday, August 6
+﻿# Design Rep — Thursday, August 6
 
 > 3 mocks — terminal-dark, swiss, ledger
 

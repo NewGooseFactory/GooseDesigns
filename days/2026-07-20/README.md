@@ -1,4 +1,4 @@
-# Design Rep — Monday, July 20
+﻿# Design Rep — Monday, July 20
 
 > 3 mocks — hud, warm-minimal, editorial
 

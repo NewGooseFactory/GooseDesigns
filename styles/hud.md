@@ -1,4 +1,4 @@
-# Style — hud
+﻿# Style — hud
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 

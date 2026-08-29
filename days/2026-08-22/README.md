@@ -1,4 +1,4 @@
-# Design Rep — Saturday, August 22
+﻿# Design Rep — Saturday, August 22
 
 > 3 mocks — hud, swiss, bauhaus
 
