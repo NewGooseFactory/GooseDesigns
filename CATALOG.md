@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **237 mocks** across **79 days**. Newest first.
+Searchable master index. **240 mocks** across **80 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-30 | Sunday | [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) | terminal-dark | signal-lime | grade the four claim words and mark which one describes the output | works, one word carries the product | [png](days/2026-08-30/01-crawl4ai.png) | [2026-08-30](days/2026-08-30/) |
+| 2026-08-30 | Sunday | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | strata | signal-amber | stack the named sources as beds with the grounded summary as the floor | works after moving the sediment rule into the wide column | [png](days/2026-08-30/02-last30days-skill.png) | [2026-08-30](days/2026-08-30/) |
+| 2026-08-30 | Sunday | [THU-MAIC/OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) | bauhaus | primary-yellow | split the two-adjective promise by which half a user can check | strongest of the three | [png](days/2026-08-30/03-openmaic.png) | [2026-08-30](days/2026-08-30/) |
 | 2026-08-29 | Saturday | [abhigyanpatwari/GitNexus](https://github.com/abhigyanpatwari/GitNexus) | constellation | violet | draw the artifact but label it shape only with generic nodes | works, hub circle needed r=35 to hold its label | [png](days/2026-08-29/01-gitnexus.png) | [2026-08-29](days/2026-08-29/) |
 | 2026-08-29 | Saturday | [tailscale/tailcat](https://github.com/tailscale/tailcat) | brutalist | wire-rust | plus panel and minus panel mirroring the sentence structure | strongest of the three, fourteen words fill a screen honestly | [png](days/2026-08-29/02-tailcat.png) | [2026-08-29](days/2026-08-29/) |
 | 2026-08-29 | Saturday | [abi/screenshot-to-code](https://github.com/abi/screenshot-to-code) | warm-minimal | amber | put the contested adjective on a review line | works, fan lines a hair off chip centers | [png](days/2026-08-29/03-screenshot-to-code.png) | [2026-08-29](days/2026-08-29/) |

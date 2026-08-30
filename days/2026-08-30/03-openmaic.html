@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenMAIC: one click is measurable, immersive is not</title>
+<style>
+  :root{
+    --paper:#F4F1EA; --ink:#0E0E0E; --ink-2:#3D3D3D; --ink-3:#7A7A7A;
+    --yellow:#F2C230; --blue:#1D4ED8; --red:#C62828;
+    --hair:#0E0E0E;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 36px 48px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:18px 0 11px;border-bottom:4px solid var(--hair)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .bar .slug span{font-weight:400;color:var(--ink-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .bar .r b{color:var(--red)}
+
+  header{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:44px;align-items:center;padding:44px 0 38px;border-bottom:4px solid var(--hair)}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  h1{font-size:clamp(32px,4.6vw,58px);line-height:1.0;letter-spacing:-.035em;font-weight:700;max-width:14ch}
+  h1 em{font-style:normal;color:var(--blue)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.66;color:var(--ink-2);max-width:43ch}
+  .cta{margin-top:26px;display:flex;align-items:stretch;flex-wrap:wrap;border:3px solid var(--hair);width:fit-content}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--yellow);color:var(--ink);padding:13px 18px;font-weight:700}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-decoration:none;padding:13px 18px;border-left:3px solid var(--hair);display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--blue);color:#fff}
+
+  /* geometric agent field */
+  .field{border:3px solid var(--hair);background:#fff;position:relative;height:330px;justify-self:end;width:100%;max-width:430px}
+  .field-hd{position:absolute;left:0;right:0;top:0;padding:9px 13px;border-bottom:3px solid var(--hair);display:flex;align-items:center;gap:8px;background:var(--paper);z-index:2}
+  .field-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  .field-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:2px solid var(--hair);padding:2px 6px}
+  .field svg{position:absolute;left:0;top:36px;width:100%;height:230px}
+  .field .cap{position:absolute;left:0;right:0;bottom:0;border-top:3px solid var(--hair);display:grid;grid-template-columns:1fr 1fr}
+  .field .cap div{padding:10px 12px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .field .cap div:first-child{border-right:3px solid var(--hair)}
+  .field .cap b{display:block;font-size:11.5px;letter-spacing:0;text-transform:none;color:var(--ink);margin-top:5px;font-weight:700}
+  .field .cap .ok b{color:var(--blue)}
+  .field .cap .no b{color:var(--ink-3)}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;border-bottom:4px solid var(--hair)}
+  .half{padding:26px 26px 24px;border-right:4px solid var(--hair)}
+  .half:last-child{border-right:none}
+  .half .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:11px}
+  .half h3{font-size:clamp(21px,2.7vw,31px);line-height:1.05;letter-spacing:-.03em;font-weight:700;margin-bottom:11px}
+  .half.m h3{color:var(--blue)}
+  .half p{font-family:var(--mono);font-size:12px;line-height:1.76;color:var(--ink-2);max-width:41ch}
+  .chip{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:2px solid var(--hair);padding:3px 8px;margin-bottom:11px}
+  .half.m .chip{background:var(--yellow)}
+
+  .strip2{display:grid;grid-template-columns:1fr 1fr;gap:38px;padding:28px 0 0}
+  .strip2 h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:9px;font-weight:700}
+  .strip2 p{font-family:var(--mono);font-size:12.5px;line-height:1.74;color:var(--ink-2);max-width:48ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:30px;padding:30px 0 26px}
+    .field{justify-self:start;max-width:430px}
+    .split{grid-template-columns:1fr}
+    .half{border-right:none;border-bottom:4px solid var(--hair)}
+    .half:last-child{border-bottom:none}
+    .strip2{grid-template-columns:1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">THU-MAIC<span> / OpenMAIC</span></div>
+    <div class="r">TypeScript &nbsp;&middot;&nbsp; GitHub Trending 30 Aug 2026 &nbsp;&middot;&nbsp; <b>907 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Two adjectives, one of them countable</div>
+      <h1>One click you can <em>count</em>. Immersive you cannot.</h1>
+      <p class="lede">Open Multi-Agent Interactive Classroom. The description promises an immersive multi-agent learning experience in one click, and exactly one of those promises has a number attached to it.</p>
+      <div class="cta">
+        <div class="cmd">one click</div>
+        <a class="lnk" href="https://github.com/THU-MAIC/OpenMAIC">github.com/THU-MAIC/OpenMAIC</a>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="field-hd"><b>Multi-agent, shape only</b><u>No roles named</u></div>
+      <svg viewBox="0 0 430 230" aria-hidden="true">
+        <rect x="150" y="66" width="130" height="98" fill="#F2C230" stroke="#0E0E0E" stroke-width="3"/>
+        <circle cx="82" cy="70" r="30" fill="#1D4ED8" stroke="#0E0E0E" stroke-width="3"/>
+        <circle cx="348" cy="70" r="30" fill="#FFFFFF" stroke="#0E0E0E" stroke-width="3"/>
+        <path d="M82 130 L118 196 L46 196 Z" fill="#C62828" stroke="#0E0E0E" stroke-width="3"/>
+        <path d="M348 130 L384 196 L312 196 Z" fill="#FFFFFF" stroke="#0E0E0E" stroke-width="3"/>
+        <rect x="186" y="182" width="58" height="30" fill="#FFFFFF" stroke="#0E0E0E" stroke-width="3"/>
+        <line x1="112" y1="70" x2="150" y2="94" stroke="#0E0E0E" stroke-width="3"/>
+        <line x1="318" y1="70" x2="280" y2="94" stroke="#0E0E0E" stroke-width="3"/>
+        <line x1="112" y1="176" x2="186" y2="192" stroke="#0E0E0E" stroke-width="3"/>
+        <line x1="318" y1="176" x2="244" y2="192" stroke="#0E0E0E" stroke-width="3"/>
+        <line x1="215" y1="164" x2="215" y2="182" stroke="#0E0E0E" stroke-width="3"/>
+      </svg>
+      <div class="cap">
+        <div class="ok"><span>countable</span><b>one click</b></div>
+        <div class="no"><span>not countable</span><b>immersive</b></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="split">
+    <div class="half m">
+      <div class="chip">measurable half</div>
+      <div class="tag">what a user can check</div>
+      <h3>one click</h3>
+      <p>A setup cost stated as a number. Anyone who installs it either gets a classroom in one action or does not, and the claim fails in public the first time it takes three.</p>
+    </div>
+    <div class="half">
+      <div class="chip">unmeasurable half</div>
+      <div class="tag">what a user has to feel</div>
+      <h3>immersive</h3>
+      <p>A description of the experience with no threshold behind it. It can be true for one student and false for the next, and no install log settles the argument.</p>
+    </div>
+  </div>
+
+  <section class="strip2">
+    <div>
+      <h4>Why the shapes carry no labels</h4>
+      <p>The name says multi-agent, so more than one agent is in the room. It does not say how many, what they do, or which one teaches, so the figure shows connected pieces and names none of them.</p>
+    </div>
+    <div>
+      <h4>What is not on this page</h4>
+      <p>No agent count, no subject list, no model, no screenshot of the classroom, no install time in seconds. The trending description publishes none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 30 August 2026 reads "Open Multi-Agent Interactive Classroom. Get an immersive, multi-agent learning experience in just one click." The two panels split that sentence into the half a user can verify and the half a user has to judge. The geometric field is labelled shape only: it shows connected pieces with no roles, counts, or product screenshots, because none appear in the source line.</p>
+</div>
+</body>
+</html>

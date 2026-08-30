@@ -239,3 +239,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-29 — [rep](days/2026-08-29/) — abhigyanpatwari/GitNexus — constellation/violet — draw the artifact but label it shape only with generic nodes → works, hub circle needed r=35 to hold its label
 - 2026-08-29 — [rep](days/2026-08-29/) — tailscale/tailcat — brutalist/wire-rust — plus panel and minus panel mirroring the sentence structure → strongest of the three, fourteen words fill a screen honestly
 - 2026-08-29 — [rep](days/2026-08-29/) — abi/screenshot-to-code — warm-minimal/amber — put the contested adjective on a review line → works, fan lines a hair off chip centers
+- 2026-08-30 — [rep](days/2026-08-30/) — unclecode/crawl4ai — terminal-dark/signal-lime — grade the four claim words and mark which one describes the output → works, one word carries the product
+- 2026-08-30 — [rep](days/2026-08-30/) — mvanhorn/last30days-skill — strata/signal-amber — stack the named sources as beds with the grounded summary as the floor → works after moving the sediment rule into the wide column
+- 2026-08-30 — [rep](days/2026-08-30/) — THU-MAIC/OpenMAIC — bauhaus/primary-yellow — split the two-adjective promise by which half a user can check → strongest of the three

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>last30days-skill: six named sources, one grounded layer</title>
+<style>
+  :root{
+    --deep:#12100C; --band:#1A1712; --band-2:#211C15;
+    --line:#2C261C; --line-2:#3A3226;
+    --fg:#F0EAE0; --fg-2:#A79B88; --fg-3:#6F6555;
+    --amber:#E0A33C;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--deep);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px 50px}
+
+  .bar{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .bar .slug{font-family:var(--mono);font-size:12.5px}
+  .bar .slug span{color:var(--fg-3)}
+  .bar .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .bar .r b{color:var(--amber);font-weight:400}
+
+  header{padding:46px 0 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:52px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+  h1{font-size:clamp(31px,4.2vw,52px);line-height:1.06;letter-spacing:-.031em;font-weight:600;max-width:15ch}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:44ch}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--band-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--amber)}
+  .cmd i{color:var(--amber);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--amber);border-color:var(--amber)}
+
+  /* strata: six source beds, one synthesis floor */
+  .strata-hd{display:flex;align-items:baseline;gap:14px;padding:6px 0 12px}
+  .strata-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .strata-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .strata{border:1px solid var(--line-2);border-bottom:none}
+  .bed{display:grid;grid-template-columns:36px 196px 1fr 132px;align-items:center;border-bottom:1px solid var(--line);background:var(--band)}
+  .bed:nth-child(even){background:var(--band-2)}
+  .bed .n{font-family:var(--mono);font-size:9px;color:var(--fg-3);padding:0 0 0 12px}
+  .bed .src{font-family:var(--mono);font-size:13px;color:var(--fg);padding:13px 12px 13px 0;letter-spacing:-.005em}
+  .bed .txt{padding-right:16px}
+  .bed .txt div{height:6px;background:repeating-linear-gradient(90deg,var(--line-2) 0 4px,transparent 4px 9px)}
+  .bed .tick{font-family:var(--mono);font-size:9.5px;color:var(--fg-3);letter-spacing:.1em;text-transform:uppercase;padding-right:14px;text-align:right}
+
+  .floor{display:grid;grid-template-columns:34px 1fr 152px;align-items:center;border:1px solid var(--amber);background:#241C10}
+  .floor .n{font-family:var(--mono);font-size:9px;color:var(--amber);padding:0 0 0 12px}
+  .floor .lab{padding:16px 12px 16px 0}
+  .floor .lab b{display:block;font-family:var(--mono);font-size:14px;color:var(--amber);font-weight:400;letter-spacing:-.005em}
+  .floor .lab i{display:block;font-style:normal;font-family:var(--mono);font-size:10px;color:var(--fg-2);margin-top:5px}
+  .floor .rt{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);padding-right:12px;text-align:right}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:26px;padding:30px 0 24px;align-items:start}
+    .bed{grid-template-columns:28px 1fr 88px}
+    .bed .txt{display:none}
+    .floor{grid-template-columns:28px 1fr}
+    .floor .rt{display:none}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <div class="slug">mvanhorn<span> / </span>last30days-skill</div>
+    <div class="r">Python &nbsp;&middot;&nbsp; GitHub Trending 30 Aug 2026 &nbsp;&middot;&nbsp; <b>272 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Six beds, one floor</div>
+      <h1>The sources are named. That is <em>the whole guarantee</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> add skill last30days</div>
+        <a class="lnk" href="https://github.com/mvanhorn/last30days-skill">github.com/mvanhorn/last30days-skill</a>
+      </div>
+    </div>
+    <p class="lede">Most research tools say "the web" and stop. This one lists six platforms by name and then says the output is grounded, which means the summary at the bottom is answerable to the beds above it.</p>
+  </header>
+
+  <div class="strata-hd">
+    <h2>What it reads, in the order the description gives them</h2>
+    <span>names only, no counts</span>
+  </div>
+
+  <div class="strata">
+    <div class="bed"><div class="n">01</div><div class="src">Reddit</div><div class="txt"><div></div></div><div class="tick">named source</div></div>
+    <div class="bed"><div class="n">02</div><div class="src">X</div><div class="txt"><div></div></div><div class="tick">named source</div></div>
+    <div class="bed"><div class="n">03</div><div class="src">YouTube</div><div class="txt"><div></div></div><div class="tick">named source</div></div>
+    <div class="bed"><div class="n">04</div><div class="src">Hacker News</div><div class="txt"><div></div></div><div class="tick">named source</div></div>
+    <div class="bed"><div class="n">05</div><div class="src">Polymarket</div><div class="txt"><div></div></div><div class="tick">named source</div></div>
+    <div class="bed"><div class="n">06</div><div class="src">the web</div><div class="txt"><div></div></div><div class="tick">named source</div></div>
+  </div>
+
+  <div class="floor">
+    <div class="n">&gt;&gt;</div>
+    <div class="lab"><b>a grounded summary</b><i>the word grounded is what makes the six beds above it load bearing</i></div>
+    <div class="rt">no method published</div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Polymarket is the odd bed</h3>
+      <p>Five of the six are places people post opinions. Polymarket is a place people price them, which is a different kind of evidence to pull into the same summary.</p>
+    </div>
+    <div>
+      <h3>Thirty days is a stated window</h3>
+      <p>The name commits to a range rather than leaving recency vague, so a stale answer is a defect you can point at instead of a matter of taste.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No retrieval method, no ranking rule, no citation format, no sample summary. The trending description publishes none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 30 August 2026 reads "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web, then synthesizes a grounded summary." The six beds are those six names in the order given. No post counts, source volumes, or example output are represented here.</p>
+</div>
+</body>
+</html>
