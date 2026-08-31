@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **240 mocks** across **80 days**. Newest first.
+Searchable master index. **243 mocks** across **81 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-08-31 | Monday | [jingyaogong/minimind](https://github.com/jingyaogong/minimind) | ledger | ink-rust | book the three claims as entries and mark the one that cannot close | works, the open row carries the argument | [png](days/2026-08-31/01-minimind.png) | [2026-08-31](days/2026-08-31/) |
+| 2026-08-31 | Monday | [Osmantic/ODS](https://github.com/Osmantic/ODS) | cell-grid | cobalt | draw the 21-cell support matrix and ship it unmarked | works, an empty grid beats 21 invented facts | [png](days/2026-08-31/02-ods.png) | [2026-08-31](days/2026-08-31/) |
+| 2026-08-31 | Monday | [affaan-m/ECC](https://github.com/affaan-m/ECC) | neon-noir | acid-cyan | put the definite article on trial and list what the category contains | strongest of the three | [png](days/2026-08-31/03-ecc.png) | [2026-08-31](days/2026-08-31/) |
 | 2026-08-30 | Sunday | [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) | terminal-dark | signal-lime | grade the four claim words and mark which one describes the output | works, one word carries the product | [png](days/2026-08-30/01-crawl4ai.png) | [2026-08-30](days/2026-08-30/) |
 | 2026-08-30 | Sunday | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | strata | signal-amber | stack the named sources as beds with the grounded summary as the floor | works after moving the sediment rule into the wide column | [png](days/2026-08-30/02-last30days-skill.png) | [2026-08-30](days/2026-08-30/) |
 | 2026-08-30 | Sunday | [THU-MAIC/OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) | bauhaus | primary-yellow | split the two-adjective promise by which half a user can check | strongest of the three | [png](days/2026-08-30/03-openmaic.png) | [2026-08-30](days/2026-08-30/) |

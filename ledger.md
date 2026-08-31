@@ -242,3 +242,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-30 — [rep](days/2026-08-30/) — unclecode/crawl4ai — terminal-dark/signal-lime — grade the four claim words and mark which one describes the output → works, one word carries the product
 - 2026-08-30 — [rep](days/2026-08-30/) — mvanhorn/last30days-skill — strata/signal-amber — stack the named sources as beds with the grounded summary as the floor → works after moving the sediment rule into the wide column
 - 2026-08-30 — [rep](days/2026-08-30/) — THU-MAIC/OpenMAIC — bauhaus/primary-yellow — split the two-adjective promise by which half a user can check → strongest of the three
+- 2026-08-31 — [rep](days/2026-08-31/) — jingyaogong/minimind — ledger/ink-rust — book the three claims as entries and mark the one that cannot close → works, the open row carries the argument
+- 2026-08-31 — [rep](days/2026-08-31/) — Osmantic/ODS — cell-grid/cobalt — draw the 21-cell support matrix and ship it unmarked → works, an empty grid beats 21 invented facts
+- 2026-08-31 — [rep](days/2026-08-31/) — affaan-m/ECC — neon-noir/acid-cyan — put the definite article on trial and list what the category contains → strongest of the three

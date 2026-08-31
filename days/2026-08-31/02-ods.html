@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ODS: seven capabilities, three boxes, no crosses filled in</title>
+<style>
+  :root{
+    --bg:#F5F6F8; --cell:#FFFFFF; --cell-2:#EDEFF3;
+    --line:#D5D9E0; --line-2:#AFB6C1;
+    --ink:#12151A; --ink-2:#414751; --ink-3:#79808B;
+    --cobalt:#1F4FD8;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 38px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--cobalt);font-weight:600}
+
+  header{padding:44px 0 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:52px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--cobalt);margin-bottom:17px}
+  h1{font-size:clamp(31px,4.1vw,50px);line-height:1.07;letter-spacing:-.03em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--cobalt)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--cell);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--cobalt)}
+  .cmd i{color:var(--cobalt);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--cobalt);border-color:var(--cobalt)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--ink-2);max-width:42ch}
+
+  .mx-hd{display:flex;align-items:baseline;gap:14px;padding:4px 0 12px}
+  .mx-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .mx-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+
+  .matrix{border:1px solid var(--line-2);background:var(--cell)}
+  .mrow{display:grid;grid-template-columns:236px repeat(3,1fr) 132px;border-bottom:1px solid var(--line)}
+  .mrow:last-child{border-bottom:none}
+  .mrow > *{padding:12px 14px;min-width:0;border-right:1px solid var(--line)}
+  .mrow > *:last-child{border-right:none}
+
+  .mhead{background:var(--cell-2);border-bottom:1px solid var(--line-2)}
+  .mhead > *{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);padding-top:10px;padding-bottom:10px}
+  .mhead .plat{color:var(--ink);font-size:11.5px;letter-spacing:.02em;text-transform:none;font-weight:600}
+
+  .cap{font-family:var(--mono);font-size:13px;color:var(--ink);letter-spacing:-.005em;display:flex;align-items:center}
+  .box{display:flex;align-items:center;justify-content:center}
+  .box u{text-decoration:none;width:19px;height:19px;border:1px solid var(--line-2);background:var(--bg);display:block}
+  .src{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;justify-content:flex-end;text-align:right}
+
+  .legend{border:1px solid var(--line-2);border-top:none;background:var(--cell-2);padding:13px 15px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .legend u{text-decoration:none;width:15px;height:15px;border:1px solid var(--line-2);background:var(--bg);display:inline-block;vertical-align:-3px;margin-right:8px}
+  .legend b{font-family:var(--mono);font-size:11px;color:var(--cobalt);font-weight:600}
+  .legend span{font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+  .legend .fill{flex:1;height:1px;background:var(--line-2);min-width:30px}
+  .legend i{font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--cobalt);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:26px;padding:30px 0 24px;align-items:start}
+    .mrow{grid-template-columns:1fr repeat(3,54px)}
+    .src{display:none}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">Osmantic<span> / ODS</span></div>
+    <div class="r">Python &middot; GitHub Trending 31 Aug 2026 &middot; <b>331 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Seven rows, three columns, zero marks</div>
+      <h1>The matrix is real. <em>The crosses are not published</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> install ODS</div>
+        <a class="lnk" href="https://github.com/Osmantic/ODS">github.com/Osmantic/ODS</a>
+      </div>
+    </div>
+    <p class="lede">ODS names three machines and seven capabilities in one sentence. That gives you a grid with twenty one cells and no information about which of them are filled, so this page draws the grid and leaves it empty on purpose.</p>
+  </header>
+
+  <div class="mx-hd">
+    <h2>Capabilities against boxes, in the order the description gives them</h2>
+    <span>cells intentionally unmarked</span>
+  </div>
+
+  <div class="matrix">
+    <div class="mrow mhead">
+      <div>capability</div>
+      <div class="plat">PC</div>
+      <div class="plat">Mac</div>
+      <div class="plat">Linux</div>
+      <div>source</div>
+    </div>
+    <div class="mrow"><div class="cap">LLM inference</div><div class="box"><u></u></div><div class="box"><u></u></div><div class="box"><u></u></div><div class="src">named</div></div>
+    <div class="mrow"><div class="cap">chat UI</div><div class="box"><u></u></div><div class="box"><u></u></div><div class="box"><u></u></div><div class="src">named</div></div>
+    <div class="mrow"><div class="cap">voice</div><div class="box"><u></u></div><div class="box"><u></u></div><div class="box"><u></u></div><div class="src">named</div></div>
+    <div class="mrow"><div class="cap">agents</div><div class="box"><u></u></div><div class="box"><u></u></div><div class="box"><u></u></div><div class="src">named</div></div>
+    <div class="mrow"><div class="cap">workflows</div><div class="box"><u></u></div><div class="box"><u></u></div><div class="box"><u></u></div><div class="src">named</div></div>
+    <div class="mrow"><div class="cap">RAG</div><div class="box"><u></u></div><div class="box"><u></u></div><div class="box"><u></u></div><div class="src">named</div></div>
+    <div class="mrow"><div class="cap">image generation</div><div class="box"><u></u></div><div class="box"><u></u></div><div class="box"><u></u></div><div class="src">named</div></div>
+  </div>
+  <div class="legend">
+    <span><u></u>a cell the description does not fill in</span>
+    <span class="fill"></span>
+    <b>21 cells</b><i>none claimed either way</i>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Your box is the server</h3>
+      <p>The first sentence puts the whole stack on hardware you already own, which is the difference between a subscription and a machine you can unplug.</p>
+    </div>
+    <div>
+      <h3>Seven capabilities is a wide promise</h3>
+      <p>Inference, chat, voice, agents, workflows, RAG, and images are seven separate engineering problems. Naming them all in one line sets a high bar for the install.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No model list, no hardware floor, no per-platform support table, no screenshot. The trending description publishes none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 31 August 2026 reads "Turn your PC, Mac, or Linux box into an AI server. LLM inference, chat UI, voice, agents, workflows, RAG, and image generation." The seven rows and three columns are those names in the order given. Every cell is left blank because the description does not say which capability runs on which platform.</p>
+</div>
+</body>
+</html>

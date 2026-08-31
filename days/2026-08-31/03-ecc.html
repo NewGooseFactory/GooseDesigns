@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ECC: a definite article the page has to earn</title>
+<style>
+  :root{
+    --void:#05060A; --panel:#0A0C12; --panel-2:#0E111A;
+    --line:#151926; --line-2:#232A3C;
+    --fg:#DFE4ED; --fg-2:#828C9E; --fg-3:#4F5768;
+    --neon:#2BE8D6;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh;position:relative}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:repeating-linear-gradient(180deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)}
+  .wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 40px 50px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--fg-2);font-weight:400}
+
+  header{padding:50px 0 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,394px);gap:50px;align-items:center}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3);margin-bottom:18px}
+  h1{font-size:clamp(31px,4.1vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--neon);text-shadow:0 0 26px rgba(43,232,214,.32)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:45ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--fg-2)}
+  .cmd i{color:var(--fg-3);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--fg);border-color:var(--fg-2)}
+
+  .rack{border:1px solid var(--line-2);background:var(--panel)}
+  .rack-hd{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .rack-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .rack-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+             border:1px solid var(--line-2);padding:2px 6px}
+  .slot{display:grid;grid-template-columns:26px 1fr 62px;align-items:center;border-bottom:1px solid var(--line)}
+  .slot:last-of-type{border-bottom:none}
+  .slot .n{font-family:var(--mono);font-size:9px;color:var(--fg-3);padding-left:13px}
+  .slot .nm{padding:13px 12px 13px 0;font-family:var(--mono);font-size:13px;color:var(--fg);letter-spacing:-.005em}
+  .slot .st{padding-right:13px;text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .rack-ft{border-top:1px solid var(--line-2);background:var(--panel-2);padding:12px 14px;display:flex;align-items:center;gap:10px}
+  .rack-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .rack-ft b{font-family:var(--mono);font-size:11px;color:var(--fg-2);font-weight:400}
+  .rack-ft .fill{flex:1;height:1px;background:var(--line-2)}
+
+  .clients{margin-top:34px;border-top:1px solid var(--line-2);border-left:1px solid var(--line-2);display:grid;grid-template-columns:repeat(5,1fr)}
+  .cl{border-right:1px solid var(--line-2);border-bottom:1px solid var(--line-2);padding:14px 14px 12px}
+  .cl b{display:block;font-family:var(--mono);font-size:12.5px;color:var(--fg);margin-bottom:6px;letter-spacing:-.005em}
+  .cl i{display:block;font-style:normal;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .cl.open b{color:var(--fg-3)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:32px;padding:32px 0 26px}
+    .clients{grid-template-columns:repeat(2,1fr)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">affaan-m<span> / </span>ECC</div>
+    <div class="r">JavaScript &middot; GitHub Trending 31 Aug 2026 &middot; <b>490 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">It starts with the word "the"</div>
+      <h1>Tuning the model is somebody else's job. This one tunes <em>the harness</em>.</h1>
+      <p class="lede">ECC calls itself the agent harness performance optimization system. The definite article claims a category, and the only way a repo earns one is by naming what sits inside it. This page lists the five parts and stops there.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> npm i ecc</div>
+        <a class="lnk" href="https://github.com/affaan-m/ECC">github.com/affaan-m/ECC</a>
+      </div>
+    </div>
+
+    <div class="rack">
+      <div class="rack-hd"><b>What the system contains</b><u>Named parts only</u></div>
+      <div class="slot"><div class="n">01</div><div class="nm">skills</div><div class="st">named</div></div>
+      <div class="slot"><div class="n">02</div><div class="nm">instincts</div><div class="st">named</div></div>
+      <div class="slot"><div class="n">03</div><div class="nm">memory</div><div class="st">named</div></div>
+      <div class="slot"><div class="n">04</div><div class="nm">security</div><div class="st">named</div></div>
+      <div class="slot"><div class="n">05</div><div class="nm">research-first development</div><div class="st">named</div></div>
+      <div class="rack-ft">
+        <span>five parts, one claim</span><b>optimization</b><span class="fill"></span><span>no metric published</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="clients">
+    <div class="cl"><b>Claude Code</b><i>named client</i></div>
+    <div class="cl"><b>Codex</b><i>named client</i></div>
+    <div class="cl"><b>Opencode</b><i>named client</i></div>
+    <div class="cl"><b>Cursor</b><i>named client</i></div>
+    <div class="cl open"><b>and beyond</b><i>not a client</i></div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Harness is the unusual noun</h3>
+      <p>Most tooling in this space optimizes prompts or models. Putting the harness in the product name says the bottleneck is the scaffolding around the model.</p>
+    </div>
+    <div>
+      <h3>Instincts is the odd part</h3>
+      <p>Skills, memory, and security are familiar boxes. Instincts is the one that needs a definition, and the description does not give it one.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No latency figure, no token saving, no before and after run, no definition of performance. The trending description publishes none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 31 August 2026 reads "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond." The five slots and four client cells are those names in the order given. The fifth client cell is greyed because "and beyond" names no product. No measurement of optimization is represented here.</p>
+</div>
+</body>
+</html>

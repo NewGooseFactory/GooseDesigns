@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>minimind: two numbers and a missing denominator</title>
+<style>
+  :root{
+    --paper:#FBF8F1; --rule:#E2DACB; --rule-2:#C9BFAC; --ink:#1A1713; --ink-2:#4C463C; --ink-3:#8B8271;
+    --rust:#9A3B1B; --tint:#F4EEE2;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;
+       background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(201,191,172,.22) 31px 32px)}
+  .sheet{max-width:1160px;margin:0 auto;padding:0 40px 48px;background:transparent}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 11px;border-bottom:2px solid var(--ink)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--rust);font-weight:600}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,468px);gap:48px;align-items:center;padding:46px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--rust);margin-bottom:17px}
+  h1{font-family:var(--serif);font-size:clamp(32px,4.3vw,54px);line-height:1.06;letter-spacing:-.021em;font-weight:600;max-width:15ch}
+  h1 em{font-style:italic;color:var(--rust)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:27px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--tint);border:1px solid var(--rule-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--rust)}
+  .cmd i{color:var(--rust);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--rust);border-color:var(--rust)}
+
+  /* the ledger */
+  .book{border:2px solid var(--ink);background:var(--paper)}
+  .book-hd{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:2px solid var(--ink);background:var(--tint)}
+  .book-hd b{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:600}
+  .book-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+             border:1px solid var(--rule-2);padding:3px 7px}
+
+  .cols{display:grid;grid-template-columns:1fr 118px;border-bottom:1px solid var(--rule-2);background:var(--tint)}
+  .cols div{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);padding:7px 14px}
+  .cols div:last-child{border-left:1px solid var(--rule-2);text-align:right}
+
+  .line{display:grid;grid-template-columns:1fr 118px;border-bottom:1px solid var(--rule);align-items:stretch}
+  .line .l{padding:12px 14px}
+  .line .l b{display:block;font-family:var(--mono);font-size:13.5px;color:var(--ink);font-weight:600;letter-spacing:-.01em}
+  .line .l i{display:block;font-style:normal;font-size:12px;color:var(--ink-2);margin-top:5px;line-height:1.55;max-width:44ch}
+  .line .v{border-left:1px solid var(--rule-2);display:flex;align-items:center;justify-content:flex-end;padding:0 14px;
+           font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);text-align:right;line-height:1.4}
+  .line.open .l b{color:var(--rust)}
+  .line.open .v{color:var(--rust)}
+  .line:last-child{border-bottom:none}
+
+  .rulebar{border-top:2px solid var(--ink);display:flex;align-items:center;gap:12px;padding:12px 15px;background:var(--tint)}
+  .rulebar span{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .rulebar b{font-family:var(--mono);font-size:11px;color:var(--rust);font-weight:600}
+  .rulebar .fill{flex:1;height:1px;background:var(--rule-2)}
+
+  .strip3{border-top:2px solid var(--ink);padding:26px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--rust);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .sheet{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:30px;padding:30px 0 26px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">jingyaogong<span> / minimind</span></div>
+    <div class="r">Python &middot; GitHub Trending 31 Aug 2026 &middot; <b>472 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Two numbers, one blank</div>
+      <h1>Two hours is a price. The page never says <em>on what</em>.</h1>
+      <p class="lede">64M parameters, from scratch, two hours. The first two entries close cleanly. The third one needs a machine name to settle, and the description does not give one.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone minimind</div>
+        <a class="lnk" href="https://github.com/jingyaogong/minimind">github.com/jingyaogong/minimind</a>
+      </div>
+    </div>
+
+    <div class="book">
+      <div class="book-hd"><b>Claim ledger</b><u>Entries from the description only</u></div>
+      <div class="cols"><div>entry</div><div>settles</div></div>
+
+      <div class="line">
+        <div class="l"><b>64M parameters</b><i>A count anyone can check by loading the config. It also sets the ceiling on what the model can do.</i></div>
+        <div class="v">closed</div>
+      </div>
+      <div class="line">
+        <div class="l"><b>from scratch</b><i>No pretrained weights. This is the entry that makes the other two mean something.</i></div>
+        <div class="v">closed</div>
+      </div>
+      <div class="line open">
+        <div class="l"><b>in just 2h</b><i>A wall-clock cost with no hardware attached. Two hours on one consumer card and two hours on a rented cluster are different products.</i></div>
+        <div class="v">open<br>no machine named</div>
+      </div>
+
+      <div class="rulebar">
+        <span>the entry a reader has to reproduce</span><b>2h</b><span class="fill"></span><span>denominator missing</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Small is the point</h3>
+      <p>64M is a size you can hold in your head and retrain after a bad idea. That makes it a teaching artifact rather than a competitor to anything on a leaderboard.</p>
+    </div>
+    <div>
+      <h3>From scratch is the load bearing phrase</h3>
+      <p>Fine-tuning a small model in two hours is ordinary. Starting from random weights and stopping at two hours is the claim worth reading twice.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No GPU, no dataset, no token count, no loss curve, no eval number. The trending description names none of it, so neither does this layout.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 31 August 2026 reads "Train a 64M-parameter LLM from scratch in just 2h!" The ledger lists those three claims and marks the third one open because no hardware appears in that sentence. No benchmark, dataset, or training curve is represented here.</p>
+</div>
+</body>
+</html>
