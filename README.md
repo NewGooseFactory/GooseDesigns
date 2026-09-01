@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![243 mocks](https://img.shields.io/badge/mocks-243-1f6feb?style=flat-square) ![81 days](https://img.shields.io/badge/days-81-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![246 mocks](https://img.shields.io/badge/mocks-246-1f6feb?style=flat-square) ![82 days](https://img.shields.io/badge/days-82-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 243 mockups across 81 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 246 mockups across 82 days and 19 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Monday, August 31
+## Latest — Tuesday, September 1
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-08-31/"><img src="days/2026-08-31/01-minimind.png" width="320" alt="jingyaogong/minimind"></a><br><sub><b>jingyaogong/minimind</b><br>ledger</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-31/"><img src="days/2026-08-31/02-ods.png" width="320" alt="Osmantic/ODS"></a><br><sub><b>Osmantic/ODS</b><br>cell-grid</sub></td>
-<td align="center" width="33%"><a href="days/2026-08-31/"><img src="days/2026-08-31/03-ecc.png" width="320" alt="affaan-m/ECC"></a><br><sub><b>affaan-m/ECC</b><br>neon-noir</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-01/"><img src="days/2026-09-01/01-pdf-inspector.png" width="320" alt="firecrawl/pdf-inspector"></a><br><sub><b>firecrawl/pdf-inspector</b><br>specimen</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-01/"><img src="days/2026-09-01/02-video-use.png" width="320" alt="browser-use/video-use"></a><br><sub><b>browser-use/video-use</b><br>waveform</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-01/"><img src="days/2026-09-01/03-awesome-design-md.png" width="320" alt="VoltAgent/awesome-design-md"></a><br><sub><b>VoltAgent/awesome-design-md</b><br>poster</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-08-31/)
+[See the full day →](days/2026-09-01/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-09-01 | Tuesday | 3 | specimen, waveform, poster | [open](days/2026-09-01/) |
 | 2026-08-31 | Monday | 3 | ledger, cell-grid, neon-noir | [open](days/2026-08-31/) |
 | 2026-08-30 | Sunday | 3 | terminal-dark, strata, bauhaus | [open](days/2026-08-30/) |
 | 2026-08-29 | Saturday | 3 | constellation, brutalist, warm-minimal | [open](days/2026-08-29/) |

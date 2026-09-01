@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>video-use: five words, and the editor is not a person</title>
+<style>
+  :root{
+    --void:#08080A; --panel:#0C0C10; --panel-2:#101016;
+    --line:#17171F; --line-2:#25252F;
+    --fg:#E9E9EC; --fg-2:#8B8B96; --fg-3:#565662;
+    --cut:#E2453C;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px 50px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--cut);font-weight:400}
+
+  header{padding:46px 0 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,410px);gap:52px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cut);margin-bottom:18px}
+  h1{font-size:clamp(31px,4.2vw,52px);line-height:1.07;letter-spacing:-.031em;font-weight:600;max-width:15ch}
+  h1 em{font-style:normal;color:var(--cut)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--cut)}
+  .cmd i{color:var(--cut);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--cut);border-color:var(--cut)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:42ch}
+
+  .tl-hd{display:flex;align-items:baseline;gap:14px;padding:6px 0 12px}
+  .tl-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .tl-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .board{border:1px solid var(--line-2);background:var(--panel)}
+  .lane{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line);align-items:center}
+  .lane:last-child{border-bottom:none}
+  .lane .lab{padding:14px 14px;border-right:1px solid var(--line);min-width:0}
+  .lane .lab b{display:block;font-family:var(--mono);font-size:12px;color:var(--fg);letter-spacing:-.005em}
+  .lane .lab i{display:block;font-style:normal;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);margin-top:5px}
+  .lane .body{padding:14px 16px;min-width:0}
+
+  .wave{display:flex;align-items:flex-end;gap:2px;height:52px}
+  .wave i{display:block;flex:1;background:#2E2E38;min-width:2px}
+  .wave i.hot{background:var(--cut)}
+
+  .ruler{display:flex;align-items:center;gap:0;height:20px;margin-top:9px;border-top:1px solid var(--line-2)}
+  .ruler span{flex:1;font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--fg-3);padding-top:5px;border-right:1px solid var(--line)}
+  .ruler span:last-child{border-right:none}
+
+  .code{font-family:var(--mono);font-size:12.5px;line-height:1.85;color:var(--fg-2)}
+  .code b{color:var(--cut);font-weight:400}
+  .code u{text-decoration:none;color:var(--fg)}
+  .code em{font-style:normal;color:var(--fg-3)}
+
+  .board-ft{border-top:1px solid var(--line-2);background:var(--panel-2);padding:12px 15px;display:flex;align-items:center;gap:11px}
+  .board-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .board-ft b{font-family:var(--mono);font-size:11px;color:var(--cut);font-weight:400}
+  .board-ft .fill{flex:1;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--cut);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:26px;padding:30px 0 24px;align-items:start}
+    .lane{grid-template-columns:1fr}
+    .lane .lab{border-right:none;border-bottom:1px solid var(--line)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">browser-use<span> / </span>video-use</div>
+    <div class="r">Python &middot; GitHub Trending 1 Sep 2026 &middot; <b>591 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Five words, one of them strange</div>
+      <h1>The timeline stays. <em>The hand on it changes</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> pip install video-use</div>
+        <a class="lnk" href="https://github.com/browser-use/video-use">github.com/browser-use/video-use</a>
+      </div>
+    </div>
+    <p class="lede">"Edit videos with coding agents" is the entire description. Editing videos is old. The preposition is the news, because it says the thing holding the razor writes code instead of dragging a clip.</p>
+  </header>
+
+  <div class="tl-hd">
+    <h2>One edit, two ways of saying it</h2>
+    <span>illustrative, no real project file</span>
+  </div>
+
+  <div class="board">
+    <div class="lane">
+      <div class="lab"><b>what a person sees</b><i>timeline</i></div>
+      <div class="body">
+        <div class="wave">
+          <i style="height:22%"></i><i style="height:38%"></i><i style="height:61%"></i><i style="height:47%"></i><i style="height:73%"></i>
+          <i style="height:55%"></i><i style="height:31%"></i><i style="height:12%"></i><i class="hot" style="height:9%"></i><i class="hot" style="height:7%"></i>
+          <i style="height:44%"></i><i style="height:69%"></i><i style="height:82%"></i><i style="height:58%"></i><i style="height:41%"></i>
+          <i style="height:66%"></i><i style="height:88%"></i><i style="height:52%"></i><i style="height:35%"></i><i style="height:60%"></i>
+          <i style="height:74%"></i><i style="height:49%"></i><i style="height:28%"></i><i style="height:15%"></i><i class="hot" style="height:8%"></i>
+          <i style="height:37%"></i><i style="height:63%"></i><i style="height:79%"></i><i style="height:45%"></i><i style="height:24%"></i>
+          <i style="height:53%"></i><i style="height:71%"></i><i style="height:40%"></i><i style="height:26%"></i><i style="height:18%"></i>
+        </div>
+        <div class="ruler"><span>00:00</span><span>00:15</span><span>00:30</span><span>00:45</span><span>01:00</span></div>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="lab"><b>what an agent writes</b><i>the same edit</i></div>
+      <div class="body">
+        <div class="code">
+          <b>cut</b> <u>silence</u> <em>where level stays under floor</em><br>
+          <b>keep</b> <u>everything else</u> <em>in original order</em><br>
+          <b>render</b> <u>result</u> <em>no other instruction given</em>
+        </div>
+      </div>
+    </div>
+    <div class="board-ft">
+      <span>the word that changes the product</span><b>with coding agents</b><span class="fill"></span><span>no tool list published</span>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>An edit becomes reviewable</h3>
+      <p>Once a cut is a written instruction, it can be diffed, replayed on a second file, and argued with in a pull request. A dragged clip has none of those properties.</p>
+    </div>
+    <div>
+      <h3>The org name is a hint</h3>
+      <p>browser-use built an agent interface to the browser. video-use applies the same shape to a timeline, which suggests the interface rather than the model is the product here.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No supported format list, no agent name, no example project, no render time. The trending description is five words and publishes none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 1 September 2026 is "Edit videos with coding agents." The waveform and the three instruction lines are an illustrative drawing of one hypothetical edit, not output from the tool. No supported formats, agent integrations, or performance figures are represented here, because that sentence names none.</p>
+</div>
+</body>
+</html>

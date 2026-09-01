@@ -245,3 +245,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-08-31 — [rep](days/2026-08-31/) — jingyaogong/minimind — ledger/ink-rust — book the three claims as entries and mark the one that cannot close → works, the open row carries the argument
 - 2026-08-31 — [rep](days/2026-08-31/) — Osmantic/ODS — cell-grid/cobalt — draw the 21-cell support matrix and ship it unmarked → works, an empty grid beats 21 invented facts
 - 2026-08-31 — [rep](days/2026-08-31/) — affaan-m/ECC — neon-noir/acid-cyan — put the definite article on trial and list what the category contains → strongest of the three
+- 2026-09-01 — [rep](days/2026-09-01/) — firecrawl/pdf-inspector — specimen/ink-teal — use a type specimen to draw the character-versus-pixel distinction → cleanest idea of the week, genre and subject are the same thing
+- 2026-09-01 — [rep](days/2026-09-01/) — browser-use/video-use — waveform/cut-red — show one edit twice, as a timeline and as instruction lines → works, red marks map to the cuts below
+- 2026-09-01 — [rep](days/2026-09-01/) — VoltAgent/awesome-design-md — poster/ultramarine — give the headline two thirds of the fold and the mechanism one small panel → works after top-aligning the columns and dropping 116px to 92px

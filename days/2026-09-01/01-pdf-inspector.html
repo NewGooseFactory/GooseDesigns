@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pdf-inspector: the same letter, two ways</title>
+<style>
+  :root{
+    --paper:#F7F4EE; --card:#FFFFFF; --sink:#EFEBE2;
+    --hair:#DAD3C6; --hair-2:#B9B1A1;
+    --ink:#14140F; --ink-2:#484438; --ink-3:#87816F;
+    --teal:#0F6F6C;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .sheet{max-width:1180px;margin:0 auto;padding:0 40px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 11px;border-bottom:1px solid var(--hair-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--teal);font-weight:600}
+
+  header{padding:46px 0 38px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,452px);gap:48px;align-items:center}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:17px}
+  h1{font-family:var(--serif);font-size:clamp(31px,4.2vw,52px);line-height:1.06;letter-spacing:-.02em;font-weight:600;max-width:15ch}
+  h1 em{font-style:italic;color:var(--teal)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:27px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--teal)}
+  .cmd i{color:var(--teal);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--teal);border-color:var(--teal)}
+
+  /* specimen: one glyph, two representations */
+  .spec{border:1px solid var(--hair-2);background:var(--card)}
+  .spec-hd{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--hair-2);background:var(--sink)}
+  .spec-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .spec-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+             border:1px solid var(--hair);padding:3px 7px}
+  .pair{display:grid;grid-template-columns:1fr 1fr}
+  .pane{border-right:1px solid var(--hair-2);padding:16px 16px 14px}
+  .pane:last-child{border-right:none;background:var(--sink)}
+  .pane .tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:11px}
+  .glyphbox{height:118px;display:flex;align-items:center;justify-content:center;border:1px dashed var(--hair);background:var(--paper);position:relative;overflow:hidden}
+  .glyph{font-family:var(--serif);font-size:88px;line-height:1;color:var(--ink);letter-spacing:-.02em}
+  .glyph.sel{background:rgba(15,111,108,.16);padding:0 6px}
+  .caret{width:2px;height:74px;background:var(--teal);margin-left:4px}
+  .rasterwrap{position:relative;width:96px;height:104px}
+  .rasterwrap .glyph{position:absolute;left:0;top:0;font-size:88px;color:#3B372C}
+  .rasterwrap .px{position:absolute;inset:0;
+    background-image:linear-gradient(rgba(247,244,238,.85) 1px,transparent 1px),linear-gradient(90deg,rgba(247,244,238,.85) 1px,transparent 1px);
+    background-size:7px 7px}
+  .pane .meta{margin-top:11px;font-family:var(--mono);font-size:10.5px;line-height:1.65;color:var(--ink-2)}
+  .pane .meta b{color:var(--ink);font-weight:600}
+  .pane.raster .meta b{color:var(--ink-3)}
+
+  .fork{border-top:1px solid var(--hair-2);display:grid;grid-template-columns:1fr 1fr}
+  .fk{border-right:1px solid var(--hair-2);padding:12px 16px;display:flex;align-items:center;gap:10px}
+  .fk:last-child{border-right:none}
+  .fk span{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .fk b{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--teal);font-weight:600}
+  .fk.off b{color:var(--ink-3)}
+
+  .strip3{border-top:1px solid var(--hair-2);padding:26px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .sheet{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:30px;padding:30px 0 26px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">firecrawl<span> / pdf-inspector</span></div>
+    <div class="r">Rust &middot; GitHub Trending 1 Sep 2026 &middot; <b>228 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">One letter, two representations</div>
+      <h1>A PDF looks the same either way. <em>Your parser does not agree</em>.</h1>
+      <p class="lede">The whole product is one binary question asked before any work starts: are these characters, or are these pixels of characters. Everything downstream, including whether you need OCR at all, hangs off the answer.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> cargo add pdf-inspector</div>
+        <a class="lnk" href="https://github.com/firecrawl/pdf-inspector">github.com/firecrawl/pdf-inspector</a>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec-hd"><b>Specimen: the classification, drawn</b><u>Illustrative</u></div>
+      <div class="pair">
+        <div class="pane">
+          <div class="tag">text-based</div>
+          <div class="glyphbox"><span class="glyph sel">R</span><span class="caret"></span></div>
+          <div class="meta">A character with a code point. You can <b>select it, search it, extract it</b> without guessing.</div>
+        </div>
+        <div class="pane raster">
+          <div class="tag">scanned</div>
+          <div class="glyphbox">
+            <span class="rasterwrap"><span class="glyph">R</span><span class="px"></span></span>
+          </div>
+          <div class="meta">A picture that looks like a character. Extraction gets you <b>nothing until something reads it</b>.</div>
+        </div>
+      </div>
+      <div class="fork">
+        <div class="fk"><span>route</span><b>extract</b></div>
+        <div class="fk off"><span>route</span><b>send elsewhere</b></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Three jobs, one order</h3>
+      <p>Inspection, classification, then text extraction. The order matters, because classifying first is what lets you skip work on the documents that do not need it.</p>
+    </div>
+    <div>
+      <h3>Fast is the reason it sits in front</h3>
+      <p>A classifier that runs before the expensive path only pays off if it is cheap. Rust and fast are both in the name line, and the second one has no number behind it.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No accuracy rate, no throughput, no page-per-second figure, no definition of intelligently. The trending description names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 1 September 2026 reads "Fast Rust library for PDF inspection, classification, and text extraction. Intelligently detects scanned vs text-based PDFs to enable smart routing decisions." The two panes are an illustrative drawing of that one distinction, using a rendered letterform rather than any real document. No accuracy figure, benchmark, or sample PDF is represented here.</p>
+</div>
+</body>
+</html>

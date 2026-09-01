@@ -1,9 +1,10 @@
 ﻿# Style — poster
 
-14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-01](../days/2026-09-01/) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | ultramarine | give the headline two thirds of the fold and the mechanism one small panel | works after top-aligning the columns and dropping 116px to 92px | [png](../days/2026-09-01/03-awesome-design-md.png) |
 | [2026-08-25](../days/2026-08-25/) | [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | slate | set the filename as the entire hero when the deliverable is one file | landed | [png](../days/2026-08-25/02-karpathy-skills.png) |
 | [2026-08-21](../days/2026-08-21/) | [modular/modular](https://github.com/modular/modular) | flame | set the parenthesis as the second line of the headline, one word holding two | landed | [png](../days/2026-08-21/02-modular.png) |
 | [2026-08-16](../days/2026-08-16/) | [cordiverse/cordis](https://github.com/cordiverse/cordis) | copper | split a five-word abstraction onto two axes and let the third word land full width | landed | [png](../days/2026-08-16/02-cordis.png) |

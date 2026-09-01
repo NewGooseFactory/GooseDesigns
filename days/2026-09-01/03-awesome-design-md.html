@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>awesome-design-md: one file between the brand and the agent</title>
+<style>
+  :root{
+    --paper:#F6F5F2; --card:#FFFFFF; --sink:#EAE8E3;
+    --hair:#D8D5CE; --ink:#0C0C0C; --ink-2:#3E3E3C; --ink-3:#7C7B77;
+    --ultra:#2136C9;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .page{max-width:1220px;margin:0 auto;padding:0 40px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:18px 0 11px;border-bottom:1px solid var(--ink)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--ultra);font-weight:600}
+
+  .poster{padding:44px 0 10px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ultra);margin-bottom:22px}
+  h1{font-size:clamp(40px,6.9vw,92px);line-height:.94;letter-spacing:-.043em;font-weight:700;max-width:15ch}
+  h1 em{font-style:normal;color:var(--ultra)}
+
+  .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);gap:52px;align-items:start;padding:32px 0 30px;border-bottom:1px solid var(--ink)}
+  .lede{font-size:16px;line-height:1.66;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--ink);padding:12px 17px;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .cmd:hover{background:var(--ultra);color:#fff;border-color:var(--ultra)}
+  .cmd i{color:var(--ultra);font-style:normal;margin-right:9px}
+  .cmd:hover i{color:#fff}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--ultra);border-color:var(--ultra)}
+
+  /* the handoff */
+  .chain{border:1px solid var(--ink);background:var(--card)}
+  .chain-hd{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--ink);background:var(--sink)}
+  .chain-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:600}
+  .chain-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+              border:1px solid var(--hair);padding:3px 7px}
+  .step{display:grid;grid-template-columns:30px 1fr 108px;align-items:center;border-bottom:1px solid var(--hair)}
+  .step .n{font-family:var(--mono);font-size:9px;color:var(--ink-3);padding-left:13px}
+  .step .t{padding:14px 12px 14px 0}
+  .step .t b{display:block;font-family:var(--mono);font-size:13.5px;color:var(--ink);font-weight:600;letter-spacing:-.005em}
+  .step .t i{display:block;font-style:normal;font-size:12px;color:var(--ink-2);margin-top:5px;line-height:1.55;max-width:44ch}
+  .step .s{padding-right:14px;text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .step.file .t b{color:var(--ultra)}
+  .step.file .s{color:var(--ultra)}
+  .step:last-of-type{border-bottom:none}
+  .chain-ft{border-top:1px solid var(--ink);background:var(--sink);padding:12px 14px;display:flex;align-items:center;gap:11px}
+  .chain-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .chain-ft b{font-family:var(--mono);font-size:11px;color:var(--ultra);font-weight:600}
+  .chain-ft .fill{flex:1;height:1px;background:var(--hair)}
+
+  .strip3{padding:26px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ultra);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .page{padding:0 18px 40px}
+    .poster{padding:32px 0 12px}
+    .under{grid-template-columns:1fr;gap:28px;align-items:start;padding:26px 0 24px}
+    .step{grid-template-columns:26px 1fr}
+    .step .s{display:none}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">VoltAgent<span> / awesome-design-md</span></div>
+    <div class="r">Markdown &middot; GitHub Trending 1 Sep 2026 &middot; <b>487 stars today</b></div>
+  </div>
+
+  <div class="poster">
+    <div class="eyebrow">Drop one in</div>
+    <h1>A brand system, <em>reduced to a file an agent reads</em>.</h1>
+  </div>
+
+  <div class="under">
+    <div>
+      <p class="lede">The verb in the description is drop, which is a lower bar than configure or install. A markdown file goes in the repo root and the coding agent picks the styling up from there, so design decisions live in the same place as the code that renders them.</p>
+      <div class="cta">
+        <div class="cmd"><i>&gt;</i> cp DESIGN.md ./</div>
+        <a class="lnk" href="https://github.com/VoltAgent/awesome-design-md">github.com/VoltAgent/awesome-design-md</a>
+      </div>
+    </div>
+
+    <div class="chain">
+      <div class="chain-hd"><b>The handoff, as described</b><u>Steps from the source line</u></div>
+      <div class="step">
+        <div class="n">01</div>
+        <div class="t"><b>a brand design system</b><i>Analysis of design systems from popular brands. The collection is the input side.</i></div>
+        <div class="s">named</div>
+      </div>
+      <div class="step file">
+        <div class="n">02</div>
+        <div class="t"><b>DESIGN.md</b><i>One markdown file in the project root. This is the entire interface between the two ends.</i></div>
+        <div class="s">the artifact</div>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <div class="t"><b>a coding agent</b><i>Reads the file and generates a matching UI. The description does not name which agent.</i></div>
+        <div class="s">named</div>
+      </div>
+      <div class="chain-ft">
+        <span>the whole contract is one file</span><b>DESIGN.md</b><span class="fill"></span><span>no schema published</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Markdown is the format choice</h3>
+      <p>A design token file would be machine readable and unreadable by people. Markdown keeps the brief in the form a designer would have written anyway.</p>
+    </div>
+    <div>
+      <h3>Matching is the contested word</h3>
+      <p>Generating a UI is easy. Generating one that matches a named brand system is the claim, and nothing in the description says how close counts as matching.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No brand list, no file schema, no agent name, no sample output. The trending description publishes none of it, so no logos appear here.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 1 September 2026 reads "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI." The three steps restate that sequence. No brand names, logos, file contents, or generated interfaces are shown, because the description names none of them.</p>
+</div>
+</body>
+</html>
