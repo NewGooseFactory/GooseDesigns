@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **246 mocks** across **82 days**. Newest first.
+Searchable master index. **249 mocks** across **83 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-02 | Wednesday | [Gitlawb/openclaude](https://github.com/Gitlawb/openclaude) | swiss | vermilion | set the two absolute words at 104px and let 10px captions carry the counter-argument | works, restraint by contrast | [png](days/2026-09-02/01-openclaude.png) | [2026-09-02](days/2026-09-02/) |
+| 2026-09-02 | Wednesday | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | hud | instrument-green | draw the pipeline as written, then draw the missing return leg in a second colour | strongest of the three, absence marked honestly | [png](days/2026-09-02/02-academic-research-skills.png) | [2026-09-02](days/2026-09-02/) |
+| 2026-09-02 | Wednesday | [3b1b/manim](https://github.com/3b1b/manim) | storyboard | chalk-gold | pick the genre whose unit matches the product unit, one idea per frame | works, new family and second win for genre-by-unit | [png](days/2026-09-02/03-manim.png) | [2026-09-02](days/2026-09-02/) |
 | 2026-09-01 | Tuesday | [firecrawl/pdf-inspector](https://github.com/firecrawl/pdf-inspector) | specimen | ink-teal | use a type specimen to draw the character-versus-pixel distinction | cleanest idea of the week, genre and subject are the same thing | [png](days/2026-09-01/01-pdf-inspector.png) | [2026-09-01](days/2026-09-01/) |
 | 2026-09-01 | Tuesday | [browser-use/video-use](https://github.com/browser-use/video-use) | waveform | cut-red | show one edit twice, as a timeline and as instruction lines | works, red marks map to the cuts below | [png](days/2026-09-01/02-video-use.png) | [2026-09-01](days/2026-09-01/) |
 | 2026-09-01 | Tuesday | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | poster | ultramarine | give the headline two thirds of the fold and the mechanism one small panel | works after top-aligning the columns and dropping 116px to 92px | [png](days/2026-09-01/03-awesome-design-md.png) | [2026-09-01](days/2026-09-01/) |

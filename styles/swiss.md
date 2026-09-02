@@ -1,9 +1,10 @@
 ﻿# Style — swiss
 
-14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-02](../days/2026-09-02/) | [Gitlawb/openclaude](https://github.com/Gitlawb/openclaude) | vermilion | set the two absolute words at 104px and let 10px captions carry the counter-argument | works, restraint by contrast | [png](../days/2026-09-02/01-openclaude.png) |
 | [2026-08-27](../days/2026-08-27/) | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | slate-teal | set the target number as the hero when the target is zero | landed | [png](../days/2026-08-27/01-ponytail.png) |
 | [2026-08-22](../days/2026-08-22/) | [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | signal-blue | build the page on the language badge, the metadata column everyone scrolls past | landed | [png](../days/2026-08-22/02-typescript.png) |
 | [2026-08-18](../days/2026-08-18/) | [chaitanyagiri/munder-difflin](https://github.com/chaitanyagiri/munder-difflin) | signal-red | set a three-word description as the hero staircase and annotate each word | landed | [png](../days/2026-08-18/02-munder-difflin.png) |

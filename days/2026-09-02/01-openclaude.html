@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>openclaude: two absolutes and nothing enumerated</title>
+<style>
+  :root{
+    --paper:#F2F2F0; --ink:#0A0A0A; --ink-2:#3C3C3C; --ink-3:#8A8A88;
+    --hair:#CFCFCC; --verm:#D33511;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .grid{max-width:1220px;margin:0 auto;padding:0 38px 44px}
+
+  .top{display:grid;grid-template-columns:repeat(12,1fr);gap:0;align-items:baseline;padding:18px 0 10px;border-bottom:2px solid var(--ink)}
+  .top .slug{grid-column:1 / span 5;font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{grid-column:7 / span 6;text-align:right;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--verm);font-weight:700}
+
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--verm);padding:34px 0 0}
+
+  .claim{display:grid;grid-template-columns:repeat(12,1fr);align-items:end;border-bottom:1px solid var(--hair);padding:16px 0 14px}
+  .claim .idx{grid-column:1 / span 1;font-family:var(--mono);font-size:11px;color:var(--ink-3);padding-bottom:12px}
+  .claim .word{grid-column:2 / span 7;font-size:clamp(46px,7.6vw,104px);line-height:.92;letter-spacing:-.05em;font-weight:700}
+  .claim.b .word{color:var(--verm)}
+  .claim .say{grid-column:9 / span 4;padding-bottom:14px;padding-left:14px;border-left:1px solid var(--hair)}
+  .claim .say b{display:block;font-family:var(--mono);font-size:11px;color:var(--ink);letter-spacing:-.005em;margin-bottom:7px}
+  .claim .say i{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;line-height:1.65;color:var(--ink-2)}
+  .claim .say u{text-decoration:none;display:inline-block;margin-top:9px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--verm);border-top:2px solid var(--verm);padding-top:6px}
+
+  .slots{display:grid;grid-template-columns:repeat(12,1fr);border-left:1px solid var(--hair);margin-top:26px}
+  .slot{border-right:1px solid var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);height:52px;position:relative}
+  .slot::after{content:"";position:absolute;left:8px;right:8px;top:50%;height:1px;background:var(--hair)}
+  .slots-cap{display:grid;grid-template-columns:repeat(12,1fr);padding-top:9px}
+  .slots-cap .l{grid-column:1 / span 6;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .slots-cap .rr{grid-column:7 / span 6;text-align:right;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--verm)}
+
+  .band{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding:30px 0 0;margin-top:28px;border-top:2px solid var(--ink)}
+  .band .lede{grid-column:1 / span 5;font-size:15.5px;line-height:1.66;color:var(--ink-2)}
+  .band .cta{grid-column:7 / span 6;display:flex;gap:0;align-items:stretch;justify-content:flex-end;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:13px 18px}
+  .cmd i{color:#F09077;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-decoration:none;padding:13px 18px;border:1px solid var(--ink);border-left:none;display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--verm);color:#fff;border-color:var(--verm)}
+
+  .cols{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding-top:30px}
+  .col{grid-column:span 4;padding-right:28px}
+  .col h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--verm);margin-bottom:9px;font-weight:700}
+  .col p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:33ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .grid{padding:0 16px 40px}
+    .top .slug{grid-column:1 / span 12}
+    .top .r{grid-column:1 / span 12;text-align:left;padding-top:6px}
+    .claim .word{grid-column:1 / span 12}
+    .claim .idx{grid-column:1 / span 12;padding-bottom:4px}
+    .claim .say{grid-column:1 / span 12;border-left:none;padding-left:0;padding-top:12px}
+    .slots{grid-template-columns:repeat(6,1fr)}
+    .band .lede,.band .cta{grid-column:1 / span 12;justify-content:flex-start}
+    .band .cta{padding-top:20px}
+    .col{grid-column:span 12;padding-right:0;padding-bottom:20px}
+  }
+</style>
+</head>
+<body>
+<div class="grid">
+
+  <div class="top">
+    <div class="slug">Gitlawb<span> / openclaude</span></div>
+    <div class="r">TypeScript &middot; GitHub Trending 2 Sep 2026 &middot; <b>80 stars today</b></div>
+  </div>
+
+  <div class="eyebrow">Four words, two absolutes</div>
+
+  <div class="claim a">
+    <div class="idx">01</div>
+    <div class="word">anywhere</div>
+    <div class="say">
+      <b>runs anywhere</b>
+      <i>A claim about the host. To close it you name operating systems, runtimes, or architectures.</i>
+      <u>0 named in the description</u>
+    </div>
+  </div>
+
+  <div class="claim b">
+    <div class="idx">02</div>
+    <div class="word">anything</div>
+    <div class="say">
+      <b>uses anything</b>
+      <i>A claim about the dependency. To close it you name models, providers, or tools it can drive.</i>
+      <u>0 named in the description</u>
+    </div>
+  </div>
+
+  <div class="slots">
+    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+  </div>
+  <div class="slots-cap">
+    <div class="l">twelve slots where a name would go</div>
+    <div class="rr">all empty by the source, not by choice</div>
+  </div>
+
+  <div class="band">
+    <p class="lede">Two absolute words carry the whole product. Both are the strongest form of their claim, and both stay open until somebody writes a list, which is the work every universal tool eventually has to publish.</p>
+    <div class="cta">
+      <div class="cmd"><i>$</i>npx openclaude</div>
+      <a class="lnk" href="https://github.com/Gitlawb/openclaude">github.com/Gitlawb/openclaude</a>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>Lowercase is the tone</h3>
+      <p>The description is set in lowercase with two full stops and no adjectives. That reads as a claim made flatly rather than sold, which is a choice worth keeping in the type.</p>
+    </div>
+    <div class="col">
+      <h3>Anywhere is the harder half</h3>
+      <p>Supporting many models is a matter of adapters. Running on any host touches packaging, permissions, and the filesystem, and it fails in ways users report as bugs.</p>
+    </div>
+    <div class="col">
+      <h3>What is not on this page</h3>
+      <p>No platform list, no model list, no version, no install target. The trending description is four words and names none of them.</p>
+    </div>
+  </div>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 2 September 2026 is "runs anywhere. uses anything". The twelve empty slots are drawn to mark where a supported-platform or supported-model list would sit; they are blank because that sentence enumerates nothing. No platform, model, or version is represented here.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>manim: the adjective is explanatory, so every frame owes you one idea</title>
+<style>
+  :root{
+    --slate:#12161A; --board:#161B21; --board-2:#1B2128;
+    --line:#232B33; --line-2:#34404B;
+    --chalk:#EAF0F4; --chalk-2:#96A5B2; --chalk-3:#606E7A;
+    --gold:#E8C36A;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--slate);color:var(--chalk);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 38px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--chalk-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--chalk-3)}
+  .top .r b{color:var(--gold);font-weight:400}
+
+  header{padding:44px 0 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:17px}
+  h1{font-family:var(--serif);font-size:clamp(30px,4.1vw,50px);line-height:1.08;letter-spacing:-.018em;font-weight:600;max-width:16ch}
+  h1 em{font-style:italic;color:var(--gold)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--board-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--gold)}
+  .cmd i{color:var(--gold);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--chalk-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--gold);border-color:var(--gold)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--chalk-2);max-width:42ch}
+
+  .strip-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .strip-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-2);font-weight:400}
+  .strip-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--chalk-3)}
+
+  .film{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line-2);background:var(--board)}
+  .frame{border-right:1px solid var(--line-2);min-width:0}
+  .frame:last-child{border-right:none}
+  .frame .hd{display:flex;align-items:center;gap:8px;padding:8px 11px;border-bottom:1px solid var(--line);background:var(--board-2)}
+  .frame .hd b{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--chalk-3);font-weight:400}
+  .frame .hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;color:var(--chalk-3)}
+  .frame svg{display:block;width:100%;height:150px;background:var(--board)}
+  .frame svg .ax{stroke:#3C4A56;stroke-width:1}
+  .frame svg .draw{stroke:var(--chalk);stroke-width:1.4;fill:none}
+  .frame svg .hot{stroke:var(--gold);stroke-width:1.8;fill:none}
+  .frame svg .fillhot{fill:rgba(232,195,106,.16);stroke:var(--gold);stroke-width:1.2}
+  .frame .adds{padding:11px 11px 13px;border-top:1px solid var(--line)}
+  .frame .adds b{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--chalk-3);margin-bottom:6px}
+  .frame .adds i{display:block;font-style:normal;font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--gold)}
+
+  .filmft{border:1px solid var(--line-2);border-top:none;background:var(--board-2);padding:12px 14px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .filmft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--chalk-3)}
+  .filmft b{font-family:var(--mono);font-size:11px;color:var(--gold);font-weight:400}
+  .filmft .fill{flex:1;min-width:60px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--chalk-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--chalk-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .film{grid-template-columns:repeat(2,1fr)}
+    .frame{border-bottom:1px solid var(--line-2)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">3b1b<span> / </span>manim</div>
+    <div class="r">Python &middot; GitHub Trending 2 Sep 2026 &middot; <b>86 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Six words, one constraint</div>
+      <h1>An engine for animation is common. <em>Explanatory</em> is the hard word.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> pip install manim</div>
+        <a class="lnk" href="https://github.com/3b1b/manim">github.com/3b1b/manim</a>
+      </div>
+    </div>
+    <p class="lede">Animation engine for explanatory math videos. Drop the adjective and this is a rendering library. Keep it and every frame owes the viewer exactly one new idea, which is a constraint on the author rather than on the renderer.</p>
+  </header>
+
+  <div class="strip-hd">
+    <h2>One idea per frame, drawn as a storyboard</h2>
+    <span>illustrative construction, not manim output</span>
+  </div>
+
+  <div class="film">
+    <div class="frame">
+      <div class="hd"><b>frame 01</b><u>t0</u></div>
+      <svg viewBox="0 0 240 150" aria-hidden="true">
+        <line class="ax" x1="20" y1="120" x2="220" y2="120"/>
+        <line class="ax" x1="120" y1="20" x2="120" y2="140"/>
+      </svg>
+      <div class="adds"><b>this frame adds</b><i>the plane</i></div>
+    </div>
+    <div class="frame">
+      <div class="hd"><b>frame 02</b><u>t1</u></div>
+      <svg viewBox="0 0 240 150" aria-hidden="true">
+        <line class="ax" x1="20" y1="120" x2="220" y2="120"/>
+        <line class="ax" x1="120" y1="20" x2="120" y2="140"/>
+        <circle class="draw" cx="120" cy="80" r="46"/>
+      </svg>
+      <div class="adds"><b>this frame adds</b><i>the circle</i></div>
+    </div>
+    <div class="frame">
+      <div class="hd"><b>frame 03</b><u>t2</u></div>
+      <svg viewBox="0 0 240 150" aria-hidden="true">
+        <line class="ax" x1="20" y1="120" x2="220" y2="120"/>
+        <line class="ax" x1="120" y1="20" x2="120" y2="140"/>
+        <circle class="draw" cx="120" cy="80" r="46"/>
+        <line class="hot" x1="120" y1="80" x2="152" y2="47"/>
+        <circle cx="152" cy="47" r="3" fill="#E8C36A"/>
+      </svg>
+      <div class="adds"><b>this frame adds</b><i>the radius</i></div>
+    </div>
+    <div class="frame">
+      <div class="hd"><b>frame 04</b><u>t3</u></div>
+      <svg viewBox="0 0 240 150" aria-hidden="true">
+        <line class="ax" x1="20" y1="120" x2="220" y2="120"/>
+        <line class="ax" x1="120" y1="20" x2="120" y2="140"/>
+        <circle class="draw" cx="120" cy="80" r="46"/>
+        <line class="draw" x1="120" y1="80" x2="152" y2="47"/>
+        <line class="draw" x1="120" y1="80" x2="166" y2="80"/>
+        <path class="fillhot" d="M120 80 L145 80 A25 25 0 0 0 137 62 Z"/>
+      </svg>
+      <div class="adds"><b>this frame adds</b><i>the angle</i></div>
+    </div>
+  </div>
+  <div class="filmft">
+    <span>four frames, four ideas</span>
+    <b>nothing arrives twice</b>
+    <span class="fill"></span>
+    <span>no manim scene shown</span>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>The engine is the easy half</h3>
+      <p>Rendering shapes over time is solved. Deciding what appears on frame three and what waits for frame four is the part that carries the explanation.</p>
+    </div>
+    <div>
+      <h3>Math is the narrowing word</h3>
+      <p>A general animation library needs a timeline and a shape system. A math one also needs objects that know they are equations, axes, and transforms.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No API, no render time, no scene code, no output sample. The trending description is six words and publishes none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 2 September 2026 is "Animation engine for explanatory math videos." The four frames are an illustrative construction drawn by hand in SVG to show what one-idea-per-frame means; they are not rendered by manim and no manim API, scene, or output appears here.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>academic-research-skills: five legs forward, one leg missing</title>
+<style>
+  :root{
+    --void:#070806; --panel:#0B0D0A; --panel-2:#0F120E;
+    --line:#161A14; --line-2:#232A1E;
+    --fg:#DDE4D8; --fg-2:#7F8A78; --fg-3:#4E574A;
+    --green:#7BE04C; --amber:#E0A93C;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:linear-gradient(rgba(123,224,76,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(123,224,76,.028) 1px,transparent 1px);
+    background-size:36px 36px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 38px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--green);font-weight:400}
+
+  header{padding:44px 0 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,388px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:17px}
+  h1{font-size:clamp(30px,4vw,49px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--green)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--green)}
+  .cmd i{color:var(--green);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--green);border-color:var(--green)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:41ch}
+
+  .inst-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .inst-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .inst-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .inst{border:1px solid var(--line-2);background:var(--panel);padding:20px 20px 16px}
+  .legs{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+  .leg{position:relative;padding:0 8px}
+  .leg .dial{height:64px;border:1px solid var(--line-2);background:var(--panel-2);display:flex;align-items:center;justify-content:center;position:relative}
+  .leg .dial b{font-family:var(--mono);font-size:13px;color:var(--green);letter-spacing:-.005em}
+  .leg .dial::before{content:"";position:absolute;left:9px;top:9px;width:5px;height:5px;background:var(--green);opacity:.85}
+  .leg .n{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);padding:9px 0 0;text-align:center}
+  .leg .arrow{position:absolute;right:-9px;top:32px;width:18px;height:1px;background:var(--green);opacity:.55;z-index:2}
+  .leg .arrow::after{content:"";position:absolute;right:0;top:-3px;border-left:6px solid var(--green);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;opacity:.9}
+  .leg:last-child .arrow{display:none}
+
+  .ticks{display:flex;gap:0;margin-top:16px;border-top:1px solid var(--line);padding-top:8px}
+  .ticks i{flex:1;height:6px;border-right:1px solid var(--line-2);display:block}
+  .ticks i:nth-child(5n+1){height:11px}
+
+  .loop{margin-top:16px;border-top:1px dashed var(--line-2);padding-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .loop .dash{flex:1;min-width:90px;height:1px;background:repeating-linear-gradient(90deg,var(--amber) 0 7px,transparent 7px 14px);opacity:.8}
+  .loop b{font-family:var(--mono);font-size:11px;color:var(--amber);font-weight:400}
+  .loop span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .legs{grid-template-columns:repeat(2,1fr);gap:10px}
+    .leg .arrow{display:none}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">Imbad0202<span> / </span>academic-research-skills</div>
+    <div class="r">Python &middot; GitHub Trending 2 Sep 2026 &middot; <b>193 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Five stations, four arrows</div>
+      <h1>Research runs in a loop. The description draws it as <em>a straight line</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>&gt;</i> add academic-research-skills</div>
+        <a class="lnk" href="https://github.com/Imbad0202/academic-research-skills">github.com/Imbad0202/academic-research-skills</a>
+      </div>
+    </div>
+    <p class="lede">The pipeline is spelled out with arrows: research, write, review, revise, finalize. Every arrow points forward. The one arrow nobody draws is the return leg from revise back to review, which is where most of the real work happens.</p>
+  </header>
+
+  <div class="inst-hd">
+    <h2>The pipeline, exactly as the description writes it</h2>
+    <span>five stations, source order</span>
+  </div>
+
+  <div class="inst">
+    <div class="legs">
+      <div class="leg"><div class="dial"><b>research</b></div><div class="n">station 01</div><div class="arrow"></div></div>
+      <div class="leg"><div class="dial"><b>write</b></div><div class="n">station 02</div><div class="arrow"></div></div>
+      <div class="leg"><div class="dial"><b>review</b></div><div class="n">station 03</div><div class="arrow"></div></div>
+      <div class="leg"><div class="dial"><b>revise</b></div><div class="n">station 04</div><div class="arrow"></div></div>
+      <div class="leg"><div class="dial"><b>finalize</b></div><div class="n">station 05</div></div>
+    </div>
+
+    <div class="ticks">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+
+    <div class="loop">
+      <span>the leg the sentence does not draw</span>
+      <b>revise back to review</b>
+      <span class="dash"></span>
+      <span>loop not published</span>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Naming the stations is the product</h3>
+      <p>A skill pack that names five stages commits to five separate prompts with handoffs between them, which is a stronger promise than one skill that does research.</p>
+    </div>
+    <div>
+      <h3>Review sits before revise</h3>
+      <p>Putting review ahead of revise says the critique step comes from outside the writing step. That ordering is the interesting design decision in the sentence.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No skill file list, no citation format, no field of study, no iteration count. The trending description names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 2 September 2026 reads "Academic Research Skills for Claude Code: research, write, review, revise, finalize." The five stations are those five words in that order. The amber return leg is drawn dashed and labelled loop not published, because that arrow appears nowhere in the source line and no iteration behaviour is claimed here.</p>
+</div>
+</body>
+</html>
