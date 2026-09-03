@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **249 mocks** across **83 days**. Newest first.
+Searchable master index. **252 mocks** across **84 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-03 | Thursday | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | mono-zine | ochre | demonstrate with the page's own two lines and print counts the reader can check | works, live demo kept separate from the published 65 percent | [png](days/2026-09-03/01-caveman.png) | [2026-09-03](days/2026-09-03/) |
+| 2026-09-03 | Thursday | [blader/humanizer](https://github.com/blader/humanizer) | redline | proof-red | the unit is a revision, so the genre is a galley proof with margin marks | strongest of the three, new family, third win for genre-by-unit | [png](days/2026-09-03/02-humanizer.png) | [2026-09-03](days/2026-09-03/) |
+| 2026-09-03 | Thursday | [magnitudedev/magnitude](https://github.com/magnitudedev/magnitude) | blueprint | graphite-ink | draw both ends and let the asymmetry between 8 named and 0 named be the headline | works, the dashed part does the whole job | [png](days/2026-09-03/03-magnitude.png) | [2026-09-03](days/2026-09-03/) |
 | 2026-09-02 | Wednesday | [Gitlawb/openclaude](https://github.com/Gitlawb/openclaude) | swiss | vermilion | set the two absolute words at 104px and let 10px captions carry the counter-argument | works, restraint by contrast | [png](days/2026-09-02/01-openclaude.png) | [2026-09-02](days/2026-09-02/) |
 | 2026-09-02 | Wednesday | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | hud | instrument-green | draw the pipeline as written, then draw the missing return leg in a second colour | strongest of the three, absence marked honestly | [png](days/2026-09-02/02-academic-research-skills.png) | [2026-09-02](days/2026-09-02/) |
 | 2026-09-02 | Wednesday | [3b1b/manim](https://github.com/3b1b/manim) | storyboard | chalk-gold | pick the genre whose unit matches the product unit, one idea per frame | works, new family and second win for genre-by-unit | [png](days/2026-09-02/03-manim.png) | [2026-09-02](days/2026-09-02/) |

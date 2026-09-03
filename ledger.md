@@ -251,3 +251,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-09-02 — [rep](days/2026-09-02/) — Gitlawb/openclaude — swiss/vermilion — set the two absolute words at 104px and let 10px captions carry the counter-argument → works, restraint by contrast
 - 2026-09-02 — [rep](days/2026-09-02/) — Imbad0202/academic-research-skills — hud/instrument-green — draw the pipeline as written, then draw the missing return leg in a second colour → strongest of the three, absence marked honestly
 - 2026-09-02 — [rep](days/2026-09-02/) — 3b1b/manim — storyboard/chalk-gold — pick the genre whose unit matches the product unit, one idea per frame → works, new family and second win for genre-by-unit
+- 2026-09-03 — [rep](days/2026-09-03/) — JuliusBrussee/caveman — mono-zine/ochre — demonstrate with the page's own two lines and print counts the reader can check → works, live demo kept separate from the published 65 percent
+- 2026-09-03 — [rep](days/2026-09-03/) — blader/humanizer — redline/proof-red — the unit is a revision, so the genre is a galley proof with margin marks → strongest of the three, new family, third win for genre-by-unit
+- 2026-09-03 — [rep](days/2026-09-03/) — magnitudedev/magnitude — blueprint/graphite-ink — draw both ends and let the asymmetry between 8 named and 0 named be the headline → works, the dashed part does the whole job

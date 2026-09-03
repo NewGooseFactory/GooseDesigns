@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>caveman: the joke is the compression</title>
+<style>
+  :root{
+    --black:#060604; --box:#0A0A07; --box-2:#0E0E0A;
+    --line:#1A1A12; --line-2:#2A2A1C;
+    --fg:#E7E3D3; --fg-2:#8D8871; --fg-3:#5A5645;
+    --ochre:#E8A33A;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--black);color:var(--fg);font-family:var(--mono);min-height:100vh;font-size:14px;line-height:1.6}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 38px 46px}
+
+  .rule{color:var(--line-2);font-size:12px;letter-spacing:.02em;overflow:hidden;white-space:nowrap;user-select:none}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 8px}
+  .top .slug{font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--ochre);font-weight:400}
+
+  header{padding:38px 0 28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,392px);gap:48px;align-items:end}
+  .eyebrow{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre);margin-bottom:20px}
+  h1{font-size:clamp(26px,3.3vw,41px);line-height:1.12;letter-spacing:-.028em;font-weight:700;max-width:19ch}
+  h1 em{font-style:normal;color:var(--ochre)}
+  .sub{font-size:13.5px;line-height:1.78;color:var(--fg-2);max-width:44ch}
+  .cta{margin-top:26px;display:flex;gap:0;align-items:stretch;flex-wrap:wrap;border:1px solid var(--line-2);width:fit-content}
+  .cmd{font-size:13px;background:var(--box-2);padding:12px 17px}
+  .cmd i{color:var(--ochre);font-style:normal;margin-right:9px}
+  .lnk{font-size:12.5px;color:var(--fg-2);text-decoration:none;padding:12px 17px;border-left:1px solid var(--line-2);display:flex;align-items:center;
+       transition:color 150ms var(--out),background 150ms var(--out)}
+  .lnk:hover{color:var(--black);background:var(--ochre)}
+
+  .pair-hd{display:flex;align-items:baseline;gap:14px;padding:4px 0 10px;margin-top:24px}
+  .pair-hd h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .pair-hd span{margin-left:auto;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .pair{border:1px solid var(--line-2);background:var(--box)}
+  .row{display:grid;grid-template-columns:118px 1fr 96px;border-bottom:1px solid var(--line);align-items:stretch}
+  .row:last-of-type{border-bottom:none}
+  .row .k{padding:15px 12px;border-right:1px solid var(--line);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);display:flex;align-items:center}
+  .row .v{padding:15px 16px;font-size:14.5px;line-height:1.62;min-width:0}
+  .row .c{padding:15px 12px;border-left:1px solid var(--line);font-size:10.5px;color:var(--fg-3);display:flex;align-items:center;justify-content:flex-end;text-align:right}
+  .row.short .v{color:var(--ochre);font-size:16px;letter-spacing:-.005em}
+  .row.short .k{color:var(--ochre)}
+  .row.short .c{color:var(--ochre)}
+
+  .pair-ft{border-top:1px solid var(--line-2);background:var(--box-2);padding:12px 14px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .pair-ft span{font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .pair-ft b{font-size:11.5px;color:var(--ochre);font-weight:400}
+  .pair-ft .fill{flex:1;min-width:50px;height:1px;background:var(--line-2)}
+
+  .claimbar{margin-top:26px;border:1px solid var(--ochre);background:#140F05;padding:16px 18px;display:grid;grid-template-columns:118px 1fr;gap:16px;align-items:center}
+  .claimbar b{font-size:34px;color:var(--ochre);letter-spacing:-.03em;line-height:1}
+  .claimbar i{font-style:normal;font-size:12.5px;line-height:1.7;color:var(--fg-2)}
+
+  .strip3{padding:26px 0 0;margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .strip3 h3{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ochre);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:12.5px;line-height:1.75;color:var(--fg-2);max-width:36ch}
+  .note{font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:24px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:22px;align-items:start}
+    .row{grid-template-columns:1fr}
+    .row .k{border-right:none;border-bottom:1px solid var(--line)}
+    .row .c{border-left:none;justify-content:flex-start;text-align:left}
+    .claimbar{grid-template-columns:1fr}
+    .strip3{grid-template-columns:1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">JuliusBrussee<span> / </span>caveman</div>
+    <div class="r">Go &middot; GitHub Trending 3 Sep 2026 &middot; <b>238 stars today</b></div>
+  </div>
+  <div class="rule">================================================================================================================</div>
+
+  <header>
+    <div>
+      <div class="eyebrow">The bit is the mechanism</div>
+      <h1>Grammar is the part of your prompt <em>the model was never billed for</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i>add skill caveman</div>
+        <a class="lnk" href="https://github.com/JuliusBrussee/caveman">github.com/JuliusBrussee/caveman</a>
+      </div>
+    </div>
+    <p class="sub">Articles, auxiliaries, and politeness all cost tokens and carry almost no instruction. caveman drops them on purpose, which turns a joke about speech into a straightforward compression pass over the prompt.</p>
+  </header>
+
+  <div class="pair-hd">
+    <h2>Same instruction, two registers</h2>
+    <span>this page's own example, not a measurement of the skill</span>
+  </div>
+
+  <div class="pair">
+    <div class="row">
+      <div class="k">as written</div>
+      <div class="v">Could you please take a look at the file and then tell me whether there is anything in it that might be causing the build to fail?</div>
+      <div class="c">26 words</div>
+    </div>
+    <div class="row short">
+      <div class="k">as sent</div>
+      <div class="v">read file. find build break.</div>
+      <div class="c">5 words</div>
+    </div>
+    <div class="pair-ft">
+      <span>what survives the pass</span>
+      <b>the verbs and the nouns</b>
+      <span class="fill"></span>
+      <span>word counts are of these two lines only</span>
+    </div>
+  </div>
+
+  <div class="claimbar">
+    <b>65%</b>
+    <i>The one number the project publishes, quoted from its own GitHub Trending description on 3 September 2026. No independent measurement appears on this page, and no per-prompt figure is claimed anywhere in the panel above.</i>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Comprehension is the risk</h3>
+      <p>Dropping function words saves tokens right up to the point where an instruction becomes ambiguous. The interesting question is where that line sits, and the description does not say.</p>
+    </div>
+    <div>
+      <h3>A skill, not a wrapper</h3>
+      <p>Shipping this as a Claude Code skill means it runs inside the agent rather than in front of it, so the compression applies to what the agent writes as well as what you type.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No benchmark, no task set, no quality comparison, no failure rate. The trending description publishes one percentage and nothing else.</p>
+    </div>
+  </section>
+
+  <div class="rule">----------------------------------------------------------------------------------------------------------------</div>
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 3 September 2026 reads "why use many token when few token do trick. Claude Code skill that cuts 65% of tokens by talking like caveman." The two example lines are written for this page and the word counts describe those lines only. Nothing here measures the skill.</p>
+</div>
+</body>
+</html>

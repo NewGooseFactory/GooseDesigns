@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>magnitude: eight clients named, zero models named</title>
+<style>
+  :root{
+    --field:#101822; --pane:#0D141C; --pane-2:#121A24;
+    --grid:rgba(126,178,222,.075); --grid-2:rgba(126,178,222,.16);
+    --line:#1D2833; --line-2:#2C3B49;
+    --fg:#DCE6EF; --fg-2:#8194A5; --fg-3:#566878;
+    --ink:#7EB2DE;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--field);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+                     linear-gradient(var(--grid-2) 1px,transparent 1px),linear-gradient(90deg,var(--grid-2) 1px,transparent 1px);
+    background-size:16px 16px,16px 16px,96px 96px,96px 96px}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--ink);font-weight:400}
+
+  header{padding:42px 0 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,398px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:17px}
+  h1{font-size:clamp(30px,4vw,49px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--ink)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--pane-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--ink)}
+  .cmd i{color:var(--ink);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--ink);border-color:var(--ink)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:41ch}
+
+  .dw-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .dw-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .dw-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .drawing{border:1px solid var(--line-2);background:var(--pane);display:grid;grid-template-columns:212px 1fr 250px}
+  .cell{padding:18px 16px;border-right:1px solid var(--line);min-width:0}
+  .cell:last-child{border-right:none}
+  .cell .lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);margin-bottom:12px}
+
+  .part{border:1px solid var(--line-2);background:var(--pane-2);padding:14px 13px;margin-bottom:10px}
+  .part b{display:block;font-family:var(--mono);font-size:13px;color:var(--fg);letter-spacing:-.005em}
+  .part i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);margin-top:6px}
+  .part.open{border-color:var(--ink);border-style:dashed}
+  .part.open b{color:var(--ink)}
+  .part.open i{color:var(--ink)}
+
+  .mid{display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:10px}
+  .link{display:flex;align-items:center;gap:0}
+  .link .seg{flex:1;height:1px;background:var(--line-2)}
+  .link .dot{width:5px;height:5px;background:var(--ink);flex:none}
+  .dim{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);text-align:center;padding-top:2px}
+  .dim b{color:var(--ink);font-weight:400}
+
+  .ports{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .port{border:1px solid var(--line-2);background:var(--pane-2);padding:9px 9px;min-width:0}
+  .port b{display:block;font-family:var(--mono);font-size:11px;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+  .port i{display:block;font-style:normal;font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-top:5px}
+
+  .draw-ft{border-top:1px solid var(--line-2);background:var(--pane-2);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .draw-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .draw-ft b{font-family:var(--mono);font-size:11px;color:var(--ink);font-weight:400}
+  .draw-ft .fill{flex:1;min-width:50px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .drawing{grid-template-columns:1fr}
+    .cell{border-right:none;border-bottom:1px solid var(--line)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">magnitudedev<span> / </span>magnitude</div>
+    <div class="r">TypeScript &middot; GitHub Trending 3 Sep 2026 &middot; <b>130 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Eight ports drawn, one part left open</div>
+      <h1>Every client is named. <em>The models are not</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> run magnitude</div>
+        <a class="lnk" href="https://github.com/magnitudedev/magnitude">github.com/magnitudedev/magnitude</a>
+      </div>
+    </div>
+    <p class="lede">The description enumerates eight agents this plugs into and calls the model side "the best local models for your hardware". One end of the drawing is fully specified and the other end is a superlative, which is the part a buyer has to take on trust.</p>
+  </header>
+
+  <div class="dw-hd">
+    <h2>The connection, drawn from the source line</h2>
+    <span>names in the order given, nothing added</span>
+  </div>
+
+  <div class="drawing">
+    <div class="cell">
+      <div class="lbl">left end</div>
+      <div class="part"><b>your hardware</b><i>named, not specified</i></div>
+      <div class="part open"><b>the best local models</b><i>0 model names given</i></div>
+    </div>
+
+    <div class="cell mid">
+      <div class="lbl">the part in the middle</div>
+      <div class="link"><span class="dot"></span><span class="seg"></span><span class="dot"></span></div>
+      <div class="dim">inference server <b>the product</b></div>
+      <div class="link"><span class="dot"></span><span class="seg"></span><span class="dot"></span></div>
+      <div class="dim">plugs into <b>the agent you already use</b></div>
+    </div>
+
+    <div class="cell">
+      <div class="lbl">right end &middot; 8 named clients</div>
+      <div class="ports">
+        <div class="port"><b>Pi</b><i>named</i></div>
+        <div class="port"><b>OpenCode</b><i>named</i></div>
+        <div class="port"><b>Hermes</b><i>named</i></div>
+        <div class="port"><b>OpenClaw</b><i>named</i></div>
+        <div class="port"><b>Codex</b><i>named</i></div>
+        <div class="port"><b>Claude Code</b><i>named</i></div>
+        <div class="port"><b>Oh My Pi</b><i>named</i></div>
+        <div class="port"><b>Cline</b><i>named</i></div>
+      </div>
+    </div>
+  </div>
+  <div class="draw-ft">
+    <span>specified on the right</span><b>8 of 8</b>
+    <span class="fill"></span>
+    <span>specified on the left</span><b>0 of the best</b>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Already use is the pitch</h3>
+      <p>The value sits in requiring no change to your editor or agent. That framing puts the burden on the server to speak eight protocols rather than on you to switch tools.</p>
+    </div>
+    <div>
+      <h3>Best is doing a lot of work</h3>
+      <p>A server that picks a model for your hardware has to rank candidates on memory, speed, and quality. Publishing that ranking is what would turn best into a checkable word.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No model names, no VRAM floor, no throughput, no selection rule. The trending description names eight clients and no models.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 3 September 2026 reads "Open source inference server that runs the best local models for your hardware, plugged into the agent you already use. Works with Pi, OpenCode, Hermes, OpenClaw, Codex, Claude Code, Oh My Pi, and Cline." The eight ports are those eight names in the order given. The dashed part on the left is drawn open because no model, hardware tier, or selection rule appears in that sentence.</p>
+</div>
+</body>
+</html>

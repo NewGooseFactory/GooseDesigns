@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>humanizer: a marked-up page is the whole product</title>
+<style>
+  :root{
+    --paper:#FBF9F4; --sheet:#FFFFFF; --sink:#F2EEE4;
+    --hair:#DED7C7; --hair-2:#BFB6A2;
+    --ink:#17150F; --ink-2:#4A4536; --ink-3:#8C8471;
+    --red:#C0392B;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 11px;border-bottom:1px solid var(--hair-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--red);font-weight:600}
+
+  header{padding:44px 0 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,392px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:17px}
+  h1{font-family:var(--serif);font-size:clamp(30px,4.1vw,50px);line-height:1.07;letter-spacing:-.02em;font-weight:600;max-width:16ch}
+  h1 em{font-style:italic;color:var(--red)}
+  .cta{margin-top:26px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--sheet);border:1px solid var(--hair-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--red)}
+  .cmd i{color:var(--red);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--red);border-color:var(--red)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--ink-2);max-width:41ch}
+
+  .ms-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .ms-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .ms-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+
+  .ms{border:1px solid var(--hair-2);background:var(--sheet);
+      box-shadow:0 1px 2px rgba(23,21,15,.05),0 10px 26px rgba(23,21,15,.05)}
+  .ms-bar{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .ms-bar b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .ms-bar u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+            border:1px solid var(--hair);padding:3px 7px}
+
+  .galley{display:grid;grid-template-columns:1fr 226px}
+  .col-text{padding:22px 24px 20px;border-right:1px solid var(--hair)}
+  .col-marks{padding:22px 16px 20px;background:var(--sink)}
+
+  .draft{font-family:var(--serif);font-size:19px;line-height:1.78;color:var(--ink);max-width:46ch}
+  .cut{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:1.5px}
+  .caret{color:var(--red);font-family:var(--mono);font-size:13px;vertical-align:2px}
+
+  .after{margin-top:20px;padding-top:16px;border-top:1px dashed var(--hair-2)}
+  .after b{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
+  .after p{font-family:var(--serif);font-size:19px;line-height:1.78;color:var(--ink);max-width:46ch}
+
+  .mark{border-bottom:1px solid var(--hair);padding-bottom:11px;margin-bottom:11px}
+  .mark:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .mark b{display:block;font-family:var(--mono);font-size:11px;color:var(--red);font-weight:600;margin-bottom:5px}
+  .mark i{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;line-height:1.6;color:var(--ink-2)}
+  .marks-hd{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:13px}
+
+  .ms-ft{border-top:1px solid var(--hair);background:var(--sink);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .ms-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .ms-ft b{font-family:var(--mono);font-size:11px;color:var(--red);font-weight:600}
+  .ms-ft .fill{flex:1;min-width:50px;height:1px;background:var(--hair-2)}
+
+  .strip3{border-top:1px solid var(--hair-2);padding:26px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .galley{grid-template-columns:1fr}
+    .col-text{border-right:none;border-bottom:1px solid var(--hair)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">blader<span> / humanizer</span></div>
+    <div class="r">Python &middot; GitHub Trending 3 Sep 2026 &middot; <b>374 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">A skill whose output is a diff</div>
+      <h1>The tell is rarely a word. It is <em>a sentence doing no work</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>&gt;</i> add skill humanizer</div>
+        <a class="lnk" href="https://github.com/blader/humanizer">github.com/blader/humanizer</a>
+      </div>
+    </div>
+    <p class="lede">Most cleanup tools swap vocabulary and leave the shape alone, which makes the writing harder to spot without making it better. The interesting version of this deletes the parts that would be equally true of any other subject.</p>
+  </header>
+
+  <div class="ms-hd">
+    <h2>One paragraph, marked up</h2>
+    <span>illustrative sample written for this page</span>
+  </div>
+
+  <div class="ms">
+    <div class="ms-bar"><b>Galley proof</b><u>Not output from the skill</u></div>
+    <div class="galley">
+      <div class="col-text">
+        <p class="draft">
+          <span class="cut">It is worth noting that</span> <span class="caret">&#94;</span> the parser was built
+          <span class="cut">with careful consideration</span> <span class="caret">&#94;</span> to handle files
+          <span class="cut">of all shapes and sizes</span> <span class="caret">&#94;</span> that arrive from upstream.
+        </p>
+        <div class="after">
+          <b>after the marks are applied</b>
+          <p>The parser handles files that arrive from upstream.</p>
+        </div>
+      </div>
+      <div class="col-marks">
+        <div class="marks-hd">margin marks</div>
+        <div class="mark"><b>filler opener</b><i>Delete. The clause announces a statement instead of making one.</i></div>
+        <div class="mark"><b>empty modifier</b><i>Delete. It describes effort rather than behaviour, and no reader can check it.</i></div>
+        <div class="mark"><b>unbounded scope</b><i>Delete or name the range. All shapes and sizes claims a limit nobody measured.</i></div>
+      </div>
+    </div>
+    <div class="ms-ft">
+      <span>what the cuts have in common</span>
+      <b>each would be true of any parser</b>
+      <span class="fill"></span>
+      <span>the skill's own rule list is not published</span>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Removing is the verb</h3>
+      <p>The description says removes rather than rewrites, which sets the expectation that the tool subtracts and leaves your sentence rather than producing a new one in its own voice.</p>
+    </div>
+    <div>
+      <h3>Signs is the plural that matters</h3>
+      <p>A single tell can be an accident. A set of them together is what makes a page read as machine written, so the useful unit of work is the paragraph.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No rule list, no pattern count, no before and after corpus, no accuracy figure. The trending description is one line and names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 3 September 2026 is "Agent skill that removes signs of AI-generated writing from text." The marked-up paragraph and the three margin marks were written for this page to show what the category means; they are not output from the skill and they do not represent its rule set, which the description does not publish.</p>
+</div>
+</body>
+</html>
