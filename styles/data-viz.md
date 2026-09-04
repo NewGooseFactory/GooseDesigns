@@ -1,9 +1,10 @@
 ﻿# Style — data-viz
 
-17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-04](../days/2026-09-04/) | [google-research/timesfm](https://github.com/google-research/timesfm) | forecast-teal | draw the whole forecast chart and strip every number off both axes | works, unlabelled and still legible | [png](../days/2026-09-04/03-timesfm.png) |
 | [2026-08-27](../days/2026-08-27/) | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | four-lane | pick the adjective over the number for the headline, attribute every count | landed | [png](../days/2026-08-27/02-scientific-skills.png) |
 | [2026-08-25](../days/2026-08-25/) | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | axis-blue | draw the axes the claim implies and leave the series empty | landed | [png](../days/2026-08-25/01-hermes-agent.png) |
 | [2026-08-18](../days/2026-08-18/) | [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | six-lane | draw six lanes at equal width because the split is not published | landed | [png](../days/2026-08-18/03-cybersecurity-skills.png) |

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mattpocock/skills: the warranty is a byline</title>
+<style>
+  :root{
+    --paper:#FCFBF8; --sheet:#FFFFFF; --sink:#F2EFE8;
+    --hair:#DFD9CC; --hair-2:#B8B0A0;
+    --ink:#131210; --ink-2:#453F35; --ink-3:#867E70;
+    --plum:#6B2B4E;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .sheet{max-width:1160px;margin:0 auto;padding:0 40px 48px}
+
+  .masthead{display:flex;align-items:baseline;gap:16px;padding:20px 0 10px;border-bottom:3px double var(--ink)}
+  .masthead .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .masthead .slug span{font-weight:400;color:var(--ink-3)}
+  .masthead .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .masthead .r b{color:var(--plum);font-weight:600}
+
+  header{padding:48px 0 38px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,398px);gap:52px;align-items:end}
+  .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--plum);margin-bottom:18px}
+  h1{font-family:var(--serif);font-size:clamp(32px,4.4vw,55px);line-height:1.04;letter-spacing:-.021em;font-weight:600;max-width:15ch}
+  h1 em{font-style:italic;color:var(--plum)}
+  .byline{margin-top:22px;padding-top:14px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+  .byline b{color:var(--ink);font-weight:600;letter-spacing:.06em}
+  .cta{margin-top:26px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--sheet);border:1px solid var(--hair-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--plum)}
+  .cmd i{color:var(--plum);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--plum);border-color:var(--plum)}
+  .stand{font-family:var(--serif);font-size:17px;line-height:1.66;color:var(--ink-2);max-width:38ch;font-style:italic}
+
+  .chain-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .chain-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .chain-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+
+  .chain{border:1px solid var(--hair-2);background:var(--sheet)}
+  .step{display:grid;grid-template-columns:34px 1fr 156px;align-items:center;border-bottom:1px solid var(--hair)}
+  .step:last-of-type{border-bottom:none}
+  .step .n{font-family:var(--mono);font-size:9px;color:var(--ink-3);padding-left:14px}
+  .step .t{padding:15px 14px 15px 0}
+  .step .t b{display:block;font-family:var(--mono);font-size:13.5px;color:var(--ink);font-weight:600;letter-spacing:-.005em}
+  .step .t i{display:block;font-style:normal;font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.58;max-width:48ch}
+  .step .s{padding-right:14px;text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .step.gap{background:var(--sink)}
+  .step.gap .t b{color:var(--plum)}
+  .step.gap .s{color:var(--plum)}
+  .chain-ft{border-top:1px solid var(--hair-2);background:var(--sink);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .chain-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .chain-ft b{font-family:var(--mono);font-size:11px;color:var(--plum);font-weight:600}
+  .chain-ft .fill{flex:1;min-width:50px;height:1px;background:var(--hair-2)}
+
+  .strip3{border-top:3px double var(--ink);padding:26px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--plum);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .sheet{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:26px;padding:30px 0 24px;align-items:start}
+    .step{grid-template-columns:28px 1fr}
+    .step .s{display:none}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="masthead">
+    <div class="slug">mattpocock<span> / skills</span></div>
+    <div class="r">Shell &middot; GitHub Trending 4 Sep 2026 &middot; <b>1,601 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="kicker">The claim is provenance</div>
+      <h1>No curation step sits between his machine and <em>yours</em>.</h1>
+      <div class="byline">Straight from <b>my .agents directory</b></div>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone skills</div>
+        <a class="lnk" href="https://github.com/mattpocock/skills">github.com/mattpocock/skills</a>
+      </div>
+    </div>
+    <p class="stand">Most skill libraries are assembled for an audience. This one says it was lifted out of a working directory, so what you install is what one named engineer actually runs.</p>
+  </header>
+
+  <div class="chain-hd">
+    <h2>The provenance chain, as the description states it</h2>
+    <span>two steps, one deliberate omission</span>
+  </div>
+
+  <div class="chain">
+    <div class="step">
+      <div class="n">01</div>
+      <div class="t"><b>.agents directory</b><i>A working folder on one person's machine. The files earned their place by being used, not by being written for a repo.</i></div>
+      <div class="s">named source</div>
+    </div>
+    <div class="step gap">
+      <div class="n">&mdash;</div>
+      <div class="t"><b>no step here</b><i>The word straight rules out a rewrite, a review pass, or a general-audience edit. That absence is the product claim and the risk in the same breath.</i></div>
+      <div class="s">the load-bearing word</div>
+    </div>
+    <div class="step">
+      <div class="n">02</div>
+      <div class="t"><b>this repository</b><i>What ships. Whether it fits your stack depends on how close your work is to his.</i></div>
+      <div class="s">named destination</div>
+    </div>
+    <div class="chain-ft">
+      <span>what backs the skills</span>
+      <b>one person's daily use</b>
+      <span class="fill"></span>
+      <span>no skill list, no count published</span>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Real Engineers is a boundary</h3>
+      <p>The capitals are in the source. Naming an audience that narrowly is a filter, and a filter is easier to defend than a promise of universal fit.</p>
+    </div>
+    <div>
+      <h3>A byline is a warranty</h3>
+      <p>Anonymous skill packs have to argue from content. This one argues from authorship, which works exactly as far as the reader trusts the author.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No skill names, no count, no supported client, no install target. The trending description is two sentences and lists none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 4 September 2026 is "Skills for Real Engineers. Straight from my .agents directory." The chain restates those two steps and marks the missing middle because the word straight rules one out. No skill names, counts, or contents appear here, since that sentence publishes none.</p>
+</div>
+</body>
+</html>

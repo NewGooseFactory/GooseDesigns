@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hermes-agent: grows is a verb with no clock</title>
+<style>
+  :root{
+    --base:#0A0C11; --deep:#070810;
+    --line:#1A1E28; --line-2:#282E3B;
+    --fg:#E4E7EE; --fg-2:#8B93A3; --fg-3:#565E6E;
+    --amber:#D8A657;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--base);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:radial-gradient(820px 460px at 68% 26%, rgba(216,166,87,.085), transparent 66%);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px 50px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--amber);font-weight:400}
+
+  header{padding:48px 0 36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,432px);gap:50px;align-items:center}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+  h1{font-size:clamp(30px,4.1vw,50px);line-height:1.08;letter-spacing:-.031em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:44ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:rgba(255,255,255,.035);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--amber)}
+  .cmd i{color:var(--amber);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--amber);border-color:var(--amber)}
+
+  /* the single frosted panel */
+  .glasspane{position:relative;border:1px solid rgba(255,255,255,.11);
+    background:rgba(255,255,255,.055);
+    -webkit-backdrop-filter:blur(22px) saturate(120%);backdrop-filter:blur(22px) saturate(120%);
+    box-shadow:0 1px 0 rgba(255,255,255,.09) inset, 0 22px 60px rgba(0,0,0,.5)}
+  .gp-hd{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.09)}
+  .gp-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .gp-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+           border:1px solid rgba(255,255,255,.13);padding:3px 7px}
+  .gp-bd{padding:20px 18px 18px}
+
+  .pair{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;gap:0}
+  .who{text-align:center;padding:16px 8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+  .who b{display:block;font-family:var(--mono);font-size:14px;color:var(--fg);letter-spacing:-.005em}
+  .who i{display:block;font-style:normal;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-top:7px}
+  .mid{display:flex;flex-direction:column;align-items:center;gap:5px}
+  .mid .bar{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+  .mid .w{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--amber)}
+
+  .req{margin-top:18px;border-top:1px solid rgba(255,255,255,.09);padding-top:14px}
+  .req .h{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);margin-bottom:11px}
+  .req .r2{display:grid;grid-template-columns:1fr 92px;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+  .req .r2:last-child{border-bottom:none}
+  .req .r2 b{font-family:var(--mono);font-size:12px;color:var(--fg-2);font-weight:400}
+  .req .r2 i{font-style:normal;text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--amber)}
+
+  .gp-ft{border-top:1px solid rgba(255,255,255,.09);padding:12px 16px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .gp-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .gp-ft b{font-family:var(--mono);font-size:11px;color:var(--amber);font-weight:400}
+  .gp-ft .fill{flex:1;min-width:40px;height:1px;background:rgba(255,255,255,.12)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:30px;padding:30px 0 26px}
+    .pair{grid-template-columns:1fr;gap:12px}
+    .mid{flex-direction:row;gap:10px}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">NousResearch<span> / </span>hermes-agent</div>
+    <div class="r">Python &middot; GitHub Trending 4 Sep 2026 &middot; <b>774 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Five words, one continuous verb</div>
+      <h1>An agent that grows with you <em>cannot be shipped already grown</em>.</h1>
+      <p class="lede">The preposition does the work. Not grows over time, which any release cycle delivers, but grows with you, which makes the result personal and non-transferable. Whatever accumulates has to survive between your sessions and belong to nobody else.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> pip install hermes-agent</div>
+        <a class="lnk" href="https://github.com/NousResearch/hermes-agent">github.com/NousResearch/hermes-agent</a>
+      </div>
+    </div>
+
+    <div class="glasspane">
+      <div class="gp-hd"><b>What has to sit between the two</b><u>Shape only</u></div>
+      <div class="gp-bd">
+        <div class="pair">
+          <div class="who"><b>you</b><i>named in the description</i></div>
+          <div class="mid"><span class="bar"></span><span class="w">with</span><span class="bar"></span></div>
+          <div class="who"><b>the agent</b><i>named in the description</i></div>
+        </div>
+
+        <div class="req">
+          <div class="h">what growth needs before the word means anything</div>
+          <div class="r2"><b>state that outlives a session</b><i>not named</i></div>
+          <div class="r2"><b>a clock or a session count</b><i>not named</i></div>
+          <div class="r2"><b>a difference you can point at</b><i>not named</i></div>
+        </div>
+      </div>
+      <div class="gp-ft">
+        <span>the word carrying the product</span><b>with</b>
+        <span class="fill"></span>
+        <span>no mechanism published</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Growth is a claim about tomorrow</h3>
+      <p>Every other feature can be checked on install day. This one can only be checked by using the thing for a while, which puts the burden on the user rather than the README.</p>
+    </div>
+    <div>
+      <h3>Personal artifacts do not transfer</h3>
+      <p>If the agent really grows with one person, two users end up with two different systems, and a screenshot from one of them proves nothing about the other.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No memory format, no session count, no before and after, no storage location. The trending description is five words and names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 4 September 2026 is "The agent that grows with you." The panel names only the two parties in that sentence and lists three things growth would require, each marked not named because the sentence names none of them. No memory design, benchmark, or product screenshot is represented here.</p>
+</div>
+</body>
+</html>

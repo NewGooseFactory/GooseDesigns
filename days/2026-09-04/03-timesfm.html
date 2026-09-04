@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>timesfm: pretrained on somebody else's series</title>
+<style>
+  :root{
+    --bg:#F6F7F8; --card:#FFFFFF; --sink:#ECEEF1;
+    --line:#DCE0E5; --line-2:#B4BBC4;
+    --ink:#101317; --ink-2:#3F464E; --ink-3:#79818B;
+    --teal:#116B70; --dim:#9AA3AD;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--teal);font-weight:600}
+
+  header{padding:42px 0 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,404px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:17px}
+  h1{font-size:clamp(30px,4vw,49px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--teal)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--teal)}
+  .cmd i{color:var(--teal);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--teal);border-color:var(--teal)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--ink-2);max-width:42ch}
+
+  .ch-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .ch-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .ch-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+
+  .chart{border:1px solid var(--line-2);background:var(--card)}
+  .chart-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--sink)}
+  .chart-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .chart-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+              border:1px solid var(--line);padding:3px 7px}
+  .chart svg{display:block;width:100%;height:264px;background:var(--card)}
+  .chart svg .axis{stroke:var(--line-2);stroke-width:1}
+  .chart svg .tickline{stroke:var(--line);stroke-width:1}
+  .chart svg .obs{stroke:var(--ink);stroke-width:1.6;fill:none}
+  .chart svg .band{fill:rgba(17,107,112,.13);stroke:none}
+  .chart svg .med{stroke:var(--teal);stroke-width:1.4;fill:none;stroke-dasharray:4 3}
+  .chart svg .split{stroke:var(--teal);stroke-width:1;stroke-dasharray:3 3;opacity:.7}
+  .chart svg text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:9px;letter-spacing:.09em;fill:var(--ink-3)}
+  .chart svg text.hot{fill:var(--teal)}
+  .chart svg text.qm{fill:var(--dim);font-size:11px}
+
+  .legend{border-top:1px solid var(--line);background:var(--sink);display:grid;grid-template-columns:repeat(3,1fr)}
+  .lg{padding:12px 15px;border-right:1px solid var(--line);min-width:0}
+  .lg:last-child{border-right:none}
+  .lg b{display:block;font-family:var(--mono);font-size:11.5px;color:var(--ink);font-weight:600;margin-bottom:5px}
+  .lg i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .lg.open b{color:var(--teal)}
+  .lg.open i{color:var(--teal)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .legend{grid-template-columns:1fr}
+    .lg{border-right:none;border-bottom:1px solid var(--line)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">google-research<span> / timesfm</span></div>
+    <div class="r">Python &middot; GitHub Trending 4 Sep 2026 &middot; <b>1,618 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Pretrained, applied to a series it has never seen</div>
+      <h1>It learned on other people's history. <em>Yours starts at the dashed line</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> pip install timesfm</div>
+        <a class="lnk" href="https://github.com/google-research/timesfm">github.com/google-research/timesfm</a>
+      </div>
+    </div>
+    <p class="lede">A foundation model for text is judged on prose nobody wrote for it. A foundation model for time series makes the same bet on a signal it was never trained on, which is the whole reason the word pretrained sits in the description.</p>
+  </header>
+
+  <div class="ch-hd">
+    <h2>The one thing a forecaster ships</h2>
+    <span>illustrative shape, no data and no model output</span>
+  </div>
+
+  <div class="chart">
+    <div class="chart-hd"><b>Observed, then forecast</b><u>Axes deliberately unlabelled</u></div>
+    <svg viewBox="0 0 1000 264" preserveAspectRatio="none" aria-hidden="true">
+      <line class="axis" x1="52" y1="228" x2="968" y2="228"/>
+      <line class="axis" x1="52" y1="24" x2="52" y2="228"/>
+      <line class="tickline" x1="52" y1="176" x2="968" y2="176"/>
+      <line class="tickline" x1="52" y1="124" x2="968" y2="124"/>
+      <line class="tickline" x1="52" y1="72" x2="968" y2="72"/>
+
+      <path class="obs" d="M52 178 L92 165 L132 186 L172 150 L212 168 L252 134 L292 156 L332 118 L372 142 L412 106 L452 132 L492 96 L532 122 L572 88 L612 110"/>
+
+      <path class="band" d="M612 110 L672 84 L732 66 L792 52 L852 42 L912 34 L968 30 L968 196 L912 186 L852 178 L792 168 L732 154 L672 136 L612 110 Z"/>
+      <path class="med" d="M612 110 L672 110 L732 110 L792 110 L852 110 L912 110 L968 110"/>
+
+      <line class="split" x1="612" y1="24" x2="612" y2="228"/>
+      <text class="hot" x="620" y="38">forecast begins here</text>
+      <text x="60" y="246">your observed series</text>
+      <text class="hot" x="620" y="246">no horizon published</text>
+      <text class="qm" x="790" y="86">?</text>
+      <text class="qm" x="700" y="170">?</text>
+      <text class="qm" x="900" y="150">?</text>
+      <text x="16" y="128" transform="rotate(-90 16 128)">value</text>
+    </svg>
+    <div class="legend">
+      <div class="lg"><b>solid line</b><i>drawn for this page, not real data</i></div>
+      <div class="lg open"><b>shaded band</b><i>a shape, not an interval anyone computed</i></div>
+      <div class="lg open"><b>error metric</b><i>not published in the description</i></div>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Zero-shot is the interesting part</h3>
+      <p>Classical forecasting fits a model to your series first. A pretrained one arrives already fitted to other series, so the question is how far that transfers to yours.</p>
+    </div>
+    <div>
+      <h3>Google Research is the provenance</h3>
+      <p>Naming the lab tells you the training corpus and the evaluation live in a paper somewhere, which is more than most repos on this board can say.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No horizon, no accuracy, no dataset, no comparison against a baseline. The trending description names the model and its job and stops there.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 4 September 2026 reads "TimesFM (Time Series Foundation Model) is a pretrained time-series foundation model developed by Google Research for time-series forecasting." The chart is an illustrative drawing: the solid line, the shaded band, and the dashed centre line were drawn by hand to show the shape a forecaster outputs. Both axes are unlabelled and no value, horizon, interval, or accuracy figure is represented, because that sentence publishes none.</p>
+</div>
+</body>
+</html>

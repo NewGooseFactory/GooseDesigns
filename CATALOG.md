@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **252 mocks** across **84 days**. Newest first.
+Searchable master index. **255 mocks** across **85 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-04 | Friday | [mattpocock/skills](https://github.com/mattpocock/skills) | editorial | ink-plum | treat the description as a byline and draw the missing curation step as its own tinted row | works, the absent row reads better than a sentence about it | [png](days/2026-09-04/01-skills.png) | [2026-09-04](days/2026-09-04/) |
+| 2026-09-04 | Friday | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | glass | frost-amber | one frosted panel holds the shared state between the two named parties | works, first subject that justifies the glass family | [png](days/2026-09-04/02-hermes-agent.png) | [2026-09-04](days/2026-09-04/) |
+| 2026-09-04 | Friday | [google-research/timesfm](https://github.com/google-research/timesfm) | data-viz | forecast-teal | draw the whole forecast chart and strip every number off both axes | works, unlabelled and still legible | [png](days/2026-09-04/03-timesfm.png) | [2026-09-04](days/2026-09-04/) |
 | 2026-09-03 | Thursday | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | mono-zine | ochre | demonstrate with the page's own two lines and print counts the reader can check | works, live demo kept separate from the published 65 percent | [png](days/2026-09-03/01-caveman.png) | [2026-09-03](days/2026-09-03/) |
 | 2026-09-03 | Thursday | [blader/humanizer](https://github.com/blader/humanizer) | redline | proof-red | the unit is a revision, so the genre is a galley proof with margin marks | strongest of the three, new family, third win for genre-by-unit | [png](days/2026-09-03/02-humanizer.png) | [2026-09-03](days/2026-09-03/) |
 | 2026-09-03 | Thursday | [magnitudedev/magnitude](https://github.com/magnitudedev/magnitude) | blueprint | graphite-ink | draw both ends and let the asymmetry between 8 named and 0 named be the headline | works, the dashed part does the whole job | [png](days/2026-09-03/03-magnitude.png) | [2026-09-03](days/2026-09-03/) |

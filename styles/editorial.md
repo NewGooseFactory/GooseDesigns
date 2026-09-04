@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-29 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+30 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-04](../days/2026-09-04/) | [mattpocock/skills](https://github.com/mattpocock/skills) | ink-plum | treat the description as a byline and draw the missing curation step as its own tinted row | works, the absent row reads better than a sentence about it | [png](../days/2026-09-04/01-skills.png) |
 | [2026-08-28](../days/2026-08-28/) | [JetBrains/go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines) | cyan | make the audience noun the headline and stack it against the usual reader | landed | [png](../days/2026-08-28/03-go-guidelines.png) |
 | [2026-08-25](../days/2026-08-25/) | [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian) | indigo | ownership clause in the headline, mechanism in the panel, every node a note.md | landed | [png](../days/2026-08-25/03-claude-obsidian.png) |
 | [2026-08-19](../days/2026-08-19/) | [basecamp/omarchy](https://github.com/basecamp/omarchy) | wine | treat three adjectives as a three-column argument with the risky one set apart | landed | [png](../days/2026-08-19/02-omarchy.png) |
