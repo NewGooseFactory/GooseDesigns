@@ -2,10 +2,11 @@
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-26 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+27 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-05](../days/2026-09-05/) | [humanlayer/skills](https://github.com/humanlayer/skills) | signal-cyan | no description at all, so make the trending row the subject and leave the field blank | strongest of the three, furthest push of the draw-the-absence rule | [png](../days/2026-09-05/03-humanlayer-skills.png) |
 | [2026-08-30](../days/2026-08-30/) | [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) | signal-lime | grade the four claim words and mark which one describes the output | works, one word carries the product | [png](../days/2026-08-30/01-crawl4ai.png) |
 | [2026-08-20](../days/2026-08-20/) | [AprilNEA/OpenLogi](https://github.com/AprilNEA/OpenLogi) | rust-orange | render the description as arithmetic, three plus rows over two minus rows | landed | [png](../days/2026-08-20/02-openlogi.png) |
 | [2026-08-16](../days/2026-08-16/) | [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | cobalt | make the handoff the hero, one shared store between two dated vendor CLI panes | landed | [png](../days/2026-08-16/01-ai-memory.png) |

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ponytail: the metric is code that never got written</title>
+<style>
+  :root{
+    --paper:#F7F5F0; --card:#FFFFFF; --sink:#EDEAE2;
+    --hair:#DCD7CB; --hair-2:#000000;
+    --ink:#000000; --ink-2:#333333; --ink-3:#767066;
+    --acid:#B8400F;
+    --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sys);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 34px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:16px 0 11px;border-bottom:4px solid var(--ink)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--acid)}
+
+  header{padding:42px 0 0;border-bottom:4px solid var(--ink)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--acid);margin-bottom:16px}
+  h1{font-size:clamp(30px,4.4vw,58px);line-height:1.0;letter-spacing:-.034em;font-weight:800;max-width:16ch}
+  h1 em{font-style:normal;color:var(--acid)}
+  .hsplit{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;align-items:end;padding-bottom:32px}
+  .lede{font-family:var(--mono);font-size:12.5px;line-height:1.8;color:var(--ink-2);max-width:42ch;border-left:4px solid var(--acid);padding-left:16px}
+  .cta{margin-top:24px;display:flex;align-items:stretch;flex-wrap:wrap;border:3px solid var(--ink);width:fit-content}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:13px 18px}
+  .cmd i{color:#E8996F;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-decoration:none;padding:13px 18px;border-left:3px solid var(--ink);display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--acid);color:#fff}
+
+  .board-hd{display:flex;align-items:baseline;gap:16px;padding:24px 0 12px}
+  .board-hd h2{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:700}
+  .board-hd span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;margin-left:auto}
+
+  .board{border:3px solid var(--ink);background:var(--card)}
+  .rw{display:grid;grid-template-columns:190px 1fr 128px;border-bottom:3px solid var(--ink);align-items:stretch}
+  .rw:last-of-type{border-bottom:none}
+  .rw .k{padding:15px 14px;border-right:3px solid var(--ink);background:var(--sink);display:flex;align-items:center}
+  .rw .k b{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:-.005em}
+  .rw .v{padding:15px 16px;min-width:0}
+  .rw .v p{font-family:var(--mono);font-size:12.5px;line-height:1.72;color:var(--ink-2);max-width:52ch}
+  .rw .c{padding:15px 12px;border-left:3px solid var(--ink);display:flex;align-items:center;justify-content:flex-end;text-align:right;
+         font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .rw.hot .k{background:var(--acid)}
+  .rw.hot .k b{color:#fff}
+  .rw.hot .c{color:var(--acid)}
+
+  .zero{display:grid;grid-template-columns:190px 1fr;border-top:3px solid var(--ink)}
+  .zero .n{padding:20px 14px;border-right:3px solid var(--ink);background:var(--ink);display:flex;align-items:center;justify-content:center}
+  .zero .n b{font-family:var(--mono);font-size:44px;color:var(--acid);letter-spacing:-.04em;line-height:1;font-weight:700}
+  .zero .t{padding:18px 16px;display:flex;flex-direction:column;justify-content:center}
+  .zero .t b{font-family:var(--mono);font-size:12.5px;font-weight:700;margin-bottom:6px}
+  .zero .t i{font-style:normal;font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--ink-2);max-width:60ch}
+
+  .strip2{display:grid;grid-template-columns:1fr 1fr;gap:38px;padding:28px 0 0;border-top:4px solid var(--ink);margin-top:30px}
+  .strip2 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--acid);margin-bottom:9px;font-weight:700}
+  .strip2 p{font-family:var(--mono);font-size:12.5px;line-height:1.74;color:var(--ink-2);max-width:50ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .wrap{padding:0 16px 40px}
+    .hsplit{grid-template-columns:1fr;gap:24px;align-items:start}
+    .rw{grid-template-columns:1fr}
+    .rw .k{border-right:none;border-bottom:3px solid var(--ink)}
+    .rw .c{border-left:none;justify-content:flex-start;text-align:left}
+    .zero{grid-template-columns:1fr}
+    .zero .n{border-right:none;border-bottom:3px solid var(--ink)}
+    .strip2{grid-template-columns:1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">DietrichGebert<span> / ponytail</span></div>
+    <div class="r">JavaScript &middot; GitHub Trending 5 Sep 2026 &middot; <b>1,679 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="eyebrow">A tool that wants to do less</div>
+    <div class="hsplit">
+      <div>
+        <h1>Every other agent tool measures <em>output</em>.</h1>
+        <div class="cta">
+          <div class="cmd"><i>$</i>add skill ponytail</div>
+          <a class="lnk" href="https://github.com/DietrichGebert/ponytail">github.com/DietrichGebert/ponytail</a>
+        </div>
+      </div>
+      <p class="lede">The second sentence in the description is a claim about what good work looks like: the best code is the code you never wrote. That inverts the thing everyone else counts, and it is the only sentence on the repo you could argue with.</p>
+    </div>
+  </header>
+
+  <div class="board-hd">
+    <h2>The two sentences, taken apart</h2>
+    <span>both quoted from the description</span>
+  </div>
+
+  <div class="board">
+    <div class="rw">
+      <div class="k"><b>the persona</b></div>
+      <div class="v"><p>Think like the laziest senior dev in the room. Laziest is doing the work here, and senior is what keeps it from being an insult. A junior who writes nothing has shipped nothing. A senior who writes nothing has usually found the reason it was unnecessary.</p></div>
+      <div class="c">sentence one</div>
+    </div>
+    <div class="rw hot">
+      <div class="k"><b>the metric</b></div>
+      <div class="v"><p>The best code is the code you never wrote. Every line has to be read, tested, and carried by somebody later, so the cheapest line is the one that never entered the diff. This is the claim the tool has to earn.</p></div>
+      <div class="c">sentence two</div>
+    </div>
+    <div class="zero">
+      <div class="n"><b>0</b></div>
+      <div class="t">
+        <b>lines is the target of a good session</b>
+        <i>An unusual thing to optimise for, and one that no diff view rewards. Nothing in the description says how the tool decides when writing nothing is the right answer.</i>
+      </div>
+    </div>
+  </div>
+
+  <section class="strip2">
+    <div>
+      <h3>Laziest is a compliment here</h3>
+      <p>The word only works because senior sits next to it. Together they describe a person who has already paid for the code they did not write, which is the experience the tool is trying to install.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No rule list, no example refusal, no measure of lines avoided, no supported client. The trending description is two sentences and publishes none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 5 September 2026 is "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote." The board quotes those two sentences and adds no mechanism, rule, or measurement, because that description publishes none. The zero is the target the second sentence implies, not a figure from the project.</p>
+</div>
+</body>
+</html>

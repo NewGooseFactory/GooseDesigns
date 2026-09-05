@@ -1,9 +1,10 @@
 ﻿# Style — specimen
 
-5 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-05](../days/2026-09-05/) | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | press-green | when half the description is refusals, draw the positive form of both | works, two nodes was enough | [png](../days/2026-09-05/02-diagram-design.png) |
 | [2026-09-01](../days/2026-09-01/) | [firecrawl/pdf-inspector](https://github.com/firecrawl/pdf-inspector) | ink-teal | use a type specimen to draw the character-versus-pixel distinction | cleanest idea of the week, genre and subject are the same thing | [png](../days/2026-09-01/01-pdf-inspector.png) |
 | [2026-08-26](../days/2026-08-26/) | [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search) | stamp-rust | stamp the instruction the project closes on, four published verbs beneath | landed | [png](../days/2026-08-26/03-ai-job-search.png) |
 | [2026-08-20](../days/2026-08-20/) | [obra/superpowers](https://github.com/obra/superpowers) | stamp-green | isolate the three words the project risked and stamp them as evidence | landed | [png](../days/2026-08-20/03-superpowers.png) |

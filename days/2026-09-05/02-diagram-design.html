@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>diagram-design: the negative space is the spec</title>
+<style>
+  :root{
+    --paper:#FAF9F6; --card:#FFFFFF; --sink:#F0EEE8;
+    --hair:#E0DCD2; --hair-2:#BCB5A6;
+    --ink:#141310; --ink-2:#454138; --ink-3:#8A8375;
+    --green:#2F6B3C;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .sheet{max-width:1180px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 11px;border-bottom:1px solid var(--hair-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--green);font-weight:600}
+
+  header{padding:44px 0 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,438px);gap:48px;align-items:center}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:17px}
+  h1{font-family:var(--serif);font-size:clamp(30px,4.1vw,50px);line-height:1.06;letter-spacing:-.02em;font-weight:600;max-width:16ch}
+  h1 em{font-style:italic;color:var(--green)}
+  .lede{margin-top:19px;font-size:15.5px;line-height:1.68;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:26px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--green)}
+  .cmd i{color:var(--green);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--green);border-color:var(--green)}
+
+  .card{border:1px solid var(--hair-2);background:var(--card)}
+  .card-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .card-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .card-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+             border:1px solid var(--hair);padding:3px 7px}
+  .card-bd{padding:18px 17px 16px}
+
+  .swatch{border:1px solid var(--hair);background:var(--paper);height:146px;position:relative;overflow:hidden}
+  .swatch svg{position:absolute;inset:0;width:100%;height:100%}
+  .swatch svg rect.node{fill:#FFFFFF;stroke:var(--ink);stroke-width:1.2}
+  .swatch svg rect.fillnode{fill:rgba(47,107,60,.1);stroke:var(--green);stroke-width:1.2}
+  .swatch svg line.edge{stroke:var(--ink);stroke-width:1.1}
+  .swatch svg text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:8px;fill:var(--ink-3);letter-spacing:.05em}
+  .swatch .tag{position:absolute;left:9px;top:8px;font-family:var(--mono);font-size:8px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+
+  .nos{margin-top:16px;border-top:1px solid var(--hair)}
+  .no{display:grid;grid-template-columns:22px 1fr 104px;align-items:center;padding:11px 0;border-bottom:1px dashed var(--hair)}
+  .no:last-child{border-bottom:none}
+  .no .x{font-family:var(--mono);font-size:13px;color:var(--green);text-align:center}
+  .no b{font-family:var(--mono);font-size:12.5px;color:var(--ink);font-weight:600;letter-spacing:-.005em}
+  .no i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--ink-2);display:block;margin-top:4px;line-height:1.6;max-width:40ch}
+  .no .s{text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+
+  .card-ft{border-top:1px solid var(--hair);background:var(--sink);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .card-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .card-ft b{font-family:var(--mono);font-size:11px;color:var(--green);font-weight:600}
+  .card-ft .fill{flex:1;min-width:40px;height:1px;background:var(--hair-2)}
+
+  .counts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair-2);border-right:none;margin-top:32px}
+  .ct{border-right:1px solid var(--hair-2);padding:14px 15px}
+  .ct b{display:block;font-family:var(--mono);font-size:20px;color:var(--ink);letter-spacing:-.02em;margin-bottom:6px}
+  .ct.g b{color:var(--green)}
+  .ct i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+
+  .strip3{border-top:1px solid var(--hair-2);padding:26px 0 0;margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .sheet{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:28px;padding:28px 0 24px}
+    .counts{grid-template-columns:repeat(2,1fr);border-right:1px solid var(--hair-2)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">cathrynlavery<span> / diagram-design</span></div>
+    <div class="r">HTML &middot; GitHub Trending 5 Sep 2026 &middot; <b>437 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Four sentences, two of them refusals</div>
+      <h1>Half the description says what this <em>will not draw</em>.</h1>
+      <p class="lede">Most repos list what they support. This one spends two of its four sentences ruling things out, which tells you the author has opinions about how diagrams usually look and expects you to share them.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> add skill diagram-design</div>
+        <a class="lnk" href="https://github.com/cathrynlavery/diagram-design">github.com/cathrynlavery/diagram-design</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><b>What the refusals rule out</b><u>Drawn for this page</u></div>
+      <div class="card-bd">
+
+        <div class="swatch">
+          <span class="tag">a flat node, no drop shadow</span>
+          <svg viewBox="0 0 400 146" preserveAspectRatio="none" aria-hidden="true">
+            <rect class="node" x="46" y="46" width="94" height="42"/>
+            <rect class="fillnode" x="256" y="46" width="94" height="42"/>
+            <line class="edge" x1="140" y1="67" x2="256" y2="67"/>
+            <text x="93" y="106" text-anchor="middle">node</text>
+            <text x="303" y="106" text-anchor="middle">node</text>
+            <text x="198" y="58" text-anchor="middle">edge</text>
+          </svg>
+        </div>
+
+        <div class="nos">
+          <div class="no">
+            <div class="x">&#215;</div>
+            <div><b>no shadows</b><i>Depth on a flat diagram adds no information and costs contrast.</i></div>
+            <div class="s">stated</div>
+          </div>
+          <div class="no">
+            <div class="x">&#215;</div>
+            <div><b>no Mermaid slop</b><i>Auto-layout picks positions for you. The refusal implies the positions carry meaning.</i></div>
+            <div class="s">stated</div>
+          </div>
+        </div>
+
+        <div class="card-ft">
+          <span>what ships instead</span><b>self-contained HTML and SVG</b>
+          <span class="fill"></span>
+          <span>no type list published</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="counts">
+    <div class="ct g"><b>38</b><i>editorial diagram types</i></div>
+    <div class="ct"><b>Claude Code</b><i>named client</i></div>
+    <div class="ct"><b>Codex</b><i>named client</i></div>
+    <div class="ct"><b>Pi</b><i>named client</i></div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Editorial is the qualifier</h3>
+      <p>An editorial diagram sits inside an argument and carries one point. That is a narrower job than a general chart library takes on, and narrower jobs are easier to do well.</p>
+    </div>
+    <div>
+      <h3>Self-contained means one file</h3>
+      <p>HTML plus SVG with no runtime means the output opens anywhere and survives being emailed, which matters more for a diagram than for almost anything else.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No list of the 38 types, no sample output, no style spec. The trending description gives the count and stops there.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 5 September 2026 reads "38 editorial diagram types for Claude Code, Codex, and Pi. Self-contained HTML + SVG. No shadows. No Mermaid slop." The two nodes and one edge were drawn for this page to demonstrate a flat treatment; they are not output from the project, and none of the 38 types are named or shown because the description does not list them.</p>
+</div>
+</body>
+</html>

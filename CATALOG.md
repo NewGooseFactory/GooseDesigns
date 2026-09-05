@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **255 mocks** across **85 days**. Newest first.
+Searchable master index. **258 mocks** across **86 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-05 | Saturday | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | brutalist | acid-orange | label each sentence by function, then add the zero the description implies | works, brutalist is the right register for a tool that refuses | [png](days/2026-09-05/01-ponytail.png) | [2026-09-05](days/2026-09-05/) |
+| 2026-09-05 | Saturday | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | specimen | press-green | when half the description is refusals, draw the positive form of both | works, two nodes was enough | [png](days/2026-09-05/02-diagram-design.png) | [2026-09-05](days/2026-09-05/) |
+| 2026-09-05 | Saturday | [humanlayer/skills](https://github.com/humanlayer/skills) | terminal-dark | signal-cyan | no description at all, so make the trending row the subject and leave the field blank | strongest of the three, furthest push of the draw-the-absence rule | [png](days/2026-09-05/03-humanlayer-skills.png) | [2026-09-05](days/2026-09-05/) |
 | 2026-09-04 | Friday | [mattpocock/skills](https://github.com/mattpocock/skills) | editorial | ink-plum | treat the description as a byline and draw the missing curation step as its own tinted row | works, the absent row reads better than a sentence about it | [png](days/2026-09-04/01-skills.png) | [2026-09-04](days/2026-09-04/) |
 | 2026-09-04 | Friday | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | glass | frost-amber | one frosted panel holds the shared state between the two named parties | works, first subject that justifies the glass family | [png](days/2026-09-04/02-hermes-agent.png) | [2026-09-04](days/2026-09-04/) |
 | 2026-09-04 | Friday | [google-research/timesfm](https://github.com/google-research/timesfm) | data-viz | forecast-teal | draw the whole forecast chart and strip every number off both axes | works, unlabelled and still legible | [png](days/2026-09-04/03-timesfm.png) | [2026-09-04](days/2026-09-04/) |

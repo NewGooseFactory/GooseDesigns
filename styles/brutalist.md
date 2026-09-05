@@ -1,9 +1,10 @@
 ﻿# Style — brutalist
 
-12 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+13 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-05](../days/2026-09-05/) | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | acid-orange | label each sentence by function, then add the zero the description implies | works, brutalist is the right register for a tool that refuses | [png](../days/2026-09-05/01-ponytail.png) |
 | [2026-08-29](../days/2026-08-29/) | [tailscale/tailcat](https://github.com/tailscale/tailcat) | wire-rust | plus panel and minus panel mirroring the sentence structure | strongest of the three, fourteen words fill a screen honestly | [png](../days/2026-08-29/02-tailcat.png) |
 | [2026-08-24](../days/2026-08-24/) | [affaan-m/ECC](https://github.com/affaan-m/ECC) | burnt-orange | keep the published list order and mark the one word no other repo uses | landed | [png](../days/2026-08-24/02-ecc.png) |
 | [2026-08-17](../days/2026-08-17/) | [usestrix/strix](https://github.com/usestrix/strix) | acid-red | split the description on its own conjunction, FIND on paper and FIX inverted | landed | [png](../days/2026-08-17/02-strix.png) |

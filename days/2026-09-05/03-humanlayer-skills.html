@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>humanlayer/skills: 1,141 stars and no sentence</title>
+<style>
+  :root{
+    --void:#050506; --panel:#0A0A0C; --panel-2:#0E0E11;
+    --line:#161619; --line-2:#242429;
+    --fg:#E9E9EC; --fg-2:#8A8A93; --fg-3:#55555E;
+    --cyan:#38D6C4;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--cyan);font-weight:400}
+
+  header{padding:46px 0 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,436px);gap:50px;align-items:center}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+  h1{font-size:clamp(30px,4.1vw,50px);line-height:1.08;letter-spacing:-.031em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--cyan)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:45ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--cyan)}
+  .cmd i{color:var(--cyan);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--cyan);border-color:var(--cyan)}
+
+  /* the record card: every field a listing has, one of them blank */
+  .rec{border:1px solid var(--line-2);background:var(--panel)}
+  .rec-hd{display:flex;align-items:center;gap:9px;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .rec-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .rec-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+            border:1px solid var(--line-2);padding:2px 6px}
+  .fld{display:grid;grid-template-columns:112px 1fr;border-bottom:1px solid var(--line);align-items:stretch}
+  .fld:last-of-type{border-bottom:none}
+  .fld .k{padding:12px 12px;border-right:1px solid var(--line);font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);display:flex;align-items:center}
+  .fld .v{padding:12px 14px;font-family:var(--mono);font-size:13px;color:var(--fg);letter-spacing:-.005em;display:flex;align-items:center;min-width:0}
+  .fld.blank{background:#0C1211}
+  .fld.blank .k{color:var(--cyan)}
+  .fld.blank .v{padding:0;display:block}
+  .blankbar{height:44px;border:1px dashed rgba(56,214,196,.5);margin:9px 14px;display:flex;align-items:center;padding:0 12px}
+  .blankbar span{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--cyan)}
+
+  .rec-ft{border-top:1px solid var(--line-2);background:var(--panel-2);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .rec-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .rec-ft b{font-family:var(--mono);font-size:11px;color:var(--cyan);font-weight:400}
+  .rec-ft .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:30px;padding:30px 0 26px}
+    .fld{grid-template-columns:1fr}
+    .fld .k{border-right:none;border-bottom:1px solid var(--line)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">humanlayer<span> / </span>skills</div>
+    <div class="r">TypeScript &middot; GitHub Trending 5 Sep 2026 &middot; <b>1,141 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Tenth on the board, zero words of copy</div>
+      <h1>It reached the top ten <em>without writing a description</em>.</h1>
+      <p class="lede">Every other repo on the board is arguing for itself in one line. This one is at No.10 with the field left blank, which means 1,141 people starred it on the strength of the org name and the word skills alone.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone skills</div>
+        <a class="lnk" href="https://github.com/humanlayer/skills">github.com/humanlayer/skills</a>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="rec-hd"><b>The trending row, field by field</b><u>Values as read on 5 Sep</u></div>
+
+      <div class="fld"><div class="k">owner</div><div class="v">humanlayer</div></div>
+      <div class="fld"><div class="k">name</div><div class="v">skills</div></div>
+      <div class="fld"><div class="k">language</div><div class="v">TypeScript</div></div>
+      <div class="fld"><div class="k">rank</div><div class="v">10</div></div>
+      <div class="fld"><div class="k">stars today</div><div class="v">1,141</div></div>
+      <div class="fld blank">
+        <div class="k">description</div>
+        <div class="v"><div class="blankbar"><span>no description provided</span></div></div>
+      </div>
+
+      <div class="rec-ft">
+        <span>what the reader had to go on</span><b>two words and an org</b>
+        <span class="fill"></span>
+        <span>nothing else is published</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>The org name did the work</h3>
+      <p>humanlayer is a known name in agent tooling, so the repo inherits an expectation. That is the same warranty mattpocock/skills makes explicitly, just left unstated.</p>
+    </div>
+    <div>
+      <h3>Skills is now a category word</h3>
+      <p>A week ago the word needed explaining. Today six repos on this board carry it in the title, which is why a bare name can carry a repo into the top ten.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No file list, no client, no purpose, no README quote. The trending row has an empty description field and this page does not fill it in.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. On GitHub Trending on 5 September 2026 this repo appears at rank 10 with 1,141 stars today, language TypeScript, and no description. Every value in the record card is read from that row. The description field is left visibly blank because inventing a purpose for a repo that publishes none would be the one thing this page exists to avoid.</p>
+</div>
+</body>
+</html>
