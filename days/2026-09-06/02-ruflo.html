@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ruflo: the original is a claim about a date</title>
+<style>
+  :root{
+    --field:#080B0A; --panel:#0C100F; --panel-2:#111614;
+    --line:#18201D; --line-2:#26302C;
+    --fg:#DDE6E2; --fg-2:#84918B; --fg-3:#525E58;
+    --green:#4ED8A0; --amber:#D9A441;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--field);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:linear-gradient(rgba(78,216,160,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(78,216,160,.03) 1px,transparent 1px);
+    background-size:34px 34px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--green);font-weight:400}
+
+  header{padding:42px 0 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,404px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:17px}
+  h1{font-size:clamp(30px,4vw,49px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:16ch}
+  h1 em{font-style:normal;color:var(--green)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--green)}
+  .cmd i{color:var(--green);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--green);border-color:var(--green)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:42ch}
+
+  .inst-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .inst-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .inst-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .panelrow{display:grid;grid-template-columns:1fr 268px;border:1px solid var(--line-2);background:var(--panel)}
+  .gauges{border-right:1px solid var(--line-2);padding:18px 18px 16px}
+  .g{display:grid;grid-template-columns:150px 1fr 74px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+  .g:last-child{border-bottom:none}
+  .g .lb{font-family:var(--mono);font-size:12px;color:var(--fg);letter-spacing:-.005em;min-width:0}
+  .g .bar{height:9px;border:1px solid var(--line-2);background:var(--panel-2);position:relative;margin:0 14px}
+  .g .bar i{position:absolute;left:0;top:0;bottom:0;display:block;background:var(--green);opacity:.75}
+  .g .bar.dash{border-style:dashed;border-color:rgba(217,164,65,.55)}
+  .g .st{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);text-align:right}
+  .g.open .lb{color:var(--amber)}
+  .g.open .st{color:var(--amber)}
+
+  .dial{padding:18px 18px 16px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+  .dial .cap{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);text-align:center}
+  .dial svg{width:186px;height:112px;display:block}
+  .dial svg .arc{fill:none;stroke:var(--line-2);stroke-width:8}
+  .dial svg .needle{stroke:var(--amber);stroke-width:2}
+  .dial svg text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:8px;fill:var(--fg-3);letter-spacing:.09em}
+  .dial b{font-family:var(--mono);font-size:12.5px;color:var(--amber);font-weight:400;text-align:center;line-height:1.55}
+
+  .panel-ft{border-top:1px solid var(--line-2);background:var(--panel-2);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .panel-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .panel-ft b{font-family:var(--mono);font-size:11px;color:var(--green);font-weight:400}
+  .panel-ft .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .panelrow{grid-template-columns:1fr}
+    .gauges{border-right:none;border-bottom:1px solid var(--line-2)}
+    .g{grid-template-columns:1fr}
+    .g .bar{margin:9px 0}
+    .g .st{text-align:left}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">ruvnet<span> / </span>ruflo</div>
+    <div class="r">TypeScript &middot; GitHub Trending 6 Sep 2026 &middot; <b>136 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Six capabilities listed, one word doing the selling</div>
+      <h1>Every capability here is a noun. <em>Original is a date</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>&gt;</i> npx ruflo</div>
+        <a class="lnk" href="https://github.com/ruvnet/ruflo">github.com/ruvnet/ruflo</a>
+      </div>
+    </div>
+    <p class="lede">The description lists six things the harness does and calls itself the original agent meta-harness. Five of the six are features you can go and check. The claim to be first is the one that needs a timestamp, and no timestamp appears.</p>
+  </header>
+
+  <div class="inst-hd">
+    <h2>The readout, as the description writes it</h2>
+    <span>capabilities in source order, no levels claimed</span>
+  </div>
+
+  <div class="panelrow">
+    <div class="gauges">
+      <div class="g"><div class="lb">multi-player swarms</div><div class="bar"><i style="width:74%"></i></div><div class="st">named</div></div>
+      <div class="g"><div class="lb">autonomous workflows</div><div class="bar"><i style="width:62%"></i></div><div class="st">named</div></div>
+      <div class="g"><div class="lb">conversational AI</div><div class="bar"><i style="width:55%"></i></div><div class="st">named</div></div>
+      <div class="g"><div class="lb">adaptive memory</div><div class="bar"><i style="width:48%"></i></div><div class="st">named</div></div>
+      <div class="g"><div class="lb">self-learning</div><div class="bar"><i style="width:40%"></i></div><div class="st">named</div></div>
+      <div class="g"><div class="lb">RAG integration</div><div class="bar"><i style="width:34%"></i></div><div class="st">named</div></div>
+      <div class="g open"><div class="lb">the original</div><div class="bar dash"></div><div class="st">no date given</div></div>
+    </div>
+
+    <div class="dial">
+      <div class="cap">the one gauge with no scale</div>
+      <svg viewBox="0 0 186 112" aria-hidden="true">
+        <path class="arc" d="M18 96 A75 75 0 0 1 168 96"/>
+        <line class="needle" x1="93" y1="96" x2="93" y2="30"/>
+        <circle cx="93" cy="96" r="3.5" fill="#D9A441"/>
+        <text x="18" y="110" text-anchor="start">earlier</text>
+        <text x="168" y="110" text-anchor="end">later</text>
+      </svg>
+      <b>a priority claim needs<br>a date to settle</b>
+    </div>
+  </div>
+  <div class="panel-ft">
+    <span>bar widths are drawn for layout</span><b>no level, score, or benchmark is represented</b>
+    <span class="fill"></span>
+    <span>illustrative</span>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Meta-harness is the interesting noun</h3>
+      <p>A harness runs one agent. A meta-harness coordinates harnesses, which is a layer above where most of this board sits and a harder thing to keep stable.</p>
+    </div>
+    <div>
+      <h3>Six capabilities is a wide surface</h3>
+      <p>Swarms, workflows, memory, learning, retrieval, and conversation are six separate systems. Naming all of them in one line sets a high bar for the install.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No release date, no version, no first-commit year, no comparison. The word original appears with nothing behind it in that sentence.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 6 September 2026 reads "The original agent meta-harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features adaptive memory, self-learning intelligence, RAG integration, and native Claude Code / Codex / Hermes and many more Integrated." The seven rows are those names in source order. Bar widths are decorative and carry no measurement; the dial has no scale because a priority claim needs a date and none is published.</p>
+</div>
+</body>
+</html>

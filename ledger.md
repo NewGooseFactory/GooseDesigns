@@ -260,3 +260,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-09-05 — [rep](days/2026-09-05/) — DietrichGebert/ponytail — brutalist/acid-orange — label each sentence by function, then add the zero the description implies → works, brutalist is the right register for a tool that refuses
 - 2026-09-05 — [rep](days/2026-09-05/) — cathrynlavery/diagram-design — specimen/press-green — when half the description is refusals, draw the positive form of both → works, two nodes was enough
 - 2026-09-05 — [rep](days/2026-09-05/) — humanlayer/skills — terminal-dark/signal-cyan — no description at all, so make the trending row the subject and leave the field blank → strongest of the three, furthest push of the draw-the-absence rule
+- 2026-09-06 — [rep](days/2026-09-06/) — anomalyco/opencode — swiss/signal-red — grade four words and colour only the contested one, the definite article → works after moving the accent off coding agent onto The
+- 2026-09-06 — [rep](days/2026-09-06/) — ruvnet/ruflo — hud/instrument-mint — six solid bars for named capabilities, one dashed empty bar for the priority claim → works, a gauge with no scale is the honest form
+- 2026-09-06 — [rep](days/2026-09-06/) — BraveOPotato/FckSignups — warm-minimal/clay — read each condition as a removal and draw the filter instead of the list → strongest of the three

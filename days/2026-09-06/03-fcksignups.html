@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FckSignups: three conditions, all of them refusals</title>
+<style>
+  :root{
+    --cream:#FBF7EF; --card:#FFFFFF; --sink:#F3EDE1;
+    --hair:#E3DACA; --hair-2:#C5B99F;
+    --ink:#1A1712; --ink-2:#4B443A; --ink-3:#8B8172;
+    --clay:#C0603A;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--cream);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1160px;margin:0 auto;padding:0 40px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:22px 0 14px;border-bottom:1px solid var(--hair)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--clay);font-weight:600}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,414px);gap:50px;align-items:center;padding:48px 0 42px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--clay);margin-bottom:18px}
+  h1{font-size:clamp(30px,4vw,49px);line-height:1.1;letter-spacing:-.028em;font-weight:650;max-width:16ch}
+  h1 em{font-style:normal;color:var(--clay)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.66;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair);border-radius:9px;padding:12px 17px;
+       box-shadow:0 1px 2px rgba(26,23,18,.05),0 5px 14px rgba(26,23,18,.045);
+       transition:transform 160ms var(--out),box-shadow 160ms var(--out)}
+  .cmd:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(26,23,18,.06),0 9px 22px rgba(26,23,18,.07)}
+  .cmd i{color:var(--clay);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--clay);border-color:var(--clay)}
+
+  .card{background:var(--card);border:1px solid var(--hair);border-radius:14px;overflow:hidden;
+        box-shadow:0 1px 2px rgba(26,23,18,.05),0 12px 32px rgba(26,23,18,.06)}
+  .card-hd{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .card-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .card-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+             border:1px solid var(--hair);border-radius:5px;padding:3px 7px}
+  .card-bd{padding:8px 18px 16px}
+
+  .cond{display:grid;grid-template-columns:34px 1fr 88px;align-items:center;padding:14px 0;border-bottom:1px solid var(--hair)}
+  .cond:last-of-type{border-bottom:none}
+  .cond .tick{width:22px;height:22px;border:1.5px solid var(--clay);border-radius:6px;display:flex;align-items:center;justify-content:center;
+              font-family:var(--mono);font-size:12px;color:var(--clay);line-height:1}
+  .cond .t b{display:block;font-family:var(--mono);font-size:13px;color:var(--ink);letter-spacing:-.005em;margin-bottom:5px}
+  .cond .t i{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;line-height:1.62;color:var(--ink-2);max-width:44ch}
+  .cond .s{text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+
+  .gate{margin:14px 0 4px;border:1px dashed var(--hair-2);border-radius:10px;background:var(--sink);padding:14px 16px;
+        display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+  .gate p{font-family:var(--mono);font-size:11.5px;line-height:1.68;color:var(--ink-2);max-width:56ch}
+  .gate b{font-family:var(--mono);font-size:11px;color:var(--clay);white-space:nowrap}
+
+  .card-ft{border-top:1px solid var(--hair);background:var(--sink);padding:12px 18px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .card-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .card-ft b{font-family:var(--mono);font-size:11px;color:var(--clay);font-weight:600}
+  .card-ft .fill{flex:1;min-width:40px;height:1px;background:var(--hair-2)}
+
+  .strip3{border-top:1px solid var(--hair);padding:28px 0 0;margin-top:38px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--clay);margin-bottom:9px;font-weight:500}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .page{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:32px;padding:32px 0 28px}
+    .cond{grid-template-columns:30px 1fr}
+    .cond .s{display:none}
+    .gate{grid-template-columns:1fr}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">BraveOPotato<span> / </span>FckSignups</div>
+    <div class="r">TypeScript &middot; GitHub Trending 6 Sep 2026 &middot; <b>68 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">A list defined entirely by its filter</div>
+      <h1>Three conditions, and <em>every one of them removes something</em>.</h1>
+      <p class="lede">Open-source, in-browser, no signups. None of the three describes what a tool does. All three describe what it does not ask of you, which makes the filter the product and the list itself the output.</p>
+      <div class="cta">
+        <div class="cmd"><i>&gt;</i> open the list</div>
+        <a class="lnk" href="https://github.com/BraveOPotato/FckSignups">github.com/BraveOPotato/FckSignups</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><b>The admission test</b><u>Conditions as published</u></div>
+      <div class="card-bd">
+
+        <div class="cond">
+          <div class="tick">&#10003;</div>
+          <div class="t"><b>open-source</b><i>Removes the question of what happens to your input. You can read the answer.</i></div>
+          <div class="s">stated</div>
+        </div>
+        <div class="cond">
+          <div class="tick">&#10003;</div>
+          <div class="t"><b>in-browser</b><i>Removes the install. Nothing is added to your machine and nothing has to be uninstalled later.</i></div>
+          <div class="s">stated</div>
+        </div>
+        <div class="cond">
+          <div class="tick">&#10003;</div>
+          <div class="t"><b>no signups</b><i>Removes the account. No email, no password, no record that you used the thing at all.</i></div>
+          <div class="s">stated</div>
+        </div>
+
+        <div class="gate">
+          <p>All three have to hold. A tool that is open source and browser-based but wants an email does not make this list, and that single rule is the entire editorial policy.</p>
+          <b>3 of 3 required</b>
+        </div>
+
+      </div>
+      <div class="card-ft">
+        <span>what the list is</span><b>the tools that pass</b>
+        <span class="fill"></span>
+        <span>no tool count published</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>A filter is easier to trust than a rating</h3>
+      <p>Ranked lists need a scoring rule you have to accept. A pass or fail on three checkable conditions needs nothing from the reader except agreement that the conditions matter.</p>
+    </div>
+    <div>
+      <h3>The three conditions compound</h3>
+      <p>Any one of them alone is common. Together they describe a tool you can open, use once, and close, with no trace on either side of the transaction.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No tool names, no categories, no count, no screenshots. The trending description states the three conditions and nothing about what passed them.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 6 September 2026 is "A list of tools that are open-source, in-browser, and require no-signups!" The three conditions are those three, in the order given. No entries from the list are named or counted here, because that sentence publishes neither.</p>
+</div>
+</body>
+</html>

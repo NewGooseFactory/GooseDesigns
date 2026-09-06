@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>opencode: four words, and the article is the argument</title>
+<style>
+  :root{
+    --paper:#F4F3EF; --ink:#0B0B0A; --ink-2:#3A3A37; --ink-3:#84837C;
+    --hair:#D2D0C8; --sink:#E9E7E0;
+    --red:#C42A1C;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .grid{max-width:1220px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:grid;grid-template-columns:repeat(12,1fr);align-items:baseline;padding:18px 0 10px;border-bottom:2px solid var(--ink)}
+  .top .slug{grid-column:1 / span 6;font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{grid-column:7 / span 6;text-align:right;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--red);font-weight:700}
+
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);padding:36px 0 20px}
+
+  .hero{display:grid;grid-template-columns:repeat(12,1fr);align-items:end;padding-bottom:30px;border-bottom:1px solid var(--hair)}
+  h1{grid-column:1 / span 7;font-size:clamp(38px,6.6vw,88px);line-height:.94;letter-spacing:-.046em;font-weight:700;max-width:12ch}
+  h1 em{font-style:normal;color:var(--red)}
+  .side{grid-column:9 / span 4;padding-left:18px;border-left:1px solid var(--hair)}
+  .side p{font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .cta{margin-top:22px;display:flex;flex-direction:column;align-items:stretch;border:2px solid var(--ink);width:100%}
+  .cmd{font-family:var(--mono);font-size:12.5px;background:var(--ink);color:var(--paper);padding:11px 15px}
+  .cmd i{color:#EE9086;font-style:normal;margin-right:8px}
+  .lnk{font-family:var(--mono);font-size:12px;color:var(--ink);text-decoration:none;padding:11px 15px;border-top:2px solid var(--ink);display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--red);color:#fff}
+
+  .words{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid var(--hair);margin-top:32px}
+  .w{border-right:1px solid var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:16px 15px 15px;min-width:0}
+  .w .n{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:11px}
+  .w b{display:block;font-size:clamp(20px,2.4vw,30px);line-height:1;letter-spacing:-.032em;font-weight:700;margin-bottom:11px}
+  .w i{display:block;font-style:normal;font-family:var(--mono);font-size:11px;line-height:1.65;color:var(--ink-2);max-width:26ch}
+  .w.hot{background:var(--sink)}
+  .w.hot b{color:var(--red)}
+  .w.hot .n{color:var(--red)}
+
+  .claimbar{border:2px solid var(--ink);border-top:none;background:var(--ink);padding:15px 16px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+  .claimbar p{font-family:var(--mono);font-size:12px;line-height:1.7;color:#D8D6CE;max-width:74ch}
+  .claimbar p b{color:#fff}
+  .claimbar u{text-decoration:none;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#EE9086;white-space:nowrap}
+
+  .strip3{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;padding:28px 0 0;margin-top:30px;border-top:2px solid var(--ink)}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:9px;font-weight:700}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .grid{padding:0 16px 40px}
+    .top .slug,.top .r{grid-column:1 / span 12;text-align:left}
+    .top .r{padding-top:6px}
+    h1{grid-column:1 / span 12}
+    .side{grid-column:1 / span 12;padding-left:0;border-left:none;padding-top:20px}
+    .words{grid-template-columns:repeat(2,1fr)}
+    .claimbar{grid-template-columns:1fr}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="grid">
+
+  <div class="top">
+    <div class="slug">anomalyco<span> / opencode</span></div>
+    <div class="r">TypeScript &middot; GitHub Trending 6 Sep 2026 &middot; <b>725 stars today</b></div>
+  </div>
+
+  <div class="eyebrow">Four words, graded one at a time</div>
+
+  <div class="hero">
+    <h1><em>The</em> open source coding agent.</h1>
+    <div class="side">
+      <p>Three of these four words describe a category that already has a dozen entries. The first word is the one making a claim, and it is the only one a reader can dispute without installing anything.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i>npm i -g opencode</div>
+        <a class="lnk" href="https://github.com/anomalyco/opencode">github.com/anomalyco/opencode</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="words">
+    <div class="w hot">
+      <div class="n">word 01</div>
+      <b>The</b>
+      <i>A definite article on a crowded shelf. It claims the category rather than a place in it.</i>
+    </div>
+    <div class="w">
+      <div class="n">word 02</div>
+      <b>open source</b>
+      <i>A licence fact. Checkable on the repo page in one click, and the easiest of the four to settle.</i>
+    </div>
+    <div class="w">
+      <div class="n">word 03</div>
+      <b>coding</b>
+      <i>Names the domain. Narrower than general purpose, which is the useful kind of narrow.</i>
+    </div>
+    <div class="w">
+      <div class="n">word 04</div>
+      <b>agent</b>
+      <i>Names the shape. Something that acts in a loop rather than answering one question at a time.</i>
+    </div>
+  </div>
+
+  <div class="claimbar">
+    <p>Words two through four are settled by the licence file and the category. <b>Word one is the whole positioning</b>, and nothing in the description defends it: no comparison, no differentiator, no reason this is the one.</p>
+    <u>the article is the claim</u>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>The definite article is a fight</h3>
+      <p>Three other repos on today's board describe themselves as agent harnesses or coding agents. Claiming the noun outright puts this one in an argument with all of them.</p>
+    </div>
+    <div>
+      <h3>Short copy is a choice</h3>
+      <p>Four words on a board where the average row runs twenty reads as confidence. It also means the repo page has to do all the persuading.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No language support, no model, no editor integration, no comparison. The trending description is four words and names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 6 September 2026 is "The open source coding agent." The four cells grade those four words in order and add no feature, integration, or measurement, because that sentence publishes none.</p>
+</div>
+</body>
+</html>

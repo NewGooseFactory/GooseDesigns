@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-30 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+31 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-06](../days/2026-09-06/) | [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | instrument-mint | six solid bars for named capabilities, one dashed empty bar for the priority claim | works, a gauge with no scale is the honest form | [png](../days/2026-09-06/02-ruflo.png) |
 | [2026-09-02](../days/2026-09-02/) | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | instrument-green | draw the pipeline as written, then draw the missing return leg in a second colour | strongest of the three, absence marked honestly | [png](../days/2026-09-02/02-academic-research-skills.png) |
 | [2026-08-28](../days/2026-08-28/) | [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) | instrument-amber | split the readout by simulated and live, colour exactly one row | landed | [png](../days/2026-08-28/02-gods-eye-view.png) |
 | [2026-08-22](../days/2026-08-22/) | [PostHog/posthog](https://github.com/PostHog/posthog) | instrument-cyan | treat a seven-item feature list as the input side of a funnel into one stated purpose | landed | [png](../days/2026-08-22/01-posthog.png) |
