@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>open-science: four hyphenated promises and one word that outranks them</title>
+<style>
+  :root{
+    --void:#06080B; --panel:#0A0D12; --panel-2:#0E1219;
+    --line:#151B24; --line-2:#232C39;
+    --fg:#E3E8EF; --fg-2:#828F9E; --fg-3:#525E6C;
+    --violet:#8E7BF0;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 38px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--violet);font-weight:400}
+
+  header{padding:44px 0 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,398px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);margin-bottom:17px}
+  h1{font-size:clamp(30px,4vw,49px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--violet)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--violet)}
+  .cmd i{color:var(--violet);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--violet);border-color:var(--violet)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:41ch}
+
+  .ch-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .ch-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .ch-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  /* the chain: each step feeds the next, and provenance is the thing that survives */
+  .chain{border:1px solid var(--line-2);background:var(--panel)}
+  .track{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+  .st{border-right:1px solid var(--line);padding:16px 14px 14px;min-width:0;position:relative}
+  .st:last-child{border-right:none}
+  .st .n{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);margin-bottom:11px}
+  .st b{display:block;font-family:var(--mono);font-size:13px;color:var(--fg);letter-spacing:-.005em;margin-bottom:8px}
+  .st i{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;line-height:1.62;color:var(--fg-2);max-width:26ch}
+  .st .arrow{position:absolute;right:-6px;top:34px;width:12px;height:1px;background:var(--violet);opacity:.6;z-index:2}
+  .st .arrow::after{content:"";position:absolute;right:0;top:-3px;border-left:5px solid var(--violet);border-top:3px solid transparent;border-bottom:3px solid transparent;opacity:.85}
+  .st:last-child .arrow{display:none}
+
+  .prov{padding:16px 16px 15px;display:grid;grid-template-columns:190px 1fr;gap:16px;align-items:center;background:#0D0B18;border-bottom:1px solid var(--line)}
+  .prov .badge{border:1px solid var(--violet);padding:12px 12px;text-align:center}
+  .prov .badge b{display:block;font-family:var(--mono);font-size:13px;color:var(--violet);letter-spacing:-.005em}
+  .prov .badge i{display:block;font-style:normal;font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-top:6px}
+  .prov p{font-family:var(--mono);font-size:11.5px;line-height:1.72;color:var(--fg-2);max-width:66ch}
+  .prov p b{color:var(--fg)}
+
+  .constraints{display:grid;grid-template-columns:repeat(4,1fr)}
+  .cn{border-right:1px solid var(--line);padding:13px 14px;min-width:0}
+  .cn:last-child{border-right:none}
+  .cn b{display:block;font-family:var(--mono);font-size:12px;color:var(--fg);margin-bottom:6px;letter-spacing:-.005em}
+  .cn i{display:block;font-style:normal;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+
+  .chain-ft{border-top:1px solid var(--line-2);background:var(--panel-2);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .chain-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .chain-ft b{font-family:var(--mono);font-size:11px;color:var(--violet);font-weight:400}
+  .chain-ft .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--violet);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .track,.constraints{grid-template-columns:repeat(2,1fr)}
+    .st .arrow{display:none}
+    .prov{grid-template-columns:1fr}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">aipoch<span> / </span>open-science</div>
+    <div class="r">TypeScript &middot; GitHub Trending 7 Sep 2026 &middot; <b>146 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Longest description on the board, one word doing the work</div>
+      <h1>Four hyphenated promises, and only <em>reproducible</em> can fail in public.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> open-science</div>
+        <a class="lnk" href="https://github.com/aipoch/open-science">github.com/aipoch/open-science</a>
+      </div>
+    </div>
+    <p class="lede">Open-source, local-first, model-agnostic, cross-platform. All four are settled at install time by reading a licence, a config, or a download page. Reproducible provenance is the only one that has to keep being true months after the result was produced.</p>
+  </header>
+
+  <div class="ch-hd">
+    <h2>What provenance has to survive</h2>
+    <span>stages named in the description, no tools claimed</span>
+  </div>
+
+  <div class="chain">
+    <div class="track">
+      <div class="st">
+        <div class="n">stage 01</div>
+        <b>data connectors</b>
+        <i>Where the numbers came in. Named in the description as a component.</i>
+        <div class="arrow"></div>
+      </div>
+      <div class="st">
+        <div class="n">stage 02</div>
+        <b>notebooks</b>
+        <i>Python and R, both named. Where the analysis is written down.</i>
+        <div class="arrow"></div>
+      </div>
+      <div class="st">
+        <div class="n">stage 03</div>
+        <b>scientific agents</b>
+        <i>Named as a component. The description does not say what they decide.</i>
+        <div class="arrow"></div>
+      </div>
+      <div class="st">
+        <div class="n">stage 04</div>
+        <b>a result</b>
+        <i>The thing somebody else eventually has to reproduce.</i>
+      </div>
+    </div>
+
+    <div class="prov">
+      <div class="badge"><b>reproducible</b><i>the load-bearing word</i></div>
+      <p>Every stage above happens once. <b>Provenance is the claim that all four can be replayed later</b>, including whichever choices the agents made along the way. That is the hardest promise in the sentence and the only one a reader cannot check on install day.</p>
+    </div>
+
+    <div class="constraints">
+      <div class="cn"><b>open-source</b><i>licence file settles it</i></div>
+      <div class="cn"><b>local-first</b><i>config settles it</i></div>
+      <div class="cn"><b>model-agnostic</b><i>adapter list settles it</i></div>
+      <div class="cn"><b>macOS, Windows, Linux</b><i>download page settles it</i></div>
+    </div>
+
+    <div class="chain-ft">
+      <span>settled on install day</span><b>4 of 5</b>
+      <span class="fill"></span>
+      <span>settled months later</span><b>reproducible provenance</b>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Agents in the chain raise the bar</h3>
+      <p>A notebook replays deterministically. An agent making choices inside the pipeline has to record those choices too, or the replay produces a different answer.</p>
+    </div>
+    <div>
+      <h3>Local-first and provenance fit together</h3>
+      <p>If the whole workbench runs on your machine, the record of what happened lives there too, which removes the question of whether a service still holds it in a year.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No provenance format, no connector list, no agent names, no replay guarantee. The trending description names the components and stops.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 7 September 2026 reads "Open Science by AIPOCH is an open-source, local-first, model-agnostic AI research workbench for macOS, Windows, and Linux, with scientific agents, Python/R notebooks, data connectors, and reproducible provenance." The four stages are components named in that sentence, arranged in the order a result would move through them. No file format, tool, or replay mechanism is represented, because none is published there.</p>
+</div>
+</body>
+</html>

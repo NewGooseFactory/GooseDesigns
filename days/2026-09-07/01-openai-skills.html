@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>openai/skills: four words and a first-party stamp</title>
+<style>
+  :root{
+    --paper:#F8F6F1; --card:#FFFFFF; --sink:#EFEBE2;
+    --hair:#DDD6C8; --hair-2:#B7AE9C;
+    --ink:#16150F; --ink-2:#474134; --ink-3:#8A8271;
+    --slate:#33566E;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .sheet{max-width:1160px;margin:0 auto;padding:0 40px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 11px;border-bottom:1px solid var(--hair-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:600}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--slate);font-weight:600}
+
+  header{padding:46px 0 36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:50px;align-items:center}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin-bottom:17px}
+  h1{font-family:var(--serif);font-size:clamp(30px,4.2vw,51px);line-height:1.06;letter-spacing:-.021em;font-weight:600;max-width:15ch}
+  h1 em{font-style:italic;color:var(--slate)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:27px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--slate)}
+  .cmd i{color:var(--slate);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--slate);border-color:var(--slate)}
+
+  .stack{border:1px solid var(--hair-2);background:var(--card)}
+  .stack-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .stack-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+  .stack-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+              border:1px solid var(--hair);padding:3px 7px}
+  .row{display:grid;grid-template-columns:132px 1fr 106px;border-bottom:1px solid var(--hair);align-items:stretch}
+  .row:last-of-type{border-bottom:none}
+  .row .k{padding:14px 13px;border-right:1px solid var(--hair);background:var(--sink);display:flex;align-items:center}
+  .row .k b{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:-.005em;color:var(--ink-2)}
+  .row .v{padding:14px 15px;min-width:0}
+  .row .v b{display:block;font-family:var(--mono);font-size:13.5px;color:var(--ink);font-weight:600;letter-spacing:-.005em;margin-bottom:6px}
+  .row .v i{display:block;font-style:normal;font-size:12.5px;line-height:1.6;color:var(--ink-2);max-width:46ch}
+  .row .s{padding:14px 12px;border-left:1px solid var(--hair);display:flex;align-items:center;justify-content:flex-end;text-align:right;
+          font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .row.own .k b{color:var(--slate)}
+  .row.own .v b{color:var(--slate)}
+  .row.own .s{color:var(--slate)}
+
+  .stack-ft{border-top:1px solid var(--hair-2);background:var(--sink);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .stack-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .stack-ft b{font-family:var(--mono);font-size:11px;color:var(--slate);font-weight:600}
+  .stack-ft .fill{flex:1;min-width:40px;height:1px;background:var(--hair-2)}
+
+  .strip3{border-top:1px solid var(--hair-2);padding:26px 0 0;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate);margin-bottom:9px;font-weight:600}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .sheet{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:30px;padding:30px 0 26px}
+    .row{grid-template-columns:1fr}
+    .row .k{border-right:none;border-bottom:1px solid var(--hair)}
+    .row .s{border-left:none;justify-content:flex-start;text-align:left}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="slug">openai<span> / skills</span></div>
+    <div class="r">Python &middot; GitHub Trending 7 Sep 2026 &middot; <b>46 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Four words, and two of them are a signature</div>
+      <h1>The description says nothing. <em>The owner field says everything</em>.</h1>
+      <p class="lede">Skills Catalog for Codex. Nothing in that line argues for itself, because the argument sits one field higher up: the org is the same one that ships the client. This is the first row on this board where the vendor and the skill author are the same party.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> git clone skills</div>
+        <a class="lnk" href="https://github.com/openai/skills">github.com/openai/skills</a>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="stack-hd"><b>Where the warranty comes from</b><u>Read from the trending row</u></div>
+
+      <div class="row own">
+        <div class="k"><b>owner</b></div>
+        <div class="v"><b>openai</b><i>The organisation that publishes Codex. A first-party catalog needs no author to vouch for it.</i></div>
+        <div class="s">the claim</div>
+      </div>
+      <div class="row">
+        <div class="k"><b>noun</b></div>
+        <div class="v"><b>Catalog</b><i>A listing, not a library. The word suggests an index of what exists rather than an opinionated selection.</i></div>
+        <div class="s">stated</div>
+      </div>
+      <div class="row">
+        <div class="k"><b>target</b></div>
+        <div class="v"><b>Codex</b><i>One named client. Every other skill repo on this board lists three or more.</i></div>
+        <div class="s">stated</div>
+      </div>
+      <div class="row">
+        <div class="k"><b>stars today</b></div>
+        <div class="v"><b>46</b><i>The lowest daily gain in today's top ten, which makes the ranking a statement about total interest rather than about today.</i></div>
+        <div class="s">read 7 Sep</div>
+      </div>
+
+      <div class="stack-ft">
+        <span>what a reader has to trust</span><b>the org, not the sentence</b>
+        <span class="fill"></span>
+        <span>no skill count published</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>One client is a narrow promise</h3>
+      <p>Naming only Codex avoids the compatibility claim every other skill repo has to make. It also means the catalog is worth nothing to anyone on a different client.</p>
+    </div>
+    <div>
+      <h3>Catalog is a modest word</h3>
+      <p>A curated pack takes editorial responsibility for what it includes. A catalog takes responsibility for being complete, which is a different job with a different failure mode.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No skill names, no count, no format spec, no contribution rule. The trending description is four words and lists none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 7 September 2026 is "Skills Catalog for Codex", read at rank 5 with 46 stars today and language Python. Every value in the panel comes from that row. No skill entries, counts, or catalog contents are represented here, because that row publishes none.</p>
+</div>
+</body>
+</html>

@@ -263,3 +263,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-09-06 — [rep](days/2026-09-06/) — anomalyco/opencode — swiss/signal-red — grade four words and colour only the contested one, the definite article → works after moving the accent off coding agent onto The
 - 2026-09-06 — [rep](days/2026-09-06/) — ruvnet/ruflo — hud/instrument-mint — six solid bars for named capabilities, one dashed empty bar for the priority claim → works, a gauge with no scale is the honest form
 - 2026-09-06 — [rep](days/2026-09-06/) — BraveOPotato/FckSignups — warm-minimal/clay — read each condition as a removal and draw the filter instead of the list → strongest of the three
+- 2026-09-07 — [rep](days/2026-09-07/) — openai/skills — editorial/deep-slate — when the description carries no argument, grade the trending row instead of the sentence → works, the owner field is the whole warranty
+- 2026-09-07 — [rep](days/2026-09-07/) — aipoch/open-science — constellation/violet — sort the promises by when they can fail, install day versus months later → works, timing split is sharper than checkable versus unverifiable
+- 2026-09-07 — [rep](days/2026-09-07/) — coreyhaines31/marketingskills — mono-zine/amber — mark the one discipline an agent can be caught being wrong about → strongest of the three, own inference labelled as mine in the header

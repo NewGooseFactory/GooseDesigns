@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **261 mocks** across **87 days**. Newest first.
+Searchable master index. **264 mocks** across **88 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-07 | Monday | [openai/skills](https://github.com/openai/skills) | editorial | deep-slate | when the description carries no argument, grade the trending row instead of the sentence | works, the owner field is the whole warranty | [png](days/2026-09-07/01-openai-skills.png) | [2026-09-07](days/2026-09-07/) |
+| 2026-09-07 | Monday | [aipoch/open-science](https://github.com/aipoch/open-science) | constellation | violet | sort the promises by when they can fail, install day versus months later | works, timing split is sharper than checkable versus unverifiable | [png](days/2026-09-07/02-open-science.png) | [2026-09-07](days/2026-09-07/) |
+| 2026-09-07 | Monday | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | mono-zine | amber | mark the one discipline an agent can be caught being wrong about | strongest of the three, own inference labelled as mine in the header | [png](days/2026-09-07/03-marketingskills.png) | [2026-09-07](days/2026-09-07/) |
 | 2026-09-06 | Sunday | [anomalyco/opencode](https://github.com/anomalyco/opencode) | swiss | signal-red | grade four words and colour only the contested one, the definite article | works after moving the accent off coding agent onto The | [png](days/2026-09-06/01-opencode.png) | [2026-09-06](days/2026-09-06/) |
 | 2026-09-06 | Sunday | [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | hud | instrument-mint | six solid bars for named capabilities, one dashed empty bar for the priority claim | works, a gauge with no scale is the honest form | [png](days/2026-09-06/02-ruflo.png) | [2026-09-06](days/2026-09-06/) |
 | 2026-09-06 | Sunday | [BraveOPotato/FckSignups](https://github.com/BraveOPotato/FckSignups) | warm-minimal | clay | read each condition as a removal and draw the filter instead of the list | strongest of the three | [png](days/2026-09-06/03-fcksignups.png) | [2026-09-06](days/2026-09-06/) |
