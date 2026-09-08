@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hyperframes: three sentences, six words</title>
+<style>
+  :root{
+    --void:#07070A; --panel:#0B0B10; --panel-2:#101017;
+    --line:#17171F; --line-2:#26262F;
+    --fg:#EAEAEE; --fg-2:#8B8B96; --fg-3:#575761;
+    --lime:#B4F04A;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--lime);font-weight:400}
+
+  .poster{padding:40px 0 14px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:24px}
+  h1{font-size:clamp(34px,5.2vw,70px);line-height:.98;letter-spacing:-.042em;font-weight:700;max-width:16ch}
+  h1 em{font-style:normal;color:var(--lime)}
+
+  .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);gap:48px;align-items:start;padding:26px 0 28px;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin-top:20px}
+  .lede{font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:44ch}
+  .cta{margin-top:24px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--lime)}
+  .cmd i{color:var(--lime);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--lime);border-color:var(--lime)}
+
+  .three{border:1px solid var(--line-2);background:var(--panel)}
+  .s{display:grid;grid-template-columns:34px 1fr 128px;border-bottom:1px solid var(--line);align-items:center}
+  .s:last-of-type{border-bottom:none}
+  .s .n{font-family:var(--mono);font-size:9px;color:var(--fg-3);padding-left:13px}
+  .s .t{padding:15px 12px 15px 0}
+  .s .t b{display:block;font-family:var(--mono);font-size:14px;color:var(--fg);letter-spacing:-.005em;margin-bottom:6px}
+  .s .t i{display:block;font-style:normal;font-family:var(--mono);font-size:11px;line-height:1.62;color:var(--fg-2);max-width:40ch}
+  .s .k{padding-right:13px;text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);line-height:1.4}
+  .s.hot .t b{color:var(--lime)}
+  .s.hot .k{color:var(--lime)}
+  .three-ft{border-top:1px solid var(--line-2);background:var(--panel-2);padding:12px 14px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .three-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .three-ft b{font-family:var(--mono);font-size:11px;color:var(--lime);font-weight:400}
+  .three-ft .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .strip3{padding:28px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--lime);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    .poster{padding:34px 0 14px}
+    .under{grid-template-columns:1fr;gap:28px;padding:26px 0}
+    .s{grid-template-columns:28px 1fr}
+    .s .k{display:none}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">heygen-com<span> / </span>hyperframes</div>
+    <div class="r">TypeScript &middot; GitHub Trending 8 Sep 2026 &middot; <b>474 stars today</b></div>
+  </div>
+
+  <div class="poster">
+    <div class="eyebrow">Three sentences, six words, no adjectives</div>
+    <h1>Video, addressed to <em>something that types</em>.</h1>
+  </div>
+
+  <div class="under">
+    <div>
+      <p class="lede">Every video tool before this one had a timeline you drag. This description names a format an agent already writes, then names the output, then names the reader. Nothing in the six words describes a feature.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> npm i hyperframes</div>
+        <a class="lnk" href="https://github.com/heygen-com/hyperframes">github.com/heygen-com/hyperframes</a>
+      </div>
+    </div>
+
+    <div class="three">
+      <div class="s">
+        <div class="n">01</div>
+        <div class="t"><b>Write HTML.</b><i>The input format. An agent can already produce it, so no new syntax has to be learned by either party.</i></div>
+        <div class="k">the input</div>
+      </div>
+      <div class="s">
+        <div class="n">02</div>
+        <div class="t"><b>Render video.</b><i>The output. A file, not a preview, and a format the tool has no control over once it leaves.</i></div>
+        <div class="k">the output</div>
+      </div>
+      <div class="s hot">
+        <div class="n">03</div>
+        <div class="t"><b>Built for agents.</b><i>The reader. This is the only sentence that makes a choice rather than stating a fact.</i></div>
+        <div class="k">the audience</div>
+      </div>
+      <div class="three-ft">
+        <span>what changes if you drop sentence three</span><b>it becomes an HTML to video renderer</b>
+        <span class="fill"></span>
+        <span>which already exists</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>HTML is the interesting choice</h3>
+      <p>A video DSL would need documentation and a parser. HTML arrives with a layout engine, a text renderer, and a model that agents have written more of than any other format.</p>
+    </div>
+    <div>
+      <h3>Three full stops in six words</h3>
+      <p>Each sentence is one clause with a period after it. That is a deliberate rhythm, and it reads as a spec line rather than a pitch.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No codec, no resolution, no render time, no supported subset of HTML. The trending description names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 8 September 2026 is "Write HTML. Render video. Built for agents." The three rows are those three sentences in order, labelled by what each one names. No format support, performance figure, or output sample is represented here.</p>
+</div>
+</body>
+</html>

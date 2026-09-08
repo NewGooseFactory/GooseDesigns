@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i-have-adhd: the verb is bury</title>
+<style>
+  :root{
+    --paper:#FCFAF5; --card:#FFFFFF; --sink:#F2EEE4;
+    --hair:#E1DACB; --hair-2:#BEB4A0;
+    --ink:#14120E; --ink-2:#474134; --ink-3:#8B8271;
+    --teal:#1C6E63;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  .page{max-width:1180px;margin:0 auto;padding:0 40px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:22px 0 14px;border-bottom:1px solid var(--hair)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .top .r b{color:var(--teal);font-weight:600}
+
+  header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,458px);gap:48px;align-items:center;padding:46px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:18px}
+  h1{font-size:clamp(30px,4vw,49px);line-height:1.1;letter-spacing:-.028em;font-weight:650;max-width:16ch}
+  h1 em{font-style:normal;color:var(--teal)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.66;color:var(--ink-2);max-width:44ch}
+  .cta{margin-top:28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--hair);border-radius:9px;padding:12px 17px;
+       box-shadow:0 1px 2px rgba(20,18,14,.05),0 5px 14px rgba(20,18,14,.045);
+       transition:transform 160ms var(--out),box-shadow 160ms var(--out)}
+  .cmd:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(20,18,14,.06),0 9px 22px rgba(20,18,14,.07)}
+  .cmd i{color:var(--teal);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hair-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--teal);border-color:var(--teal)}
+
+  .card{background:var(--card);border:1px solid var(--hair);border-radius:14px;overflow:hidden;
+        box-shadow:0 1px 2px rgba(20,18,14,.05),0 12px 32px rgba(20,18,14,.06)}
+  .card-hd{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--hair);background:var(--sink)}
+  .card-hd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .card-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+             border:1px solid var(--hair);border-radius:5px;padding:3px 7px}
+  .card-bd{padding:16px 18px 14px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .col .lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
+  .stackbox{border:1px solid var(--hair);border-radius:9px;overflow:hidden;background:var(--sink)}
+  .ln{padding:7px 10px;border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.45;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ln:last-child{border-bottom:none}
+  .ln.ans{background:var(--card);color:var(--ink);font-size:11.5px}
+  .ln.ans b{color:var(--teal)}
+  .col.after .stackbox{background:var(--card)}
+  .col.after .ln{color:var(--ink-2)}
+  .depth{margin-top:9px;display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .depth b{color:var(--teal);font-weight:600}
+  .depth .bar{flex:1;height:1px;background:var(--hair-2)}
+
+  .card-ft{border-top:1px solid var(--hair);background:var(--sink);padding:12px 18px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .card-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .card-ft b{font-family:var(--mono);font-size:11px;color:var(--teal);font-weight:600}
+  .card-ft .fill{flex:1;min-width:40px;height:1px;background:var(--hair-2)}
+
+  .strip3{border-top:1px solid var(--hair);padding:28px 0 0;margin-top:38px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:9px;font-weight:500}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .page{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:32px;padding:32px 0 28px}
+    .two{grid-template-columns:1fr}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="slug">ayghri<span> / </span>i-have-adhd</div>
+    <div class="r">Python &middot; GitHub Trending 8 Sep 2026 &middot; <b>422 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">One verb carries the whole complaint</div>
+      <h1>The answer was always there. It was just <em>underneath</em>.</h1>
+      <p class="lede">Most output-formatting tools promise to be clear. This one names the specific failure it targets: burying. The answer arrives, and then arrives again wrapped in preamble, caveats, and a summary of what it just said.</p>
+      <div class="cta">
+        <div class="cmd"><i>&gt;</i> add skill i-have-adhd</div>
+        <a class="lnk" href="https://github.com/ayghri/i-have-adhd">github.com/ayghri/i-have-adhd</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><b>Where the answer sits</b><u>Illustrative shape, no real output</u></div>
+      <div class="card-bd">
+        <div class="two">
+          <div class="col">
+            <div class="lbl">buried</div>
+            <div class="stackbox">
+              <div class="ln">preamble</div>
+              <div class="ln">restating the question</div>
+              <div class="ln">context nobody asked for</div>
+              <div class="ln">caveat</div>
+              <div class="ln ans"><b>the answer</b></div>
+              <div class="ln">summary of the answer</div>
+              <div class="ln">offer to continue</div>
+            </div>
+            <div class="depth"><span>line</span><b>5 of 7</b><span class="bar"></span><span>drawn for this page</span></div>
+          </div>
+
+          <div class="col after">
+            <div class="lbl">not buried</div>
+            <div class="stackbox">
+              <div class="ln ans"><b>the answer</b></div>
+              <div class="ln">the reason, if you want it</div>
+            </div>
+            <div class="depth"><span>line</span><b>1 of 2</b><span class="bar"></span><span>drawn for this page</span></div>
+          </div>
+        </div>
+
+        <div class="card-ft" style="margin:14px -18px -14px">
+          <span>what the skill changes</span><b>position, not content</b>
+          <span class="fill"></span>
+          <span>no format spec published</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Naming the failure beats promising the fix</h3>
+      <p>Clear and concise are adjectives anybody can claim. Stop burying the answer describes a behaviour you can catch happening in a single response.</p>
+    </div>
+    <div>
+      <h3>The title is the audience</h3>
+      <p>Calling the repo i-have-adhd names who wrote it and who it is for. That is the same warranty as a byline, made from a first-person statement instead of a name.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No format rules, no client list, no before and after from the tool itself. The trending description is two sentences and publishes none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 8 September 2026 is "A skill to stop your coding agent from burying the answer. ADHD-friendly output." The two stacks are drawn for this page to show what burying means positionally. Neither column is output from the skill, and the line counts describe those drawings only.</p>
+</div>
+</body>
+</html>

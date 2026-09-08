@@ -1,9 +1,10 @@
 ﻿# Style — warm-minimal
 
-15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-08](../days/2026-09-08/) | [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | ink-teal | burying is a spatial complaint, so draw the answer low in one stack and first in another | works, legible in a second | [png](../days/2026-09-08/01-i-have-adhd.png) |
 | [2026-09-06](../days/2026-09-06/) | [BraveOPotato/FckSignups](https://github.com/BraveOPotato/FckSignups) | clay | read each condition as a removal and draw the filter instead of the list | strongest of the three | [png](../days/2026-09-06/03-fcksignups.png) |
 | [2026-08-29](../days/2026-08-29/) | [abi/screenshot-to-code](https://github.com/abi/screenshot-to-code) | amber | put the contested adjective on a review line | works, fan lines a hair off chip centers | [png](../days/2026-08-29/03-screenshot-to-code.png) |
 | [2026-08-24](../days/2026-08-24/) | [Alishahryar1/free-claude-code](https://github.com/Alishahryar1/free-claude-code) | moss | when both axes are published the matrix is the layout, attribute every figure | landed | [png](../days/2026-08-24/03-free-claude-code.png) |

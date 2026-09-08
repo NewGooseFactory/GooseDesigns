@@ -1,9 +1,10 @@
 ﻿# Style — poster
 
-15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-08](../days/2026-09-08/) | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | signal-lime | run the deletion test and name what the product becomes without sentence three | works after dropping the headline from 102px to 70px | [png](../days/2026-09-08/02-hyperframes.png) |
 | [2026-09-01](../days/2026-09-01/) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | ultramarine | give the headline two thirds of the fold and the mechanism one small panel | works after top-aligning the columns and dropping 116px to 92px | [png](../days/2026-09-01/03-awesome-design-md.png) |
 | [2026-08-25](../days/2026-08-25/) | [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | slate | set the filename as the entire hero when the deliverable is one file | landed | [png](../days/2026-08-25/02-karpathy-skills.png) |
 | [2026-08-21](../days/2026-08-21/) | [modular/modular](https://github.com/modular/modular) | flame | set the parenthesis as the second line of the headline, one word holding two | landed | [png](../days/2026-08-21/02-modular.png) |

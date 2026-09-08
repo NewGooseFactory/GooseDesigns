@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **264 mocks** across **88 days**. Newest first.
+Searchable master index. **267 mocks** across **89 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-08 | Tuesday | [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | warm-minimal | ink-teal | burying is a spatial complaint, so draw the answer low in one stack and first in another | works, legible in a second | [png](days/2026-09-08/01-i-have-adhd.png) | [2026-09-08](days/2026-09-08/) |
+| 2026-09-08 | Tuesday | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | poster | signal-lime | run the deletion test and name what the product becomes without sentence three | works after dropping the headline from 102px to 70px | [png](days/2026-09-08/02-hyperframes.png) | [2026-09-08](days/2026-09-08/) |
+| 2026-09-08 | Tuesday | [mksglu/context-mode](https://github.com/mksglu/context-mode) | data-viz | reduction-cyan | draw the one published number at face value and print what it lacks beside it | works, honest without a fake baseline | [png](days/2026-09-08/03-context-mode.png) | [2026-09-08](days/2026-09-08/) |
 | 2026-09-07 | Monday | [openai/skills](https://github.com/openai/skills) | editorial | deep-slate | when the description carries no argument, grade the trending row instead of the sentence | works, the owner field is the whole warranty | [png](days/2026-09-07/01-openai-skills.png) | [2026-09-07](days/2026-09-07/) |
 | 2026-09-07 | Monday | [aipoch/open-science](https://github.com/aipoch/open-science) | constellation | violet | sort the promises by when they can fail, install day versus months later | works, timing split is sharper than checkable versus unverifiable | [png](days/2026-09-07/02-open-science.png) | [2026-09-07](days/2026-09-07/) |
 | 2026-09-07 | Monday | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | mono-zine | amber | mark the one discipline an agent can be caught being wrong about | strongest of the three, own inference labelled as mine in the header | [png](days/2026-09-07/03-marketingskills.png) | [2026-09-07](days/2026-09-07/) |

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>context-mode: one number and three verbs</title>
+<style>
+  :root{
+    --bg:#0D1014; --panel:#12161B; --panel-2:#171C22;
+    --line:#1E242B; --line-2:#2C353E;
+    --fg:#E2E8ED; --fg-2:#8794A0; --fg-3:#5A6771;
+    --cyan:#39C3D6; --dim:#3A4750;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--cyan);font-weight:400}
+
+  header{padding:42px 0 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:17px}
+  h1{font-size:clamp(30px,4vw,49px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--cyan)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--cyan)}
+  .cmd i{color:var(--cyan);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--cyan);border-color:var(--cyan)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:41ch}
+
+  .ch-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .ch-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .ch-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .chart{border:1px solid var(--line-2);background:var(--panel)}
+  .chart-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .chart-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .chart-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+              border:1px solid var(--line-2);padding:3px 7px}
+  .chart-bd{padding:20px 18px 16px}
+
+  .barrow{display:grid;grid-template-columns:118px 1fr 100px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+  .barrow:last-of-type{border-bottom:none}
+  .barrow .lb{font-family:var(--mono);font-size:11.5px;color:var(--fg-2);letter-spacing:.02em}
+  .barrow .track{height:26px;background:var(--panel-2);border:1px solid var(--line-2);position:relative;margin:0 14px}
+  .barrow .track i{position:absolute;left:0;top:0;bottom:0;display:block;background:var(--dim)}
+  .barrow .track i.cy{background:var(--cyan);opacity:.85}
+  .barrow .vv{font-family:var(--mono);font-size:12px;color:var(--fg);text-align:right;letter-spacing:-.01em}
+  .barrow.after .lb{color:var(--cyan)}
+  .barrow.after .vv{color:var(--cyan)}
+
+  .srcline{margin-top:15px;padding-top:13px;border-top:1px dashed var(--line-2);display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .srcline span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .srcline b{font-family:var(--mono);font-size:11px;color:var(--cyan);font-weight:400}
+  .srcline .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .verbs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-2)}
+  .vb{border-right:1px solid var(--line);padding:14px 15px;min-width:0}
+  .vb:last-child{border-right:none}
+  .vb b{display:block;font-family:var(--mono);font-size:12.5px;color:var(--fg);margin-bottom:6px;letter-spacing:-.005em}
+  .vb i{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;line-height:1.62;color:var(--fg-2);max-width:30ch}
+  .vb u{text-decoration:none;display:block;margin-top:8px;font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .vb.num b{color:var(--cyan)}
+  .vb.num u{color:var(--cyan)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .barrow{grid-template-columns:1fr}
+    .barrow .track{margin:9px 0}
+    .barrow .vv{text-align:left}
+    .verbs{grid-template-columns:1fr}
+    .vb{border-right:none;border-bottom:1px solid var(--line)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">mksglu<span> / </span>context-mode</div>
+    <div class="r">TypeScript &middot; GitHub Trending 8 Sep 2026 &middot; <b>96 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Three verbs, one of them measured</div>
+      <h1>Two claims you take on faith. <em>One arrives with a percentage</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> add context-mode</div>
+        <a class="lnk" href="https://github.com/mksglu/context-mode">github.com/mksglu/context-mode</a>
+      </div>
+    </div>
+    <p class="lede">Sandboxes tool output, persists session memory, enforces routing. Only the first verb has a number attached, and 98 percent is a big enough figure that a reader will want to know what it was measured against.</p>
+  </header>
+
+  <div class="ch-hd">
+    <h2>The one published number</h2>
+    <span>quoted from the description, no baseline given</span>
+  </div>
+
+  <div class="chart">
+    <div class="chart-hd"><b>Tool output, before and after</b><u>Proportions from the quoted figure only</u></div>
+    <div class="chart-bd">
+
+      <div class="barrow">
+        <div class="lb">unsandboxed</div>
+        <div class="track"><i style="width:100%"></i></div>
+        <div class="vv">100%</div>
+      </div>
+      <div class="barrow after">
+        <div class="lb">sandboxed</div>
+        <div class="track"><i class="cy" style="width:2%"></i></div>
+        <div class="vv">2%</div>
+      </div>
+
+      <div class="srcline">
+        <span>the project publishes</span><b>98% reduction</b>
+        <span class="fill"></span>
+        <span>no workload, no tool, no baseline named</span>
+      </div>
+    </div>
+
+    <div class="verbs">
+      <div class="vb num">
+        <b>sandboxes tool output</b>
+        <i>The only verb with a figure behind it. A number that large invites the question of which tool and which task.</i>
+        <u>98% reduction, source unstated</u>
+      </div>
+      <div class="vb">
+        <b>persists session memory</b>
+        <i>A behaviour you check by starting a second session and seeing whether anything survived.</i>
+        <u>no format named</u>
+      </div>
+      <div class="vb">
+        <b>enforces routing</b>
+        <i>Across 17 platforms via MCP and hooks. The count is stated, the platforms are not.</i>
+        <u>17 named as a count only</u>
+      </div>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Context is now the bottleneck</h3>
+      <p>Three separate repos on this board work on the window rather than the model, which is what happens once everyone has the same model and different amounts of room to use it.</p>
+    </div>
+    <div>
+      <h3>MCP and hooks are the mechanism</h3>
+      <p>Naming both means the tool sits between the agent and its tools rather than inside the prompt, which is where an interception layer has to live to catch every call.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No platform list, no measured workload, no memory format, no token counts. The trending description gives two numbers and no method.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 8 September 2026 reads "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks." The two bars are drawn directly from the quoted 98 percent figure and represent nothing else. No workload, tool, or baseline is shown, because the description names none.</p>
+</div>
+</body>
+</html>
