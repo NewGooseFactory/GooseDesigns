@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>text-to-cad: three acronyms, one geometry</title>
+<style>
+  :root{
+    --field:#0B1014; --panel:#0E141A; --panel-2:#131A21;
+    --grid:rgba(110,190,210,.06); --grid-2:rgba(110,190,210,.14);
+    --line:#1A242C; --line-2:#28343E;
+    --fg:#DCE7EC; --fg-2:#8095A0; --fg-3:#556772;
+    --ink:#6EBED2;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--field);color:var(--fg);font-family:var(--sans);min-height:100vh;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+                     linear-gradient(var(--grid-2) 1px,transparent 1px),linear-gradient(90deg,var(--grid-2) 1px,transparent 1px);
+    background-size:15px 15px,15px 15px,90px 90px,90px 90px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--ink);font-weight:400}
+
+  header{padding:42px 0 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,402px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:17px}
+  h1{font-size:clamp(29px,3.9vw,48px);line-height:1.09;letter-spacing:-.03em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--ink)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--ink)}
+  .cmd i{color:var(--ink);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--ink);border-color:var(--ink)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:41ch}
+
+  .dw-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .dw-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .dw-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .sheet{border:1px solid var(--line-2);background:var(--panel)}
+  .sheet-hd{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .sheet-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .sheet-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+              border:1px solid var(--line-2);padding:3px 7px}
+
+  .views{display:grid;grid-template-columns:repeat(3,1fr)}
+  .vw{border-right:1px solid var(--line);padding:14px 14px 12px;min-width:0}
+  .vw:last-child{border-right:none}
+  .vw .tag{display:flex;align-items:baseline;gap:8px;margin-bottom:11px}
+  .vw .tag b{font-family:var(--mono);font-size:13px;color:var(--ink);letter-spacing:-.005em}
+  .vw .tag i{font-style:normal;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-left:auto}
+  .vw svg{display:block;width:100%;height:132px;background:var(--panel-2);border:1px solid var(--line)}
+  .vw svg .edge{stroke:var(--fg-2);stroke-width:1.1;fill:none}
+  .vw svg .hidden{stroke:var(--fg-3);stroke-width:.9;fill:none;stroke-dasharray:3 3}
+  .vw svg .dim{stroke:var(--ink);stroke-width:.8;fill:none}
+  .vw svg .arrowdot{fill:var(--ink)}
+  .vw svg text{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:7px;fill:var(--fg-3);letter-spacing:.06em}
+  .vw svg text.ink{fill:var(--ink)}
+  .vw p{margin-top:10px;font-family:var(--mono);font-size:10.5px;line-height:1.62;color:var(--fg-2);max-width:30ch}
+
+  .sheet-ft{border-top:1px solid var(--line-2);background:var(--panel-2);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .sheet-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .sheet-ft b{font-family:var(--mono);font-size:11px;color:var(--ink);font-weight:400}
+  .sheet-ft .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .views{grid-template-columns:1fr}
+    .vw{border-right:none;border-bottom:1px solid var(--line)}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">earthtojake<span> / </span>text-to-cad</div>
+    <div class="r">Python &middot; GitHub Trending 9 Sep 2026 &middot; <b>97 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Three acronyms, one shared object</div>
+      <h1>Design, simulate, machine. <em>Same geometry, three different questions</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> add skill text-to-cad</div>
+        <a class="lnk" href="https://github.com/earthtojake/text-to-cad">github.com/earthtojake/text-to-cad</a>
+      </div>
+    </div>
+    <p class="lede">CAD, CAE, CAM. Each one asks something different of the same part: what shape is it, will it hold, and can a machine cut it. A skill pack that names all three is claiming the model can move between those questions without losing the object.</p>
+  </header>
+
+  <div class="dw-hd">
+    <h2>One part, three views</h2>
+    <span>illustrative drawing, no real model or file</span>
+  </div>
+
+  <div class="sheet">
+    <div class="sheet-hd"><b>What each acronym asks</b><u>Shape only, dimensions omitted</u></div>
+
+    <div class="views">
+      <div class="vw">
+        <div class="tag"><b>CAD</b><i>design</i></div>
+        <svg viewBox="0 0 300 132" aria-hidden="true">
+          <rect class="edge" x="58" y="34" width="150" height="66"/>
+          <line class="hidden" x1="58" y1="34" x2="86" y2="18"/>
+          <line class="hidden" x1="208" y1="34" x2="236" y2="18"/>
+          <line class="hidden" x1="86" y1="18" x2="236" y2="18"/>
+          <line class="hidden" x1="236" y1="18" x2="236" y2="84"/>
+          <line class="hidden" x1="236" y1="84" x2="208" y2="100"/>
+          <circle class="edge" cx="133" cy="67" r="17"/>
+          <line class="dim" x1="58" y1="112" x2="208" y2="112"/>
+          <circle class="arrowdot" cx="58" cy="112" r="1.8"/>
+          <circle class="arrowdot" cx="208" cy="112" r="1.8"/>
+          <text class="ink" x="133" y="124" text-anchor="middle">no dimension given</text>
+        </svg>
+        <p>What shape is it. The output is geometry with tolerances and a bore that either exists or does not.</p>
+      </div>
+
+      <div class="vw">
+        <div class="tag"><b>CAE</b><i>simulate</i></div>
+        <svg viewBox="0 0 300 132" aria-hidden="true">
+          <rect class="edge" x="58" y="34" width="150" height="66"/>
+          <circle class="edge" cx="133" cy="67" r="17"/>
+          <line class="hidden" x1="58" y1="34" x2="208" y2="100"/>
+          <line class="hidden" x1="58" y1="100" x2="208" y2="34"/>
+          <line class="hidden" x1="58" y1="67" x2="208" y2="67"/>
+          <line class="hidden" x1="133" y1="34" x2="133" y2="100"/>
+          <line class="dim" x1="222" y1="40" x2="222" y2="94"/>
+          <circle class="arrowdot" cx="222" cy="40" r="1.8"/>
+          <circle class="arrowdot" cx="222" cy="94" r="1.8"/>
+          <text class="ink" x="240" y="70">load</text>
+          <text x="133" y="124" text-anchor="middle">mesh drawn as a shape</text>
+        </svg>
+        <p>Will it hold. The output is a field over the same geometry, and the answer changes with the material.</p>
+      </div>
+
+      <div class="vw">
+        <div class="tag"><b>CAM</b><i>machine</i></div>
+        <svg viewBox="0 0 300 132" aria-hidden="true">
+          <rect class="edge" x="58" y="34" width="150" height="66"/>
+          <circle class="edge" cx="133" cy="67" r="17"/>
+          <path class="dim" d="M46 24 L220 24 L220 40 L46 40 L46 56 L220 56 L220 72 L46 72 L46 88 L220 88"/>
+          <circle class="arrowdot" cx="46" cy="24" r="2.2"/>
+          <text x="133" y="124" text-anchor="middle">toolpath drawn as a shape</text>
+        </svg>
+        <p>Can a machine cut it. The output is an ordered path, and order is the part a language model has to get right.</p>
+      </div>
+    </div>
+
+    <div class="sheet-ft">
+      <span>what survives all three</span><b>the geometry</b>
+      <span class="fill"></span>
+      <span>no format, no kernel, no unit published</span>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>CAM is the hard one for text</h3>
+      <p>Design and analysis tolerate an approximate answer that a human corrects. A toolpath runs on a machine holding a cutter, and a wrong order is scrap or a broken tool.</p>
+    </div>
+    <div>
+      <h3>Library, not application</h3>
+      <p>The description says a library of agent skills, which puts this inside whatever CAD tool you already run rather than asking you to move to a new one.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No file format, no geometry kernel, no supported operations, no sample part. The trending description is nine words and names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 9 September 2026 is "A library of agent skills for CAD, CAE and CAM." The three views are hand-drawn SVG made for this page to show what each acronym asks of the same part. No dimensions, materials, units, tool numbers, or real model data appear, because that sentence publishes none.</p>
+</div>
+</body>
+</html>

@@ -269,3 +269,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-09-08 — [rep](days/2026-09-08/) — ayghri/i-have-adhd — warm-minimal/ink-teal — burying is a spatial complaint, so draw the answer low in one stack and first in another → works, legible in a second
 - 2026-09-08 — [rep](days/2026-09-08/) — heygen-com/hyperframes — poster/signal-lime — run the deletion test and name what the product becomes without sentence three → works after dropping the headline from 102px to 70px
 - 2026-09-08 — [rep](days/2026-09-08/) — mksglu/context-mode — data-viz/reduction-cyan — draw the one published number at face value and print what it lacks beside it → works, honest without a fake baseline
+- 2026-09-09 — [rep](days/2026-09-09/) — earthtojake/text-to-cad — blueprint/drafting-cyan — draw the same part three times, once per acronym, with every dimension marked absent → works, hand-drawn SVG reads native in blueprint
+- 2026-09-09 — [rep](days/2026-09-09/) — obra/superpowers — brutalist/verdict-red — split the sentence by what evidence each part needs, then list what would settle the verdict → strongest of the three
+- 2026-09-09 — [rep](days/2026-09-09/) — vastsa/PI-Desktop — neon-noir/violet — stack the four named layers and give the unnamed boundary its own row → works, position makes the absence obvious

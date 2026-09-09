@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **267 mocks** across **89 days**. Newest first.
+Searchable master index. **270 mocks** across **90 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-09 | Wednesday | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | blueprint | drafting-cyan | draw the same part three times, once per acronym, with every dimension marked absent | works, hand-drawn SVG reads native in blueprint | [png](days/2026-09-09/01-text-to-cad.png) | [2026-09-09](days/2026-09-09/) |
+| 2026-09-09 | Wednesday | [obra/superpowers](https://github.com/obra/superpowers) | brutalist | verdict-red | split the sentence by what evidence each part needs, then list what would settle the verdict | strongest of the three | [png](days/2026-09-09/02-superpowers.png) | [2026-09-09](days/2026-09-09/) |
+| 2026-09-09 | Wednesday | [vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop) | neon-noir | violet | stack the four named layers and give the unnamed boundary its own row | works, position makes the absence obvious | [png](days/2026-09-09/03-pi-desktop.png) | [2026-09-09](days/2026-09-09/) |
 | 2026-09-08 | Tuesday | [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | warm-minimal | ink-teal | burying is a spatial complaint, so draw the answer low in one stack and first in another | works, legible in a second | [png](days/2026-09-08/01-i-have-adhd.png) | [2026-09-08](days/2026-09-08/) |
 | 2026-09-08 | Tuesday | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | poster | signal-lime | run the deletion test and name what the product becomes without sentence three | works after dropping the headline from 102px to 70px | [png](days/2026-09-08/02-hyperframes.png) | [2026-09-08](days/2026-09-08/) |
 | 2026-09-08 | Tuesday | [mksglu/context-mode](https://github.com/mksglu/context-mode) | data-viz | reduction-cyan | draw the one published number at face value and print what it lacks beside it | works, honest without a fake baseline | [png](days/2026-09-08/03-context-mode.png) | [2026-09-08](days/2026-09-08/) |

@@ -1,9 +1,10 @@
 ﻿# Style — neon-noir
 
-8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-09](../days/2026-09-09/) | [vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop) | violet | stack the four named layers and give the unnamed boundary its own row | works, position makes the absence obvious | [png](../days/2026-09-09/03-pi-desktop.png) |
 | [2026-08-31](../days/2026-08-31/) | [affaan-m/ECC](https://github.com/affaan-m/ECC) | acid-cyan | put the definite article on trial and list what the category contains | strongest of the three | [png](../days/2026-08-31/03-ecc.png) |
 | [2026-08-19](../days/2026-08-19/) | [harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) | magenta | draw the width of the gap, one seed box widening across five stages into a 9:16 artifact | landed | [png](../days/2026-08-19/03-moneyprinterturbo.png) |
 | [2026-08-07](../days/2026-08-07/) | [goauthentik/authentik](https://github.com/goauthentik/authentik) | magenta | draw the word glue with sources left, consumers right, one lit hub in the middle | landed: one neon element keeps the style from turning decorative | [png](../days/2026-08-07/03-authentik.png) |

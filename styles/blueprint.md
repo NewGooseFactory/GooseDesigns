@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-22 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+23 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-09](../days/2026-09-09/) | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | drafting-cyan | draw the same part three times, once per acronym, with every dimension marked absent | works, hand-drawn SVG reads native in blueprint | [png](../days/2026-09-09/01-text-to-cad.png) |
 | [2026-09-03](../days/2026-09-03/) | [magnitudedev/magnitude](https://github.com/magnitudedev/magnitude) | graphite-ink | draw both ends and let the asymmetry between 8 named and 0 named be the headline | works, the dashed part does the whole job | [png](../days/2026-09-03/03-magnitude.png) |
 | [2026-08-28](../days/2026-08-28/) | [tt-a1i/archify](https://github.com/tt-a1i/archify) | draft-blue | grade the three adjectives by which one can fail a check | landed | [png](../days/2026-08-28/01-archify.png) |
 | [2026-08-26](../days/2026-08-26/) | [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | mirror-blue | draw the direction of travel when a repository refuses input | landed | [png](../days/2026-08-26/02-claude-plugins.png) |

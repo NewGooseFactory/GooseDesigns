@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PI-Desktop: four parts named, one runtime each</title>
+<style>
+  :root{
+    --void:#060709; --panel:#0B0D11; --panel-2:#0F1217;
+    --line:#161A21; --line-2:#232932;
+    --fg:#E6E9ED; --fg-2:#868E99; --fg-3:#545C67;
+    --violet:#9A7BF5;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--void);color:var(--fg);font-family:var(--sans);min-height:100vh;position:relative}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:repeating-linear-gradient(180deg,rgba(255,255,255,.016) 0 1px,transparent 1px 3px)}
+  .wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 40px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--fg-2);font-weight:400}
+
+  header{padding:46px 0 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:50px;align-items:center}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3);margin-bottom:18px}
+  h1{font-size:clamp(29px,3.9vw,48px);line-height:1.09;letter-spacing:-.03em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--violet);text-shadow:0 0 28px rgba(154,123,245,.34)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.68;color:var(--fg-2);max-width:45ch}
+  .cta{margin-top:28px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--panel-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--fg-2)}
+  .cmd i{color:var(--fg-3);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--fg);border-color:var(--fg-2)}
+
+  .stackpane{border:1px solid var(--line-2);background:var(--panel)}
+  .sp-hd{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .sp-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .sp-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+           border:1px solid var(--line-2);padding:2px 6px}
+  .lay{display:grid;grid-template-columns:26px 1fr 96px;align-items:center;border-bottom:1px solid var(--line)}
+  .lay:last-of-type{border-bottom:none}
+  .lay .n{font-family:var(--mono);font-size:9px;color:var(--fg-3);padding-left:13px}
+  .lay .t{padding:13px 12px 13px 0}
+  .lay .t b{display:block;font-family:var(--mono);font-size:13px;color:var(--fg);letter-spacing:-.005em;margin-bottom:5px}
+  .lay .t i{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;line-height:1.6;color:var(--fg-2);max-width:38ch}
+  .lay .s{padding-right:13px;text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .lay.open .t b{color:var(--violet)}
+  .lay.open .s{color:var(--violet)}
+  .sp-ft{border-top:1px solid var(--line-2);background:var(--panel-2);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .sp-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .sp-ft b{font-family:var(--mono);font-size:11px;color:var(--violet);font-weight:400}
+  .sp-ft .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg-2);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:30px;padding:30px 0 26px}
+    .lay{grid-template-columns:24px 1fr}
+    .lay .s{display:none}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">vastsa<span> / </span>PI-Desktop</div>
+    <div class="r">TypeScript &middot; GitHub Trending 9 Sep 2026 &middot; <b>393 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Four named parts in one sentence</div>
+      <h1>Electron, Rust, a harness, and plugins. <em>Every layer is somebody else's runtime</em>.</h1>
+      <p class="lede">Most desktop agents name one stack. This description names four, and the interesting one is last: user-installable plugins means third-party code runs inside a thing that already has a Rust core and a shell. Local-first raises the stakes on that, because everything it touches is on your disk.</p>
+      <div class="cta">
+        <div class="cmd"><i>$</i> PI-Desktop</div>
+        <a class="lnk" href="https://github.com/vastsa/PI-Desktop">github.com/vastsa/PI-Desktop</a>
+      </div>
+    </div>
+
+    <div class="stackpane">
+      <div class="sp-hd"><b>The stack, as the description names it</b><u>Named parts only</u></div>
+      <div class="lay">
+        <div class="n">04</div>
+        <div class="t"><b>plugins</b><i>User-installable. Code from outside the project, running beside everything below it.</i></div>
+        <div class="s">named</div>
+      </div>
+      <div class="lay">
+        <div class="n">03</div>
+        <div class="t"><b>pi Agent Harness</b><i>The loop. Named as a component rather than described.</i></div>
+        <div class="s">named</div>
+      </div>
+      <div class="lay">
+        <div class="n">02</div>
+        <div class="t"><b>Rust host core</b><i>Where the work happens. Chosen for the reason people choose Rust for a host process.</i></div>
+        <div class="s">named</div>
+      </div>
+      <div class="lay">
+        <div class="n">01</div>
+        <div class="t"><b>Electron</b><i>The shell. It brings a browser engine and full filesystem reach with it.</i></div>
+        <div class="s">named</div>
+      </div>
+      <div class="lay open">
+        <div class="n">&mdash;</div>
+        <div class="t"><b>the boundary between them</b><i>What a plugin can reach, and what stops it reaching further. Nothing in the sentence draws this line.</i></div>
+        <div class="s">not named</div>
+      </div>
+      <div class="sp-ft">
+        <span>local-first means the data is here</span><b>so is the plugin</b>
+        <span class="fill"></span>
+        <span>no permission model published</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="strip3">
+    <div>
+      <h3>Local-first is the whole appeal</h3>
+      <p>A coding agent that keeps the repository, the keys, and the history on your machine removes the question of what a service retains. It also puts every one of those things within reach of anything running locally.</p>
+    </div>
+    <div>
+      <h3>Rust core plus Electron shell is a common split</h3>
+      <p>The pattern gives you a fast host process and a UI toolkit people already know. Naming both tells a reader roughly where each kind of bug will live.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No plugin API, no permission model, no sandbox, no install source. The trending description names four layers and no boundaries between them.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 9 September 2026 reads "Local-first AI coding agent desktop: Electron + Rust host core + pi Agent Harness + user-installable plugins." The four layers are those four names, ordered bottom to top by where each sits in a desktop application. The fifth row is drawn as absent because that sentence describes no boundary, permission model, or sandbox, and this page does not invent one.</p>
+</div>
+</body>
+</html>

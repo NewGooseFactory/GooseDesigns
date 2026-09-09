@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![267 mocks](https://img.shields.io/badge/mocks-267-1f6feb?style=flat-square) ![89 days](https://img.shields.io/badge/days-89-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![270 mocks](https://img.shields.io/badge/mocks-270-1f6feb?style=flat-square) ![90 days](https://img.shields.io/badge/days-90-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 267 mockups across 89 days and 21 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 270 mockups across 90 days and 21 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Tuesday, September 8
+## Latest — Wednesday, September 9
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-09-08/"><img src="days/2026-09-08/01-i-have-adhd.png" width="320" alt="ayghri/i-have-adhd"></a><br><sub><b>ayghri/i-have-adhd</b><br>warm-minimal</sub></td>
-<td align="center" width="33%"><a href="days/2026-09-08/"><img src="days/2026-09-08/02-hyperframes.png" width="320" alt="heygen-com/hyperframes"></a><br><sub><b>heygen-com/hyperframes</b><br>poster</sub></td>
-<td align="center" width="33%"><a href="days/2026-09-08/"><img src="days/2026-09-08/03-context-mode.png" width="320" alt="mksglu/context-mode"></a><br><sub><b>mksglu/context-mode</b><br>data-viz</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-09/"><img src="days/2026-09-09/01-text-to-cad.png" width="320" alt="earthtojake/text-to-cad"></a><br><sub><b>earthtojake/text-to-cad</b><br>blueprint</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-09/"><img src="days/2026-09-09/02-superpowers.png" width="320" alt="obra/superpowers"></a><br><sub><b>obra/superpowers</b><br>brutalist</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-09/"><img src="days/2026-09-09/03-pi-desktop.png" width="320" alt="vastsa/PI-Desktop"></a><br><sub><b>vastsa/PI-Desktop</b><br>neon-noir</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-09-08/)
+[See the full day →](days/2026-09-09/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-09-09 | Wednesday | 3 | blueprint, brutalist, neon-noir | [open](days/2026-09-09/) |
 | 2026-09-08 | Tuesday | 3 | warm-minimal, poster, data-viz | [open](days/2026-09-08/) |
 | 2026-09-07 | Monday | 3 | editorial, constellation, mono-zine | [open](days/2026-09-07/) |
 | 2026-09-06 | Sunday | 3 | swiss, hud, warm-minimal | [open](days/2026-09-06/) |

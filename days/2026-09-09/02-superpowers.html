@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>superpowers: the claim is the last two words</title>
+<style>
+  :root{
+    --paper:#F1F0EC; --card:#FFFFFF; --sink:#E5E3DC;
+    --ink:#000000; --ink-2:#333330; --ink-3:#78766E;
+    --hair:#000000;
+    --red:#D62828;
+    --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sys);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 34px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:16px 0 11px;border-bottom:4px solid var(--hair)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--red)}
+
+  header{padding:40px 0 0;border-bottom:4px solid var(--hair)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+  h1{font-size:clamp(29px,4.3vw,56px);line-height:1.0;letter-spacing:-.034em;font-weight:800;max-width:17ch}
+  h1 em{font-style:normal;color:var(--red)}
+  .hsplit{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:end;padding-bottom:30px}
+  .lede{font-family:var(--mono);font-size:12.5px;line-height:1.8;color:var(--ink-2);max-width:42ch;border-left:4px solid var(--red);padding-left:16px}
+  .cta{margin-top:24px;display:flex;align-items:stretch;flex-wrap:wrap;border:3px solid var(--hair);width:fit-content}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--paper);padding:13px 18px}
+  .cmd i{color:#F09C90;font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-decoration:none;padding:13px 18px;border-left:3px solid var(--hair);display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--red);color:#fff}
+
+  .hd2{display:flex;align-items:baseline;gap:16px;padding:24px 0 12px}
+  .hd2 h2{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:700}
+  .hd2 span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;margin-left:auto}
+
+  .board{border:3px solid var(--hair);background:var(--card)}
+  .rw{display:grid;grid-template-columns:210px 1fr 150px;border-bottom:3px solid var(--hair);align-items:stretch}
+  .rw:last-of-type{border-bottom:none}
+  .rw .k{padding:15px 14px;border-right:3px solid var(--hair);background:var(--sink);display:flex;align-items:center}
+  .rw .k b{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:-.005em}
+  .rw .v{padding:15px 16px;min-width:0}
+  .rw .v p{font-family:var(--mono);font-size:12.5px;line-height:1.72;color:var(--ink-2);max-width:50ch}
+  .rw .c{padding:15px 12px;border-left:3px solid var(--hair);display:flex;align-items:center;justify-content:flex-end;text-align:right;
+         font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);line-height:1.45}
+  .rw.hot .k{background:var(--red)}
+  .rw.hot .k b{color:#fff}
+  .rw.hot .c{color:var(--red)}
+
+  .test{border-top:3px solid var(--hair);display:grid;grid-template-columns:210px 1fr}
+  .test .n{padding:18px 14px;border-right:3px solid var(--hair);background:var(--ink);display:flex;align-items:center;justify-content:center}
+  .test .n b{font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:.1em;text-transform:uppercase;text-align:center;line-height:1.6}
+  .test .t{padding:16px 16px;display:flex;flex-direction:column;justify-content:center}
+  .test .t p{font-family:var(--mono);font-size:12px;line-height:1.72;color:var(--ink-2);max-width:62ch}
+  .test .t p b{color:var(--ink)}
+
+  .strip2{display:grid;grid-template-columns:1fr 1fr;gap:38px;padding:28px 0 0;border-top:4px solid var(--hair);margin-top:30px}
+  .strip2 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:9px;font-weight:700}
+  .strip2 p{font-family:var(--mono);font-size:12.5px;line-height:1.74;color:var(--ink-2);max-width:50ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:940px){
+    .wrap{padding:0 16px 40px}
+    .hsplit{grid-template-columns:1fr;gap:24px;align-items:start}
+    .rw{grid-template-columns:1fr}
+    .rw .k{border-right:none;border-bottom:3px solid var(--hair)}
+    .rw .c{border-left:none;justify-content:flex-start;text-align:left}
+    .test{grid-template-columns:1fr}
+    .test .n{border-right:none;border-bottom:3px solid var(--hair)}
+    .strip2{grid-template-columns:1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">obra<span> / superpowers</span></div>
+    <div class="r">Shell &middot; GitHub Trending 9 Sep 2026 &middot; <b>452 stars today</b></div>
+  </div>
+
+  <header>
+    <div class="eyebrow">Eleven words, and the last two are the risk</div>
+    <div class="hsplit">
+      <div>
+        <h1>Every methodology says it works. <em>This one puts it in the description</em>.</h1>
+        <div class="cta">
+          <div class="cmd"><i>$</i>add superpowers</div>
+          <a class="lnk" href="https://github.com/obra/superpowers">github.com/obra/superpowers</a>
+        </div>
+      </div>
+      <p class="lede">A framework and a methodology are both nouns you can inspect. That works is a verdict, and putting a verdict in your own description invites the reader to go and check it, which is a heavier bet than the two nouns in front of it.</p>
+    </div>
+  </header>
+
+  <div class="hd2">
+    <h2>The sentence, split into what you can inspect and what you have to test</h2>
+    <span>all three quoted from the description</span>
+  </div>
+
+  <div class="board">
+    <div class="rw">
+      <div class="k"><b>a framework</b></div>
+      <div class="v"><p>Files, structure, and an interface. You can read one and know what it expects of you without running anything.</p></div>
+      <div class="c">inspect the repo</div>
+    </div>
+    <div class="rw">
+      <div class="k"><b>a methodology</b></div>
+      <div class="v"><p>An opinion about the order work should happen in. Also inspectable, and disagreeable on sight if the order is wrong for you.</p></div>
+      <div class="c">read and disagree</div>
+    </div>
+    <div class="rw hot">
+      <div class="k"><b>that works</b></div>
+      <div class="v"><p>A verdict, stated by the author about their own project. Nothing in the description says on what, for whom, or measured how.</p></div>
+      <div class="c">no evidence named</div>
+    </div>
+
+    <div class="test">
+      <div class="n"><b>what would<br>settle it</b></div>
+      <div class="t">
+        <p>A named project it was used on, a before and after, or somebody who is not the author saying the same thing. <b>None of the three appears in the description</b>, which leaves the strongest word in the sentence resting on the reader's willingness to try it.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="strip2">
+    <div>
+      <h3>Saying it out loud is a choice</h3>
+      <p>Most frameworks leave the verdict to the reader. Writing it into your own line is either confidence or a shortcut, and the repo page is where a reader goes to find out which.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No skill list, no methodology steps, no case study, no client. The trending description names two nouns and a verdict and stops there.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 9 September 2026 is "An agentic skills framework and software development methodology that works." The three rows quote that sentence and label what kind of evidence each part would need. No case study, measurement, or endorsement is represented, because none appears in that line.</p>
+</div>
+</body>
+</html>
