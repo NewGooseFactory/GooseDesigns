@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **270 mocks** across **90 days**. Newest first.
+Searchable master index. **273 mocks** across **91 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-10 | Thursday | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | strata | copper | sort the model catalog into beds above and below a hardware waterline with no number printed on it | the empty axis reads stronger than a filled one | [png](days/2026-09-10/01-llmfit.png) | [2026-09-10](days/2026-09-10/) |
+| 2026-09-10 | Thursday | [nashsu/llm_wiki](https://github.com/nashsu/llm_wiki) | storyboard | ink-indigo | two lanes of four frames over one corpus, retrieval repeating itself while the wiki accumulates | the repetition is the argument, no copy needed | [png](days/2026-09-10/02-llm-wiki.png) | [2026-09-10](days/2026-09-10/) |
+| 2026-09-10 | Thursday | [JustVugg/colibri](https://github.com/JustVugg/colibri) | bauhaus | primary-blue | a 32 square sparse-activation grid showing why streaming experts from disk is possible | drawing the sparsity turns a claim into a trade | [png](days/2026-09-10/03-colibri.png) | [2026-09-10](days/2026-09-10/) |
 | 2026-09-09 | Wednesday | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | blueprint | drafting-cyan | draw the same part three times, once per acronym, with every dimension marked absent | works, hand-drawn SVG reads native in blueprint | [png](days/2026-09-09/01-text-to-cad.png) | [2026-09-09](days/2026-09-09/) |
 | 2026-09-09 | Wednesday | [obra/superpowers](https://github.com/obra/superpowers) | brutalist | verdict-red | split the sentence by what evidence each part needs, then list what would settle the verdict | strongest of the three | [png](days/2026-09-09/02-superpowers.png) | [2026-09-09](days/2026-09-09/) |
 | 2026-09-09 | Wednesday | [vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop) | neon-noir | violet | stack the four named layers and give the unnamed boundary its own row | works, position makes the absence obvious | [png](days/2026-09-09/03-pi-desktop.png) | [2026-09-09](days/2026-09-09/) |

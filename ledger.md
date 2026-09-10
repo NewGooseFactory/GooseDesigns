@@ -272,3 +272,6 @@ Append-only record — one line per mock: date · repo · style · idea tested �
 - 2026-09-09 — [rep](days/2026-09-09/) — earthtojake/text-to-cad — blueprint/drafting-cyan — draw the same part three times, once per acronym, with every dimension marked absent → works, hand-drawn SVG reads native in blueprint
 - 2026-09-09 — [rep](days/2026-09-09/) — obra/superpowers — brutalist/verdict-red — split the sentence by what evidence each part needs, then list what would settle the verdict → strongest of the three
 - 2026-09-09 — [rep](days/2026-09-09/) — vastsa/PI-Desktop — neon-noir/violet — stack the four named layers and give the unnamed boundary its own row → works, position makes the absence obvious
+- 2026-09-10 — [rep](days/2026-09-10/) — AlexsJones/llmfit — strata/copper — sort the model catalog into beds above and below a hardware waterline with no number printed on it → the empty axis reads stronger than a filled one
+- 2026-09-10 — [rep](days/2026-09-10/) — nashsu/llm_wiki — storyboard/ink-indigo — two lanes of four frames over one corpus, retrieval repeating itself while the wiki accumulates → the repetition is the argument, no copy needed
+- 2026-09-10 — [rep](days/2026-09-10/) — JustVugg/colibri — bauhaus/primary-blue — a 32 square sparse-activation grid showing why streaming experts from disk is possible → drawing the sparsity turns a claim into a trade

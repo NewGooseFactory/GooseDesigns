@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>llm_wiki: four sessions, two different curves</title>
+<style>
+  :root{
+    --slate:#101318; --board:#141920; --board-2:#1A202A;
+    --line:#212934; --line-2:#303B49;
+    --fg:#E7ECF2; --fg-2:#93A1B0; --fg-3:#5F6D7C;
+    --indigo:#8AA0F0;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--slate);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 38px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 12px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--indigo);font-weight:400}
+
+  header{padding:42px 0 28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,406px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--indigo);margin-bottom:17px}
+  h1{font-family:var(--serif);font-size:clamp(29px,4vw,49px);line-height:1.07;letter-spacing:-.018em;font-weight:600;max-width:16ch}
+  h1 em{font-style:italic;color:var(--indigo)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--board-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--indigo)}
+  .cmd i{color:var(--indigo);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--indigo);border-color:var(--indigo)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:42ch}
+
+  .strip-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .strip-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .strip-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .film{border:1px solid var(--line-2);background:var(--board)}
+  .lane{display:grid;grid-template-columns:132px repeat(4,1fr);border-bottom:1px solid var(--line)}
+  .lane:last-of-type{border-bottom:none}
+  .lane .who{padding:15px 13px;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;background:var(--board-2)}
+  .lane .who b{font-family:var(--mono);font-size:12px;color:var(--fg);letter-spacing:-.005em}
+  .lane .who i{font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);margin-top:6px}
+  .lane.acc .who b{color:var(--indigo)}
+  .fr{border-right:1px solid var(--line);padding:12px 12px 11px;min-width:0}
+  .fr:last-child{border-right:none}
+  .fr .t{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg-3);margin-bottom:9px}
+  .fr svg{display:block;width:100%;height:74px;background:var(--slate);border:1px solid var(--line)}
+  .fr svg rect.doc{fill:none;stroke:var(--fg-3);stroke-width:1}
+  .fr svg rect.node{fill:rgba(138,160,240,.18);stroke:var(--indigo);stroke-width:1}
+  .fr svg line.edge{stroke:var(--indigo);stroke-width:.9;opacity:.75}
+  .fr svg line.dash{stroke:var(--fg-3);stroke-width:.9;stroke-dasharray:2 2}
+  .fr p{margin-top:9px;font-family:var(--mono);font-size:9.5px;line-height:1.55;color:var(--fg-2)}
+  .fr.acc p{color:var(--indigo)}
+
+  .film-ft{border-top:1px solid var(--line-2);background:var(--board-2);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .film-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .film-ft b{font-family:var(--mono);font-size:11px;color:var(--indigo);font-weight:400}
+  .film-ft .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:26px 0 0;margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--indigo);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .lane{grid-template-columns:1fr 1fr}
+    .lane .who{border-right:none;border-bottom:1px solid var(--line);grid-column:1 / span 2}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">nashsu<span> / </span>llm_wiki</div>
+    <div class="r">TypeScript &middot; GitHub Trending 10 Sep 2026 &middot; <b>94 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">The description names its own opponent</div>
+      <h1>Retrieval starts over every time. <em>A wiki does not</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>&gt;</i> llm_wiki</div>
+        <a class="lnk" href="https://github.com/nashsu/llm_wiki">github.com/nashsu/llm_wiki</a>
+      </div>
+    </div>
+    <p class="lede">Most tools in this space describe what they do. This one describes what it refuses: retrieve-and-answer from scratch every time. The word that carries the product is incrementally, because it makes session four cheaper than session one.</p>
+  </header>
+
+  <div class="strip-hd">
+    <h2>Four sessions over the same documents</h2>
+    <span>illustrative drawing, no real corpus or output</span>
+  </div>
+
+  <div class="film">
+    <div class="lane">
+      <div class="who"><b>retrieval</b><i>from scratch</i></div>
+      <div class="fr">
+        <div class="t">session 01</div>
+        <svg viewBox="0 0 200 74" aria-hidden="true">
+          <rect class="doc" x="18" y="16" width="26" height="34"/><rect class="doc" x="52" y="16" width="26" height="34"/>
+          <rect class="doc" x="86" y="16" width="26" height="34"/><rect class="doc" x="120" y="16" width="26" height="34"/>
+          <line class="dash" x1="18" y1="62" x2="146" y2="62"/>
+        </svg>
+        <p>reads the sources</p>
+      </div>
+      <div class="fr">
+        <div class="t">session 02</div>
+        <svg viewBox="0 0 200 74" aria-hidden="true">
+          <rect class="doc" x="18" y="16" width="26" height="34"/><rect class="doc" x="52" y="16" width="26" height="34"/>
+          <rect class="doc" x="86" y="16" width="26" height="34"/><rect class="doc" x="120" y="16" width="26" height="34"/>
+          <line class="dash" x1="18" y1="62" x2="146" y2="62"/>
+        </svg>
+        <p>reads the sources</p>
+      </div>
+      <div class="fr">
+        <div class="t">session 03</div>
+        <svg viewBox="0 0 200 74" aria-hidden="true">
+          <rect class="doc" x="18" y="16" width="26" height="34"/><rect class="doc" x="52" y="16" width="26" height="34"/>
+          <rect class="doc" x="86" y="16" width="26" height="34"/><rect class="doc" x="120" y="16" width="26" height="34"/>
+          <line class="dash" x1="18" y1="62" x2="146" y2="62"/>
+        </svg>
+        <p>reads the sources</p>
+      </div>
+      <div class="fr">
+        <div class="t">session 04</div>
+        <svg viewBox="0 0 200 74" aria-hidden="true">
+          <rect class="doc" x="18" y="16" width="26" height="34"/><rect class="doc" x="52" y="16" width="26" height="34"/>
+          <rect class="doc" x="86" y="16" width="26" height="34"/><rect class="doc" x="120" y="16" width="26" height="34"/>
+          <line class="dash" x1="18" y1="62" x2="146" y2="62"/>
+        </svg>
+        <p>reads the sources</p>
+      </div>
+    </div>
+
+    <div class="lane acc">
+      <div class="who"><b>a wiki</b><i>incremental</i></div>
+      <div class="fr acc">
+        <div class="t">session 01</div>
+        <svg viewBox="0 0 200 74" aria-hidden="true">
+          <rect class="node" x="82" y="28" width="34" height="18"/>
+        </svg>
+        <p>adds one page</p>
+      </div>
+      <div class="fr acc">
+        <div class="t">session 02</div>
+        <svg viewBox="0 0 200 74" aria-hidden="true">
+          <rect class="node" x="52" y="28" width="34" height="18"/><rect class="node" x="112" y="28" width="34" height="18"/>
+          <line class="edge" x1="86" y1="37" x2="112" y2="37"/>
+        </svg>
+        <p>adds a link</p>
+      </div>
+      <div class="fr acc">
+        <div class="t">session 03</div>
+        <svg viewBox="0 0 200 74" aria-hidden="true">
+          <rect class="node" x="30" y="28" width="34" height="18"/><rect class="node" x="83" y="12" width="34" height="18"/>
+          <rect class="node" x="83" y="44" width="34" height="18"/><rect class="node" x="136" y="28" width="34" height="18"/>
+          <line class="edge" x1="64" y1="37" x2="83" y2="24"/><line class="edge" x1="64" y1="37" x2="83" y2="53"/>
+          <line class="edge" x1="117" y1="24" x2="136" y2="37"/><line class="edge" x1="117" y1="53" x2="136" y2="37"/>
+        </svg>
+        <p>revises a page</p>
+      </div>
+      <div class="fr acc">
+        <div class="t">session 04</div>
+        <svg viewBox="0 0 200 74" aria-hidden="true">
+          <rect class="node" x="16" y="28" width="30" height="18"/><rect class="node" x="60" y="10" width="30" height="18"/>
+          <rect class="node" x="60" y="46" width="30" height="18"/><rect class="node" x="106" y="28" width="30" height="18"/>
+          <rect class="node" x="152" y="10" width="30" height="18"/><rect class="node" x="152" y="46" width="30" height="18"/>
+          <line class="edge" x1="46" y1="37" x2="60" y2="20"/><line class="edge" x1="46" y1="37" x2="60" y2="55"/>
+          <line class="edge" x1="90" y1="20" x2="106" y2="37"/><line class="edge" x1="90" y1="55" x2="106" y2="37"/>
+          <line class="edge" x1="136" y1="37" x2="152" y2="20"/><line class="edge" x1="136" y1="37" x2="152" y2="55"/>
+        </svg>
+        <p>answers from itself</p>
+      </div>
+    </div>
+
+    <div class="film-ft">
+      <span>the word carrying the product</span><b>incrementally</b>
+      <span class="fill"></span>
+      <span>no page format, no update rule published</span>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>Persistent is the risk word</h3>
+      <p>Anything that accumulates can accumulate a mistake. A wiki that maintains itself has to be able to revise a page it wrote last week, and the description does not say how it decides to.</p>
+    </div>
+    <div>
+      <h3>Interlinked is the useful half</h3>
+      <p>An index gives you retrieval. Links between pages give you structure somebody can browse, which is the difference between a search box and a knowledge base.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No file format, no link syntax, no update rule, no conflict handling. The trending description names the behaviour and not the mechanism.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The GitHub Trending description on 10 September 2026 reads "LLM Wiki is a cross-platform desktop application that turns your documents into an organized, interlinked knowledge base automatically. Instead of traditional RAG (retrieve-and-answer from scratch every time), the LLM incrementally builds and maintains a persistent wiki from your sources." The eight frames are hand-drawn SVG made for this page to show what incremental means across sessions. No real corpus, page, link, or output appears.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>llmfit: the constraint is the input</title>
+<style>
+  :root{
+    --deep:#120E0A; --band:#1A140E; --band-2:#221A12;
+    --line:#2D231A; --line-2:#3E3123;
+    --fg:#F0E9DE; --fg-2:#A79A86; --fg-3:#6E6454;
+    --copper:#D2763C;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--deep);color:var(--fg);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px 48px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:20px 0 13px;border-bottom:1px solid var(--line-2)}
+  .top .slug{font-family:var(--mono);font-size:12.5px}
+  .top .slug span{color:var(--fg-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .top .r b{color:var(--copper);font-weight:400}
+
+  header{padding:44px 0 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,410px);gap:50px;align-items:end}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:17px}
+  h1{font-size:clamp(29px,3.9vw,48px);line-height:1.08;letter-spacing:-.03em;font-weight:600;max-width:17ch}
+  h1 em{font-style:normal;color:var(--copper)}
+  .cta{margin-top:26px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--band-2);border:1px solid var(--line-2);padding:12px 17px;
+       transition:border-color 150ms var(--out)}
+  .cmd:hover{border-color:var(--copper)}
+  .cmd i{color:var(--copper);font-style:normal;margin-right:9px}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+       transition:color 150ms var(--out),border-color 150ms var(--out)}
+  .lnk:hover{color:var(--copper);border-color:var(--copper)}
+  .lede{font-size:15.5px;line-height:1.7;color:var(--fg-2);max-width:41ch}
+
+  .st-hd{display:flex;align-items:baseline;gap:14px;padding:2px 0 12px}
+  .st-hd h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);font-weight:400}
+  .st-hd span{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+
+  .strata{border:1px solid var(--line-2);background:var(--band)}
+  .bed{display:grid;grid-template-columns:38px 1fr 152px;align-items:center;border-bottom:1px solid var(--line)}
+  .bed:nth-child(even){background:var(--band-2)}
+  .bed .n{font-family:var(--mono);font-size:9px;color:var(--fg-3);padding-left:14px}
+  .bed .b{padding:14px 14px 14px 0;min-width:0}
+  .bed .b span{display:block;height:8px;background:repeating-linear-gradient(90deg,var(--line-2) 0 5px,transparent 5px 11px)}
+  .bed .s{padding-right:14px;text-align:right;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+
+  .waterline{display:grid;grid-template-columns:38px 1fr 152px;align-items:center;background:#20140B;border-top:1px solid var(--copper);border-bottom:1px solid var(--copper)}
+  .waterline .n{font-family:var(--mono);font-size:9px;color:var(--copper);padding-left:14px}
+  .waterline .t{padding:16px 14px 16px 0}
+  .waterline .t b{display:block;font-family:var(--mono);font-size:14px;color:var(--copper);letter-spacing:-.005em}
+  .waterline .t i{display:block;font-style:normal;font-family:var(--mono);font-size:11px;color:var(--fg-2);margin-top:6px;line-height:1.6;max-width:52ch}
+  .waterline .s{padding-right:14px;text-align:right;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--copper);line-height:1.45}
+
+  .strata-ft{border-top:1px solid var(--line-2);background:var(--band-2);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .strata-ft span{font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3)}
+  .strata-ft b{font-family:var(--mono);font-size:11px;color:var(--copper);font-weight:400}
+  .strata-ft .fill{flex:1;min-width:40px;height:1px;background:var(--line-2)}
+
+  .strip3{border-top:1px solid var(--line-2);padding:28px 0 0;margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .strip3 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--copper);margin-bottom:9px;font-weight:400}
+  .strip3 p{font-size:14px;line-height:1.68;color:var(--fg-2);max-width:34ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 18px 40px}
+    header{grid-template-columns:1fr;gap:24px;padding:28px 0 22px;align-items:start}
+    .bed,.waterline{grid-template-columns:30px 1fr}
+    .bed .s,.waterline .s{display:none}
+    .strip3{grid-template-columns:1fr;gap:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">AlexsJones<span> / </span>llmfit</div>
+    <div class="r">Rust &middot; GitHub Trending 10 Sep 2026 &middot; <b>247 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">The usual question, asked backwards</div>
+      <h1>Everyone else picks the model first. <em>This starts with the machine</em>.</h1>
+      <div class="cta">
+        <div class="cmd"><i>$</i> llmfit</div>
+        <a class="lnk" href="https://github.com/AlexsJones/llmfit">github.com/AlexsJones/llmfit</a>
+      </div>
+    </div>
+    <p class="lede">Hundreds of models and providers, and one command that returns the subset your hardware can actually hold. The catalog is the variable here. Your machine is the constant, and it decides where the line falls.</p>
+  </header>
+
+  <div class="st-hd">
+    <h2>The catalog, sorted by what a machine can hold</h2>
+    <span>bed widths are decorative, no model named</span>
+  </div>
+
+  <div class="strata">
+    <div class="bed"><div class="n">01</div><div class="b"><span></span></div><div class="s">too large</div></div>
+    <div class="bed"><div class="n">02</div><div class="b"><span></span></div><div class="s">too large</div></div>
+    <div class="bed"><div class="n">03</div><div class="b"><span></span></div><div class="s">too large</div></div>
+
+    <div class="waterline">
+      <div class="n">&mdash;</div>
+      <div class="t">
+        <b>your hardware</b>
+        <i>The line that sorts the catalog into runs and does not run. Nothing in the description says where it sits, because it sits somewhere different for every reader.</i>
+      </div>
+      <div class="s">the input<br>not published</div>
+    </div>
+
+    <div class="bed"><div class="n">04</div><div class="b"><span></span></div><div class="s">fits</div></div>
+    <div class="bed"><div class="n">05</div><div class="b"><span></span></div><div class="s">fits</div></div>
+    <div class="bed"><div class="n">06</div><div class="b"><span></span></div><div class="s">fits</div></div>
+    <div class="bed"><div class="n">07</div><div class="b"><span></span></div><div class="s">fits</div></div>
+
+    <div class="strata-ft">
+      <span>what the command returns</span><b>the beds below the line</b>
+      <span class="fill"></span>
+      <span>no model, provider, or VRAM figure published</span>
+    </div>
+  </div>
+
+  <section class="strip3">
+    <div>
+      <h3>One command is the whole interface</h3>
+      <p>No account, no config file, no model picker. A single invocation that reads the machine and answers, which is the smallest surface a tool like this could have.</p>
+    </div>
+    <div>
+      <h3>Rust for a hardware probe</h3>
+      <p>Reading memory, GPU, and driver details across three operating systems is the kind of job where a single static binary saves more trouble than the language choice costs.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No model names, no provider list, no memory thresholds, no quantisation. The trending description is two sentences and names none of it.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 10 September 2026 is "Hundreds of models and providers. One command to find what runs on your hardware." The seven beds are drawn as anonymous bands to show the sorting the command performs. No model, provider, memory figure, or threshold appears here, because that sentence publishes none.</p>
+</div>
+</body>
+</html>

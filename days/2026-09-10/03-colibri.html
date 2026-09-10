@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>colibri: most of the model is on disk</title>
+<style>
+  :root{
+    --paper:#F3F1EA; --card:#FFFFFF; --sink:#E7E4DA;
+    --ink:#0D0D0C; --ink-2:#3D3D39; --ink-3:#7B7A72;
+    --hair:#0D0D0C;
+    --blue:#1B4FD8; --red:#D02B1F; --yellow:#F2C21D;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Menlo,Consolas,monospace;
+    --out:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 36px 46px}
+
+  .top{display:flex;align-items:baseline;gap:16px;padding:18px 0 11px;border-bottom:4px solid var(--hair)}
+  .top .slug{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .top .slug span{font-weight:400;color:var(--ink-3)}
+  .top .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2)}
+  .top .r b{color:var(--blue)}
+
+  header{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:44px;align-items:center;padding:44px 0 36px;border-bottom:4px solid var(--hair)}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  h1{font-size:clamp(30px,4.3vw,54px);line-height:1.0;letter-spacing:-.035em;font-weight:700;max-width:15ch}
+  h1 em{font-style:normal;color:var(--blue)}
+  .lede{margin-top:20px;font-size:15.5px;line-height:1.66;color:var(--ink-2);max-width:43ch}
+  .cta{margin-top:26px;display:flex;align-items:stretch;flex-wrap:wrap;border:3px solid var(--hair);width:fit-content}
+  .cmd{font-family:var(--mono);font-size:13px;background:var(--yellow);color:var(--ink);padding:13px 18px;font-weight:700}
+  .lnk{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-decoration:none;padding:13px 18px;border-left:3px solid var(--hair);display:flex;align-items:center;
+       transition:background 140ms var(--out),color 140ms var(--out)}
+  .lnk:hover{background:var(--blue);color:#fff}
+
+  .field{border:3px solid var(--hair);background:var(--card)}
+  .field-hd{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:3px solid var(--hair);background:var(--sink)}
+  .field-hd b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  .field-hd u{text-decoration:none;margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:2px solid var(--hair);padding:2px 6px}
+  .field-bd{padding:16px 16px 14px}
+
+  .grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+  .ex{aspect-ratio:1/1;border:2px solid var(--hair);background:var(--paper)}
+  .ex.on{background:var(--blue)}
+  .ex.warm{background:var(--red)}
+
+  .legend{margin-top:14px;padding-top:12px;border-top:2px dashed var(--sink);display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .lg{display:flex;align-items:center;gap:9px;min-width:0}
+  .lg u{text-decoration:none;width:14px;height:14px;border:2px solid var(--hair);flex:none;display:block}
+  .lg u.on{background:var(--blue)}
+  .lg u.warm{background:var(--red)}
+  .lg span{font-family:var(--mono);font-size:10px;line-height:1.5;color:var(--ink-2)}
+
+  .field-ft{border-top:3px solid var(--hair);background:var(--sink);padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .field-ft span{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .field-ft b{font-family:var(--mono);font-size:11px;color:var(--blue);font-weight:700}
+  .field-ft .fill{flex:1;min-width:40px;height:2px;background:var(--hair)}
+
+  .claims{display:grid;grid-template-columns:repeat(3,1fr);border:3px solid var(--hair);border-top:none}
+  .cl{border-right:3px solid var(--hair);padding:15px 15px}
+  .cl:last-child{border-right:none}
+  .cl b{display:block;font-family:var(--mono);font-size:13px;margin-bottom:7px;letter-spacing:-.005em}
+  .cl.b1 b{color:var(--blue)}
+  .cl.b2 b{color:var(--red)}
+  .cl i{display:block;font-style:normal;font-family:var(--mono);font-size:11px;line-height:1.65;color:var(--ink-2);max-width:32ch}
+
+  .strip2{display:grid;grid-template-columns:1fr 1fr;gap:36px;padding:28px 0 0;border-top:4px solid var(--hair);margin-top:30px}
+  .strip2 h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:9px;font-weight:700}
+  .strip2 p{font-size:14px;line-height:1.68;color:var(--ink-2);max-width:48ch}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.8;padding-top:26px}
+
+  @media (max-width:960px){
+    .wrap{padding:0 16px 40px}
+    header{grid-template-columns:1fr;gap:30px;padding:30px 0 26px}
+    .grid{grid-template-columns:repeat(6,1fr)}
+    .legend{grid-template-columns:1fr}
+    .claims{grid-template-columns:1fr}
+    .cl{border-right:none;border-bottom:3px solid var(--hair)}
+    .cl:last-child{border-bottom:none}
+    .strip2{grid-template-columns:1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="slug">JustVugg<span> / colibri</span></div>
+    <div class="r">C &middot; GitHub Trending 10 Sep 2026 &middot; <b>157 stars today</b></div>
+  </div>
+
+  <header>
+    <div>
+      <div class="eyebrow">Four claims, one mechanism</div>
+      <h1>A big model fits <em>if most of it stays on disk</em>.</h1>
+      <p class="lede">Frontier MoE on hardware you already own sounds impossible until you read the last clause. Mixture of experts activates a fraction of the network per token, so the rest can sit on disk and be paged in. The claim rests entirely on that.</p>
+      <div class="cta">
+        <div class="cmd">make</div>
+        <a class="lnk" href="https://github.com/JustVugg/colibri">github.com/JustVugg/colibri</a>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="field-hd"><b>Why streaming is possible at all</b><u>Illustrative, no real counts</u></div>
+      <div class="field-bd">
+        <div class="grid">
+          <span class="ex on"></span><span class="ex"></span><span class="ex"></span><span class="ex"></span>
+          <span class="ex"></span><span class="ex warm"></span><span class="ex"></span><span class="ex"></span>
+          <span class="ex"></span><span class="ex"></span><span class="ex"></span><span class="ex on"></span>
+          <span class="ex"></span><span class="ex"></span><span class="ex"></span><span class="ex"></span>
+          <span class="ex"></span><span class="ex"></span><span class="ex on"></span><span class="ex"></span>
+          <span class="ex"></span><span class="ex"></span><span class="ex"></span><span class="ex"></span>
+          <span class="ex"></span><span class="ex warm"></span><span class="ex"></span><span class="ex"></span>
+          <span class="ex"></span><span class="ex"></span><span class="ex"></span><span class="ex"></span>
+        </div>
+
+        <div class="legend">
+          <div class="lg"><u class="on"></u><span>active for this token</span></div>
+          <div class="lg"><u class="warm"></u><span>paging in from disk</span></div>
+          <div class="lg"><u></u><span>resident on disk, idle</span></div>
+        </div>
+      </div>
+      <div class="field-ft">
+        <span>what makes the claim work</span><b>only a fraction runs per token</b>
+        <span class="fill"></span>
+        <span>no expert count published</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="claims">
+    <div class="cl b1"><b>pure C</b><i>No runtime to install and nothing to resolve. On a machine you already own, the install is the first place a project like this fails.</i></div>
+    <div class="cl"><b>zero deps</b><i>Same argument stated twice, which suggests the author has watched dependency trees defeat local inference before.</i></div>
+    <div class="cl b2"><b>experts streamed from disk</b><i>The mechanism. It moves the bottleneck from memory capacity to disk read speed, which the description does not mention.</i></div>
+  </div>
+
+  <section class="strip2">
+    <div>
+      <h3>The bottleneck moves, it does not vanish</h3>
+      <p>Paging experts per token turns a memory problem into a read-latency problem. Whether that trade works depends on the disk, and no disk, throughput figure, or token rate appears in the description.</p>
+    </div>
+    <div>
+      <h3>What is not on this page</h3>
+      <p>No model, no expert count, no memory floor, no tokens per second. The eight by four grid is a drawing, and none of its cells stand for a real expert.</p>
+    </div>
+  </section>
+
+  <p class="note">Concept mock, not affiliated with the project. The complete GitHub Trending description on 10 September 2026 is "Run frontier MoE models on hardware you already own, pure C, zero deps, experts streamed from disk." The 32 squares are an illustrative drawing of sparse activation, not a real architecture: no expert count, routing rule, model, or measurement appears here, because that sentence publishes none.</p>
+</div>
+</body>
+</html>
