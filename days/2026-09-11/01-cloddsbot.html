@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CloddsBot - the table is the headline</title>
+<style>
+  :root{
+    --bg:#0E1116; --panel:#141A22; --line:#232C38; --line-soft:#1B222B;
+    --ink:#E9EDF3; --ink-2:#A7B2BF; --ink-3:#929FAC;
+    --s1:#59D7C6; --s2:#E3B44A; --s3:#E0736B; --s4:#7FA8E8;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--sans);
+    -webkit-font-smoothing:antialiased; font-size:16px; line-height:1.5;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 32px 72px}
+
+  /* ---- masthead ---- */
+  .top{display:flex;align-items:center;justify-content:space-between;gap:24px;
+       padding-bottom:18px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:baseline;gap:12px}
+  .brand b{font-size:15px;letter-spacing:.02em;font-weight:650}
+  .brand span{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+  .topnav{display:flex;gap:26px;font-size:13.5px;color:var(--ink-2)}
+  .topnav a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:color .15s,border-color .15s}
+  .topnav a:hover{color:var(--ink);border-color:var(--s1)}
+  .topnav a:focus-visible{outline:2px solid var(--s1);outline-offset:3px;border-radius:2px}
+
+  /* ---- hero ---- */
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;padding-top:52px;align-items:start}
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+          color:var(--s1);margin:0 0 18px}
+  h1{font-size:clamp(34px,4.3vw,52px);line-height:1.06;letter-spacing:-0.025em;font-weight:680;margin:0 0 20px}
+  h1 em{font-style:normal;color:var(--ink-2)}
+  .lede{font-size:17.5px;line-height:1.58;color:var(--ink-2);margin:0 0 26px;max-width:46ch}
+  .lede strong{color:var(--ink);font-weight:600}
+
+  .venues{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 30px;padding:0;list-style:none}
+  .venues li{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);
+             border:1px solid var(--line);border-radius:2px;padding:4px 9px;letter-spacing:.02em}
+  .venues li.more{color:var(--ink-3);border-style:dashed}
+
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px}
+  .btn{font-family:var(--mono);font-size:13px;letter-spacing:.02em;text-decoration:none;
+       padding:11px 18px;border-radius:3px;display:inline-block;transition:transform .12s ease,background .15s}
+  .btn-a{background:var(--s1);color:#06211D;font-weight:640}
+  .btn-a:hover{transform:translateY(-1px);background:#6FE2D2}
+  .btn-b{color:var(--ink);border:1px solid var(--line)}
+  .btn-b:hover{border-color:var(--ink-3)}
+  .btn:focus-visible{outline:2px solid var(--s1);outline-offset:3px}
+
+  .facts{display:flex;gap:26px;border-top:1px solid var(--line-soft);padding-top:18px;flex-wrap:wrap}
+  .fact{min-width:104px}
+  .fact dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 5px}
+  .fact dd{margin:0;font-size:14px;color:var(--ink)}
+
+  /* ---- panel ---- */
+  .panel{border:1px solid var(--line);border-radius:4px;background:var(--panel);overflow:hidden}
+  .panel-head{display:flex;align-items:center;justify-content:space-between;
+              padding:12px 16px;border-bottom:1px solid var(--line)}
+  .panel-head h2{margin:0;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;
+                 text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+       color:var(--ink-3);border:1px solid var(--line);border-radius:2px;padding:3px 7px}
+
+  /* scan bars */
+  .scan{padding:18px 16px 6px}
+  .scan-row{display:grid;grid-template-columns:92px 1fr 62px;align-items:center;gap:12px;margin-bottom:11px}
+  .scan-row .lbl{font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+  .track{height:7px;background:#1B222B;border-radius:1px;position:relative;overflow:hidden}
+  .bar{position:absolute;left:0;top:0;bottom:0;border-radius:1px;
+       animation:grow .9s cubic-bezier(.2,.7,.3,1) both}
+  .bar.b1{width:78%;background:var(--s1);animation-delay:.05s}
+  .bar.b2{width:61%;background:var(--s1);opacity:.78;animation-delay:.12s}
+  .bar.b3{width:44%;background:var(--s4);animation-delay:.19s}
+  .bar.b4{width:31%;background:var(--s2);animation-delay:.26s}
+  .bar.b5{width:17%;background:var(--s3);animation-delay:.33s}
+  .scan-row .num{font-family:var(--mono);font-size:12px;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+  @keyframes grow{from{transform:scaleX(.02);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+  @media (prefers-reduced-motion:reduce){.bar{animation:none}}
+
+  /* table */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+           color:var(--ink-3);text-align:left;font-weight:500;padding:10px 16px;
+           border-top:1px solid var(--line);border-bottom:1px solid var(--line-soft)}
+  thead th.r,tbody td.r{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  tbody td{padding:11px 16px;border-bottom:1px solid var(--line-soft);color:var(--ink-2)}
+  tbody tr:last-child td{border-bottom:0}
+  tbody td.name{color:var(--ink)}
+  .dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+  .d1{background:var(--s1)} .d2{background:var(--s4)} .d3{background:var(--s2)} .d4{background:var(--s3)}
+  .state{font-family:var(--mono);font-size:11px;letter-spacing:.04em}
+  .state.hold{color:var(--ink-3)}
+  .state.live{color:var(--s1)}
+  .state.cut{color:var(--s3)}
+
+  .panel-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;
+              padding:11px 16px;border-top:1px solid var(--line);background:#11161D}
+  .panel-foot p{margin:0;font-size:11.5px;color:var(--ink-3)}
+  .panel-foot .rule{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+
+  .note{margin:14px 2px 0;font-size:11.5px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.02em}
+
+  footer{margin-top:64px;padding-top:18px;border-top:1px solid var(--line);
+         display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+         font-size:12.5px;color:var(--ink-3)}
+  footer a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--ink);border-color:var(--s1)}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;gap:40px;padding-top:36px}
+    .wrap{padding:22px 20px 56px}
+    .topnav{display:none}
+  }
+  .hero > section{min-width:0}
+  .table-scroll{overflow-x:auto}
+  .table-scroll:focus-visible,a:focus-visible{outline:2px solid var(--s1);outline-offset:3px}
+  .btn:active{transform:scale(.97)}
+  .brand{flex-wrap:wrap}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand"><b>CloddsBot</b><span>autonomous market agent</span></div>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#edge-scan">Scan concept</a><a href="#positions">Position concept</a><a href="https://github.com/alsk1992/CloddsBot">Source</a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <section>
+      <p class="kicker">Open source · self-hosted · built on Claude</p>
+      <h1>Agent on.<br><em>Limits in view.</em></h1>
+      <p class="lede">A self-hosted trading agent for prediction markets and crypto, with <strong>risk controls you can inspect.</strong></p>
+      <ul class="venues">
+        <li>Polymarket</li><li>Kalshi</li><li>Binance</li><li>Hyperliquid</li>
+        <li>Solana DEXs</li><li>EVM chains</li>
+      </ul>
+      <div class="cta">
+        <a class="btn btn-a" href="https://github.com/alsk1992/CloddsBot#quick-start">Read setup guide</a>
+        <a class="btn btn-b" href="https://github.com/alsk1992/CloddsBot#advanced-trading">Explore risk controls</a>
+      </div>
+      <dl class="facts">
+        <div class="fact"><dt>Deployment</dt><dd>Self-hosted</dd></div>
+        <div class="fact"><dt>Payments</dt><dd>Agent commerce protocol</dd></div>
+        <div class="fact"><dt>Settlement</dt><dd>Machine-to-machine</dd></div>
+        <div class="fact"><dt>License</dt><dd>Open source</dd></div>
+      </dl>
+    </section>
+
+    <section class="panel" id="edge-scan" aria-label="Illustrative agent console">
+      <div class="panel-head">
+        <h2>Edge scan - rolling window</h2>
+        <span class="tag">Illustrative</span>
+      </div>
+
+      <div class="scan">
+        <div class="scan-row"><span class="lbl">Polymarket</span><span class="track"><i class="bar b1"></i></span><span class="num">0.78</span></div>
+        <div class="scan-row"><span class="lbl">Kalshi</span><span class="track"><i class="bar b2"></i></span><span class="num">0.61</span></div>
+        <div class="scan-row"><span class="lbl">Hyperliquid</span><span class="track"><i class="bar b3"></i></span><span class="num">0.44</span></div>
+        <div class="scan-row"><span class="lbl">Binance</span><span class="track"><i class="bar b4"></i></span><span class="num">0.31</span></div>
+        <div class="scan-row"><span class="lbl">Solana DEX</span><span class="track"><i class="bar b5"></i></span><span class="num">0.17</span></div>
+      </div>
+
+      <div class="table-scroll" id="positions" role="region" aria-label="Illustrative open positions, scroll horizontally on small screens" tabindex="0">
+      <table>
+        <caption class="visually-hidden" style="position:absolute;left:-9999px">Illustrative open positions</caption>
+        <thead>
+          <tr><th scope="col">Position</th><th scope="col">Venue</th><th scope="col" class="r">Size</th><th scope="col" class="r">Risk</th><th scope="col">State</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name"><span class="dot d1"></span>Event · binary</td><td>Polymarket</td><td class="r">1.00</td><td class="r">0.22</td><td><span class="state live">executing</span></td></tr>
+          <tr><td class="name"><span class="dot d2"></span>Perp · long</td><td>Hyperliquid</td><td class="r">0.65</td><td class="r">0.41</td><td><span class="state live">executing</span></td></tr>
+          <tr><td class="name"><span class="dot d3"></span>Spot · pair</td><td>Binance</td><td class="r">0.40</td><td class="r">0.18</td><td><span class="state hold">held</span></td></tr>
+          <tr><td class="name"><span class="dot d4"></span>AMM · rotation</td><td>Solana DEX</td><td class="r">0.25</td><td class="r">0.63</td><td><span class="state cut">cut by rule</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="panel-foot">
+        <p>Numbers above are placeholder UI data, not results.</p>
+        <span class="rule">risk.max_drawdown → halt</span>
+      </div>
+    </section>
+  </main>
+
+  <p class="note">Independent design concept. Console data is illustrative, not live trading or evidence of returns. Trading carries financial risk.</p>
+
+  <footer>
+    <span>CloddsBot - open source autonomous trading agent</span>
+    <span><a href="https://github.com/alsk1992/CloddsBot">github.com/alsk1992/CloddsBot</a></span>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gods-eye-view - the simulator is fake, the data is not</title>
+<style>
+  :root{
+    --bg:#08090B; --bg-2:#0C0E11; --bezel:#14171C; --grid:#12161B;
+    --rule:#232830; --ink:#EBEEF2; --ink-2:#ADB6C3; --ink-3:#9AA6B5;
+    --amber:#F2B53C; --amber-dim:#8A6821; --green:#F2B53C; --red:#D9736B;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:56px 56px,56px 56px;
+    background-position:center top;
+  }
+  .frame{max-width:1200px;margin:0 auto;padding:24px 28px 64px}
+
+  /* instrument bezel */
+  .bezel{border:1px solid var(--rule);background:rgba(8,9,11,.82);position:relative}
+  .bezel::before,.bezel::after{
+    content:"";position:absolute;width:13px;height:13px;border:1px solid var(--amber-dim);
+  }
+  .bezel::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+  .bezel::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+  /* status strip */
+  .strip{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+         padding:9px 16px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11px;
+         letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .strip .live{color:var(--green)}
+  .strip .live i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);
+                 margin-right:7px;vertical-align:middle;animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @media (prefers-reduced-motion:reduce){.strip .live i{animation:none}}
+  .strip .set{display:flex;gap:22px;flex-wrap:wrap}
+  .strip b{color:var(--ink-2);font-weight:400}
+
+  /* main */
+  .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:0}
+  .left{padding:44px 34px 38px;border-right:1px solid var(--rule)}
+  .right{padding:0}
+
+  .desig{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--amber);margin:0 0 20px}
+  h1{font-size:clamp(30px,3.9vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:620;margin:0 0 18px}
+  h1 span{color:var(--amber)}
+  .lede{font-size:17px;line-height:1.6;color:var(--ink-2);margin:0 0 28px;max-width:44ch}
+  .lede b{color:var(--ink);font-weight:600}
+
+  .readouts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);
+            border:1px solid var(--rule);margin:0 0 28px}
+  .ro{background:var(--bg-2);padding:13px 14px}
+  .ro dt{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
+  .ro dd{margin:0;font-family:var(--mono);font-size:14.5px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .ro dd.amb{color:var(--amber)}
+
+  .cta{display:flex;gap:11px;flex-wrap:wrap}
+  .btn{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+       text-decoration:none;padding:11px 18px;transition:background .15s,color .15s,border-color .15s}
+  .btn-a{background:var(--amber);color:#191200;font-weight:700}
+  .btn-a:hover{background:#FFC757}
+  .btn-b{color:var(--ink-2);border:1px solid var(--rule)}
+  .btn-b:hover{color:var(--ink);border-color:var(--amber-dim)}
+  .btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+  /* viewport */
+  .viewport{position:relative;height:100%;min-height:430px;background:
+      radial-gradient(120% 90% at 62% 40%, #11161C 0%, #0A0C0F 58%, #07080A 100%);
+      overflow:hidden}
+  .limb{position:absolute;width:520px;height:520px;border-radius:50%;right:-118px;top:52px;
+        border:1px solid #2A323C;
+        background:radial-gradient(circle at 34% 30%, #1C242D 0%, #12181E 46%, #0B0E12 72%, #090B0E 100%);
+        box-shadow:inset -28px -18px 60px rgba(0,0,0,.8)}
+  .terminator{position:absolute;inset:0;border-radius:50%;
+        background:linear-gradient(101deg,rgba(0,0,0,0) 38%,rgba(0,0,0,.72) 62%)}
+  .orbit{position:absolute;right:-168px;top:2px;width:620px;height:620px;border-radius:50%;
+         border:1px dashed #262E38;opacity:.75}
+  .reticle{position:absolute;left:52px;top:118px;width:132px;height:132px}
+  .reticle i{position:absolute;background:var(--amber);opacity:.85}
+  .reticle i:nth-child(1){left:0;top:0;width:20px;height:1px}
+  .reticle i:nth-child(2){left:0;top:0;width:1px;height:20px}
+  .reticle i:nth-child(3){right:0;bottom:0;width:20px;height:1px}
+  .reticle i:nth-child(4){right:0;bottom:0;width:1px;height:20px}
+  .reticle i:nth-child(5){left:50%;top:50%;width:9px;height:1px;transform:translate(-50%,-50%)}
+  .reticle i:nth-child(6){left:50%;top:50%;width:1px;height:9px;transform:translate(-50%,-50%)}
+  .tick{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--amber);
+        white-space:nowrap}
+  .tick.t1{left:52px;top:96px}
+  .tick.t2{left:52px;top:258px;color:var(--ink-3)}
+  .scanline{position:absolute;left:0;right:0;height:1px;background:rgba(242,181,60,.16);
+            animation:sweep 7s linear infinite}
+  @keyframes sweep{0%{top:6%}100%{top:96%}}
+  @media (prefers-reduced-motion:reduce){.scanline{animation:none;top:40%}}
+
+  .vp-foot{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:14px;
+           padding:9px 16px;border-top:1px solid var(--rule);background:rgba(8,9,11,.9);
+           font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .vp-foot .ok{color:var(--green)}
+
+  .band{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+        padding:11px 16px;border-top:1px solid var(--rule);
+        font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em}
+  .band a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule)}
+  .band a:hover{color:var(--amber);border-color:var(--amber-dim)}
+
+  .disclaim{margin:14px 2px 0;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+  @media (max-width:920px){
+    .grid{grid-template-columns:1fr}
+    .left{border-right:0;border-bottom:1px solid var(--rule);padding:32px 22px}
+    .viewport{min-height:320px}
+    .frame{padding:18px 16px 48px}
+  }
+  .grid > section{min-width:0}
+  .strip .live i{animation:none}
+  .scanline{animation:none;top:40%}
+  .tick.t2{max-width:calc(100% - 76px);padding:5px;background:var(--bg)}
+  .btn:active{transform:scale(.97)}
+  a:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="bezel">
+
+    <div class="strip">
+      <span class="live">Design concept / not connected</span>
+      <span class="set">
+        <span>Source <b>open</b></span>
+        <span>Render <b>browser</b></span>
+        <span>Globe <b>photorealistic</b></span>
+        <span>Mode <b>simulator</b></span>
+      </span>
+    </div>
+
+    <main class="grid">
+      <section class="left">
+        <p class="desig">OSINT · SPATIAL · REAL-TIME</p>
+        <h1>Public signals.<br><span>Orbital perspective.</span></h1>
+        <p class="lede">Explore aircraft, ships and satellites on a 3D globe built from <b>public data.</b></p>
+
+        <dl class="readouts">
+          <div class="ro"><dt>Imagery</dt><dd>Photorealistic 3D</dd></div>
+          <div class="ro"><dt>Intelligence</dt><dd class="amb">Open source</dd></div>
+          <div class="ro"><dt>Runtime</dt><dd>Your browser</dd></div>
+          <div class="ro"><dt>Product feeds</dt><dd>Live / refreshed</dd></div>
+        </dl>
+
+        <div class="cta">
+          <a class="btn btn-a" href="https://github.com/bilawalsidhu/gods-eye-view#-quick-start">Explore the project</a>
+          <a class="btn btn-b" href="https://github.com/bilawalsidhu/gods-eye-view#-whats-on-the-globe">See data sources</a>
+        </main>
+      </section>
+
+      <section class="right">
+        <div class="viewport" role="img" aria-label="Illustrative heads-up display over a 3D globe limb">
+          <div class="orbit"></div>
+          <div class="limb"><div class="terminator"></div></div>
+          <div class="scanline"></div>
+          <p class="tick t1">TRACK / OPEN FEED</p>
+          <div class="reticle"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="tick t2">no classified sources - everything here is public</p>
+          <div class="vp-foot">
+            <span>Display · illustrative</span>
+            <span class="ok">Feed · open</span>
+            <span>Frame · earth-fixed</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="band">
+      <span>gods-eye-view - live open source spatial intelligence</span>
+      <span><a href="https://github.com/bilawalsidhu/gods-eye-view">github.com/bilawalsidhu/gods-eye-view</a></span>
+    </div>
+
+  </div>
+  <p class="disclaim">Independent design concept. Globe, readouts and reticle are illustrative UI, not a live capture.</p>
+</div>
+</body>
+</html>

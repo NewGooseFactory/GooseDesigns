@@ -1,9 +1,10 @@
 ﻿# Style — data-viz
 
-19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+20 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-11](../days/2026-09-11/) | [alsk1992/CloddsBot](https://github.com/alsk1992/CloddsBot) | console-teal | Put agent activity and its risk cutoff in the same field of view | The cutoff state explains control without implying investment returns | [png](../days/2026-09-11/01-cloddsbot.png) |
 | [2026-09-08](../days/2026-09-08/) | [mksglu/context-mode](https://github.com/mksglu/context-mode) | reduction-cyan | draw the one published number at face value and print what it lacks beside it | works, honest without a fake baseline | [png](../days/2026-09-08/03-context-mode.png) |
 | [2026-09-04](../days/2026-09-04/) | [google-research/timesfm](https://github.com/google-research/timesfm) | forecast-teal | draw the whole forecast chart and strip every number off both axes | works, unlabelled and still legible | [png](../days/2026-09-04/03-timesfm.png) |
 | [2026-08-27](../days/2026-08-27/) | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | four-lane | pick the adjective over the number for the headline, attribute every count | landed | [png](../days/2026-08-27/02-scientific-skills.png) |

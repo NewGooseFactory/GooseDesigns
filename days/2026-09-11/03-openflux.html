@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenFlux - the transport is a jack, not a decision</title>
+<style>
+  :root{
+    --panel:#C9C7C2; --panel-2:#BFBDB8; --panel-hi:#DCDAD5; --panel-lo:#A8A6A1;
+    --ink:#14151A; --ink-2:#34363B; --ink-3:#464950;
+    --silk:#1B1D22; --red:#841B17; --socket:#1A1B1F; --socket-ring:#8E8C87;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:#8E8C88;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    background-image:linear-gradient(180deg,#94928E 0%,#7F7D79 100%);
+    min-height:100dvh;padding:30px 26px 60px;
+  }
+  .rack{max-width:1150px;margin:0 auto}
+
+  .faceplate{
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, rgba(0,0,0,.022) 1px 3px),
+      linear-gradient(180deg,var(--panel-hi) 0%, var(--panel) 34%, var(--panel-2) 100%);
+    border:1px solid #96948F;
+    border-top-color:#E3E1DC;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 26px rgba(0,0,0,.28);
+    border-radius:3px;position:relative;overflow:hidden;
+  }
+  .screw{position:absolute;width:13px;height:13px;border-radius:50%;
+    background:radial-gradient(circle at 35% 32%, #EDEBE6, #A5A39E 62%, #86847F 100%);
+    box-shadow:0 1px 1px rgba(0,0,0,.32)}
+  .screw::after{content:"";position:absolute;left:2px;right:2px;top:6px;height:1px;background:#6E6C68;
+    transform:rotate(26deg)}
+  .screw.a{left:13px;top:13px}.screw.b{right:13px;top:13px}
+  .screw.c{left:13px;bottom:13px}.screw.d{right:13px;bottom:13px}
+
+  .silk-top{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    padding:13px 44px;border-bottom:1px solid rgba(0,0,0,.16);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--ink-3)}
+  .silk-top b{color:var(--silk);font-weight:600}
+
+  .body{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:0}
+  .left{padding:46px 40px 42px 44px;border-right:1px solid rgba(0,0,0,.14)}
+  .right{padding:34px 44px 30px 34px}
+
+  .unit{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--red);margin:0 0 22px}
+  h1{font-size:clamp(31px,3.9vw,47px);line-height:1.08;letter-spacing:-0.022em;font-weight:700;margin:0 0 18px;color:var(--silk)}
+  h1 span{color:var(--red)}
+  .lede{font-size:17px;line-height:1.58;color:var(--ink-2);margin:0 0 10px;max-width:40ch}
+  .lede b{color:var(--silk);font-weight:680}
+  .stamp{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin:0 0 30px;
+    border-left:2px solid var(--red);padding-left:10px}
+
+  .rows{border-top:1px solid rgba(0,0,0,.16);margin:0 0 30px}
+  .row{display:grid;grid-template-columns:118px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.10)}
+  .row dt{margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3)}
+  .row dd{margin:0;font-size:14.5px;color:var(--silk)}
+  .row dd em{font-style:normal;color:var(--ink-3)}
+
+  .cta{display:flex;gap:11px;flex-wrap:wrap}
+  .btn{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;
+    padding:12px 20px;border-radius:2px;transition:transform .12s ease,background .15s,border-color .15s}
+  .btn-a{background:var(--red);color:#FFF3F2;font-weight:700;border:1px solid #96241E;
+    box-shadow:0 1px 0 rgba(255,255,255,.28) inset}
+  .btn-a:hover{transform:translateY(-1px);background:#A02520}
+  .btn-b{color:var(--silk);border:1px solid #8C8A85;background:rgba(255,255,255,.24)}
+  .btn-b:hover{border-color:var(--silk)}
+  .btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+  /* patchbay */
+  .bay-cap{display:flex;justify-content:space-between;gap:12px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);
+    margin:0 0 18px}
+  .bay{position:relative;background:linear-gradient(180deg,#B6B4AF,#ACAAA5);
+    border:1px solid #918F8A;border-radius:2px;padding:50px 20px 18px;
+    box-shadow:0 1px 0 rgba(255,255,255,.45) inset}
+  .jacks{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;z-index:2}
+  .jack{text-align:center}
+  .socket{width:46px;height:46px;margin:0 auto 10px;border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, var(--socket) 0 36%, #4A4C51 37% 46%, var(--socket-ring) 47% 62%, #B4B2AD 63% 100%);
+    box-shadow:0 1px 2px rgba(0,0,0,.3) inset, 0 1px 0 rgba(255,255,255,.4)}
+  .jack.slot .socket{background:radial-gradient(circle at 50% 50%, #2A0B09 0 36%, var(--red) 37% 50%, #8E2822 51% 62%, #B4B2AD 63% 100%)}
+  .jack .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--silk);display:block}
+  .jack .sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;color:var(--ink-3);display:block;margin-top:4px;line-height:1.45}
+  .jack.slot .lbl{color:var(--red)}
+  .cable{position:absolute;left:20px;right:20px;top:4px;height:72px;z-index:1;pointer-events:none}
+  .cable path{fill:none;stroke:var(--red);stroke-width:3.5;stroke-linecap:round;opacity:.9;
+    stroke-dasharray:300;stroke-dashoffset:300;animation:patch 1.4s cubic-bezier(.25,.8,.3,1) .25s forwards}
+  @keyframes patch{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.cable path{animation:none;stroke-dashoffset:0}}
+
+  .bus{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 0;padding:0;list-style:none}
+  .bus li{font-family:var(--mono);font-size:11px;color:var(--ink-2);background:rgba(255,255,255,.34);
+    border:1px solid #9A9893;border-radius:2px;padding:5px 10px}
+  .bus li.open{color:var(--red);border-color:var(--red);border-style:dashed;background:rgba(197,50,43,.07)}
+
+  .notes{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin:20px 0 0;line-height:1.65}
+  .notes span{color:var(--red)}
+
+  .silk-foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    padding:12px 44px;border-top:1px solid rgba(0,0,0,.16);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-3)}
+  .silk-foot a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid #9A9893}
+  .silk-foot a:hover{color:var(--red);border-color:var(--red)}
+
+  .disclaim{margin:14px 4px 0;font-family:var(--mono);font-size:11px;color:#3B3D42}
+
+  @media (max-width:940px){
+    .body{grid-template-columns:1fr}
+    .left{border-right:0;border-bottom:1px solid rgba(0,0,0,.14);padding:34px 24px}
+    .right{padding:28px 24px}
+    .silk-top,.silk-foot{padding-left:24px;padding-right:24px}
+    .jack .sub{display:none}
+  }
+  .body > section{min-width:0}
+  .btn:active{transform:scale(.97)}
+  a:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .disclaim{color:#090B0E}
+  @media (max-width:520px){
+    body{padding:16px 12px 32px}
+    .left,.right{padding:28px 18px}
+    .jacks{gap:4px}
+    .jack .lbl{font-size:9px;letter-spacing:0}
+    .silk-foot a{overflow-wrap:anywhere}
+  }
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="rack">
+  <div class="faceplate">
+    <i class="screw a"></i><i class="screw b"></i><i class="screw c"></i><i class="screw d"></i>
+
+    <div class="silk-top">
+      <span>OpenFlux - <b>network stack research tool</b></span>
+      <span>Lang <b>Go</b> · Layer <b>TCP</b> · Transport <b>pluggable</b></span>
+    </div>
+
+    <main class="body">
+      <section class="left">
+        <p class="unit">UNIT 01 · TUNNEL / TRANSPORT BAY</p>
+        <h1>Same tunnel.<br><span>New transport.</span></h1>
+        <p class="lede">A <b>TCP tunnel with pluggable transports</b> for network stack research. Implement the interface, then register your transport.</p>
+        <p class="stamp">research tool - read the code before you trust the wire</p>
+
+        <dl class="rows">
+          <div class="row"><dt>Function</dt><dd>TCP tunnel</dd></div>
+          <div class="row"><dt>Transport</dt><dd>Pluggable <em>via a shared interface</em></dd></div>
+          <div class="row"><dt>Intent</dt><dd>Network stack research</dd></div>
+          <div class="row"><dt>Implementation</dt><dd>Go</dd></div>
+        </dl>
+
+        <div class="cta">
+          <a class="btn btn-a" href="https://github.com/p1neappleXpress/OpenFlux">Read the source</a>
+          <a class="btn btn-b" href="https://github.com/p1neappleXpress/OpenFlux#implementing-custom-transports">Transport interface</a>
+        </main>
+      </section>
+
+      <section class="right">
+        <p class="bay-cap"><span>Patch bay - signal path</span><span>illustrative</span></p>
+
+        <div class="bay">
+          <svg class="cable" viewBox="0 0 480 72" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M 300 65 C 322 8, 398 8, 420 65" />
+          </svg>
+          <div class="jacks">
+            <div class="jack">
+              <div class="socket"></div>
+              <span class="lbl">App</span>
+              <span class="sub">traffic in,<br>unmodified</span>
+            </div>
+            <div class="jack">
+              <div class="socket"></div>
+              <span class="lbl">Tunnel</span>
+              <span class="sub">TCP,<br>fixed contract</span>
+            </div>
+            <div class="jack slot">
+              <div class="socket"></div>
+              <span class="lbl">Transport</span>
+              <span class="sub">the research<br>surface</span>
+            </div>
+            <div class="jack">
+              <div class="socket"></div>
+              <span class="lbl">Out</span>
+              <span class="sub">whatever the<br>path allows</span>
+            </div>
+          </div>
+        </div>
+
+        <ul class="bus">
+          <li>transport A</li><li>transport B</li><li>transport C</li><li class="open">your own</li>
+        </ul>
+
+        <p class="notes"><span>NOTE 1.</span> The tunnel contract is the invariant; the transport is the variable.<br>
+        <span>NOTE 2.</span> Jack names are illustrative labels, not a wire spec.</p>
+      </section>
+    </div>
+
+    <div class="silk-foot">
+      <span>OpenFlux - TCP tunnel with pluggable transports</span>
+      <span><a href="https://github.com/p1neappleXpress/OpenFlux">github.com/p1neappleXpress/OpenFlux</a></span>
+    </div>
+  </div>
+  <p class="disclaim">Independent design concept. Patch bay is illustrative, not a wire specification. Research only on systems and networks you own.</p>
+</div>
+</body>
+</html>

@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **273 mocks** across **91 days**. Newest first.
+Searchable master index. **276 mocks** across **92 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-11 | Friday | [alsk1992/CloddsBot](https://github.com/alsk1992/CloddsBot) | data-viz | console-teal | Put agent activity and its risk cutoff in the same field of view | The cutoff state explains control without implying investment returns | [png](days/2026-09-11/01-cloddsbot.png) | [2026-09-11](days/2026-09-11/) |
+| 2026-09-11 | Friday | [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) | hud | instrument-amber | Use an orbital instrument frame to connect an impressive globe to its public data sources | The source link anchors the spectacle; the disconnected label keeps the concept honest | [png](days/2026-09-11/02-gods-eye-view.png) | [2026-09-11](days/2026-09-11/) |
+| 2026-09-11 | Friday | [p1neappleXpress/OpenFlux](https://github.com/p1neappleXpress/OpenFlux) | patchbay | signal-red | Give the replaceable transport a physical jack while keeping the TCP tunnel visually fixed | The patch bay makes the extension seam readable without invented performance claims | [png](days/2026-09-11/03-openflux.png) | [2026-09-11](days/2026-09-11/) |
 | 2026-09-10 | Thursday | [AlexsJones/llmfit](https://github.com/AlexsJones/llmfit) | strata | copper | sort the model catalog into beds above and below a hardware waterline with no number printed on it | the empty axis reads stronger than a filled one | [png](days/2026-09-10/01-llmfit.png) | [2026-09-10](days/2026-09-10/) |
 | 2026-09-10 | Thursday | [nashsu/llm_wiki](https://github.com/nashsu/llm_wiki) | storyboard | ink-indigo | two lanes of four frames over one corpus, retrieval repeating itself while the wiki accumulates | the repetition is the argument, no copy needed | [png](days/2026-09-10/02-llm-wiki.png) | [2026-09-10](days/2026-09-10/) |
 | 2026-09-10 | Thursday | [JustVugg/colibri](https://github.com/JustVugg/colibri) | bauhaus | primary-blue | a 32 square sparse-activation grid showing why streaming experts from disk is possible | drawing the sparsity turns a claim into a trade | [png](days/2026-09-10/03-colibri.png) | [2026-09-10](days/2026-09-10/) |
