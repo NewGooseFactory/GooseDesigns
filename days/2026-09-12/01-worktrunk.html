@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for Worktrunk, a CLI for Git worktree management and parallel AI agent workflows.">
+<title>Worktrunk | Room to work</title>
+<style>
+:root{--bg:#f4f4ef;--ink:#161813;--muted:#55584e;--line:#c5c7bd;--accent:#b93020;--sans:"Arial",sans-serif;--mono:"Cascadia Mono","Consolas",monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--ink);color:white;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}header{height:83px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--ink);gap:20px}
+.wordmark{font-size:25px;font-weight:800;letter-spacing:-1.3px}.wordmark span{color:var(--accent)}nav{display:flex;gap:32px;font-size:14px}
+nav a:hover{text-decoration:underline;text-underline-offset:5px}.hero{padding:38px 0 27px}
+.eyebrow{font:12px/1.5 var(--mono);text-transform:uppercase;letter-spacing:1.6px;margin:0 0 17px;color:var(--muted)}
+h1{font-size:clamp(52px,7.65vw,98px);font-weight:800;letter-spacing:-.067em;line-height:.99;margin:0 0 22px}
+h1 span{color:var(--accent)}.hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:40px}.hero-bottom p{font-size:18px;max-width:520px;margin:0;color:var(--muted)}
+.btn{display:inline-flex;justify-content:center;align-items:center;min-height:46px;padding:12px 24px;background:var(--accent);color:#fff;font-size:14px;font-weight:700;white-space:nowrap;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn:hover{background:#a22719}.btn:active{transform:scale(.97)}
+.worktrees{padding-top:20px;border-top:1px solid var(--ink)}
+.diagram-title{display:flex;justify-content:space-between;gap:24px;margin-bottom:20px;font:12px var(--mono)}.diagram-title span:last-child{color:var(--muted)}
+.lanes{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--line)}
+.lane{padding:23px 24px 20px;min-width:0;position:relative}.lane+.lane{border-left:1px solid var(--line)}
+.lane.active{background:#e8e9e1;border-top:4px solid var(--accent);padding-top:19px}
+.branch{display:flex;align-items:center;gap:12px;margin-bottom:14px;font:700 22px var(--mono)}.branch:before{content:"";width:11px;height:11px;border:2px solid var(--ink)}
+.active .branch:before{background:var(--accent);border-color:var(--accent)}
+.lane p{margin:0 0 25px;color:var(--muted);font-size:14px}
+.path{font:12px var(--mono);color:var(--muted);margin-bottom:12px}.command{display:block;font:14px var(--mono);overflow-wrap:anywhere}
+.command b{color:var(--accent);font-weight:400}.diagram-note{display:flex;justify-content:space-between;gap:24px;font-size:12px;color:var(--muted);margin:13px 0 26px}
+details{border-top:1px solid var(--line);padding:14px 0;font-size:14px}summary{cursor:pointer;width:max-content;max-width:100%;font-weight:600}
+details p{max-width:730px;color:var(--muted)}footer{padding:18px 0 23px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;gap:25px;color:var(--muted);font:11px/1.5 var(--mono)}
+footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.page{padding:0 22px}header{height:72px}nav{gap:16px}nav .docs{display:none}.hero{padding-top:30px}h1{font-size:clamp(48px,9vw,70px)}.hero-bottom{align-items:flex-start;flex-direction:column;gap:20px}.lanes{grid-template-columns:1fr}.lane+.lane{border-left:0;border-top:1px solid var(--line)}.lane p{margin-bottom:16px}.diagram-title,.diagram-note,footer{flex-direction:column;gap:8px}.hero-bottom p{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="wordmark" href="https://github.com/max-sixty/worktrunk">worktrunk<span>.</span></a><nav aria-label="Main navigation"><a href="#worktrees">The workflow</a><a class="docs" href="https://worktrunk.dev">Documentation</a><a href="https://github.com/max-sixty/worktrunk">GitHub &#8599;</a></nav></header>
+<main id="main">
+<section class="hero">
+<p class="eyebrow">Git worktree management for parallel agents</p>
+<h1>Same repository.<br><span>Room to work.</span></h1>
+<div class="hero-bottom"><p>Give each agent its own working directory. Switch, inspect and remove worktrees with a focused CLI.</p><a class="btn" href="https://worktrunk.dev">Get Worktrunk &#8599;</a></div>
+</section>
+<section class="worktrees" id="worktrees" aria-label="Illustrative parallel worktree layout">
+<div class="diagram-title"><span>ONE REPOSITORY / SEPARATE WORKING DIRECTORIES</span><span>Illustrative branch names and paths</span></div>
+<div class="lanes">
+<article class="lane"><div class="branch">main</div><p>A stable place to return.</p><div class="path">project/</div><code class="command"><b>$</b> wt list</code></article>
+<article class="lane active"><div class="branch">feat</div><p>One agent. Its own edits.</p><div class="path">project.feat/</div><code class="command"><b>$</b> wt switch feat</code></article>
+<article class="lane"><div class="branch">fix</div><p>Another task, another directory.</p><div class="path">project.fix/</div><code class="command"><b>$</b> wt switch fix</code></article>
+</div>
+<div class="diagram-note"><span>Worktrees separate working files. Branches still need review before integration.</span><span>No agents are running in this concept.</span></div>
+</section>
+<details><summary>Why a worktree rather than another terminal?</summary><p>Another terminal can still point to the same files. A Git worktree gives the task a separate working directory; Worktrunk makes managing those directories simpler.</p></details>
+</main>
+<footer><span>Independent design study / swiss + vermilion</span><a href="https://github.com/max-sixty/worktrunk">Source: max-sixty/worktrunk</a></footer>
+</div>
+</body>
+</html>

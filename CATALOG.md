@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **276 mocks** across **92 days**. Newest first.
+Searchable master index. **279 mocks** across **93 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-12 | Saturday | [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk) | swiss | vermilion | Turn worktree isolation into separate typographic lanes beneath one shared repository headline | The repeated directory structure explains parallel work without invented throughput claims | [png](days/2026-09-12/01-worktrunk.png) | [2026-09-12](days/2026-09-12/) |
+| 2026-09-12 | Saturday | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | editorial | ink-blue | Treat the collection as a reading index whose entries lead directly to inspectable implementations | A source-linked index makes the next useful action clearer than a wall of capability badges | [png](days/2026-09-12/02-awesome-llm-apps.png) | [2026-09-12](days/2026-09-12/) |
+| 2026-09-12 | Saturday | [melgarafael/DeskcommCRM](https://github.com/melgarafael/DeskcommCRM) | glass | jade | Keep a single conversation visible while its owner changes from agent to human | The local handoff makes continuity tangible; one frosted surface is enough | [png](days/2026-09-12/03-deskcommcrm.png) | [2026-09-12](days/2026-09-12/) |
 | 2026-09-11 | Friday | [alsk1992/CloddsBot](https://github.com/alsk1992/CloddsBot) | data-viz | console-teal | Put agent activity and its risk cutoff in the same field of view | The cutoff state explains control without implying investment returns | [png](days/2026-09-11/01-cloddsbot.png) | [2026-09-11](days/2026-09-11/) |
 | 2026-09-11 | Friday | [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) | hud | instrument-amber | Use an orbital instrument frame to connect an impressive globe to its public data sources | The source link anchors the spectacle; the disconnected label keeps the concept honest | [png](days/2026-09-11/02-gods-eye-view.png) | [2026-09-11](days/2026-09-11/) |
 | 2026-09-11 | Friday | [p1neappleXpress/OpenFlux](https://github.com/p1neappleXpress/OpenFlux) | patchbay | signal-red | Give the replaceable transport a physical jack while keeping the TCP tunnel visually fixed | The patch bay makes the extension seam readable without invented performance claims | [png](days/2026-09-11/03-openflux.png) | [2026-09-11](days/2026-09-11/) |

@@ -1,9 +1,10 @@
 ﻿# Style — glass
 
-13 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-12](../days/2026-09-12/) | [melgarafael/DeskcommCRM](https://github.com/melgarafael/DeskcommCRM) | jade | Keep a single conversation visible while its owner changes from agent to human | The local handoff makes continuity tangible; one frosted surface is enough | [png](../days/2026-09-12/03-deskcommcrm.png) |
 | [2026-09-04](../days/2026-09-04/) | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | frost-amber | one frosted panel holds the shared state between the two named parties | works, first subject that justifies the glass family | [png](../days/2026-09-04/02-hermes-agent.png) |
 | [2026-08-27](../days/2026-08-27/) | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | frost-teal | draw the boundary the product exists to cross, three verbs between two sessions | landed | [png](../days/2026-08-27/03-claude-mem.png) |
 | [2026-08-19](../days/2026-08-19/) | [jundot/omlx](https://github.com/jundot/omlx) | frost-teal | let the interface choice be the hero, one frosted menu bar dropdown as the whole product shot | landed | [png](../days/2026-08-19/01-omlx.png) |

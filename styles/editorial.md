@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-31 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+32 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-12](../days/2026-09-12/) | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | ink-blue | Treat the collection as a reading index whose entries lead directly to inspectable implementations | A source-linked index makes the next useful action clearer than a wall of capability badges | [png](../days/2026-09-12/02-awesome-llm-apps.png) |
 | [2026-09-07](../days/2026-09-07/) | [openai/skills](https://github.com/openai/skills) | deep-slate | when the description carries no argument, grade the trending row instead of the sentence | works, the owner field is the whole warranty | [png](../days/2026-09-07/01-openai-skills.png) |
 | [2026-09-04](../days/2026-09-04/) | [mattpocock/skills](https://github.com/mattpocock/skills) | ink-plum | treat the description as a byline and draw the missing curation step as its own tinted row | works, the absent row reads better than a sentence about it | [png](../days/2026-09-04/01-skills.png) |
 | [2026-08-28](../days/2026-08-28/) | [JetBrains/go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines) | cyan | make the audience noun the headline and stack it against the usual reader | landed | [png](../days/2026-08-28/03-go-guidelines.png) |

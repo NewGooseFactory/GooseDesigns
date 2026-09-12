@@ -1,9 +1,10 @@
 ﻿# Style — swiss
 
-16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-12](../days/2026-09-12/) | [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk) | vermilion | Turn worktree isolation into separate typographic lanes beneath one shared repository headline | The repeated directory structure explains parallel work without invented throughput claims | [png](../days/2026-09-12/01-worktrunk.png) |
 | [2026-09-06](../days/2026-09-06/) | [anomalyco/opencode](https://github.com/anomalyco/opencode) | signal-red | grade four words and colour only the contested one, the definite article | works after moving the accent off coding agent onto The | [png](../days/2026-09-06/01-opencode.png) |
 | [2026-09-02](../days/2026-09-02/) | [Gitlawb/openclaude](https://github.com/Gitlawb/openclaude) | vermilion | set the two absolute words at 104px and let 10px captions carry the counter-argument | works, restraint by contrast | [png](../days/2026-09-02/01-openclaude.png) |
 | [2026-08-27](../days/2026-08-27/) | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | slate-teal | set the target number as the hero when the target is zero | landed | [png](../days/2026-08-27/01-ponytail.png) |
