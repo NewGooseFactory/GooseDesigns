@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **279 mocks** across **93 days**. Newest first.
+Searchable master index. **282 mocks** across **94 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-13 | Sunday | [alphaXiv/OpenResearch](https://github.com/alphaXiv/OpenResearch) | terminal-dark | signal-amber | Draw the experiment tree so parallel directions and their preserved lineage become the hero image | Lineage shown as structure explains the loop better than naming it | [png](days/2026-09-13/01-openresearch.png) | [2026-09-13](days/2026-09-13/) |
+| 2026-09-13 | Sunday | [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | redline | review-crimson | Make the page itself a review sheet, with each comment anchored to the numbered line it belongs to | Anchoring the note to a line proves the claim the headline makes | [png](days/2026-09-13/02-open-code-review.png) | [2026-09-13](days/2026-09-13/) |
+| 2026-09-13 | Sunday | [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | ledger | verification-indigo | Publish the verification record as a ruled ledger instead of a trust badge | Rows with a timing column turn a trust claim into something a reader can interrogate | [png](days/2026-09-13/03-agent-skills.png) | [2026-09-13](days/2026-09-13/) |
 | 2026-09-12 | Saturday | [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk) | swiss | vermilion | Turn worktree isolation into separate typographic lanes beneath one shared repository headline | The repeated directory structure explains parallel work without invented throughput claims | [png](days/2026-09-12/01-worktrunk.png) | [2026-09-12](days/2026-09-12/) |
 | 2026-09-12 | Saturday | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | editorial | ink-blue | Treat the collection as a reading index whose entries lead directly to inspectable implementations | A source-linked index makes the next useful action clearer than a wall of capability badges | [png](days/2026-09-12/02-awesome-llm-apps.png) | [2026-09-12](days/2026-09-12/) |
 | 2026-09-12 | Saturday | [melgarafael/DeskcommCRM](https://github.com/melgarafael/DeskcommCRM) | glass | jade | Keep a single conversation visible while its owner changes from agent to human | The local handoff makes continuity tangible; one frosted surface is enough | [png](days/2026-09-12/03-deskcommcrm.png) | [2026-09-12](days/2026-09-12/) |

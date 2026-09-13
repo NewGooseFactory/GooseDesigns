@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![279 mocks](https://img.shields.io/badge/mocks-279-1f6feb?style=flat-square) ![93 days](https://img.shields.io/badge/days-93-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![282 mocks](https://img.shields.io/badge/mocks-282-1f6feb?style=flat-square) ![94 days](https://img.shields.io/badge/days-94-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 279 mockups across 93 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 282 mockups across 94 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Saturday, September 12
+## Latest — Sunday, September 13
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-09-12/"><img src="days/2026-09-12/01-worktrunk.png" width="320" alt="max-sixty/worktrunk"></a><br><sub><b>max-sixty/worktrunk</b><br>swiss</sub></td>
-<td align="center" width="33%"><a href="days/2026-09-12/"><img src="days/2026-09-12/02-awesome-llm-apps.png" width="320" alt="Shubhamsaboo/awesome-llm-apps"></a><br><sub><b>Shubhamsaboo/awesome-llm-apps</b><br>editorial</sub></td>
-<td align="center" width="33%"><a href="days/2026-09-12/"><img src="days/2026-09-12/03-deskcommcrm.png" width="320" alt="melgarafael/DeskcommCRM"></a><br><sub><b>melgarafael/DeskcommCRM</b><br>glass</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-13/"><img src="days/2026-09-13/01-openresearch.png" width="320" alt="alphaXiv/OpenResearch"></a><br><sub><b>alphaXiv/OpenResearch</b><br>terminal-dark</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-13/"><img src="days/2026-09-13/02-open-code-review.png" width="320" alt="alibaba/open-code-review"></a><br><sub><b>alibaba/open-code-review</b><br>redline</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-13/"><img src="days/2026-09-13/03-agent-skills.png" width="320" alt="tech-leads-club/agent-skills"></a><br><sub><b>tech-leads-club/agent-skills</b><br>ledger</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-09-12/)
+[See the full day →](days/2026-09-13/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-09-13 | Sunday | 3 | terminal-dark, redline, ledger | [open](days/2026-09-13/) |
 | 2026-09-12 | Saturday | 3 | swiss, editorial, glass | [open](days/2026-09-12/) |
 | 2026-09-11 | Friday | 3 | data-viz, hud, patchbay | [open](days/2026-09-11/) |
 | 2026-09-10 | Thursday | 3 | strata, storyboard, bauhaus | [open](days/2026-09-10/) |

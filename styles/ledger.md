@@ -1,9 +1,10 @@
 ﻿# Style — ledger
 
-4 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+5 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-13](../days/2026-09-13/) | [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | verification-indigo | Publish the verification record as a ruled ledger instead of a trust badge | Rows with a timing column turn a trust claim into something a reader can interrogate | [png](../days/2026-09-13/03-agent-skills.png) |
 | [2026-08-31](../days/2026-08-31/) | [jingyaogong/minimind](https://github.com/jingyaogong/minimind) | ink-rust | book the three claims as entries and mark the one that cannot close | works, the open row carries the argument | [png](../days/2026-08-31/01-minimind.png) |
 | [2026-08-23](../days/2026-08-23/) | [apache/maka](https://github.com/apache/maka) | ink-teal | draw the data structure, five numbered rows and an append rail that forbids edit and delete | landed | [png](../days/2026-08-23/01-maka.png) |
 | [2026-08-13](../days/2026-08-13/) | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | ink-rust | treat the roster as the artifact, a quoted register plus the install targets | landed | [png](../days/2026-08-13/03-agency-agents.png) |

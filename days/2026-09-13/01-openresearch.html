@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for OpenResearch, a local-first workspace for research agents.">
+<title>OpenResearch | Many directions, one evidence trail</title>
+<style>
+:root{--bg:#0c0d10;--panel:#131519;--line:#272b32;--ink:#eef1f5;--muted:#a7b0bd;--accent:#f0a530;--mono:"Cascadia Mono",Consolas,monospace;--sans:"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--accent);color:#1b1204;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+.brand{font-size:20px;font-weight:600;letter-spacing:-.4px}.brand b{color:var(--accent);font-weight:600}
+nav{display:flex;gap:28px;font:13px var(--mono);color:var(--muted)}nav a:hover{color:var(--ink)}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);gap:54px;padding:48px 0 40px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin:0 0 22px}
+h1{font-size:clamp(44px,4.9vw,62px);line-height:1.03;letter-spacing:-2.4px;font-weight:600;margin:0 0 24px}
+h1 span{color:var(--muted)}
+.lede{font-size:18px;color:var(--muted);max-width:400px;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:600 14px var(--sans);transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--accent);color:#1b1204}.btn-a:hover{background:#ffbc4d}
+.btn-b{border:1px solid #3c424c;color:var(--ink)}.btn-b:hover{border-color:var(--muted)}
+.btn:active{transform:scale(.97)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;border-top:1px solid var(--line);padding-top:20px;margin:0}
+.facts dt{font:11px var(--mono);letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.facts dd{margin:0;font-size:14px}
+.tree{border:1px solid var(--line);background:var(--panel);padding:24px 26px 22px;min-width:0}
+.tree-head{display:flex;justify-content:space-between;gap:16px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:4px}
+.tree-head h2{margin:0;font-size:16px;font-weight:600}
+.tree-head span{font:10px var(--mono);letter-spacing:1px;text-transform:uppercase;color:var(--accent)}
+.run{display:grid;grid-template-columns:18px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid #1f232a}
+.rail{position:relative}.rail:before{content:"";position:absolute;left:7px;top:6px;width:2px;bottom:-17px;background:#2f343c}
+.run:last-of-type .rail:before{display:none}
+.dot{position:absolute;left:2px;top:4px;width:11px;height:11px;border:2px solid #545c68;border-radius:50%;background:var(--panel)}
+.live .dot{border-color:var(--accent);background:var(--accent)}
+.run h3{margin:0 0 4px;font:14px var(--mono);font-weight:400}
+.run p{margin:0;font-size:13px;color:var(--muted)}
+.run .keep{display:inline-block;margin-top:8px;font:11px var(--mono);color:var(--accent);border:1px solid #4a3b1c;padding:3px 8px}
+.tree-foot{font:11px var(--mono);color:var(--muted);padding-top:15px;line-height:1.6}
+.loop{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding:24px 0 26px}
+.loop h2{grid-column:1/-1;margin:0;font:11px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--accent)}
+.loop div p:first-child{font-size:15px;margin:0 0 5px;font-weight:600}
+.loop div p:last-child{font-size:13px;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:24px;padding:18px 0 26px;font:11px var(--mono);color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:860px){.page{padding:0 22px}header{height:72px}nav{gap:18px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:30px;padding-top:34px}h1{font-size:47px}.lede{max-width:none}.loop{grid-template-columns:1fr 1fr;gap:20px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:40px;letter-spacing:-1.6px}.facts{grid-template-columns:1fr}.loop{grid-template-columns:1fr}.tree{padding:20px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/alphaXiv/OpenResearch">Open<b>Research</b></a><nav aria-label="Main navigation"><a href="#tree">Experiment tree</a><a href="https://openresearch.sh/docs">Docs</a><a href="https://github.com/alphaXiv/OpenResearch">GitHub</a></nav></header>
+<main id="main">
+<section>
+<p class="eyebrow">Local-first workspace for research agents</p>
+<h1>Many directions.<br><span>One evidence trail.</span></h1>
+<p class="lede">Give each research direction its own agent session and isolated git worktree, then keep every log, diff and artifact tied to the run that produced it.</p>
+<div class="cta"><a class="btn btn-a" href="https://openresearch.sh/download">Download the app</a><a class="btn btn-b" href="https://github.com/alphaXiv/OpenResearch">Read the source</a></div>
+<dl class="facts">
+<div><dt>Runs on</dt><dd>127.0.0.1 with a local SQLite store</dd></div>
+<div><dt>Your agent</dt><dd>Claude Code, Codex, OpenCode or Cursor</dd></div>
+<div><dt>Your compute</dt><dd>Local, your own infrastructure, or managed</dd></div>
+<div><dt>License</dt><dd>MIT</dd></div>
+</dl>
+</section>
+<section class="tree" id="tree" aria-label="Illustrative experiment tree">
+<div class="tree-head"><h2>Experiment tree</h2><span>Illustrative</span></div>
+<div class="run"><div class="rail"><span class="dot"></span></div><div><h3>run / baseline</h3><p>Recorded commit archived at launch.</p></div></div>
+<div class="run"><div class="rail"><span class="dot"></span></div><div><h3>run / variant-a</h3><p>Separate worktree, separate session.</p></div></div>
+<div class="run live"><div class="rail"><span class="dot"></span></div><div><h3>run / variant-b</h3><p>Same lineage, different direction.</p><span class="keep">logs, diffs and artifacts kept in place</span></div></div>
+<p class="tree-foot">Lineage is preserved whether a direction is kept or abandoned.<br>Names above are illustrative. Nothing here is a live session.</p>
+</section>
+</main>
+<section class="loop" aria-label="The autoresearch loop as described by the project">
+<h2>The autoresearch loop</h2>
+<div><p>Propose</p><p>An idea worth spending compute on.</p></div>
+<div><p>Change</p><p>Edit the code under version control.</p></div>
+<div><p>Run</p><p>Launch the experiment and record it.</p></div>
+<div><p>Decide</p><p>Inspect the evidence, then choose what is next.</p></div>
+</section>
+<footer><span>Independent design study / terminal-dark + signal amber</span><a href="https://github.com/alphaXiv/OpenResearch">Source: alphaXiv/OpenResearch</a></footer>
+</div>
+</body>
+</html>
