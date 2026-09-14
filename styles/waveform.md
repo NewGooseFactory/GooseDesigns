@@ -1,9 +1,10 @@
 ﻿# Style — waveform
 
-4 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+5 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-14](../days/2026-09-14/) | [ruvnet/RuView](https://github.com/ruvnet/RuView) | ultramarine | Split the page horizontally into what the sensor measures and what the system infers from it | The band boundary carries the honesty; the same claims read as engineering rather than magic | [png](../days/2026-09-14/03-ruview.png) |
 | [2026-09-01](../days/2026-09-01/) | [browser-use/video-use](https://github.com/browser-use/video-use) | cut-red | show one edit twice, as a timeline and as instruction lines | works, red marks map to the cuts below | [png](../days/2026-09-01/02-video-use.png) |
 | [2026-08-24](../days/2026-08-24/) | [block/buzz](https://github.com/block/buzz) | signal-amber | draw the metaphor, four sender traces resolving into one carrier | landed | [png](../days/2026-08-24/01-buzz.png) |
 | [2026-08-13](../days/2026-08-13/) | [shiyu-coder/Kronos](https://github.com/shiyu-coder/Kronos) | tide-blue | take the word language literally, a bar sequence plus the vocabulary it is drawn from | landed | [png](../days/2026-08-13/02-kronos.png) |

@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **282 mocks** across **94 days**. Newest first.
+Searchable master index. **285 mocks** across **95 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-14 | Monday | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | mono-zine | amber | Answer the only question that matters for an access tool by putting the platform matrix in the hero | A named list beats a promise of everything, and the caption keeps it a claim rather than a test result | [png](days/2026-09-14/01-agent-reach.png) | [2026-09-14](days/2026-09-14/) |
+| 2026-09-14 | Monday | [Crosstalk-Solutions/project-nomad](https://github.com/Crosstalk-Solutions/project-nomad) | warm-minimal | rust | Let the reader cut the connection and watch the library not change | An interaction that deliberately changes nothing proves offline-first faster than a paragraph | [png](days/2026-09-14/02-project-nomad.png) | [2026-09-14](days/2026-09-14/) |
+| 2026-09-14 | Monday | [ruvnet/RuView](https://github.com/ruvnet/RuView) | waveform | ultramarine | Split the page horizontally into what the sensor measures and what the system infers from it | The band boundary carries the honesty; the same claims read as engineering rather than magic | [png](days/2026-09-14/03-ruview.png) | [2026-09-14](days/2026-09-14/) |
 | 2026-09-13 | Sunday | [alphaXiv/OpenResearch](https://github.com/alphaXiv/OpenResearch) | terminal-dark | signal-amber | Draw the experiment tree so parallel directions and their preserved lineage become the hero image | Lineage shown as structure explains the loop better than naming it | [png](days/2026-09-13/01-openresearch.png) | [2026-09-13](days/2026-09-13/) |
 | 2026-09-13 | Sunday | [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | redline | review-crimson | Make the page itself a review sheet, with each comment anchored to the numbered line it belongs to | Anchoring the note to a line proves the claim the headline makes | [png](days/2026-09-13/02-open-code-review.png) | [2026-09-13](days/2026-09-13/) |
 | 2026-09-13 | Sunday | [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | ledger | verification-indigo | Publish the verification record as a ruled ledger instead of a trust badge | Rows with a timing column turn a trust claim into something a reader can interrogate | [png](days/2026-09-13/03-agent-skills.png) | [2026-09-13](days/2026-09-13/) |
