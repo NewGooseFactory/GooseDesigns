@@ -1,9 +1,10 @@
 ﻿# Style — specimen
 
-6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-15](../days/2026-09-15/) | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | press-green | Show the command beside the principle it enforces, as a specimen sheet rather than a feature list | Command and principle on one row reads as a working contract, not marketing | [png](../days/2026-09-15/02-agent-skills.png) |
 | [2026-09-05](../days/2026-09-05/) | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | press-green | when half the description is refusals, draw the positive form of both | works, two nodes was enough | [png](../days/2026-09-05/02-diagram-design.png) |
 | [2026-09-01](../days/2026-09-01/) | [firecrawl/pdf-inspector](https://github.com/firecrawl/pdf-inspector) | ink-teal | use a type specimen to draw the character-versus-pixel distinction | cleanest idea of the week, genre and subject are the same thing | [png](../days/2026-09-01/01-pdf-inspector.png) |
 | [2026-08-26](../days/2026-08-26/) | [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search) | stamp-rust | stamp the instruction the project closes on, four published verbs beneath | landed | [png](../days/2026-08-26/03-ai-job-search.png) |

@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **285 mocks** across **95 days**. Newest first.
+Searchable master index. **288 mocks** across **96 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-15 | Tuesday | [pacifio/atlas](https://github.com/pacifio/atlas) | neon-noir | violet | Put the commit first, then let the reader open the session that produced it | A disclosure that starts closed matches the claim: the record is kept whether or not anyone looks | [png](days/2026-09-15/01-atlas.png) | [2026-09-15](days/2026-09-15/) |
+| 2026-09-15 | Tuesday | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | specimen | press-green | Show the command beside the principle it enforces, as a specimen sheet rather than a feature list | Command and principle on one row reads as a working contract, not marketing | [png](days/2026-09-15/02-agent-skills.png) | [2026-09-15](days/2026-09-15/) |
+| 2026-09-15 | Tuesday | [earendil-works/pi](https://github.com/earendil-works/pi) | blueprint | drafting-cyan | Draw the harness as a stack of separately published packages so the seams are the selling point | Naming each layer makes the take-one-piece claim legible without a diagram of arrows | [png](days/2026-09-15/03-pi-harness.png) | [2026-09-15](days/2026-09-15/) |
 | 2026-09-14 | Monday | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | mono-zine | amber | Answer the only question that matters for an access tool by putting the platform matrix in the hero | A named list beats a promise of everything, and the caption keeps it a claim rather than a test result | [png](days/2026-09-14/01-agent-reach.png) | [2026-09-14](days/2026-09-14/) |
 | 2026-09-14 | Monday | [Crosstalk-Solutions/project-nomad](https://github.com/Crosstalk-Solutions/project-nomad) | warm-minimal | rust | Let the reader cut the connection and watch the library not change | An interaction that deliberately changes nothing proves offline-first faster than a paragraph | [png](days/2026-09-14/02-project-nomad.png) | [2026-09-14](days/2026-09-14/) |
 | 2026-09-14 | Monday | [ruvnet/RuView](https://github.com/ruvnet/RuView) | waveform | ultramarine | Split the page horizontally into what the sensor measures and what the system infers from it | The band boundary carries the honesty; the same claims read as engineering rather than magic | [png](days/2026-09-14/03-ruview.png) | [2026-09-14](days/2026-09-14/) |

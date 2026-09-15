@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for Pi, an agent harness with a unified LLM API, agent runtime, TUI and coding agent CLI.">
+<title>Pi | A harness with the seams showing</title>
+<style>
+:root{--paper:#eceae4;--line:#3d4a52;--ink:#16242c;--muted:#4a5c66;--cyan:#0f6d8c;--grid:#d7dbd6;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--cyan);color:#fff;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+.brand{font:20px var(--mono);letter-spacing:.5px}.brand span{color:var(--cyan)}
+nav{display:flex;gap:26px;font:13px var(--mono);color:var(--muted)}nav a:hover{color:var(--ink)}
+main{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:50px;padding:42px 0 32px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--cyan);margin:0 0 20px}
+h1{font-size:clamp(40px,4.4vw,56px);line-height:1.05;letter-spacing:-2px;font-weight:650;margin:0 0 22px}
+.lede{font-size:18px;color:var(--muted);max-width:392px;margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:650 13px var(--mono);letter-spacing:.6px;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--cyan);color:#fff}.btn-a:hover{background:#0b5872}
+.btn-b{border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.55)}.btn-b:hover{border-color:var(--ink)}
+.btn:active{transform:scale(.97)}
+.note{border:1px dashed var(--cyan);background:rgba(255,255,255,.62);padding:14px 16px;max-width:392px}
+.note b{display:block;font:11px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px}
+.note p{margin:0;font-size:13.5px;color:var(--muted)}
+.stack{background:rgba(255,255,255,.72);border:1px solid var(--line);min-width:0}
+.stack-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:14px 20px;border-bottom:1px solid var(--line);font:11px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.layer{display:grid;grid-template-columns:132px 1fr;gap:18px;padding:16px 20px;border-bottom:1px solid #c9cfc9;align-items:baseline}
+.layer:last-of-type{border-bottom:0}
+.layer dt{font:12px var(--mono);color:var(--cyan);overflow-wrap:anywhere}
+.layer dd{margin:0}
+.layer h3{margin:0 0 3px;font-size:15px;font-weight:600}
+.layer p{margin:0;font-size:13px;color:var(--muted)}
+.callout{border-top:1px solid var(--line);padding:15px 20px;display:grid;grid-template-columns:24px 1fr;gap:12px;background:rgba(255,255,255,.5)}
+.callout .mark{font:13px var(--mono);color:var(--cyan)}
+.callout p{margin:0;font-size:13px;color:var(--muted)}
+.callout b{color:var(--ink)}
+.bound{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:24px 0 26px}
+.bound h2{grid-column:1/-1;margin:0;font:11px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--cyan)}
+.bound h3{margin:0 0 6px;font-size:15px;font-weight:600}
+.bound p{margin:0;font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:22px;padding:16px 0 26px;font:11px var(--mono);color:var(--muted)}
+footer a{border-bottom:1px solid var(--line)}footer a:hover{color:var(--ink)}
+@media(max-width:880px){.page{padding:0 22px}header{height:70px}nav{gap:16px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:28px;padding-top:30px}h1{font-size:42px}.lede,.note{max-width:none}.bound{grid-template-columns:1fr;gap:20px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:35px;letter-spacing:-1.3px}.layer{grid-template-columns:1fr;gap:5px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/earendil-works/pi">pi<span>.</span>harness</a><nav aria-label="Main navigation"><a href="#stack">The packages</a><a href="https://pi.dev/docs/latest">Docs</a><a href="https://github.com/earendil-works/pi">GitHub</a></nav></header>
+<main id="main">
+<section>
+<p class="eyebrow">Agent harness</p>
+<h1>A harness with the seams showing.</h1>
+<p class="lede">Four published packages instead of one opaque product: a provider API, an agent runtime, a terminal UI, and the coding agent CLI built on top of them.</p>
+<div class="cta"><a class="btn btn-a" href="https://pi.dev/docs/latest">Read the docs</a><a class="btn btn-b" href="https://github.com/earendil-works/pi">Browse packages</a></div>
+<div class="note"><b>Stated plainly by the project</b><p>Pi has no built-in permission system for filesystem, process, network or credential access. It runs with the permissions of whoever launched it, and the docs describe three containerization patterns for stronger boundaries.</p></div>
+</section>
+<section class="stack" id="stack" aria-label="Published packages">
+<div class="stack-top"><span>Package layout</span><span>MIT licensed</span></div>
+<dl>
+<div class="layer"><dt>pi-coding-agent</dt><dd><h3>Coding agent CLI</h3><p>The interactive agent you run in a terminal.</p></dd></div>
+<div class="layer"><dt>pi-tui</dt><dd><h3>Terminal UI</h3><p>A rendering library with differential updates.</p></dd></div>
+<div class="layer"><dt>pi-agent-core</dt><dd><h3>Agent runtime</h3><p>Tool calling and state management for the loop.</p></dd></div>
+<div class="layer"><dt>pi-ai</dt><dd><h3>Unified provider API</h3><p>One interface across OpenAI, Anthropic, Google and others.</p></dd></div>
+</dl>
+<div class="callout"><span class="mark">*</span><p><b>Take one layer.</b> Each package is published on its own, so the provider API or the runtime can be used without adopting the CLI above it.</p></div>
+</section>
+</main>
+<section class="bound" aria-label="How the project handles boundaries">
+<h2>Where the boundaries are drawn</h2>
+<div><h3>Sandbox is explicit</h3><p>Isolation comes from a micro VM, plain Docker, or a policy-controlled sandbox, not from the harness itself.</p></div>
+<div><h3>Dependencies are reviewed</h3><p>The project treats npm dependency changes as reviewed code changes, with direct dependencies pinned.</p></div>
+<div><h3>Builds are reproducible</h3><p>Release archives ship with checksums and a build script for standalone binaries.</p></div>
+</section>
+<footer><span>Independent design study / blueprint + drafting cyan</span><a href="https://github.com/earendil-works/pi">Source: earendil-works/pi</a></footer>
+</div>
+</body>
+</html>

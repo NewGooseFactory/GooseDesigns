@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-23 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+24 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-15](../days/2026-09-15/) | [earendil-works/pi](https://github.com/earendil-works/pi) | drafting-cyan | Draw the harness as a stack of separately published packages so the seams are the selling point | Naming each layer makes the take-one-piece claim legible without a diagram of arrows | [png](../days/2026-09-15/03-pi-harness.png) |
 | [2026-09-09](../days/2026-09-09/) | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | drafting-cyan | draw the same part three times, once per acronym, with every dimension marked absent | works, hand-drawn SVG reads native in blueprint | [png](../days/2026-09-09/01-text-to-cad.png) |
 | [2026-09-03](../days/2026-09-03/) | [magnitudedev/magnitude](https://github.com/magnitudedev/magnitude) | graphite-ink | draw both ends and let the asymmetry between 8 named and 0 named be the headline | works, the dashed part does the whole job | [png](../days/2026-09-03/03-magnitude.png) |
 | [2026-08-28](../days/2026-08-28/) | [tt-a1i/archify](https://github.com/tt-a1i/archify) | draft-blue | grade the three adjectives by which one can fail a check | landed | [png](../days/2026-08-28/01-archify.png) |

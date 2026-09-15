@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for Atlas, source control for coding agents that links each commit back to the session that produced it.">
+<title>Atlas | The commit remembers the conversation</title>
+<style>
+:root{--bg:#0d0f14;--panel:#141822;--line:#232a38;--ink:#eaeef6;--muted:#a2aec1;--violet:#9d8cff;--dim:#3d4659;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:3px solid var(--violet);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--violet);color:#120e26;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+.brand{font-size:20px;font-weight:600;letter-spacing:-.3px}.brand span{color:var(--violet)}
+nav{display:flex;gap:26px;font-size:13px;color:var(--muted)}nav a:hover{color:var(--ink)}
+main{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:50px;padding:44px 0 34px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--violet);margin:0 0 20px}
+h1{font-size:clamp(40px,4.5vw,58px);line-height:1.04;letter-spacing:-2.2px;font-weight:600;margin:0 0 22px}
+h1 span{color:var(--muted)}
+.lede{font-size:18px;color:var(--muted);max-width:390px;margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:650 14px var(--sans);transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--violet);color:#120e26}.btn-a:hover{background:#b3a5ff}
+.btn-b{border:1px solid var(--dim);color:var(--ink)}.btn-b:hover{border-color:var(--muted)}
+.btn:active{transform:scale(.97)}
+.scope{border-left:2px solid var(--violet);padding-left:14px;font-size:14px;color:var(--muted);max-width:390px}
+.record{border:1px solid var(--line);background:var(--panel);min-width:0}
+.record-top{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:17px 22px;border-bottom:1px solid var(--line)}
+.record-top h2{margin:0;font:14px var(--mono);font-weight:400}
+.record-top span{font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.commit{padding:17px 22px 15px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
+.sha{font:12px var(--mono);color:var(--violet)}
+.commit p{margin:0;font-size:15px}
+.commit .who{font:11px var(--mono);letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-top:6px;grid-column:2}
+.trail{padding:6px 22px 4px}
+.turn{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid #1c2230}
+.turn:last-child{border-bottom:0}
+.turn dt{font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.turn dd{margin:0;font-size:14px;color:var(--ink)}
+.turn dd em{font-style:normal;color:var(--muted)}
+.record-foot{padding:14px 22px 17px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--muted);line-height:1.7}
+.reveal{display:flex;align-items:center;gap:14px;padding:13px 22px;border-top:1px solid var(--line);flex-wrap:wrap}
+button{font:650 12px var(--sans);background:transparent;border:1px solid var(--dim);color:var(--ink);padding:11px 14px;min-height:44px;cursor:pointer;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+button:hover{border-color:var(--muted)}button:active{transform:scale(.97)}
+.reveal p{margin:0;font:11px var(--mono);letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.why{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:24px 0 26px}
+.why h2{grid-column:1/-1;margin:0;font:11px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--violet)}
+.why h3{margin:0 0 6px;font-size:15px;font-weight:600}
+.why p{margin:0;font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:22px;padding:16px 0 26px;font-size:11px;color:var(--muted)}
+footer a{border-bottom:1px solid var(--dim)}footer a:hover{color:var(--ink)}
+@media(max-width:880px){.page{padding:0 22px}header{height:72px}nav{gap:16px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:28px;padding-top:32px}h1{font-size:43px}.lede,.scope{max-width:none}.why{grid-template-columns:1fr;gap:20px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:36px;letter-spacing:-1.4px}.turn{grid-template-columns:1fr;gap:5px}.commit{grid-template-columns:1fr}.commit .who{grid-column:1}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/pacifio/atlas">Atlas<span>.</span></a><nav aria-label="Main navigation"><a href="#checkpoint">The checkpoint</a><a href="https://docs.tryatlas.cc/">Docs</a><a href="https://github.com/pacifio/atlas">GitHub</a></nav></header>
+<main id="main">
+<section>
+<p class="eyebrow">Source control for coding agents</p>
+<h1>The commit remembers<br><span>the conversation.</span></h1>
+<p class="lede">Every agent run produces checkpoints, so a commit stays linked to the prompts, tool calls and file changes that produced it.</p>
+<div class="cta"><a class="btn btn-a" href="https://www.tryatlas.cc/">Download for macOS</a><a class="btn btn-b" href="https://github.com/pacifio/atlas">Read the source</a></div>
+<p class="scope">macOS is the supported platform; Linux and Windows build from the same Tauri codebase but are untested. Code, notes and sessions stay on your machine unless you sign in to sync.</p>
+</section>
+<section class="record" id="checkpoint" aria-label="Illustrative checkpoint record">
+<div class="record-top"><h2>checkpoint / session</h2><span>Illustrative</span></div>
+<div class="commit"><span class="sha">a41f9c2</span><p>Rework retry handling in the sync worker</p><span class="who">Committed during an agent session</span></div>
+<dl class="trail" id="trail" hidden>
+<div class="turn"><dt>Prompt</dt><dd>The sync worker gives up too early on transient failures.</dd></div>
+<div class="turn"><dt>Tool calls</dt><dd>read worker.rs, run tests, edit worker.rs</dd></div>
+<div class="turn"><dt>Abandoned</dt><dd><em>A fixed delay, dropped after the flaky test kept failing.</em></dd></div>
+<div class="turn"><dt>Kept</dt><dd>Backoff with a bounded retry count.</dd></div>
+</dl>
+<div class="reveal"><button id="expand" type="button" aria-expanded="false" aria-controls="trail">Show what produced it</button><p id="state">The record exists whether or not it is open</p></div>
+<p class="record-foot">Names and turns above are illustrative, not a captured session. The point is where they live: attached to the commit, still queryable months later.</p>
+</section>
+</main>
+<section class="why" aria-label="What the project keeps">
+<h2>What survives the scrollback</h2>
+<div><h3>Run agents side by side</h3><p>Claude Code, Codex, Atlas's own agent and the wider ACP registry, against the same codebase.</p></div>
+<div><h3>One shared memory</h3><p>Plans, file changes and failures carry across, so switching agents mid task does not restart the work.</p></div>
+<div><h3>Your notes are context</h3><p>Markdown in the project, plus the CLAUDE.md and AGENTS.md you already wrote, feed every agent.</p></div>
+</section>
+<footer><span>Independent design study / neon-noir + violet</span><a href="https://github.com/pacifio/atlas">Source: pacifio/atlas</a></footer>
+</div>
+<script>
+const expand = document.getElementById('expand');
+const trail = document.getElementById('trail');
+expand.addEventListener('click', () => {
+  const open = expand.getAttribute('aria-expanded') !== 'true';
+  expand.setAttribute('aria-expanded', String(open));
+  trail.hidden = !open;
+  expand.textContent = open ? 'Hide what produced it' : 'Show what produced it';
+  document.getElementById('state').textContent = open ? 'Reasoning kept beside the commit' : 'The record exists whether or not it is open';
+});
+</script>
+</body>
+</html>

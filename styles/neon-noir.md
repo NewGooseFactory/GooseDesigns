@@ -1,9 +1,10 @@
 ﻿# Style — neon-noir
 
-9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-15](../days/2026-09-15/) | [pacifio/atlas](https://github.com/pacifio/atlas) | violet | Put the commit first, then let the reader open the session that produced it | A disclosure that starts closed matches the claim: the record is kept whether or not anyone looks | [png](../days/2026-09-15/01-atlas.png) |
 | [2026-09-09](../days/2026-09-09/) | [vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop) | violet | stack the four named layers and give the unnamed boundary its own row | works, position makes the absence obvious | [png](../days/2026-09-09/03-pi-desktop.png) |
 | [2026-08-31](../days/2026-08-31/) | [affaan-m/ECC](https://github.com/affaan-m/ECC) | acid-cyan | put the definite article on trial and list what the category contains | strongest of the three | [png](../days/2026-08-31/03-ecc.png) |
 | [2026-08-19](../days/2026-08-19/) | [harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) | magenta | draw the width of the gap, one seed box widening across five stages into a 9:16 artifact | landed | [png](../days/2026-08-19/03-moneyprinterturbo.png) |

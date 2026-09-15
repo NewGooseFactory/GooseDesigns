@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![285 mocks](https://img.shields.io/badge/mocks-285-1f6feb?style=flat-square) ![95 days](https://img.shields.io/badge/days-95-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![288 mocks](https://img.shields.io/badge/mocks-288-1f6feb?style=flat-square) ![96 days](https://img.shields.io/badge/days-96-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 285 mockups across 95 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 288 mockups across 96 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Monday, September 14
+## Latest — Tuesday, September 15
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-09-14/"><img src="days/2026-09-14/01-agent-reach.png" width="320" alt="Panniantong/Agent-Reach"></a><br><sub><b>Panniantong/Agent-Reach</b><br>mono-zine</sub></td>
-<td align="center" width="33%"><a href="days/2026-09-14/"><img src="days/2026-09-14/02-project-nomad.png" width="320" alt="Crosstalk-Solutions/project-nomad"></a><br><sub><b>Crosstalk-Solutions/project-nomad</b><br>warm-minimal</sub></td>
-<td align="center" width="33%"><a href="days/2026-09-14/"><img src="days/2026-09-14/03-ruview.png" width="320" alt="ruvnet/RuView"></a><br><sub><b>ruvnet/RuView</b><br>waveform</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-15/"><img src="days/2026-09-15/01-atlas.png" width="320" alt="pacifio/atlas"></a><br><sub><b>pacifio/atlas</b><br>neon-noir</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-15/"><img src="days/2026-09-15/02-agent-skills.png" width="320" alt="addyosmani/agent-skills"></a><br><sub><b>addyosmani/agent-skills</b><br>specimen</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-15/"><img src="days/2026-09-15/03-pi-harness.png" width="320" alt="earendil-works/pi"></a><br><sub><b>earendil-works/pi</b><br>blueprint</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-09-14/)
+[See the full day →](days/2026-09-15/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-09-15 | Tuesday | 3 | neon-noir, specimen, blueprint | [open](days/2026-09-15/) |
 | 2026-09-14 | Monday | 3 | mono-zine, warm-minimal, waveform | [open](days/2026-09-14/) |
 | 2026-09-13 | Sunday | 3 | terminal-dark, redline, ledger | [open](days/2026-09-13/) |
 | 2026-09-12 | Saturday | 3 | swiss, editorial, glass | [open](days/2026-09-12/) |
