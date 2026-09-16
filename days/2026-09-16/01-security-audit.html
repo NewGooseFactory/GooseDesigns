@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for the security-audit skill, a coding-agent skill that runs multi-phase audits with independently verified findings.">
+<title>security-audit | Three verdicts, one of them uncomfortable</title>
+<style>
+:root{--bg:#0b0c0e;--panel:#14161a;--line:#262a31;--ink:#e9ecf1;--muted:#9aa4b2;--amber:#e0a32e;--grid:#141619;--mono:"Cascadia Mono",Consolas,monospace;--sans:"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:40px 40px}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--amber);color:#1b1305;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+.brand{font:15px var(--mono);letter-spacing:2px;text-transform:uppercase}.brand span{color:var(--amber)}
+nav{display:flex;gap:26px;font:13px var(--mono);color:var(--muted)}nav a:hover{color:var(--ink)}
+.strip{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--line);font:11px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.strip b{color:var(--amber);font-weight:400}
+main{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:48px;padding:40px 0 30px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--amber);margin:0 0 20px}
+h1{font-size:clamp(38px,4.3vw,55px);line-height:1.05;letter-spacing:-2px;font-weight:600;margin:0 0 22px}
+h1 span{color:var(--muted)}
+.lede{font-size:17.5px;color:var(--muted);max-width:392px;margin:0 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:650 13px var(--mono);letter-spacing:.8px;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--amber);color:#1b1305}.btn-a:hover{background:#f5bc4d}
+.btn-b{border:1px solid #363c46;color:var(--ink)}.btn-b:hover{border-color:var(--muted)}
+.btn:active{transform:scale(.97)}
+.install{display:block;font:12.5px var(--mono);border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:12px 14px;overflow-wrap:anywhere;max-width:392px}
+.install b{color:var(--amber);font-weight:400}
+.gauge{border:1px solid var(--line);background:var(--panel);min-width:0}
+.gauge-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:15px 20px;border-bottom:1px solid var(--line)}
+.gauge-top h2{margin:0;font:13px var(--mono);font-weight:400;letter-spacing:.6px}
+.gauge-top span{font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.verdict{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:16px 20px;border-bottom:1px solid #1d2128;align-items:baseline}
+.verdict:last-of-type{border-bottom:0}
+.verdict dt{font:12px var(--mono);color:var(--amber)}
+.verdict dd{margin:0;font-size:14px;color:var(--muted)}
+.verdict dd b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:3px}
+.gauge-foot{border-top:1px solid var(--line);padding:14px 20px 16px;font:11px var(--mono);color:var(--muted);line-height:1.75}
+.phases{border-top:1px solid var(--line);padding:22px 0 26px}
+.phases h2{margin:0 0 16px;font:11px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--amber)}
+.track{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.step{background:var(--panel);padding:13px 14px 15px}
+.step dt{font:10px var(--mono);letter-spacing:1.2px;color:var(--muted);margin-bottom:6px}
+.step dd{margin:0;font-size:13.5px}
+.step.check{border-top:2px solid var(--amber);padding-top:11px}
+.phases p{margin:14px 0 0;font:11px var(--mono);color:var(--muted)}
+footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:22px;padding:16px 0 26px;font:11px var(--mono);color:var(--muted)}
+footer a{border-bottom:1px solid var(--line)}footer a:hover{color:var(--ink)}
+@media(max-width:920px){.page{padding:0 22px}header{height:70px}nav{gap:16px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:28px;padding-top:30px}h1{font-size:40px}.lede,.install{max-width:none}.track{grid-template-columns:1fr 1fr}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:33px;letter-spacing:-1.3px}.verdict{grid-template-columns:1fr;gap:5px}.track{grid-template-columns:1fr}.strip{font-size:10px;gap:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/cloudflare/security-audit-skill">security<span>-</span>audit</a><nav aria-label="Main navigation"><a href="#verdicts">Verdicts</a><a href="https://blog.cloudflare.com/build-your-own-vulnerability-harness">The harness</a><a href="https://github.com/cloudflare/security-audit-skill">GitHub</a></nav></header>
+<div class="strip"><span>Coding-agent skill</span><span>Six phases <b>/</b> isolated agents <b>/</b> machine-readable records</span><span>MIT</span></div>
+<main id="main">
+<section>
+<p class="eyebrow">Security audits for a coding agent</p>
+<h1>Three verdicts.<br><span>One of them uncomfortable.</span></h1>
+<p class="lede">A finding is not confirmed because an agent said so. Every candidate goes to a fresh verifier whose job is to disprove it.</p>
+<div class="cta"><a class="btn btn-a" href="https://github.com/cloudflare/security-audit-skill">Read the skill</a><a class="btn btn-b" href="https://blog.cloudflare.com/build-your-own-vulnerability-harness">How it grew</a></div>
+<code class="install"><b>npx</b> skills add https://github.com/cloudflare/security-audit-skill --skill security-audit</code>
+</section>
+<section class="gauge" id="verdicts" aria-label="The three verdicts the skill writes">
+<div class="gauge-top"><h2>findings.json</h2><span>Schema validated</span></div>
+<dl>
+<div class="verdict"><dt>confirmed</dt><dd><b>Traced and bounded</b>A complete source trace and a bounded observed result.</dd></div>
+<div class="verdict"><dt>needs_validation</dt><dd><b>Named, and left open</b>An exact unresolved fact, and deliberately no severity.</dd></div>
+<div class="verdict"><dt>rejected</dt><dd><b>Disproved, and kept</b>A candidate that did not survive its verifier.</dd></div>
+</dl>
+<p class="gauge-foot">The middle verdict is the honest one: an audit that cannot resolve a fact says so instead of guessing a severity.<br>Runs are additive, using prior ledgers to target gaps rather than re-reporting stale work.</p>
+</section>
+</main>
+<section class="phases" aria-label="The six audit phases">
+<h2>Six phases, two of them checking the other four</h2>
+<dl class="track">
+<div class="step"><dt>01</dt><dd>Reconnaissance</dd></div>
+<div class="step"><dt>02</dt><dd>Coverage-led hunting</dd></div>
+<div class="step check"><dt>03</dt><dd>Candidate validation</dd></div>
+<div class="step"><dt>04</dt><dd>Structured output</dd></div>
+<div class="step check"><dt>05</dt><dd>Record verification</dd></div>
+<div class="step"><dt>06</dt><dd>Reporting</dd></div>
+</dl>
+<p>Phases marked with a rule are the ones that exist to doubt the others.</p>
+</section>
+<footer><span>Independent design study / hud + instrument amber</span><a href="https://github.com/cloudflare/security-audit-skill">Source: cloudflare/security-audit-skill</a></footer>
+</div>
+</body>
+</html>

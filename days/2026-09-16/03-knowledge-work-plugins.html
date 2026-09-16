@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for Knowledge Work Plugins, role-specific plugin bundles of skills, commands and connectors.">
+<title>Knowledge Work Plugins | Four files, one specialist</title>
+<style>
+:root{--bg:#f2f1ec;--ink:#151513;--muted:#4f4f49;--line:#151513;--blue:#1b48c4;--red:#c2352b;--yellow:#e0a92b;--card:#fbfaf6;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--blue);color:#fff;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:3px solid var(--line)}
+.brand{font-size:19px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:10px}
+.dot{width:15px;height:15px;background:var(--red);border-radius:50%;display:inline-block}
+nav{display:flex;gap:26px;font-size:13px;color:var(--muted)}nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.96fr);gap:46px;padding:42px 0 30px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--blue);margin:0 0 20px}
+h1{font-size:clamp(42px,4.8vw,60px);line-height:1.02;letter-spacing:-2.4px;font-weight:700;margin:0 0 22px}
+.lede{font-size:18px;color:var(--muted);max-width:400px;margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:700 14px var(--sans);transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--blue);color:#fff}.btn-a:hover{background:#15399c}
+.btn-b{border:2px solid var(--line);color:var(--ink)}.btn-b:hover{background:var(--card)}
+.btn:active{transform:scale(.97)}
+.install{display:block;font:12.5px var(--mono);border:2px solid var(--line);background:var(--card);padding:12px 14px;overflow-wrap:anywhere;max-width:400px}
+.install b{color:var(--blue)}
+.anatomy{border:3px solid var(--line);background:var(--card);min-width:0}
+.anatomy-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:15px 20px;border-bottom:3px solid var(--line)}
+.anatomy-top h2{margin:0;font-size:16px;font-weight:700}
+.anatomy-top span{font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.part{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:16px 20px;border-bottom:1px solid #e2e0d7;align-items:start}
+.part:last-of-type{border-bottom:0}
+.shape{width:34px;height:34px;margin-top:2px}
+.sq{background:var(--blue)}
+.ci{background:var(--red);border-radius:50%}
+.tr{width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-bottom:30px solid var(--yellow)}
+.ba{background:var(--ink);height:12px;margin-top:13px}
+.part h3{margin:0 0 4px;font:13px var(--mono);font-weight:400}
+.part p{margin:0;font-size:14px;color:var(--muted)}
+.part p b{color:var(--ink);font-weight:600}
+.anatomy-foot{border-top:3px solid var(--line);padding:14px 20px 16px;font:11px var(--mono);color:var(--muted);line-height:1.75}
+.roles{border-top:3px solid var(--line);padding:22px 0 26px}
+.roles h2{margin:0 0 14px;font:11px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--blue)}
+.roles ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.roles li{font-size:13.5px;border:2px solid var(--line);background:var(--card);padding:8px 14px}
+.roles p{margin:14px 0 0;font-size:13px;color:var(--muted);max-width:760px}
+footer{border-top:1px solid #d4d2c8;display:flex;justify-content:space-between;gap:22px;padding:16px 0 26px;font-size:11px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.page{padding:0 22px}header{height:70px}nav{gap:16px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:28px;padding-top:30px}h1{font-size:44px}.lede,.install{max-width:none}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:37px;letter-spacing:-1.5px}.part{grid-template-columns:26px 1fr;gap:12px}.shape{width:26px;height:26px}.tr{border-left-width:13px;border-right-width:13px;border-bottom-width:23px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/anthropics/knowledge-work-plugins"><span class="dot" aria-hidden="true"></span>Knowledge Work Plugins</a><nav aria-label="Main navigation"><a href="#anatomy">Anatomy</a><a href="https://claude.com/plugins/">Plugin directory</a><a href="https://github.com/anthropics/knowledge-work-plugins">GitHub</a></nav></header>
+<main id="main">
+<section>
+<p class="eyebrow">Plugins for knowledge work</p>
+<h1>Four files,<br>one specialist.</h1>
+<p class="lede">A plugin is a manifest, a set of tool connections, the commands you invoke, and the skills that fire on their own. Markdown and JSON, no build step.</p>
+<div class="cta"><a class="btn btn-a" href="https://github.com/anthropics/knowledge-work-plugins">Browse the plugins</a><a class="btn btn-b" href="https://claude.com/plugins/">Open the directory</a></div>
+<code class="install"><b>claude</b> plugin marketplace add anthropics/knowledge-work-plugins</code>
+</section>
+<section class="anatomy" id="anatomy" aria-label="What a plugin contains">
+<div class="anatomy-top"><h2>Inside one plugin</h2><span>Published structure</span></div>
+<div class="part"><span class="shape sq" aria-hidden="true"></span><div><h3>.claude-plugin/plugin.json</h3><p><b>The manifest.</b> What this plugin is.</p></div></div>
+<div class="part"><span class="shape ci" aria-hidden="true"></span><div><h3>.mcp.json</h3><p><b>The connectors.</b> Which outside tools the role depends on.</p></div></div>
+<div class="part"><span class="shape tr" aria-hidden="true"></span><div><h3>commands/</h3><p><b>What you invoke.</b> Slash commands you trigger deliberately.</p></div></div>
+<div class="part"><span class="shape ba" aria-hidden="true"></span><div><h3>skills/</h3><p><b>What fires on its own.</b> The domain knowledge drawn on when relevant.</p></div></div>
+<p class="anatomy-foot">The split between the triangle and the bar is the whole design: one is a decision you make, the other is a default you set once.<br>Every component is file-based, so a plugin is readable before it is trusted.</p>
+</section>
+</main>
+<section class="roles" aria-label="Published plugins">
+<h2>Eleven plugins, one per job function</h2>
+<ul><li>productivity</li><li>sales</li><li>customer-support</li><li>product-management</li><li>marketing</li><li>legal</li><li>finance</li><li>data</li><li>enterprise-search</li><li>bio-research</li><li>cowork-plugin-management</li></ul>
+<p>The project describes these as generic starting points, meant to be customized for a company's own tools, terminology and processes.</p>
+</section>
+<footer><span>Independent design study / bauhaus + primary blue</span><a href="https://github.com/anthropics/knowledge-work-plugins">Source: anthropics/knowledge-work-plugins</a></footer>
+</div>
+</body>
+</html>

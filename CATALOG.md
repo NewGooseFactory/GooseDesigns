@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **288 mocks** across **96 days**. Newest first.
+Searchable master index. **291 mocks** across **97 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-16 | Wednesday | [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | hud | instrument-amber | Lead with the three verdicts rather than the six phases, and give the unresolved one equal weight | The needs_validation row is the most persuasive thing on the page precisely because it admits a limit | [png](days/2026-09-16/01-security-audit.png) | [2026-09-16](days/2026-09-16/) |
+| 2026-09-16 | Wednesday | [Tencent/WeKnora](https://github.com/Tencent/WeKnora) | editorial | archive-teal | Sort a very long capability list into the three modes the project itself names, then spend the page on the one that leaves an artifact | Choosing which mode to enlarge is the edit; the editing affordances make distillation trustworthy | [png](days/2026-09-16/02-weknora.png) | [2026-09-16](days/2026-09-16/) |
+| 2026-09-16 | Wednesday | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | bauhaus | primary-blue | Use four geometric marks to separate what a user invokes from what activates on its own | Giving commands and skills different shapes makes the consent boundary visible at a glance | [png](days/2026-09-16/03-knowledge-work-plugins.png) | [2026-09-16](days/2026-09-16/) |
 | 2026-09-15 | Tuesday | [pacifio/atlas](https://github.com/pacifio/atlas) | neon-noir | violet | Put the commit first, then let the reader open the session that produced it | A disclosure that starts closed matches the claim: the record is kept whether or not anyone looks | [png](days/2026-09-15/01-atlas.png) | [2026-09-15](days/2026-09-15/) |
 | 2026-09-15 | Tuesday | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | specimen | press-green | Show the command beside the principle it enforces, as a specimen sheet rather than a feature list | Command and principle on one row reads as a working contract, not marketing | [png](days/2026-09-15/02-agent-skills.png) | [2026-09-15](days/2026-09-15/) |
 | 2026-09-15 | Tuesday | [earendil-works/pi](https://github.com/earendil-works/pi) | blueprint | drafting-cyan | Draw the harness as a stack of separately published packages so the seams are the selling point | Naming each layer makes the take-one-piece claim legible without a diagram of arrows | [png](days/2026-09-15/03-pi-harness.png) | [2026-09-15](days/2026-09-15/) |

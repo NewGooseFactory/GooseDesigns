@@ -1,9 +1,10 @@
 ﻿# Style — bauhaus
 
-13 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-16](../days/2026-09-16/) | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | primary-blue | Use four geometric marks to separate what a user invokes from what activates on its own | Giving commands and skills different shapes makes the consent boundary visible at a glance | [png](../days/2026-09-16/03-knowledge-work-plugins.png) |
 | [2026-09-10](../days/2026-09-10/) | [JustVugg/colibri](https://github.com/JustVugg/colibri) | primary-blue | a 32 square sparse-activation grid showing why streaming experts from disk is possible | drawing the sparsity turns a claim into a trade | [png](../days/2026-09-10/03-colibri.png) |
 | [2026-08-30](../days/2026-08-30/) | [THU-MAIC/OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) | primary-yellow | split the two-adjective promise by which half a user can check | strongest of the three | [png](../days/2026-08-30/03-openmaic.png) |
 | [2026-08-22](../days/2026-08-22/) | [mahlernim/google-timeline-visualizer](https://github.com/mahlernim/google-timeline-visualizer) | primary-red | let the noun pick the grid, a year gives you twelve cells for free | landed | [png](../days/2026-08-22/03-timeline.png) |
