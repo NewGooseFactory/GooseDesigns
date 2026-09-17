@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for OpenResearch, which turns coding agents into research agents.">
+<title>OpenResearch | Turn your coding agents into research agents</title>
+<style>
+:root{--paper:#f6f4ef;--ink:#17181a;--muted:#55575c;--rule:#d5d1c7;--ink-blue:#27408f;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--ink-blue);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--ink-blue);color:#fff;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-size:19px;font-weight:600;letter-spacing:-.3px}.brand b{color:var(--ink-blue)}
+nav{display:flex;gap:24px;font-size:13px;color:var(--muted)}nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+.hero{padding:22px 0 30px}
+.eyebrow{font:12px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--ink-blue);margin:0 0 22px}
+h1{font-size:clamp(56px,9vw,124px);line-height:.92;letter-spacing:-5.5px;font-weight:700;margin:0 0 26px;max-width:14ch}
+h1 em{font-style:normal;color:var(--ink-blue)}
+.under{display:flex;justify-content:space-between;align-items:flex-end;gap:36px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-top:20px}
+.under p{margin:0;font-size:17px;color:var(--muted);max-width:430px}
+.cta{display:flex;gap:11px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:650 14px var(--sans);white-space:nowrap;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--ink-blue);color:#fff}.btn-a:hover{background:#1d3273}
+.btn-b{border:1px solid var(--ink);color:var(--ink)}.btn-b:hover{background:#eceae3}
+.btn:active{transform:scale(.97)}
+.shift{border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:26px}
+.col{padding:20px 22px 22px;border-right:1px solid var(--rule)}
+.col:last-child{border-right:0}
+.col dt{font:11px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-blue);margin-bottom:8px}
+.col dd{margin:0;font-size:15px}
+.col dd span{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
+.facts{border-top:1px solid var(--ink);display:grid;grid-template-columns:200px 1fr;gap:28px;padding:22px 0 26px;align-items:baseline}
+.facts h2{margin:0;font:11px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.facts p{margin:0;font-size:15px;color:var(--muted);max-width:780px}
+.facts b{color:var(--ink);font-weight:600}
+footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:20px;padding:15px 0 26px;font-size:11px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.page{padding:0 22px}header{height:66px}nav{gap:14px}nav a:first-child{display:none}h1{font-size:60px;letter-spacing:-2.6px;max-width:none}.under{align-items:flex-start;flex-direction:column;gap:20px}.under p{max-width:none}.shift{grid-template-columns:1fr 1fr}.col{border-bottom:1px solid var(--rule)}.col:nth-child(2n){border-right:0}.facts{grid-template-columns:1fr;gap:12px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:48px;letter-spacing:-2px}.shift{grid-template-columns:1fr}.col{border-right:0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/alphaXiv/OpenResearch">Open<b>Research</b></a><nav aria-label="Main navigation"><a href="#shift">What changes</a><a href="https://openresearch.sh/docs">Docs</a><a href="https://github.com/alphaXiv/OpenResearch">GitHub</a></nav></header>
+<main id="main">
+<section class="hero">
+<p class="eyebrow">Local-first workspace</p>
+<h1>Turn your coding agents into <em>research agents.</em></h1>
+<div class="under">
+<p>The agent you already run can review literature, form a hypothesis, run the experiment and leave the evidence behind.</p>
+<div class="cta"><a class="btn btn-a" href="https://openresearch.sh/download">Download the app</a><a class="btn btn-b" href="https://github.com/alphaXiv/OpenResearch">Read the source</a></div>
+</div>
+</section>
+<section class="shift" id="shift" aria-label="What a research agent adds">
+<dl class="col"><dt>Review</dt><dd>Literature<span>Read the field before spending compute on it.</span></dd></dl>
+<dl class="col"><dt>Propose</dt><dd>A hypothesis<span>Say what the run is meant to show.</span></dd></dl>
+<dl class="col"><dt>Run</dt><dd>The experiment<span>Each run keeps an immutable archive of its commit.</span></dd></dl>
+<dl class="col"><dt>Keep</dt><dd>The artifacts<span>Logs, diffs and results stay tied to the work that produced them.</span></dd></dl>
+</section>
+</main>
+<section class="facts" aria-label="How it runs">
+<h2>Where it runs</h2>
+<p><b>On 127.0.0.1, with a local SQLite store.</b> Creating a project or launching a run does not publish your code. Use Claude Code, Codex, OpenCode or Cursor as the harness, locally or on your own infrastructure. MIT licensed.</p>
+</section>
+<footer><span>Independent design study / poster + ink blue</span><a href="https://github.com/alphaXiv/OpenResearch">Source: alphaXiv/OpenResearch</a></footer>
+</div>
+</body>
+</html>

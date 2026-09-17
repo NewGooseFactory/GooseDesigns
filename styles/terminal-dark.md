@@ -2,10 +2,11 @@
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-28 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+29 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-17](../days/2026-09-17/) | [coder/coder](https://github.com/coder/coder) | control-cyan | Split the page into control plane and workspace, then mark the thing that is deliberately absent from one side | A dashed chip reading no LLM credentials carries more weight than any security adjective | [png](../days/2026-09-17/02-coder.png) |
 | [2026-09-13](../days/2026-09-13/) | [alphaXiv/OpenResearch](https://github.com/alphaXiv/OpenResearch) | signal-amber | Draw the experiment tree so parallel directions and their preserved lineage become the hero image | Lineage shown as structure explains the loop better than naming it | [png](../days/2026-09-13/01-openresearch.png) |
 | [2026-09-05](../days/2026-09-05/) | [humanlayer/skills](https://github.com/humanlayer/skills) | signal-cyan | no description at all, so make the trending row the subject and leave the field blank | strongest of the three, furthest push of the draw-the-absence rule | [png](../days/2026-09-05/03-humanlayer-skills.png) |
 | [2026-08-30](../days/2026-08-30/) | [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) | signal-lime | grade the four claim words and mark which one describes the output | works, one word carries the product | [png](../days/2026-08-30/01-crawl4ai.png) |

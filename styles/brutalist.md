@@ -1,9 +1,10 @@
 ﻿# Style — brutalist
 
-14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-17](../days/2026-09-17/) | [Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill) | signal-orange | Show two windows side by side and let the reader borrow exactly one tab, then return it | Returning the tab is the whole product; an interaction that reverses itself says so without a paragraph | [png](../days/2026-09-17/01-browserskill.png) |
 | [2026-09-09](../days/2026-09-09/) | [obra/superpowers](https://github.com/obra/superpowers) | verdict-red | split the sentence by what evidence each part needs, then list what would settle the verdict | strongest of the three | [png](../days/2026-09-09/02-superpowers.png) |
 | [2026-09-05](../days/2026-09-05/) | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | acid-orange | label each sentence by function, then add the zero the description implies | works, brutalist is the right register for a tool that refuses | [png](../days/2026-09-05/01-ponytail.png) |
 | [2026-08-29](../days/2026-08-29/) | [tailscale/tailcat](https://github.com/tailscale/tailcat) | wire-rust | plus panel and minus panel mirroring the sentence structure | strongest of the three, fourteen words fill a screen honestly | [png](../days/2026-08-29/02-tailcat.png) |

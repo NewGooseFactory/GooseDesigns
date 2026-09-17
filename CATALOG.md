@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **291 mocks** across **97 days**. Newest first.
+Searchable master index. **294 mocks** across **98 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-17 | Thursday | [Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill) | brutalist | signal-orange | Show two windows side by side and let the reader borrow exactly one tab, then return it | Returning the tab is the whole product; an interaction that reverses itself says so without a paragraph | [png](days/2026-09-17/01-browserskill.png) | [2026-09-17](days/2026-09-17/) |
+| 2026-09-17 | Thursday | [coder/coder](https://github.com/coder/coder) | terminal-dark | control-cyan | Split the page into control plane and workspace, then mark the thing that is deliberately absent from one side | A dashed chip reading no LLM credentials carries more weight than any security adjective | [png](days/2026-09-17/02-coder.png) | [2026-09-17](days/2026-09-17/) |
+| 2026-09-17 | Thursday | [alphaXiv/OpenResearch](https://github.com/alphaXiv/OpenResearch) | poster | ink-blue | The tagline shortened to seven words overnight, so set it at poster scale and let the page carry nothing else | When a project sharpens its own sentence, the most honest design move is to get out of its way | [png](days/2026-09-17/03-openresearch.png) | [2026-09-17](days/2026-09-17/) |
 | 2026-09-16 | Wednesday | [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | hud | instrument-amber | Lead with the three verdicts rather than the six phases, and give the unresolved one equal weight | The needs_validation row is the most persuasive thing on the page precisely because it admits a limit | [png](days/2026-09-16/01-security-audit.png) | [2026-09-16](days/2026-09-16/) |
 | 2026-09-16 | Wednesday | [Tencent/WeKnora](https://github.com/Tencent/WeKnora) | editorial | archive-teal | Sort a very long capability list into the three modes the project itself names, then spend the page on the one that leaves an artifact | Choosing which mode to enlarge is the edit; the editing affordances make distillation trustworthy | [png](days/2026-09-16/02-weknora.png) | [2026-09-16](days/2026-09-16/) |
 | 2026-09-16 | Wednesday | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | bauhaus | primary-blue | Use four geometric marks to separate what a user invokes from what activates on its own | Giving commands and skills different shapes makes the consent boundary visible at a glance | [png](days/2026-09-16/03-knowledge-work-plugins.png) | [2026-09-16](days/2026-09-16/) |
