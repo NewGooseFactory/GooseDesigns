@@ -1,9 +1,10 @@
 ﻿# Style — warm-minimal
 
-17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-18](../days/2026-09-18/) | [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | olive | Show the four files a change produces, since those are what a person reviews before any code exists | Naming the four files is more concrete than describing spec-driven development in the abstract | [png](../days/2026-09-18/01-openspec.png) |
 | [2026-09-14](../days/2026-09-14/) | [Crosstalk-Solutions/project-nomad](https://github.com/Crosstalk-Solutions/project-nomad) | rust | Let the reader cut the connection and watch the library not change | An interaction that deliberately changes nothing proves offline-first faster than a paragraph | [png](../days/2026-09-14/02-project-nomad.png) |
 | [2026-09-08](../days/2026-09-08/) | [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | ink-teal | burying is a spatial complaint, so draw the answer low in one stack and first in another | works, legible in a second | [png](../days/2026-09-08/01-i-have-adhd.png) |
 | [2026-09-06](../days/2026-09-06/) | [BraveOPotato/FckSignups](https://github.com/BraveOPotato/FckSignups) | clay | read each condition as a removal and draw the filter instead of the list | strongest of the three | [png](../days/2026-09-06/03-fcksignups.png) |

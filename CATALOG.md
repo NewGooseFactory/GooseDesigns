@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **294 mocks** across **98 days**. Newest first.
+Searchable master index. **297 mocks** across **99 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-18 | Friday | [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | warm-minimal | olive | Show the four files a change produces, since those are what a person reviews before any code exists | Naming the four files is more concrete than describing spec-driven development in the abstract | [png](days/2026-09-18/01-openspec.png) | [2026-09-18](days/2026-09-18/) |
+| 2026-09-18 | Friday | [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory) | data-viz | magenta | Draw memory on a time axis so the superseded fact and the current one are visibly different lines | The crossing point makes contradiction handling legible; the caption keeps the curve from posing as data | [png](days/2026-09-18/02-supermemory.png) | [2026-09-18](days/2026-09-18/) |
+| 2026-09-18 | Friday | [ahmedkhaleel2004/gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram) | blueprint | slate-teal | Show the generated graph with real repository paths under each box, then list the validation that makes those paths trustworthy | Printing the path inside the node is what separates a clickable diagram from a decorative one | [png](days/2026-09-18/03-gitdiagram.png) | [2026-09-18](days/2026-09-18/) |
 | 2026-09-17 | Thursday | [Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill) | brutalist | signal-orange | Show two windows side by side and let the reader borrow exactly one tab, then return it | Returning the tab is the whole product; an interaction that reverses itself says so without a paragraph | [png](days/2026-09-17/01-browserskill.png) | [2026-09-17](days/2026-09-17/) |
 | 2026-09-17 | Thursday | [coder/coder](https://github.com/coder/coder) | terminal-dark | control-cyan | Split the page into control plane and workspace, then mark the thing that is deliberately absent from one side | A dashed chip reading no LLM credentials carries more weight than any security adjective | [png](days/2026-09-17/02-coder.png) | [2026-09-17](days/2026-09-17/) |
 | 2026-09-17 | Thursday | [alphaXiv/OpenResearch](https://github.com/alphaXiv/OpenResearch) | poster | ink-blue | The tagline shortened to seven words overnight, so set it at poster scale and let the page carry nothing else | When a project sharpens its own sentence, the most honest design move is to get out of its way | [png](days/2026-09-17/03-openresearch.png) | [2026-09-17](days/2026-09-17/) |

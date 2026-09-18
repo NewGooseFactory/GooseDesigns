@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for Supermemory, a memory and context engine for AI that can run locally.">
+<title>Supermemory | Memory is a retrieval problem with a time axis</title>
+<style>
+:root{--bg:#0b0d11;--panel:#12151b;--line:#212733;--ink:#e9edf4;--muted:#9ba6b8;--mag:#e0567f;--dim:#39415270;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--mag);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--mag);color:#1c0710;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+.brand{font-size:20px;font-weight:600;letter-spacing:-.3px}.brand span{color:var(--mag)}
+nav{display:flex;gap:26px;font-size:13px;color:var(--muted)}nav a:hover{color:var(--ink)}
+main{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:48px;padding:42px 0 30px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--mag);margin:0 0 20px}
+h1{font-size:clamp(38px,4.3vw,55px);line-height:1.05;letter-spacing:-2.1px;font-weight:600;margin:0 0 22px}
+h1 span{color:var(--muted)}
+.lede{font-size:17.5px;color:var(--muted);max-width:380px;margin:0 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:650 14px var(--sans);transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--mag);color:#1c0710}.btn-a:hover{background:#ef7396}
+.btn-b{border:1px solid #333c4d;color:var(--ink)}.btn-b:hover{border-color:var(--muted)}
+.btn:active{transform:scale(.97)}
+.install{display:block;font:12.5px var(--mono);border:1px solid var(--line);background:var(--panel);padding:12px 14px;overflow-wrap:anywhere;max-width:380px}
+.install b{color:var(--mag);font-weight:400}
+.chart{border:1px solid var(--line);background:var(--panel);min-width:0}
+.chart-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:15px 20px;border-bottom:1px solid var(--line)}
+.chart-top h2{margin:0;font:13.5px var(--mono);font-weight:400}
+.chart-top span{font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.plot{padding:20px 20px 8px}
+.axis{display:flex;justify-content:space-between;font:10px var(--mono);letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+svg.trace{display:block;width:100%;height:120px}
+.grid-line{stroke:#1d2330;stroke-width:1}
+.old{stroke:#49536a;stroke-width:2;fill:none;stroke-dasharray:5 5}
+.now{stroke:var(--mag);stroke-width:2.5;fill:none}
+.pt{fill:var(--mag)}
+.pt.stale{fill:#49536a}
+.legend{display:flex;gap:20px;flex-wrap:wrap;padding:6px 20px 16px;font:11px var(--mono);color:var(--muted)}
+.legend i{display:inline-block;width:16px;height:2px;margin-right:8px;vertical-align:middle;background:var(--mag)}
+.legend i.stale{background:#49536a}
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:148px 1fr;gap:18px;padding:14px 20px;border-bottom:1px solid #1a202b;align-items:baseline}
+.row:last-child{border-bottom:0}
+.row dt{font:11.5px var(--mono);color:var(--mag)}
+.row dd{margin:0;font-size:14px;color:var(--muted)}
+.row dd b{color:var(--ink);font-weight:600}
+.chart-foot{padding:14px 20px 16px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--muted);line-height:1.75}
+.where{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:24px 0 26px}
+.where h2{grid-column:1/-1;margin:0;font:11px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--mag)}
+.where h3{margin:0 0 6px;font-size:15px;font-weight:600}
+.where p{margin:0;font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:22px;padding:16px 0 26px;font:11px var(--mono);color:var(--muted)}
+footer a{border-bottom:1px solid #2b3444}footer a:hover{color:var(--ink)}
+@media(max-width:900px){.page{padding:0 22px}header{height:70px}nav{gap:16px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:28px;padding-top:30px}h1{font-size:40px}.lede,.install{max-width:none}.where{grid-template-columns:1fr;gap:20px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:34px;letter-spacing:-1.3px}.row{grid-template-columns:1fr;gap:4px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/supermemoryai/supermemory">Super<span>memory</span></a><nav aria-label="Main navigation"><a href="#timeline">The time axis</a><a href="https://supermemory.ai/docs">Docs</a><a href="https://github.com/supermemoryai/supermemory">GitHub</a></nav></header>
+<main id="main">
+<section>
+<p class="eyebrow">Memory and context engine</p>
+<h1>Facts change.<br><span>So must the memory.</span></h1>
+<p class="lede">Storing what a user said is the easy half. The project's stated work is handling temporal change, contradictions, and forgetting what expired.</p>
+<div class="cta"><a class="btn btn-a" href="https://github.com/supermemoryai/supermemory">Read the source</a><a class="btn btn-b" href="https://supermemory.ai/docs/self-hosting/overview">Self-host it</a></div>
+<code class="install"><b>curl</b> -fsSL https://supermemory.ai/install | bash</code>
+</section>
+<section class="chart" id="timeline" aria-label="Illustrative view of memory changing over time">
+<div class="chart-top"><h2>one user, over time</h2><span>Illustrative</span></div>
+<div class="plot">
+<div class="axis"><span>earlier</span><span>now</span></div>
+<svg class="trace" viewBox="0 0 520 120" role="img" aria-label="An illustrative line showing older facts fading while current ones stay active">
+<path class="grid-line" d="M0 30 H520 M0 60 H520 M0 90 H520"></path>
+<path class="old" d="M10 40 C 90 40, 150 46, 210 58 S 300 84, 360 92 S 460 100, 510 104"></path>
+<path class="now" d="M10 96 C 90 92, 150 80, 210 66 S 300 40, 360 32 S 460 26, 510 24"></path>
+<circle class="pt stale" cx="10" cy="40" r="4"></circle>
+<circle class="pt" cx="510" cy="24" r="4.5"></circle>
+</svg>
+</div>
+<div class="legend"><span><i class="stale"></i>superseded fact</span><span><i></i>current fact</span></div>
+<dl class="rows">
+<div class="row"><dt>Extraction</dt><dd><b>Facts from conversations.</b> Not transcripts kept forever.</dd></div>
+<div class="row"><dt>Contradictions</dt><dd><b>A newer fact wins.</b> The older one stops being retrieved.</dd></div>
+<div class="row"><dt>Expiry</dt><dd><b>Automatic forgetting</b> of information the project treats as expired.</dd></div>
+<div class="row"><dt>Profiles</dt><dd><b>Stable facts plus recent activity</b>, maintained as one object.</dd></div>
+</dl>
+<p class="chart-foot">The curve is an illustration of the idea, not measured data. The project publishes benchmark results and latency figures; they are deliberately not reproduced here.<br>MIT licensed, with a documented self-hosting path.</p>
+</section>
+</main>
+<section class="where" aria-label="Where it runs">
+<h2>Where it can live</h2>
+<div><h3>Behind your agent</h3><p>Plugins and an MCP server give a compatible assistant persistent memory.</p></div>
+<div><h3>Behind your product</h3><p>Memory, retrieval, profiles and connectors through one API.</p></div>
+<div><h3>On your machine</h3><p>A local install path, with any model, including a fully offline setup.</p></div>
+</section>
+<footer><span>Independent design study / data-viz + magenta</span><a href="https://github.com/supermemoryai/supermemory">Source: supermemoryai/supermemory</a></footer>
+</div>
+</body>
+</html>
