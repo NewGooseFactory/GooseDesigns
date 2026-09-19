@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **297 mocks** across **99 days**. Newest first.
+Searchable master index. **300 mocks** across **100 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-19 | Saturday | [trycua/cua](https://github.com/trycua/cua) | cell-grid | lime | Draw the desktop pool as a grid of cells and let the reader claim exactly one | Claiming one cell while three stay idle explains isolation faster than the word isolated | [png](days/2026-09-19/01-cua.png) | [2026-09-19](days/2026-09-19/) |
+| 2026-09-19 | Saturday | [docling-project/docling](https://github.com/docling-project/docling) | swiss | brick-red | Put the many input formats and the single output model on opposite sides of one narrow channel | The asymmetry does the arguing: a wide chip field collapsing into one named object | [png](days/2026-09-19/02-docling.png) | [2026-09-19](days/2026-09-19/) |
+| 2026-09-19 | Saturday | [cactus-compute/needle](https://github.com/cactus-compute/needle) | mono-zine | phosphor-green | Make the refusal the hero: show the response shape when no tool covers the request | An empty list rendered in amber is a stronger claim than any size or speed number | [png](days/2026-09-19/03-needle.png) | [2026-09-19](days/2026-09-19/) |
 | 2026-09-18 | Friday | [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | warm-minimal | olive | Show the four files a change produces, since those are what a person reviews before any code exists | Naming the four files is more concrete than describing spec-driven development in the abstract | [png](days/2026-09-18/01-openspec.png) | [2026-09-18](days/2026-09-18/) |
 | 2026-09-18 | Friday | [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory) | data-viz | magenta | Draw memory on a time axis so the superseded fact and the current one are visibly different lines | The crossing point makes contradiction handling legible; the caption keeps the curve from posing as data | [png](days/2026-09-18/02-supermemory.png) | [2026-09-18](days/2026-09-18/) |
 | 2026-09-18 | Friday | [ahmedkhaleel2004/gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram) | blueprint | slate-teal | Show the generated graph with real repository paths under each box, then list the validation that makes those paths trustworthy | Printing the path inside the node is what separates a clickable diagram from a decorative one | [png](days/2026-09-18/03-gitdiagram.png) | [2026-09-18](days/2026-09-18/) |

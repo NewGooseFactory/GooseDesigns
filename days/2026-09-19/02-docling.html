@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for Docling, which parses documents into one representation for generative AI pipelines.">
+<title>Docling | Many formats in, one document out</title>
+<style>
+:root{--paper:#f7f5f0;--card:#fffdf9;--ink:#1b1a17;--muted:#575349;--rule:#d9d4c7;--red:#a8331f;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--red);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--red);color:#fff;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:2px solid var(--ink)}
+.brand{font-size:20px;font-weight:700;letter-spacing:-.6px}.brand span{color:var(--red)}
+nav{display:flex;gap:26px;font-size:13px;color:var(--muted)}nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+.hero{padding:38px 0 26px}
+.eyebrow{font:12px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--red);margin:0 0 18px}
+h1{font-size:clamp(46px,6.4vw,84px);line-height:.98;letter-spacing:-4px;font-weight:700;margin:0 0 24px;max-width:16ch}
+h1 span{color:var(--muted)}
+.under{display:flex;justify-content:space-between;align-items:flex-end;gap:34px;flex-wrap:wrap;border-top:2px solid var(--ink);padding-top:20px}
+.under p{margin:0;font-size:17px;color:var(--muted);max-width:430px}
+.cta{display:flex;gap:11px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:650 14px var(--sans);white-space:nowrap;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--red);color:#fff}.btn-a:hover{background:#8c2717}
+.btn-b{border:1px solid var(--ink);color:var(--ink)}.btn-b:hover{background:#eeebe2}
+.btn:active{transform:scale(.97)}
+.flow{display:grid;grid-template-columns:minmax(0,1fr) 96px minmax(0,.74fr);gap:0;align-items:stretch;margin-top:26px;border:1px solid var(--rule);background:var(--card)}
+.in{padding:20px 22px 22px}
+.in h2,.out h2{margin:0 0 14px;font:11px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.chips li{font:11.5px var(--mono);border:1px solid var(--rule);padding:6px 10px;background:var(--paper)}
+.pipe{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-left:1px solid var(--rule);border-right:1px solid var(--rule);background:#faf8f2;padding:16px 8px}
+.pipe .label{font:10px var(--mono);letter-spacing:1.1px;text-transform:uppercase;color:var(--red);writing-mode:vertical-rl;transform:rotate(180deg)}
+.out{padding:20px 22px 22px}
+.doc{border:2px solid var(--red);background:var(--paper);padding:14px 16px;margin-bottom:14px}
+.doc b{display:block;font-size:16px;margin-bottom:4px}
+.doc span{font-size:13px;color:var(--muted)}
+.out .chips li{border-color:#c8c2b2}
+.flow-foot{grid-column:1/-1;border-top:1px solid var(--rule);padding:13px 22px 16px;font:11px var(--mono);color:var(--muted);line-height:1.75}
+.local{border-top:2px solid var(--ink);display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:22px 0 26px}
+.local h2{grid-column:1/-1;margin:0;font:11px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--red)}
+.local h3{margin:0 0 6px;font-size:15px;font-weight:650}
+.local p{margin:0;font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:22px;padding:15px 0 26px;font-size:11px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.page{padding:0 22px}header{height:68px}nav{gap:15px}nav a:first-child{display:none}.hero{padding-top:28px}h1{font-size:46px;letter-spacing:-2px;max-width:none}.under{flex-direction:column;align-items:flex-start;gap:18px}.under p{max-width:none}.flow{grid-template-columns:1fr}.pipe{border-left:0;border-right:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);flex-direction:row;padding:12px}.pipe .label{writing-mode:horizontal-tb;transform:none}.local{grid-template-columns:1fr;gap:20px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:39px;letter-spacing:-1.6px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/docling-project/docling">Doc<span>ling</span></a><nav aria-label="Main navigation"><a href="#flow">The conversion</a><a href="https://docling-project.github.io/docling/">Documentation</a><a href="https://github.com/docling-project/docling">GitHub</a></nav></header>
+<main id="main">
+<section class="hero">
+<p class="eyebrow">Document parsing for generative AI</p>
+<h1>Many formats in.<br><span>One document out.</span></h1>
+<div class="under">
+<p>PDFs, office files, images, audio and email arrive in a single expressive representation, which is what makes the next step in a pipeline tractable.</p>
+<div class="cta"><a class="btn btn-a" href="https://github.com/docling-project/docling">Read the source</a><a class="btn btn-b" href="https://docling-project.github.io/docling/">Documentation</a></div>
+</div>
+</section>
+<section class="flow" id="flow" aria-label="What goes in and what comes out">
+<div class="in">
+<h2>Formats it parses</h2>
+<ul class="chips"><li>PDF</li><li>DOCX</li><li>PPTX</li><li>XLSX</li><li>HTML</li><li>EPUB</li><li>images</li><li>audio</li><li>email</li><li>LaTeX</li><li>and more</li></ul>
+</div>
+<div class="pipe" aria-hidden="true"><span class="label">one representation</span></div>
+<div class="out">
+<h2>What you get</h2>
+<div class="doc"><b>DoclingDocument</b><span>Layout, reading order, table structure, code and formulas, held in one model.</span></div>
+<ul class="chips"><li>Markdown</li><li>HTML</li><li>JSON</li><li>DocTags</li></ul>
+</div>
+<p class="flow-foot">Formats listed are drawn from the project's own supported-formats list, not a benchmark.<br>Advanced PDF understanding covers page layout, reading order, table structure, code, formulas and image classification.</p>
+</section>
+</main>
+<section class="local" aria-label="How it is meant to run">
+<h2>How it is meant to run</h2>
+<div><h3>Locally when it matters</h3><p>Local execution is offered for sensitive data and air-gapped environments.</p></div>
+<div><h3>Inside the pipeline you already have</h3><p>Integrations for LangChain, LlamaIndex, Crew AI and Haystack, plus an MCP server.</p></div>
+<div><h3>Or as a plain command</h3><p>A CLI and an API server for running it as a service.</p></div>
+</section>
+<footer><span>Independent design study / swiss + brick red</span><a href="https://github.com/docling-project/docling">Source: docling-project/docling</a></footer>
+</div>
+</body>
+</html>

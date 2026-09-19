@@ -1,9 +1,10 @@
 ﻿# Style — mono-zine
 
-16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-19](../days/2026-09-19/) | [cactus-compute/needle](https://github.com/cactus-compute/needle) | phosphor-green | Make the refusal the hero: show the response shape when no tool covers the request | An empty list rendered in amber is a stronger claim than any size or speed number | [png](../days/2026-09-19/03-needle.png) |
 | [2026-09-14](../days/2026-09-14/) | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | amber | Answer the only question that matters for an access tool by putting the platform matrix in the hero | A named list beats a promise of everything, and the caption keeps it a claim rather than a test result | [png](../days/2026-09-14/01-agent-reach.png) |
 | [2026-09-07](../days/2026-09-07/) | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | amber | mark the one discipline an agent can be caught being wrong about | strongest of the three, own inference labelled as mine in the header | [png](../days/2026-09-07/03-marketingskills.png) |
 | [2026-09-03](../days/2026-09-03/) | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | ochre | demonstrate with the page's own two lines and print counts the reader can check | works, live demo kept separate from the published 65 percent | [png](../days/2026-09-03/01-caveman.png) |

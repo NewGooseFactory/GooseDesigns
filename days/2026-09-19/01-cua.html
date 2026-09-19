@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for Cua, open-source desktop automation, cloud desktops and benchmarks for computer-use agents.">
+<title>Cua | You bring the agent. Cua brings the computer.</title>
+<style>
+:root{--bg:#101215;--cell:#171a1f;--line:#272c34;--ink:#eceef2;--muted:#9aa3b0;--lime:#a8e05f;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--lime);color:#131a06;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+.brand{font-size:20px;font-weight:600;letter-spacing:-.2px}.brand span{color:var(--lime)}
+nav{display:flex;gap:26px;font-size:13px;color:var(--muted)}nav a:hover{color:var(--ink)}
+main{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:46px;padding:42px 0 30px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--lime);margin:0 0 20px}
+h1{font-size:clamp(38px,4.3vw,54px);line-height:1.05;letter-spacing:-2.1px;font-weight:600;margin:0 0 22px}
+h1 span{color:var(--muted)}
+.lede{font-size:17.5px;color:var(--muted);max-width:384px;margin:0 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:650 14px var(--sans);transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--lime);color:#131a06}.btn-a:hover{background:#bcec80}
+.btn-b{border:1px solid #39404b;color:var(--ink)}.btn-b:hover{border-color:var(--muted)}
+.btn:active{transform:scale(.97)}
+.split{border-left:2px solid var(--lime);padding-left:14px;font-size:14px;color:var(--muted);max-width:384px}
+.split b{color:var(--ink);font-weight:600}
+.pool{border:1px solid var(--line);background:var(--cell);min-width:0}
+.pool-top{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
+.pool-top h2{margin:0;font:13px var(--mono);font-weight:400}
+.pool-top .right{display:flex;align-items:center;gap:12px}
+.pool-top span{font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+button{font:650 11.5px var(--sans);background:transparent;border:1px solid #39404b;color:var(--ink);padding:10px 12px;min-height:44px;cursor:pointer;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+button:hover{border-color:var(--muted)}button:active{transform:scale(.97)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.box{background:var(--cell);padding:14px 14px 16px;min-height:96px}
+.box .os{font:10px var(--mono);letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:9px}
+.box .bar{height:6px;background:#2d3540;margin-bottom:9px}
+.box .state{font:11.5px var(--mono);color:var(--muted)}
+.box.claimed{background:#1d2417}
+.box.claimed .bar{background:var(--lime)}
+.box.claimed .state{color:var(--lime)}
+.pool-note{padding:13px 18px;border-bottom:1px solid var(--line);font:11.5px var(--mono);color:var(--muted)}
+.rows{padding:2px 0}
+.row{display:grid;grid-template-columns:118px 1fr;gap:16px;padding:13px 18px;border-bottom:1px solid #1e232b;align-items:baseline}
+.row:last-child{border-bottom:0}
+.row dt{font:12px var(--mono);color:var(--lime)}
+.row dd{margin:0;font-size:14px;color:var(--muted)}
+.row dd b{color:var(--ink);font-weight:600}
+.pool-foot{border-top:1px solid var(--line);padding:13px 18px 16px;font:11px var(--mono);color:var(--muted);line-height:1.75}
+.bench{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:24px 0 26px}
+.bench h2{grid-column:1/-1;margin:0;font:11px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--lime)}
+.bench h3{margin:0 0 6px;font-size:15px;font-weight:600}
+.bench p{margin:0;font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:22px;padding:16px 0 26px;font:11px var(--mono);color:var(--muted)}
+footer a{border-bottom:1px solid #39404b}footer a:hover{color:var(--ink)}
+@media(max-width:900px){.page{padding:0 22px}header{height:70px}nav{gap:16px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:28px;padding-top:30px}h1{font-size:40px}.lede,.split{max-width:none}.grid{grid-template-columns:1fr 1fr}.bench{grid-template-columns:1fr;gap:20px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:34px;letter-spacing:-1.3px}.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr;gap:4px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/trycua/cua">cua<span>.</span></a><nav aria-label="Main navigation"><a href="#pool">The pool</a><a href="https://cua.ai/docs">Docs</a><a href="https://github.com/trycua/cua">GitHub</a></nav></header>
+<main id="main">
+<section>
+<p class="eyebrow">Computers for computer-use agents</p>
+<h1>You bring the agent.<br><span>Cua brings the computer.</span></h1>
+<p class="lede">Desktop automation, isolated cloud desktops, local macOS VMs, and a benchmark harness. Four pieces you can take separately.</p>
+<div class="cta"><a class="btn btn-a" href="https://github.com/trycua/cua">Read the source</a><a class="btn btn-b" href="https://cua.ai/docs/tutorials/drive-your-first-app">Drive your first app</a></div>
+<p class="split"><b>The division is the product.</b> The project says it plainly: you bring the agent and model, Cua provides the computer and the automation tools.</p>
+</section>
+<section class="pool" id="pool" aria-label="Illustrative desktop pool and the four components">
+<div class="pool-top"><h2>fleet / desktop pool</h2><div class="right"><span id="claimed" aria-live="polite">Nothing claimed</span><button id="claim" type="button" aria-pressed="false">Claim a desktop</button></div></div>
+<div class="grid" id="grid">
+<div class="box"><span class="os">linux</span><div class="bar"></div><span class="state">idle</span></div>
+<div class="box" id="target"><span class="os">linux</span><div class="bar"></div><span class="state">idle</span></div>
+<div class="box"><span class="os">macos</span><div class="bar"></div><span class="state">idle</span></div>
+<div class="box"><span class="os">windows</span><div class="bar"></div><span class="state">idle</span></div>
+</div>
+<p class="pool-note">Illustrative pool. Claiming one leaves the rest untouched, which is how the SDK describes it.</p>
+<dl class="rows">
+<div class="row"><dt>Driver</dt><dd><b>Operate native apps</b> on macOS, Windows and Linux, plus browsers.</dd></div>
+<div class="row"><dt>Fleets</dt><dd><b>Isolated cloud desktops</b> claimed from a pool, run and screenshotted.</dd></div>
+<div class="row"><dt>Lume</dt><dd><b>Local VMs</b> for macOS and Linux on Apple Silicon.</dd></div>
+<div class="row"><dt>Bench</dt><dd><b>Tasks and trajectories</b> you write, verify and export.</dd></div>
+</dl>
+<p class="pool-foot">Pools can retain paid capacity after a claim ends, so the tutorials include cleanup steps.<br>Local sandboxes and cloud Fleets share one SDK, but credentials, images and runtime requirements differ. MIT licensed.</p>
+</section>
+</main>
+<section class="bench" aria-label="Why a benchmark ships alongside the drivers">
+<h2>Why a bench ships with the drivers</h2>
+<div><h3>Tasks you define</h3><p>A simulated task is written and verified before any agent is scored against it.</p></div>
+<div><h3>Trajectories you keep</h3><p>Runs export, so an evaluation can be re-read rather than remembered.</p></div>
+<div><h3>Data, not just a score</h3><p>The project frames the same harness as a source for training and evaluation.</p></div>
+</section>
+<footer><span>Independent design study / cell-grid + lime</span><a href="https://github.com/trycua/cua">Source: trycua/cua</a></footer>
+</div>
+<script>
+const claim = document.getElementById('claim');
+const target = document.getElementById('target');
+claim.addEventListener('click', () => {
+  const on = claim.getAttribute('aria-pressed') !== 'true';
+  claim.setAttribute('aria-pressed', String(on));
+  claim.textContent = on ? 'Release it' : 'Claim a desktop';
+  target.className = on ? 'box claimed' : 'box';
+  target.querySelector('.state').textContent = on ? 'claimed by your agent' : 'idle';
+  document.getElementById('claimed').textContent = on ? 'One claimed, three idle' : 'Nothing claimed';
+});
+</script>
+</body>
+</html>
