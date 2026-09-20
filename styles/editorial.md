@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-33 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+34 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-20](../days/2026-09-20/) | [mihail911/modern-software-dev-assignments](https://github.com/mihail911/modern-software-dev-assignments) | crimson | Treat published coursework as a document, and print what the repository is not alongside what it is | Naming the absent lectures makes the four real setup commands more credible, not less | [png](../days/2026-09-20/03-cs146s.png) |
 | [2026-09-16](../days/2026-09-16/) | [Tencent/WeKnora](https://github.com/Tencent/WeKnora) | archive-teal | Sort a very long capability list into the three modes the project itself names, then spend the page on the one that leaves an artifact | Choosing which mode to enlarge is the edit; the editing affordances make distillation trustworthy | [png](../days/2026-09-16/02-weknora.png) |
 | [2026-09-12](../days/2026-09-12/) | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | ink-blue | Treat the collection as a reading index whose entries lead directly to inspectable implementations | A source-linked index makes the next useful action clearer than a wall of capability badges | [png](../days/2026-09-12/02-awesome-llm-apps.png) |
 | [2026-09-07](../days/2026-09-07/) | [openai/skills](https://github.com/openai/skills) | deep-slate | when the description carries no argument, grade the trending row instead of the sentence | works, the owner field is the whole warranty | [png](../days/2026-09-07/01-openai-skills.png) |

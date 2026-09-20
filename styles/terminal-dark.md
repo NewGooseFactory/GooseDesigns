@@ -2,10 +2,11 @@
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-29 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+30 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-20](../days/2026-09-20/) | [vercel-labs/json-render](https://github.com/vercel-labs/json-render) | catalog-amber | Let the reader generate a view and watch only the declared components light up | Two cells lighting while two stay dark proves the guardrail the copy claims | [png](../days/2026-09-20/02-json-render.png) |
 | [2026-09-17](../days/2026-09-17/) | [coder/coder](https://github.com/coder/coder) | control-cyan | Split the page into control plane and workspace, then mark the thing that is deliberately absent from one side | A dashed chip reading no LLM credentials carries more weight than any security adjective | [png](../days/2026-09-17/02-coder.png) |
 | [2026-09-13](../days/2026-09-13/) | [alphaXiv/OpenResearch](https://github.com/alphaXiv/OpenResearch) | signal-amber | Draw the experiment tree so parallel directions and their preserved lineage become the hero image | Lineage shown as structure explains the loop better than naming it | [png](../days/2026-09-13/01-openresearch.png) |
 | [2026-09-05](../days/2026-09-05/) | [humanlayer/skills](https://github.com/humanlayer/skills) | signal-cyan | no description at all, so make the trending row the subject and leave the field blank | strongest of the three, furthest push of the draw-the-absence rule | [png](../days/2026-09-05/03-humanlayer-skills.png) |

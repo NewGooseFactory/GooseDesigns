@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **300 mocks** across **100 days**. Newest first.
+Searchable master index. **303 mocks** across **101 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-20 | Sunday | [BuilderIO/agent-native](https://github.com/BuilderIO/agent-native) | specimen | violet-ink | Show the same action being called two ways above the single definition underneath | Two call sites over one definition is the architecture; a feature list would have buried it | [png](days/2026-09-20/01-agent-native.png) | [2026-09-20](days/2026-09-20/) |
+| 2026-09-20 | Sunday | [vercel-labs/json-render](https://github.com/vercel-labs/json-render) | terminal-dark | catalog-amber | Let the reader generate a view and watch only the declared components light up | Two cells lighting while two stay dark proves the guardrail the copy claims | [png](days/2026-09-20/02-json-render.png) | [2026-09-20](days/2026-09-20/) |
+| 2026-09-20 | Sunday | [mihail911/modern-software-dev-assignments](https://github.com/mihail911/modern-software-dev-assignments) | editorial | crimson | Treat published coursework as a document, and print what the repository is not alongside what it is | Naming the absent lectures makes the four real setup commands more credible, not less | [png](days/2026-09-20/03-cs146s.png) | [2026-09-20](days/2026-09-20/) |
 | 2026-09-19 | Saturday | [trycua/cua](https://github.com/trycua/cua) | cell-grid | lime | Draw the desktop pool as a grid of cells and let the reader claim exactly one | Claiming one cell while three stay idle explains isolation faster than the word isolated | [png](days/2026-09-19/01-cua.png) | [2026-09-19](days/2026-09-19/) |
 | 2026-09-19 | Saturday | [docling-project/docling](https://github.com/docling-project/docling) | swiss | brick-red | Put the many input formats and the single output model on opposite sides of one narrow channel | The asymmetry does the arguing: a wide chip field collapsing into one named object | [png](days/2026-09-19/02-docling.png) | [2026-09-19](days/2026-09-19/) |
 | 2026-09-19 | Saturday | [cactus-compute/needle](https://github.com/cactus-compute/needle) | mono-zine | phosphor-green | Make the refusal the hero: show the response shape when no tool covers the request | An empty list rendered in amber is a stronger claim than any size or speed number | [png](days/2026-09-19/03-needle.png) | [2026-09-19](days/2026-09-19/) |
