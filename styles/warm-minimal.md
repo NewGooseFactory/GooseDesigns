@@ -1,9 +1,10 @@
 ﻿# Style — warm-minimal
 
-18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-21](../days/2026-09-21/) | [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | archive-teal | Draw the handoff as a baton that moves between two lanes and can only sit in one | Exactly one active lane is the protocol claim made visible; a paragraph would have made it sound optional | [png](../days/2026-09-21/01-ai-memory.png) |
 | [2026-09-18](../days/2026-09-18/) | [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | olive | Show the four files a change produces, since those are what a person reviews before any code exists | Naming the four files is more concrete than describing spec-driven development in the abstract | [png](../days/2026-09-18/01-openspec.png) |
 | [2026-09-14](../days/2026-09-14/) | [Crosstalk-Solutions/project-nomad](https://github.com/Crosstalk-Solutions/project-nomad) | rust | Let the reader cut the connection and watch the library not change | An interaction that deliberately changes nothing proves offline-first faster than a paragraph | [png](../days/2026-09-14/02-project-nomad.png) |
 | [2026-09-08](../days/2026-09-08/) | [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | ink-teal | burying is a spatial complaint, so draw the answer low in one stack and first in another | works, legible in a second | [png](../days/2026-09-08/01-i-have-adhd.png) |

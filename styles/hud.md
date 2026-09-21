@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-33 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+34 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-21](../days/2026-09-21/) | [mvt-project/mvt](https://github.com/mvt-project/mvt) | instrument-amber | Give the limitation its own row in the readout rather than a footnote | A cannot-show row rendered in the accent colour is the most credible thing on the page | [png](../days/2026-09-21/02-mvt.png) |
 | [2026-09-16](../days/2026-09-16/) | [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | instrument-amber | Lead with the three verdicts rather than the six phases, and give the unresolved one equal weight | The needs_validation row is the most persuasive thing on the page precisely because it admits a limit | [png](../days/2026-09-16/01-security-audit.png) |
 | [2026-09-11](../days/2026-09-11/) | [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) | instrument-amber | Use an orbital instrument frame to connect an impressive globe to its public data sources | The source link anchors the spectacle; the disconnected label keeps the concept honest | [png](../days/2026-09-11/02-gods-eye-view.png) |
 | [2026-09-06](../days/2026-09-06/) | [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | instrument-mint | six solid bars for named capabilities, one dashed empty bar for the priority claim | works, a gauge with no scale is the honest form | [png](../days/2026-09-06/02-ruflo.png) |

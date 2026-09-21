@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **303 mocks** across **101 days**. Newest first.
+Searchable master index. **306 mocks** across **102 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-21 | Monday | [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | warm-minimal | archive-teal | Draw the handoff as a baton that moves between two lanes and can only sit in one | Exactly one active lane is the protocol claim made visible; a paragraph would have made it sound optional | [png](days/2026-09-21/01-ai-memory.png) | [2026-09-21](days/2026-09-21/) |
+| 2026-09-21 | Monday | [mvt-project/mvt](https://github.com/mvt-project/mvt) | hud | instrument-amber | Give the limitation its own row in the readout rather than a footnote | A cannot-show row rendered in the accent colour is the most credible thing on the page | [png](days/2026-09-21/02-mvt.png) | [2026-09-21](days/2026-09-21/) |
+| 2026-09-21 | Monday | [yynxxxxx/Codex-X](https://github.com/yynxxxxx/Codex-X) | bauhaus | primary-blue | Give each scattered configuration surface its own geometric mark so the scope is countable | Four shapes make a config manager legible in a glance and keep the scope honestly bounded | [png](days/2026-09-21/03-codex-x.png) | [2026-09-21](days/2026-09-21/) |
 | 2026-09-20 | Sunday | [BuilderIO/agent-native](https://github.com/BuilderIO/agent-native) | specimen | violet-ink | Show the same action being called two ways above the single definition underneath | Two call sites over one definition is the architecture; a feature list would have buried it | [png](days/2026-09-20/01-agent-native.png) | [2026-09-20](days/2026-09-20/) |
 | 2026-09-20 | Sunday | [vercel-labs/json-render](https://github.com/vercel-labs/json-render) | terminal-dark | catalog-amber | Let the reader generate a view and watch only the declared components light up | Two cells lighting while two stay dark proves the guardrail the copy claims | [png](days/2026-09-20/02-json-render.png) | [2026-09-20](days/2026-09-20/) |
 | 2026-09-20 | Sunday | [mihail911/modern-software-dev-assignments](https://github.com/mihail911/modern-software-dev-assignments) | editorial | crimson | Treat published coursework as a document, and print what the repository is not alongside what it is | Naming the absent lectures makes the four real setup commands more credible, not less | [png](days/2026-09-20/03-cs146s.png) | [2026-09-20](days/2026-09-20/) |
