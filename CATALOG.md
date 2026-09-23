@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **306 mocks** across **102 days**. Newest first.
+Searchable master index. **309 mocks** across **103 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-23 | Wednesday | [google/ax](https://github.com/google/ax) | blueprint | drafting-teal | Lead with the four primitives and the fence rather than the throughput claim | Naming Gateway beside Task is what makes the orchestration argument land | [png](days/2026-09-23/01-ax.png) | [2026-09-23](days/2026-09-23/) |
+| 2026-09-23 | Wednesday | [strands-agents/harness-sdk](https://github.com/strands-agents/harness-sdk) | neon-noir | coral | List the jobs a hand-rolled agent loop grows into, since that is the actual purchase decision | Six honest jobs beat one adjective; the reader recognises their own backlog | [png](days/2026-09-23/02-strands.png) | [2026-09-23](days/2026-09-23/) |
+| 2026-09-23 | Wednesday | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | data-viz | indigo | Use the project own published token figures at true scale, and attribute them in the same breath | A bar drawn honestly at 0.83 percent is more persuasive than a rounded claim, because the caption says whose number it is | [png](days/2026-09-23/03-codebase-memory.png) | [2026-09-23](days/2026-09-23/) |
 | 2026-09-21 | Monday | [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | warm-minimal | archive-teal | Draw the handoff as a baton that moves between two lanes and can only sit in one | Exactly one active lane is the protocol claim made visible; a paragraph would have made it sound optional | [png](days/2026-09-21/01-ai-memory.png) | [2026-09-21](days/2026-09-21/) |
 | 2026-09-21 | Monday | [mvt-project/mvt](https://github.com/mvt-project/mvt) | hud | instrument-amber | Give the limitation its own row in the readout rather than a footnote | A cannot-show row rendered in the accent colour is the most credible thing on the page | [png](days/2026-09-21/02-mvt.png) | [2026-09-21](days/2026-09-21/) |
 | 2026-09-21 | Monday | [yynxxxxx/Codex-X](https://github.com/yynxxxxx/Codex-X) | bauhaus | primary-blue | Give each scattered configuration surface its own geometric mark so the scope is countable | Four shapes make a config manager legible in a glance and keep the scope honestly bounded | [png](days/2026-09-21/03-codex-x.png) | [2026-09-21](days/2026-09-21/) |

@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-25 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+26 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-23](../days/2026-09-23/) | [google/ax](https://github.com/google/ax) | drafting-teal | Lead with the four primitives and the fence rather than the throughput claim | Naming Gateway beside Task is what makes the orchestration argument land | [png](../days/2026-09-23/01-ax.png) |
 | [2026-09-18](../days/2026-09-18/) | [ahmedkhaleel2004/gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram) | slate-teal | Show the generated graph with real repository paths under each box, then list the validation that makes those paths trustworthy | Printing the path inside the node is what separates a clickable diagram from a decorative one | [png](../days/2026-09-18/03-gitdiagram.png) |
 | [2026-09-15](../days/2026-09-15/) | [earendil-works/pi](https://github.com/earendil-works/pi) | drafting-cyan | Draw the harness as a stack of separately published packages so the seams are the selling point | Naming each layer makes the take-one-piece claim legible without a diagram of arrows | [png](../days/2026-09-15/03-pi-harness.png) |
 | [2026-09-09](../days/2026-09-09/) | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | drafting-cyan | draw the same part three times, once per acronym, with every dimension marked absent | works, hand-drawn SVG reads native in blueprint | [png](../days/2026-09-09/01-text-to-cad.png) |

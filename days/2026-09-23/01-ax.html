@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for AX, a declarative orchestrator for sandboxed agent workloads.">
+<title>AX | Declare the task. The fence comes with it.</title>
+<style>
+:root{--paper:#eef0ed;--ink:#131a1c;--muted:#495356;--rule:#c9d0cc;--ink2:#1d5f6b;--card:#fafbf9;--grid:#dfe4e0;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--ink2);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--ink2);color:#fff;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--ink)}
+.brand{font:19px var(--mono);letter-spacing:.5px}.brand span{color:var(--ink2)}
+nav{display:flex;gap:24px;font:13px var(--mono);color:var(--muted)}nav a:hover{color:var(--ink)}
+main{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:46px;padding:38px 0 28px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--ink2);margin:0 0 20px}
+h1{font-size:clamp(38px,4.3vw,54px);line-height:1.05;letter-spacing:-2px;font-weight:650;margin:0 0 22px}
+h1 span{color:var(--muted)}
+.lede{font-size:17.5px;color:var(--muted);max-width:392px;margin:0 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:650 13px var(--mono);letter-spacing:.5px;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--ink2);color:#fff}.btn-a:hover{background:#174a54}
+.btn-b{border:1px solid var(--rule);background:var(--card);color:var(--ink)}.btn-b:hover{border-color:#a4aca7}
+.btn:active{transform:scale(.97)}
+.warn{border:1px dashed var(--ink2);background:rgba(255,255,255,.66);padding:13px 15px;max-width:392px}
+.warn b{display:block;font:11px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--ink2);margin-bottom:6px}
+.warn p{margin:0;font-size:13.5px;color:var(--muted)}
+.sheet{border:1px solid var(--ink);background:var(--card);min-width:0}
+.sheet-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:14px 20px;border-bottom:1px solid var(--ink);font:11px var(--mono);letter-spacing:1.1px;text-transform:uppercase;color:var(--muted)}
+.prim{display:grid;grid-template-columns:118px 1fr;gap:18px;padding:15px 20px;border-bottom:1px solid #e3e7e3;align-items:baseline}
+.prim:last-of-type{border-bottom:0}
+.prim dt{font:12.5px var(--mono);color:var(--ink2)}
+.prim dd{margin:0;font-size:14px;color:var(--muted)}
+.prim dd b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:3px}
+.yaml{border-top:1px solid var(--rule);padding:15px 20px 6px}
+.yaml b{display:block;font:11px var(--mono);letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.yaml code{display:block;font:12.5px/1.7 var(--mono);background:var(--ink);color:#e9f0ee;padding:13px 15px;overflow-wrap:anywhere}
+.yaml code i{font-style:normal;color:#7fd4df}
+.sheet-foot{border-top:1px solid var(--rule);padding:13px 20px 16px;font:11px var(--mono);color:var(--muted);line-height:1.75}
+.verbs{border-top:1px solid var(--ink);display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:22px 0 26px}
+.verbs h2{grid-column:1/-1;margin:0;font:11px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--ink2)}
+.verbs h3{margin:0 0 6px;font:14px var(--mono);font-weight:400;color:var(--ink)}
+.verbs p{margin:0;font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:22px;padding:15px 0 26px;font:11px var(--mono);color:var(--muted)}
+footer a{border-bottom:1px solid var(--rule)}footer a:hover{color:var(--ink)}
+@media(max-width:900px){.page{padding:0 22px}header{height:68px}nav{gap:15px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:26px;padding-top:28px}h1{font-size:40px}.lede,.warn{max-width:none}.verbs{grid-template-columns:1fr;gap:20px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:34px;letter-spacing:-1.3px}.prim{grid-template-columns:1fr;gap:5px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/google/ax">ax<span>.io</span></a><nav aria-label="Main navigation"><a href="#primitives">Four primitives</a><a href="https://github.com/google/ax/blob/main/docs/concepts.md">Concepts</a><a href="https://github.com/google/ax">GitHub</a></nav></header>
+<main id="main">
+<section>
+<p class="eyebrow">Declarative orchestration for agent workloads</p>
+<h1>Declare the task.<br><span>The fence comes with it.</span></h1>
+<p class="lede">An agent workload is neither a stateless service nor a batch job. It accumulates state, calls out to model APIs, and can burn money in a loop if nobody is watching.</p>
+<div class="cta"><a class="btn btn-a" href="https://github.com/google/ax">Read the source</a><a class="btn btn-b" href="https://github.com/google/ax/blob/main/docs/manifests.md">Manifest reference</a></div>
+<div class="warn"><b>Stated by the project</b><p>Core concepts, protocols and specifications are still being refined, with major breaking changes likely before a stable release.</p></div>
+</section>
+<section class="sheet" id="primitives" aria-label="The four primitives">
+<div class="sheet-top"><span>ax.io/v1alpha1</span><span>Apache 2.0</span></div>
+<dl>
+<div class="prim"><dt>Task</dt><dd><b>The isolated run</b>Untrusted agent code in a sandbox with CPU and memory limits.</dd></div>
+<div class="prim"><dt>Workspace</dt><dd><b>A warm start</b>Git repos, MCP servers and skill packages pre-wired before the agent begins.</dd></div>
+<div class="prim"><dt>Gateway</dt><dd><b>The outbound fence</b>Traffic locked to an explicit host allowlist.</dd></div>
+<div class="prim"><dt>Model</dt><dd><b>The platform's own LLM</b>Configured with credentials from a cluster secret.</dd></div>
+</dl>
+<div class="yaml"><b>One file, applied with one command</b><code><i>kind:</i> Task<br><i>spec:</i><br>&nbsp;&nbsp;workspaces:<br>&nbsp;&nbsp;&nbsp;&nbsp;- name: golang<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goal: "Ensure that Go tool chain is available"<br>&nbsp;&nbsp;debug: true</code></div>
+<p class="sheet-foot">Manifest condensed from the project's own example; nothing is invented.<br>Deliberately kubectl-shaped: apply, get, describe, watch, delete, plus agent-specific verbs.</p>
+</section>
+</main>
+<section class="verbs" aria-label="Agent-specific verbs">
+<h2>The verbs a batch job never needed</h2>
+<div><h3>ax suspend / resume</h3><p>Checkpoint an idle agent and pick up exactly where it left off.</p></div>
+<div><h3>ax ssh</h3><p>Shell into a running sandbox to see what the agent is actually doing.</p></div>
+<div><h3>ax watch</h3><p>Stream phase and condition changes live, rather than polling for an outcome.</p></div>
+</section>
+<footer><span>Independent design study / blueprint + drafting teal</span><a href="https://github.com/google/ax">Source: google/ax</a></footer>
+</div>
+</body>
+</html>
