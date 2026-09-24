@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-34 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+35 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-24](../days/2026-09-24/) | [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight) | plum | Give the three published operations equal rows, then tint only the one that is not retrieval | Marking reflect as the odd verb out says more than any benchmark chart would have | [png](../days/2026-09-24/01-hindsight.png) |
 | [2026-09-20](../days/2026-09-20/) | [mihail911/modern-software-dev-assignments](https://github.com/mihail911/modern-software-dev-assignments) | crimson | Treat published coursework as a document, and print what the repository is not alongside what it is | Naming the absent lectures makes the four real setup commands more credible, not less | [png](../days/2026-09-20/03-cs146s.png) |
 | [2026-09-16](../days/2026-09-16/) | [Tencent/WeKnora](https://github.com/Tencent/WeKnora) | archive-teal | Sort a very long capability list into the three modes the project itself names, then spend the page on the one that leaves an artifact | Choosing which mode to enlarge is the edit; the editing affordances make distillation trustworthy | [png](../days/2026-09-16/02-weknora.png) |
 | [2026-09-12](../days/2026-09-12/) | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | ink-blue | Treat the collection as a reading index whose entries lead directly to inspectable implementations | A source-linked index makes the next useful action clearer than a wall of capability badges | [png](../days/2026-09-12/02-awesome-llm-apps.png) |

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for CLI-Anything, which generates command-line harnesses so agents can drive existing software.">
+<title>CLI-Anything | Software written for hands, driven by agents</title>
+<style>
+:root{--bg:#07080a;--panel:#0d0f13;--line:#1b2027;--ink:#e7eaef;--muted:#8d97a5;--amber:#d9a441;--green:#6dc98d;--mono:"Cascadia Mono",Consolas,"Courier New",monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 var(--mono);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--amber);color:#1a1204;padding:11px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+.brand{font-size:16px;letter-spacing:2.2px;text-transform:uppercase}.brand span{color:var(--amber)}
+nav{display:flex;gap:26px;font-size:13px;color:var(--muted)}nav a:hover{color:var(--ink)}
+.rule{color:var(--line);font-size:13px;letter-spacing:-.5px;overflow:hidden;white-space:nowrap;margin:16px 0 0}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);gap:46px;padding:20px 0 28px;align-items:start}
+.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin:0 0 20px}
+h1{font-size:clamp(32px,3.7vw,46px);line-height:1.1;letter-spacing:-1.2px;font-weight:700;margin:0 0 22px}
+h1 span{color:var(--green)}
+.lede{font-size:15.5px;color:var(--muted);max-width:404px;margin:0 0 24px;line-height:1.7}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 18px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--amber);color:#1a1204}.btn-a:hover{background:#efbe5f}
+.btn-b{border:1px solid #2c333d;color:var(--ink)}.btn-b:hover{border-color:var(--muted)}
+.btn:active{transform:scale(.97)}
+.install{display:block;font-size:13px;border:1px solid var(--line);background:var(--panel);padding:11px 13px;overflow-wrap:anywhere;max-width:404px}
+.install b{color:var(--green);font-weight:400}
+.gap{border:1px solid var(--line);background:var(--panel);min-width:0}
+.gap-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:13px 18px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.side{padding:16px 18px;border-bottom:1px solid var(--line)}
+.side:last-of-type{border-bottom:0}
+.side b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.side.agent b{color:var(--green)}
+.row{display:grid;grid-template-columns:132px 1fr;gap:14px;padding:7px 0;font-size:13.5px}
+.row dt{color:var(--muted)}
+.row dd{margin:0}
+.side.human .row dd{color:var(--muted)}
+.side.agent .row dd{color:var(--ink)}
+.bridge{padding:11px 18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#101419;font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--amber);text-align:center}
+.gap-foot{border-top:1px solid var(--line);padding:13px 18px 16px;font-size:11.5px;color:var(--muted);line-height:1.8}
+.three{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:22px}
+.cap{padding:18px 20px 20px;border-right:1px solid var(--line)}
+.cap:last-child{border-right:0}
+.cap h2{margin:0 0 7px;font-size:14px;font-weight:700;color:var(--amber)}
+.cap p{margin:0;font-size:13px;color:var(--muted);line-height:1.7}
+footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:22px;padding:15px 0 26px;font-size:11.5px;color:var(--muted)}
+footer a{border-bottom:1px solid var(--line)}footer a:hover{color:var(--ink)}
+@media(max-width:900px){.page{padding:0 22px}header{height:66px}nav{gap:15px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:26px;padding-top:16px}h1{font-size:34px}.lede,.install{max-width:none}.three{grid-template-columns:1fr}.cap{border-right:0;border-bottom:1px solid var(--line)}.cap:last-child{border-bottom:0}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:29px;letter-spacing:-.8px}.rule{font-size:11px}.row{grid-template-columns:1fr;gap:2px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/HKUDS/CLI-Anything">cli<span>-</span>anything</a><nav aria-label="Main navigation"><a href="#gap">The gap</a><a href="https://clianything.cc/">CLI-Hub</a><a href="https://github.com/HKUDS/CLI-Anything">GitHub</a></nav></header>
+<p class="rule">+--------------------------------------------------------------+</p>
+<main id="main">
+<section>
+<p class="eyebrow">Command-line harnesses for existing software</p>
+<h1>Software written for hands.<br><span>Driven by agents.</span></h1>
+<p class="lede">The gap is not intelligence, it is the interface. Generate a command line for an application and an agent can use what it could only look at before.</p>
+<div class="cta"><a class="btn btn-a" href="https://github.com/HKUDS/CLI-Anything">Read the source</a><a class="btn btn-b" href="https://arxiv.org/abs/2606.03854">Tech report</a></div>
+<code class="install"><b>pip</b> install cli-anything-hub</code>
+</section>
+<section class="gap" id="gap" aria-label="The interface gap the project describes">
+<div class="gap-top"><span>the agent-software gap</span><span>Illustrative framing</span></div>
+<div class="side human">
+<b>Built for a person</b>
+<dl>
+<div class="row"><dt>input</dt><dd>pointer, keyboard, eyes</dd></div>
+<div class="row"><dt>state</dt><dd>read off the screen</dd></div>
+<div class="row"><dt>result</dt><dd>a rendered window</dd></div>
+</dl>
+</div>
+<p class="bridge">generate a CLI</p>
+<div class="side agent">
+<b>Usable by an agent</b>
+<dl>
+<div class="row"><dt>input</dt><dd>arguments and flags</dd></div>
+<div class="row"><dt>state</dt><dd>returned as JSON</dd></div>
+<div class="row"><dt>result</dt><dd>an exit code and an artifact</dd></div>
+</dl>
+</div>
+<p class="gap-foot">The two columns are an illustrative reading of the gap the project names, not a screenshot.<br>The project states output comes in both JSON and human-readable form, and publishes a hub for community-built CLIs.</p>
+</section>
+</main>
+<section class="three" aria-label="What the project publishes">
+<div class="cap"><h2>A hub, not a fork</h2><p>Community-built CLIs are browsed and installed from one registry rather than vendored per project.</p></div>
+<div class="cap"><h2>Harness agnostic</h2><p>The generated command line works for any agent that can run a shell.</p></div>
+<div class="cap"><h2>Written up</h2><p>The design is described in a tech report, linked from the repository.</p></div>
+</section>
+<footer><span>Independent design study / mono-zine + brass</span><a href="https://github.com/HKUDS/CLI-Anything">Source: HKUDS/CLI-Anything</a></footer>
+</div>
+</body>
+</html>

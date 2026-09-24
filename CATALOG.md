@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **309 mocks** across **103 days**. Newest first.
+Searchable master index. **312 mocks** across **104 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-24 | Thursday | [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight) | editorial | plum | Give the three published operations equal rows, then tint only the one that is not retrieval | Marking reflect as the odd verb out says more than any benchmark chart would have | [png](days/2026-09-24/01-hindsight.png) | [2026-09-24](days/2026-09-24/) |
+| 2026-09-24 | Thursday | [superdesigndev/treg](https://github.com/superdesigndev/treg) | brutalist | relay-red | Draw the request path as three hard boxes and let the reader watch the credential stay in the middle one | Sending a call and seeing the agent box still read no provider key is the whole security claim | [png](days/2026-09-24/02-treg.png) | [2026-09-24](days/2026-09-24/) |
+| 2026-09-24 | Thursday | [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything) | mono-zine | brass | Put the human-facing interface and the agent-facing one in the same column, separated by the thing that bridges them | Three matched rows make the interface gap concrete in a way the phrase agent-native never does | [png](days/2026-09-24/03-cli-anything.png) | [2026-09-24](days/2026-09-24/) |
 | 2026-09-23 | Wednesday | [google/ax](https://github.com/google/ax) | blueprint | drafting-teal | Lead with the four primitives and the fence rather than the throughput claim | Naming Gateway beside Task is what makes the orchestration argument land | [png](days/2026-09-23/01-ax.png) | [2026-09-23](days/2026-09-23/) |
 | 2026-09-23 | Wednesday | [strands-agents/harness-sdk](https://github.com/strands-agents/harness-sdk) | neon-noir | coral | List the jobs a hand-rolled agent loop grows into, since that is the actual purchase decision | Six honest jobs beat one adjective; the reader recognises their own backlog | [png](days/2026-09-23/02-strands.png) | [2026-09-23](days/2026-09-23/) |
 | 2026-09-23 | Wednesday | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | data-viz | indigo | Use the project own published token figures at true scale, and attribute them in the same breath | A bar drawn honestly at 0.83 percent is more persuasive than a rounded claim, because the caption says whose number it is | [png](days/2026-09-23/03-codebase-memory.png) | [2026-09-23](days/2026-09-23/) |
