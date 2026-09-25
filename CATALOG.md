@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **312 mocks** across **104 days**. Newest first.
+Searchable master index. **315 mocks** across **105 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-25 | Friday | [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | terminal-dark | sky | Make the review gate the interactive element, since the gate is where a human still matters | Approving one item and watching a blocked task unblock says more than any org-chart diagram | [png](days/2026-09-25/01-paperclip.png) | [2026-09-25](days/2026-09-25/) |
+| 2026-09-25 | Friday | [mattpocock/skills](https://github.com/mattpocock/skills) | swiss | burnt-amber | Put the two install paths side by side with what each one costs you, because the project says you must pick one | A you give up row under each path turns a setup instruction into an actual decision | [png](days/2026-09-25/02-skills.png) | [2026-09-25](days/2026-09-25/) |
+| 2026-09-25 | Friday | [androoAGI/starnet](https://github.com/androoAGI/starnet) | bauhaus | station-blue | Publish the legend rather than the artwork, so each drawn element is bound to the permission it grants | A legend is the honest way to show a decorative-looking interface that claims not to be decorative | [png](days/2026-09-25/03-starnet.png) | [2026-09-25](days/2026-09-25/) |
 | 2026-09-24 | Thursday | [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight) | editorial | plum | Give the three published operations equal rows, then tint only the one that is not retrieval | Marking reflect as the odd verb out says more than any benchmark chart would have | [png](days/2026-09-24/01-hindsight.png) | [2026-09-24](days/2026-09-24/) |
 | 2026-09-24 | Thursday | [superdesigndev/treg](https://github.com/superdesigndev/treg) | brutalist | relay-red | Draw the request path as three hard boxes and let the reader watch the credential stay in the middle one | Sending a call and seeing the agent box still read no provider key is the whole security claim | [png](days/2026-09-24/02-treg.png) | [2026-09-24](days/2026-09-24/) |
 | 2026-09-24 | Thursday | [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything) | mono-zine | brass | Put the human-facing interface and the agent-facing one in the same column, separated by the thing that bridges them | Three matched rows make the interface gap concrete in a way the phrase agent-native never does | [png](days/2026-09-24/03-cli-anything.png) | [2026-09-24](days/2026-09-24/) |

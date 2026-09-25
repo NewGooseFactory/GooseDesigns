@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent landing concept for StarNet, a local-first desktop agent harness rendered as a pixel-art station.">
+<title>StarNet | The interface never asserts what the harness cannot prove</title>
+<style>
+:root{--paper:#f5f3ee;--card:#fffefa;--ink:#191a18;--muted:#565852;--rule:#d9d5c9;--blue:#1f4fa8;--red:#c4392b;--yellow:#dca520;--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.skip{position:absolute;left:20px;top:-80px;background:var(--blue);color:#fff;padding:12px}.skip:focus{top:12px}
+.page{max-width:1280px;margin:auto;padding:0 54px}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:3px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:11px;font-size:19px;font-weight:700;letter-spacing:-.3px}
+.mark{width:16px;height:16px;background:var(--blue);display:inline-block}
+nav{display:flex;gap:26px;font-size:13px;color:var(--muted)}nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);gap:44px;padding:40px 0 28px;align-items:start}
+.eyebrow{font:12px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--blue);margin:0 0 20px}
+h1{font-size:clamp(36px,4.2vw,52px);line-height:1.04;letter-spacing:-2.2px;font-weight:700;margin:0 0 22px}
+.lede{font-size:17.5px;color:var(--muted);max-width:400px;margin:0 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:12px 20px;font:700 14px var(--sans);transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.btn-a{background:var(--blue);color:#fff}.btn-a:hover{background:#183f86}
+.btn-b{border:2px solid var(--ink);color:var(--ink)}.btn-b:hover{background:var(--card)}
+.btn:active{transform:scale(.97)}
+.law{border:2px solid var(--ink);background:var(--card);padding:14px 16px;max-width:400px}
+.law b{display:block;font:11px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--blue);margin-bottom:7px}
+.law p{margin:0;font-size:14px;color:var(--muted)}
+.law p em{font-style:normal;color:var(--ink);font-weight:600}
+.legend{border:3px solid var(--ink);background:var(--card);min-width:0}
+.legend-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:15px 20px;border-bottom:3px solid var(--ink)}
+.legend-top h2{margin:0;font-size:16px;font-weight:700}
+.legend-top span{font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.item{display:grid;grid-template-columns:44px 1fr;gap:18px;padding:17px 20px;border-bottom:1px solid #e6e3d9;align-items:center}
+.item:last-of-type{border-bottom:0}
+.shape{width:44px;height:44px}
+.sq{background:var(--blue)}
+.hall{height:14px;margin-top:15px;background:repeating-linear-gradient(90deg,var(--red) 0 10px,transparent 10px 16px)}
+.ci{background:var(--yellow);border-radius:50%}
+.item .draw{font-size:15px;font-weight:650;margin-bottom:3px}
+.item .means{font-size:13.5px;color:var(--muted)}
+.item .means b{color:var(--ink);font-weight:650}
+.legend-foot{border-top:3px solid var(--ink);padding:14px 20px 16px;font:11px var(--mono);color:var(--muted);line-height:1.75}
+.real{border-top:3px solid var(--ink);display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cell{padding:19px 20px 21px;border-right:3px solid var(--ink)}
+.cell:last-child{border-right:0}
+.cell h2{margin:0 0 6px;font-size:15px;font-weight:700}
+.cell p{margin:0;font-size:13px;color:var(--muted)}
+.notreal{border-top:3px solid var(--ink);display:grid;grid-template-columns:200px 1fr;gap:26px;padding:20px 0 24px;align-items:baseline}
+.notreal h2{margin:0;font:11px var(--mono);letter-spacing:1.3px;text-transform:uppercase;color:var(--red)}
+.notreal p{margin:0;font-size:15px;color:var(--muted);max-width:780px}
+.notreal b{color:var(--ink);font-weight:650}
+footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:22px;padding:16px 0 26px;font-size:11px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.page{padding:0 22px}header{height:68px}nav{gap:16px}nav a:first-child{display:none}main{grid-template-columns:1fr;gap:26px;padding-top:28px}h1{font-size:38px}.lede,.law{max-width:none}.real{grid-template-columns:1fr}.cell{border-right:0;border-bottom:3px solid var(--ink)}.cell:last-child{border-bottom:0}.notreal{grid-template-columns:1fr;gap:12px}footer{flex-direction:column;gap:8px}}
+@media(max-width:430px){h1{font-size:32px;letter-spacing:-1.4px}.item{grid-template-columns:32px 1fr;gap:14px}.shape{width:32px;height:32px}.hall{height:10px;margin-top:11px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header><a class="brand" href="https://github.com/androoAGI/starnet"><span class="mark" aria-hidden="true"></span>StarNet</a><nav aria-label="Main navigation"><a href="#legend">The legend</a><a href="https://github.com/androoAGI/starnet/blob/main/INSTALL.md">Install guide</a><a href="https://github.com/androoAGI/starnet">GitHub</a></nav></header>
+<main id="main">
+<section>
+<p class="eyebrow">Local-first desktop agent harness</p>
+<h1>The map is the permission model.</h1>
+<p class="lede">A pixel-art station could be decoration. Here the project insists it is a projection of live runtime state, and publishes what each drawn element actually means.</p>
+<div class="cta"><a class="btn btn-a" href="https://github.com/androoAGI/starnet">Read the source</a><a class="btn btn-b" href="https://github.com/androoAGI/starnet/blob/main/INSTALL.md">Install guide</a></div>
+<div class="law"><b>The stated product law</b><p><em>The interface must never assert state the harness cannot prove.</em> Quoted from the project, and it is the reason this page has a legend rather than a screenshot.</p></div>
+</section>
+<section class="legend" id="legend" aria-label="What each drawn element means">
+<div class="legend-top"><h2>What you draw, and what it grants</h2><span>The project's own contract</span></div>
+<div class="item"><span class="shape sq" aria-hidden="true"></span><div><div class="draw">A room</div><div class="means">is <b>a capability-scoped team</b>.</div></div></div>
+<div class="item"><span class="shape"><span class="hall" style="display:block" aria-hidden="true"></span></span><div><div class="draw">A hallway</div><div class="means">is <b>an authorized handoff lane</b>.</div></div></div>
+<div class="item"><span class="shape ci" aria-hidden="true"></span><div><div class="draw">A placed object</div><div class="means">is <b>a real capability grant</b>.</div></div></div>
+<p class="legend-foot">Shapes here stand in for the station's rendering; they are a legend, not a screenshot.<br>The project states the layout you draw is the workflow the agents run.</p>
+</section>
+</main>
+<section class="real" aria-label="What the project says is real">
+<div class="cell"><h2>Real calls</h2><p>Model calls stream through a local sidecar, with tools gated by capability and consent checks.</p></div>
+<div class="cell"><h2>Real state</h2><p>Memory, transcripts, spend records, tasks and schedules persist on disk.</p></div>
+<div class="cell"><h2>Real separation</h2><p>Agents run concurrently with separate workspaces and bounded permissions.</p></div>
+</section>
+<section class="notreal" aria-label="What the project says it does not simulate">
+<h2>What it does not simulate</h2>
+<p><b>Revenue, completed work, model activity, or spend.</b> That list is the project's own, and keys stay in the OS keychain rather than the frontend. MIT licensed, with Windows described as the most-tested desktop target.</p>
+</section>
+<footer><span>Independent design study / bauhaus + station blue</span><a href="https://github.com/androoAGI/starnet">Source: androoAGI/starnet</a></footer>
+</div>
+</body>
+</html>

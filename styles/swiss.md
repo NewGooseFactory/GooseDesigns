@@ -1,9 +1,10 @@
 ﻿# Style — swiss
 
-18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-25](../days/2026-09-25/) | [mattpocock/skills](https://github.com/mattpocock/skills) | burnt-amber | Put the two install paths side by side with what each one costs you, because the project says you must pick one | A you give up row under each path turns a setup instruction into an actual decision | [png](../days/2026-09-25/02-skills.png) |
 | [2026-09-19](../days/2026-09-19/) | [docling-project/docling](https://github.com/docling-project/docling) | brick-red | Put the many input formats and the single output model on opposite sides of one narrow channel | The asymmetry does the arguing: a wide chip field collapsing into one named object | [png](../days/2026-09-19/02-docling.png) |
 | [2026-09-12](../days/2026-09-12/) | [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk) | vermilion | Turn worktree isolation into separate typographic lanes beneath one shared repository headline | The repeated directory structure explains parallel work without invented throughput claims | [png](../days/2026-09-12/01-worktrunk.png) |
 | [2026-09-06](../days/2026-09-06/) | [anomalyco/opencode](https://github.com/anomalyco/opencode) | signal-red | grade four words and colour only the contested one, the definite article | works after moving the accent off coding agent onto The | [png](../days/2026-09-06/01-opencode.png) |
