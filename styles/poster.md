@@ -1,9 +1,10 @@
 ﻿# Style — poster
 
-17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-26](../days/2026-09-26/) | [mobile-next/mobile-mcp](https://github.com/mobile-next/mobile-mcp) | vermilion | Rank the two ways of reading a screen on the page itself, so the default and the fallback are never drawn as equals | A dashed, smaller fallback card is an honest way to say this path exists and you pay for it | [png](../days/2026-09-26/02-mobile-mcp.png) |
 | [2026-09-17](../days/2026-09-17/) | [alphaXiv/OpenResearch](https://github.com/alphaXiv/OpenResearch) | ink-blue | The tagline shortened to seven words overnight, so set it at poster scale and let the page carry nothing else | When a project sharpens its own sentence, the most honest design move is to get out of its way | [png](../days/2026-09-17/03-openresearch.png) |
 | [2026-09-08](../days/2026-09-08/) | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | signal-lime | run the deletion test and name what the product becomes without sentence three | works after dropping the headline from 102px to 70px | [png](../days/2026-09-08/02-hyperframes.png) |
 | [2026-09-01](../days/2026-09-01/) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | ultramarine | give the headline two thirds of the fold and the mechanism one small panel | works after top-aligning the columns and dropping 116px to 92px | [png](../days/2026-09-01/03-awesome-design-md.png) |

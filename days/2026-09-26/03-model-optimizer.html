@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NVIDIA Model Optimizer — fixed ends, composable middle</title>
+<style>
+  :root{
+    --page:#e7e4dc;
+    --ink:#1b1a17;
+    --muted:#585349;
+    --faint:#625c50;
+    --blue-deep:#12558f;
+    --panel:#25282c;
+    --panel-2:#2e3237;
+    --panel-line:#3c4148;
+    --panel-ink:#e6e9ec;
+    --panel-muted:#9aa3ab;
+    --blue-lit:#63b3ee;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--page);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 42px}
+
+  .bar{border-bottom:1px solid rgba(27,26,23,.20)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;height:58px}
+  .id{font-size:12.5px;letter-spacing:.10em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--blue-deep);border-bottom-color:var(--blue-deep)}
+
+  .intro{padding:54px 0 34px}
+  .introgrid{display:grid;grid-template-columns:1fr .92fr;gap:56px;align-items:end}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-deep)}
+  h1{margin:0;font-size:clamp(36px,5vw,62px);line-height:1.02;letter-spacing:-.035em;font-weight:650}
+  h1 .thin{color:var(--faint);font-weight:400}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:40em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:4px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--blue-deep);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--blue-deep);color:#f2f5f8}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#0d4171;border-color:#0d4171;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--blue-deep)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--blue-deep);color:#f2f5f8;transform:translateY(-1px)}
+
+  .rackwrap{padding:0 0 18px}
+  .rack{background:var(--panel);border-radius:8px;box-shadow:0 20px 44px rgba(27,26,23,.22);
+    border:1px solid #14171a;overflow:hidden}
+  .rail{background:var(--panel-2);border-bottom:1px solid #14171a;display:flex;align-items:center;
+    justify-content:space-between;gap:16px;padding:0 20px;height:44px}
+  .rail.bottom{border-bottom:none;border-top:1px solid #14171a}
+  .rail p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--panel-muted)}
+  .screws{display:flex;gap:9px}
+  .screws i{width:7px;height:7px;border-radius:50%;background:#171a1d;border:1px solid #454b52;display:block}
+
+  .bays{display:grid;grid-template-columns:1fr 54px 1.32fr 54px 1fr;padding:26px 22px}
+  .bay{min-width:0}
+  .bay > h2{margin:0 0 4px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-lit)}
+  .bay > .sub{margin:0 0 16px;font-size:11.5px;color:var(--panel-muted);letter-spacing:.02em}
+
+  .jacks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+  .jack{display:flex;align-items:center;gap:12px;border:1px solid var(--panel-line);border-radius:5px;
+    padding:11px 13px;background:rgba(255,255,255,.028)}
+  .ring{width:16px;height:16px;border-radius:50%;border:2px solid var(--blue-lit);flex:none;
+    display:flex;align-items:center;justify-content:center}
+  .ring::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue-lit)}
+  .jack .lbl{font-size:13px;color:var(--panel-ink);font-weight:500;letter-spacing:-.005em;min-width:0}
+
+  .bus{display:flex;align-items:center;justify-content:center;position:relative}
+  .bus::before{content:"";position:absolute;left:0;right:0;height:2px;background:var(--blue-lit);opacity:.75}
+  .bus i{width:8px;height:8px;border-radius:50%;background:var(--blue-lit);position:absolute}
+  .bus i.a{left:-3px}.bus i.b{right:-3px}
+
+  .modules{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .mod{border:1px dashed #4d545c;border-radius:5px;padding:11px 12px;background:rgba(99,179,238,.055);
+    transition:border-color .2s ease,background-color .2s ease}
+  .mod:hover{border-color:var(--blue-lit);background:rgba(99,179,238,.11)}
+  .mod .n{display:block;font-size:10px;letter-spacing:.12em;color:var(--blue-lit);margin-bottom:5px}
+  .mod .t{display:block;font-size:12.5px;color:var(--panel-ink);font-weight:500;line-height:1.3}
+  .slotnote{margin:14px 0 0;font-size:11.5px;color:var(--panel-muted);line-height:1.55;
+    border-top:1px solid var(--panel-line);padding-top:12px}
+  .slotnote b{color:var(--blue-lit);font-weight:600}
+
+  .carrier{padding:0 22px 26px}
+  .carrier .strip{border:1px solid var(--panel-line);border-radius:5px;background:rgba(255,255,255,.028);
+    padding:13px 16px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline}
+  .carrier .k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-lit)}
+  .carrier .v{font-size:12.5px;color:var(--panel-ink)}
+
+  .ledger{padding:26px 0 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+    border-top:1px solid rgba(27,26,23,.20);margin-top:26px}
+  .ledger h3{margin:0 0 6px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--blue-deep)}
+  .ledger p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .ledger p b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid rgba(27,26,23,.20);margin-top:30px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(27,26,23,.28)}
+  footer a:hover,footer a:focus-visible{color:var(--blue-deep);border-bottom-color:var(--blue-deep)}
+
+  .up{opacity:0;transform:translateY(13px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .introgrid{grid-template-columns:1fr;gap:28px;align-items:start}
+    .bays{grid-template-columns:1fr;gap:26px}
+    .bus{height:34px;margin:0 auto;width:60%}
+    .bus::before{left:50%;right:auto;top:0;bottom:0;width:2px;height:auto;transform:translateX(-50%)}
+    .bus i.a{left:50%;top:-3px;transform:translateX(-50%)}
+    .bus i.b{right:auto;left:50%;bottom:-3px;transform:translateX(-50%)}
+    .ledger{grid-template-columns:1fr;gap:20px}
+  }
+  @media (max-width:600px){
+    .bar nav{display:none}
+    .modules{grid-template-columns:1fr}
+    .intro{padding:34px 0 24px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">NVIDIA / Model-Optimizer</span>
+    <nav aria-label="Primary">
+      <a href="https://nvidia.github.io/Model-Optimizer">Documentation</a>
+      <a href="https://pypi.org/project/nvidia-modelopt/">PyPI</a>
+      <a href="https://github.com/NVIDIA/Model-Optimizer">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <div class="wrap introgrid">
+      <div class="up u1">
+        <p class="eyebrow mono">Model optimization library</p>
+        <h1>Fixed ends.<br><span class="thin">Composable middle.</span></h1>
+      </div>
+      <div class="up u2">
+        <p class="lede">A library of state-of-the-art techniques &mdash; <b>quantization, pruning, Neural
+          Architecture Search, distillation, speculative decoding and sparsity</b>. Python APIs compose them
+          and export an optimized quantized checkpoint that downstream inference frameworks already load.</p>
+        <div class="cta">
+          <a class="btn btn-solid" href="https://github.com/NVIDIA/Model-Optimizer">Read the source</a>
+          <a class="btn btn-line" href="https://nvidia.github.io/Model-Optimizer">Documentation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rackwrap">
+    <div class="wrap">
+      <div class="rack up u3">
+        <div class="rail">
+          <p class="mono">Signal path</p>
+          <span class="screws" aria-hidden="true"><i></i><i></i><i></i></span>
+        </div>
+
+        <div class="bays">
+          <div class="bay">
+            <h2 class="mono">Input</h2>
+            <p class="sub mono">accepted, fixed</p>
+            <ul class="jacks">
+              <li class="jack"><span class="ring" aria-hidden="true"></span><span class="lbl">Hugging Face</span></li>
+              <li class="jack"><span class="ring" aria-hidden="true"></span><span class="lbl">PyTorch</span></li>
+              <li class="jack"><span class="ring" aria-hidden="true"></span><span class="lbl">ONNX</span></li>
+            </ul>
+          </div>
+
+          <div class="bus" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+
+          <div class="bay">
+            <h2 class="mono">Optimize</h2>
+            <p class="sub mono">patchable, your call</p>
+            <ul class="modules">
+              <li class="mod"><span class="n mono">01</span><span class="t">Quantization</span></li>
+              <li class="mod"><span class="n mono">02</span><span class="t">Pruning</span></li>
+              <li class="mod"><span class="n mono">03</span><span class="t">Neural Architecture Search</span></li>
+              <li class="mod"><span class="n mono">04</span><span class="t">Distillation</span></li>
+              <li class="mod"><span class="n mono">05</span><span class="t">Speculative decoding</span></li>
+              <li class="mod"><span class="n mono">06</span><span class="t">Sparsity</span></li>
+            </ul>
+            <p class="slotnote">Compose them in any order through Python APIs. Techniques that require training
+              run through <b>Megatron-Bridge, Megatron-LM or Hugging Face Accelerate</b>.</p>
+          </div>
+
+          <div class="bus" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+
+          <div class="bay">
+            <h2 class="mono">Export</h2>
+            <p class="sub mono">deployment, fixed</p>
+            <ul class="jacks">
+              <li class="jack"><span class="ring" aria-hidden="true"></span><span class="lbl">SGLang</span></li>
+              <li class="jack"><span class="ring" aria-hidden="true"></span><span class="lbl">TensorRT-LLM</span></li>
+              <li class="jack"><span class="ring" aria-hidden="true"></span><span class="lbl">TensorRT</span></li>
+              <li class="jack"><span class="ring" aria-hidden="true"></span><span class="lbl">vLLM</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="carrier">
+          <div class="strip">
+            <span class="k mono">Carried across the bay</span>
+            <span class="v">One optimized quantized checkpoint &mdash; unified Hugging Face export for transformers and diffusers</span>
+          </div>
+        </div>
+
+        <div class="rail bottom">
+          <p class="mono">Open source &middot; pip install -U nvidia-modelopt[all]</p>
+          <span class="screws" aria-hidden="true"><i></i><i></i><i></i></span>
+        </div>
+      </div>
+
+      <div class="ledger">
+        <div>
+          <h3>Why fix the ends</h3>
+          <p>The formats you can bring and the runtimes you can ship to are <b>enumerable</b>. Publishing them
+            is what makes the middle safe to rearrange.</p>
+        </div>
+        <div>
+          <h3>Why keep the middle open</h3>
+          <p>No single technique wins everywhere. <b>Composition</b> is the product &mdash; quantize, then prune,
+            then distil, in whatever order the model tolerates.</p>
+        </div>
+        <div>
+          <h3>What crosses the gap</h3>
+          <p>A checkpoint, not a service. <b>Nothing downstream has to change</b> to accept an optimized model.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/NVIDIA/Model-Optimizer">github.com/NVIDIA/Model-Optimizer</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

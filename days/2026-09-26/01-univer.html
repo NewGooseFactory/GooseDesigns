@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Univer — the Office runtime people and agents share</title>
+<style>
+  :root{
+    --bg:#0a0f11;
+    --ink:#e9eff0;
+    --muted:#a2b3b6;
+    --dim:#869a9e;
+    --accent:#3fcdb8;
+    --line:rgba(255,255,255,.11);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    background-image:
+      radial-gradient(880px 520px at 80% 4%, rgba(63,205,184,.11), transparent 64%),
+      linear-gradient(rgba(255,255,255,.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.026) 1px, transparent 1px);
+    background-size:auto, 46px 46px, 46px 46px;
+    background-attachment:fixed;
+  }
+  .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+
+  .topbar{border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:62px}
+  .brand{display:flex;align-items:center;gap:10px;font-size:14px;letter-spacing:-.01em}
+  .brand b{font-weight:600}
+  .glyph{width:20px;height:20px;border-radius:5px;border:1px solid rgba(63,205,184,.55);
+    background:linear-gradient(180deg,rgba(63,205,184,.30),rgba(63,205,184,.06));flex:none}
+  .topnav{display:flex;gap:22px;font-size:13px}
+  .topnav a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px}
+  .topnav a:hover,.topnav a:focus-visible{color:var(--ink);border-bottom-color:var(--accent)}
+
+  .hero{padding:66px 0 74px}
+  .grid{display:grid;grid-template-columns:1.02fr .98fr;gap:58px;align-items:start}
+
+  .eyebrow{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin:0 0 20px}
+  h1{font-size:clamp(33px,4.5vw,55px);line-height:1.04;letter-spacing:-.028em;font-weight:600;margin:0 0 22px}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(15.5px,1.25vw,17.5px);color:var(--muted);margin:0 0 30px;max-width:33em}
+  .lede strong{color:var(--ink);font-weight:500}
+
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 34px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:8px;
+    font-size:14px;font-weight:500;text-decoration:none;border:1px solid transparent;
+    transition:transform .18s ease, background-color .18s ease, border-color .18s ease}
+  .btn-primary{background:var(--accent);color:#04100e;border-color:var(--accent)}
+  .btn-primary:hover,.btn-primary:focus-visible{background:#58e0cb;transform:translateY(-1px)}
+  .btn-ghost{color:var(--ink);border-color:rgba(255,255,255,.22)}
+  .btn-ghost:hover,.btn-ghost:focus-visible{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+  .btn .arrow{font-size:15px;line-height:1}
+
+  .rule{height:1px;background:var(--line);margin:0 0 26px}
+  .flow{display:flex;flex-direction:column;gap:20px;margin:0;padding:0;list-style:none}
+  .flow li{display:grid;grid-template-columns:26px 1fr;gap:16px;align-items:start}
+  .flow .n{font-size:11px;letter-spacing:.08em;color:var(--accent);padding-top:3px}
+  .flow h3{margin:0 0 4px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+  .flow p{margin:0;font-size:13.5px;color:var(--dim);line-height:1.55;max-width:34em}
+
+  .pane{
+    position:relative;border:1px solid rgba(255,255,255,.15);border-radius:14px;
+    background:rgba(255,255,255,.055);
+    -webkit-backdrop-filter:blur(22px) saturate(118%);
+    backdrop-filter:blur(22px) saturate(118%);
+    padding:24px;box-shadow:0 26px 64px rgba(0,0,0,.48)
+  }
+  .pane-head{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:18px}
+  .pane-title{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);margin:0}
+  .tagbit{font-size:11px;letter-spacing:.06em;color:var(--accent);display:flex;align-items:center;gap:7px}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+
+  .lanes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .lane{border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:15px 15px 16px;
+    background:rgba(255,255,255,.035);transition:border-color .2s ease, background-color .2s ease}
+  .lane:hover{border-color:rgba(63,205,184,.45);background:rgba(63,205,184,.05)}
+  .lane .who{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 9px}
+  .lane .what{font-size:14px;font-weight:600;margin:0 0 7px;letter-spacing:-.01em}
+  .lane .desc{font-size:12.5px;color:var(--dim);margin:0;line-height:1.5}
+
+  .joint{display:flex;align-items:center;gap:10px;margin:14px 0 12px;color:var(--dim);font-size:10.5px;letter-spacing:.12em}
+  .joint::before,.joint::after{content:"";height:1px;background:rgba(255,255,255,.12);flex:1}
+
+  .facade{border:1px dashed rgba(63,205,184,.42);border-radius:10px;padding:13px 15px;background:rgba(63,205,184,.06)}
+  .facade .lbl{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+  .facade .api{font-size:12.5px;color:var(--ink);margin:0;letter-spacing:.01em}
+
+  .surfaces{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:7px}
+  .surfaces li{font-size:11.5px;color:var(--muted);border:1px solid rgba(255,255,255,.14);
+    border-radius:999px;padding:5px 11px;letter-spacing:.01em}
+  .surfaces li.soon{color:var(--dim);border-style:dashed}
+  .pane-foot{margin:16px 0 0;font-size:11.5px;color:var(--dim);line-height:1.5}
+
+  footer{border-top:1px solid var(--line);padding:22px 0 30px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.18)}
+  footer a:hover,footer a:focus-visible{color:var(--accent);border-bottom-color:var(--accent)}
+
+  .rise{opacity:0;transform:translateY(12px);animation:rise .62s cubic-bezier(.22,.7,.3,1) forwards}
+  .d1{animation-delay:.04s}.d2{animation-delay:.11s}.d3{animation-delay:.18s}.d4{animation-delay:.25s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  @media (max-width:980px){
+    .grid{grid-template-columns:1fr;gap:38px}
+    .wrap{padding:0 24px}
+    .hero{padding:44px 0 52px}
+  }
+  @media (max-width:560px){
+    .lanes{grid-template-columns:1fr}
+    .topnav{display:none}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .rise{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="glyph" aria-hidden="true"></span><span class="mono">dream-num&nbsp;/&nbsp;<b>univer</b></span></div>
+    <nav class="topnav" aria-label="Primary">
+      <a href="https://docs.univer.ai">Docs</a>
+      <a href="https://docs.univer.ai/ai">AI SDK</a>
+      <a href="https://univer.ai/capabilities">Capabilities</a>
+      <a href="https://github.com/dream-num/univer">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="wrap grid">
+
+      <div>
+        <p class="eyebrow mono rise d1">The Office harness for AI agents</p>
+        <h1 class="rise d1">One runtime.<br>People on one side,<br><em>agents on the other.</em></h1>
+        <p class="lede rise d2">Univer is an open-source Office SDK for spreadsheets, documents and presentations.
+          The same architecture runs <strong>UI apps in the browser</strong> and <strong>headless processing in Node.js</strong>,
+          so people and AI agents can work in the same files.</p>
+
+        <div class="cta rise d2">
+          <a class="btn btn-primary" href="https://github.com/dream-num/univer">Read the source <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn-ghost" href="https://docs.univer.ai/ai">AI SDK documentation</a>
+        </div>
+
+        <div class="rule rise d3"></div>
+        <ul class="flow rise d3">
+          <li>
+            <span class="n mono">01</span>
+            <div>
+              <h3>Programmatic editing</h3>
+              <p>Agents inspect and modify Office content through structured APIs &mdash; not by driving a UI.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n mono">02</span>
+            <div>
+              <h3>Output verification</h3>
+              <p>Agents check their own results through content inspection, rendered screenshots and layout diagnostics.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n mono">03</span>
+            <div>
+              <h3>Worktree collaboration</h3>
+              <p>Agents work in isolated drafts; people review the changes and decide what to merge.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="pane rise d4">
+        <div class="pane-head">
+          <p class="pane-title mono">Shared runtime</p>
+          <span class="tagbit mono"><span class="dot" aria-hidden="true"></span>isomorphic</span>
+        </div>
+
+        <div class="lanes">
+          <div class="lane">
+            <p class="who mono">Browser</p>
+            <p class="what">People</p>
+            <p class="desc">Canvas-rendered editing surfaces, extensible UI, live review.</p>
+          </div>
+          <div class="lane">
+            <p class="who mono">Node.js</p>
+            <p class="what">Agents</p>
+            <p class="desc">Headless workbook and document logic for automation and server-side workflows.</p>
+          </div>
+        </div>
+
+        <p class="joint mono">BOTH CALL THE SAME SURFACE</p>
+
+        <div class="facade">
+          <p class="lbl mono">Unified Facade API</p>
+          <p class="api mono">workbooks &middot; worksheets &middot; ranges &middot; formulas &middot; documents &middot; commands &middot; events</p>
+        </div>
+
+        <ul class="surfaces">
+          <li>Spreadsheets</li>
+          <li>Documents</li>
+          <li>Presentations</li>
+          <li>Bases</li>
+          <li>Boards</li>
+          <li class="soon">PDFs &mdash; coming soon</li>
+        </ul>
+
+        <p class="pane-foot">Every capability ships as a composable plugin, so features can be added, removed, replaced or lazy-loaded.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated with the project. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/dream-num/univer">github.com/dream-num/univer</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

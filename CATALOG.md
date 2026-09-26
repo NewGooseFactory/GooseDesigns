@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **315 mocks** across **105 days**. Newest first.
+Searchable master index. **318 mocks** across **106 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-26 | Saturday | [dream-num/univer](https://github.com/dream-num/univer) | glass | runtime-teal | Make the shared runtime the only solid object on the page and draw both callers as views into it | One frosted pane with two lanes reading through it argues isomorphic better than the adjective does | [png](days/2026-09-26/01-univer.png) | [2026-09-26](days/2026-09-26/) |
+| 2026-09-26 | Saturday | [mobile-next/mobile-mcp](https://github.com/mobile-next/mobile-mcp) | poster | vermilion | Rank the two ways of reading a screen on the page itself, so the default and the fallback are never drawn as equals | A dashed, smaller fallback card is an honest way to say this path exists and you pay for it | [png](days/2026-09-26/02-mobile-mcp.png) | [2026-09-26](days/2026-09-26/) |
+| 2026-09-26 | Saturday | [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer) | patchbay | patch-blue | Draw the accepted inputs and the deployment targets as fixed labelled jacks and leave only the middle rack patchable | Naming three inputs and four runtimes turns composable from an adjective into a countable claim | [png](days/2026-09-26/03-model-optimizer.png) | [2026-09-26](days/2026-09-26/) |
 | 2026-09-25 | Friday | [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | terminal-dark | sky | Make the review gate the interactive element, since the gate is where a human still matters | Approving one item and watching a blocked task unblock says more than any org-chart diagram | [png](days/2026-09-25/01-paperclip.png) | [2026-09-25](days/2026-09-25/) |
 | 2026-09-25 | Friday | [mattpocock/skills](https://github.com/mattpocock/skills) | swiss | burnt-amber | Put the two install paths side by side with what each one costs you, because the project says you must pick one | A you give up row under each path turns a setup instruction into an actual decision | [png](days/2026-09-25/02-skills.png) | [2026-09-25](days/2026-09-25/) |
 | 2026-09-25 | Friday | [androoAGI/starnet](https://github.com/androoAGI/starnet) | bauhaus | station-blue | Publish the legend rather than the artwork, so each drawn element is bound to the permission it grants | A legend is the honest way to show a decorative-looking interface that claims not to be decorative | [png](days/2026-09-25/03-starnet.png) | [2026-09-25](days/2026-09-25/) |

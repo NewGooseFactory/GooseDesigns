@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mobile-mcp — drive mobile apps from the accessibility tree</title>
+<style>
+  :root{
+    --bone:#f4f1ea;
+    --ink:#16130f;
+    --muted:#5d564c;
+    --faint:#6f6659;
+    --accent:#b8351a;
+    --rule:#181410;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bone);color:var(--ink);line-height:1.45;
+    font-family:"Helvetica Neue",Helvetica,Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+
+  .masthead{border-bottom:2px solid var(--rule)}
+  .masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px}
+  .masthead .id{font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .masthead nav{display:flex;gap:24px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .masthead nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .masthead nav a:hover,.masthead nav a:focus-visible{color:var(--accent);border-bottom-color:var(--accent)}
+
+  .poster{padding:52px 0 40px}
+  .kicker{display:flex;align-items:center;gap:14px;font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 26px}
+  .kicker span.bar{height:1px;background:var(--accent);flex:1;max-width:140px}
+
+  h1{margin:0 0 6px;font-weight:700;letter-spacing:-.042em;line-height:.93;
+    font-size:clamp(46px,8.2vw,112px);text-wrap:balance}
+  h1 .off{color:var(--accent)}
+  .subhead{margin:22px 0 0;font-size:clamp(19px,2.1vw,29px);font-weight:500;
+    letter-spacing:-.022em;line-height:1.2;max-width:25em}
+
+  .splitline{display:grid;grid-template-columns:1.25fr .95fr;gap:52px;align-items:end;
+    margin-top:40px;padding-top:26px;border-top:1px solid rgba(24,20,16,.22)}
+  .lede{margin:0;font-size:15.5px;color:var(--muted);max-width:38em;line-height:1.6}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;font-size:13.5px;
+    font-weight:600;letter-spacing:.02em;text-decoration:none;border:2px solid var(--rule);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--accent);border-color:var(--accent);color:var(--bone)}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#9c2b13;border-color:#9c2b13;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--ink);color:var(--bone);transform:translateY(-1px)}
+
+  .channels{padding:8px 0 44px}
+  .chan-head{display:flex;align-items:baseline;gap:16px;margin:0 0 20px}
+  .chan-head h2{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  .chan-head .note{font-size:12px;color:var(--faint);letter-spacing:.04em}
+  .chan-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:24px;align-items:stretch}
+
+  .chan{padding:24px;border:2px solid var(--rule);background:rgba(255,255,255,.55)}
+  .chan.secondary{border:1px dashed rgba(24,20,16,.40);background:transparent}
+  .rank{display:inline-block;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+    padding:4px 9px;margin:0 0 14px;background:var(--accent);color:var(--bone);font-weight:700}
+  .chan.secondary .rank{background:transparent;color:var(--muted);border:1px solid rgba(24,20,16,.4);font-weight:600}
+  .chan h3{margin:0 0 10px;font-size:clamp(21px,2vw,27px);letter-spacing:-.025em;font-weight:700;line-height:1.1}
+  .chan.secondary h3{font-size:clamp(18px,1.6vw,21px);color:var(--muted);font-weight:600}
+  .chan p{margin:0 0 12px;font-size:14px;color:var(--muted);line-height:1.55;max-width:36em}
+  .chan.secondary p{font-size:13px}
+  .chan ul{margin:0;padding:0;list-style:none;border-top:1px solid rgba(24,20,16,.18)}
+  .chan li{font-size:13px;padding:9px 0;border-bottom:1px solid rgba(24,20,16,.12);
+    display:flex;gap:12px;align-items:baseline}
+  .chan li .k{color:var(--accent);flex:none;font-size:11px;letter-spacing:.06em}
+  .chan.secondary li .k{color:var(--faint)}
+  .chan li .v{color:var(--ink)}
+  .chan.secondary li .v{color:var(--muted)}
+
+  .targets{border-top:2px solid var(--rule);padding:26px 0 0;margin-top:4px}
+  .targets h2{margin:0 0 16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  .tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-left:1px solid rgba(24,20,16,.18)}
+  .tcell{padding:14px 18px;border-right:1px solid rgba(24,20,16,.18)}
+  .tcell .t{font-size:14px;font-weight:600;margin:0 0 5px;letter-spacing:-.01em}
+  .tcell .s{font-size:12px;color:var(--faint);margin:0;line-height:1.45}
+
+  .clients{margin:30px 0 0;padding-top:20px;border-top:1px solid rgba(24,20,16,.18);
+    font-size:13px;color:var(--muted);line-height:1.6}
+  .clients b{color:var(--ink);font-weight:600}
+
+  footer{border-top:2px solid var(--rule);margin-top:38px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:11.5px;
+    letter-spacing:.06em;color:var(--faint);text-transform:uppercase}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(24,20,16,.3)}
+  footer a:hover,footer a:focus-visible{color:var(--accent);border-bottom-color:var(--accent)}
+
+  .up{opacity:0;transform:translateY(14px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1000px){
+    .wrap{padding:0 26px}
+    .splitline{grid-template-columns:1fr;gap:26px;align-items:start}
+    .chan-grid{grid-template-columns:1fr}
+    .tgrid{grid-template-columns:repeat(2,1fr)}
+    .tcell{border-bottom:1px solid rgba(24,20,16,.18)}
+  }
+  @media (max-width:600px){
+    .masthead nav{display:none}
+    .tgrid{grid-template-columns:1fr}
+    .poster{padding:34px 0 28px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <span class="id mono">mobile-next / mobile-mcp</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/mobile-next/mobile-mcp/wiki">Wiki</a>
+      <a href="https://www.npmjs.com/package/@mobilenext/mobile-mcp">npm</a>
+      <a href="https://github.com/mobile-next/mobile-mcp">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="poster">
+    <div class="wrap">
+      <p class="kicker mono up u1"><span>MCP server for mobile automation</span><span class="bar" aria-hidden="true"></span><span>iOS &amp; Android</span></p>
+      <h1 class="up u1">No vision model.<br><span class="off">No image tokens.</span></h1>
+      <p class="subhead up u2">It drives the app from the native accessibility tree.</p>
+
+      <div class="splitline up u2">
+        <p class="lede">An MCP server that lets agents and LLMs interact with native iOS and Android
+          applications through <b>structured accessibility snapshots</b>, falling back to screenshots and
+          coordinate taps only when needed. The same tools work on simulators, emulators and real devices &mdash;
+          <b>no XCUITest, no Espresso, no per-platform glue</b>.</p>
+        <div class="cta">
+          <a class="btn btn-solid" href="https://github.com/mobile-next/mobile-mcp">Read the source</a>
+          <a class="btn btn-line" href="https://github.com/mobile-next/mobile-mcp/wiki">Setup guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="channels">
+    <div class="wrap">
+      <div class="chan-head">
+        <h2>Two ways to read a screen</h2>
+        <span class="note mono">one of them is the default</span>
+      </div>
+
+      <div class="chan-grid up u3">
+        <article class="chan">
+          <span class="rank mono">Primary channel</span>
+          <h3>The accessibility tree</h3>
+          <p>Reads real UI elements and extracts structured data, cutting the ambiguity of
+             screenshot-only approaches.</p>
+          <ul>
+            <li><span class="k mono">COST</span><span class="v">No vision model, no image tokens</span></li>
+            <li><span class="k mono">OUTPUT</span><span class="v">Structured and deterministic</span></li>
+            <li><span class="k mono">SCOPE</span><span class="v">Taps, swipes, gestures, deep links, hardware buttons</span></li>
+          </ul>
+        </article>
+
+        <article class="chan secondary">
+          <span class="rank mono">Fallback</span>
+          <h3>Screenshot&nbsp;+ coordinates</h3>
+          <p>Coordinate-based taps derived from screenshots &mdash; used only when the tree is not enough.</p>
+          <ul>
+            <li><span class="k mono">WHEN</span><span class="v">Element is not exposed</span></li>
+            <li><span class="k mono">COST</span><span class="v">Image tokens, positional ambiguity</span></li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="targets up u4">
+        <h2>One API, every target</h2>
+        <div class="tgrid">
+          <div class="tcell"><p class="t">iOS Simulator</p><p class="s mono">Xcode + a booted simulator</p></div>
+          <div class="tcell"><p class="t">iOS Real Device</p><p class="s mono">Connected over USB and trusted</p></div>
+          <div class="tcell"><p class="t">Android Emulator</p><p class="s mono">Android SDK + running emulator</p></div>
+          <div class="tcell"><p class="t">Android Real Device</p><p class="s mono">adb + USB debugging authorized</p></div>
+        </div>
+        <p class="clients">Works with <b>Claude Code, Codex, Gemini, GitHub Copilot, Antigravity</b> &mdash;
+          or any MCP-compatible client.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/mobile-next/mobile-mcp">github.com/mobile-next/mobile-mcp</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

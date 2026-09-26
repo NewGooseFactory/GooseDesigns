@@ -1,9 +1,10 @@
 ﻿# Style — glass
 
-14 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+15 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-09-26](../days/2026-09-26/) | [dream-num/univer](https://github.com/dream-num/univer) | runtime-teal | Make the shared runtime the only solid object on the page and draw both callers as views into it | One frosted pane with two lanes reading through it argues isomorphic better than the adjective does | [png](../days/2026-09-26/01-univer.png) |
 | [2026-09-12](../days/2026-09-12/) | [melgarafael/DeskcommCRM](https://github.com/melgarafael/DeskcommCRM) | jade | Keep a single conversation visible while its owner changes from agent to human | The local handoff makes continuity tangible; one frosted surface is enough | [png](../days/2026-09-12/03-deskcommcrm.png) |
 | [2026-09-04](../days/2026-09-04/) | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | frost-amber | one frosted panel holds the shared state between the two named parties | works, first subject that justifies the glass family | [png](../days/2026-09-04/02-hermes-agent.png) |
 | [2026-08-27](../days/2026-08-27/) | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | frost-teal | draw the boundary the product exists to cross, three verbs between two sessions | landed | [png](../days/2026-08-27/03-claude-mem.png) |
