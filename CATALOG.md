@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **318 mocks** across **106 days**. Newest first.
+Searchable master index. **321 mocks** across **107 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-27 | Sunday | [block/buzz](https://github.com/block/buzz) | hud | instrument-amber | Print all three status columns as instrument readouts, including the one the project warns you not to rely on | An unlit third column is the most credible thing on a roadmap, because it is the one nobody had to publish | [png](days/2026-09-27/01-buzz.png) | [2026-09-27](days/2026-09-27/) |
+| 2026-09-27 | Sunday | [openbao/openbao](https://github.com/openbao/openbao) | ledger | seal-green | Give every secret a row with an expiry column, so the lease is a property of the record rather than a paragraph about it | An at-expiry column forces the page to answer a question a feature list never asks | [png](days/2026-09-27/02-openbao.png) | [2026-09-27](days/2026-09-27/) |
+| 2026-09-27 | Sunday | [zhaoxuya520/reverse-skill](https://github.com/zhaoxuya520/reverse-skill) | cell-grid | router-lime | Lay the pipeline out as equal cells, then tint the single cell that is a gate rather than a stage | Tinting one cell out of five says more about a security tool than the word responsible ever has | [png](days/2026-09-27/03-reverse-skill.png) | [2026-09-27](days/2026-09-27/) |
 | 2026-09-26 | Saturday | [dream-num/univer](https://github.com/dream-num/univer) | glass | runtime-teal | Make the shared runtime the only solid object on the page and draw both callers as views into it | One frosted pane with two lanes reading through it argues isomorphic better than the adjective does | [png](days/2026-09-26/01-univer.png) | [2026-09-26](days/2026-09-26/) |
 | 2026-09-26 | Saturday | [mobile-next/mobile-mcp](https://github.com/mobile-next/mobile-mcp) | poster | vermilion | Rank the two ways of reading a screen on the page itself, so the default and the fallback are never drawn as equals | A dashed, smaller fallback card is an honest way to say this path exists and you pay for it | [png](days/2026-09-26/02-mobile-mcp.png) | [2026-09-26](days/2026-09-26/) |
 | 2026-09-26 | Saturday | [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer) | patchbay | patch-blue | Draw the accepted inputs and the deployment targets as fixed labelled jacks and leave only the middle rack patchable | Naming three inputs and four runtimes turns composable from an adjective into a countable claim | [png](days/2026-09-26/03-model-optimizer.png) | [2026-09-26](days/2026-09-26/) |

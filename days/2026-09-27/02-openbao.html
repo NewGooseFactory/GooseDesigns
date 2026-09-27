@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenBao — every secret has a lease</title>
+<style>
+  :root{
+    --paper:#f6f4ef;
+    --rule:#ddd8cd;
+    --rule-hard:#231f1a;
+    --ink:#201d18;
+    --muted:#575146;
+    --faint:#6d6659;
+    --seal:#1f6f4a;
+    --seal-soft:#e7f1eb;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 42px}
+
+  .head{border-bottom:1px solid var(--rule-hard)}
+  .head .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .head nav{display:flex;gap:22px;font-size:12.5px}
+  .head nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .head nav a:hover,.head nav a:focus-visible{color:var(--seal);border-bottom-color:var(--seal)}
+
+  .open{padding:50px 0 30px}
+  .opengrid{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--seal)}
+  h1{margin:0 0 20px;font-size:clamp(34px,4.6vw,56px);line-height:1.04;letter-spacing:-.032em;font-weight:640}
+  h1 .strike{color:var(--faint);text-decoration:line-through;text-decoration-thickness:2px}
+  .lede{margin:0 0 26px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:36em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:3px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--seal);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--seal);color:#f4faf6}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#175539;border-color:#175539;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--seal)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--seal);color:#f4faf6;transform:translateY(-1px)}
+
+  .stamp{border:1px solid var(--rule-hard);border-radius:3px;background:#fff;padding:20px 22px}
+  .stamp h2{margin:0 0 14px;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+  .stamp .q{margin:0 0 12px;font-size:15px;line-height:1.55;color:var(--ink)}
+  .stamp .src{margin:0;font-size:11.5px;color:var(--faint);letter-spacing:.04em}
+
+  .book{padding:4px 0 10px}
+  .book-head{display:flex;align-items:baseline;gap:16px;margin:0 0 16px;flex-wrap:wrap}
+  .book-head h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .book-head .sub{font-size:12px;color:var(--faint);letter-spacing:.03em}
+
+  .ledger{border:1px solid var(--rule-hard);border-radius:3px;background:#fff;overflow:hidden}
+  .lrow{display:grid;grid-template-columns:132px 1fr 92px 186px;gap:0;align-items:stretch}
+  .lrow > div{padding:13px 16px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);min-width:0}
+  .lrow > div:last-child{border-right:none}
+  .lrow.thead > div{background:#efece5;border-bottom:1px solid var(--rule-hard);
+    font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:10px 16px}
+  .lrow:last-child > div{border-bottom:none}
+  .lrow .op{font-size:12.5px;color:var(--seal);letter-spacing:.04em}
+  .lrow .what{font-size:13.5px;color:var(--ink);line-height:1.45}
+  .lrow .what em{font-style:normal;color:var(--muted);display:block;font-size:12.5px;margin-top:3px}
+  .lrow .lease{font-size:12.5px;color:var(--ink)}
+  .lrow .fate{font-size:12.5px;color:var(--muted)}
+  .lrow .fate b{display:block;color:var(--seal);font-weight:600;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;margin-bottom:3px}
+
+  .illus{margin:10px 0 0;font-size:11.5px;color:var(--faint);letter-spacing:.03em}
+
+  .four{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--rule-hard);
+    margin-top:34px;border-left:1px solid var(--rule)}
+  .cell{padding:18px 20px 20px;border-right:1px solid var(--rule)}
+  .cell .k{margin:0 0 8px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--seal)}
+  .cell h3{margin:0 0 7px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+  .cell p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.55}
+
+  .close{margin:30px 0 0;padding-top:20px;border-top:1px solid var(--rule);
+    font-size:13.5px;color:var(--muted);line-height:1.6;max-width:56em}
+  .close b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--rule-hard);margin-top:34px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--seal);border-bottom-color:var(--seal)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .opengrid{grid-template-columns:1fr;gap:30px}
+    .four{grid-template-columns:repeat(2,1fr)}
+    .cell{border-bottom:1px solid var(--rule)}
+    .lrow{grid-template-columns:118px 1fr}
+    .lrow .lease,.lrow .fate{grid-column:1 / -1;border-right:none}
+    .lrow.thead .lease,.lrow.thead .fate{display:none}
+  }
+  @media (max-width:600px){
+    .head nav{display:none}
+    .four{grid-template-columns:1fr}
+    .open{padding:32px 0 22px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <span class="id mono">openbao / openbao</span>
+    <nav aria-label="Primary">
+      <a href="https://openbao.org/docs/">Documentation</a>
+      <a href="https://www.openbao.org">Website</a>
+      <a href="https://github.com/openbao/openbao">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="open">
+    <div class="wrap opengrid">
+      <div>
+        <p class="eyebrow mono up u1">Secrets, certificates and keys</p>
+        <h1 class="up u1">A secret is not a stored string.<br><span class="strike">It is a lease.</span></h1>
+        <p class="lede up u2">OpenBao manages, stores and distributes sensitive data &mdash; and
+          <b>all secrets in OpenBao have a lease associated with them</b>. At the end of the lease
+          OpenBao automatically revokes the secret. Clients renew through built-in APIs, or they
+          let it expire.</p>
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://github.com/openbao/openbao">Read the source</a>
+          <a class="btn btn-line" href="https://openbao.org/docs/">Documentation</a>
+        </div>
+      </div>
+
+      <div class="stamp up u3">
+        <h2 class="mono">Why it exists</h2>
+        <p class="q">&ldquo;Understanding who is accessing what secrets is already very difficult and
+          platform-specific. Adding on key rolling, secure storage, and detailed audit logs is almost
+          impossible without a custom solution.&rdquo;</p>
+        <p class="src mono">&mdash; project README</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="wrap">
+      <div class="book-head">
+        <h2>The lease book</h2>
+        <span class="sub mono">illustrative rows &mdash; the operations and their outcomes are the project&rsquo;s</span>
+      </div>
+
+      <div class="ledger up u3">
+        <div class="lrow thead">
+          <div class="mono">Operation</div>
+          <div class="mono">Entry</div>
+          <div class="mono">Lease</div>
+          <div class="mono">At expiry</div>
+        </div>
+        <div class="lrow">
+          <div class="op mono">DYNAMIC</div>
+          <div class="what">AWS keypair, generated on demand<em>An application asks for credentials; OpenBao mints a keypair with valid permissions.</em></div>
+          <div class="lease mono num">held</div>
+          <div class="fate"><b>Revoked</b>automatically, after the lease is up</div>
+        </div>
+        <div class="lrow">
+          <div class="op mono">STATIC</div>
+          <div class="what">Arbitrary key/value secret<em>Encrypted before it is written to persistent storage &mdash; disk, PostgreSQL, and more.</em></div>
+          <div class="lease mono num">held</div>
+          <div class="fate"><b>Revoked</b>or renewed through the built-in API</div>
+        </div>
+        <div class="lrow">
+          <div class="op mono">ENCRYPT</div>
+          <div class="what">Data encrypted without being stored<em>Security teams define the parameters; developers store ciphertext wherever they like.</em></div>
+          <div class="lease mono num">&mdash;</div>
+          <div class="fate"><b>Nothing held</b>there is no secret at rest to revoke</div>
+        </div>
+        <div class="lrow">
+          <div class="op mono">REVOKE</div>
+          <div class="what">A tree of secrets, not one leaf<em>All secrets read by a specific user, or all secrets of a particular type.</em></div>
+          <div class="lease mono num">cut</div>
+          <div class="fate"><b>Immediate</b>key rolling, or locking down after an intrusion</div>
+        </div>
+      </div>
+
+      <p class="illus mono">Rows are illustrative examples of the published operations. No customer, volume or latency figure is shown.</p>
+
+      <div class="four up u3">
+        <div class="cell">
+          <p class="k mono">01</p>
+          <h3>Secure secret storage</h3>
+          <p>Encrypted prior to writing, so raw storage access is not enough to read the secret.</p>
+        </div>
+        <div class="cell">
+          <p class="k mono">02</p>
+          <h3>Dynamic secrets</h3>
+          <p>Generated on demand for systems such as AWS or SQL databases, then revoked.</p>
+        </div>
+        <div class="cell">
+          <p class="k mono">03</p>
+          <h3>Leasing and renewal</h3>
+          <p>Every secret carries a lease. Renewal is an API call you have to keep making.</p>
+        </div>
+        <div class="cell">
+          <p class="k mono">04</p>
+          <h3>Revocation</h3>
+          <p>Not only single secrets &mdash; a whole tree, in one operation.</p>
+        </div>
+      </div>
+
+      <p class="close">Community-run under open-governance principles, intended under an
+        <b>OSI-approved open-source license</b>. Security disclosures go to the OpenSSF list
+        the project publishes, not to a form.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/openbao/openbao">github.com/openbao/openbao</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

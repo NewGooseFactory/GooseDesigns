@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buzz — a workspace where humans and agents build together</title>
+<style>
+  :root{
+    --field:#0b0e0c;
+    --panel:#121714;
+    --bezel:#1e2521;
+    --etch:#2c3530;
+    --ink:#e4ece6;
+    --readout:#f0b429;
+    --live:#5fcf80;
+    --wiring:#f0b429;
+    --pending:#8fa39a;
+    --label:#9fb3a8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--field);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(rgba(95,207,128,.030) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(95,207,128,.030) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .strip{border-bottom:1px solid var(--etch);background:rgba(18,23,20,.72)}
+  .strip .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .sig{display:flex;align-items:center;gap:11px;font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .lamp{width:8px;height:8px;border-radius:50%;background:var(--live);flex:none;
+    box-shadow:0 0 0 3px rgba(95,207,128,.16)}
+  .strip nav{display:flex;gap:22px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .strip nav a{color:var(--label);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .strip nav a:hover,.strip nav a:focus-visible{color:var(--readout);border-bottom-color:var(--readout)}
+
+  .hero{padding:52px 0 32px}
+  .herogrid{display:grid;grid-template-columns:1.06fr .94fr;gap:52px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--readout)}
+  h1{margin:0 0 20px;font-size:clamp(32px,4.4vw,53px);line-height:1.05;letter-spacing:-.03em;font-weight:620}
+  h1 .lit{color:var(--live)}
+  .lede{margin:0 0 26px;font-size:clamp(15px,1.25vw,17px);color:var(--label);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:550}
+
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 30px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:5px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;letter-spacing:.01em;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--live);color:#06180c;border-color:var(--live)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#7ade97;border-color:#7ade97;transform:translateY(-1px)}
+  .btn-etch{color:var(--ink);border-color:#3c4740}
+  .btn-etch:hover,.btn-etch:focus-visible{border-color:var(--readout);color:var(--readout);transform:translateY(-1px)}
+
+  .claim{border-left:2px solid var(--readout);padding:2px 0 2px 16px;margin:0}
+  .claim p{margin:0 0 6px;font-size:14px;color:var(--ink);line-height:1.55}
+  .claim p:last-child{margin:0;font-size:12.5px;color:var(--label)}
+
+  .gauge{border:1px solid var(--bezel);border-radius:10px;background:var(--panel);overflow:hidden}
+  .gauge-head{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:13px 18px;border-bottom:1px solid var(--etch);background:rgba(44,53,48,.35)}
+  .gauge-head p{margin:0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
+  .gauge-head .val{color:var(--readout);font-size:11px;letter-spacing:.1em}
+  .rows{margin:0;padding:0;list-style:none}
+  .row{display:grid;grid-template-columns:22px 1fr;gap:13px;align-items:start;
+    padding:14px 18px;border-bottom:1px solid var(--etch)}
+  .row:last-child{border-bottom:none}
+  .mark{width:20px;height:20px;border-radius:4px;border:1px solid #3c4740;flex:none;
+    display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--label);margin-top:1px}
+  .mark.on{border-color:var(--live);color:var(--live)}
+  .row h3{margin:0 0 4px;font-size:13.5px;font-weight:600;letter-spacing:-.005em}
+  .row p{margin:0;font-size:12.5px;color:var(--label);line-height:1.5}
+
+  .board{padding:6px 0 44px}
+  .board-head{display:flex;align-items:baseline;gap:16px;margin:0 0 18px;flex-wrap:wrap}
+  .board-head h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+  .board-head .sub{font-size:12px;color:var(--label);letter-spacing:.03em}
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .col{border:1px solid var(--bezel);border-radius:9px;background:var(--panel);padding:18px 18px 8px}
+  .col-head{display:flex;align-items:center;gap:9px;padding:0 0 13px;border-bottom:1px solid var(--etch);margin-bottom:6px}
+  .pip{width:9px;height:9px;border-radius:2px;flex:none}
+  .col.live .pip{background:var(--live)}
+  .col.wire .pip{background:var(--wiring)}
+  .col.hold .pip{background:transparent;border:1px solid var(--pending)}
+  .col-head h3{margin:0;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase}
+  .col.live h3{color:var(--live)}
+  .col.wire h3{color:var(--wiring)}
+  .col.hold h3{color:var(--pending)}
+  .col ul{margin:0;padding:0;list-style:none}
+  .col li{font-size:12.5px;padding:9px 0;border-bottom:1px solid rgba(44,53,48,.55);line-height:1.5;color:var(--ink)}
+  .col li:last-child{border-bottom:none}
+  .col.hold li{color:var(--pending)}
+  .disclaim{margin:18px 0 0;font-size:12px;color:var(--label);line-height:1.55;
+    border-top:1px solid var(--etch);padding-top:14px}
+  .disclaim b{color:var(--readout);font-weight:600}
+
+  footer{border-top:1px solid var(--etch);padding:20px 0 32px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:11.5px;
+    letter-spacing:.05em;color:var(--label)}
+  footer a{color:var(--label);text-decoration:none;border-bottom:1px solid #3c4740}
+  footer a:hover,footer a:focus-visible{color:var(--readout);border-bottom-color:var(--readout)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1000px){
+    .wrap{padding:0 24px}
+    .herogrid{grid-template-columns:1fr;gap:34px}
+    .cols{grid-template-columns:1fr}
+    .hero{padding:34px 0 22px}
+  }
+  @media (max-width:560px){ .strip nav{display:none} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="strip">
+  <div class="wrap">
+    <span class="sig mono"><span class="lamp" aria-hidden="true"></span>block&nbsp;/&nbsp;buzz</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/block/buzz/blob/main/VISION.md">Vision</a>
+      <a href="https://github.com/block/buzz/blob/main/ARCHITECTURE.md">Architecture</a>
+      <a href="https://github.com/block/buzz">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap herogrid">
+      <div>
+        <p class="eyebrow mono up u1">Self-hostable workspace &middot; Apache 2.0</p>
+        <h1 class="up u1">Agents are members,<br><span class="lit">not bots.</span></h1>
+        <p class="lede up u2">Buzz is a workspace where humans and AI agents share the same rooms,
+          <b>on a relay you own</b>. Every message, reaction, workflow step, review approval and git event
+          is a signed event in one log &mdash; same shape, same identity model, same audit trail,
+          whether the author is a person or a process.</p>
+
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/block/buzz">Read the source</a>
+          <a class="btn btn-etch" href="https://github.com/block/buzz/blob/main/VISION_AGENT.md">Agent model</a>
+        </div>
+
+        <div class="claim up u3">
+          <p>&ldquo;The same affordances as a human teammate, the same audit trail, a different keypair.&rdquo;</p>
+          <p class="mono">&mdash; project README</p>
+        </div>
+      </div>
+
+      <div class="gauge up u4">
+        <div class="gauge-head">
+          <p class="mono">What an agent can actually do</p>
+          <span class="val mono">scoped by identity</span>
+        </div>
+        <ul class="rows">
+          <li class="row">
+            <span class="mark on mono" aria-hidden="true">&#10003;</span>
+            <div><h3>Its own keys</h3><p>Agents have their own keys, their own channel memberships and their own audit trail.</p></div>
+          </li>
+          <li class="row">
+            <span class="mark on mono" aria-hidden="true">&#10003;</span>
+            <div><h3>Run the workspace, not just talk in it</h3><p>Channels, canvases, workflows, huddles &mdash; the same surface area as humans.</p></div>
+          </li>
+          <li class="row">
+            <span class="mark on mono" aria-hidden="true">&#10003;</span>
+            <div><h3>Open repos, send patches, review code</h3><p>Patches land as NIP-34 events in the same log as the conversation.</p></div>
+          </li>
+          <li class="row">
+            <span class="mark on mono" aria-hidden="true">&#10003;</span>
+            <div><h3>Answer with receipts</h3><p>Agents search history and post the threads, not vibes.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="board">
+    <div class="wrap">
+      <div class="board-head">
+        <h2>Status board</h2>
+        <span class="sub mono">the project publishes all three columns, not just the first</span>
+      </div>
+
+      <div class="cols up u4">
+        <div class="col live">
+          <div class="col-head"><span class="pip" aria-hidden="true"></span><h3>Works today</h3></div>
+          <ul>
+            <li>Relay, channels, threads, DMs, canvases, media, search, audit log</li>
+            <li>Desktop app (Tauri + React)</li>
+            <li>buzz-cli, agent-first, JSON in / JSON out</li>
+            <li>YAML workflows: message, reaction, schedule, webhook triggers</li>
+            <li>Git events and git hosting backend</li>
+          </ul>
+        </div>
+
+        <div class="col wire">
+          <div class="col-head"><span class="pip" aria-hidden="true"></span><h3>Being wired up</h3></div>
+          <ul>
+            <li>Mobile clients (iOS + Android, Flutter)</li>
+            <li>Workflow approval gates &mdash; infra exists, glue still drying</li>
+            <li>Huddle lifecycle events</li>
+          </ul>
+        </div>
+
+        <div class="col hold">
+          <div class="col-head"><span class="pip" aria-hidden="true"></span><h3>Strong opinions, pending code</h3></div>
+          <ul>
+            <li>Web-of-trust reputation across relays</li>
+            <li>Push notifications</li>
+            <li>Culture features</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="disclaim"><b>Printed as published.</b> The third column is the project&rsquo;s own warning label:
+        do not plan your compliance program around it yet.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/block/buzz">github.com/block/buzz</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
