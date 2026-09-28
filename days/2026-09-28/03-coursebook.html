@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coursebook — the apparatus is the upgrade</title>
+<style>
+  :root{
+    --page:#fbfaf7;
+    --ruled:#e6e1d6;
+    --hard:#191714;
+    --ink:#191714;
+    --muted:#4f4a41;
+    --faint:#655f54;
+    --crimson:#9c2f2f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--page);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 44px}
+
+  .head{border-bottom:1px solid var(--hard)}
+  .head .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .head nav{display:flex;gap:22px;font-size:12.5px}
+  .head nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .head nav a:hover,.head nav a:focus-visible{color:var(--crimson);border-bottom-color:var(--crimson)}
+
+  /* specimen */
+  .plate{padding:46px 0 26px}
+  .kicker{display:flex;align-items:center;gap:14px;margin:0 0 24px;font-size:11px;letter-spacing:.17em;
+    text-transform:uppercase;color:var(--crimson)}
+  .kicker .ln{height:1px;background:var(--crimson);flex:1;max-width:120px;opacity:.5}
+
+  .specgrid{display:grid;grid-template-columns:1.06fr .94fr;gap:50px;align-items:start}
+
+  h1{margin:0 0 4px;font-size:clamp(38px,5.4vw,70px);line-height:.96;letter-spacing:-.036em;font-weight:600;text-wrap:balance}
+  h1 .red{color:var(--crimson)}
+  .setting{margin:18px 0 0;font-size:clamp(17px,1.8vw,23px);line-height:1.35;color:var(--muted);
+    letter-spacing:-.015em;max-width:20em}
+  .setting b{color:var(--ink);font-weight:600}
+
+  .meta{margin:26px 0 0;padding-top:18px;border-top:1px solid var(--ruled);
+    display:flex;flex-wrap:wrap;gap:8px 26px}
+  .meta div{min-width:0}
+  .meta .k{display:block;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+  .meta .v{display:block;font-size:13.5px;color:var(--ink)}
+
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:24px 0 0}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;font-size:13.5px;border-radius:2px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--hard);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--crimson);border-color:var(--crimson);color:#fdf7f6}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#7d2323;border-color:#7d2323;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--hard);color:var(--page);transform:translateY(-1px)}
+
+  /* apparatus panel */
+  .app{border:1px solid var(--hard);background:#fff;padding:0;overflow:hidden}
+  .app-head{padding:13px 20px;border-bottom:1px solid var(--hard);background:#f2efe8;
+    display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .app-head p{margin:0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .app-head .t{font-size:11px;letter-spacing:.08em;color:var(--crimson)}
+  .app ul{margin:0;padding:0;list-style:none}
+  .app li{padding:14px 20px;border-bottom:1px solid var(--ruled);display:grid;
+    grid-template-columns:26px 1fr;gap:14px;align-items:start}
+  .app li:last-child{border-bottom:none}
+  .app .mk{font-size:12px;color:var(--crimson);padding-top:2px}
+  .app h3{margin:0 0 4px;font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .app p.d{margin:0;font-size:12.5px;color:var(--muted);line-height:1.55}
+
+  /* sample block */
+  .sample{margin:36px 0 0;border-top:1px solid var(--hard);padding-top:0}
+  .srow{display:grid;grid-template-columns:.9fr 1.1fr;border-bottom:1px solid var(--ruled)}
+  .srow > div{padding:22px 24px}
+  .srow .left{border-right:1px solid var(--ruled)}
+  .srow .lbl{margin:0 0 10px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .srow .before{font-size:15px;color:var(--faint);line-height:1.6;margin:0}
+  .srow .after{font-size:15px;color:var(--ink);line-height:1.6;margin:0}
+  .srow .after sup{color:var(--crimson);font-size:11px;padding:0 1px}
+  .fn{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--ruled);font-size:11.5px;color:var(--faint);line-height:1.5}
+  .fn sup{color:var(--crimson)}
+
+  .exports{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--ruled);margin-top:30px}
+  .ex{padding:16px 20px;border-right:1px solid var(--ruled);border-top:1px solid var(--ruled);border-bottom:1px solid var(--ruled)}
+  .ex .f{display:block;font-size:15px;font-weight:600;margin-bottom:4px}
+  .ex .n{display:block;font-size:12px;color:var(--faint);line-height:1.45}
+
+  .tail{margin:26px 0 0;font-size:13.5px;color:var(--muted);line-height:1.65;max-width:56em}
+  .tail b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--hard);margin-top:34px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--ruled)}
+  footer a:hover,footer a:focus-visible{color:var(--crimson);border-bottom-color:var(--crimson)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .specgrid{grid-template-columns:1fr;gap:32px}
+    .srow{grid-template-columns:1fr}
+    .srow .left{border-right:none;border-bottom:1px solid var(--ruled)}
+    .exports{grid-template-columns:1fr}
+    .plate{padding:30px 0 20px}
+  }
+  @media (max-width:560px){ .head nav{display:none} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <span class="id mono">cs341-illinois / coursebook</span>
+    <nav aria-label="Primary">
+      <a href="http://cs341.cs.illinois.edu/">CS 341</a>
+      <a href="https://github.com/cs341-illinois/coursebook/blob/pdf_deploy/main.pdf">main.pdf</a>
+      <a href="https://github.com/cs341-illinois/coursebook">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="plate">
+    <div class="wrap">
+      <p class="kicker mono up u1"><span>Open-source systems programming textbook</span><span class="ln" aria-hidden="true"></span><span>UIUC</span></p>
+
+      <div class="specgrid">
+        <div>
+          <h1 class="serif up u1">Not a better<br>wikibook.<br><span class="red">A cited one.</span></h1>
+          <p class="setting up u2">An introductory systems programming textbook used by
+            <b>CS 341 at the University of Illinois Urbana-Champaign</b>. It builds on Angrave&rsquo;s
+            original wikibook experiment &mdash; and its stated goal is to improve the
+            <b>factualness</b>, not just the prose.</p>
+
+          <div class="meta up u2">
+            <div><span class="k mono">Language</span><span class="v">C &mdash; the de-facto language of the Linux kernel</span></div>
+            <div><span class="k mono">Assumes</span><span class="v">One programming course, familiarity with assembly</span></div>
+          </div>
+
+          <div class="cta up u2">
+            <a class="btn btn-solid" href="https://github.com/cs341-illinois/coursebook">Read the source</a>
+            <a class="btn btn-line" href="https://github.com/cs341-illinois/coursebook/blob/pdf_deploy/main.pdf">Download main.pdf</a>
+          </div>
+        </div>
+
+        <div class="app up u3">
+          <div class="app-head">
+            <p class="mono">The apparatus</p>
+            <span class="t mono">this is the stated upgrade</span>
+          </div>
+          <ul>
+            <li>
+              <span class="mk mono">&#182;</span>
+              <div><h3>Citations</h3><p class="d">Claims point somewhere. The original wikibook mostly did not.</p></div>
+            </li>
+            <li>
+              <span class="mk mono">&dagger;</span>
+              <div><h3>Footnotes</h3><p class="d">The caveat lives on the same page as the claim it qualifies.</p></div>
+            </li>
+            <li>
+              <span class="mk mono">&rarr;</span>
+              <div><h3>Extended reading</h3><p class="d">Where to go when the chapter stops being enough.</p></div>
+            </li>
+            <li>
+              <span class="mk mono">&sect;</span>
+              <div><h3>Glossary</h3><p class="d">One definition per term, in one place, for a whole book.</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sample up u3">
+        <div class="srow">
+          <div class="left">
+            <p class="lbl mono">Illustrative &mdash; unsourced prose</p>
+            <p class="before serif">A process is an instance of a running program, and the kernel keeps a
+              record for each one. Processes are created by copying an existing process.</p>
+          </div>
+          <div>
+            <p class="lbl mono">Illustrative &mdash; the same claim, with apparatus</p>
+            <p class="after serif">A process is an instance of a running program, and the kernel keeps a
+              record for each one.<sup>1</sup> Processes are created by copying an existing process<sup>2</sup>
+              &mdash; see <em>extended reading</em>.</p>
+            <p class="fn mono"><sup>1</sup> citation &middot; <sup>2</sup> footnote: the copy is lazy in practice.
+              Terms in <em>italics</em> resolve in the glossary.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exports up u3">
+        <div class="ex"><span class="f">PDF</span><span class="n mono">main.pdf, built on deploy</span></div>
+        <div class="ex"><span class="f">Markdown</span><span class="n mono">the source you can send a PR to</span></div>
+        <div class="ex"><span class="f">HTML</span><span class="n mono">read it without downloading a book</span></div>
+      </div>
+
+      <p class="tail">Three exports from one source, built automatically &mdash; the project states the point plainly:
+        <b>so writers can focus on writing</b>. The two sample paragraphs above are illustrative, written to show the
+        difference apparatus makes; they are not quoted from the book.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/cs341-illinois/coursebook">github.com/cs341-illinois/coursebook</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenRig — a rig wraps your harnesses</title>
+<style>
+  :root{
+    --deep:#0d0f12;
+    --bed:#151920;
+    --seam:#232a33;
+    --ink:#e7ecf2;
+    --muted:#98a4b3;
+    --dim:#a2adbb;
+    --copper:#d98441;
+    --copper-soft:rgba(217,132,65,.13);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--deep);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1150px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--seam)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--copper);border-bottom-color:var(--copper)}
+
+  .top{padding:52px 0 30px}
+  .topgrid{display:grid;grid-template-columns:1.02fr .98fr;gap:50px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--copper)}
+  h1{margin:0 0 20px;font-size:clamp(30px,3.5vw,43px);line-height:1.06;letter-spacing:-.032em;font-weight:630;text-wrap:balance}
+  h1 .c{color:var(--copper)}
+  .lede{margin:0 0 26px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:35em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 28px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:5px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--copper);color:#1a0f05;border-color:var(--copper)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#e89a5e;border-color:#e89a5e;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#3a434f}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--copper);color:var(--copper);transform:translateY(-1px)}
+
+  .shell{border:1px solid var(--seam);border-radius:7px;background:var(--bed);padding:15px 17px}
+  .shell p{margin:0 0 8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .shell code{display:block;font-size:12.5px;color:var(--ink);line-height:1.85;white-space:pre-wrap;word-break:break-word}
+  .shell code .p{color:var(--copper)}
+
+  /* strata */
+  .core{border:1px solid var(--seam);border-radius:11px;background:var(--bed);padding:22px;overflow:hidden}
+  .core-head{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding-bottom:15px;border-bottom:1px solid var(--seam);margin-bottom:18px}
+  .core-head p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .core-head .tag{font-size:11px;letter-spacing:.09em;color:var(--copper)}
+
+  .band{border:1px solid var(--seam);border-radius:8px;padding:14px 16px;position:relative}
+  .band + .band-wrap{margin-top:0}
+  .band-wrap{padding:14px}
+  .band-wrap.l1{border:1px dashed #3a434f;border-radius:10px;background:rgba(255,255,255,.018)}
+  .band-wrap.l2{border:1px solid var(--copper);border-radius:9px;background:var(--copper-soft)}
+  .tier{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px;color:var(--dim)}
+  .band-wrap.l2 > .tier{color:var(--copper)}
+  .band .n{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+  .band .t{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
+  .band .d{display:block;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .seats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:11px}
+  .seat{border:1px solid var(--seam);border-radius:7px;padding:11px 13px;background:rgba(255,255,255,.028)}
+  .seat .s{display:block;font-size:12.5px;color:var(--ink);font-weight:550}
+  .seat .r{display:block;font-size:11.5px;color:var(--dim);margin-top:3px}
+  .core-foot{margin:16px 0 0;font-size:12px;color:var(--muted);line-height:1.55;
+    border-top:1px solid var(--seam);padding-top:14px}
+  .core-foot b{color:var(--copper);font-weight:600}
+
+  /* disclosure */
+  .disc{padding:6px 0 42px}
+  .disc-head{display:flex;align-items:baseline;gap:16px;margin:0 0 16px;flex-wrap:wrap}
+  .disc-head h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .disc-head .sub{font-size:12px;color:var(--dim);letter-spacing:.03em}
+  .dtable{border:1px solid var(--seam);border-radius:8px;background:var(--bed);overflow:hidden}
+  .drow{display:grid;grid-template-columns:210px 1fr}
+  .drow > div{padding:13px 17px;border-bottom:1px solid var(--seam);border-right:1px solid var(--seam)}
+  .drow > div:last-child{border-right:none}
+  .drow:last-child > div{border-bottom:none}
+  .drow.h > div{background:rgba(35,42,51,.55);padding:10px 17px;font-size:10.5px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--dim)}
+  .drow .when{font-size:12.5px;color:var(--copper);letter-spacing:.03em}
+  .drow .what{font-size:13px;color:var(--muted);line-height:1.55}
+  .drow .what b{color:var(--ink);font-weight:600}
+  .note{margin:14px 0 0;font-size:12.5px;color:var(--dim);line-height:1.55}
+
+  footer{border-top:1px solid var(--seam);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #3a434f}
+  footer a:hover,footer a:focus-visible{color:var(--copper);border-bottom-color:var(--copper)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:32px}
+    .drow{grid-template-columns:1fr}
+    .drow > div{border-right:none}
+    .drow.h{display:none}
+    .top{padding:34px 0 22px}
+  }
+  @media (max-width:560px){ .bar nav{display:none} .seats{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">mvschwarz / openrig</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/mvschwarz/openrig/blob/main/docs/reference/getting-started.md">Getting started</a>
+      <a href="https://www.npmjs.com/package/@openrig/cli">npm</a>
+      <a href="https://github.com/mvschwarz/openrig">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Multi-agent harness &middot; Node 20/22/24 + tmux</p>
+        <h1 class="up u1">A harness wraps a model.<br>A rig wraps <span class="c">your harnesses.</span></h1>
+        <p class="lede up u2">OpenRig turns AI coding agents from <b>a pile of terminal sessions</b> into a
+          persistent, organized team. Define the team in YAML, boot it with one command, and talk to a lead
+          agent about the outcome you want &mdash; it coordinates specialists and brings back the decisions
+          that need you.</p>
+
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/mvschwarz/openrig">Read the source</a>
+          <a class="btn btn-line" href="https://github.com/mvschwarz/openrig/blob/main/docs/reference/getting-started.md">Guided first run</a>
+        </div>
+
+        <div class="shell up u3">
+          <p class="mono">First run, from your repository</p>
+          <code class="mono"><span class="p">$</span> npm install -g @openrig/cli
+<span class="p">$</span> rig setup --dry-run
+<span class="p">$</span> rig up first-project --cwd . --plan
+<span class="p">$</span> rig tui --shared</code>
+        </div>
+      </div>
+
+      <div class="core up u4">
+        <div class="core-head">
+          <p class="mono">One rig, two harnesses</p>
+          <span class="tag mono">managed as one system</span>
+        </div>
+
+        <div class="band-wrap l2">
+          <span class="tier mono">Rig &mdash; defined in YAML, booted with one command</span>
+          <div class="band-wrap l1">
+            <span class="tier mono">Harnesses &mdash; native, both authenticated separately</span>
+            <div class="seats">
+              <div class="seat"><span class="s">Claude Code</span><span class="r mono">--permission-mode acceptEdits</span></div>
+              <div class="seat"><span class="s">Codex</span><span class="r mono">-s workspace-write</span></div>
+            </div>
+            <div class="band" style="margin-top:10px">
+              <span class="n mono">Wrapped by each harness</span>
+              <span class="t">The model</span>
+              <span class="d">The part everyone talks about, and the only layer OpenRig does not manage.</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="core-foot">The starter rig launches <b>two Codex seats &mdash; an owner and a checker</b>.
+          The owner records the task, the checker reviews the exact candidate, and you read the result.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="disc">
+    <div class="wrap">
+      <div class="disc-head">
+        <h2>What it changes on your machine</h2>
+        <span class="sub mono">printed before install, not after</span>
+      </div>
+
+      <div class="dtable up u4">
+        <div class="drow h">
+          <div class="mono">When</div>
+          <div class="mono">What changes, and why</div>
+        </div>
+        <div class="drow">
+          <div class="when mono">npm installation</div>
+          <div class="what">Installs the CLI, bundled components and dependencies under your npm prefix.
+            The postinstall checks the Node version and that the SQLite module loads. <b>It does not run
+            daemon or provider setup.</b></div>
+        </div>
+        <div class="drow">
+          <div class="when mono">rig setup</div>
+          <div class="what">Writes an OpenRig block in <span class="mono">~/.tmux.conf</span> for mouse support
+            and scrollback. On macOS it can install cmux. <b>--dry-run shows the plan without applying it.</b></div>
+        </div>
+        <div class="drow">
+          <div class="when mono">Daemon startup</div>
+          <div class="what">Creates instance state under <span class="mono">OPENRIG_HOME</span>, seeds a
+            discovery skill, and writes Codex hook configuration and trust records &mdash;
+            <b>even before a rig launches</b>.</div>
+        </div>
+        <div class="drow">
+          <div class="when mono">Rig / seat launch</div>
+          <div class="what">Creates tmux sessions, supplies seat identity, and <b>pre-trusts the workspace</b>.</div>
+        </div>
+        <div class="drow">
+          <div class="when mono">Permissions</div>
+          <div class="what">The built-in bootstrap does <b>not</b> add <span class="mono">rig</span> command
+            allow rules. Broader access is a separate, explicit choice you make.</div>
+        </div>
+      </div>
+
+      <p class="note">Reproduced from the project&rsquo;s own disclosure table. Activity relays send event type,
+        seat identity and timestamps &mdash; the project states that payload excludes prompt text and tool arguments.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/mvschwarz/openrig">github.com/mvschwarz/openrig</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

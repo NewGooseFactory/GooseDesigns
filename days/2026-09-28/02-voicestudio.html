@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoiceStudio — local workflows run on your hardware</title>
+<style>
+  :root{
+    --night:#0e0c14;
+    --panel:#171423;
+    --seam:#282338;
+    --ink:#ece9f4;
+    --muted:#a59cbd;
+    --dim:#8d84a6;
+    --signal:#a78bfa;
+    --signal-deep:#7c5cf0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--night);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1150px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--seam)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--signal);border-bottom-color:var(--signal)}
+
+  .hero{padding:50px 0 26px}
+  .eyebrow{margin:0 0 20px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--signal)}
+  h1{margin:0 0 22px;font-size:clamp(34px,5vw,62px);line-height:1.02;letter-spacing:-.035em;font-weight:640;text-wrap:balance}
+  h1 .s{color:var(--signal)}
+  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end}
+  .lede{margin:0;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:36em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:6px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--signal);color:#160c33;border-color:var(--signal)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#bda4ff;border-color:#bda4ff;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#3d3654}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--signal);color:var(--signal);transform:translateY(-1px)}
+
+  /* waveform boundary */
+  .meter{margin:34px 0 0;border:1px solid var(--seam);border-radius:11px;background:var(--panel);overflow:hidden}
+  .meter-head{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:13px 20px;border-bottom:1px solid var(--seam)}
+  .meter-head p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .meter-head .k{font-size:11px;letter-spacing:.09em;color:var(--signal)}
+
+  .track{display:grid;grid-template-columns:1fr 150px 1fr;align-items:stretch}
+  .zone{padding:20px}
+  .zone.local{border-right:1px solid var(--seam)}
+  .zone.remote{border-left:1px solid var(--seam)}
+  .zlab{display:flex;align-items:center;gap:9px;margin:0 0 4px}
+  .zlab .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .zone.local .zlab .dot{background:var(--signal)}
+  .zone.remote .zlab .dot{background:transparent;border:1px solid var(--dim)}
+  .zlab h3{margin:0;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase}
+  .zone.local .zlab h3{color:var(--signal)}
+  .zone.remote .zlab h3{color:var(--dim)}
+  .zsub{margin:0 0 15px;font-size:12px;color:var(--dim);line-height:1.5}
+  .zone ul{margin:0;padding:0;list-style:none}
+  .zone li{font-size:13px;padding:8px 0;border-bottom:1px solid rgba(40,35,56,.75);line-height:1.5}
+  .zone li:last-child{border-bottom:none}
+  .zone.remote li{color:var(--dim)}
+
+  .wave{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 8px;position:relative}
+  .wave .bars{display:flex;align-items:center;justify-content:center;gap:3px;position:relative;padding:0 4px}
+  .wave .bar-w{width:3px;border-radius:2px;background:var(--signal-deep);opacity:.55}
+  .wave .cut{position:absolute;top:-16px;bottom:-16px;left:50%;width:1px;background:var(--signal);
+    transform:translateX(-50%)}
+  .wave .cutlab{margin-top:26px;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--signal);white-space:nowrap}
+
+  .meter-foot{padding:14px 20px;border-top:1px solid var(--seam);font-size:12.5px;color:var(--muted);line-height:1.55}
+  .meter-foot b{color:var(--ink);font-weight:600}
+
+  /* columns */
+  .three{padding:34px 0 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border-top:1px solid var(--seam);margin-top:34px;border-left:1px solid var(--seam)}
+  .cell{padding:20px 22px;border-right:1px solid var(--seam)}
+  .cell .k{margin:0 0 9px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+  .cell ul{margin:0;padding:0;list-style:none}
+  .cell li{font-size:13.5px;color:var(--ink);padding:7px 0;line-height:1.5}
+  .cell li span{display:block;font-size:12px;color:var(--dim);margin-top:2px}
+
+  .tail{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--seam);
+    font-size:13px;color:var(--muted);line-height:1.6;max-width:58em}
+  .tail b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--seam);margin-top:32px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #3d3654}
+  footer a:hover,footer a:focus-visible{color:var(--signal);border-bottom-color:var(--signal)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .split{grid-template-columns:1fr;gap:26px;align-items:start}
+    .track{grid-template-columns:1fr}
+    .zone.local{border-right:none;border-bottom:1px solid var(--seam)}
+    .zone.remote{border-left:none;border-top:1px solid var(--seam)}
+    .wave{padding:14px 20px}
+    .wave .bars{width:100%}
+    .wave .cut{left:14px;right:auto;top:auto;bottom:auto;height:1px;width:calc(100% - 28px);transform:none}
+    .wave .cutlab{margin-top:10px}
+    .three{grid-template-columns:1fr}
+    .cell{border-bottom:1px solid var(--seam)}
+    .hero{padding:32px 0 20px}
+  }
+  @media (max-width:560px){ .bar nav{display:none} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">debpalash / VoiceStudio</span>
+    <nav aria-label="Primary">
+      <a href="https://voicestudio.sh/">Website</a>
+      <a href="https://github.com/debpalash/VoiceStudio/releases/latest">Download</a>
+      <a href="https://github.com/debpalash/VoiceStudio">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow mono up u1">Voice cloning &middot; dubbing &middot; transcription &middot; AGPL-3.0</p>
+      <h1 class="up u1">Your voice.<br><span class="s">Your hardware.</span></h1>
+
+      <div class="split up u2">
+        <p class="lede">Open-source voice cloning, voice design, video dubbing, dictation, transcription
+          and audiobook creation in <b>646 languages</b>. The project states it plainly:
+          <b>local workflows run on your hardware, remote services are optional,
+          and usage analytics requires consent</b>.</p>
+        <div class="cta">
+          <a class="btn btn-lit" href="https://github.com/debpalash/VoiceStudio">Read the source</a>
+          <a class="btn btn-line" href="https://github.com/debpalash/VoiceStudio/releases/latest">Download a release</a>
+        </div>
+      </div>
+
+      <div class="meter up u3">
+        <div class="meter-head">
+          <p class="mono">Where the signal goes</p>
+          <span class="k mono">the line is opt-in, not default</span>
+        </div>
+
+        <div class="track">
+          <div class="zone local">
+            <div class="zlab"><span class="dot" aria-hidden="true"></span><h3>On your machine</h3></div>
+            <p class="zsub">Default. Powered by the bundled engine, or another from the catalog.</p>
+            <ul>
+              <li>Voice cloning and voice design</li>
+              <li>Video dubbing with timed speech</li>
+              <li>Dictation via a floating widget</li>
+              <li>Transcription, stories, audiobooks, batch jobs</li>
+              <li>Local API and MCP for agents</li>
+              <li>Local speech models you install and manage</li>
+            </ul>
+          </div>
+
+          <div class="wave" aria-hidden="true">
+            <span class="bars">
+            <span class="bar-w" style="height:16px"></span>
+            <span class="bar-w" style="height:30px"></span>
+            <span class="bar-w" style="height:48px"></span>
+            <span class="bar-w" style="height:66px"></span>
+            <span class="bar-w" style="height:40px"></span>
+            <span class="bar-w" style="height:22px"></span>
+            <span class="cut"></span>
+            <span class="bar-w" style="height:10px"></span>
+            <span class="bar-w" style="height:14px"></span>
+            <span class="bar-w" style="height:9px"></span>
+            <span class="bar-w" style="height:12px"></span>
+            </span>
+            <span class="cutlab mono">opt in to cross</span>
+          </div>
+
+          <div class="zone remote">
+            <div class="zlab"><span class="dot" aria-hidden="true"></span><h3>Only if you ask</h3></div>
+            <p class="zsub">Optional. Nothing here is required to use the app.</p>
+            <ul>
+              <li>Optional remote workers</li>
+              <li>Optional remote services</li>
+              <li>Usage analytics &mdash; requires consent</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="meter-foot">Both columns are the project&rsquo;s own wording. <b>The right column is short
+          on purpose</b> &mdash; that is the product claim, not a gap in the feature list.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="three">
+        <div class="cell">
+          <p class="k mono">Create</p>
+          <ul>
+            <li>Clone a voice or design your own</li>
+            <li>Dictate with a floating widget</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <p class="k mono">Produce</p>
+          <ul>
+            <li>Dub videos with timed speech</li>
+            <li>Stories, audiobooks &amp; batch jobs</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <p class="k mono">Connect</p>
+          <ul>
+            <li>Local API &amp; MCP for agents</li>
+            <li>Optional remote workers</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="tail">Install is one command on macOS and Linux, and the installer
+        <b>preserves your settings, projects and models</b>. The uninstall flag keeps your data.
+        No quality score, latency figure or voice count beyond the published language number appears here.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/debpalash/VoiceStudio">github.com/debpalash/VoiceStudio</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

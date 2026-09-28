@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **321 mocks** across **107 days**. Newest first.
+Searchable master index. **324 mocks** across **108 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-28 | Monday | [mvschwarz/openrig](https://github.com/mvschwarz/openrig) | strata | rig-copper | Draw the project own sentence as literal nested strata, and let the innermost band be the layer it does not manage | Nesting the model innermost makes the pitch structural, because the page argues by containment rather than by adjective | [png](days/2026-09-28/01-openrig.png) | [2026-09-28](days/2026-09-28/) |
+| 2026-09-28 | Monday | [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio) | waveform | signal-violet | Put the local and remote columns either side of a waveform that visibly loses amplitude at the boundary | Amplitude dropping at the line does the work a lock icon usually pretends to do | [png](days/2026-09-28/02-voicestudio.png) | [2026-09-28](days/2026-09-28/) |
+| 2026-09-28 | Monday | [cs341-illinois/coursebook](https://github.com/cs341-illinois/coursebook) | specimen | ink-crimson | Make the scholarly apparatus the hero, and prove it with the same paragraph printed twice | Printing the same sentence with and without its apparatus is a better argument for rigour than the word rigour | [png](days/2026-09-28/03-coursebook.png) | [2026-09-28](days/2026-09-28/) |
 | 2026-09-27 | Sunday | [block/buzz](https://github.com/block/buzz) | hud | instrument-amber | Print all three status columns as instrument readouts, including the one the project warns you not to rely on | An unlit third column is the most credible thing on a roadmap, because it is the one nobody had to publish | [png](days/2026-09-27/01-buzz.png) | [2026-09-27](days/2026-09-27/) |
 | 2026-09-27 | Sunday | [openbao/openbao](https://github.com/openbao/openbao) | ledger | seal-green | Give every secret a row with an expiry column, so the lease is a property of the record rather than a paragraph about it | An at-expiry column forces the page to answer a question a feature list never asks | [png](days/2026-09-27/02-openbao.png) | [2026-09-27](days/2026-09-27/) |
 | 2026-09-27 | Sunday | [zhaoxuya520/reverse-skill](https://github.com/zhaoxuya520/reverse-skill) | cell-grid | router-lime | Lay the pipeline out as equal cells, then tint the single cell that is a gate rather than a stage | Tinting one cell out of five says more about a security tool than the word responsible ever has | [png](days/2026-09-27/03-reverse-skill.png) | [2026-09-27](days/2026-09-27/) |
