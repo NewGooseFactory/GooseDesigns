@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![324 mocks](https://img.shields.io/badge/mocks-324-1f6feb?style=flat-square) ![108 days](https://img.shields.io/badge/days-108-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![327 mocks](https://img.shields.io/badge/mocks-327-1f6feb?style=flat-square) ![109 days](https://img.shields.io/badge/days-109-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 324 mockups across 108 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 327 mockups across 109 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Monday, September 28
+## Latest — Tuesday, September 29
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-09-28/"><img src="days/2026-09-28/01-openrig.png" width="320" alt="mvschwarz/openrig"></a><br><sub><b>mvschwarz/openrig</b><br>strata</sub></td>
-<td align="center" width="33%"><a href="days/2026-09-28/"><img src="days/2026-09-28/02-voicestudio.png" width="320" alt="debpalash/VoiceStudio"></a><br><sub><b>debpalash/VoiceStudio</b><br>waveform</sub></td>
-<td align="center" width="33%"><a href="days/2026-09-28/"><img src="days/2026-09-28/03-coursebook.png" width="320" alt="cs341-illinois/coursebook"></a><br><sub><b>cs341-illinois/coursebook</b><br>specimen</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-29/"><img src="days/2026-09-29/01-openshell.png" width="320" alt="NVIDIA/OpenShell"></a><br><sub><b>NVIDIA/OpenShell</b><br>redline</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-29/"><img src="days/2026-09-29/02-pageindex.png" width="320" alt="VectifyAI/PageIndex"></a><br><sub><b>VectifyAI/PageIndex</b><br>constellation</sub></td>
+<td align="center" width="33%"><a href="days/2026-09-29/"><img src="days/2026-09-29/03-dbx.png" width="320" alt="t8y2/dbx"></a><br><sub><b>t8y2/dbx</b><br>warm-minimal</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-09-28/)
+[See the full day →](days/2026-09-29/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-09-29 | Tuesday | 3 | redline, constellation, warm-minimal | [open](days/2026-09-29/) |
 | 2026-09-28 | Monday | 3 | strata, waveform, specimen | [open](days/2026-09-28/) |
 | 2026-09-27 | Sunday | 3 | hud, ledger, cell-grid | [open](days/2026-09-27/) |
 | 2026-09-26 | Saturday | 3 | glass, poster, patchbay | [open](days/2026-09-26/) |

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PageIndex — retrieval you can point at</title>
+<style>
+  :root{
+    --void:#0a0d12;
+    --panel:#121722;
+    --rule:#1f2836;
+    --ink:#e6edf6;
+    --muted:#98a7bb;
+    --dim:#a3b1c4;
+    --node:#4fd1c5;
+    --node-dim:rgba(79,209,197,.16);
+    --scatter:#6b7889;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--void);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--rule)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--node);border-bottom-color:var(--node)}
+
+  .hero{padding:50px 0 26px}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--node)}
+  h1{margin:0 0 20px;font-size:clamp(32px,4.3vw,53px);line-height:1.04;letter-spacing:-.033em;font-weight:630;text-wrap:balance}
+  h1 .n{color:var(--node)}
+  .split{display:grid;grid-template-columns:1.06fr .94fr;gap:46px;align-items:end}
+  .lede{margin:0;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:35em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:6px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--node);color:#04201d;border-color:var(--node)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#6fe0d5;border-color:#6fe0d5;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#333e4f}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--node);color:var(--node);transform:translateY(-1px)}
+
+  /* topology */
+  .topo{margin:36px 0 0;border:1px solid var(--rule);border-radius:11px;background:var(--panel);overflow:hidden}
+  .topo-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    padding:13px 20px;border-bottom:1px solid var(--rule)}
+  .topo-head p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .topo-head .q{font-size:11.5px;color:var(--node)}
+  .panes{display:grid;grid-template-columns:1fr 1fr}
+  .pane{padding:22px}
+  .pane.left{border-right:1px solid var(--rule)}
+  .plab{display:flex;align-items:center;gap:9px;margin:0 0 3px}
+  .plab .d{width:8px;height:8px;border-radius:50%;flex:none}
+  .pane.left .plab .d{background:transparent;border:1px solid var(--scatter)}
+  .pane.right .plab .d{background:var(--node)}
+  .plab h3{margin:0;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase}
+  .pane.left .plab h3{color:var(--dim)}
+  .pane.right .plab h3{color:var(--node)}
+  .psub{margin:0 0 16px;font-size:12px;color:var(--dim);line-height:1.5}
+
+  .stage{height:186px;position:relative;border:1px solid var(--rule);border-radius:8px;
+    background:rgba(0,0,0,.18);overflow:hidden}
+  .dotpt{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--scatter);opacity:.72}
+  .dotpt.hit{background:var(--dim);opacity:.95}
+
+  .tree{position:absolute;inset:0;width:100%;height:100%}
+  .tree .lnk{stroke:#38445a;stroke-width:1.2;fill:none}
+  .tree .lnk.on{stroke:var(--node);stroke-width:2}
+  .tree .box{fill:rgba(255,255,255,.04);stroke:#38445a;stroke-width:1;rx:4}
+  .tree .box.on{fill:rgba(79,209,197,.16);stroke:var(--node)}
+  .tree .lb{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;fill:var(--dim)}
+  .tree .lb.on{fill:var(--node);font-weight:600}
+
+  .pfoot{margin:14px 0 0;font-size:12.5px;line-height:1.55}
+  .pane.left .pfoot{color:var(--dim)}
+  .pane.right .pfoot{color:var(--muted)}
+  .pane.right .pfoot b{color:var(--node);font-weight:600}
+
+  .topo-foot{padding:14px 20px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted);line-height:1.55}
+  .topo-foot b{color:var(--ink);font-weight:600}
+
+  /* comparison */
+  .cmp{padding:34px 0 8px}
+  .cmp h2{margin:0 0 16px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .ctable{border:1px solid var(--rule);border-radius:9px;overflow:hidden;background:var(--panel)}
+  .crow{display:grid;grid-template-columns:132px 1fr 1fr}
+  .crow > div{padding:13px 18px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule)}
+  .crow > div:last-child{border-right:none}
+  .crow:last-child > div{border-bottom:none}
+  .crow.h > div{background:rgba(31,40,54,.6);padding:10px 18px;font-size:10.5px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--dim)}
+  .crow.h .pi{color:var(--node)}
+  .crow .k{font-size:12.5px;color:var(--dim);letter-spacing:.03em}
+  .crow .v{font-size:13.5px;color:var(--muted);line-height:1.5}
+  .crow .v.pi{color:var(--ink)}
+  .crow .v.pi b{color:var(--node);font-weight:600}
+
+  .bench{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--rule);
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .bcell .b{display:block;font-size:22px;font-weight:650;color:var(--node);letter-spacing:-.02em;line-height:1.15}
+  .bcell .l{display:block;font-size:12.5px;color:var(--dim);margin-top:6px;line-height:1.5}
+  .attr{margin:18px 0 0;font-size:12px;color:var(--dim);line-height:1.55}
+
+  footer{border-top:1px solid var(--rule);margin-top:30px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #333e4f}
+  footer a:hover,footer a:focus-visible{color:var(--node);border-bottom-color:var(--node)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .split{grid-template-columns:1fr;gap:26px;align-items:start}
+    .panes{grid-template-columns:1fr}
+    .pane.left{border-right:none;border-bottom:1px solid var(--rule)}
+    .crow{grid-template-columns:1fr}
+    .crow > div{border-right:none}
+    .crow.h{display:none}
+    .bench{grid-template-columns:1fr;gap:16px}
+    .hero{padding:32px 0 20px}
+  }
+  @media (max-width:560px){ .bar nav{display:none} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">VectifyAI / PageIndex</span>
+    <nav aria-label="Primary">
+      <a href="https://docs.pageindex.ai">Docs</a>
+      <a href="https://pageindex.ai/blog">Blog</a>
+      <a href="https://github.com/VectifyAI/PageIndex">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow mono up u1">Vectorless, reasoning-based RAG</p>
+      <h1 class="up u1">Similarity is not relevance.<br><span class="n">Relevance requires reasoning.</span></h1>
+
+      <div class="split up u2">
+        <p class="lede">Vector RAG retrieves by semantic similarity &mdash; so it misses what is relevant but not
+          similar, and returns what is similar but not relevant. PageIndex replaces the vector index with a
+          <b>hierarchical tree index</b> and lets an LLM <b>reason its way through it</b>, the way a human expert
+          turns to the right section of a long report. <b>No vector DB, no chunking.</b></p>
+        <div class="cta">
+          <a class="btn btn-lit" href="https://github.com/VectifyAI/PageIndex">Read the source</a>
+          <a class="btn btn-line" href="https://docs.pageindex.ai">Documentation</a>
+        </div>
+      </div>
+
+      <div class="topo up u3">
+        <div class="topo-head">
+          <p class="mono">Two retrieval topologies, same question</p>
+          <span class="q mono">&ldquo;What was the 2023 operating margin?&rdquo;</span>
+        </div>
+
+        <div class="panes">
+          <div class="pane left">
+            <div class="plab"><span class="d" aria-hidden="true"></span><h3>Vector index</h3></div>
+            <p class="psub">Chunks scattered in embedding space. Nearest neighbours come back; the route does not.</p>
+            <div class="stage" aria-hidden="true">
+              <span class="dotpt" style="left:14%;top:22%"></span>
+              <span class="dotpt" style="left:31%;top:14%"></span>
+              <span class="dotpt hit" style="left:44%;top:38%"></span>
+              <span class="dotpt" style="left:22%;top:52%"></span>
+              <span class="dotpt hit" style="left:57%;top:30%"></span>
+              <span class="dotpt" style="left:68%;top:57%"></span>
+              <span class="dotpt" style="left:36%;top:72%"></span>
+              <span class="dotpt hit" style="left:51%;top:64%"></span>
+              <span class="dotpt" style="left:78%;top:24%"></span>
+              <span class="dotpt" style="left:85%;top:68%"></span>
+              <span class="dotpt" style="left:62%;top:82%"></span>
+              <span class="dotpt" style="left:18%;top:80%"></span>
+              <span class="dotpt" style="left:73%;top:44%"></span>
+              <span class="dotpt" style="left:9%;top:44%"></span>
+              <span class="dotpt" style="left:46%;top:10%"></span>
+            </div>
+            <p class="pfoot">Result: opaque. The project calls it &ldquo;vibe retrieval&rdquo; &mdash; three chunks
+              surfaced, with nothing to point at for why.</p>
+          </div>
+
+          <div class="pane right">
+            <div class="plab"><span class="d" aria-hidden="true"></span><h3>Tree index</h3></div>
+            <p class="psub">A tree per document. An LLM walks it, and the walk itself is the citation.</p>
+            <div class="stage" aria-hidden="true">
+              <svg class="tree" viewBox="0 0 470 186" preserveAspectRatio="xMidYMid meet" role="presentation">
+                <path class="lnk on" d="M 74 38 C 100 38 100 74 126 74" />
+                <path class="lnk"    d="M 74 38 C 100 38 100 140 126 140" />
+                <path class="lnk"    d="M 216 74 C 244 74 244 38 272 38" />
+                <path class="lnk on" d="M 216 74 C 244 74 244 112 272 112" />
+                <path class="lnk on" d="M 356 112 C 374 112 374 156 392 156" />
+                <rect class="box on" x="12"  y="24"  width="62"  height="28" />
+                <text class="lb on"  x="43"  y="42" text-anchor="middle">report.pdf</text>
+                <rect class="box"    x="126" y="126" width="90"  height="28" />
+                <text class="lb"     x="171" y="144" text-anchor="middle">1 · Overview</text>
+                <rect class="box on" x="126" y="60"  width="90"  height="28" />
+                <text class="lb on"  x="171" y="78" text-anchor="middle">3 · Financials</text>
+                <rect class="box"    x="272" y="24"  width="84"  height="28" />
+                <text class="lb"     x="314" y="42" text-anchor="middle">3.1 Revenue</text>
+                <rect class="box on" x="272" y="98"  width="84"  height="28" />
+                <text class="lb on"  x="314" y="116" text-anchor="middle">3.2 Margins</text>
+                <rect class="box on" x="392" y="142" width="66"  height="28" />
+                <text class="lb on"  x="425" y="160" text-anchor="middle">p. 41–43</text>
+              </svg>
+            </div>
+            <p class="pfoot">Result: <b>traceable to explicit references</b>. The lit path is the answer&rsquo;s
+              provenance, not a post-hoc explanation. Node labels are illustrative.</p>
+          </div>
+        </div>
+
+        <p class="topo-foot"><b>The difference is a shape, not a setting.</b> One topology can show you the route
+          it took; the other can only show you where it landed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp">
+    <div class="wrap">
+      <h2>Compared with vector RAG</h2>
+      <div class="ctable up u3">
+        <div class="crow h">
+          <div class="mono"></div>
+          <div class="mono">Vector RAG</div>
+          <div class="mono pi">PageIndex</div>
+        </div>
+        <div class="crow">
+          <div class="k mono">Index</div>
+          <div class="v">vector index</div>
+          <div class="v pi"><b>tree index</b></div>
+        </div>
+        <div class="crow">
+          <div class="k mono">Retrieval</div>
+          <div class="v">semantic similarity search</div>
+          <div class="v pi"><b>LLM reasoning over the tree</b></div>
+        </div>
+        <div class="crow">
+          <div class="k mono">Result</div>
+          <div class="v">opaque, &ldquo;vibe retrieval&rdquo;</div>
+          <div class="v pi"><b>traceable to explicit references</b></div>
+        </div>
+        <div class="crow">
+          <div class="k mono">Context</div>
+          <div class="v">query embedding only</div>
+          <div class="v pi"><b>full context</b> &mdash; conversation history, domain knowledge</div>
+        </div>
+      </div>
+
+      <div class="bench up u3">
+        <div class="bcell">
+          <span class="b num">~$0.001</span>
+          <span class="l">per page to build a tree locally, in the project&rsquo;s benchmark</span>
+        </div>
+        <div class="bcell">
+          <span class="b num">9 &ndash; 1,098</span>
+          <span class="l">page range of the nine benchmark PDFs</span>
+        </div>
+        <div class="bcell">
+          <span class="b num">13s &ndash; 4.5m</span>
+          <span class="l">indexing time across that same range</span>
+        </div>
+      </div>
+
+      <p class="attr">Figures are the project&rsquo;s published local-indexing benchmark, reproduced as stated and
+        not independently verified here. Indexing is paid once; the project notes every later question reuses the tree.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/VectifyAI/PageIndex">github.com/VectifyAI/PageIndex</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

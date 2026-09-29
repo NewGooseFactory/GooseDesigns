@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenShell — the policy change is the review surface</title>
+<style>
+  :root{
+    --field:#101215;
+    --sheet:#171a1e;
+    --rule:#262b31;
+    --ink:#e8ecf0;
+    --muted:#9ba5b0;
+    --dim:#a6b0bb;
+    --mark:#ec6f67;
+    --mark-soft:rgba(224,82,74,.10);
+    --ok:#5fb87f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--field);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1150px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--rule)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--mark);border-bottom-color:var(--mark)}
+
+  .top{padding:50px 0 28px}
+  .topgrid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--mark)}
+  h1{margin:0 0 20px;font-size:clamp(30px,3.6vw,45px);line-height:1.06;letter-spacing:-.032em;font-weight:630;text-wrap:balance}
+  h1 .m{color:var(--mark)}
+  .lede{margin:0 0 26px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 26px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:5px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--mark);color:#180605;border-color:var(--mark)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#ec6a62;border-color:#ec6a62;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#39414a}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--mark);color:var(--mark);transform:translateY(-1px)}
+
+  .twoway{border-top:1px solid var(--rule);padding-top:20px;display:grid;gap:18px}
+  .way{display:grid;grid-template-columns:20px 1fr;gap:14px;align-items:start}
+  .way .n{font-size:10.5px;letter-spacing:.12em;color:var(--mark);padding-top:3px}
+  .way h3{margin:0 0 4px;font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .way p{margin:0;font-size:13px;color:var(--muted);line-height:1.55}
+
+  /* redline sheet */
+  .sheet{border:1px solid var(--rule);border-radius:9px;background:var(--sheet);overflow:hidden}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    padding:12px 18px;border-bottom:1px solid var(--rule);background:rgba(38,43,49,.5)}
+  .sheet-head p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .sheet-head .st{font-size:11px;letter-spacing:.08em;color:var(--mark)}
+
+  .diff{margin:0;padding:0;list-style:none}
+  .dl{display:grid;grid-template-columns:34px 16px 1fr;gap:0;align-items:start;
+    font-size:12.5px;line-height:1.75;border-bottom:1px solid rgba(38,43,49,.55)}
+  .dl:last-child{border-bottom:none}
+  .dl .ln{padding:7px 8px;color:#7d8793;text-align:right;font-size:11px;
+    border-right:1px solid var(--rule);background:rgba(0,0,0,.14)}
+  .dl .sg{padding:7px 0 7px 7px;color:#7d8793}
+  .dl .cd{padding:7px 14px 7px 6px;color:var(--ink);word-break:break-word}
+  .dl.add{background:rgba(95,184,127,.07)}
+  .dl.add .sg{color:var(--ok)}
+  .dl.flag{background:var(--mark-soft);border-left:2px solid var(--mark)}
+  .dl.flag .sg{color:var(--mark)}
+  .dl.flag .ln{border-left:none}
+
+  .anno{display:grid;grid-template-columns:50px 1fr;gap:0;background:var(--mark-soft);
+    border-bottom:1px solid rgba(38,43,49,.55);border-left:2px solid var(--mark)}
+  .anno .sp{border-right:1px solid var(--rule)}
+  .anno .body{padding:12px 16px}
+  .anno .tag{display:inline-block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+    background:var(--mark);color:#180605;padding:3px 8px;border-radius:2px;font-weight:700;margin-bottom:8px}
+  .anno p{margin:0;font-size:12.5px;color:var(--ink);line-height:1.6}
+  .anno p + p{margin-top:6px;color:var(--muted);font-size:12px}
+
+  .sheet-foot{padding:13px 18px;border-top:1px solid var(--rule);display:flex;gap:10px;
+    align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+  .pill{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--mark);
+    color:var(--mark);border-radius:2px;padding:3px 9px;font-weight:600}
+
+  .illus{margin:12px 0 0;font-size:11.5px;color:var(--dim);line-height:1.55}
+
+  /* creds strip */
+  .creds{padding:6px 0 42px}
+  .cr{border:1px solid var(--rule);border-radius:9px;background:var(--sheet);
+    display:grid;grid-template-columns:1fr 1fr 1fr}
+  .cr > div{padding:20px 22px;border-right:1px solid var(--rule)}
+  .cr > div:last-child{border-right:none}
+  .cr .k{margin:0 0 8px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mark)}
+  .cr h3{margin:0 0 7px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+  .cr p{margin:0;font-size:13px;color:var(--muted);line-height:1.55}
+  .cr p b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--rule);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #39414a}
+  footer a:hover,footer a:focus-visible{color:var(--mark);border-bottom-color:var(--mark)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:32px}
+    .cr{grid-template-columns:1fr}
+    .cr > div{border-right:none;border-bottom:1px solid var(--rule)}
+    .cr > div:last-child{border-bottom:none}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:560px){ .bar nav{display:none} .dl{grid-template-columns:28px 14px 1fr} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">NVIDIA / OpenShell</span>
+    <nav aria-label="Primary">
+      <a href="https://docs.nvidia.com/openshell/latest/how-it-works/policies/overview">Policies</a>
+      <a href="https://docs.nvidia.com/openshell/latest/about/architecture">Architecture</a>
+      <a href="https://github.com/NVIDIA/OpenShell">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Runtime for fleets of autonomous agents &middot; Apache 2.0</p>
+        <h1 class="up u1">Agents are useful because they can reach things.<br><span class="m">So review the reach.</span></h1>
+        <p class="lede up u2">Agents are most useful when they can read files, install packages, call APIs and
+          use credentials. OpenShell gives them that <b>without unrestricted access to your data, secrets or
+          network</b>. You declare what each agent can touch in a policy, and OpenShell enforces it.</p>
+
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/NVIDIA/OpenShell">Read the source</a>
+          <a class="btn btn-line" href="https://docs.nvidia.com/openshell/latest/how-it-works/policies/prover">The prover</a>
+        </div>
+
+        <div class="twoway up u3">
+          <div class="way">
+            <span class="n mono">01</span>
+            <div>
+              <h3>Kernel-level enforcement</h3>
+              <p>Each agent runs in an isolated sandbox. Kernel controls confine which files it can access
+                and which system calls it can make, and every network connection passes a policy check
+                before it leaves.</p>
+            </div>
+          </div>
+          <div class="way">
+            <span class="n mono">02</span>
+            <div>
+              <h3>Formally verified policy changes</h3>
+              <p>Before a change is approved, formal verification flags risky new access it would grant &mdash;
+                so those changes wait for human review.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="up u4">
+        <div class="sheet">
+          <div class="sheet-head">
+            <p class="mono">policy.diff &mdash; proposed change</p>
+            <span class="st mono">1 finding &middot; held</span>
+          </div>
+
+          <ul class="diff mono">
+            <li class="dl"><span class="ln">12</span><span class="sg">&nbsp;</span><span class="cd">network:</span></li>
+            <li class="dl"><span class="ln">13</span><span class="sg">&nbsp;</span><span class="cd">&nbsp;&nbsp;allow:</span></li>
+            <li class="dl add"><span class="ln">14</span><span class="sg">+</span><span class="cd">&nbsp;&nbsp;&nbsp;&nbsp;- host: registry.internal</span></li>
+            <li class="dl add"><span class="ln">15</span><span class="sg">+</span><span class="cd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;methods: [GET]</span></li>
+            <li class="dl flag"><span class="ln">16</span><span class="sg">+</span><span class="cd">&nbsp;&nbsp;&nbsp;&nbsp;- host: api.partner.example</span></li>
+            <li class="dl flag"><span class="ln">17</span><span class="sg">+</span><span class="cd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;credentials: provider/partner</span></li>
+          </ul>
+
+          <div class="anno">
+            <div class="sp" aria-hidden="true"></div>
+            <div class="body">
+              <span class="tag mono">Prover &middot; awaiting human review</span>
+              <p>This change would let the agent reach a <strong>new host with credentials</strong>.
+                Risky new access waits for a person.</p>
+              <p>Illustrative policy fragment. The review behaviour is the project&rsquo;s stated design:
+                the prover flags new credentialed hosts and new API methods before a change is applied.</p>
+            </div>
+          </div>
+
+          <div class="sheet-foot">
+            <span class="pill mono">Blocked pending approval</span>
+            <span>Lines 14&ndash;15 would apply; line 16&ndash;17 would not.</span>
+          </div>
+        </div>
+        <p class="illus">Diff content is illustrative. What is reproduced verbatim is the rule:
+          changes that grant risky new access do not take effect until a human approves them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="creds">
+    <div class="wrap">
+      <div class="cr up u4">
+        <div>
+          <p class="k mono">Credentials</p>
+          <h3>The agent never holds one</h3>
+          <p><b>Agents never see real credentials.</b> OpenShell adds them only to requests bound for
+            approved endpoints.</p>
+        </div>
+        <div>
+          <p class="k mono">Every call</p>
+          <h3>Checked on the way out</h3>
+          <p>Every network connection <b>passes through a policy check before it leaves the sandbox</b> &mdash;
+            not after, and not on the honour system.</p>
+        </div>
+        <div>
+          <p class="k mono">Telemetry</p>
+          <h3>What it does not collect</h3>
+          <p>The project states it collects no sandbox names, hostnames, file paths, prompts, credentials,
+            model names or user content &mdash; and <b>can be compiled out entirely</b>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/NVIDIA/OpenShell">github.com/NVIDIA/OpenShell</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

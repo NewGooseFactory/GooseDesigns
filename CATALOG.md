@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **324 mocks** across **108 days**. Newest first.
+Searchable master index. **327 mocks** across **109 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-29 | Tuesday | [NVIDIA/OpenShell](https://github.com/NVIDIA/OpenShell) | redline | containment-red | Draw the product as a marked-up policy diff, and let the flagged line be the only thing the page asks you to look at | A margin annotation holding two lines back is a more specific promise than the word governance | [png](days/2026-09-29/01-openshell.png) | [2026-09-29](days/2026-09-29/) |
+| 2026-09-29 | Tuesday | [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | constellation | node-teal | Put the two retrieval topologies side by side under one question, so traceability reads as a shape rather than a feature | Drawing the traversal as the citation is the clearest argument for reasoning-based retrieval yet | [png](days/2026-09-29/02-pageindex.png) | [2026-09-29](days/2026-09-29/) |
+| 2026-09-29 | Tuesday | [t8y2/dbx](https://github.com/t8y2/dbx) | warm-minimal | clay | Lead with the size-to-reach ratio, then spend the second half on the three permission modes an agent inherits | Printing high_risk_write under the third card is the kind of self-labelling that earns trust in one glance | [png](days/2026-09-29/03-dbx.png) | [2026-09-29](days/2026-09-29/) |
 | 2026-09-28 | Monday | [mvschwarz/openrig](https://github.com/mvschwarz/openrig) | strata | rig-copper | Draw the project own sentence as literal nested strata, and let the innermost band be the layer it does not manage | Nesting the model innermost makes the pitch structural, because the page argues by containment rather than by adjective | [png](days/2026-09-28/01-openrig.png) | [2026-09-28](days/2026-09-28/) |
 | 2026-09-28 | Monday | [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio) | waveform | signal-violet | Put the local and remote columns either side of a waveform that visibly loses amplitude at the boundary | Amplitude dropping at the line does the work a lock icon usually pretends to do | [png](days/2026-09-28/02-voicestudio.png) | [2026-09-28](days/2026-09-28/) |
 | 2026-09-28 | Monday | [cs341-illinois/coursebook](https://github.com/cs341-illinois/coursebook) | specimen | ink-crimson | Make the scholarly apparatus the hero, and prove it with the same paragraph printed twice | Printing the same sentence with and without its apparatus is a better argument for rigour than the word rigour | [png](days/2026-09-28/03-coursebook.png) | [2026-09-28](days/2026-09-28/) |

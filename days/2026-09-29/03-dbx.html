@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DBX — 100+ databases in 25 MB</title>
+<style>
+  :root{
+    --cream:#faf7f2;
+    --card:#ffffff;
+    --edge:#e8e1d6;
+    --ink:#241f19;
+    --muted:#57503f;
+    --faint:#6b6353;
+    --clay:#96491a;
+    --clay-soft:#fbeee4;
+    --sage:#33603f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--cream);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 42px}
+
+  .bar{border-bottom:1px solid var(--edge)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--clay);border-bottom-color:var(--clay)}
+
+  .top{padding:52px 0 30px}
+  .topgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--clay)}
+  h1{margin:0 0 20px;font-size:clamp(33px,4.4vw,54px);line-height:1.04;letter-spacing:-.033em;font-weight:640;text-wrap:balance}
+  h1 .c{color:var(--clay)}
+  .lede{margin:0 0 26px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 26px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:10px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease,box-shadow .17s ease}
+  .btn-solid{background:var(--clay);color:#fff8f3;border-color:var(--clay);box-shadow:0 2px 8px rgba(184,99,42,.22)}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#7d3a11;border-color:#7d3a11;transform:translateY(-1px);
+    box-shadow:0 5px 14px rgba(184,99,42,.28)}
+  .btn-line{background:var(--card);color:var(--ink);border-color:var(--edge);box-shadow:0 1px 3px rgba(36,31,25,.06)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--clay);color:var(--clay);transform:translateY(-1px)}
+
+  .ratio{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:24px;
+    box-shadow:0 3px 14px rgba(36,31,25,.06)}
+  .ratio h2{margin:0 0 4px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+  .ratio .sub{margin:0 0 20px;font-size:12.5px;color:var(--faint);line-height:1.5}
+
+  .scale{display:grid;gap:14px}
+  .sline{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:center}
+  .sline .lab{font-size:12.5px;color:var(--muted);text-align:right}
+  .sline .lab b{display:block;color:var(--ink);font-weight:600;font-size:13px}
+  .barwrap{position:relative;height:26px;border-radius:7px;background:#f3ede4;overflow:hidden}
+  .fill{position:absolute;top:0;bottom:0;left:0;border-radius:7px}
+  .fill.small{width:16%;background:var(--clay)}
+  .fill.big{width:100%;background:var(--clay-soft);border:1px solid #f0d7c4}
+  .kinds{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted)}
+  .kinds span{white-space:nowrap}
+  .kinds span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:2px;
+    background:var(--clay);margin-right:7px;vertical-align:1px}
+  .ratio-foot{margin:18px 0 0;padding-top:15px;border-top:1px solid var(--edge);
+    font-size:12.5px;color:var(--muted);line-height:1.55}
+  .ratio-foot b{color:var(--ink);font-weight:600}
+
+  .surfaces{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+  .surfaces span{font-size:12px;color:var(--muted);background:#f5f0e8;border:1px solid var(--edge);
+    border-radius:999px;padding:5px 12px}
+
+  /* MCP ladder */
+  .mcp{padding:8px 0 44px}
+  .mcp-head{display:flex;align-items:baseline;gap:16px;margin:0 0 18px;flex-wrap:wrap}
+  .mcp-head h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .mcp-head .sub{font-size:12.5px;color:var(--faint);letter-spacing:.02em}
+  .ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .rung{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:20px;
+    box-shadow:0 2px 10px rgba(36,31,25,.05)}
+  .rung.safe{border-color:#cfe0d4}
+  .rung.risk{border-color:#f0d7c4}
+  .rung .tier{display:inline-block;font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+    padding:4px 10px;border-radius:999px;margin-bottom:12px;font-weight:700}
+  .rung.read .tier{background:#e7f0ea;color:var(--sage)}
+  .rung.safe .tier{background:#f5f0e8;color:var(--muted)}
+  .rung.risk .tier{background:var(--clay-soft);color:var(--clay)}
+  .rung h3{margin:0 0 8px;font-size:15.5px;font-weight:600;letter-spacing:-.012em}
+  .rung p{margin:0 0 12px;font-size:13px;color:var(--muted);line-height:1.55}
+  .rung .val{font-size:11.5px;color:var(--faint);border-top:1px solid var(--edge);padding-top:10px;display:block}
+
+  .mcpnote{margin:18px 0 0;background:var(--clay-soft);border:1px solid #f0d7c4;border-radius:12px;
+    padding:15px 18px;font-size:13px;color:var(--muted);line-height:1.6}
+  .mcpnote b{color:var(--ink);font-weight:600}
+
+  .apart{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--edge);
+    font-size:13.5px;color:var(--muted);line-height:1.65;max-width:58em}
+  .apart b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--edge);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--edge)}
+  footer a:hover,footer a:focus-visible{color:var(--clay);border-bottom-color:var(--clay)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:30px}
+    .ladder{grid-template-columns:1fr}
+    .top{padding:34px 0 22px}
+  }
+  @media (max-width:560px){
+    .bar nav{display:none}
+    .sline{grid-template-columns:1fr;gap:6px}
+    .sline .lab{text-align:left}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">t8y2 / dbx</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/t8y2/dbx/releases">Releases</a>
+      <a href="https://github.com/t8y2/dbx/tree/main/packages/mcp-server">MCP server</a>
+      <a href="https://github.com/t8y2/dbx">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Database client &middot; desktop, Docker, CLI, MCP</p>
+        <h1 class="up u1">100+ databases.<br><span class="c">25 megabytes.</span></h1>
+        <p class="lede up u2">MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, ClickHouse, SQL Server, Oracle,
+          Elasticsearch and dozens more &mdash; plus agent-driven profiles for the long tail.
+          <b>All in a single ~25 MB app. No bundled Chromium.</b></p>
+
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://github.com/t8y2/dbx">Read the source</a>
+          <a class="btn btn-line" href="https://github.com/t8y2/dbx/releases">Download a release</a>
+        </div>
+
+        <div class="surfaces up u3">
+          <span>Desktop</span><span>Docker</span><span>CLI</span><span>Web</span>
+          <span>Built-in AI assistant</span><span>MCP server</span><span>Plugin store</span>
+        </div>
+      </div>
+
+      <div class="ratio up u4">
+        <h2 class="mono">Size against reach</h2>
+        <p class="sub">The two numbers the project leads with, drawn to the same scale.</p>
+
+        <div class="scale">
+          <div class="sline">
+            <span class="lab">the download<b>~25 MB</b></span>
+            <div class="barwrap"><span class="fill small" aria-hidden="true"></span></div>
+          </div>
+          <div class="sline">
+            <span class="lab">what it speaks<b>100+ engines</b></span>
+            <div class="barwrap"><span class="fill big" aria-hidden="true"></span></div>
+          </div>
+        </div>
+
+        <p class="kinds">
+          <span>relational</span><span>document</span><span>key-value</span>
+          <span>search</span><span>time-series</span><span>queue &amp; config</span>
+        </p>
+
+        <p class="ratio-foot">Bar lengths are <b>illustrative</b> and not to a shared unit &mdash; the point is the
+          direction, and both figures are the project&rsquo;s own. What is doing the work is the absence of a
+          bundled browser engine.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mcp">
+    <div class="wrap">
+      <div class="mcp-head">
+        <h2>When an agent connects</h2>
+        <span class="sub mono">three modes, named before you wire it up</span>
+      </div>
+
+      <div class="ladder up u4">
+        <div class="rung read">
+          <span class="tier mono">Read only</span>
+          <h3>It can look</h3>
+          <p>The agent queries the connections you configured in DBX and returns rows. Nothing changes.</p>
+          <span class="val mono">read_only</span>
+        </div>
+        <div class="rung safe">
+          <span class="tier mono">Data read / write</span>
+          <h3>It can edit rows</h3>
+          <p>Data operations are permitted. Schema and structure stay where you left them.</p>
+          <span class="val mono">safe_write</span>
+        </div>
+        <div class="rung risk">
+          <span class="tier mono">Full access</span>
+          <h3>It can do the rest</h3>
+          <p>The project names this one <strong>high risk</strong> in its own machine-readable value, which is
+            the honest way to label a mode.</p>
+          <span class="val mono">high_risk_write</span>
+        </div>
+      </div>
+
+      <p class="mcpnote"><b>The default cannot be widened by accident.</b> The project states that an existing
+        <span class="mono">DBX_MCP_ALLOW_WRITES=0</span> stays a read-only restriction until a central MCP policy
+        is saved &mdash; and that it <b>can never enable writes or override a saved policy</b>.</p>
+
+      <p class="apart">The MCP server ships <b>separately from the desktop app</b>, so installing DBX does not put
+        an agent-reachable database bridge on your machine. That is a packaging decision, and it is the kind
+        that only shows up in a README.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/t8y2/dbx">github.com/t8y2/dbx</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
