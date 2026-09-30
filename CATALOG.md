@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **327 mocks** across **109 days**. Newest first.
+Searchable master index. **330 mocks** across **110 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-09-30 | Wednesday | [oblien/openship](https://github.com/oblien/openship) | storyboard | deploy-teal | Draw the five-stage pipeline as literal storyboard cels, then give the one panel with an ordering caveat its own exception strip | Giving one panel an exception strip is how you show that an ordering choice, not a feature, is the product | [png](days/2026-09-30/01-openship.png) | [2026-09-30](days/2026-09-30/) |
+| 2026-09-30 | Wednesday | [rakyll/hey](https://github.com/rakyll/hey) | data-viz | percentile-blue | Build the whole page around a latency chart, then leave every result cell empty because the numbers are not mine to fill in | An empty result cell is the most honest thing a benchmarking tool landing page can show | [png](days/2026-09-30/02-hey.png) | [2026-09-30](days/2026-09-30/) |
+| 2026-09-30 | Wednesday | [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) | blueprint | ink-blue | Print the five-step lesson loop as drafted rows and tint only the fifth, because the fifth is a condition rather than an instruction | Tinting the row that is a gate turns a study method into a harness, which is the more accurate description | [png](days/2026-09-30/03-ai-engineering.png) | [2026-09-30](days/2026-09-30/) |
 | 2026-09-29 | Tuesday | [NVIDIA/OpenShell](https://github.com/NVIDIA/OpenShell) | redline | containment-red | Draw the product as a marked-up policy diff, and let the flagged line be the only thing the page asks you to look at | A margin annotation holding two lines back is a more specific promise than the word governance | [png](days/2026-09-29/01-openshell.png) | [2026-09-29](days/2026-09-29/) |
 | 2026-09-29 | Tuesday | [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | constellation | node-teal | Put the two retrieval topologies side by side under one question, so traceability reads as a shape rather than a feature | Drawing the traversal as the citation is the clearest argument for reasoning-based retrieval yet | [png](days/2026-09-29/02-pageindex.png) | [2026-09-29](days/2026-09-29/) |
 | 2026-09-29 | Tuesday | [t8y2/dbx](https://github.com/t8y2/dbx) | warm-minimal | clay | Lead with the size-to-reach ratio, then spend the second half on the three permission modes an agent inherits | Printing high_risk_write under the third card is the kind of self-labelling that earns trust in one glance | [png](days/2026-09-29/03-dbx.png) | [2026-09-29](days/2026-09-29/) |

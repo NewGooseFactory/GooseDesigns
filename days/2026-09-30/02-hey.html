@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hey — a load generator with eleven flags that matter</title>
+<style>
+  :root{
+    --slate:#0e1116;
+    --card:#161b22;
+    --rule:#232a33;
+    --ink:#e8edf3;
+    --muted:#98a4b3;
+    --dim:#a4b0be;
+    --p50:#4ea8de;
+    --p90:#7fc98f;
+    --p99:#e0a458;
+    --max:#d96c6c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--slate);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1150px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--rule)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--p50);border-bottom-color:var(--p50)}
+
+  .top{padding:50px 0 28px}
+  .topgrid{display:grid;grid-template-columns:1fr 1.08fr;gap:46px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--p50)}
+  h1{margin:0 0 20px;font-size:clamp(32px,4.2vw,50px);line-height:1.05;letter-spacing:-.033em;font-weight:630;text-wrap:balance}
+  h1 .b{color:var(--p50)}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 24px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:5px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--p50);color:#04141f;border-color:var(--p50)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#6fbdea;border-color:#6fbdea;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#333d49}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--p50);color:var(--p50);transform:translateY(-1px)}
+
+  .cmd{border:1px solid var(--rule);border-radius:7px;background:var(--card);padding:15px 17px}
+  .cmd p{margin:0 0 9px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .cmd code{display:block;font-size:13px;color:var(--ink);line-height:1.7;word-break:break-word}
+  .cmd code .fl{color:var(--p50)}
+  .cmd code .pr{color:var(--dim)}
+
+  /* chart */
+  .chart{border:1px solid var(--rule);border-radius:10px;background:var(--card);overflow:hidden}
+  .chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    padding:12px 18px;border-bottom:1px solid var(--rule)}
+  .chart-head p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .chart-head .ill{font-size:11px;color:var(--p99);letter-spacing:.05em}
+  .plot{padding:20px 18px 12px}
+  .hist{display:grid;grid-template-columns:repeat(18,1fr);gap:4px;align-items:end;height:132px}
+  .hb{border-radius:2px 2px 0 0;background:#2d3a49}
+  .hb.b50{background:var(--p50)}
+  .hb.b90{background:var(--p90)}
+  .hb.b99{background:var(--p99)}
+  .hb.bmax{background:var(--max)}
+  .axis{display:flex;justify-content:space-between;margin:9px 2px 0;font-size:10.5px;color:var(--dim)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;padding:12px 18px 0;border-top:1px solid var(--rule);margin-top:12px}
+  .lg{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+  .lg i{width:9px;height:9px;border-radius:2px;flex:none;display:block}
+  .lg .v{color:var(--ink);font-weight:600}
+
+  .quants{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);margin-top:14px}
+  .q{padding:14px 18px;border-right:1px solid var(--rule)}
+  .q:last-child{border-right:none}
+  .q .k{display:block;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+  .q .v{display:block;font-size:18px;font-weight:650;letter-spacing:-.02em}
+  .q.k50 .v{color:var(--p50)}.q.k90 .v{color:var(--p90)}.q.k99 .v{color:var(--p99)}.q.kmax .v{color:var(--max)}
+  .chart-foot{padding:13px 18px;border-top:1px solid var(--rule);font-size:12px;color:var(--dim);line-height:1.55}
+
+  /* flags */
+  .flags{padding:6px 0 42px}
+  .fl-head{display:flex;align-items:baseline;gap:16px;margin:0 0 16px;flex-wrap:wrap}
+  .fl-head h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .fl-head .sub{font-size:12.5px;color:var(--dim);letter-spacing:.02em}
+  .ftable{border:1px solid var(--rule);border-radius:9px;background:var(--card);overflow:hidden}
+  .fr{display:grid;grid-template-columns:78px 200px 1fr}
+  .fr > div{padding:12px 17px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule)}
+  .fr > div:last-child{border-right:none}
+  .fr:last-child > div{border-bottom:none}
+  .fr.h > div{background:rgba(35,42,51,.6);padding:9px 17px;font-size:10.5px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--dim)}
+  .fr .f{font-size:13px;color:var(--p50);font-weight:600}
+  .fr .d{font-size:12.5px;color:var(--ink)}
+  .fr .df{font-size:12.5px;color:var(--muted)}
+  .fr .df em{font-style:normal;color:var(--dim)}
+
+  .tail{margin:22px 0 0;font-size:13px;color:var(--muted);line-height:1.65;max-width:58em}
+  .tail b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--rule);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #333d49}
+  footer a:hover,footer a:focus-visible{color:var(--p50);border-bottom-color:var(--p50)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:30px}
+    .quants{grid-template-columns:repeat(2,1fr)}
+    .q{border-bottom:1px solid var(--rule)}
+    .fr{grid-template-columns:70px 1fr}
+    .fr .df{grid-column:1 / -1;border-right:none}
+    .fr.h .df{display:none}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:560px){
+    .bar nav{display:none}
+    .quants{grid-template-columns:1fr}
+    .hist{grid-template-columns:repeat(9,1fr)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">rakyll / hey</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/rakyll/hey#usage">Usage</a>
+      <a href="https://github.com/rakyll/hey#installation">Install</a>
+      <a href="https://github.com/rakyll/hey">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">HTTP load generator &middot; ApacheBench replacement</p>
+        <h1 class="up u1">A tiny program<br>that sends <span class="b">some load</span><br>to a web application.</h1>
+        <p class="lede up u2">That sentence is the project&rsquo;s entire self-description, and it is the whole
+          pitch. <b>hey runs a provided number of requests at a provided concurrency level and prints stats.</b>
+          It also supports HTTP/2 endpoints.</p>
+
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/rakyll/hey">Read the source</a>
+          <a class="btn btn-line" href="https://github.com/rakyll/hey#installation">Install it</a>
+        </div>
+
+        <div class="cmd up u3">
+          <p class="mono">1000 requests, 100 concurrent workers</p>
+          <code class="mono"><span class="pr">$</span> hey <span class="fl">-n</span> 1000 <span class="fl">-c</span> 100 https://example.com</code>
+        </div>
+      </div>
+
+      <div class="chart up u4">
+        <div class="chart-head">
+          <p class="mono">Latency distribution</p>
+          <span class="ill mono">illustrative shape &mdash; not a measurement</span>
+        </div>
+        <div class="plot">
+          <div class="hist" aria-hidden="true">
+            <span class="hb" style="height:9%"></span>
+            <span class="hb" style="height:22%"></span>
+            <span class="hb" style="height:46%"></span>
+            <span class="hb" style="height:74%"></span>
+            <span class="hb b50" style="height:96%"></span>
+            <span class="hb" style="height:88%"></span>
+            <span class="hb" style="height:69%"></span>
+            <span class="hb" style="height:52%"></span>
+            <span class="hb" style="height:39%"></span>
+            <span class="hb b90" style="height:29%"></span>
+            <span class="hb" style="height:21%"></span>
+            <span class="hb" style="height:16%"></span>
+            <span class="hb" style="height:12%"></span>
+            <span class="hb b99" style="height:9%"></span>
+            <span class="hb" style="height:6%"></span>
+            <span class="hb" style="height:5%"></span>
+            <span class="hb" style="height:4%"></span>
+            <span class="hb bmax" style="height:7%"></span>
+          </div>
+          <div class="axis mono"><span>fast</span><span>response time &rarr;</span><span>slow</span></div>
+          <div class="legend">
+            <span class="lg"><i style="background:var(--p50)"></i>p50 &mdash; <span class="v">the number people quote</span></span>
+            <span class="lg"><i style="background:var(--p99)"></i>p99 &mdash; <span class="v">the number people feel</span></span>
+            <span class="lg"><i style="background:var(--max)"></i>max &mdash; <span class="v">the number that pages you</span></span>
+          </div>
+        </div>
+        <div class="quants">
+          <div class="q k50"><span class="k mono">p50</span><span class="v num mono">&mdash;</span></div>
+          <div class="q k90"><span class="k mono">p90</span><span class="v num mono">&mdash;</span></div>
+          <div class="q k99"><span class="k mono">p99</span><span class="v num mono">&mdash;</span></div>
+          <div class="q kmax"><span class="k mono">max</span><span class="v num mono">&mdash;</span></div>
+        </div>
+        <p class="chart-foot">The cells are empty on purpose. <strong>These are your numbers, not ours</strong> &mdash;
+          no benchmark figure is reproduced here, because the tool exists to produce yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flags">
+    <div class="wrap">
+      <div class="fl-head">
+        <h2>The flags that change the experiment</h2>
+        <span class="sub mono">defaults shown as the project documents them</span>
+      </div>
+
+      <div class="ftable up u4">
+        <div class="fr h">
+          <div class="mono">Flag</div>
+          <div class="mono">What it sets</div>
+          <div class="mono">Default</div>
+        </div>
+        <div class="fr">
+          <div class="f mono">-n</div>
+          <div class="d">Number of requests to run</div>
+          <div class="df mono">200</div>
+        </div>
+        <div class="fr">
+          <div class="f mono">-c</div>
+          <div class="d">Workers running concurrently</div>
+          <div class="df mono">50 &mdash; <em>total requests cannot be smaller than this</em></div>
+        </div>
+        <div class="fr">
+          <div class="f mono">-q</div>
+          <div class="d">Rate limit, queries per second per worker</div>
+          <div class="df mono">no rate limit</div>
+        </div>
+        <div class="fr">
+          <div class="f mono">-z</div>
+          <div class="d">Duration to send requests for</div>
+          <div class="df mono"><em>when set, -n is ignored</em> &mdash; e.g. -z 10s, -z 3m</div>
+        </div>
+        <div class="fr">
+          <div class="f mono">-t</div>
+          <div class="d">Timeout for each request, in seconds</div>
+          <div class="df mono">20 &mdash; <em>use 0 for infinite</em></div>
+        </div>
+        <div class="fr">
+          <div class="f mono">-o</div>
+          <div class="d">Output type</div>
+          <div class="df mono">summary &mdash; <em>csv is the only alternative</em></div>
+        </div>
+      </div>
+
+      <p class="tail">The interference controls matter as much as the load ones:
+        <b>-disable-keepalive</b> prevents TCP connection reuse between requests,
+        <b>-disable-compression</b> and <b>-disable-redirects</b> remove two more variables, and
+        <b>-cpus</b> bounds how much of your own machine is in the measurement. A load generator that
+        cannot be held still is measuring itself.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy and flag defaults drawn from the project README.</span>
+    <span><a href="https://github.com/rakyll/hey">github.com/rakyll/hey</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Openship — five panels, one pipeline</title>
+<style>
+  :root{
+    --stock:#f7f5f0;
+    --panel:#ffffff;
+    --frame:#1a1815;
+    --rule:#ddd7cb;
+    --ink:#1a1815;
+    --muted:#4d4740;
+    --faint:#635c51;
+    --teal:#0b6b6f;
+    --teal-soft:#e4f0f0;
+    --hold:#a8591b;
+    --hold-soft:#fbeedf;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--stock);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:2px solid var(--frame)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--teal);border-bottom-color:var(--teal)}
+
+  .top{padding:48px 0 26px}
+  .topgrid{display:grid;grid-template-columns:1.12fr .88fr;gap:46px;align-items:end}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--teal)}
+  h1{margin:0 0 18px;font-size:clamp(32px,4.2vw,52px);line-height:1.04;letter-spacing:-.033em;font-weight:640;text-wrap:balance}
+  h1 .t{color:var(--teal)}
+  .lede{margin:0;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:35em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;font-size:13.5px;border-radius:3px;
+    font-weight:600;text-decoration:none;border:2px solid var(--frame);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--teal);border-color:var(--teal);color:#f2fbfb}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#085457;border-color:#085457;transform:translateY(-1px)}
+  .btn-line{background:var(--panel);color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--frame);color:var(--stock);transform:translateY(-1px)}
+
+  /* storyboard strip */
+  .strip{padding:6px 0 10px}
+  .strip-head{display:flex;align-items:baseline;gap:16px;margin:0 0 18px;flex-wrap:wrap}
+  .strip-head h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .strip-head .sub{font-size:12.5px;color:var(--faint);letter-spacing:.02em}
+
+  .board{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .cel{background:var(--panel);border:2px solid var(--frame);display:flex;flex-direction:column;min-width:0}
+  .cel .slug{display:flex;align-items:center;justify-content:space-between;gap:8px;
+    padding:8px 11px;border-bottom:1px solid var(--rule);background:#f1ede4}
+  .cel .slug .no{font-size:10px;letter-spacing:.13em;color:var(--faint)}
+  .cel .slug .verb{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--teal)}
+  .cel .frameart{height:78px;border-bottom:1px solid var(--rule);position:relative;overflow:hidden;
+    background:repeating-linear-gradient(45deg,#faf8f4,#faf8f4 7px,#f4f1ea 7px,#f4f1ea 14px)}
+  .cel .body{padding:12px 13px 14px;flex:1}
+  .cel h3{margin:0 0 6px;font-size:13.5px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+  .cel p{margin:0;font-size:12px;color:var(--muted);line-height:1.5}
+
+  /* art primitives */
+  .a-src{position:absolute;left:14px;top:26px;width:34px;height:26px;border:1.5px solid var(--frame);background:#fff}
+  .a-src::after{content:"";position:absolute;left:6px;top:6px;right:6px;height:1.5px;background:var(--frame);
+    box-shadow:0 5px 0 var(--frame),0 10px 0 var(--frame)}
+  .a-arrow{position:absolute;top:38px;height:1.5px;background:var(--frame)}
+  .a-arrow::after{content:"";position:absolute;right:-1px;top:-3px;border-left:6px solid var(--frame);
+    border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+  .a-box{position:absolute;border:1.5px solid var(--frame);background:var(--teal-soft)}
+  .a-lock{position:absolute;border:1.5px solid var(--frame);background:#fff;border-radius:2px}
+  .a-dot{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+  .a-hold{position:absolute;border:1.5px dashed var(--hold);background:var(--hold-soft)}
+  .a-lbl{position:absolute;font-size:8.5px;letter-spacing:.06em;color:var(--faint)}
+  .a-lbl.hold{color:var(--hold);font-weight:700}
+  .a-loop{position:absolute;border:1.5px solid var(--frame);border-radius:999px;
+    border-right-color:transparent;border-bottom-color:transparent;transform:rotate(45deg)}
+
+  .exception{margin:20px 0 0;border:2px solid var(--hold);background:var(--hold-soft);
+    padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+  .exception .badge{font-size:10px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;
+    background:var(--hold);color:#fff8f1;padding:4px 10px;border-radius:2px;white-space:nowrap}
+  .exception p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .exception p b{color:var(--ink);font-weight:600}
+
+  .surfaces{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--rule);
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-left:1px solid var(--rule)}
+  .sf{padding:14px 18px;border-right:1px solid var(--rule)}
+  .sf .n{display:block;font-size:14px;font-weight:600;margin-bottom:4px}
+  .sf .d{display:block;font-size:12px;color:var(--faint);line-height:1.45}
+
+  .mcp{margin:24px 0 0;font-size:13px;color:var(--muted);line-height:1.65;max-width:60em}
+  .mcp b{color:var(--ink);font-weight:600}
+
+  footer{border-top:2px solid var(--frame);margin-top:32px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--teal);border-bottom-color:var(--teal)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1060px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:26px;align-items:start}
+    .board{grid-template-columns:repeat(2,1fr)}
+    .surfaces{grid-template-columns:repeat(2,1fr)}
+    .sf{border-bottom:1px solid var(--rule)}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:620px){
+    .bar nav{display:none}
+    .board{grid-template-columns:1fr}
+    .surfaces{grid-template-columns:1fr}
+    .exception{grid-template-columns:1fr;gap:10px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">oblien / openship</span>
+    <nav aria-label="Primary">
+      <a href="https://openship.io/docs">Docs</a>
+      <a href="https://www.npmjs.com/package/openship">npm</a>
+      <a href="https://github.com/oblien/openship">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Self-hostable deployment platform &middot; Apache 2.0</p>
+        <h1 class="up u1">Point it at a repo.<br><span class="t">Watch all five panels.</span></h1>
+        <p class="lede up u2">Openship detects the stack, builds it, runs it, routes it and terminates TLS &mdash;
+          <b>one pipeline, end to end</b>. Zero config files required. Drive it from a desktop app,
+          a web dashboard, or the CLI.</p>
+      </div>
+      <div class="cta up u2">
+        <a class="btn btn-solid" href="https://github.com/oblien/openship">Read the source</a>
+        <a class="btn btn-line" href="https://openship.io/docs">Documentation</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="wrap">
+      <div class="strip-head">
+        <h2>The pipeline, panel by panel</h2>
+        <span class="sub mono">four steps ship the app &mdash; the fifth cannot take it down</span>
+      </div>
+
+      <div class="board up u3">
+        <figure class="cel" style="margin:0">
+          <figcaption class="slug"><span class="no mono">01</span><span class="verb mono">Detect</span></figcaption>
+          <div class="frameart" aria-hidden="true">
+            <span class="a-src"></span>
+            <span class="a-arrow" style="left:56px;width:34px"></span>
+            <span class="a-lbl" style="left:14px;top:58px">package.json &middot; lockfiles</span>
+            <span class="a-dot" style="left:94px;top:35px"></span>
+          </div>
+          <div class="body">
+            <h3>Reads the repo</h3>
+            <p>Framework config, lockfiles, compose files &mdash; it works out the stack, package manager,
+              commands and port.</p>
+          </div>
+        </figure>
+
+        <figure class="cel" style="margin:0">
+          <figcaption class="slug"><span class="no mono">02</span><span class="verb mono">Build</span></figcaption>
+          <div class="frameart" aria-hidden="true">
+            <span class="a-box" style="left:16px;top:22px;width:44px;height:34px"></span>
+            <span class="a-lock" style="left:70px;top:28px;width:26px;height:22px"></span>
+            <span class="a-lbl" style="left:70px;top:54px">frozen</span>
+          </div>
+          <div class="body">
+            <h3>Freezes a snapshot</h3>
+            <p>The resolved config is frozen, so redeploys and rollbacks re-run <em>exactly</em> what shipped.</p>
+          </div>
+        </figure>
+
+        <figure class="cel" style="margin:0">
+          <figcaption class="slug"><span class="no mono">03</span><span class="verb mono">Run</span></figcaption>
+          <div class="frameart" aria-hidden="true">
+            <span class="a-box" style="left:22px;top:20px;width:52px;height:30px"></span>
+            <span class="a-lbl" style="left:22px;top:54px">127.0.0.1 only</span>
+            <span class="a-dot" style="left:82px;top:30px;background:#c9c2b6"></span>
+          </div>
+          <div class="body">
+            <h3>Loopback, not public</h3>
+            <p>A container published <b>on loopback only &mdash; never a public port</b>, or a supervised
+              host process.</p>
+          </div>
+        </figure>
+
+        <figure class="cel" style="margin:0">
+          <figcaption class="slug"><span class="no mono">04</span><span class="verb mono">Route</span></figcaption>
+          <div class="frameart" aria-hidden="true">
+            <span class="a-box" style="left:14px;top:22px;width:32px;height:32px"></span>
+            <span class="a-arrow" style="left:50px;width:24px"></span>
+            <span class="a-lock" style="left:80px;top:24px;width:22px;height:28px"></span>
+            <span class="a-lbl" style="left:14px;top:58px">edge vhost &middot; TLS</span>
+          </div>
+          <div class="body">
+            <h3>Edge writes the vhost</h3>
+            <p>A reverse proxy to your domain, plus a Let&rsquo;s Encrypt certificate &mdash; issued
+              <em>after</em> the app is up.</p>
+          </div>
+        </figure>
+
+        <figure class="cel" style="margin:0">
+          <figcaption class="slug"><span class="no mono">05</span><span class="verb mono">Push</span></figcaption>
+          <div class="frameart" aria-hidden="true">
+            <span class="a-loop" style="left:30px;top:20px;width:34px;height:34px"></span>
+            <span class="a-dot" style="left:72px;top:32px"></span>
+            <span class="a-lbl" style="left:16px;top:58px">only what changed</span>
+          </div>
+          <div class="body">
+            <h3>Webhook re-runs it</h3>
+            <p>Every push to the tracked branch rebuilds <b>only the services a monorepo push actually
+              touched</b>.</p>
+          </div>
+        </figure>
+      </div>
+
+      <div class="exception up u4">
+        <span class="badge mono">Panel 4 exception</span>
+        <p>Because routing and TLS happen <b>after</b> the app is up, a DNS or certificate hiccup surfaces as
+          <b>&ldquo;action required&rdquo;</b> &mdash; the project states it never fails the deploy or takes
+          your app down. That ordering is the whole design decision; it is why this panel has its own note.</p>
+      </div>
+
+      <div class="surfaces up u4">
+        <div class="sf"><span class="n">Desktop app</span><span class="d mono">control plane runs only while open</span></div>
+        <div class="sf"><span class="n">Web dashboard</span><span class="d mono">same UI, built for teams</span></div>
+        <div class="sf"><span class="n">CLI</span><span class="d mono">scriptable, CI-friendly</span></div>
+        <div class="sf"><span class="n">Ship SDK</span><span class="d mono">JavaScript / TypeScript</span></div>
+      </div>
+
+      <p class="mcp">There is also an <b>MCP endpoint for AI agents</b>, and the project is specific about its
+        limits: only routes that opt in are exposed as tools, every call re-checks your permissions, and
+        <b>credential and token routes can never become tools</b>.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/oblien/openship">github.com/oblien/openship</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Engineering from Scratch — every lesson ships an artifact</title>
+<style>
+  :root{
+    --sheet:#0f1114;
+    --plate:#171a1f;
+    --grid:#222730;
+    --ink:#e9edf2;
+    --muted:#98a3b2;
+    --dim:#a6b1c0;
+    --ink-blue:#7d99fc;
+    --ink-blue-soft:rgba(91,124,250,.13);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--sheet);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(rgba(91,124,250,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91,124,250,.045) 1px, transparent 1px);
+    background-size:28px 28px;
+    background-attachment:fixed;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--grid);background:rgba(15,17,20,.8)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--ink-blue);border-bottom-color:var(--ink-blue)}
+
+  .top{padding:50px 0 26px}
+  .topgrid{display:grid;grid-template-columns:1.04fr .96fr;gap:48px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-blue)}
+  h1{margin:0 0 20px;font-size:clamp(31px,4.1vw,49px);line-height:1.05;letter-spacing:-.033em;font-weight:630;text-wrap:balance}
+  h1 .b{color:var(--ink-blue)}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 24px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:4px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--ink-blue);color:#050a1c;border-color:var(--ink-blue)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#7b95fb;border-color:#7b95fb;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#333b48}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--ink-blue);color:var(--ink-blue);transform:translateY(-1px)}
+
+  .scale{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--grid);border-radius:7px;
+    background:var(--plate);overflow:hidden}
+  .sc{padding:14px 16px;border-right:1px solid var(--grid)}
+  .sc:last-child{border-right:none}
+  .sc .v{display:block;font-size:20px;font-weight:650;color:var(--ink-blue);letter-spacing:-.02em;line-height:1.15}
+  .sc .l{display:block;font-size:11.5px;color:var(--dim);margin-top:5px;line-height:1.4}
+
+  /* the loop diagram */
+  .loop{border:1px solid var(--grid);border-radius:10px;background:var(--plate);overflow:hidden}
+  .loop-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    padding:12px 18px;border-bottom:1px solid var(--grid)}
+  .loop-head p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .loop-head .g{font-size:11px;color:var(--ink-blue);letter-spacing:.06em}
+  .steps{margin:0;padding:0;list-style:none}
+  .step{display:grid;grid-template-columns:30px 1fr;gap:14px;padding:13px 18px;
+    border-bottom:1px solid var(--grid);align-items:start}
+  .step:last-child{border-bottom:none}
+  .step .n{font-size:11px;letter-spacing:.09em;color:var(--dim);padding-top:2px}
+  .step h3{margin:0 0 3px;font-size:13.5px;font-weight:600;letter-spacing:-.008em}
+  .step p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .step.gate{background:var(--ink-blue-soft);border-left:2px solid var(--ink-blue)}
+  .step.gate .n{color:var(--ink-blue);font-weight:700}
+  .step.gate h3{color:var(--ink-blue)}
+  .loop-foot{padding:13px 18px;border-top:1px solid var(--grid);font-size:12.5px;color:var(--muted);line-height:1.55}
+  .loop-foot b{color:var(--ink);font-weight:600}
+
+  /* artifact ledger */
+  .arts{padding:34px 0 8px}
+  .arts-head{display:flex;align-items:baseline;gap:16px;margin:0 0 16px;flex-wrap:wrap}
+  .arts-head h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .arts-head .sub{font-size:12.5px;color:var(--dim);letter-spacing:.02em}
+  .agrid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--grid);
+    border-radius:8px;background:var(--plate);overflow:hidden}
+  .ac{padding:18px 20px;border-right:1px solid var(--grid)}
+  .ac:last-child{border-right:none}
+  .ac .t{display:block;font-size:14.5px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+  .ac .d{display:block;font-size:12.5px;color:var(--muted);line-height:1.5}
+
+  .evidence{margin:22px 0 0;border:1px dashed #3a4352;border-radius:8px;padding:17px 19px;
+    background:rgba(91,124,250,.05)}
+  .evidence h3{margin:0 0 8px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-blue)}
+  .evidence p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.65}
+  .evidence p b{color:var(--ink);font-weight:600}
+
+  .routes{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--grid);
+    display:flex;flex-wrap:wrap;gap:8px}
+  .routes span{font-size:12px;color:var(--muted);border:1px solid var(--grid);border-radius:999px;padding:5px 12px}
+  .attr{margin:16px 0 0;font-size:12px;color:var(--dim);line-height:1.55}
+
+  footer{border-top:1px solid var(--grid);margin-top:30px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #333b48}
+  footer a:hover,footer a:focus-visible{color:var(--ink-blue);border-bottom-color:var(--ink-blue)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:30px}
+    .scale{grid-template-columns:repeat(2,1fr)}
+    .sc{border-bottom:1px solid var(--grid)}
+    .agrid{grid-template-columns:1fr}
+    .ac{border-right:none;border-bottom:1px solid var(--grid)}
+    .ac:last-child{border-bottom:none}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:560px){ .bar nav{display:none} .scale{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">rohitg00 / ai-engineering-from-scratch</span>
+    <nav aria-label="Primary">
+      <a href="https://aiengineeringfromscratch.com">Website</a>
+      <a href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/ROADMAP.md">Roadmap</a>
+      <a href="https://github.com/rohitg00/ai-engineering-from-scratch">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Open curriculum &middot; MIT licensed</p>
+        <h1 class="up u1">You don&rsquo;t just learn AI.<br><span class="b">You build it. By hand.</span></h1>
+        <p class="lede up u2">523 lessons across 20 phases in Python, TypeScript, Rust and Julia &mdash; and
+          <b>every lesson ships a reusable artifact</b>: a prompt, a skill, an agent, an MCP server.
+          Free, open source, MIT.</p>
+
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/rohitg00/ai-engineering-from-scratch">Read the source</a>
+          <a class="btn btn-line" href="https://aiengineeringfromscratch.com">Open the website</a>
+        </div>
+
+        <div class="scale up u3">
+          <div class="sc"><span class="v num">523</span><span class="l">lessons</span></div>
+          <div class="sc"><span class="v num">20</span><span class="l">phases</span></div>
+          <div class="sc"><span class="v num">~342</span><span class="l">hours</span></div>
+          <div class="sc"><span class="v num">4</span><span class="l">languages</span></div>
+        </div>
+      </div>
+
+      <div class="loop up u4">
+        <div class="loop-head">
+          <p class="mono">Use every lesson the same way</p>
+          <span class="g mono">step 5 is a gate</span>
+        </div>
+        <ul class="steps">
+          <li class="step">
+            <span class="n mono">01</span>
+            <div><h3>Read</h3><p>Open the lesson and explain the core idea in your own words.</p></div>
+          </li>
+          <li class="step">
+            <span class="n mono">02</span>
+            <div><h3>Type and build</h3><p>Type the important code instead of treating the code block as decoration.</p></div>
+          </li>
+          <li class="step">
+            <span class="n mono">03</span>
+            <div><h3>Run</h3><p>Run the lesson command from the repository root.</p></div>
+          </li>
+          <li class="step">
+            <span class="n mono">04</span>
+            <div><h3>Keep evidence</h3><p>The command, working directory, exit code, meaningful output, and the artifact you produced.</p></div>
+          </li>
+          <li class="step gate">
+            <span class="n mono">05</span>
+            <div><h3>Continue &mdash; only when</h3><p>You can explain the output <strong>and</strong> make one small change without guessing.</p></div>
+          </li>
+        </ul>
+        <p class="loop-foot"><b>Four steps, then a condition.</b> Most curricula end at step three; this one
+          refuses to advance you until the last line is true.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="arts">
+    <div class="wrap">
+      <div class="arts-head">
+        <h2>What a lesson leaves behind</h2>
+        <span class="sub mono">the project&rsquo;s own four artifact types</span>
+      </div>
+
+      <div class="agrid up u4">
+        <div class="ac"><span class="t">A prompt</span><span class="d">Reusable, and yours to keep after the lesson closes.</span></div>
+        <div class="ac"><span class="t">A skill</span><span class="d">Something a coding agent can load and run later.</span></div>
+        <div class="ac"><span class="t">An agent</span><span class="d">Built by hand, end to end, not imported.</span></div>
+        <div class="ac"><span class="t">An MCP server</span><span class="d">A protocol endpoint you wrote yourself.</span></div>
+      </div>
+
+      <div class="evidence up u4">
+        <h3 class="mono">Why evidence is step four, not an afterthought</h3>
+        <p>The first thing the quickstart asks you to do is run a dependency-free lesson and
+          <b>save that terminal output as your first evidence</b>. The preflight separates requirements needed
+          now from tools needed later, and <b>every required failure includes the detected reason and a
+          corrective command</b> &mdash; which is the difference between a course and a harness.</p>
+      </div>
+
+      <div class="routes">
+        <span>Setup &amp; Tooling</span><span>Math Foundations</span><span>LLM Engineering</span>
+        <span>Agent Engineering</span><span>Tools &amp; Protocols (MCP)</span><span>Agent Skills</span>
+        <span>Agent-Assisted Engineering</span><span>Product Judgment &amp; Delivery</span>
+      </div>
+
+      <p class="attr">Lesson, phase, hour and language counts are the project&rsquo;s published figures,
+        reproduced as stated. No completion rate, reader count or outcome claim is reproduced here.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/rohitg00/ai-engineering-from-scratch">github.com/rohitg00/ai-engineering-from-scratch</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
