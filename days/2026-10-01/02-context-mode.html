@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context Mode — the other half of the context problem</title>
+<style>
+  :root{
+    --void:#07090b;
+    --cell:#0e1215;
+    --rule:#1b2228;
+    --ink:#dfe7ea;
+    --muted:#8d9aa2;
+    --dim:#9eabb3;
+    --amber:#e0a93b;
+    --amber-dim:rgba(224,169,59,.14);
+    --spent:#8d9aa2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--void);color:var(--ink);line-height:1.5;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 40px}
+  .rule-line{color:var(--rule);letter-spacing:-.5px;overflow:hidden;white-space:nowrap;user-select:none}
+
+  .bar{border-bottom:1px solid var(--rule)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:54px}
+  .id{font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:20px;font-size:12px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--amber);border-bottom-color:var(--amber)}
+
+  .top{padding:46px 0 24px}
+  .eyebrow{margin:0 0 18px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+  h1{margin:0 0 18px;font-size:clamp(26px,3.4vw,42px);line-height:1.12;letter-spacing:-.02em;font-weight:600;text-wrap:balance}
+  h1 .a{color:var(--amber)}
+  .split{display:grid;grid-template-columns:1.04fr .96fr;gap:44px;align-items:start}
+  .lede{margin:0 0 22px;font-size:14px;color:var(--muted);line-height:1.7;max-width:36em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;font-size:13px;
+    font-weight:600;text-decoration:none;border:1px solid var(--amber);letter-spacing:.02em;
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--amber);color:#140d01}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#efbe5b;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--amber)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--amber);color:#140d01;transform:translateY(-1px)}
+
+  /* budget meter */
+  .meter{border:1px solid var(--rule);background:var(--cell)}
+  .mhead{padding:11px 16px;border-bottom:1px solid var(--rule);display:flex;
+    align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .mhead p{margin:0;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .mhead .t{font-size:10.5px;color:var(--amber);letter-spacing:.07em}
+  .mbody{padding:16px 16px 20px}
+  .cost{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;
+    padding:8px 0;border-bottom:1px solid rgba(27,34,40,.8);font-size:12.5px}
+  .cost:last-of-type{border-bottom:none}
+  .cost .what{color:var(--ink)}
+  .cost .kb{color:var(--spent);text-align:right;white-space:nowrap}
+  .barline{margin:4px 0 0;height:7px;background:#141a1f;position:relative;overflow:hidden}
+  .barline i{position:absolute;left:0;top:0;bottom:0;background:#4b5560;display:block}
+  .barline i.lit{background:var(--amber)}
+  .totals{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--rule);
+    display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .tt .k{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+  .tt .v{display:block;font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .tt.before .v{color:#9eabb3}
+  .tt.after .v{color:var(--amber)}
+  .mfoot{padding:12px 16px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--dim);line-height:1.6}
+
+  /* four sides */
+  .sides{padding:10px 0 40px}
+  .shead{display:flex;align-items:baseline;gap:14px;margin:0 0 16px;flex-wrap:wrap}
+  .shead h2{margin:0;font-size:12px;letter-spacing:.17em;text-transform:uppercase}
+  .shead .sub{font-size:11.5px;color:var(--dim);letter-spacing:.04em}
+  .quad{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--rule);background:var(--cell)}
+  .qd{padding:18px 20px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .qd:nth-child(2n){border-right:none}
+  .qd:nth-last-child(-n+2){border-bottom:none}
+  .qd .n{display:block;font-size:10px;letter-spacing:.14em;color:var(--amber);margin-bottom:8px}
+  .qd h3{margin:0 0 7px;font-size:14px;font-weight:600;letter-spacing:-.005em}
+  .qd p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.6}
+  .qd p b{color:var(--ink);font-weight:600}
+  .qd.neg{background:var(--amber-dim)}
+  .qd.neg h3{color:var(--amber)}
+
+  .code{margin:20px 0 0;border:1px solid var(--rule);background:var(--cell);padding:15px 17px}
+  .code .lbl{margin:0 0 9px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .code pre{margin:0;font-size:12.5px;line-height:1.75;color:var(--ink);white-space:pre-wrap;word-break:break-word}
+  .code .cm{color:var(--amber)}
+
+  .tail{margin:20px 0 0;font-size:12.5px;color:var(--muted);line-height:1.7;max-width:62em}
+  .tail b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--rule);padding:18px 0 32px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:11.5px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--amber);border-bottom-color:var(--amber)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .split{grid-template-columns:1fr;gap:28px}
+    .quad{grid-template-columns:1fr}
+    .qd{border-right:none}
+    .qd:nth-last-child(2){border-bottom:1px solid var(--rule)}
+    .top{padding:30px 0 18px}
+  }
+  @media (max-width:560px){ .bar nav{display:none} .totals{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id">mksglu / context-mode</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/mksglu/context-mode#install">Install</a>
+      <a href="https://github.com/mksglu/context-mode#the-problem">The problem</a>
+      <a href="https://github.com/mksglu/context-mode">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap">
+      <p class="eyebrow up u1">MCP server &middot; 17 platforms</p>
+
+      <div class="split">
+        <div>
+          <h1 class="up u1">Every tool call spends<br>the same budget<br><span class="a">your thinking does.</span></h1>
+          <p class="lede up u2">A Playwright snapshot costs 56 KB. Twenty GitHub issues cost 59 KB. One access
+            log, 45 KB. <b>After 30 minutes, 40% of your context is gone</b> &mdash; and when the agent compacts
+            to free space, it forgets which files it was editing and what you last asked for.
+            Context Mode sandboxes the raw data and indexes the session instead.</p>
+          <div class="cta up u2">
+            <a class="btn btn-solid" href="https://github.com/mksglu/context-mode">Read the source</a>
+            <a class="btn btn-line" href="https://github.com/mksglu/context-mode#install">Install it</a>
+          </div>
+        </div>
+
+        <div class="meter up u3">
+          <div class="mhead">
+            <p>Context ledger &mdash; one session</p>
+            <span class="t">figures as published</span>
+          </div>
+          <div class="mbody">
+            <div class="cost"><span class="what">Playwright snapshot</span><span class="kb">56 KB</span></div>
+            <div class="barline" aria-hidden="true"><i style="width:18%"></i></div>
+            <div class="cost"><span class="what">Twenty GitHub issues</span><span class="kb">59 KB</span></div>
+            <div class="barline" aria-hidden="true"><i style="width:19%"></i></div>
+            <div class="cost"><span class="what">One access log</span><span class="kb">45 KB</span></div>
+            <div class="barline" aria-hidden="true"><i style="width:14%"></i></div>
+            <div class="cost"><span class="what">&hellip; and the rest of a working session</span><span class="kb">315 KB total</span></div>
+            <div class="barline" aria-hidden="true"><i style="width:100%"></i></div>
+
+            <div class="totals" style="margin-top:20px">
+              <div class="tt before"><span class="k">Into the window</span><span class="v">315 KB</span></div>
+              <div class="tt after"><span class="k">Sandboxed to</span><span class="v">5.4 KB</span></div>
+            </div>
+            <div class="barline" style="margin-top:12px" aria-hidden="true"><i class="lit" style="width:1.7%"></i></div>
+          </div>
+          <p class="mfoot">The lit sliver is what reaches the model &mdash; a <strong>98% reduction</strong>,
+            the project&rsquo;s own figure. Every number on this panel is quoted, not measured here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sides">
+    <div class="wrap">
+      <div class="shead">
+        <h2>Four sides of one problem</h2>
+        <span class="sub">the fourth is a refusal, not a feature</span>
+      </div>
+
+      <div class="quad up u4">
+        <div class="qd">
+          <span class="n">01</span>
+          <h3>Context saving</h3>
+          <p>Sandbox tools keep raw data out of the window. <b>315 KB becomes 5.4 KB.</b></p>
+        </div>
+        <div class="qd">
+          <span class="n">02</span>
+          <h3>Session continuity</h3>
+          <p>Edits, git operations, tasks, errors and decisions are tracked in SQLite and retrieved by search &mdash;
+            <b>not dumped back into context</b>. No <code>--continue</code> means previous session data is
+            deleted immediately.</p>
+        </div>
+        <div class="qd">
+          <span class="n">03</span>
+          <h3>Think in code</h3>
+          <p>The model should <b>program the analysis, not compute it</b>. One script replaces ten tool calls.</p>
+        </div>
+        <div class="qd neg">
+          <span class="n">04</span>
+          <h3>No prose-style enforcement</h3>
+          <p>It <b>never dictates how the model writes its final answer</b>. The project cites evidence that
+            aggressive brevity prompts degrade coding and reasoning benchmarks, and keeps its routing block
+            focused on <b>where data goes, not how the model talks</b>.</p>
+        </div>
+      </div>
+
+      <div class="code up u4">
+        <p class="lbl">Think in code &mdash; the project&rsquo;s own example</p>
+        <pre><span class="cm">// Before: 47 × Read() = 700 KB.  After: 1 × ctx_execute() = 3.6 KB.</span>
+ctx_execute("javascript", `
+  const files = fs.readdirSync('src').filter(f =&gt; f.endsWith('.ts'));
+  files.forEach(f =&gt; console.log(f + ': ' + fs.readFileSync('src/'+f,'utf8').split('\n').length + ' lines'));
+`);</pre>
+      </div>
+
+      <p class="tail">The fourth panel is the one most tools would have left out. A context optimiser has every
+        incentive to also shorten the model&rsquo;s prose &mdash; it would show up as savings. <b>Declining to do
+        that, and publishing why, is a scope boundary rather than a missing feature.</b></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy and figures drawn from the project README.</span>
+    <span><a href="https://github.com/mksglu/context-mode">github.com/mksglu/context-mode</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **330 mocks** across **110 days**. Newest first.
+Searchable master index. **333 mocks** across **111 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-10-01 | Thursday | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | editorial | stop-rust | Print the seven-rung ladder in full and highlight the rung that fires for the example beside it, so the mechanism and the outcome share one screen | Lighting the rung that fired turns a rule list into a trace, and a trace is what makes the example believable | [png](days/2026-10-01/01-ponytail.png) | [2026-10-01](days/2026-10-01/) |
+| 2026-10-01 | Thursday | [mksglu/context-mode](https://github.com/mksglu/context-mode) | mono-zine | budget-amber | Draw the context window as a spend ledger with every line item costed, then show the sandboxed total as a single lit sliver | A sliver you have to look for is a more honest rendering of a 98 percent claim than any badge | [png](days/2026-10-01/02-context-mode.png) | [2026-10-01](days/2026-10-01/) |
+| 2026-10-01 | Thursday | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | neon-noir | detector-pink | Separate the checks that need a model from the ones that do not, and give the deterministic count the solid card | Giving the deterministic number the solid card is what stops 61 from reading as marketing | [png](days/2026-10-01/03-impeccable.png) | [2026-10-01](days/2026-10-01/) |
 | 2026-09-30 | Wednesday | [oblien/openship](https://github.com/oblien/openship) | storyboard | deploy-teal | Draw the five-stage pipeline as literal storyboard cels, then give the one panel with an ordering caveat its own exception strip | Giving one panel an exception strip is how you show that an ordering choice, not a feature, is the product | [png](days/2026-09-30/01-openship.png) | [2026-09-30](days/2026-09-30/) |
 | 2026-09-30 | Wednesday | [rakyll/hey](https://github.com/rakyll/hey) | data-viz | percentile-blue | Build the whole page around a latency chart, then leave every result cell empty because the numbers are not mine to fill in | An empty result cell is the most honest thing a benchmarking tool landing page can show | [png](days/2026-09-30/02-hey.png) | [2026-09-30](days/2026-09-30/) |
 | 2026-09-30 | Wednesday | [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) | blueprint | ink-blue | Print the five-step lesson loop as drafted rows and tint only the fifth, because the fifth is a condition rather than an instruction | Tinting the row that is a gate turns a study method into a harness, which is the more accurate description | [png](days/2026-09-30/03-ai-engineering.png) | [2026-09-30](days/2026-09-30/) |

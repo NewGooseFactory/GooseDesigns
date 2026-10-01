@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impeccable — 61 rules that need no model</title>
+<style>
+  :root{
+    --bg:#0c0b10;
+    --panel:#141320;
+    --rule:#232134;
+    --ink:#eceaf4;
+    --muted:#9d97b4;
+    --dim:#aaa4c0;
+    --neon:#ff5fa2;
+    --neon-dim:rgba(255,95,162,.12);
+    --det:#8f87ad;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.016) 0px,rgba(255,255,255,.016) 1px,transparent 1px,transparent 3px);
+    background-attachment:fixed;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--rule)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--neon);border-bottom-color:var(--neon)}
+
+  .top{padding:50px 0 26px}
+  .topgrid{display:grid;grid-template-columns:1.02fr .98fr;gap:46px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--neon)}
+  h1{margin:0 0 20px;font-size:clamp(31px,4.1vw,50px);line-height:1.05;letter-spacing:-.033em;font-weight:630;text-wrap:balance}
+  h1 .n{color:var(--neon)}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 24px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:5px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--neon);color:#2a0415;border-color:var(--neon)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#ff7fb5;border-color:#ff7fb5;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#3a3650}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--neon);color:var(--neon);transform:translateY(-1px)}
+
+  .install{border:1px solid var(--rule);border-radius:7px;background:var(--panel);padding:14px 16px}
+  .install p{margin:0 0 8px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .install code{display:block;font-size:13px;color:var(--ink);line-height:1.8}
+  .install code .pr{color:var(--dim)}
+  .install code .cm{color:var(--neon)}
+
+  /* tells panel */
+  .tells{border:1px solid var(--rule);border-radius:10px;background:var(--panel);overflow:hidden}
+  .thead{padding:12px 18px;border-bottom:1px solid var(--rule);display:flex;
+    align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .thead p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .thead .src{font-size:11px;color:var(--neon);letter-spacing:.05em}
+  .tlist{margin:0;padding:0;list-style:none}
+  .tl{display:grid;grid-template-columns:24px 1fr;gap:13px;padding:12px 18px;
+    border-bottom:1px solid rgba(35,33,52,.8);align-items:start}
+  .tl:last-child{border-bottom:none}
+  .tl .x{color:var(--neon);font-size:12px;padding-top:1px}
+  .tl .txt{font-size:13px;color:var(--ink);line-height:1.5}
+  .tl .txt em{font-style:normal;color:var(--muted)}
+  .tfoot{padding:13px 18px;border-top:1px solid var(--rule);font-size:12px;color:var(--dim);line-height:1.6}
+  .tfoot b{color:var(--ink);font-weight:600}
+
+  /* split: deterministic vs llm */
+  .split{padding:8px 0 42px}
+  .sh{display:flex;align-items:baseline;gap:16px;margin:0 0 18px;flex-wrap:wrap}
+  .sh h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .sh .sub{font-size:12.5px;color:var(--dim);letter-spacing:.02em}
+  .two{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+  .lane{border:1px solid var(--rule);border-radius:10px;background:var(--panel);padding:22px}
+  .lane.det{border-color:#3a3650}
+  .lane.llm{border-style:dashed;border-color:#3a3650;background:transparent}
+  .lane .cap{display:flex;align-items:center;gap:9px;margin:0 0 14px}
+  .lane .cap i{width:9px;height:9px;border-radius:2px;flex:none;display:block}
+  .lane.det .cap i{background:var(--det)}
+  .lane.llm .cap i{background:transparent;border:1px solid var(--dim)}
+  .lane .cap h3{margin:0;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase}
+  .lane.det .cap h3{color:var(--ink)}
+  .lane.llm .cap h3{color:var(--dim)}
+  .bigfig{display:flex;align-items:baseline;gap:12px;margin:0 0 12px}
+  .bigfig .v{font-size:44px;font-weight:650;letter-spacing:-.03em;line-height:1;color:var(--det)}
+  .bigfig .u{font-size:13.5px;color:var(--muted)}
+  .lane p{margin:0 0 12px;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .lane p:last-child{margin-bottom:0}
+  .lane p b{color:var(--ink);font-weight:600}
+  .needs{margin:14px 0 0;padding-top:13px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px}
+  .needs span{font-size:11.5px;color:var(--muted);border:1px solid var(--rule);border-radius:999px;padding:4px 11px}
+  .needs span.no{color:var(--det);border-color:#3a3650}
+
+  .vocab{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--rule)}
+  .vocab h3{margin:0 0 12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .cmds{display:flex;flex-wrap:wrap;gap:8px}
+  .cmds span{font-size:12.5px;color:var(--ink);background:rgba(255,255,255,.035);border:1px solid var(--rule);
+    border-radius:5px;padding:6px 12px}
+  .cmds span.pair{color:var(--neon);border-color:rgba(255,95,162,.45);background:var(--neon-dim)}
+  .vnote{margin:14px 0 0;font-size:13px;color:var(--muted);line-height:1.65;max-width:60em}
+  .vnote b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--rule);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #3a3650}
+  footer a:hover,footer a:focus-visible{color:var(--neon);border-bottom-color:var(--neon)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:30px}
+    .two{grid-template-columns:1fr}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:560px){ .bar nav{display:none} }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">pbakaus / impeccable</span>
+    <nav aria-label="Primary">
+      <a href="https://impeccable.style">Docs</a>
+      <a href="https://impeccable.style/cases/neo-mirai">Case study</a>
+      <a href="https://github.com/pbakaus/impeccable">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Design guidance for AI coding agents</p>
+        <h1 class="up u1">Every model trained<br>on the same<br><span class="n">SaaS templates.</span></h1>
+        <p class="lede up u2">Skip the guidance and you get the same handful of tells on every project.
+          Impeccable answers with <b>one skill, 24 commands, live browser iteration, and 61 deterministic
+          detector rules</b> &mdash; and the deterministic half runs with <b>no LLM and no API key</b>.</p>
+
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/pbakaus/impeccable">Read the source</a>
+          <a class="btn btn-line" href="https://impeccable.style">Documentation</a>
+        </div>
+
+        <div class="install up u3">
+          <p class="mono">From your project root</p>
+          <code class="mono"><span class="pr">$</span> npx impeccable install
+<span class="pr">&gt;</span> /impeccable init  <span class="cm"># writes PRODUCT.md</span></code>
+        </div>
+      </div>
+
+      <div class="tells up u4">
+        <div class="thead">
+          <p class="mono">The tells it names out loud</p>
+          <span class="src mono">project&rsquo;s own anti-patterns</span>
+        </div>
+        <ul class="tlist">
+          <li class="tl"><span class="x mono">&times;</span><span class="txt">Overused fonts <em>&mdash; Arial, Inter, system defaults</em></span></li>
+          <li class="tl"><span class="x mono">&times;</span><span class="txt">Purple-to-blue gradients</span></li>
+          <li class="tl"><span class="x mono">&times;</span><span class="txt">Cards nested inside cards</span></li>
+          <li class="tl"><span class="x mono">&times;</span><span class="txt">Gray text on colored backgrounds</span></li>
+          <li class="tl"><span class="x mono">&times;</span><span class="txt">Pure black or gray <em>&mdash; always tint</em></span></li>
+          <li class="tl"><span class="x mono">&times;</span><span class="txt">The rounded-square icon tile above every heading</span></li>
+          <li class="tl"><span class="x mono">&times;</span><span class="txt">Bounce and elastic easing <em>&mdash; feels dated</em></span></li>
+        </ul>
+        <p class="tfoot"><b>A named tell is a checkable tell.</b> This list is why the detector rules can be
+          deterministic at all &mdash; you cannot grep for &ldquo;bad taste&rdquo;, but you can grep for a
+          nested card.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="split">
+    <div class="wrap">
+      <div class="sh">
+        <h2>Two kinds of check</h2>
+        <span class="sub mono">only one of them needs a model</span>
+      </div>
+
+      <div class="two up u4">
+        <div class="lane det">
+          <div class="cap"><i aria-hidden="true"></i><h3>Deterministic</h3></div>
+          <div class="bigfig"><span class="v num">61</span><span class="u">detector rules</span></div>
+          <p>Run by <b>the CLI and the browser extension</b>. The project states they execute with
+            <b>no LLM and no API key</b> &mdash; same input, same verdict, every time.</p>
+          <div class="needs">
+            <span class="no">no model</span><span class="no">no API key</span><span class="no">no network</span>
+          </div>
+        </div>
+
+        <div class="lane llm">
+          <div class="cap"><i aria-hidden="true"></i><h3>LLM-only critique</h3></div>
+          <p>Hierarchy, clarity, emotional resonance &mdash; the judgments a rule cannot encode, kept in
+            a <b>separate tier</b> rather than mixed into the rule count.</p>
+          <p>Keeping these apart is the honest move: it means the number on the left is a real number.</p>
+          <div class="needs">
+            <span>needs a model</span><span>judgment, not verdict</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vocab up u4">
+        <h3 class="mono">A shared vocabulary, in opposing pairs</h3>
+        <div class="cmds mono">
+          <span class="pair">bolder</span><span class="pair">quieter</span>
+          <span>distill</span><span>polish</span><span>audit</span><span>critique</span>
+          <span>shape</span><span>craft</span><span>harden</span><span>animate</span>
+          <span>colorize</span><span>typeset</span><span>layout</span><span>delight</span>
+          <span>clarify</span><span>adapt</span>
+        </div>
+        <p class="vnote">Shipping <b>bolder</b> and <b>quieter</b> as two commands is a quiet admission that
+          there is no single correct amount of design &mdash; which is a more useful thing for a design tool
+          to believe than a house style. <b>24 commands</b> in total; the two highlighted are the pair that
+          makes the point.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy and figures drawn from the project README.</span>
+    <span><a href="https://github.com/pbakaus/impeccable">github.com/pbakaus/impeccable</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

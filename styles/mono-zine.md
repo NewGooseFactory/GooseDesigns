@@ -1,9 +1,10 @@
 ﻿# Style — mono-zine
 
-18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-01](../days/2026-10-01/) | [mksglu/context-mode](https://github.com/mksglu/context-mode) | budget-amber | Draw the context window as a spend ledger with every line item costed, then show the sandboxed total as a single lit sliver | A sliver you have to look for is a more honest rendering of a 98 percent claim than any badge | [png](../days/2026-10-01/02-context-mode.png) |
 | [2026-09-24](../days/2026-09-24/) | [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything) | brass | Put the human-facing interface and the agent-facing one in the same column, separated by the thing that bridges them | Three matched rows make the interface gap concrete in a way the phrase agent-native never does | [png](../days/2026-09-24/03-cli-anything.png) |
 | [2026-09-19](../days/2026-09-19/) | [cactus-compute/needle](https://github.com/cactus-compute/needle) | phosphor-green | Make the refusal the hero: show the response shape when no tool covers the request | An empty list rendered in amber is a stronger claim than any size or speed number | [png](../days/2026-09-19/03-needle.png) |
 | [2026-09-14](../days/2026-09-14/) | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | amber | Answer the only question that matters for an access tool by putting the platform matrix in the hero | A named list beats a promise of everything, and the caption keeps it a claim rather than a test result | [png](../days/2026-09-14/01-agent-reach.png) |

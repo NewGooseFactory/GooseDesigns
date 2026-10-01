@@ -1,9 +1,10 @@
 ﻿# Style — neon-noir
 
-11 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+12 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-01](../days/2026-10-01/) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | detector-pink | Separate the checks that need a model from the ones that do not, and give the deterministic count the solid card | Giving the deterministic number the solid card is what stops 61 from reading as marketing | [png](../days/2026-10-01/03-impeccable.png) |
 | [2026-09-23](../days/2026-09-23/) | [strands-agents/harness-sdk](https://github.com/strands-agents/harness-sdk) | coral | List the jobs a hand-rolled agent loop grows into, since that is the actual purchase decision | Six honest jobs beat one adjective; the reader recognises their own backlog | [png](../days/2026-09-23/02-strands.png) |
 | [2026-09-15](../days/2026-09-15/) | [pacifio/atlas](https://github.com/pacifio/atlas) | violet | Put the commit first, then let the reader open the session that produced it | A disclosure that starts closed matches the claim: the record is kept whether or not anyone looks | [png](../days/2026-09-15/01-atlas.png) |
 | [2026-09-09](../days/2026-09-09/) | [vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop) | violet | stack the four named layers and give the unnamed boundary its own row | works, position makes the absence obvious | [png](../days/2026-09-09/03-pi-desktop.png) |

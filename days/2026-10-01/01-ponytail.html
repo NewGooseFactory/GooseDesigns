@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ponytail — the first rung that holds</title>
+<style>
+  :root{
+    --ink:#121110;
+    --paper:#faf9f6;
+    --rule:#171615;
+    --hair:#ded9cf;
+    --muted:#55504a;
+    --faint:#6a645c;
+    --stop:#b0471f;
+    --stop-soft:#fbeadf;
+    --pass:#5e6a5a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1130px;margin:0 auto;padding:0 42px}
+
+  .bar{border-bottom:2px solid var(--rule)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--stop);border-bottom-color:var(--stop)}
+
+  .plate{padding:50px 0 24px}
+  .kick{display:flex;align-items:center;gap:14px;margin:0 0 22px;font-size:11px;letter-spacing:.17em;
+    text-transform:uppercase;color:var(--stop)}
+  .kick .ln{height:1px;background:var(--stop);flex:1;max-width:120px;opacity:.5}
+
+  .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:start}
+  h1{margin:0 0 18px;font-size:clamp(34px,4.6vw,58px);line-height:1.01;letter-spacing:-.036em;font-weight:650;text-wrap:balance}
+  h1 .s{color:var(--stop)}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;font-size:13.5px;border-radius:2px;
+    font-weight:600;text-decoration:none;border:2px solid var(--rule);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--stop);border-color:var(--stop);color:#fdf6f1}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#8e3615;border-color:#8e3615;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--rule);color:var(--paper);transform:translateY(-1px)}
+
+  /* the ladder */
+  .ladder{border:2px solid var(--rule);background:#fff}
+  .lhead{padding:12px 18px;border-bottom:2px solid var(--rule);background:#f2efe8;
+    display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .lhead p{margin:0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .lhead .note{font-size:11px;letter-spacing:.06em;color:var(--stop)}
+  .rungs{margin:0;padding:0;list-style:none;counter-reset:rung}
+  .rung{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:center;
+    padding:11px 18px;border-bottom:1px solid var(--hair);font-size:13.5px}
+  .rung:last-child{border-bottom:none}
+  .rung .n{font-size:11px;color:var(--faint);letter-spacing:.06em}
+  .rung .q{color:var(--ink)}
+  .rung .a{font-size:12px;color:var(--pass);white-space:nowrap}
+  .rung.hit{background:var(--stop-soft);border-left:3px solid var(--stop)}
+  .rung.hit .n{color:var(--stop);font-weight:700}
+  .rung.hit .q{font-weight:600}
+  .rung.hit .a{color:var(--stop);font-weight:700}
+  .rung.last .q{color:var(--faint)}
+  .rung.last .a{color:var(--faint)}
+  .lfoot{padding:13px 18px;border-top:2px solid var(--rule);font-size:12.5px;color:var(--muted);line-height:1.55}
+  .lfoot b{color:var(--ink);font-weight:600}
+
+  /* before / after */
+  .ba{margin:34px 0 0;border-top:2px solid var(--rule);display:grid;grid-template-columns:1fr 1fr}
+  .ba > div{padding:22px 24px}
+  .ba .left{border-right:1px solid var(--hair)}
+  .ba .lbl{margin:0 0 12px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .ba .ask{margin:0 0 10px;font-size:14px;color:var(--ink);line-height:1.55}
+  .ba .ask b{font-weight:600}
+  .ba .pile{margin:0;padding:0;list-style:none}
+  .ba .pile li{font-size:13px;color:var(--muted);padding:5px 0;border-bottom:1px dashed var(--hair);line-height:1.45}
+  .ba .pile li:last-child{border-bottom:none}
+  .ba code{display:block;background:#17211c;color:#d8e6dd;padding:13px 15px;font-size:13px;
+    border-radius:3px;margin-top:4px;word-break:break-word}
+  .ba code .c{color:#8aa394}
+  .ba .after-note{margin:12px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+
+  /* numbers */
+  .nums{margin:30px 0 0;padding-top:22px;border-top:1px solid var(--hair)}
+  .nums h2{margin:0 0 4px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .nums .caveat{margin:0 0 16px;font-size:12.5px;color:var(--faint);line-height:1.55;max-width:60em}
+  .ntable{border:1px solid var(--hair);background:#fff}
+  .nr{display:grid;grid-template-columns:1.5fr repeat(5,1fr)}
+  .nr > div{padding:11px 14px;border-bottom:1px solid var(--hair);border-right:1px solid var(--hair);font-size:13px}
+  .nr > div:last-child{border-right:none}
+  .nr:last-child > div{border-bottom:none}
+  .nr.h > div{background:#f2efe8;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--faint);padding:9px 14px}
+  .nr .arm{color:var(--ink)}
+  .nr.pony{background:var(--stop-soft)}
+  .nr.pony .arm{font-weight:700;color:var(--stop)}
+  .nr .v{text-align:right;color:var(--muted)}
+  .nr.pony .v{color:var(--stop);font-weight:700}
+  .nr .v.bad{color:var(--faint)}
+  .attr{margin:14px 0 0;font-size:11.5px;color:var(--faint);line-height:1.55;max-width:62em}
+
+  footer{border-top:2px solid var(--rule);margin-top:32px;padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--hair)}
+  footer a:hover,footer a:focus-visible{color:var(--stop);border-bottom-color:var(--stop)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .grid{grid-template-columns:1fr;gap:30px}
+    .ba{grid-template-columns:1fr}
+    .ba .left{border-right:none;border-bottom:1px solid var(--hair)}
+    .nr{grid-template-columns:1fr 1fr 1fr}
+    .nr.h{display:none}
+    .plate{padding:32px 0 20px}
+  }
+  @media (max-width:560px){
+    .bar nav{display:none}
+    .rung{grid-template-columns:24px 1fr;gap:10px}
+    .rung .a{grid-column:2;text-align:left}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">DietrichGebert / ponytail</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/DietrichGebert/ponytail/tree/main/benchmarks">Benchmarks</a>
+      <a href="https://github.com/DietrichGebert/ponytail/tree/main/examples">Examples</a>
+      <a href="https://github.com/DietrichGebert/ponytail">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="plate">
+    <div class="wrap">
+      <p class="kick mono up u1"><span>Agent skill &middot; MIT</span><span class="ln" aria-hidden="true"></span><span>works with 20 agents</span></p>
+
+      <div class="grid">
+        <div>
+          <h1 class="up u1">The best code is<br>the code you<br><span class="s">never wrote.</span></h1>
+          <p class="lede up u2">Ponytail makes your AI agent think like the laziest senior dev in the room.
+            The rule was never &ldquo;fewest tokens&rdquo; &mdash; it is <b>write only what the task needs, and
+            never cut validation, error handling, security, or accessibility</b>. The code ends up small
+            because it is necessary, not golfed.</p>
+          <div class="cta up u2">
+            <a class="btn btn-solid" href="https://github.com/DietrichGebert/ponytail">Read the source</a>
+            <a class="btn btn-line" href="https://github.com/DietrichGebert/ponytail/tree/main/benchmarks">Reproduce the benchmark</a>
+          </div>
+        </div>
+
+        <div class="ladder up u3">
+          <div class="lhead">
+            <p class="mono">Before writing code, stop at the first rung that holds</p>
+            <span class="note mono">rung 4 wins here</span>
+          </div>
+          <ol class="rungs mono">
+            <li class="rung"><span class="n">1</span><span class="q">Does this need to exist?</span><span class="a">no &rarr; skip it</span></li>
+            <li class="rung"><span class="n">2</span><span class="q">Already in this codebase?</span><span class="a">reuse it</span></li>
+            <li class="rung"><span class="n">3</span><span class="q">Stdlib does it?</span><span class="a">use it</span></li>
+            <li class="rung hit"><span class="n">4</span><span class="q">Native platform feature?</span><span class="a">use it &#9664;</span></li>
+            <li class="rung"><span class="n">5</span><span class="q">Installed dependency?</span><span class="a">use it</span></li>
+            <li class="rung"><span class="n">6</span><span class="q">One line?</span><span class="a">one line</span></li>
+            <li class="rung last"><span class="n">7</span><span class="q">Only then: the minimum that works</span><span class="a">write it</span></li>
+          </ol>
+          <p class="lfoot"><b>The ladder stops; it does not optimise.</b> Nothing below rung four runs once
+            rung four holds &mdash; which is why the date picker never reaches a dependency discussion.</p>
+        </div>
+      </div>
+
+      <div class="ba up u4">
+        <div class="left">
+          <p class="lbl mono">Without the skill</p>
+          <p class="ask">You ask for <b>a date picker</b>.</p>
+          <ul class="pile">
+            <li>Installs flatpickr</li>
+            <li>Writes a wrapper component</li>
+            <li>Adds a stylesheet</li>
+            <li>Starts a discussion about timezones</li>
+          </ul>
+        </div>
+        <div>
+          <p class="lbl mono">With ponytail &mdash; rung 4 held</p>
+          <code class="mono"><span class="c">&lt;!-- ponytail: browser has one --&gt;</span>
+&lt;input type="date"&gt;</code>
+          <p class="after-note">The project reports this task going from <strong>404 lines to 23</strong>, because
+            the ladder reaches a native input before it reaches a component. Both panels are quoted from the README.</p>
+        </div>
+      </div>
+
+      <div class="nums up u4">
+        <h2>Against a no-skill baseline</h2>
+        <p class="caveat">The project&rsquo;s own agentic benchmark: a headless Claude Code session editing a real
+          FastAPI + React repository, twelve feature tickets, n=4, Haiku 4.5, scored on the diff it leaves behind.
+          Figures reproduced as published.</p>
+
+        <div class="ntable">
+          <div class="nr h">
+            <div class="mono">Arm</div><div class="mono v">LOC</div><div class="mono v">Tokens</div>
+            <div class="mono v">Cost</div><div class="mono v">Time</div><div class="mono v">Safe</div>
+          </div>
+          <div class="nr pony">
+            <div class="arm">ponytail</div><div class="v num mono">&minus;54%</div><div class="v num mono">&minus;22%</div>
+            <div class="v num mono">&minus;20%</div><div class="v num mono">&minus;27%</div><div class="v num mono">100%</div>
+          </div>
+          <div class="nr">
+            <div class="arm">caveman (terse-prose control)</div><div class="v num mono">&minus;20%</div><div class="v num mono bad">+7%</div>
+            <div class="v num mono bad">+3%</div><div class="v num mono bad">+2%</div><div class="v num mono">100%</div>
+          </div>
+          <div class="nr">
+            <div class="arm">&ldquo;YAGNI + one-liners&rdquo; prompt</div><div class="v num mono">&minus;33%</div><div class="v num mono">&minus;14%</div>
+            <div class="v num mono">&minus;21%</div><div class="v num mono">&minus;30%</div><div class="v num mono bad">95%</div>
+          </div>
+        </div>
+
+        <p class="attr">The last column is the one worth reading twice: the bare &ldquo;write one-liners&rdquo;
+          prompt is the only arm that drops a safety guard. The project also publishes its own correction &mdash;
+          an earlier single-shot run reported 80&ndash;94%, which it now describes as a per-task ceiling rather
+          than an average, and labels a conversational-baseline artifact.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy and figures drawn from the project README.</span>
+    <span><a href="https://github.com/DietrichGebert/ponytail">github.com/DietrichGebert/ponytail</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

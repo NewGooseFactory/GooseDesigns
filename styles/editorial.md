@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-35 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+36 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-01](../days/2026-10-01/) | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | stop-rust | Print the seven-rung ladder in full and highlight the rung that fires for the example beside it, so the mechanism and the outcome share one screen | Lighting the rung that fired turns a rule list into a trace, and a trace is what makes the example believable | [png](../days/2026-10-01/01-ponytail.png) |
 | [2026-09-24](../days/2026-09-24/) | [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight) | plum | Give the three published operations equal rows, then tint only the one that is not retrieval | Marking reflect as the odd verb out says more than any benchmark chart would have | [png](../days/2026-09-24/01-hindsight.png) |
 | [2026-09-20](../days/2026-09-20/) | [mihail911/modern-software-dev-assignments](https://github.com/mihail911/modern-software-dev-assignments) | crimson | Treat published coursework as a document, and print what the repository is not alongside what it is | Naming the absent lectures makes the four real setup commands more credible, not less | [png](../days/2026-09-20/03-cs146s.png) |
 | [2026-09-16](../days/2026-09-16/) | [Tencent/WeKnora](https://github.com/Tencent/WeKnora) | archive-teal | Sort a very long capability list into the three modes the project itself names, then spend the page on the one that leaves an artifact | Choosing which mode to enlarge is the edit; the editing affordances make distillation trustworthy | [png](../days/2026-09-16/02-weknora.png) |
