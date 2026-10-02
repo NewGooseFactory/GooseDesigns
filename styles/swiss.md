@@ -1,9 +1,10 @@
 ﻿# Style — swiss
 
-19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+20 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-02](../days/2026-10-02/) | [google/skills](https://github.com/google/skills) | index-red | Make the twelve-shelf index the hero, and give the only accent to the skill that finds the other skills | When the catalog is the product, the index is the interface, and the finder is the one row worth colouring | [png](../days/2026-10-02/03-google-skills.png) |
 | [2026-09-25](../days/2026-09-25/) | [mattpocock/skills](https://github.com/mattpocock/skills) | burnt-amber | Put the two install paths side by side with what each one costs you, because the project says you must pick one | A you give up row under each path turns a setup instruction into an actual decision | [png](../days/2026-09-25/02-skills.png) |
 | [2026-09-19](../days/2026-09-19/) | [docling-project/docling](https://github.com/docling-project/docling) | brick-red | Put the many input formats and the single output model on opposite sides of one narrow channel | The asymmetry does the arguing: a wide chip field collapsing into one named object | [png](../days/2026-09-19/02-docling.png) |
 | [2026-09-12](../days/2026-09-12/) | [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk) | vermilion | Turn worktree isolation into separate typographic lanes beneath one shared repository headline | The repeated directory structure explains parallel work without invented throughput claims | [png](../days/2026-09-12/01-worktrunk.png) |

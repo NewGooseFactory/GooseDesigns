@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sentry — clues versus answers</title>
+<style>
+  :root{
+    --field:#090c0a;
+    --panel:#0f1411;
+    --bezel:#1a221d;
+    --etch:#26302a;
+    --ink:#e2ebe5;
+    --label:#9cb0a3;
+    --dim:#a9bcb0;
+    --phos:#6ee39a;
+    --phos-dim:rgba(110,227,154,.12);
+    --caution:#f2b33d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--field);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(rgba(110,227,154,.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(110,227,154,.026) 1px, transparent 1px);
+    background-size:32px 32px;
+    background-attachment:fixed;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .strip{border-bottom:1px solid var(--etch);background:rgba(15,20,17,.75)}
+  .strip .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .sig{display:flex;align-items:center;gap:11px;font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .sig .tick{width:8px;height:8px;border:1px solid var(--phos);flex:none}
+  .strip nav{display:flex;gap:22px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .strip nav a{color:var(--label);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .strip nav a:hover,.strip nav a:focus-visible{color:var(--phos);border-bottom-color:var(--phos)}
+
+  .hero{padding:50px 0 30px}
+  .herogrid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--phos)}
+  h1{margin:0 0 20px;font-size:clamp(32px,4.3vw,52px);line-height:1.05;letter-spacing:-.032em;font-weight:620;text-wrap:balance}
+  h1 .a{color:var(--phos)}
+  .lede{margin:0 0 26px;font-size:15.5px;color:var(--label);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 26px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:4px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--phos);color:#04170b;border-color:var(--phos)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#8eedb3;border-color:#8eedb3;transform:translateY(-1px)}
+  .btn-etch{color:var(--ink);border-color:#3a473f}
+  .btn-etch:hover,.btn-etch:focus-visible{border-color:var(--phos);color:var(--phos);transform:translateY(-1px)}
+
+  .principle{border-left:2px solid var(--phos);padding:2px 0 2px 16px}
+  .principle p{margin:0 0 6px;font-size:13.5px;color:var(--ink);line-height:1.6}
+  .principle p:last-child{margin:0;font-size:12.5px;color:var(--label)}
+
+  /* panel */
+  .panel{border:1px solid var(--bezel);border-radius:9px;background:var(--panel);overflow:hidden}
+  .ph{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    padding:12px 18px;border-bottom:1px solid var(--etch);background:rgba(38,48,42,.35)}
+  .ph p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--label)}
+  .ph .ill{font-size:11px;letter-spacing:.07em;color:var(--dim)}
+
+  .mc{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:18px;border-bottom:1px solid var(--etch)}
+  .lamp{width:92px;height:56px;border:1.5px solid var(--caution);border-radius:4px;display:flex;align-items:center;
+    justify-content:center;text-align:center;font-size:10px;letter-spacing:.12em;line-height:1.25;color:var(--caution);
+    background:rgba(242,179,61,.10);font-weight:700}
+  .mc h3{margin:0 0 4px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--caution)}
+  .mc p{margin:0;font-size:13px;color:var(--label);line-height:1.5}
+  .mc ul{margin:7px 0 0;padding:0;list-style:none}
+  .mc li{font-size:12.5px;color:var(--ink);padding:3px 0}
+  .mc li span{color:var(--dim)}
+
+  .ann{padding:16px 18px 18px}
+  .ann h3{margin:0 0 4px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--phos)}
+  .ann > p{margin:0 0 13px;font-size:13px;color:var(--label);line-height:1.5}
+  .grid8{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .cell{display:flex;align-items:center;justify-content:center;min-height:46px;border:1px solid var(--etch);border-radius:3px;padding:7px 8px;text-align:center;font-size:10.5px;
+    letter-spacing:.11em;text-transform:uppercase;color:var(--dim);background:rgba(0,0,0,.18)}
+  .cell.on{border-color:var(--phos);color:var(--phos);background:var(--phos-dim);font-weight:700}
+  .pf{padding:13px 18px;border-top:1px solid var(--etch);font-size:12.5px;color:var(--label);line-height:1.55}
+  .pf b{color:var(--ink);font-weight:600}
+
+  /* SDK readout */
+  .sdk{padding:6px 0 44px}
+  .sh{display:flex;align-items:baseline;gap:16px;margin:0 0 16px;flex-wrap:wrap}
+  .sh h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .sh .sub{font-size:12px;color:var(--label);letter-spacing:.03em}
+  .readout{border:1px solid var(--bezel);border-radius:9px;background:var(--panel);overflow:hidden}
+  .rhead{display:flex;align-items:baseline;gap:14px;padding:14px 18px;border-bottom:1px solid var(--etch)}
+  .rhead .big{font-size:34px;font-weight:650;color:var(--phos);letter-spacing:-.02em;line-height:1}
+  .rhead .cap{font-size:12.5px;color:var(--label)}
+  .langs{display:grid;grid-template-columns:repeat(7,1fr)}
+  .langs span{padding:9px 12px;font-size:12.5px;color:var(--ink);border-right:1px solid var(--etch);border-bottom:1px solid var(--etch)}
+  .langs span:nth-child(7n){border-right:none}
+  .langs span:nth-last-child(-n+7){border-bottom:none}
+  .tail{margin:16px 0 0;font-size:12.5px;color:var(--label);line-height:1.6;max-width:62em}
+
+  footer{border-top:1px solid var(--etch);padding:20px 0 32px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:11.5px;letter-spacing:.04em;color:var(--label)}
+  footer a{color:var(--label);text-decoration:none;border-bottom:1px solid #3a473f}
+  footer a:hover,footer a:focus-visible{color:var(--phos);border-bottom-color:var(--phos)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 24px}
+    .herogrid{grid-template-columns:1fr;gap:32px}
+    .langs{grid-template-columns:repeat(3,1fr)}
+    .langs span{border-right:1px solid var(--etch);border-bottom:1px solid var(--etch)}
+    .langs span:nth-child(7n){border-right:1px solid var(--etch)}
+    .langs span:nth-child(3n){border-right:none}
+    .hero{padding:34px 0 22px}
+  }
+  @media (max-width:560px){
+    .strip nav{display:none}
+    .grid8{grid-template-columns:repeat(2,1fr)}
+    .mc{grid-template-columns:1fr}
+    .langs{grid-template-columns:repeat(2,1fr)}
+    .langs span:nth-child(3n){border-right:1px solid var(--etch)}
+    .langs span:nth-child(2n){border-right:none}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="strip">
+  <div class="wrap">
+    <span class="sig mono"><span class="tick" aria-hidden="true"></span>getsentry&nbsp;/&nbsp;sentry</span>
+    <nav aria-label="Primary">
+      <a href="https://docs.sentry.io/">Docs</a>
+      <a href="https://github.com/getsentry/sentry/discussions">Discussions</a>
+      <a href="https://github.com/getsentry/sentry">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap herogrid">
+      <div>
+        <p class="eyebrow mono up u1">Debugging platform &middot; detect, trace, fix</p>
+        <h1 class="up u1">Users and logs provide clues.<br><span class="a">Sentry provides answers.</span></h1>
+        <p class="lede up u2">That line is the project&rsquo;s own, and it is the whole design brief.
+          Sentry is <b>the debugging platform that helps every developer detect, trace, and fix issues</b>.
+          Code breaks; fix it faster.</p>
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/getsentry/sentry">Read the source</a>
+          <a class="btn btn-etch" href="https://docs.sentry.io/">Documentation</a>
+        </div>
+        <div class="principle up u3">
+          <p>A master caution light tells you <em>that</em> something is wrong. An annunciator panel tells you
+            <em>which</em> system. The panel on the right is that distinction, drawn.</p>
+          <p class="mono">&mdash; the cockpit version of clues versus answers</p>
+        </div>
+      </div>
+
+      <div class="panel up u4">
+        <div class="ph">
+          <p class="mono">Caution &amp; annunciator</p>
+          <span class="ill mono">illustrative &mdash; no live data</span>
+        </div>
+
+        <div class="mc">
+          <div class="lamp mono" aria-hidden="true">MASTER<br>CAUTION</div>
+          <div>
+            <h3 class="mono">The clue</h3>
+            <p>Something is wrong. That is all a clue can say.</p>
+            <ul class="mono">
+              <li><span>user &rsaquo;</span> &ldquo;checkout just spins&rdquo;</li>
+              <li><span>log &rsaquo;</span> request timed out</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ann">
+          <h3 class="mono">The answer</h3>
+          <p>Which surface holds it. Tiles are named after the screenshots in the project README.</p>
+          <div class="grid8 mono">
+            <span class="cell on">Issues</span>
+            <span class="cell on">Traces</span>
+            <span class="cell">Replays</span>
+            <span class="cell">Logs</span>
+            <span class="cell">Uptime</span>
+            <span class="cell">Insights</span>
+            <span class="cell">Trace explorer</span>
+            <span class="cell">Seer</span>
+          </div>
+        </div>
+
+        <p class="pf"><b>The caution light is the same for every fault.</b> The annunciator is what earns
+          its place on the panel &mdash; it is the difference between being paged and being told where to look.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sdk">
+    <div class="wrap">
+      <div class="sh">
+        <h2>Where the clues come from</h2>
+        <span class="sub mono">official SDKs listed in the README</span>
+      </div>
+      <div class="readout up u4">
+        <div class="rhead"><span class="big mono">21</span><span class="cap">official SDKs, counted from the README on October 2</span></div>
+        <div class="langs mono">
+          <span>JavaScript</span><span>Electron</span><span>React Native</span><span>Python</span><span>Ruby</span><span>PHP</span><span>Laravel</span>
+          <span>Go</span><span>Rust</span><span>Java / Kotlin</span><span>Obj-C / Swift</span><span>C# / F#</span><span>C / C++</span><span>Dart / Flutter</span>
+          <span>Perl</span><span>Clojure</span><span>Elixir</span><span>Unity</span><span>Unreal</span><span>Godot</span><span>PowerShell</span>
+        </div>
+      </div>
+      <p class="tail">No error rate, event volume or customer count appears on this page. The two clue lines and the lit
+        tiles are illustrative; the surfaces, the SDK list and the tagline are the project&rsquo;s.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/getsentry/sentry">github.com/getsentry/sentry</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

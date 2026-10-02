@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-35 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+36 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-02](../days/2026-10-02/) | [getsentry/sentry](https://github.com/getsentry/sentry) | phosphor-green | Draw the project tagline as a master caution light above an annunciator grid, so the clue and the answer become two different instruments | A caution light that can only say something is wrong is the clearest way to show what an answer adds | [png](../days/2026-10-02/02-sentry.png) |
 | [2026-09-27](../days/2026-09-27/) | [block/buzz](https://github.com/block/buzz) | instrument-amber | Print all three status columns as instrument readouts, including the one the project warns you not to rely on | An unlit third column is the most credible thing on a roadmap, because it is the one nobody had to publish | [png](../days/2026-09-27/01-buzz.png) |
 | [2026-09-21](../days/2026-09-21/) | [mvt-project/mvt](https://github.com/mvt-project/mvt) | instrument-amber | Give the limitation its own row in the readout rather than a footnote | A cannot-show row rendered in the accent colour is the most credible thing on the page | [png](../days/2026-09-21/02-mvt.png) |
 | [2026-09-16](../days/2026-09-16/) | [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | instrument-amber | Lead with the three verdicts rather than the six phases, and give the unresolved one equal weight | The needs_validation row is the most persuasive thing on the page precisely because it admits a limit | [png](../days/2026-09-16/01-security-audit.png) |

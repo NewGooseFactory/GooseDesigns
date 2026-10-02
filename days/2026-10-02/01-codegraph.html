@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CodeGraph — one call, and the bill for it</title>
+<style>
+  :root{
+    --raw:#f3f2ee;
+    --white:#ffffff;
+    --black:#0d0d0d;
+    --muted:#3f3f3c;
+    --faint:#56564f;
+    --hazard:#ffd60a;
+    --line:3px solid #0d0d0d;
+    --thin:1px solid #0d0d0d;
+  }
+  *{box-sizing:border-box;border-radius:0}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--raw);color:var(--black);line-height:1.45;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 36px}
+
+  .bar{border-bottom:var(--line);background:var(--white)}
+  .bar .wrap{display:flex;align-items:stretch;justify-content:space-between;gap:0;height:54px}
+  .id{display:flex;align-items:center;font-size:13px;font-weight:700;letter-spacing:.02em}
+  .bar nav{display:flex;align-items:stretch}
+  .bar nav a{display:flex;align-items:center;padding:0 18px;border-left:var(--thin);color:var(--black);
+    text-decoration:none;font-size:13px;font-weight:600}
+  .bar nav a:hover,.bar nav a:focus-visible{background:var(--hazard)}
+
+  .top{padding:44px 0 30px}
+  .topgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start}
+  .tag{display:inline-block;border:var(--thin);background:var(--white);padding:4px 9px;font-size:11.5px;
+    letter-spacing:.06em;text-transform:uppercase;margin:0 0 18px}
+  h1{margin:0 0 18px;font-size:clamp(38px,5.4vw,70px);line-height:.95;letter-spacing:-.04em;font-weight:800}
+  h1 .hl{background:linear-gradient(to bottom,transparent 26%,var(--hazard) 26%,var(--hazard) 94%,transparent 94%);padding:0 .06em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .lede{margin:0 0 24px;font-size:16px;color:var(--muted);line-height:1.55;max-width:34em}
+  .lede b{color:var(--black)}
+  .cta{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border:var(--line);font-size:14px;
+    font-weight:700;text-decoration:none;color:var(--black);background:var(--white);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .btn:hover,.btn:focus-visible{transform:translate(-3px,-3px);box-shadow:3px 3px 0 var(--black)}
+  .btn-solid{background:var(--black);color:var(--hazard)}
+  .install{margin:22px 0 0;border:var(--line);background:var(--black);color:#f3f2ee;padding:13px 15px}
+  .install p{margin:0 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hazard)}
+  .install code{display:block;font-size:13px;line-height:1.75}
+
+  /* the balance */
+  .scale{border:var(--line);background:var(--white)}
+  .scale-head{border-bottom:var(--line);padding:10px 14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .scale-head p{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .scale-head .r{font-size:12px;color:var(--faint)}
+  .pans{display:grid;grid-template-columns:1fr 1fr}
+  .pan{padding:16px 16px 18px}
+  .pan.save{border-right:var(--line)}
+  .pan.cost{background:var(--hazard)}
+  .pan h2{margin:0 0 3px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .pan .sub{margin:0 0 14px;font-size:12.5px;color:var(--muted)}
+  .pan.cost .sub{color:#2a2a26}
+  .fig{border-top:var(--thin);padding:9px 0 8px}
+  .fig .v{display:block;font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1.05}
+  .fig .l{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.4}
+  .pan.cost .fig .l{color:#262622}
+  .scale-foot{border-top:var(--line);padding:11px 14px;font-size:12.5px;line-height:1.5;color:var(--muted)}
+  .scale-foot b{color:var(--black)}
+
+  /* table */
+  .bench{padding:6px 0 10px}
+  .bh{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 12px}
+  .bh h2{margin:0;font-size:14px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+  .bh .sub{font-size:12.5px;color:var(--faint)}
+  .tbl{border:var(--line);background:var(--white)}
+  .tr{display:grid;grid-template-columns:1.3fr 1.2fr 1.6fr 1fr}
+  .tr > div{padding:10px 13px;border-right:var(--thin);border-bottom:var(--thin);font-size:13.5px}
+  .tr > div:last-child{border-right:none}
+  .tr:last-child > div{border-bottom:none}
+  .tr.h > div{background:var(--black);color:var(--white);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+  .tr .repo{font-weight:700}
+  .tr .lang{color:var(--muted)}
+  .calls{display:flex;align-items:center;gap:10px}
+  .calls .w{font-weight:800}
+  .track{flex:1;height:10px;border:var(--thin);position:relative;background:var(--white);min-width:60px}
+  .track i{position:absolute;left:0;top:0;bottom:0;background:var(--black);display:block}
+  .calls .wo{color:var(--faint);min-width:2.4em;text-align:right}
+  .reads{font-weight:700}
+  .note{margin:12px 0 0;font-size:12.5px;color:var(--faint);line-height:1.55;max-width:66em}
+
+  /* how */
+  .how{margin:30px 0 0;border:var(--line);background:var(--white);display:grid;grid-template-columns:repeat(4,1fr)}
+  .step{padding:15px 15px 17px;border-right:var(--thin)}
+  .step:last-child{border-right:none}
+  .step .n{display:inline-block;background:var(--black);color:var(--hazard);font-size:11px;font-weight:700;
+    padding:2px 7px;margin:0 0 9px}
+  .step h3{margin:0 0 6px;font-size:15px;font-weight:800;letter-spacing:-.01em}
+  .step p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+
+  footer{border-top:var(--line);margin-top:34px;background:var(--white)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;padding-top:16px;padding-bottom:26px;font-size:12px;color:var(--faint)}
+  footer a{color:var(--black);font-weight:600}
+  footer a:hover,footer a:focus-visible{background:var(--hazard)}
+
+  .up{opacity:0;transform:translateY(10px);animation:up .5s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.09s}.u3{animation-delay:.16s}.u4{animation-delay:.23s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1020px){
+    .wrap{padding:0 22px}
+    .topgrid{grid-template-columns:1fr;gap:28px}
+    .tr{grid-template-columns:1fr 1fr}
+    .tr .lang{display:none}
+    .tr.h > div:nth-child(2){display:none}
+    .how{grid-template-columns:1fr 1fr}
+    .step{border-bottom:var(--thin)}
+    .top{padding:30px 0 22px}
+  }
+  @media (max-width:600px){
+    .bar nav a:not(:last-child){display:none}
+    .pans{grid-template-columns:1fr}
+    .pan.save{border-right:none;border-bottom:var(--line)}
+    .tr{grid-template-columns:1fr}
+    .tr > div{border-right:none}
+    .tr.h{display:none}
+    .how{grid-template-columns:1fr}
+    .step{border-right:none}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">colbymchenry/codegraph</span>
+    <nav aria-label="Primary">
+      <a href="https://colbymchenry.github.io/codegraph/">Docs</a>
+      <a href="https://github.com/colbymchenry/codegraph/blob/main/docs/benchmarks/residual-context-occupancy.md">Footprint data</a>
+      <a href="https://github.com/colbymchenry/codegraph">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <span class="tag mono up u1">Pre-indexed code graph &middot; 100% local</span>
+        <h1 class="up u1">One call<br>instead of<br>a <span class="hl">crawl.</span></h1>
+        <p class="lede up u2">When an agent needs to understand code it greps, globs and reads one file at a time,
+          rebuilding call paths by hand. CodeGraph hands it <b>the relevant source, the call paths between those
+          symbols, and the blast radius of a change</b> in one call &mdash; from a local SQLite graph that re-syncs
+          on every file change.</p>
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://github.com/colbymchenry/codegraph">Read the source</a>
+          <a class="btn" href="https://colbymchenry.github.io/codegraph/">Documentation</a>
+        </div>
+        <div class="install up u3">
+          <p class="mono">Install, wire your agents, index a project</p>
+          <code class="mono">codegraph install<br>cd your-project &amp;&amp; codegraph init</code>
+        </div>
+      </div>
+
+      <div class="scale up u3">
+        <div class="scale-head">
+          <p class="mono">Both are true at once</p>
+          <span class="r mono">project&rsquo;s own figures</span>
+        </div>
+        <div class="pans">
+          <div class="pan save">
+            <h2 class="mono">Throughput</h2>
+            <p class="sub">what it saves, per answer</p>
+            <div class="fig"><span class="v num">62%</span><span class="l">fewer tokens processed, averaged across seven repos</span></div>
+            <div class="fig"><span class="v num">44%</span><span class="l">lower cost on the same questions</span></div>
+            <div class="fig"><span class="v num">0</span><span class="l">file reads, on all seven repos</span></div>
+          </div>
+          <div class="pan cost">
+            <h2 class="mono">Footprint</h2>
+            <p class="sub">what it costs, per session</p>
+            <div class="fig"><span class="v num">~80%</span><span class="l">more retrieval context still resident when a multi-turn session ends</span></div>
+            <div class="fig"><span class="v num">67k</span><span class="l">tokens left resident on VS Code, against 18k for a file-reading agent</span></div>
+            <div class="fig"><span class="v">Budget for it</span><span class="l">if you run long sessions in a small window</span></div>
+          </div>
+        </div>
+        <p class="scale-foot">The same dense payload that makes it fast is what stays in the window.
+          <b>The project prints this column itself</b> &mdash; that is why it gets the accent here.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bench">
+    <div class="wrap">
+      <div class="bh">
+        <h2>Tool calls to answer one architecture question</h2>
+        <span class="sub mono">with vs without &middot; median of 4 runs per arm</span>
+      </div>
+      <div class="tbl up u4">
+        <div class="tr h"><div class="mono">Codebase</div><div class="mono">Language</div><div class="mono">Calls: with &rarr; without</div><div class="mono">File reads</div></div>
+        <div class="tr"><div class="repo">Excalidraw</div><div class="lang">TypeScript</div><div class="calls mono"><span class="w">2</span><span class="track" aria-hidden="true"><i style="width:4.7%"></i></span><span class="wo">43</span></div><div class="reads mono">0 vs 18</div></div>
+        <div class="tr"><div class="repo">Alamofire</div><div class="lang">Swift</div><div class="calls mono"><span class="w">4</span><span class="track" aria-hidden="true"><i style="width:12.1%"></i></span><span class="wo">33</span></div><div class="reads mono">0 vs 16.5</div></div>
+        <div class="tr"><div class="repo">Tokio</div><div class="lang">Rust</div><div class="calls mono"><span class="w">3</span><span class="track" aria-hidden="true"><i style="width:10.3%"></i></span><span class="wo">29</span></div><div class="reads mono">0 vs 19</div></div>
+        <div class="tr"><div class="repo">VS Code</div><div class="lang">TypeScript</div><div class="calls mono"><span class="w">2</span><span class="track" aria-hidden="true"><i style="width:7.1%"></i></span><span class="wo">28</span></div><div class="reads mono">0 vs 12</div></div>
+        <div class="tr"><div class="repo">Django</div><div class="lang">Python</div><div class="calls mono"><span class="w">3</span><span class="track" aria-hidden="true"><i style="width:21.4%"></i></span><span class="wo">14</span></div><div class="reads mono">0 vs 8.5</div></div>
+        <div class="tr"><div class="repo">Gin</div><div class="lang">Go</div><div class="calls mono"><span class="w">1</span><span class="track" aria-hidden="true"><i style="width:14.3%"></i></span><span class="wo">7</span></div><div class="reads mono">0 vs 4</div></div>
+        <div class="tr"><div class="repo">OkHttp</div><div class="lang">Java</div><div class="calls mono"><span class="w">1</span><span class="track" aria-hidden="true"><i style="width:16.7%"></i></span><span class="wo">6</span></div><div class="reads mono">0 vs 2</div></div>
+      </div>
+      <p class="note">Black fill is the with-graph share of the without-graph call count. Figures are the project&rsquo;s
+        published re-measurement of 2026-08-05 on Claude Opus 4.8, on a harness that blocks the CLI in both arms;
+        reproduced as stated, not re-run here. Cost savings vary far more than call counts &mdash; the project reports
+        13% on Django and roughly even on Gin.</p>
+
+      <div class="how up u4">
+        <div class="step"><span class="n mono">01</span><h3>Extract</h3><p>A native Rust kernel parses source with tree-sitter grammars &mdash; functions, classes, calls, imports.</p></div>
+        <div class="step"><span class="n mono">02</span><h3>Store</h3><p>Everything lands in a local SQLite database with FTS5 full-text search.</p></div>
+        <div class="step"><span class="n mono">03</span><h3>Resolve</h3><p>Calls to definitions, imports to files, inheritance and framework patterns.</p></div>
+        <div class="step"><span class="n mono">04</span><h3>Auto-sync</h3><p>OS file events, a two-second quiet window, incremental updates. Nothing to re-run.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy and figures drawn from the project README.</span>
+    <span><a href="https://github.com/colbymchenry/codegraph">github.com/colbymchenry/codegraph</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

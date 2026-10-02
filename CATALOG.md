@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **333 mocks** across **111 days**. Newest first.
+Searchable master index. **336 mocks** across **112 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-10-02 | Friday | [colbymchenry/codegraph](https://github.com/colbymchenry/codegraph) | brutalist | hazard-yellow | Put the throughput savings and the session footprint on one scale with equal type, and give the accent to the cost column | Printing the cost the project discloses at the same size as the win is what makes the win believable | [png](days/2026-10-02/01-codegraph.png) | [2026-10-02](days/2026-10-02/) |
+| 2026-10-02 | Friday | [getsentry/sentry](https://github.com/getsentry/sentry) | hud | phosphor-green | Draw the project tagline as a master caution light above an annunciator grid, so the clue and the answer become two different instruments | A caution light that can only say something is wrong is the clearest way to show what an answer adds | [png](days/2026-10-02/02-sentry.png) | [2026-10-02](days/2026-10-02/) |
+| 2026-10-02 | Friday | [google/skills](https://github.com/google/skills) | swiss | index-red | Make the twelve-shelf index the hero, and give the only accent to the skill that finds the other skills | When the catalog is the product, the index is the interface, and the finder is the one row worth colouring | [png](days/2026-10-02/03-google-skills.png) | [2026-10-02](days/2026-10-02/) |
 | 2026-10-01 | Thursday | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | editorial | stop-rust | Print the seven-rung ladder in full and highlight the rung that fires for the example beside it, so the mechanism and the outcome share one screen | Lighting the rung that fired turns a rule list into a trace, and a trace is what makes the example believable | [png](days/2026-10-01/01-ponytail.png) | [2026-10-01](days/2026-10-01/) |
 | 2026-10-01 | Thursday | [mksglu/context-mode](https://github.com/mksglu/context-mode) | mono-zine | budget-amber | Draw the context window as a spend ledger with every line item costed, then show the sandboxed total as a single lit sliver | A sliver you have to look for is a more honest rendering of a 98 percent claim than any badge | [png](days/2026-10-01/02-context-mode.png) | [2026-10-01](days/2026-10-01/) |
 | 2026-10-01 | Thursday | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | neon-noir | detector-pink | Separate the checks that need a model from the ones that do not, and give the deterministic count the solid card | Giving the deterministic number the solid card is what stops 61 from reading as marketing | [png](days/2026-10-01/03-impeccable.png) | [2026-10-01](days/2026-10-01/) |

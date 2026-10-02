@@ -1,9 +1,10 @@
 ﻿# Style — brutalist
 
-16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-02](../days/2026-10-02/) | [colbymchenry/codegraph](https://github.com/colbymchenry/codegraph) | hazard-yellow | Put the throughput savings and the session footprint on one scale with equal type, and give the accent to the cost column | Printing the cost the project discloses at the same size as the win is what makes the win believable | [png](../days/2026-10-02/01-codegraph.png) |
 | [2026-09-24](../days/2026-09-24/) | [superdesigndev/treg](https://github.com/superdesigndev/treg) | relay-red | Draw the request path as three hard boxes and let the reader watch the credential stay in the middle one | Sending a call and seeing the agent box still read no provider key is the whole security claim | [png](../days/2026-09-24/02-treg.png) |
 | [2026-09-17](../days/2026-09-17/) | [Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill) | signal-orange | Show two windows side by side and let the reader borrow exactly one tab, then return it | Returning the tab is the whole product; an interaction that reverses itself says so without a paragraph | [png](../days/2026-09-17/01-browserskill.png) |
 | [2026-09-09](../days/2026-09-09/) | [obra/superpowers](https://github.com/obra/superpowers) | verdict-red | split the sentence by what evidence each part needs, then list what would settle the verdict | strongest of the three | [png](../days/2026-09-09/02-superpowers.png) |
