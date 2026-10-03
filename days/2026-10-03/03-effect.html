@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Effect — each digit says what may break</title>
+<style>
+  :root{
+    --paper:#f3eee3;
+    --card:#fbf8f2;
+    --ink:#141414;
+    --muted:#3d3b37;
+    --faint:#5a5650;
+    --red:#c4261c;
+    --blue:#1a4b9b;
+    --yellow:#f0bf2b;
+    --rule:3px solid #141414;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.45;
+    font-family:"Futura","Avenir Next","Century Gothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1170px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:var(--rule)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px}
+  .brand{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .brand .sq{width:14px;height:14px;background:var(--red)}
+  .brand .ci{width:14px;height:14px;border-radius:50%;background:var(--blue)}
+  .brand .tri{width:15px;height:13px;background:var(--yellow);clip-path:polygon(50% 0,100% 100%,0 100%)}
+  .bar nav{display:flex;gap:24px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .bar nav a{color:var(--ink);text-decoration:none;padding-bottom:2px;border-bottom:2px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{border-bottom-color:var(--red)}
+
+  .top{padding:42px 0 30px}
+  .topgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--blue)}
+  h1{margin:0 0 18px;font-size:clamp(32px,4.3vw,52px);line-height:1.02;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.6;max-width:33em;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .lede b{color:var(--ink)}
+  .cta{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;padding:12px 20px;font-size:13.5px;font-weight:700;letter-spacing:.04em;
+    text-transform:uppercase;text-decoration:none;border:var(--rule);transition:transform .17s ease,box-shadow .17s ease}
+  .btn:hover,.btn:focus-visible{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+  .btn-red{background:var(--red);color:#fff}
+  .btn-line{background:var(--card);color:var(--ink)}
+
+  /* version */
+  .ver{border:var(--rule);background:var(--card)}
+  .vh{border-bottom:var(--rule);padding:10px 16px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+  .vh p{margin:0;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+  .vh span{font-size:12px;color:var(--faint)}
+  .digits{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:end}
+  .dg{padding:16px 14px 0;text-align:center;min-width:0}
+  .dg .n{display:block;font-size:clamp(64px,8.5vw,112px);line-height:.88;font-weight:800;letter-spacing:-.04em}
+  .dot{font-size:clamp(48px,6vw,80px);font-weight:800;line-height:1;padding-bottom:6px}
+  .tiers{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:var(--rule)}
+  .tier{padding:14px 14px 16px;min-width:0}
+  .tier + .tier{border-left:var(--rule)}
+  .shape{display:block;width:30px;height:30px;margin:0 0 10px}
+  .shape.sq{background:var(--red)}
+  .shape.ci{background:var(--blue);border-radius:50%}
+  .shape.tr{background:var(--yellow);clip-path:polygon(50% 0,100% 100%,0 100%)}
+  .tier .k{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+  .tier .v{display:block;font-size:14px;font-weight:700;line-height:1.25}
+  .tier .s{display:block;font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.4;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .vf{border-top:var(--rule);padding:11px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .vf b{color:var(--ink)}
+
+  /* support */
+  .sup{padding:6px 0 10px}
+  .sh{display:flex;align-items:baseline;gap:16px;margin:0 0 14px;flex-wrap:wrap}
+  .sh h2{margin:0;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .sh .sub{font-size:12.5px;color:var(--faint)}
+  .gantt{border:var(--rule);background:var(--card);padding:18px 18px 12px}
+  .row{display:grid;grid-template-columns:230px 1fr;gap:16px;align-items:center;padding:7px 0}
+  .row .lab{font-size:13px;font-weight:700;line-height:1.25}
+  .row .lab small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .lane{position:relative;height:30px;border-left:2px solid var(--ink);border-right:2px solid transparent}
+  .lane .b{position:absolute;top:4px;bottom:4px;display:flex;align-items:center;padding:0 10px;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden}
+  .b.red{background:var(--red);color:#fff}
+  .b.blue{background:var(--blue);color:#fff}
+  .b.yel{background:var(--yellow);color:var(--ink)}
+  .marker{position:absolute;top:-6px;bottom:-6px;width:0;border-left:2px dashed var(--ink)}
+  .axis{display:grid;grid-template-columns:230px 1fr;gap:16px;margin-top:6px}
+  .axis .t{position:relative;height:18px;font-size:11px;color:var(--faint)}
+  .axis .t span{position:absolute;top:0;white-space:nowrap}
+  .gnote{margin:10px 0 0;font-size:12px;color:var(--faint);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+
+  /* problems */
+  .probs{margin:28px 0 0;display:grid;grid-template-columns:repeat(6,1fr);border:var(--rule);background:var(--card)}
+  .pb{padding:14px 13px 16px;min-width:0}
+  .pb + .pb{border-left:var(--rule)}
+  .pb i{display:block;width:16px;height:16px;margin-bottom:9px}
+  .pb i.sq{background:var(--red)}
+  .pb i.ci{background:var(--blue);border-radius:50%}
+  .pb i.tr{background:var(--yellow);clip-path:polygon(50% 0,100% 100%,0 100%)}
+  .pb span{display:block;font-size:13.5px;font-weight:700;line-height:1.25}
+  .reqs{margin:16px 0 0;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:12.5px;color:var(--muted)}
+  .reqs b{color:var(--ink)}
+  .ai{margin:16px 0 0;font-size:13.5px;color:var(--muted);line-height:1.6;max-width:64em;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .ai b{color:var(--ink)}
+
+  footer{border-top:var(--rule);margin-top:34px;padding:18px 0 32px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--ink);font-weight:600;text-decoration:none;border-bottom:2px solid transparent}
+  footer a:hover,footer a:focus-visible{border-bottom-color:var(--red)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .55s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:30px}
+    .probs{grid-template-columns:repeat(3,1fr)}
+    .pb:nth-child(4){border-left:none}
+    .pb:nth-child(n+4){border-top:var(--rule)}
+    .top{padding:30px 0 22px}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .tiers{grid-template-columns:1fr}
+    .tier + .tier{border-left:none;border-top:var(--rule)}
+    .row,.axis{grid-template-columns:1fr;gap:6px}
+    .axis > div:first-child{display:none}
+    .lane .b{font-size:10.5px;padding:0 6px}
+    .probs{grid-template-columns:1fr 1fr}
+    .pb + .pb{border-left:none}
+    .pb:nth-child(even){border-left:var(--rule)}
+    .pb:nth-child(n+3){border-top:var(--rule)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="brand"><span class="sq" aria-hidden="true"></span><span class="ci" aria-hidden="true"></span><span class="tri" aria-hidden="true"></span><span class="mono">Effect-TS / effect</span></span>
+    <nav aria-label="Primary">
+      <a href="https://effect.website">Website</a>
+      <a href="https://github.com/Effect-TS/effect/blob/main/MIGRATION.md">Migration</a>
+      <a href="https://github.com/Effect-TS/effect">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow up u1">TypeScript library &middot; Effect 4.x is LTS</p>
+        <h1 class="up u1">Each digit of the version says what is allowed to break.</h1>
+        <p class="lede up u2">Effect is a library for building robust, type-safe, production-grade applications in
+          TypeScript &mdash; <b>typed errors, dependency injection, structured concurrency, scheduling, tracing and
+          schema validation</b>. Teams run it in systems they expect to keep for years, so the release contract is
+          written down.</p>
+        <div class="cta up u2">
+          <a class="btn btn-red" href="https://github.com/Effect-TS/effect">Read the source</a>
+          <a class="btn btn-line" href="https://effect.website">effect.website</a>
+        </div>
+      </div>
+
+      <div class="ver up u3">
+        <div class="vh"><p>The stability contract</p><span class="mono">from the README</span></div>
+        <div class="digits" aria-hidden="true">
+          <div class="dg"><span class="n num">4</span></div>
+          <span class="dot">.</span>
+          <div class="dg"><span class="n">x</span></div>
+          <span class="dot">.</span>
+          <div class="dg"><span class="n">x</span></div>
+        </div>
+        <div class="tiers">
+          <div class="tier"><span class="shape sq" aria-hidden="true"></span><span class="k">Major</span><span class="v">Stable APIs</span><span class="s">Breaking changes are reserved for major releases.</span></div>
+          <div class="tier"><span class="shape ci" aria-hidden="true"></span><span class="k">Minor</span><span class="v">Unstable APIs</span><span class="s">Marked unstable; may change in a minor release.</span></div>
+          <div class="tier"><span class="shape tr" aria-hidden="true"></span><span class="k">Patch</span><span class="v">Experimental APIs</span><span class="s">May change in a patch release.</span></div>
+        </div>
+        <p class="vf"><b>Read the label before the digit.</b> An API&rsquo;s tier decides which part of the version can break it &mdash; so you see the risk when you adopt an API, not when you upgrade.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sup">
+    <div class="wrap">
+      <div class="sh">
+        <h2>Support, in years</h2>
+        <span class="sub mono">durations are the project&rsquo;s; positions are schematic</span>
+      </div>
+      <div class="gantt up u4">
+        <div class="row">
+          <span class="lab">Effect 4.x<small>at least three years</small></span>
+          <div class="lane"><span class="b red" style="left:0;width:60%">bug + security fixes</span></div>
+        </div>
+        <div class="row">
+          <span class="lab">After the next major<small>bug fixes continue</small></span>
+          <div class="lane"><span class="marker" style="left:50%" aria-hidden="true"></span><span class="b blue" style="left:50%;width:20%">1 year</span></div>
+        </div>
+        <div class="row">
+          <span class="lab">After the next major<small>security fixes continue</small></span>
+          <div class="lane"><span class="marker" style="left:50%" aria-hidden="true"></span><span class="b yel" style="left:50%;width:40%">2 years</span></div>
+        </div>
+        <div class="axis" aria-hidden="true">
+          <div></div>
+          <div class="t mono"><span style="left:0">4.0 release</span><span style="left:50%;transform:translateX(-50%)">next major &middot; date not set</span></div>
+        </div>
+        <p class="gnote">The project commits to durations, not dates. Where the next major lands is unknown, so the dashed line marks an anchor, not a calendar position.</p>
+      </div>
+
+      <div class="probs up u4">
+        <div class="pb"><i class="sq" aria-hidden="true"></i><span>Typed errors</span></div>
+        <div class="pb"><i class="ci" aria-hidden="true"></i><span>Dependency injection</span></div>
+        <div class="pb"><i class="tr" aria-hidden="true"></i><span>Structured concurrency</span></div>
+        <div class="pb"><i class="sq" aria-hidden="true"></i><span>Scheduling</span></div>
+        <div class="pb"><i class="ci" aria-hidden="true"></i><span>Tracing</span></div>
+        <div class="pb"><i class="tr" aria-hidden="true"></i><span>Schema validation</span></div>
+      </div>
+
+      <div class="reqs mono">
+        <span><b>TypeScript 5.9+</b> &middot; 7 recommended</span>
+        <span><b>strict</b> must be on</span>
+        <span><b>Node.js 18+</b> general minimum</span>
+      </div>
+
+      <p class="ai">The monorepo also ships <b>AI provider packages</b> &mdash; Anthropic, OpenAI, OpenRouter and any
+        OpenAI-compatible API &mdash; and every package is <b>released together with synchronized versions</b>, so the
+        integrations move on the same version numbers as the core.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/Effect-TS/effect">github.com/Effect-TS/effect</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

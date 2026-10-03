@@ -1,9 +1,10 @@
 ﻿# Style — bauhaus
 
-16 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-03](../days/2026-10-03/) | [Effect-TS/effect](https://github.com/Effect-TS/effect) | version-red | Set the version number huge and hang each API stability tier under the digit that is allowed to break it | Tying each tier to a digit turns a release policy into something you can read off the version number | [png](../days/2026-10-03/03-effect.png) |
 | [2026-09-25](../days/2026-09-25/) | [androoAGI/starnet](https://github.com/androoAGI/starnet) | station-blue | Publish the legend rather than the artwork, so each drawn element is bound to the permission it grants | A legend is the honest way to show a decorative-looking interface that claims not to be decorative | [png](../days/2026-09-25/03-starnet.png) |
 | [2026-09-21](../days/2026-09-21/) | [yynxxxxx/Codex-X](https://github.com/yynxxxxx/Codex-X) | primary-blue | Give each scattered configuration surface its own geometric mark so the scope is countable | Four shapes make a config manager legible in a glance and keep the scope honestly bounded | [png](../days/2026-09-21/03-codex-x.png) |
 | [2026-09-16](../days/2026-09-16/) | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | primary-blue | Use four geometric marks to separate what a user invokes from what activates on its own | Giving commands and skills different shapes makes the consent boundary visible at a glance | [png](../days/2026-09-16/03-knowledge-work-plugins.png) |

@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **336 mocks** across **112 days**. Newest first.
+Searchable master index. **339 mocks** across **113 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-10-03 | Saturday | [cloudflare/cloudflare-os](https://github.com/cloudflare/cloudflare-os) | terminal-dark | workers-orange | Run the same task through synchronous approval and a Gatekeeper side by side, so the stall and the queue share one screen | A stalled lane beside a queued one explains deferred approval faster than the paragraph that describes it | [png](days/2026-10-03/01-cloudflare-os.png) | [2026-10-03](days/2026-10-03/) |
+| 2026-10-03 | Saturday | [pingdotgg/t3code](https://github.com/pingdotgg/t3code) | patchbay | led-green | Draw the four permission modes as buttons on six channel strips, and hollow out only the cells the docs say behave differently | One switch label across six harnesses only stays honest when the exceptions sit on the exact cells they modify | [png](days/2026-10-03/02-t3code.png) | [2026-10-03](days/2026-10-03/) |
+| 2026-10-03 | Saturday | [Effect-TS/effect](https://github.com/Effect-TS/effect) | bauhaus | version-red | Set the version number huge and hang each API stability tier under the digit that is allowed to break it | Tying each tier to a digit turns a release policy into something you can read off the version number | [png](days/2026-10-03/03-effect.png) | [2026-10-03](days/2026-10-03/) |
 | 2026-10-02 | Friday | [colbymchenry/codegraph](https://github.com/colbymchenry/codegraph) | brutalist | hazard-yellow | Put the throughput savings and the session footprint on one scale with equal type, and give the accent to the cost column | Printing the cost the project discloses at the same size as the win is what makes the win believable | [png](days/2026-10-02/01-codegraph.png) | [2026-10-02](days/2026-10-02/) |
 | 2026-10-02 | Friday | [getsentry/sentry](https://github.com/getsentry/sentry) | hud | phosphor-green | Draw the project tagline as a master caution light above an annunciator grid, so the clue and the answer become two different instruments | A caution light that can only say something is wrong is the clearest way to show what an answer adds | [png](days/2026-10-02/02-sentry.png) | [2026-10-02](days/2026-10-02/) |
 | 2026-10-02 | Friday | [google/skills](https://github.com/google/skills) | swiss | index-red | Make the twelve-shelf index the hero, and give the only accent to the skill that finds the other skills | When the catalog is the product, the index is the interface, and the finder is the one row worth colouring | [png](days/2026-10-02/03-google-skills.png) | [2026-10-02](days/2026-10-02/) |

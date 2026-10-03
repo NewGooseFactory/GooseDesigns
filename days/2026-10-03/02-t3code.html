@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T3 Code — one control surface for six harnesses</title>
+<style>
+  :root{
+    --room:#e4e6e9;
+    --face:#f6f7f8;
+    --rail:#d3d7dc;
+    --edge:#b9bec6;
+    --ink:#15171a;
+    --muted:#454a52;
+    --faint:#5a6069;
+    --led:#157a43;
+    --led-glow:rgba(21,122,67,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--room);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1170px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--edge);background:var(--face)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--led);border-bottom-color:var(--led)}
+
+  .top{padding:46px 0 26px}
+  .topgrid{display:grid;grid-template-columns:1.12fr .88fr;gap:44px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--led)}
+  h1{margin:0 0 18px;font-size:clamp(33px,4.4vw,54px);line-height:1.03;letter-spacing:-.035em;font-weight:660;text-wrap:balance}
+  h1 .g{color:var(--led)}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:35em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:6px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--ink);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease,box-shadow .17s ease}
+  .btn-solid{background:var(--ink);color:#f6f7f8}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#2c3036;border-color:#2c3036;transform:translateY(-1px)}
+  .btn-line{background:var(--face);color:var(--ink);border-color:var(--edge)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--ink);transform:translateY(-1px)}
+
+  .faq{background:var(--face);border:1px solid var(--edge);border-radius:10px;padding:20px 22px;
+    box-shadow:0 1px 0 #fff inset,0 8px 22px rgba(21,23,26,.07)}
+  .faq .qq{margin:0 0 10px;font-size:15px;color:var(--muted);font-style:italic}
+  .faq .aa{margin:0 0 12px;font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1}
+  .faq p.body{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .faq .src{display:block;margin-top:12px;font-size:11.5px;color:var(--faint)}
+
+  /* console */
+  .console-sec{padding:6px 0 44px}
+  .ch{display:flex;align-items:baseline;gap:16px;margin:0 0 14px;flex-wrap:wrap}
+  .ch h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .ch .sub{font-size:12.5px;color:var(--faint)}
+  .console{background:linear-gradient(#eef0f2,#e7e9ec);border:1px solid var(--edge);border-radius:12px;padding:16px;
+    box-shadow:0 1px 0 #fff inset,0 12px 28px rgba(21,23,26,.08);
+    display:grid;grid-template-columns:repeat(6,minmax(0,1fr)) minmax(0,1.25fr);grid-template-rows:repeat(5,auto);
+    column-gap:10px;row-gap:7px}
+  .strip{grid-row:span 5;display:grid;grid-template-rows:subgrid;row-gap:7px;
+    background:var(--face);border:1px solid var(--edge);border-radius:8px;padding:10px 9px 0;min-width:0}
+  .mb{display:flex;align-items:flex-start;gap:8px;border:1px solid var(--rail);border-radius:5px;padding:7px 8px;background:#fff;min-width:0}
+  .mb .ledi{width:9px;height:9px;border-radius:50%;flex:none;margin-top:3px;background:var(--led);box-shadow:0 0 0 3px var(--led-glow)}
+  .mb .txt{min-width:0}
+  .mb .m{display:block;font-size:11.5px;font-weight:600;line-height:1.25;color:var(--ink)}
+  .mb .x{display:block;font-size:10.5px;color:var(--muted);margin-top:2px;line-height:1.3}
+  .mb.ex{border-style:dashed;border-color:#8c929b;background:transparent}
+  .mb.ex .ledi{background:transparent;border:1.5px solid var(--faint);box-shadow:none}
+  .scribble{align-self:end;margin:3px -9px 0;padding:9px 9px 10px;border-top:1px solid var(--rail);background:#fbfbfc;border-radius:0 0 8px 8px;
+    font-size:12px;font-weight:700;letter-spacing:.02em;text-align:center}
+  .master{grid-column:7;grid-row:1 / span 5;background:#22262c;color:#eef0f2;border-radius:8px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:12px;min-width:0}
+  .master .k{margin:0;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#a9b0ba}
+  .master .big{margin:0;font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+  .master .big span{color:#7fd3a3}
+  .master p{margin:0;font-size:12px;color:#c3c9d1;line-height:1.5}
+  .master .path{font-size:11.5px;color:#eef0f2;background:#2f343b;border-radius:4px;padding:6px 8px;line-height:1.45}
+  .devices{display:flex;flex-wrap:wrap;gap:6px}
+  .devices span{font-size:10.5px;letter-spacing:.06em;border:1px solid #4c535d;border-radius:3px;padding:3px 7px;color:#dfe3e8}
+
+  .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:14px 0 0;font-size:12.5px;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:8px}
+  .legend i{width:9px;height:9px;border-radius:50%;display:block;flex:none}
+  .legend .on{background:var(--led)}
+  .legend .off{border:1.5px solid var(--faint)}
+  .note{margin:12px 0 0;font-size:12.5px;color:var(--faint);line-height:1.6;max-width:66em}
+
+  footer{border-top:1px solid var(--edge);background:var(--face);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--edge)}
+  footer a:hover,footer a:focus-visible{color:var(--led);border-bottom-color:var(--led)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1080px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:28px}
+    .console{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .master{grid-column:1 / -1;grid-row:auto}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:600px){
+    .bar nav{display:none}
+    .console{grid-template-columns:repeat(2,minmax(0,1fr));padding:10px;column-gap:8px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">pingdotgg / t3code</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/pingdotgg/t3code/blob/main/docs/user/permission-modes.md">Permission modes</a>
+      <a href="https://github.com/pingdotgg/t3code/releases">Releases</a>
+      <a href="https://github.com/pingdotgg/t3code">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Agent harness control surface &middot; desktop, web, mobile</p>
+        <h1 class="up u1">Six harnesses.<br><span class="g">One control surface.</span></h1>
+        <p class="lede up u2">T3 Code controls the agents already set up on your machine &mdash; from a desktop app,
+          a web app, or your phone. It works with <b>your existing subscriptions</b> on Claude Code, Codex,
+          Cursor, Grok Build, OpenCode and Google Antigravity.</p>
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://github.com/pingdotgg/t3code">Read the source</a>
+          <a class="btn btn-line" href="https://github.com/pingdotgg/t3code/blob/main/docs/user/permission-modes.md">Permission modes</a>
+        </div>
+      </div>
+
+      <div class="faq up u3">
+        <p class="qq">&ldquo;Wait, what are you selling me?&rdquo;</p>
+        <p class="aa">Nothing.</p>
+        <p class="body">&ldquo;We built T3 Code because we wanted the best possible development experience with agents
+          &hellip; If we ever go the wrong direction, we want you to have everything you need to fork and build
+          the editor that you want.&rdquo;</p>
+        <span class="src mono">&mdash; the project README, answering its own first question</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="console-sec">
+    <div class="wrap">
+      <div class="ch">
+        <h2>Four positions on every channel</h2>
+        <span class="sub mono">same switch label, different harness underneath</span>
+      </div>
+
+      <div class="console up u4">
+        <div class="strip" role="group" aria-label="Codex">
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Supervised</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto-accept edits</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Full access</span></span></div>
+          <div class="scribble mono">Codex</div>
+        </div>
+        <div class="strip" role="group" aria-label="Claude">
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Supervised</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto-accept edits</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Full access</span></span></div>
+          <div class="scribble mono">Claude</div>
+        </div>
+        <div class="strip" role="group" aria-label="Cursor">
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Supervised</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto-accept edits</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Full access</span></span></div>
+          <div class="scribble mono">Cursor</div>
+        </div>
+        <div class="strip" role="group" aria-label="Grok Build">
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Supervised</span></span></div>
+            <div class="mb ex"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto-accept edits</span><span class="x">not offered &mdash; runs Supervised</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Full access</span></span></div>
+          <div class="scribble mono">Grok Build</div>
+        </div>
+        <div class="strip" role="group" aria-label="OpenCode">
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Supervised</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto-accept edits</span></span></div>
+            <div class="mb ex"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto</span><span class="x">falls back to asking</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Full access</span></span></div>
+          <div class="scribble mono">OpenCode</div>
+        </div>
+        <div class="strip" role="group" aria-label="Antigravity">
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Supervised</span></span></div>
+            <div class="mb"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto-accept edits</span></span></div>
+            <div class="mb ex"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Auto</span><span class="x">falls back to asking</span></span></div>
+            <div class="mb ex"><i class="ledi" aria-hidden="true"></i><span class="txt"><span class="m">Full access</span><span class="x">may still ask</span></span></div>
+          <div class="scribble mono">Antigravity</div>
+        </div>
+
+        <div class="master">
+          <p class="k mono">Master &middot; new threads</p>
+          <p class="big">Shipped default: <span>Full access</span></p>
+          <p>Set it once. Projects can override the environment default, and threads you already started keep their own mode.</p>
+          <span class="path mono">Settings &rarr; General &rarr; New threads &rarr; Permissions</span>
+          <div class="devices mono" aria-label="Surfaces"><span>Desktop</span><span>Web</span><span>iOS</span><span>Android</span></div>
+        </div>
+      </div>
+
+      <div class="legend mono">
+        <span><i class="on" aria-hidden="true"></i>behaves as the mode&rsquo;s general description</span>
+        <span><i class="off" aria-hidden="true"></i>a provider difference the docs name</span>
+      </div>
+      <p class="note">Every hollow cell is quoted from the project&rsquo;s permission-modes doc. Unmarked cells follow the
+        mode&rsquo;s general description; the doc adds that providers enforce permissions differently and some read-only
+        actions can proceed in Supervised. Permission modes never stop the agent from asking questions about the task.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README and docs.</span>
+    <span><a href="https://github.com/pingdotgg/t3code">github.com/pingdotgg/t3code</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
