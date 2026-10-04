@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Production Agentic RAG — search first, vectors second, agents last</title>
+<style>
+  :root{
+    --bg:#eee8dd;
+    --ink:#1c1a17;
+    --muted:#4a453e;
+    --faint:#5f594f;
+    --teal:#0b4f52;
+    --edge:#bfb29b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1170px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--edge)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--teal);border-bottom-color:var(--teal)}
+
+  .top{padding:44px 0 30px}
+  .topgrid{display:grid;grid-template-columns:.95fr 1.05fr;gap:46px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--teal);font-weight:600}
+  h1{margin:0 0 20px;font-size:clamp(32px,4.2vw,52px);line-height:1.04;letter-spacing:-.034em;font-weight:680;text-wrap:balance}
+  h1 .t{color:var(--teal)}
+  h1 .q{color:var(--faint)}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 24px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:4px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--teal);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--teal);color:#f1f7f6}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#083b3d;border-color:#083b3d;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--teal)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--teal);color:#f1f7f6;transform:translateY(-1px)}
+  .quote{margin:0;border-left:3px solid var(--teal);padding:2px 0 2px 16px;font-size:14px;line-height:1.6;color:var(--ink)}
+  .quote span{display:block;margin-top:6px;font-size:12px;color:var(--faint)}
+
+  /* strata */
+  .core{border:1px solid var(--edge);border-radius:8px;overflow:hidden;background:#f6f2ea}
+  .core-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;
+    padding:11px 16px;border-bottom:1px solid var(--edge)}
+  .core-h p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+  .core-h span{font-size:11.5px;color:var(--muted)}
+  .band{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:center;padding:10px 16px;border-bottom:1px solid rgba(28,26,23,.12);position:relative}
+  .band:last-child{border-bottom:none}
+  .band .tag{font-size:11.5px;color:var(--muted)}
+  .band .tt{display:block;font-size:14px;font-weight:650;letter-spacing:-.01em;line-height:1.25}
+  .band .ss{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
+  .w7{background:#f7f3ec}.w6{background:#f0eadf}.w5{background:#e9e1d3}.w4{background:#e2d8c7}
+  .w3{background:#d9cdb9;box-shadow:inset 4px 0 0 var(--teal)}
+  .w2{background:#cfc2ab}.w1{background:#c6b79c}
+  .w3 .tt{color:var(--teal)}
+  .w3 .tag{color:var(--teal);font-weight:700}
+  .seam{position:relative;z-index:3;height:0;border-top:2px dashed var(--teal)}
+  .seam span{position:absolute;right:12px;top:-11px;background:var(--teal);color:#f1f7f6;font-size:10.5px;letter-spacing:.08em;
+    text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+  .core-f{margin:0;padding:10px 16px;border-top:1px solid var(--edge);font-size:12px;color:var(--muted);line-height:1.5;background:#f6f2ea}
+
+  .lower{padding:6px 0 44px}
+  .lgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:start}
+  .co h2,.w7f h2{margin:0 0 12px;font-size:12.5px;letter-spacing:.15em;text-transform:uppercase}
+  .co p{margin:0 0 12px;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .co pre{margin:0 0 12px;background:#1f1d1a;color:#ece7dd;border-radius:6px;padding:13px 15px;font-size:12.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+  .co pre .c{color:#a9c9c7}
+  .req{display:flex;flex-wrap:wrap;gap:7px}
+  .req span{font-size:11.5px;border:1px solid var(--edge);border-radius:3px;padding:4px 9px;color:var(--muted);background:#f6f2ea}
+  .fg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--edge);border-radius:8px;overflow:hidden;background:#f6f2ea}
+  .fc{padding:14px 15px;border-right:1px solid var(--edge);border-bottom:1px solid var(--edge)}
+  .fc:nth-child(3n){border-right:none}
+  .fc:nth-last-child(-n+3){border-bottom:none}
+  .fc b{display:block;font-size:13.5px;margin-bottom:4px}
+  .fc span{display:block;font-size:12.5px;color:var(--muted);line-height:1.45}
+
+  footer{border-top:1px solid var(--edge);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--edge)}
+  footer a:hover,footer a:focus-visible{color:var(--teal);border-bottom-color:var(--teal)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid,.lgrid{grid-template-columns:1fr;gap:30px}
+    .top{padding:30px 0 22px}
+  }
+  @media (max-width:600px){
+    .bar nav{display:none}
+    .band{grid-template-columns:1fr;gap:4px}
+    .seam span{right:8px;font-size:9.5px}
+    .fg{grid-template-columns:1fr}
+    .fc{border-right:none}
+    .fc:nth-last-child(-n+3){border-bottom:1px solid var(--edge)}
+    .fc:last-child{border-bottom:none}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">jamwithai / production-agentic-rag-course</span>
+    <nav aria-label="Primary">
+      <a href="https://jamwithai.substack.com/p/the-mother-of-ai-project">The project</a>
+      <a href="https://jamwithai.substack.com/p/agentic-rag-with-langgraph-and-telegram">Week 7</a>
+      <a href="https://github.com/jamwithai/production-agentic-rag-course">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Learner-focused course &middot; arXiv Paper Curator</p>
+        <h1 class="up u1">Search first.<br><span class="t">Vectors second.</span><br><span class="q">Agents last.</span></h1>
+        <p class="lede up u2">Build a production RAG system one layer a week &mdash; a research assistant that fetches
+          arXiv papers, understands them, and answers questions. Unlike tutorials that jump straight to vector search,
+          the course <b>masters keyword search foundations first, then enhances with vectors</b> for hybrid retrieval.</p>
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://github.com/jamwithai/production-agentic-rag-course">Read the source</a>
+          <a class="btn btn-line" href="https://jamwithai.substack.com/p/agentic-rag-with-langgraph-and-telegram">Week 7 walkthrough</a>
+        </div>
+        <p class="quote up u3">&ldquo;Solid search foundations enhanced with AI, not AI-first approaches that ignore search fundamentals.&rdquo;<span class="mono">&mdash; the README&rsquo;s own case for the order</span></p>
+      </div>
+
+      <div class="core up u4">
+        <div class="core-h"><p class="mono">Seven layers, laid one a week</p><span class="mono">newest on top</span></div>
+        <div class="band w7"><span class="tag mono">week7.0</span><span><span class="tt">Agentic RAG &amp; Telegram bot</span><span class="ss">LangGraph, document grading, query rewriting, guardrails</span></span></div>
+        <div class="band w6"><span class="tag mono">week6.0</span><span><span class="tt">Monitoring &amp; caching</span><span class="ss">Langfuse tracing, Redis caching</span></span></div>
+        <div class="band w5"><span class="tag mono">week5.0</span><span><span class="tt">Complete RAG pipeline</span><span class="ss">Local LLM, streaming responses, Gradio interface</span></span></div>
+        <div class="band w4"><span class="tag mono">week4.0</span><span><span class="tt">Chunking &amp; hybrid search</span><span class="ss">Keywords combined with semantic understanding</span></span></div>
+        <div class="seam" aria-hidden="true"><span class="mono">vectors laid on top of search</span></div>
+        <div class="band w3"><span class="tag mono">week3.0</span><span><span class="tt">BM25 keyword search</span><span class="ss">Filtering and relevance scoring &mdash; the layer tutorials skip</span></span></div>
+        <div class="band w2"><span class="tag mono">week2.0</span><span><span class="tt">Data ingestion</span><span class="ss">Fetching and parsing arXiv papers automatically</span></span></div>
+        <div class="band w1"><span class="tag mono">week1.0</span><span><span class="tt">Infrastructure</span><span class="ss">Docker, FastAPI, PostgreSQL, OpenSearch, Airflow</span></span></div>
+        <p class="core-f">Order and contents are the course&rsquo;s own weekly plan. Every band is a tagged release you can check out on its own.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lower">
+    <div class="wrap lgrid">
+      <div class="co up u4">
+        <h2>Every layer is a checkout</h2>
+        <p>Each week ships as a git tag, so you can stand on any layer without the ones above it.</p>
+<pre class="mono"><span class="c"># replace with week1.0 &hellip; week7.0</span>
+git clone --branch week3.0 https://github.com/jamwithai/arxiv-paper-curator
+uv sync
+docker compose up --build -d</pre>
+        <div class="req mono"><span>Docker Desktop</span><span>Python 3.12+</span><span>uv</span><span>8 GB+ RAM</span><span>20 GB+ disk</span></div>
+      </div>
+      <div class="w7f up u4">
+        <h2>What the top layer adds</h2>
+        <div class="fg">
+          <div class="fc"><b>Decision-making</b><span>Agents evaluate and adapt retrieval strategies.</span></div>
+          <div class="fc"><b>Document grading</b><span>Automatic relevance assessment.</span></div>
+          <div class="fc"><b>Query rewriting</b><span>Refines the query when results are insufficient.</span></div>
+          <div class="fc"><b>Guardrails</b><span>Out-of-domain detection to prevent hallucination.</span></div>
+          <div class="fc"><b>Mobile access</b><span>A Telegram bot for any device.</span></div>
+          <div class="fc"><b>Transparency</b><span>Full reasoning-step tracking for debugging.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/jamwithai/production-agentic-rag-course">github.com/jamwithai/production-agentic-rag-course</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

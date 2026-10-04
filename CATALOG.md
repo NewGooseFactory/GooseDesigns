@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **339 mocks** across **113 days**. Newest first.
+Searchable master index. **342 mocks** across **114 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-10-04 | Sunday | [anthropics/claude-code](https://github.com/anthropics/claude-code) | poster | clay | Set the single command as the poster headline, and strike through the install path the project has deprecated | When the whole entry point is one word, that word is the headline and everything else is setup | [png](days/2026-10-04/01-claude-code.png) | [2026-10-04](days/2026-10-04/) |
+| 2026-10-04 | Sunday | [jamwithai/production-agentic-rag-course](https://github.com/jamwithai/production-agentic-rag-course) | strata | bedrock-teal | Stack the seven weekly releases as strata and mark the seam where vectors are laid on top of keyword search | Drawing search beneath vectors makes the course argument physical, because you can see what the newer layer rests on | [png](days/2026-10-04/02-agentic-rag-course.png) | [2026-10-04](days/2026-10-04/) |
+| 2026-10-04 | Sunday | [meituan-longcat/LongCat-Video](https://github.com/meituan-longcat/LongCat-Video) | glass | reel-gold | Run a filmstrip of continuations behind one frosted pane, and light only the entry point the model was pretrained on | Lighting continuation rather than text-to-video is what makes the minutes-long claim plausible at a glance | [png](days/2026-10-04/03-longcat-video.png) | [2026-10-04](days/2026-10-04/) |
 | 2026-10-03 | Saturday | [cloudflare/cloudflare-os](https://github.com/cloudflare/cloudflare-os) | terminal-dark | workers-orange | Run the same task through synchronous approval and a Gatekeeper side by side, so the stall and the queue share one screen | A stalled lane beside a queued one explains deferred approval faster than the paragraph that describes it | [png](days/2026-10-03/01-cloudflare-os.png) | [2026-10-03](days/2026-10-03/) |
 | 2026-10-03 | Saturday | [pingdotgg/t3code](https://github.com/pingdotgg/t3code) | patchbay | led-green | Draw the four permission modes as buttons on six channel strips, and hollow out only the cells the docs say behave differently | One switch label across six harnesses only stays honest when the exceptions sit on the exact cells they modify | [png](days/2026-10-03/02-t3code.png) | [2026-10-03](days/2026-10-03/) |
 | 2026-10-03 | Saturday | [Effect-TS/effect](https://github.com/Effect-TS/effect) | bauhaus | version-red | Set the version number huge and hang each API stability tier under the digit that is allowed to break it | Tying each tier to a digit turns a release policy into something you can read off the version number | [png](days/2026-10-03/03-effect.png) | [2026-10-03](days/2026-10-03/) |

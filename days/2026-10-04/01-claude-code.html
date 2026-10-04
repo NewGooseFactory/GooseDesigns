@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code — the whole interface is one word</title>
+<style>
+  :root{
+    --cream:#f2ede3;
+    --card:#faf7f1;
+    --ink:#161412;
+    --muted:#46413b;
+    --faint:#5d574f;
+    --clay:#b4532a;
+    --clay-ink:#9a4523;
+    --rule:#d9d1c4;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--cream);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:60px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+  .bar nav{display:flex;gap:24px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--clay-ink);border-bottom-color:var(--clay-ink)}
+
+  .poster{padding:36px 0 26px}
+  .kick{margin:0 0 6px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay-ink)}
+  .word{margin:0;display:flex;align-items:baseline;gap:.12em;line-height:.95;font-weight:700;letter-spacing:-.05em;
+    font-size:clamp(64px,16.5vw,224px)}
+  .word .pr{font-size:.38em;color:var(--clay);letter-spacing:0;font-weight:600;transform:translateY(-.08em)}
+  .word .cur{display:inline-block;width:.5em;height:.78em;background:var(--clay);transform:translateY(.06em)}
+  .cap{margin:14px 0 0;font-size:clamp(15px,1.5vw,19px);color:var(--muted);letter-spacing:-.005em}
+  .cap b{color:var(--ink);font-weight:600}
+
+  .under{margin-top:30px;padding-top:24px;border-top:2px solid var(--ink);
+    display:grid;grid-template-columns:1.25fr .75fr;gap:44px;align-items:end}
+  .lede{margin:0;font-size:clamp(17px,1.6vw,21px);line-height:1.5;letter-spacing:-.012em;max-width:33em}
+  .lede span{color:var(--muted)}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;justify-content:flex-end}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font-size:14px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--ink);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--ink);color:var(--cream)}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#2d2925;border-color:#2d2925;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--card);transform:translateY(-1px)}
+
+  .cols{padding:30px 0 40px}
+  .cgrid{display:grid;grid-template-columns:1.15fr .85fr 1fr;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .col{padding:20px 22px 22px}
+  .col + .col{border-left:1px solid var(--rule)}
+  .col h2{margin:0 0 14px;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+  .inst{margin:0;padding:0;list-style:none}
+  .inst li{display:grid;grid-template-columns:118px 1fr;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--rule);font-size:13px}
+  .inst li:last-child{border-bottom:none}
+  .inst .w{color:var(--faint);font-size:12px}
+  .inst code{font-size:12.5px;color:var(--ink);word-break:break-word}
+  .inst .rec{display:inline-block;margin-left:6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--clay-ink);font-weight:700}
+  .inst li.dep code{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--faint)}
+  .inst li.dep .w{text-decoration:line-through}
+  .tagdep{display:inline-block;margin-left:6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink);
+    border:1px solid var(--ink);border-radius:3px;padding:1px 5px}
+  .where{margin:0;padding:0;list-style:none}
+  .where li{font-size:22px;font-weight:650;letter-spacing:-.02em;padding:6px 0;border-bottom:1px solid var(--rule)}
+  .where li:last-child{border-bottom:none}
+  .where li span{display:block;font-size:12.5px;font-weight:400;letter-spacing:0;color:var(--muted)}
+  .data p{margin:0 0 10px;font-size:13px;color:var(--muted);line-height:1.6}
+  .data p b{color:var(--ink);font-weight:600}
+  .data ul{margin:0 0 10px;padding-left:16px}
+  .data li{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:3px}
+  .data a{color:var(--clay-ink)}
+
+  footer{padding:18px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--clay-ink);border-bottom-color:var(--clay-ink)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .under{grid-template-columns:1fr;gap:22px;align-items:start}
+    .cta{justify-content:flex-start}
+    .cgrid{grid-template-columns:1fr}
+    .col + .col{border-left:none;border-top:1px solid var(--rule)}
+  }
+  @media (max-width:600px){
+    .bar nav{display:none}
+    .inst li{grid-template-columns:1fr;gap:2px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">anthropics / claude-code</span>
+    <nav aria-label="Primary">
+      <a href="https://code.claude.com/docs/en/overview">Docs</a>
+      <a href="https://code.claude.com/docs/en/setup">Setup</a>
+      <a href="https://github.com/anthropics/claude-code">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="poster">
+    <div class="wrap">
+      <p class="kick mono up u1">Agentic coding tool &middot; terminal, IDE, GitHub</p>
+      <h1 class="word mono up u1"><span class="pr" aria-hidden="true">$</span><span>claude</span><span class="cur" aria-hidden="true"></span></h1>
+      <p class="cap up u2"><b>Navigate to your project directory and run it.</b> That is the whole second step of the README.</p>
+
+      <div class="under up u3">
+        <p class="lede">An agentic coding tool that <span>lives in your terminal,</span> understands your codebase, and
+          helps you code faster by executing routine tasks, explaining complex code, and handling git workflows
+          <span>&mdash; all through natural language commands.</span></p>
+        <div class="cta">
+          <a class="btn btn-solid" href="https://code.claude.com/docs/en/overview">Read the docs</a>
+          <a class="btn btn-line" href="https://github.com/anthropics/claude-code">Source</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cols">
+    <div class="wrap">
+      <div class="cgrid up u4">
+        <div class="col">
+          <h2 class="mono">Step one, before the word</h2>
+          <ul class="inst">
+            <li><span class="w mono">macOS / Linux<span class="rec">rec.</span></span><code class="mono">curl -fsSL https://claude.ai/install.sh | bash</code></li>
+            <li><span class="w mono">Homebrew</span><code class="mono">brew install --cask claude-code</code></li>
+            <li><span class="w mono">Windows<span class="rec">rec.</span></span><code class="mono">irm https://claude.ai/install.ps1 | iex</code></li>
+            <li><span class="w mono">WinGet</span><code class="mono">winget install Anthropic.ClaudeCode</code></li>
+            <li class="dep"><span class="w mono">npm</span><span><code class="mono">npm install -g @anthropic-ai/claude-code</code><span class="tagdep mono">deprecated</span></span></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h2 class="mono">Where the word works</h2>
+          <ul class="where">
+            <li>Terminal<span>where it lives</span></li>
+            <li>IDE<span>the same tool, inside your editor</span></li>
+            <li>@claude<span>tag it on GitHub</span></li>
+          </ul>
+        </div>
+        <div class="col data">
+          <h2 class="mono">What it collects</h2>
+          <p>Feedback, which the README says includes <b>usage data</b> such as code acceptance or rejections,
+            <b>associated conversation data</b>, and anything you submit through <span class="mono">/bug</span>.</p>
+          <ul>
+            <li>Limited retention for sensitive information</li>
+            <li>Restricted access to user session data</li>
+            <li>Policies against using feedback for model training</li>
+          </ul>
+          <p>Full terms in the <a href="https://code.claude.com/docs/en/data-usage">data usage policies</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/anthropics/claude-code">github.com/anthropics/claude-code</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

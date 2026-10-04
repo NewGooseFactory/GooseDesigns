@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LongCat-Video — long video is a continuation problem</title>
+<style>
+  :root{
+    --base:#0a0b0f;
+    --frame:#16181f;
+    --frame2:#1d2029;
+    --line:#262a34;
+    --ink:#eceef3;
+    --muted:#a7acba;
+    --dim:#9ca1b0;
+    --gold:#e8b64a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--base);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1170px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--gold);border-bottom-color:var(--gold)}
+
+  .hero{padding:46px 0 34px;position:relative}
+  .hgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:end}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
+  h1{margin:0 0 20px;font-size:clamp(32px,4.3vw,54px);line-height:1.04;letter-spacing:-.034em;font-weight:640;text-wrap:balance}
+  h1 .g{color:var(--gold)}
+  .lede{margin:0 0 22px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:33em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:999px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--gold);color:#1c1403;border-color:var(--gold)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#f0c766;border-color:#f0c766;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#3b404c}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+
+  /* stage: filmstrip behind one frosted pane */
+  .stage{position:relative;padding:22px 0;margin-top:30px}
+  .strip{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;background:#111319;
+    border-top:10px solid #0d0f14;border-bottom:10px solid #0d0f14;padding:12px 0}
+  .strip::before,.strip::after{content:"";position:absolute;left:0;right:0;height:4px;
+    background:repeating-linear-gradient(90deg,#2a2e38 0 10px,transparent 10px 22px)}
+  .strip::before{top:-7px}.strip::after{bottom:-7px}
+  .fr{margin:0 5px;height:112px;border-radius:3px;background:var(--frame);border:1px solid var(--line);
+    display:flex;align-items:flex-end;padding:8px}
+  .fr:nth-child(2){background:var(--frame2)}.fr:nth-child(4){background:var(--frame2)}
+  .fr span{font-size:10px;letter-spacing:.08em;color:var(--dim)}
+  .fr.first span{color:var(--gold)}
+
+  .pane{position:relative;z-index:1;margin:0 auto;max-width:420px;border-radius:14px;
+    background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.17);
+    -webkit-backdrop-filter:blur(16px) saturate(115%);backdrop-filter:blur(16px) saturate(115%);
+    padding:18px 20px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .ph{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 14px;
+    padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .ph p{margin:0;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink)}
+  .ph span{font-size:11.5px;color:var(--muted)}
+  .ways{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+  .way{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.13);
+    border-radius:8px;padding:10px 12px;background:rgba(10,11,15,.35)}
+  .way .io{font-size:14px;font-weight:600}
+  .way .io i{font-style:normal;color:var(--muted);padding:0 6px}
+  .way .k{font-size:10.5px;letter-spacing:.08em;color:var(--muted)}
+  .way.native{border-color:var(--gold);background:rgba(232,182,74,.1)}
+  .way.native .k{color:var(--gold);font-weight:700}
+  .specs{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
+  .specs b{color:var(--ink);font-weight:600}
+
+  .why{padding:10px 0 44px}
+  .wh{display:flex;align-items:baseline;gap:16px;margin:0 0 16px;flex-wrap:wrap}
+  .wh h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .wh .sub{font-size:12px;color:var(--dim)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{border:1px solid var(--line);border-radius:10px;padding:18px;background:#0f1116}
+  .card .k{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .card h3{margin:0 0 6px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+  .card p{margin:0;font-size:13px;color:var(--muted);line-height:1.6}
+  .closing{margin:22px 0 0;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;
+    border-top:1px solid var(--line);padding-top:18px}
+  .closing blockquote{margin:0;font-size:clamp(18px,2vw,24px);line-height:1.35;letter-spacing:-.015em;max-width:30em}
+  .closing blockquote span{color:var(--gold)}
+  .closing p{margin:0;font-size:12px;color:var(--dim);max-width:24em;line-height:1.55}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #3b404c}
+  footer a:hover,footer a:focus-visible{color:var(--gold);border-bottom-color:var(--gold)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.18s}.u4{animation-delay:.25s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .hgrid{grid-template-columns:1fr;gap:28px}
+    .cards{grid-template-columns:1fr}
+    .closing{grid-template-columns:1fr}
+    .hero{padding:32px 0 24px}
+  }
+  @media (max-width:600px){
+    .bar nav{display:none}
+    .strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .strip .fr:nth-child(n+4){display:none}
+    .fr{height:96px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">meituan-longcat / LongCat-Video</span>
+    <nav aria-label="Primary">
+      <a href="https://arxiv.org/abs/2510.22200">Tech report</a>
+      <a href="https://huggingface.co/meituan-longcat/LongCat-Video">Weights</a>
+      <a href="https://github.com/meituan-longcat/LongCat-Video">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hgrid">
+      <div>
+        <p class="eyebrow mono up u1">Foundational video generation &middot; 13.6B parameters</p>
+        <h1 class="up u1">Long video is a<br><span class="g">continuation problem.</span></h1>
+      </div>
+      <div>
+        <p class="lede up u2">LongCat-Video handles text-to-video, image-to-video and video-continuation in
+          <b>one model</b>. Because it is <b>natively pretrained on continuation</b>, the project says it produces
+          minutes-long videos without color drifting or quality degradation.</p>
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/meituan-longcat/LongCat-Video">Read the source</a>
+          <a class="btn btn-line" href="https://arxiv.org/abs/2510.22200">Technical report</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="wrap">
+      <div class="stage up u3">
+        <div class="strip" aria-hidden="true">
+          <div class="fr first"><span class="mono">01 &middot; from prompt</span></div>
+          <div class="fr"><span class="mono">02 &middot; continue</span></div>
+          <div class="fr"><span class="mono">03 &middot; continue</span></div>
+          <div class="fr"><span class="mono">04 &middot; continue</span></div>
+          <div class="fr"><span class="mono">05 &middot; continue</span></div>
+          <div class="fr"><span class="mono">06 &middot; continue</span></div>
+          <div class="fr"><span class="mono">07 &middot; continue</span></div>
+        </div>
+        <div class="pane">
+          <div class="ph"><p class="mono">One model &middot; three ways in</p><span class="mono">illustrative strip</span></div>
+          <ul class="ways">
+            <li class="way"><span class="io">Text <i>&rarr;</i> video</span><span class="k mono">T2V</span></li>
+            <li class="way"><span class="io">Image <i>&rarr;</i> video</span><span class="k mono">I2V</span></li>
+            <li class="way native"><span class="io">Video <i>&rarr;</i> more video</span><span class="k mono">native pretraining task</span></li>
+          </ul>
+          <p class="specs mono"><span><b>720p</b> &middot; <b>30 fps</b></span><span>generated within minutes &mdash; the project&rsquo;s figure</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="wrap">
+      <div class="wh">
+        <h2>Why the long version stays affordable</h2>
+        <span class="sub mono">three mechanisms the README names</span>
+      </div>
+      <div class="cards up u4">
+        <div class="card"><span class="k mono">01 &middot; coarse to fine</span><h3>Two axes, not one</h3>
+          <p>Generation runs coarse-to-fine along both the <strong>temporal</strong> and the <strong>spatial</strong> axis, which is how 720p at 30 fps stays within minutes.</p></div>
+        <div class="card"><span class="k mono">02 &middot; block sparse attention</span><h3>Cheaper at high resolution</h3>
+          <p>Block Sparse Attention further improves efficiency, with the largest effect at high resolutions.</p></div>
+        <div class="card"><span class="k mono">03 &middot; multi-reward GRPO</span><h3>Tuned against several rewards</h3>
+          <p>Reinforcement learning from human feedback uses multi-reward Group Relative Policy Optimization rather than a single score.</p></div>
+      </div>
+      <div class="closing up u4">
+        <blockquote>&ldquo;Our first step toward <span>world models</span>.&rdquo;</blockquote>
+        <p>No benchmark score is reproduced here; the project&rsquo;s comparisons live in its technical report. The strip above is illustrative.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README.</span>
+    <span><a href="https://github.com/meituan-longcat/LongCat-Video">github.com/meituan-longcat/LongCat-Video</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
