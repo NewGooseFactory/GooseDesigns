@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **342 mocks** across **114 days**. Newest first.
+Searchable master index. **345 mocks** across **115 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-10-05 | Monday | [tester-army/e2e](https://github.com/tester-army/e2e) | cell-grid | replay-cyan | Lay the four-line README test out as columns and the runs as rows, so you can see which line stops calling the model and which never will | Seeing agent.act go quiet while agent.assert stays live explains the cost model better than any token figure | [png](days/2026-10-05/01-e2e.png) | [2026-10-05](days/2026-10-05/) |
+| 2026-10-05 | Monday | [michael-denyer/pstack-claude](https://github.com/michael-denyer/pstack-claude) | ledger | fork-oxblood | Print the fork register of the port as the hero, so its divergences from upstream read as a ledger rather than a changelog | A register beats a changelog for a port, because the reader sees what was changed on purpose, with a reason, before anything else | [png](days/2026-10-05/02-pstack.png) | [2026-10-05](days/2026-10-05/) |
+| 2026-10-05 | Monday | [caddyserver/caddy](https://github.com/caddyserver/caddy) | blueprint | cyanotype-amber | Draw the minimal config as a blueprint sheet and dimension the line you never have to write | Dimensioning an empty line is the clearest way to show a default, because the thing you did not write is the feature | [png](days/2026-10-05/03-caddy.png) | [2026-10-05](days/2026-10-05/) |
 | 2026-10-04 | Sunday | [anthropics/claude-code](https://github.com/anthropics/claude-code) | poster | clay | Set the single command as the poster headline, and strike through the install path the project has deprecated | When the whole entry point is one word, that word is the headline and everything else is setup | [png](days/2026-10-04/01-claude-code.png) | [2026-10-04](days/2026-10-04/) |
 | 2026-10-04 | Sunday | [jamwithai/production-agentic-rag-course](https://github.com/jamwithai/production-agentic-rag-course) | strata | bedrock-teal | Stack the seven weekly releases as strata and mark the seam where vectors are laid on top of keyword search | Drawing search beneath vectors makes the course argument physical, because you can see what the newer layer rests on | [png](days/2026-10-04/02-agentic-rag-course.png) | [2026-10-04](days/2026-10-04/) |
 | 2026-10-04 | Sunday | [meituan-longcat/LongCat-Video](https://github.com/meituan-longcat/LongCat-Video) | glass | reel-gold | Run a filmstrip of continuations behind one frosted pane, and light only the entry point the model was pretrained on | Lighting continuation rather than text-to-video is what makes the minutes-long claim plausible at a glance | [png](days/2026-10-04/03-longcat-video.png) | [2026-10-04](days/2026-10-04/) |

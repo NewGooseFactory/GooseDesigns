@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pstack for Claude Code, Codex and Pi — every divergence, declared</title>
+<style>
+  :root{
+    --paper:#f4efe5;
+    --sheet:#fffdf8;
+    --rule:#ddd5c6;
+    --hard:#211d18;
+    --ink:#211d18;
+    --muted:#4d473e;
+    --faint:#635c51;
+    --ox:#8c2f2c;
+    --ox-soft:#f6e6e2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 42px}
+
+  .bar{border-bottom:1px solid var(--hard)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--ox);border-bottom-color:var(--ox)}
+
+  .top{padding:46px 0 28px}
+  .topgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ox)}
+  h1{margin:0 0 18px;font-size:clamp(33px,4.3vw,53px);line-height:1.04;letter-spacing:-.025em;font-weight:600;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--ox)}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:35em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:3px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--ox);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-solid{background:var(--ox);color:#fff8f6}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#6f2321;border-color:#6f2321;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ox)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--ox);color:#fff8f6;transform:translateY(-1px)}
+
+  .stamp{border:1px solid var(--hard);background:var(--sheet);padding:18px 20px}
+  .stamp h2{margin:0 0 12px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+  .tot{display:flex;align-items:baseline;gap:12px;margin:0 0 12px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+  .tot .v{font-size:52px;line-height:1;font-weight:600;letter-spacing:-.03em}
+  .tot .l{font-size:13.5px;color:var(--muted)}
+  .split{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .split div{border-left:2px solid var(--rule);padding-left:10px}
+  .split .v{display:block;font-size:22px;font-weight:600}
+  .split .l{display:block;font-size:11.5px;color:var(--faint);line-height:1.35}
+  .split .ox{border-left-color:var(--ox)}
+  .split .ox .v{color:var(--ox)}
+  .stamp p.src{margin:12px 0 0;font-size:11.5px;color:var(--faint);line-height:1.5}
+
+  .reg{padding:4px 0 10px}
+  .rh{display:flex;align-items:baseline;gap:16px;margin:0 0 12px;flex-wrap:wrap}
+  .rh h2{margin:0;font-size:12.5px;letter-spacing:.15em;text-transform:uppercase}
+  .rh .sub{font-size:12px;color:var(--faint)}
+  .book{border:1px solid var(--hard);background:var(--sheet)}
+  .tr{display:grid;grid-template-columns:216px 118px 70px 1fr;border-bottom:1px solid var(--rule)}
+  .tr:last-child{border-bottom:none}
+  .tr > div{padding:11px 14px;border-right:1px solid var(--rule);min-width:0}
+  .tr > div:last-child{border-right:none}
+  .tr.h > div{background:#f1ebdf;border-bottom:1px solid var(--hard);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);padding:9px 14px}
+  .f{font-size:12px;color:var(--ink);word-break:break-word}
+  .f .dir{display:block;font-size:10.5px;color:var(--faint);margin-bottom:1px}
+  .f .leaf{display:block;font-weight:700}
+  .nw{white-space:nowrap}
+  .kd{font-size:11.5px;color:var(--muted)}
+  .kd.pf{color:var(--ox);font-weight:700}
+  .sv{font-size:12px;color:var(--muted)}
+  .why{font-size:13px;color:var(--muted);line-height:1.5}
+  .tr.lit{background:var(--ox-soft);box-shadow:inset 3px 0 0 var(--ox)}
+  .tr.lit .why{color:var(--ink)}
+  .foot{margin:10px 0 0;font-size:12px;color:var(--faint)}
+
+  .low{padding:26px 0 44px}
+  .lgrid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+  .ask{border-top:1px solid var(--hard);padding-top:14px}
+  .ask h3,.dh h3{margin:0 0 10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .ask blockquote{margin:0 0 12px;font-size:19px;line-height:1.4;letter-spacing:-.01em}
+  .ask ol{margin:0;padding:0;list-style:none;counter-reset:s}
+  .ask li{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:6px 0;border-bottom:1px dashed var(--rule);font-size:13.5px;color:var(--muted)}
+  .ask li:last-child{border-bottom:none}
+  .ask li::before{counter-increment:s;content:counter(s);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--ox);padding-top:2px}
+  .ask li b{color:var(--ink);font-weight:600}
+  .dh{border-top:1px solid var(--hard);padding-top:14px}
+  .dh p{margin:0 0 10px;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .dh p b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--hard);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--ox);border-bottom-color:var(--ox)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid,.lgrid{grid-template-columns:1fr;gap:28px}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:760px){
+    .bar nav{display:none}
+    .tr{grid-template-columns:1fr 1fr}
+    .tr > div{border-right:none}
+    .tr .f{grid-column:1 / -1;background:#f8f3ea;border-bottom:1px solid var(--rule)}
+    .tr .why{grid-column:1 / -1;border-top:1px solid var(--rule)}
+    .tr.h{display:none}
+    .split{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">michael-denyer / pstack-claude</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/michael-denyer/pstack-claude/blob/main/tools/forks.json">forks.json</a>
+      <a href="https://github.com/cursor/plugins/tree/main/pstack">Upstream</a>
+      <a href="https://github.com/michael-denyer/pstack-claude">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Port of Lauren Tan&rsquo;s pstack &middot; Claude Code, Codex, Pi</p>
+        <h1 class="serif up u1">A port that writes down <em>every place it disagrees.</em></h1>
+        <p class="lede up u2">pstack is an opinionated Cursor skill stack that improves agent outcomes. This port carries
+          it to other harnesses, <b>tracks upstream, and declares each named policy fork in
+          <span class="mono">tools/forks.json</span></b> &mdash; with a reason, a version and an upstream status for every row.</p>
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://github.com/michael-denyer/pstack-claude">Read the source</a>
+          <a class="btn btn-line" href="https://github.com/michael-denyer/pstack-claude/blob/main/tools/forks.json">Open the fork register</a>
+        </div>
+      </div>
+
+      <div class="stamp up u3">
+        <h2 class="mono">The register, counted</h2>
+        <div class="tot"><span class="v num serif">46</span><span class="l">declared forks across pstack and the imported <span class="nw">cursor-team-kit</span> skills</span></div>
+        <div class="split">
+          <div><span class="v num">40</span><span class="l mono">policy</span></div>
+          <div class="ox"><span class="v num">6</span><span class="l mono">port-feature</span></div>
+          <div><span class="v num">46</span><span class="l mono">upstream: <span class="nw">not-proposed</span></span></div>
+        </div>
+        <p class="src mono">Counted from tools/forks.json on October 5, 2026. Versions run from 0.1.0 to 0.9.56.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reg">
+    <div class="wrap">
+      <div class="rh">
+        <h2>Six rows from the register</h2>
+        <span class="sub mono">verbatim &middot; the tinted row is the one you see in every bug fix</span>
+      </div>
+      <div class="book up u4" role="table" aria-label="Declared forks">
+        <div class="tr h mono" role="row"><div role="columnheader">File</div><div role="columnheader">Kind</div><div role="columnheader">Since</div><div role="columnheader">Why it diverges</div></div>
+        <div class="tr" role="row"><div class="f mono" role="cell"><span class="leaf">principle-prove-it-works</span></div><div class="kd mono" role="cell">policy</div><div class="sv mono num" role="cell">0.1.0</div><div class="why" role="cell">Adds checks that the process behind a result was sound and that a failing check fails for the predicted reason.</div></div>
+        <div class="tr" role="row"><div class="f mono" role="cell"><span class="leaf">tdd</span></div><div class="kd mono" role="cell">policy</div><div class="sv mono num" role="cell">0.9.21</div><div class="why" role="cell">Requires quoting the failure content, not the assertion line, as evidence that the new test fails for the intended reason.</div></div>
+        <div class="tr lit" role="row"><div class="f mono" role="cell"><span class="dir">poteto-mode/playbooks/</span><span class="leaf">bug-fix</span></div><div class="kd mono" role="cell">policy</div><div class="sv mono num" role="cell">0.9.10</div><div class="why" role="cell">The reply quotes the decisive failing and passing output trimmed to the assertion and counts, not the whole repro verbatim.</div></div>
+        <div class="tr" role="row"><div class="f mono" role="cell"><span class="dir">poteto-mode/playbooks/</span><span class="leaf">feature</span></div><div class="kd mono" role="cell">policy</div><div class="sv mono num" role="cell">0.9.39</div><div class="why" role="cell">Gives every file-writing delegate its own worktree and forbids writing in a worktree a delegate still holds.</div></div>
+        <div class="tr" role="row"><div class="f mono" role="cell"><span class="dir">poteto-mode/playbooks/</span><span class="leaf">autopilot-full</span></div><div class="kd mono" role="cell">policy</div><div class="sv mono num" role="cell">0.9.39</div><div class="why" role="cell">Owners stop at merge-ready and the operator clicks every merge, instead of each owner merging after a clean verdict.</div></div>
+        <div class="tr" role="row"><div class="f mono" role="cell"><span class="leaf">create-verification-skill</span></div><div class="kd mono pf" role="cell">port-feature</div><div class="sv mono num" role="cell">0.9.29</div><div class="why" role="cell">Names the generated project skill verify so it replaces Claude Code&rsquo;s bundled user-only /verify and the playbooks can invoke it.</div></div>
+      </div>
+      <p class="foot mono">6 of 46 rows shown. Paths shortened from plugins/pstack/skills/.</p>
+    </div>
+  </section>
+
+  <section class="low">
+    <div class="wrap lgrid">
+      <div class="ask up u4">
+        <h3 class="mono">What you actually type</h3>
+        <blockquote class="serif">&ldquo;Use poteto-mode to fix the search filter resetting when I change pages.&rdquo;</blockquote>
+        <ol>
+          <li><span><b>Reproduce</b> the failure first.</span></li>
+          <li><span>Investigate with <b>how</b> and <b>why</b>.</span></li>
+          <li><span><b>Delegate</b> the fix &mdash; bringing in <b>architect</b> first if it crosses a function boundary.</span></li>
+          <li><span><b>Rerun</b> the failing case.</span></li>
+        </ol>
+      </div>
+      <div class="dh up u4">
+        <h3 class="mono">What comes back</h3>
+        <p><b>The fix and the failing and passing evidence</b> &mdash; trimmed, per the tinted row above, to the assertion and the counts.</p>
+        <p>pstack has <b>no server or telemetry</b>. What its skills ask your agent to read, including session transcripts, goes to your model provider; scripts run locally.</p>
+        <p>MIT-licensed port &copy; 2026 Michael Denyer. Original pstack &copy; 2026 Lauren Tan.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README and tools/forks.json.</span>
+    <span><a href="https://github.com/michael-denyer/pstack-claude">github.com/michael-denyer/pstack-claude</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

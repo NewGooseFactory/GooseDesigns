@@ -2,10 +2,11 @@
 
 Architectural blueprint / schematic. Drafting grid, technical annotations, single ink accent.
 
-27 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+28 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-05](../days/2026-10-05/) | [caddyserver/caddy](https://github.com/caddyserver/caddy) | cyanotype-amber | Draw the minimal config as a blueprint sheet and dimension the line you never have to write | Dimensioning an empty line is the clearest way to show a default, because the thing you did not write is the feature | [png](../days/2026-10-05/03-caddy.png) |
 | [2026-09-30](../days/2026-09-30/) | [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) | ink-blue | Print the five-step lesson loop as drafted rows and tint only the fifth, because the fifth is a condition rather than an instruction | Tinting the row that is a gate turns a study method into a harness, which is the more accurate description | [png](../days/2026-09-30/03-ai-engineering.png) |
 | [2026-09-23](../days/2026-09-23/) | [google/ax](https://github.com/google/ax) | drafting-teal | Lead with the four primitives and the fence rather than the throughput claim | Naming Gateway beside Task is what makes the orchestration argument land | [png](../days/2026-09-23/01-ax.png) |
 | [2026-09-18](../days/2026-09-18/) | [ahmedkhaleel2004/gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram) | slate-teal | Show the generated graph with real repository paths under each box, then list the validation that makes those paths trustworthy | Printing the path inside the node is what separates a clickable diagram from a decorative one | [png](../days/2026-09-18/03-gitdiagram.png) |

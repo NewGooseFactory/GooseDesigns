@@ -1,9 +1,10 @@
 ﻿# Style — ledger
 
-6 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-05](../days/2026-10-05/) | [michael-denyer/pstack-claude](https://github.com/michael-denyer/pstack-claude) | fork-oxblood | Print the fork register of the port as the hero, so its divergences from upstream read as a ledger rather than a changelog | A register beats a changelog for a port, because the reader sees what was changed on purpose, with a reason, before anything else | [png](../days/2026-10-05/02-pstack.png) |
 | [2026-09-27](../days/2026-09-27/) | [openbao/openbao](https://github.com/openbao/openbao) | seal-green | Give every secret a row with an expiry column, so the lease is a property of the record rather than a paragraph about it | An at-expiry column forces the page to answer a question a feature list never asks | [png](../days/2026-09-27/02-openbao.png) |
 | [2026-09-13](../days/2026-09-13/) | [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | verification-indigo | Publish the verification record as a ruled ledger instead of a trust badge | Rows with a timing column turn a trust claim into something a reader can interrogate | [png](../days/2026-09-13/03-agent-skills.png) |
 | [2026-08-31](../days/2026-08-31/) | [jingyaogong/minimind](https://github.com/jingyaogong/minimind) | ink-rust | book the three claims as entries and mark the one that cannot close | works, the open row carries the argument | [png](../days/2026-08-31/01-minimind.png) |

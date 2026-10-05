@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caddy — every site on HTTPS</title>
+<style>
+  :root{
+    --cyan:#123c69;
+    --deep:#0e3159;
+    --grid:rgba(255,255,255,.075);
+    --line:rgba(255,255,255,.28);
+    --ink:#f1f5fa;
+    --muted:#c6d4e4;
+    --dim:#adc0d6;
+    --amber:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--cyan);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:120px 120px,120px 120px,24px 24px,24px 24px;
+    background-attachment:fixed;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line);background:rgba(14,49,89,.6)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--amber);border-bottom-color:var(--amber)}
+
+  .top{padding:46px 0 28px}
+  .topgrid{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--amber)}
+  h1{margin:0 0 18px;font-size:clamp(38px,5.6vw,72px);line-height:.98;letter-spacing:-.04em;font-weight:680}
+  .lede{margin:0 0 12px;font-size:16px;color:var(--ink);line-height:1.55;max-width:32em}
+  .lede2{margin:0 0 24px;font-size:14.5px;color:var(--muted);line-height:1.6;max-width:34em}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:3px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--amber);color:#0d2442;border-color:var(--amber)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#ffdb85;border-color:#ffdb85;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:var(--line)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--amber);color:var(--amber);transform:translateY(-1px)}
+
+  /* drawing sheet */
+  .sheet{border:1.5px solid var(--ink);background:rgba(14,49,89,.55);position:relative}
+  .sheet::before{content:"";position:absolute;inset:6px;border:1px solid var(--line);pointer-events:none}
+  .sh-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:14px 18px 0;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .draw{padding:18px 18px 6px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+  .cf{border:1px solid var(--line);background:rgba(8,32,60,.55);padding:14px 0;font-size:14px;line-height:2}
+  .ln{display:grid;grid-template-columns:34px 1fr;padding-right:12px}
+  .ln .n{color:var(--dim);text-align:right;padding-right:12px;font-size:12px}
+  .ln .t{white-space:pre-wrap;word-break:break-word}
+  .ln .tag{display:inline-block;margin-left:8px;font-size:10.5px;color:var(--cyan);background:var(--ink);border-radius:2px;padding:0 5px;line-height:1.6;vertical-align:1px;font-weight:700}
+  .ghost{margin:4px 12px 4px 34px;border:1.5px dashed var(--amber);padding:4px 10px;color:var(--amber);font-size:12.5px;line-height:1.6}
+  .ghost .tag{display:inline-block;margin-right:8px;font-size:10.5px;color:#0d2442;background:var(--amber);border-radius:2px;padding:0 5px;font-weight:700}
+  .notes{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .notes li{border-left:1px solid var(--line);padding:2px 0 2px 10px;font-size:12px;color:var(--muted);line-height:1.45}
+  .notes li b{display:block;color:var(--ink);font-size:12.5px;font-weight:600}
+  .notes li .k{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;color:var(--dim)}
+  .notes li.am{border-left:2px solid var(--amber)}
+  .notes li.am b{color:var(--amber)}
+  .tblock{margin:10px 18px 18px;display:grid;grid-template-columns:1.4fr 1fr 1fr;border:1px solid var(--line)}
+  .tblock div{padding:7px 10px;border-right:1px solid var(--line);font-size:11.5px;color:var(--ink)}
+  .tblock div:last-child{border-right:none}
+  .tblock span{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+  /* spec */
+  .spec{padding:8px 0 44px}
+  .sph{display:flex;align-items:baseline;gap:16px;margin:0 0 14px;flex-wrap:wrap}
+  .sph h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .sph .sub{font-size:12px;color:var(--dim)}
+  .sgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);background:rgba(14,49,89,.5)}
+  .sc{padding:14px 15px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+  .sc:nth-child(4n){border-right:none}
+  .sc:nth-last-child(-n+4){border-bottom:none}
+  .sc .k{display:block;font-size:10.5px;letter-spacing:.12em;color:var(--dim);margin-bottom:6px}
+  .sc b{display:block;font-size:14px;margin-bottom:3px;letter-spacing:-.01em}
+  .sc span.v{display:block;font-size:12.5px;color:var(--muted);line-height:1.45}
+  .one{margin:20px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .one blockquote{margin:0;border-left:2px solid var(--amber);padding:2px 0 2px 16px;font-size:16px;line-height:1.5}
+  .one blockquote span{display:block;margin-top:6px;font-size:11.5px;color:var(--dim)}
+  .one p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .one p b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px;background:rgba(14,49,89,.6)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover,footer a:focus-visible{color:var(--amber);border-bottom-color:var(--amber)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:30px}
+    .sgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .sc:nth-child(4n){border-right:1px solid var(--line)}
+    .sc:nth-child(2n){border-right:none}
+    .sc:nth-last-child(-n+4){border-bottom:1px solid var(--line)}
+    .sc:nth-last-child(-n+2){border-bottom:none}
+    .one{grid-template-columns:1fr}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .draw{grid-template-columns:1fr}
+    .notes{grid-template-columns:1fr}
+    .tblock{grid-template-columns:1fr}
+    .tblock div{border-right:none;border-bottom:1px solid var(--line)}
+    .tblock div:last-child{border-bottom:none}
+    .cf{font-size:13px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">caddyserver / caddy</span>
+    <nav aria-label="Primary">
+      <a href="https://caddyserver.com/docs/">Docs</a>
+      <a href="https://caddyserver.com/docs/getting-started">Getting started</a>
+      <a href="https://github.com/caddyserver/caddy">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Extensible server platform &middot; TLS by default</p>
+        <h1 class="up u1">Every site<br>on HTTPS.</h1>
+        <p class="lede up u2">Caddy is an extensible server platform that uses TLS by default.</p>
+        <p class="lede2 up u2">The certificate work is the part you do not write: public names get certificates from
+          ZeroSSL and Let&rsquo;s Encrypt, internal names and IPs get a fully-managed local CA, and HTTP/1.1, HTTP/2 and
+          HTTP/3 are all on by default.</p>
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/caddyserver/caddy">Read the source</a>
+          <a class="btn btn-line" href="https://caddyserver.com/docs/getting-started">Getting started guide</a>
+        </div>
+      </div>
+
+      <div class="sheet up u3">
+        <div class="sh-head mono"><span>Sheet A-1 &middot; site config</span><span>illustrative</span></div>
+        <div class="draw">
+          <div class="cf mono" aria-label="Illustrative Caddyfile">
+            <div class="ln"><span class="n">1</span><span class="t">example.com {<span class="tag">A</span></span></div>
+            <div class="ghost"><span class="tag">B</span># no tls directive &mdash; nothing to write here</div>
+            <div class="ln"><span class="n">2</span><span class="t">    reverse_proxy localhost:8080</span></div>
+            <div class="ln"><span class="n">3</span><span class="t">}</span></div>
+          </div>
+          <ol class="notes">
+            <li><span class="k">A &middot; site address</span><b>A public name</b>Certificate from ZeroSSL or Let&rsquo;s Encrypt.</li>
+            <li class="am"><span class="k">B &middot; the empty line</span><b>No TLS block</b>HTTPS is the default, not a setting.</li>
+            <li><span class="k">C &middot; the whole site</span><b>HTTP/1.1, 2 and 3</b>All supported by default.</li>
+          </ol>
+        </div>
+        <div class="tblock mono">
+          <div><span>Drawing</span>Every site on HTTPS</div>
+          <div><span>Scale</span>illustrative</div>
+          <div><span>Source</span>project README</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="spec">
+    <div class="wrap">
+      <div class="sph">
+        <h2>What the default already includes</h2>
+        <span class="sub mono">from the README feature list</span>
+      </div>
+      <div class="sgrid up u4">
+        <div class="sc"><span class="k mono">01</span><b>Public names</b><span class="v">ZeroSSL and Let&rsquo;s Encrypt</span></div>
+        <div class="sc"><span class="k mono">02</span><b>Internal names &amp; IPs</b><span class="v">A fully-managed local CA</span></div>
+        <div class="sc"><span class="k mono">03</span><b>Clusters</b><span class="v">Coordinates with other Caddy instances</span></div>
+        <div class="sc"><span class="k mono">04</span><b>Issuers</b><span class="v">Multi-issuer fallback</span></div>
+        <div class="sc"><span class="k mono">05</span><b>Encrypted ClientHello</b><span class="v">ECH support</span></div>
+        <div class="sc"><span class="k mono">06</span><b>Certificate trouble</b><span class="v">Stays up when other servers go down over TLS, OCSP or certificates</span></div>
+        <div class="sc"><span class="k mono">07</span><b>Protocols</b><span class="v">HTTP/1.1, HTTP/2 and HTTP/3</span></div>
+        <div class="sc"><span class="k mono">08</span><b>Dependencies</b><span class="v">None &mdash; not even libc</span></div>
+      </div>
+      <div class="one up u4">
+        <blockquote>&ldquo;Nearly all of Caddy&rsquo;s configuration is contained in a single config document &hellip; This makes managing your server config more straightforward and reduces hidden variables/factors.&rdquo;<span class="mono">&mdash; the README, on why the default can be trusted</span></blockquote>
+        <p>JSON is the <b>native config language</b>; the Caddyfile, YAML, TOML, NGINX config and more arrive through
+          <b>config adapters</b>. Two apps &mdash; <span class="mono">tls</span> and <span class="mono">http</span> &mdash; ship standard.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README; the config on sheet A-1 is illustrative.</span>
+    <span><a href="https://github.com/caddyserver/caddy">github.com/caddyserver/caddy</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

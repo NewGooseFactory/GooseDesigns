@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>e2e — describe the goal once, replay it without the model</title>
+<style>
+  :root{
+    --slab:#111316;
+    --cell:#191c21;
+    --line:#2a2f37;
+    --ink:#e8ebef;
+    --muted:#a1aab5;
+    --dim:#939dab;
+    --cy:#4fd1e0;
+    --cy-ink:#04222a;
+    --cy-soft:rgba(79,209,224,.12);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--slab);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.11em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--cy);border-bottom-color:var(--cy)}
+
+  .top{padding:46px 0 26px}
+  .topgrid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--cy)}
+  h1{margin:0 0 18px;font-size:clamp(31px,4vw,49px);line-height:1.05;letter-spacing:-.033em;font-weight:640;text-wrap:balance}
+  h1 .second{display:block;color:var(--muted);text-wrap:balance}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:550}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:4px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--cy);color:var(--cy-ink);border-color:var(--cy)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#78dfea;border-color:#78dfea;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#3a414b}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--cy);color:var(--cy);transform:translateY(-1px)}
+
+  .code{border:1px solid var(--line);border-radius:7px;background:var(--cell);overflow:hidden}
+  .code-h{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .code ol{margin:0;padding:10px 0;list-style:none;counter-reset:ln}
+  .code li{display:grid;grid-template-columns:34px 1fr;gap:0;font-size:12.5px;line-height:1.75}
+  .code li .n{color:#6f7985;text-align:right;padding-right:12px}
+  .code li .t{white-space:pre-wrap;word-break:break-word;padding-right:14px}
+  .code li.hl{background:var(--cy-soft)}
+  .code li.hl .n{color:var(--cy)}
+  .k{color:#c3a6ff}.s{color:#9fdcae}.f{color:var(--cy)}
+
+  /* grid */
+  .matrix{padding:8px 0 10px}
+  .mh{display:flex;align-items:baseline;gap:16px;margin:0 0 14px;flex-wrap:wrap}
+  .mh h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .mh .sub{font-size:12px;color:var(--dim)}
+  .grid{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--cell)}
+  .row{display:grid;grid-template-columns:120px repeat(4,minmax(0,1fr));border-bottom:1px solid var(--line)}
+  .row:last-child{border-bottom:none}
+  .row > div{padding:11px 13px;border-right:1px solid var(--line);min-width:0}
+  .row > div:last-child{border-right:none}
+  .row.h > div{background:#1f232a;font-size:11px;color:var(--dim);letter-spacing:.04em}
+  .row.h b{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;font-weight:600}
+  .rl{font-size:12px;color:var(--muted)}
+  .rl b{display:block;font-size:13px;color:var(--ink);font-weight:600}
+  .c{font-size:12px;line-height:1.35;color:var(--dim)}
+  .c .st{display:block;font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:2px}
+  .c .ml{display:none;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+  .c.live{background:var(--cy);color:var(--cy-ink)}
+  .c.live .st{color:var(--cy-ink)}
+  .c.live .ml{color:var(--cy-ink)}
+  .c.half{box-shadow:inset 4px 0 0 var(--cy);background:var(--cy-soft)}
+  .c.half .st{color:var(--cy)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:12px 0 0;font-size:12px;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:8px}
+  .legend i{width:12px;height:12px;border-radius:2px;display:block;flex:none}
+  .legend .a{background:var(--cy)}
+  .legend .b{background:var(--cy-soft);box-shadow:inset 3px 0 0 var(--cy)}
+  .legend .z{background:var(--cell);border:1px solid #3a414b}
+
+  .low{padding:24px 0 44px}
+  .lgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start}
+  .sum{border:1px solid var(--line);border-radius:7px;background:#0c0e11;padding:14px 16px}
+  .sum p{margin:0 0 8px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .sum pre{margin:0;font-size:12.5px;line-height:1.8;color:var(--ink);white-space:pre-wrap;word-break:break-word}
+  .sum pre .q{color:var(--cy)}
+  .facts{display:grid;gap:10px}
+  .fact{border-left:2px solid var(--cy);padding:2px 0 2px 14px}
+  .fact b{display:block;font-size:13.5px;margin-bottom:2px}
+  .fact span{display:block;font-size:13px;color:var(--muted);line-height:1.55}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid #3a414b}
+  footer a:hover,footer a:focus-visible{color:var(--cy);border-bottom-color:var(--cy)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid,.lgrid{grid-template-columns:1fr;gap:28px}
+    .top{padding:32px 0 20px}
+  }
+  @media (max-width:700px){
+    .bar nav{display:none}
+    .row{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .row > div{border-right:none;border-bottom:1px solid var(--line)}
+    .row .rl{grid-column:1 / -1;background:#1f232a}
+    .row.h{display:none}
+    .c .ml{display:block}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">tester-army / e2e</span>
+    <nav aria-label="Primary">
+      <a href="https://e2e.tester.army/docs/quickstart">Quickstart</a>
+      <a href="https://e2e.tester.army/docs/cache">Replay cache</a>
+      <a href="https://github.com/tester-army/e2e">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">End-to-end testing for web and mobile &middot; Apache-2.0</p>
+        <h1 class="up u1">Describe the goal once. <span class="second">Replay it without the model.</span></h1>
+        <p class="lede up u2">Describe a goal in natural language and an agent drives the app to reach it. When a later
+          check verifies the step, <b>its actions are recorded and the next run replays them with no model calls
+          until the app changes</b>. Tests without agent steps need no model at all.</p>
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://github.com/tester-army/e2e">Read the source</a>
+          <a class="btn btn-line" href="https://e2e.tester.army/docs/quickstart">npx e2e init</a>
+        </div>
+      </div>
+
+      <div class="code up u3">
+        <div class="code-h mono"><span>tests/checkout.e2e.ts</span><span>from the README</span></div>
+        <ol class="mono">
+          <li><span class="n">1</span><span class="t"><span class="k">await</span> app.open(<span class="s">'/settings/billing'</span>);</span></li>
+          <li class="hl"><span class="n">2</span><span class="t"><span class="k">await</span> agent.<span class="f">act</span>(<span class="s">'upgrade the workspace to the Pro plan'</span>);</span></li>
+          <li><span class="n">3</span><span class="t"><span class="k">await</span> agent.assert(<span class="s">'the invoice preview shows a prorated amount'</span>);</span></li>
+          <li><span class="n">4</span><span class="t"><span class="k">await</span> expect(screen.getByRole(<span class="s">'status'</span>)).toContainText(<span class="s">'Pro'</span>);</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="matrix">
+    <div class="wrap">
+      <div class="mh">
+        <h2>Where the model is called, run by run</h2>
+        <span class="sub mono">rules from the docs &middot; run sequence illustrative</span>
+      </div>
+
+      <div class="grid up u4" role="table" aria-label="Model calls per line per run">
+        <div class="row h mono" role="row">
+          <div role="columnheader"><b>Run</b></div>
+          <div role="columnheader"><b>Line 1</b>app.open</div>
+          <div role="columnheader"><b>Line 2</b>agent.act</div>
+          <div role="columnheader"><b>Line 3</b>agent.assert</div>
+          <div role="columnheader"><b>Line 4</b>expect(locator)</div>
+        </div>
+        <div class="row" role="row">
+          <div class="rl" role="rowheader"><b>Run 1</b>first run</div>
+          <div class="c" role="cell"><span class="ml mono">Line 1</span><span class="st">navigate</span>no model</div>
+          <div class="c live" role="cell"><span class="ml mono">Line 2</span><span class="st">missed</span>agent runs it, then it is recorded</div>
+          <div class="c live" role="cell"><span class="ml mono">Line 3</span><span class="st">live</span>always runs live</div>
+          <div class="c" role="cell"><span class="ml mono">Line 4</span><span class="st">exact check</span>no model</div>
+        </div>
+        <div class="row" role="row">
+          <div class="rl" role="rowheader"><b>Run 2</b>app unchanged</div>
+          <div class="c" role="cell"><span class="ml mono">Line 1</span><span class="st">navigate</span>no model</div>
+          <div class="c" role="cell"><span class="ml mono">Line 2</span><span class="st">replayed</span>no model call</div>
+          <div class="c live" role="cell"><span class="ml mono">Line 3</span><span class="st">live</span>always runs live</div>
+          <div class="c" role="cell"><span class="ml mono">Line 4</span><span class="st">exact check</span>no model</div>
+        </div>
+        <div class="row" role="row">
+          <div class="rl" role="rowheader"><b>Run 3</b>app unchanged</div>
+          <div class="c" role="cell"><span class="ml mono">Line 1</span><span class="st">navigate</span>no model</div>
+          <div class="c" role="cell"><span class="ml mono">Line 2</span><span class="st">replayed</span>no model call</div>
+          <div class="c live" role="cell"><span class="ml mono">Line 3</span><span class="st">live</span>always runs live</div>
+          <div class="c" role="cell"><span class="ml mono">Line 4</span><span class="st">exact check</span>no model</div>
+        </div>
+        <div class="row" role="row">
+          <div class="rl" role="rowheader"><b>Run 4</b>a control moved</div>
+          <div class="c" role="cell"><span class="ml mono">Line 1</span><span class="st">navigate</span>no model</div>
+          <div class="c half" role="cell"><span class="ml mono">Line 2</span><span class="st">handed off</span>replay starts, then the agent takes over from the current screen</div>
+          <div class="c live" role="cell"><span class="ml mono">Line 3</span><span class="st">live</span>always runs live</div>
+          <div class="c" role="cell"><span class="ml mono">Line 4</span><span class="st">exact check</span>no model</div>
+        </div>
+      </div>
+
+      <div class="legend mono">
+        <span><i class="a" aria-hidden="true"></i>calls the model</span>
+        <span><i class="b" aria-hidden="true"></i>replay, then the agent takes over</span>
+        <span><i class="z" aria-hidden="true"></i>no model call</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="low">
+    <div class="wrap lgrid">
+      <div class="sum up u4">
+        <p class="mono">Example run summary from the docs &mdash; model name trimmed</p>
+<pre class="mono">   AI  4.1k tokens   2 model calls
+Cache  <span class="q">4 replayed</span>   1 handed off   1 missed</pre>
+      </div>
+      <div class="facts up u4">
+        <div class="fact"><b>Bring your own model</b><span>Your own subscription, API key, or local model.</span></div>
+        <div class="fact"><b>Rule the cache out</b><span>Run once with <span class="mono">--no-cache</span> to see whether a failure is the recording or the app.</span></div>
+        <div class="fact"><b>Before 1.0</b><span>In active development; APIs and config can still change between minor releases.</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README and docs.</span>
+    <span><a href="https://github.com/tester-army/e2e">github.com/tester-army/e2e</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
