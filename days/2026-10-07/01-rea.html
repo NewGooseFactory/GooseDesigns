@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REA — reverse engineer anything, and show the evidence</title>
+<style>
+  :root{
+    --paper:#f5f1e9;
+    --sheet:#fffdf8;
+    --rule:#e3dccf;
+    --hard:#1d1b18;
+    --ink:#1d1b18;
+    --muted:#4b4640;
+    --faint:#635d55;
+    --red:#b3321c;
+    --red-soft:rgba(179,50,28,.075);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 42px}
+
+  .bar{border-bottom:1px solid var(--hard)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--red);border-bottom-color:var(--red)}
+
+  .top{padding:42px 0 30px}
+  .topgrid{display:grid;grid-template-columns:.94fr 1.06fr;gap:44px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+  h1{margin:0 0 18px;font-size:clamp(31px,3.9vw,48px);line-height:1.07;letter-spacing:-.02em;font-weight:600;text-wrap:balance}
+  h1 .u{text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:2.5px;text-underline-offset:.16em;text-decoration-skip-ink:auto}
+  .lede{margin:0 0 12px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:34em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cmd{display:inline-flex;align-items:center;gap:10px;margin:8px 0 8px;padding:10px 14px;border:1px solid var(--hard);background:var(--sheet);font-size:14px;max-width:100%}
+  .cmd .p{color:var(--red)}
+  .cmd code{font-size:14px;color:var(--ink);overflow-wrap:anywhere}
+  .cmdnote{margin:0 0 22px;font-size:12.5px;color:var(--faint)}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:3px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--hard);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease,border-color .17s ease}
+  .btn-solid{background:var(--hard);color:#fbf8f2}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--red);border-color:var(--red);transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--red);color:var(--red);transform:translateY(-1px)}
+
+  /* the marked-up finding */
+  .sheet{background:var(--sheet);border:1px solid var(--hard);box-shadow:6px 6px 0 rgba(29,27,24,.07)}
+  .sh-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid var(--rule);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .tag{border:1px solid var(--faint);padding:1px 7px;border-radius:2px;letter-spacing:.1em}
+  .ask{margin:0;padding:12px 18px;border-bottom:1px dashed var(--rule);font-size:12px;color:var(--muted);line-height:1.55}
+  .ask span{color:var(--faint)}
+  .body{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.95fr)}
+  .claim{margin:0;padding:18px 18px 18px;font-size:20px;line-height:1.62;border-right:1px solid var(--rule)}
+  .claim .m{text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:1.5px;text-underline-offset:.2em}
+  .claim sup{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--red);font-weight:700;margin-left:1px}
+  .claim .unk{border:1.5px dashed var(--red);border-radius:14px;padding:0 6px;background:var(--red-soft);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .notes{margin:0;padding:14px 16px;list-style:none;display:grid;gap:10px;align-content:start}
+  .notes li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:12.5px;color:var(--muted);line-height:1.45}
+  .notes .n{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;font-weight:700;color:var(--red);border:1.5px solid var(--red);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center}
+  .notes b{display:block;color:var(--ink);font-size:12px;font-weight:600;margin-bottom:1px}
+  .notes li.open b{color:var(--red)}
+  .rec{margin:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--rule)}
+  .rec div{padding:9px 12px;border-right:1px solid var(--rule);min-width:0}
+  .rec div:last-child{border-right:none}
+  .rec dt{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
+  .rec dd{margin:0;font-size:11.5px;color:var(--ink);overflow-wrap:anywhere}
+  .rec div.lim dd{color:var(--red);font-weight:600}
+  .reccap{margin:10px 2px 0;font-size:12px;color:var(--faint)}
+
+  /* steps */
+  .steps{padding:18px 0 14px}
+  .sh{display:flex;align-items:baseline;gap:16px;margin:0 0 14px;flex-wrap:wrap}
+  .sh h2{margin:0;font-size:12.5px;letter-spacing:.15em;text-transform:uppercase}
+  .sh .sub{font-size:12px;color:var(--faint)}
+  .prompt{margin:0 0 16px;font-size:18px;line-height:1.5;max-width:44em}
+  .prompt span{display:block;margin-top:4px;font-size:11.5px;color:var(--faint)}
+  .sgrid{display:grid;grid-template-columns:92px minmax(0,1fr);border-top:1px solid var(--hard)}
+  .br{grid-column:1;position:relative;padding:14px 0 0 2px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:700}
+  .br::after{content:"";position:absolute;top:12px;bottom:12px;right:14px;width:10px;border:2px solid var(--red);border-left:none}
+  .br-rea{grid-row:1 / 6}
+  .br-you{grid-row:6 / 7;color:var(--muted)}
+  .br-you::after{border-color:var(--faint)}
+  .row{grid-column:2;display:grid;grid-template-columns:34px minmax(0,1fr) minmax(0,1.1fr);gap:14px;padding:11px 4px;border-bottom:1px solid var(--rule);align-items:baseline}
+  .row .k{font-size:12px;color:var(--red);font-weight:700}
+  .row .w{font-size:15px}
+  .row .t{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+  .row.you .k{color:var(--faint)}
+  .row.you .w{color:var(--muted)}
+
+  .close{padding:26px 0 44px}
+  .cgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+  .cgrid div{border-top:1px solid var(--hard);padding-top:14px}
+  .cgrid h3{margin:0 0 8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .cgrid p{margin:0;font-size:14px;color:var(--muted);line-height:1.6}
+  .cgrid .hot{border-top:2px solid var(--red)}
+  .cgrid .hot h3{color:var(--red)}
+  .engines{margin:22px 0 0;font-size:13px;color:var(--faint)}
+  .engines b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--hard);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--red);border-bottom-color:var(--red)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:30px}
+    .cgrid{grid-template-columns:1fr;gap:20px}
+    .top{padding:32px 0 22px}
+  }
+  @media (max-width:700px){
+    .bar nav{display:none}
+    .body{grid-template-columns:1fr}
+    .claim{border-right:none;border-bottom:1px solid var(--rule);font-size:18px}
+    .rec{grid-template-columns:1fr 1fr}
+    .rec div{border-bottom:1px solid var(--rule)}
+    .rec div:nth-child(2n){border-right:none}
+    .rec div.lim{grid-column:1 / -1;border-bottom:none}
+    .sgrid{grid-template-columns:1fr}
+    .br{display:none}
+    .row{grid-column:1;grid-template-columns:28px minmax(0,1fr);gap:4px 10px}
+    .row .t{grid-column:2}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">morluto / rea</span>
+    <nav aria-label="Primary">
+      <a href="https://morluto.github.io/rea/">Docs</a>
+      <a href="https://github.com/morluto/rea#quick-start">Quick start</a>
+      <a href="https://github.com/morluto/rea">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">One MCP for reverse engineering &middot; binaries, apps, runtime</p>
+        <h1 class="serif up u1">See a feature you like. Understand how it works, <span class="u">down to the binary level.</span></h1>
+        <p class="lede up u2">Ask your agent to investigate the app with REA. It can inspect it without the source code,
+          explain how the feature works, <b>show the evidence</b>, and build a version for your project.</p>
+        <p class="lede up u2">Native binaries, JavaScript and Electron apps, .NET assemblies and websites &mdash; analyzed
+          locally, with the evidence and limitations behind each conclusion.</p>
+        <div class="cmd up u2"><span class="p mono" aria-hidden="true">$</span><code class="mono">npx rea-agents setup</code></div>
+        <p class="cmdnote up u2">Setup shows its changes before applying them and backs up existing configuration.</p>
+        <div class="cta up u3">
+          <a class="btn btn-solid" href="https://morluto.github.io/rea/">Read the docs</a>
+          <a class="btn btn-line" href="https://github.com/morluto/rea">View source</a>
+        </div>
+      </div>
+
+      <div class="up u3">
+        <div class="sheet" role="figure" aria-label="An illustrative finding, marked up with its evidence">
+          <div class="sh-top mono"><span>Finding 03 &middot; example.app</span><span class="tag">illustrative</span></div>
+          <p class="ask mono"><span>prompt &rsaquo;</span> Understand how search works in &lsaquo;app&rsaquo;, show me the evidence, and build a similar feature for my project.</p>
+          <div class="body">
+            <p class="claim serif">Search reads <span class="m">a local index</span><sup>1</sup> that <span class="m">one procedure opens</span><sup>2</sup>, and
+              <span class="m">queries the network only on a miss</span><sup>3</sup>. <span class="unk">How results are ranked</span><sup>4</sup> is not yet known.</p>
+            <ol class="notes">
+              <li><span class="n">1</span><span><b class="mono">search_strings</b>The index file&rsquo;s name appears in the binary.</span></li>
+              <li><span class="n">2</span><span><b class="mono">find_xrefs_to_name</b>A single procedure references it.</span></li>
+              <li><span class="n">3</span><span><b class="mono">get_call_graph</b>The network call sits on the miss branch.</span></li>
+              <li class="open"><span class="n">4</span><span><b>unknown</b>Reached through dynamic dispatch. Left open, not guessed.</span></li>
+            </ol>
+          </div>
+          <dl class="rec mono">
+            <div><dt>artifact</dt><dd>9f2c&hellip;e41a</dd></div>
+            <div><dt>provider</dt><dd>ghidra</dd></div>
+            <div><dt>locations</dt><dd>3 procedures</dd></div>
+            <div><dt>confidence</dt><dd>medium</dd></div>
+            <div class="lim"><dt>limitations</dt><dd>ranking unresolved</dd></div>
+          </dl>
+        </div>
+        <p class="reccap mono">Every saved result carries artifact identity, provider, locations, confidence and limitations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="wrap">
+      <div class="sh">
+        <h2>One prompt, a full investigation</h2>
+        <span class="sub mono">the README&rsquo;s example and its six steps</span>
+      </div>
+      <p class="prompt serif">&ldquo;Reverse engineer the Notes app. Find how offline search works, explain it, and build a version for my project using TypeScript and SQLite.&rdquo;</p>
+      <div class="sgrid" role="list">
+        <div class="br br-rea mono" aria-hidden="true">REA</div>
+        <div class="br br-you mono" aria-hidden="true">Agent</div>
+        <div class="row" role="listitem"><span class="k mono">1</span><span class="w">Opens and identifies the binary</span><span class="t mono">open_binary &middot; binary_overview</span></div>
+        <div class="row" role="listitem"><span class="k mono">2</span><span class="w">Finds likely offline-search clues</span><span class="t mono">search_strings &middot; search_procedures &middot; list_names</span></div>
+        <div class="row" role="listitem"><span class="k mono">3</span><span class="w">Connects those clues to executable code</span><span class="t mono">find_xrefs_to_name &middot; xrefs &middot; procedure_callers</span></div>
+        <div class="row" role="listitem"><span class="k mono">4</span><span class="w">Reconstructs the relevant control flow</span><span class="t mono">get_call_graph &middot; procedure_callees &middot; procedure_info</span></div>
+        <div class="row" role="listitem"><span class="k mono">5</span><span class="w">Decompiles the relevant routines</span><span class="t mono">procedure_pseudo_code &middot; procedure_assembly &middot; batch_decompile</span></div>
+        <div class="row you" role="listitem"><span class="k mono">6</span><span class="w">Builds the feature in your project</span><span class="t mono">the agent&rsquo;s own file-editing and test tools</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap">
+      <div class="cgrid">
+        <div class="up u4">
+          <h3 class="mono">Shows its work</h3>
+          <p>REA shows how it reached its conclusions. It does not claim to recover original source code or automatically clone an application.</p>
+        </div>
+        <div class="hot up u4">
+          <h3 class="mono">Unknown stays unknown</h3>
+          <p>Reconstruction checks report pass, fail, or unknown rather than treating missing evidence as a pass.</p>
+        </div>
+        <div class="up u4">
+          <h3 class="mono">Local by design</h3>
+          <p>Analysis runs on your supported local host. REA does not upload the app to a hosted analysis service.</p>
+        </div>
+      </div>
+      <p class="engines">Deep native analysis uses <b>Hopper</b>, <b>Ghidra</b> or <b>IDA Pro</b>. Static JavaScript analysis needs none of them.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. For lawful reverse-engineering research; you are responsible for any required authorization.</span>
+    <span><a href="https://github.com/morluto/rea">github.com/morluto/rea</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cmux — tell which agent needs you</title>
+<style>
+  :root{
+    --board:#e8ecf0;
+    --card:#ffffff;
+    --rule:#c9d0d8;
+    --ink:#14171c;
+    --muted:#454f5a;
+    --faint:#56606c;
+    --blue:#1d4ed8;
+    --ring:#4d8dff;
+    --term:#15171c;
+    --pane:#1d2026;
+    --quiet:#181b20;
+    --t-ink:#d6dce3;
+    --t-dim:#949eaa;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--board);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--rule);background:#eef1f4}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--blue);border-bottom-color:var(--blue)}
+
+  .top{padding:34px 0 22px}
+  .eyebrow{margin:0 0 14px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+  h1{margin:0 0 16px;font-size:clamp(34px,4.7vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:680}
+  h1 span{display:block;color:var(--faint);font-weight:600}
+  .row{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:end}
+  .lede{margin:0;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:36em}
+  .lede b{color:var(--ink);font-weight:600}
+  .act{display:grid;gap:12px;justify-items:start}
+  .cmd{margin:0;padding:10px 14px;background:var(--term);color:var(--t-ink);border-radius:6px;font-size:12.5px;line-height:1.7;max-width:100%;overflow-wrap:anywhere}
+  .cmd span{color:var(--t-dim)}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:10px 18px;border-radius:6px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--ink);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease,border-color .17s ease}
+  .btn-solid{background:var(--ink);color:#f4f6f8}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--blue);border-color:var(--blue);transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+
+  /* storyboard */
+  .board{padding:4px 0 10px}
+  .bh{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 10px}
+  .bh h2{margin:0;font-size:12.5px;letter-spacing:.15em;text-transform:uppercase}
+  .bh .sub{font-size:12px;color:var(--faint)}
+  .cels{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.42fr) minmax(0,1fr);gap:14px;align-items:start}
+  .cel{margin:0;background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:9px 9px 11px}
+  .cel.key{border-color:var(--ink)}
+  .fr{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:0 1px 7px}
+  .cel.key .fr{color:var(--blue)}
+  .scr{position:relative;background:var(--term);border-radius:5px;height:176px;display:grid;grid-template-columns:31% minmax(0,1fr);grid-template-rows:14px minmax(0,1fr);overflow:hidden}
+  .cel.key .scr{grid-template-columns:38% minmax(0,1fr)}
+  .tb{grid-column:1 / -1;display:flex;gap:4px;align-items:center;padding:0 7px;background:#101216;border-bottom:1px solid #252931}
+  .tb i{width:6px;height:6px;border-radius:50%;background:#3b414a}
+  .side{background:#111317;border-right:1px solid #252931;padding:5px 4px;display:grid;gap:3px;align-content:start;min-width:0}
+  .tab{border-radius:3px;padding:3px 5px;font-size:9.5px;color:var(--t-dim);line-height:1.3;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .tab.lit{background:#1f2a3d;color:#eef3fa;box-shadow:inset 2px 0 0 var(--ring);white-space:normal}
+  .tab.lit em{display:block;font-style:normal;color:#b8c7dc;font-size:9px}
+  .tab.lit em.msg{color:#ffffff}
+  .tab .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ring);margin-right:4px;vertical-align:1px}
+  .panes{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;padding:5px;min-width:0}
+  .pane{background:var(--pane);border-radius:3px;padding:5px 6px;font-size:9.5px;color:var(--t-ink);line-height:1.35;overflow:hidden;min-width:0}
+  .pane b{display:block;font-weight:600;color:var(--t-dim);font-size:9px;letter-spacing:.04em;margin-bottom:2px}
+  .pane.ring{box-shadow:0 0 0 1.5px var(--ring),0 0 0 4px rgba(77,141,255,.28)}
+  .pane.focus{box-shadow:0 0 0 1.5px #e6ebf1}
+  .pane.quiet{background:var(--quiet);color:#a3adb8}
+  .banner{position:absolute;top:19px;right:7px;width:64%;background:#f3f5f8;color:var(--ink);border-radius:8px;padding:6px 8px;font-size:10px;line-height:1.35;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+  .banner b{display:block;font-size:10px}
+  .banner span{color:#46505b}
+  .kk{display:flex;gap:3px;margin-top:-2px}
+  .kk kbd{font-family:inherit;background:var(--card);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:0 5px;font-size:11px;line-height:16px;box-shadow:0 1px 0 var(--rule);min-width:19px;text-align:center;letter-spacing:0}
+  .cel figcaption{margin:9px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+  .cel figcaption b{color:var(--ink);font-weight:600}
+
+  .strip{margin:14px 0 0;display:grid;grid-template-columns:auto repeat(5,minmax(0,1fr));border:1px solid var(--rule);background:var(--card);border-left:3px solid var(--blue)}
+  .strip > *{padding:10px 13px;border-right:1px solid var(--rule);min-width:0}
+  .strip > *:last-child{border-right:none}
+  .strip .lead{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:700;display:flex;align-items:center}
+  .strip span{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  .strip b{display:block;font-size:13px;font-weight:600}
+
+  .zen{padding:30px 0 44px}
+  .zgrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;align-items:start}
+  .zen blockquote{margin:0;font-size:24px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
+  .zen blockquote span{display:block;margin-top:12px;font-size:14px;font-weight:400;color:var(--muted);line-height:1.6;letter-spacing:0}
+  .feat{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink)}
+  .feat div{padding:13px 14px 13px 0;border-bottom:1px solid var(--rule)}
+  .feat div:nth-child(odd){padding-right:20px}
+  .feat b{display:block;font-size:14px;margin-bottom:3px}
+  .feat p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+  .feat code{font-size:12px;color:var(--ink)}
+
+  footer{border-top:1px solid var(--rule);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--blue);border-bottom-color:var(--blue)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  .c1{animation-delay:.20s}.c2{animation-delay:.30s}.c3{animation-delay:.40s}.c4{animation-delay:.50s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .row{grid-template-columns:1fr;gap:20px}
+    .cels{grid-template-columns:1fr 1fr}
+    .strip{grid-template-columns:1fr 1fr}
+    .strip .lead{grid-column:1 / -1;border-right:none;border-bottom:1px solid var(--rule)}
+    .strip > *{border-bottom:1px solid var(--rule)}
+    .zgrid{grid-template-columns:1fr;gap:24px}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .cels{grid-template-columns:1fr}
+    .feat{grid-template-columns:1fr}
+    .feat div:nth-child(odd){padding-right:0}
+    .zen blockquote{font-size:21px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">manaflow-ai / cmux</span>
+    <nav aria-label="Primary">
+      <a href="https://cmux.com/docs/getting-started">Docs</a>
+      <a href="https://cmux.com/blog/zen-of-cmux">The Zen of cmux</a>
+      <a href="https://github.com/manaflow-ai/cmux">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap">
+      <p class="eyebrow mono up u1">Ghostty-based macOS terminal &middot; for AI coding agents</p>
+      <h1 class="up u1">Tell which agent needs you. <span>Across every split and tab.</span></h1>
+      <div class="row">
+        <p class="lede up u2">cmux is a native macOS app built on libghostty, with vertical tabs and notifications for coding agents.
+          When one is waiting, <b>its pane gets a blue ring and its tab lights up in the sidebar</b> &mdash; next to the branch, PR, directory and ports it belongs to.</p>
+        <div class="act up u2">
+          <pre class="cmd mono"><span>$</span> brew tap manaflow-ai/cmux
+<span>$</span> brew install --cask cmux</pre>
+          <div class="cta">
+            <a class="btn btn-solid" href="https://cmux.com/docs/getting-started">Getting started</a>
+            <a class="btn btn-line" href="https://github.com/manaflow-ai/cmux">View source</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="board">
+    <div class="wrap">
+      <div class="bh"><h2>Four frames, one interruption</h2><span class="sub mono">frames illustrative</span></div>
+      <div class="cels">
+        <figure class="cel up c1">
+          <div class="fr mono"><span>01</span><span>parallel</span></div>
+          <div class="scr" aria-hidden="true">
+            <div class="tb"><i></i><i></i><i></i></div>
+            <div class="side mono"><div class="tab">api</div><div class="tab">web</div><div class="tab">db</div><div class="tab">docs</div></div>
+            <div class="panes mono">
+              <div class="pane"><b>claude</b>refactor auth</div>
+              <div class="pane"><b>codex</b>fix flaky test</div>
+              <div class="pane"><b>claude</b>add migration</div>
+              <div class="pane"><b>opencode</b>update docs</div>
+            </div>
+          </div>
+          <figcaption>Four agents work in <b>parallel splits</b>.</figcaption>
+        </figure>
+
+        <figure class="cel up c2">
+          <div class="fr mono"><span>02</span><span>the stock alert</span></div>
+          <div class="scr" aria-hidden="true">
+            <div class="tb"><i></i><i></i><i></i></div>
+            <div class="side mono"><div class="tab">api</div><div class="tab">web</div><div class="tab">db</div><div class="tab">docs</div></div>
+            <div class="panes mono">
+              <div class="pane"><b>claude</b>refactor auth</div>
+              <div class="pane"><b>codex</b>fix flaky test</div>
+              <div class="pane"><b>claude</b>add migration</div>
+              <div class="pane"><b>opencode</b>update docs</div>
+            </div>
+            <div class="banner"><b>Claude Code</b><span>Claude is waiting for your input</span></div>
+          </div>
+          <figcaption>One stops to ask. The stock banner reads <b>the same for every session</b>.</figcaption>
+        </figure>
+
+        <figure class="cel key up c3">
+          <div class="fr mono"><span>03</span><span>ring + lit tab</span></div>
+          <div class="scr" aria-hidden="true">
+            <div class="tb"><i></i><i></i><i></i></div>
+            <div class="side mono">
+              <div class="tab">api</div>
+              <div class="tab">web</div>
+              <div class="tab lit"><span class="dot"></span>db<em>fix/schema &middot; PR #212</em><em>~/app &middot; :5432</em><em class="msg">&ldquo;Run the migration?&rdquo;</em></div>
+              <div class="tab">docs</div>
+            </div>
+            <div class="panes mono">
+              <div class="pane"><b>claude</b>refactor auth</div>
+              <div class="pane"><b>codex</b>fix flaky test</div>
+              <div class="pane ring"><b>claude</b>waiting for input</div>
+              <div class="pane"><b>opencode</b>update docs</div>
+            </div>
+          </div>
+          <figcaption>Its <b>pane rings</b> and its <b>tab lights up</b>, carrying the workspace&rsquo;s context and the latest notification text.</figcaption>
+        </figure>
+
+        <figure class="cel up c4">
+          <div class="fr mono"><span>04</span><span class="kk" aria-label="Command Shift U"><kbd>&#8984;</kbd><kbd>&#8679;</kbd><kbd>U</kbd></span></div>
+          <div class="scr" aria-hidden="true">
+            <div class="tb"><i></i><i></i><i></i></div>
+            <div class="side mono"><div class="tab">api</div><div class="tab">web</div><div class="tab">db</div><div class="tab">docs</div></div>
+            <div class="panes mono">
+              <div class="pane quiet"><b>claude</b>refactor auth</div>
+              <div class="pane quiet"><b>codex</b>fix flaky test</div>
+              <div class="pane focus"><b>claude</b>&rsaquo; yes, run it</div>
+              <div class="pane quiet"><b>opencode</b>update docs</div>
+            </div>
+
+          </div>
+          <figcaption><b>Cmd+Shift+U</b> jumps to the most recent unread.</figcaption>
+        </figure>
+      </div>
+
+      <div class="strip up u4">
+        <div class="lead mono">Sidebar</div>
+        <div><span class="mono">1</span><b>git branch</b></div>
+        <div><span class="mono">2</span><b>linked PR</b></div>
+        <div><span class="mono">3</span><b>working directory</b></div>
+        <div><span class="mono">4</span><b>listening ports</b></div>
+        <div><span class="mono">5</span><b>latest notification</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zen">
+    <div class="wrap zgrid">
+      <blockquote class="up u4">cmux is a primitive, not a solution.
+        <span>It gives you a terminal, a browser, notifications, workspaces, splits, tabs, and a CLI to control all of it. What you build with the primitives is yours.</span>
+      </blockquote>
+      <div class="feat up u4">
+        <div><b>Native macOS</b><p>Swift and AppKit, not Electron, rendering through libghostty.</p></div>
+        <div><b>Your Ghostty config</b><p>Themes, fonts and colors carry over from <code class="mono">~/.config/ghostty/config</code>.</p></div>
+        <div><b>Hooks or escape codes</b><p>Rings fire on OSC 9/99/777, or from <code class="mono">cmux notify</code> in your agent&rsquo;s hooks.</p></div>
+        <div><b>Scriptable</b><p>A CLI and socket API for workspaces, splits, keystrokes and the in-app browser.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README; storyboard frames are illustrative.</span>
+    <span><a href="https://github.com/manaflow-ai/cmux">github.com/manaflow-ai/cmux</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

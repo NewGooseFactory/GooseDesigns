@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **345 mocks** across **115 days**. Newest first.
+Searchable master index. **348 mocks** across **116 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-10-07 | Wednesday | [morluto/rea](https://github.com/morluto/rea) | redline | evidence-vermilion | Mark up a finding like a proof, tying each claim to the REA tool that supports it and circling the one it could not resolve as unknown | Circling the one unknown builds more trust than a capability list, because it shows the tool will not guess | [png](days/2026-10-07/01-rea.png) | [2026-10-07](days/2026-10-07/) |
+| 2026-10-07 | Wednesday | [EpicGames/raddebugger](https://github.com/EpicGames/raddebugger) | waveform | lockstep-lime | Draw the README's lockstep sentence as a timing diagram, with the control layer and every attached process never high together | Drawn as two traces that are never high together, one architecture sentence becomes the hero | [png](days/2026-10-07/02-raddebugger.png) | [2026-10-07](days/2026-10-07/) |
+| 2026-10-07 | Wednesday | [manaflow-ai/cmux](https://github.com/manaflow-ai/cmux) | storyboard | ring-blue | Storyboard the interruption in four frames and give the ring frame the widest cel, so the stock alert and the lit tab sit side by side | Setting the stock banner beside the lit tab argues for context without a single adjective | [png](days/2026-10-07/03-cmux.png) | [2026-10-07](days/2026-10-07/) |
 | 2026-10-05 | Monday | [tester-army/e2e](https://github.com/tester-army/e2e) | cell-grid | replay-cyan | Lay the four-line README test out as columns and the runs as rows, so you can see which line stops calling the model and which never will | Seeing agent.act go quiet while agent.assert stays live explains the cost model better than any token figure | [png](days/2026-10-05/01-e2e.png) | [2026-10-05](days/2026-10-05/) |
 | 2026-10-05 | Monday | [michael-denyer/pstack-claude](https://github.com/michael-denyer/pstack-claude) | ledger | fork-oxblood | Print the fork register of the port as the hero, so its divergences from upstream read as a ledger rather than a changelog | A register beats a changelog for a port, because the reader sees what was changed on purpose, with a reason, before anything else | [png](days/2026-10-05/02-pstack.png) | [2026-10-05](days/2026-10-05/) |
 | 2026-10-05 | Monday | [caddyserver/caddy](https://github.com/caddyserver/caddy) | blueprint | cyanotype-amber | Draw the minimal config as a blueprint sheet and dimension the line you never have to write | Dimensioning an empty line is the clearest way to show a default, because the thing you did not write is the feature | [png](days/2026-10-05/03-caddy.png) | [2026-10-05](days/2026-10-05/) |

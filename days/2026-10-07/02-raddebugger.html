@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The RAD Debugger — a native, multi-process, graphical debugger</title>
+<style>
+  :root{
+    --bg:#0b0d0f;
+    --panel:#111417;
+    --line:#262b31;
+    --ink:#e8ecf0;
+    --muted:#a3adb8;
+    --dim:#8e99a5;
+    --lime:#c8f25a;
+    --lime-ink:#0b0d0f;
+    --lime-soft:rgba(200,242,90,.075);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--lime);border-bottom-color:var(--lime)}
+
+  .top{padding:40px 0 22px}
+  .topgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:end}
+  .eyebrow{margin:0 0 16px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--lime)}
+  h1{margin:0;font-size:clamp(34px,4.6vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:660;text-wrap:balance}
+  .lede{margin:0 0 16px;font-size:15px;color:var(--muted);line-height:1.62}
+  .lede b{color:var(--ink);font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+  .chip{font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border:1px solid var(--line);border-radius:3px;color:var(--muted)}
+  .chip.a{border-color:var(--lime);color:var(--lime)}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:3px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--lime);color:var(--lime-ink);border-color:var(--lime)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#d9f78c;border-color:#d9f78c;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:var(--line)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--lime);color:var(--lime);transform:translateY(-1px)}
+
+  /* timing diagram */
+  .scope{border:1px solid var(--line);background:var(--panel);margin-top:26px}
+  .sc-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:11px 16px;border-bottom:1px solid var(--line);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .plot{display:grid;grid-template-columns:168px minmax(0,1fr);grid-template-rows:34px 72px 72px;padding:6px 22px 4px 0;position:relative}
+  .lab{grid-column:1;display:flex;flex-direction:column;justify-content:center;padding:0 16px;border-right:1px solid var(--line)}
+  .lab b{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;font-weight:700}
+  .lab span{font-size:11.5px;color:var(--dim)}
+  .lab.r1{grid-row:2}.lab.r2{grid-row:3}
+  .lab.r0{grid-row:1;border-right:1px solid var(--line)}
+  .bands{grid-column:2;grid-row:2 / 4;position:relative}
+  .band{position:absolute;top:0;bottom:0;background:var(--lime-soft);border-left:1px dashed rgba(200,242,90,.35);border-right:1px dashed rgba(200,242,90,.35)}
+  .ev{grid-column:2;grid-row:1;position:relative;z-index:1}
+  .ev span{position:absolute;bottom:9px;transform:translateX(-50%);font-size:10.5px;color:var(--muted);white-space:nowrap;letter-spacing:.02em}
+  .ev span::after{content:"";position:absolute;left:50%;bottom:-9px;width:1px;height:7px;background:rgba(200,242,90,.55)}
+  .ev span i{font-style:normal;display:none}
+  .lane{grid-column:2;position:relative;z-index:1}
+  .lane.r1{grid-row:2}.lane.r2{grid-row:3}
+  .lane svg{position:absolute;inset:8px 0;width:100%;height:calc(100% - 16px)}
+  .lane .w{fill:none;stroke:var(--lime);stroke-width:2.2;vector-effect:non-scaling-stroke}
+  .lane .bus{fill:none;stroke:var(--ink);stroke-width:1.4;vector-effect:non-scaling-stroke}
+  .lane .halt{fill:url(#hatch);stroke:var(--dim);stroke-width:1;vector-effect:non-scaling-stroke}
+  .seg{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+  .seg.run{color:var(--ink)}
+  .seg.hold{color:var(--lime);background:var(--panel);padding:0 5px}
+  .seg.ctl{color:var(--lime)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 22px;padding:10px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--dim)}
+  .legend .sw{display:inline-block;width:18px;height:9px;vertical-align:-1px;margin-right:7px}
+  .sw.l{background:var(--lime-soft);border:1px dashed rgba(200,242,90,.5)}
+  .sw.r{border:1.4px solid var(--ink)}
+  .sw.h{background:repeating-linear-gradient(45deg,#5d6670 0 1.2px,transparent 1.2px 5px);border:1px solid var(--dim)}
+  .evlist{display:none;margin:0;padding:8px 16px 12px 34px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line)}
+  .quote{display:grid;grid-template-columns:168px minmax(0,1fr);gap:0;margin:14px 0 0}
+  .quote .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:2px 16px 0 0}
+  .quote p{margin:0;font-size:14px;color:var(--muted);line-height:1.6;max-width:62em}
+  .quote p b{color:var(--ink);font-weight:600}
+
+  /* RDI + roadmap */
+  .sec{padding:34px 0 8px}
+  .sh{display:flex;align-items:baseline;gap:16px;margin:0 0 14px;flex-wrap:wrap}
+  .sh h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .sh .sub{font-size:12px;color:var(--dim)}
+  .flow{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1.05fr) 34px minmax(0,1fr);align-items:stretch}
+  .col{display:grid;gap:10px}
+  .card{border:1px solid var(--line);background:var(--panel);padding:13px 15px}
+  .card .k{display:block;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+  .card b{display:block;font-size:15px;margin-bottom:4px}
+  .card p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .card.core{border-color:var(--lime);display:flex;flex-direction:column;justify-content:center}
+  .card.core b{color:var(--lime);font-size:18px}
+  .arrow{display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:16px}
+  .road{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line)}
+  .road div{padding:15px 16px;border-right:1px solid var(--line);min-width:0}
+  .road div:last-child{border-right:none}
+  .road .k{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+  .road .now .k{color:var(--lime)}
+  .road b{display:block;font-size:15px;margin-bottom:6px}
+  .road p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.55}
+  .road code{font-size:11.5px;color:var(--ink)}
+  .end{padding:26px 0 44px}
+  .end p{margin:0;font-size:13.5px;color:var(--muted);max-width:60em;line-height:1.6}
+  .end p b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover,footer a:focus-visible{color:var(--lime);border-bottom-color:var(--lime)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:20px}
+    .flow{grid-template-columns:1fr}
+    .arrow{transform:rotate(90deg);height:30px}
+    .road{grid-template-columns:1fr}
+    .road div{border-right:none;border-bottom:1px solid var(--line)}
+    .road div:last-child{border-bottom:none}
+  }
+  @media (max-width:760px){
+    .bar nav{display:none}
+    .plot{grid-template-columns:92px minmax(0,1fr);padding-right:12px}
+    .lab{padding:0 10px}
+    .lab span{font-size:10.5px}
+    .ev span b{display:none}
+    .ev span i{display:inline}
+    .seg{display:none}
+    .evlist{display:block}
+    .quote{grid-template-columns:1fr}
+    .quote .k{padding:0 0 6px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">EpicGames / raddebugger</span>
+    <nav aria-label="Primary">
+      <a href="https://github.com/EpicGames/raddebugger/releases">Releases</a>
+      <a href="https://github.com/EpicGames/raddebugger/issues">Issues</a>
+      <a href="https://github.com/EpicGames/raddebugger">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap">
+      <div class="topgrid">
+        <div>
+          <p class="eyebrow mono up u1">The RAD Debugger Project &middot; alpha</p>
+          <h1 class="up u1">A native, multi&#8209;process, graphical debugger.</h1>
+        </div>
+        <div class="up u2">
+          <p class="lede">User-mode and graphical. Today it supports <b>local-machine Windows x64 debugging with PDBs</b>; native Linux debugging and DWARF debug info come next.</p>
+          <div class="chips mono"><span class="chip a">alpha</span><span class="chip">Windows x64 &middot; PDB &middot; now</span><span class="chip">Linux x64 &middot; DWARF &middot; next</span></div>
+          <div class="cta">
+            <a class="btn btn-lit" href="https://github.com/EpicGames/raddebugger/releases">Download a release</a>
+            <a class="btn btn-line" href="https://github.com/EpicGames/raddebugger/issues">Report an issue</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="scope up u3" role="img" aria-label="Illustrative timing diagram. The control layer runs only while attached processes are halted, and is halted while they run.">
+        <div class="sc-head mono"><span>Timing &middot; control layer vs. attached processes</span><span>illustrative &middot; not to scale</span></div>
+        <div class="plot">
+          <div class="lab r0" aria-hidden="true"></div>
+          <div class="bands" aria-hidden="true">
+            <div class="band" style="left:22%;width:18%"></div>
+            <div class="band" style="left:48%;width:16%"></div>
+            <div class="band" style="left:88%;width:12%"></div>
+          </div>
+          <div class="ev mono" aria-hidden="true">
+            <span style="left:22%"><b>breakpoint hit</b><i>1</i></span>
+            <span style="left:40%"><b>step</b><i>2</i></span>
+            <span style="left:48%"><b>step complete</b><i>3</i></span>
+            <span style="left:64%"><b>continue</b><i>4</i></span>
+            <span style="left:88%"><b>breakpoint hit</b><i>5</i></span>
+          </div>
+          <div class="lab r1"><b>CTRL_</b><span>control layer</span></div>
+          <div class="lane r1">
+            <svg viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+              <path class="w" d="M0,50 H220 V10 H400 V50 H480 V10 H640 V50 H880 V10 H1000"/>
+            </svg>
+            <span class="seg ctl mono" style="left:31%">runs</span>
+            <span class="seg ctl mono" style="left:56%">runs</span>
+            <span class="seg ctl mono" style="left:94%">runs</span>
+          </div>
+          <div class="lab r2"><b>process&nbsp;&times;&nbsp;n</b><span>every attached one</span></div>
+          <div class="lane r2">
+            <svg viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <line x1="0" y1="0" x2="0" y2="7" stroke="#5d6670" stroke-width="1.3"/>
+                </pattern>
+              </defs>
+              <polygon class="bus" points="0,6 212,6 220,30 212,54 0,54"/>
+              <polygon class="halt" points="220,30 228,6 392,6 400,30 392,54 228,54"/>
+              <polygon class="bus" points="400,30 408,6 472,6 480,30 472,54 408,54"/>
+              <polygon class="halt" points="480,30 488,6 632,6 640,30 632,54 488,54"/>
+              <polygon class="bus" points="640,30 648,6 872,6 880,30 872,54 648,54"/>
+              <polygon class="halt" points="880,30 888,6 1000,6 1000,54 888,54"/>
+            </svg>
+            <span class="seg run mono" style="left:11%">running</span>
+            <span class="seg hold mono" style="left:31%">halted</span>
+            <span class="seg run mono" style="left:44%">step</span>
+            <span class="seg hold mono" style="left:56%">halted</span>
+            <span class="seg run mono" style="left:76%">running</span>
+            <span class="seg hold mono" style="left:94%">halted</span>
+          </div>
+        </div>
+        <ol class="evlist mono" aria-hidden="true">
+          <li>breakpoint hit</li><li>step</li><li>step complete</li><li>continue</li><li>breakpoint hit</li>
+        </ol>
+        <div class="legend mono">
+          <span><i class="sw l"></i>control layer runs</span>
+          <span><i class="sw r"></i>processes running</span>
+          <span><i class="sw h"></i>processes halted</span>
+        </div>
+      </div>
+
+      <div class="quote up u4">
+        <span class="k mono">From the README</span>
+        <p><b>ctrl</b> implements asynchronous process control, stepping, and breakpoints for all attached processes.
+          <b>Runs in lockstep with attached processes.</b> When it runs, attached processes are halted. When attached processes are running, it is halted.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sh"><h2>One debug format in the middle</h2><span class="sub mono">RAD Debug Info, converted on demand</span></div>
+      <div class="flow">
+        <div class="col">
+          <div class="card"><span class="k mono">today</span><b>PDB</b><p>Converted into RDI on demand, in a separate process.</p></div>
+          <div class="card"><span class="k mono">eventually</span><b>PE / ELF with DWARF</b><p>Partial converter in <span class="mono">src/rdi_from_dwarf</span>.</p></div>
+        </div>
+        <div class="arrow" aria-hidden="true">&rarr;</div>
+        <div class="card core"><span class="k mono">rdi</span><b>RAD Debug Info</b><p>The custom format the debugger parses and uses, rather than the debug info toolchains natively produce.</p></div>
+        <div class="arrow" aria-hidden="true">&larr;</div>
+        <div class="col">
+          <div class="card"><span class="k mono">optional</span><b>RAD Linker</b><p>Writes standard PDBs, and can natively create RDI too &mdash; no conversion at debug time.</p></div>
+          <div class="card"><span class="k mono">utility</span><b>radbin</b><p>Converts native debug info to RDI and dumps RDI contents as text.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sh"><h2>Roadmap</h2><span class="sub mono">as the project lays it out</span></div>
+      <div class="road">
+        <div class="now"><span class="k mono">now</span><b>Alpha battle-testing</b><p>Rock-solid local x64 Windows debugging: debug info conversion and loading, process control, stepping, evaluation, and a robust frontend.</p></div>
+        <div><span class="k mono">next</span><b>Local x64 Linux debugging</b><p>Port <code class="mono">demon</code>, an ELF unwinder in <code class="mono">ctrl</code>, DWARF-to-RDI, plus the render, font and OS layers.</p></div>
+        <div><span class="k mono">and beyond</span><b>Further directions</b><p>Remote debugging, other architectures, and a better visualization engine.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="end">
+    <div class="wrap">
+      <p>The debugger is in <b>alpha</b>. The project asks for issue reports with whatever you can gather &mdash; dump files with the build you used, steps to reproduce, test executables.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README; the timing diagram is illustrative.</span>
+    <span><a href="https://github.com/EpicGames/raddebugger">github.com/EpicGames/raddebugger</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
