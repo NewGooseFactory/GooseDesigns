@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![348 mocks](https://img.shields.io/badge/mocks-348-1f6feb?style=flat-square) ![116 days](https://img.shields.io/badge/days-116-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![351 mocks](https://img.shields.io/badge/mocks-351-1f6feb?style=flat-square) ![117 days](https://img.shields.io/badge/days-117-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 348 mockups across 116 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 351 mockups across 117 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Wednesday, October 7
+## Latest — Thursday, October 8
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-10-07/"><img src="days/2026-10-07/01-rea.png" width="320" alt="morluto/rea"></a><br><sub><b>morluto/rea</b><br>redline</sub></td>
-<td align="center" width="33%"><a href="days/2026-10-07/"><img src="days/2026-10-07/02-raddebugger.png" width="320" alt="EpicGames/raddebugger"></a><br><sub><b>EpicGames/raddebugger</b><br>waveform</sub></td>
-<td align="center" width="33%"><a href="days/2026-10-07/"><img src="days/2026-10-07/03-cmux.png" width="320" alt="manaflow-ai/cmux"></a><br><sub><b>manaflow-ai/cmux</b><br>storyboard</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-08/"><img src="days/2026-10-08/01-anyps5.png" width="320" alt="boykopovar/AnyPS5"></a><br><sub><b>boykopovar/AnyPS5</b><br>data-viz</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-08/"><img src="days/2026-10-08/02-artcraft.png" width="320" alt="storytold/artcraft"></a><br><sub><b>storytold/artcraft</b><br>hud</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-08/"><img src="days/2026-10-08/03-system-design-notes.png" width="320" alt="liquidslr/system-design-notes"></a><br><sub><b>liquidslr/system-design-notes</b><br>constellation</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-10-07/)
+[See the full day →](days/2026-10-08/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-10-08 | Thursday | 3 | data-viz, hud, constellation | [open](days/2026-10-08/) |
 | 2026-10-07 | Wednesday | 3 | redline, waveform, storyboard | [open](days/2026-10-07/) |
 | 2026-10-05 | Monday | 3 | cell-grid, ledger, blueprint | [open](days/2026-10-05/) |
 | 2026-10-04 | Sunday | 3 | poster, strata, glass | [open](days/2026-10-04/) |

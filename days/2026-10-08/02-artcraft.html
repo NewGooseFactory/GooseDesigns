@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ArtCraft — build the scene before you generate it</title>
+<style>
+  :root{
+    --bg:#0b0c0b;
+    --panel:#111311;
+    --line:#282c27;
+    --ink:#edf0ea;
+    --muted:#a9b1a7;
+    --dim:#929b90;
+    --amb:#ffb648;
+    --amb-ink:#1a1206;
+    --amb-soft:rgba(255,182,72,.1);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--amb);border-bottom-color:var(--amb)}
+
+  .top{padding:36px 0 30px}
+  .topgrid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:40px;align-items:start}
+  .eyebrow{margin:0 0 16px;font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--amb)}
+  h1{margin:0 0 16px;font-size:clamp(34px,4.3vw,54px);line-height:1.02;letter-spacing:-.035em;font-weight:660;text-wrap:balance}
+  .lede{margin:0 0 20px;font-size:15px;color:var(--muted);line-height:1.62}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;margin-bottom:24px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:3px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--amb);color:var(--amb-ink);border-color:var(--amb)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#ffc874;border-color:#ffc874;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:var(--line)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--amb);color:var(--amb);transform:translateY(-1px)}
+
+  /* pre-generate checklist */
+  .check{border:1px solid var(--line);background:var(--panel)}
+  .ck-h{display:flex;justify-content:space-between;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+  .ck{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:12px;align-items:start;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .ck:last-child{border-bottom:none}
+  .box{width:14px;height:14px;margin-top:3px;border:1.5px solid var(--amb);background:var(--amb);position:relative}
+  .box::after{content:"";position:absolute;left:3px;top:0;width:4px;height:8px;border:solid var(--amb-ink);border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .ck.open .box{background:transparent}
+  .ck.open .box::after{display:none}
+  .ck b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .ck span.d{display:block;font-size:12.5px;color:var(--muted);line-height:1.45}
+  .ck .st{font-size:10.5px;letter-spacing:.12em;color:var(--dim);padding-top:2px}
+  .ck.open .st{color:var(--amb)}
+
+  /* viewfinder */
+  .vf{position:relative;aspect-ratio:16 / 10;border:1px solid var(--line);background:#101210;overflow:hidden}
+  .vf svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .tag{position:absolute;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--amb);white-space:nowrap}
+  .tag.box2{background:rgba(9,10,9,.78);border:1px solid rgba(255,182,72,.55);padding:2px 6px}
+  .tag .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--amb);margin-right:6px;vertical-align:0}
+  .t-tl{left:7%;top:7.5%}.t-tr{right:7%;top:7.5%}.t-bl{left:7%;top:12.5%;color:var(--dim)}.t-br{right:7%;bottom:7%;color:var(--dim)}
+  .t-id{left:61.5%;top:37%}.t-kb{left:9.5%;top:55%}.t-loc{left:57%;top:12.5%}
+  .vcap{margin:10px 0 0;font-size:12px;color:var(--dim)}
+  .shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+  .shot{margin:0}
+  .shot .fr{position:relative;aspect-ratio:16 / 10;border:1px solid var(--line);background:#101210;overflow:hidden}
+  .shot .fr svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .shot.on .fr{border-color:var(--amb);box-shadow:0 0 0 1px var(--amb)}
+  .shot figcaption{margin-top:6px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  .shot.on figcaption{color:var(--amb)}
+  .shots-cap{grid-column:1 / -1;margin:0;font-size:12px;color:var(--dim)}
+
+  .sec{padding:30px 0 8px}
+  .sh{display:flex;align-items:baseline;gap:16px;margin:0 0 14px;flex-wrap:wrap}
+  .sh h2{margin:0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .sh .sub{font-size:12px;color:var(--dim)}
+  .tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line)}
+  .tool{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0;background:var(--panel)}
+  .tool:nth-child(3n){border-right:none}
+  .tool:nth-last-child(-n+3){border-bottom:none}
+  .tool .k{display:block;font-size:10.5px;letter-spacing:.12em;color:var(--amb);margin-bottom:6px}
+  .tool b{display:block;font-size:14.5px;margin-bottom:4px}
+  .tool p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+
+  .models{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:40px;align-items:start;padding-bottom:44px}
+  .mrow{display:grid;grid-template-columns:190px minmax(0,1fr) 40px;gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+  .mrow .l{font-size:13px}
+  .mrow .seg{height:12px;background:repeating-linear-gradient(90deg,var(--amb) 0 9px,transparent 9px 12px)}
+  .mrow .v{font-size:13px;text-align:right}
+  .mrow.tot .l,.mrow.tot .v{font-weight:700}
+  .mrow.tot{border-bottom:none}
+  .side p{margin:0 0 12px;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .side p b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover,footer a:focus-visible{color:var(--amb);border-bottom-color:var(--amb)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid{grid-template-columns:1fr;gap:26px}
+    .tools{grid-template-columns:1fr 1fr}
+    .tool:nth-child(3n){border-right:1px solid var(--line)}
+    .tool:nth-child(2n){border-right:none}
+    .tool:nth-last-child(-n+3){border-bottom:1px solid var(--line)}
+    .tool:last-child{border-bottom:none}
+    .models{grid-template-columns:1fr;gap:20px}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .tools{grid-template-columns:1fr}
+    .tool{border-right:none !important}
+    .tool:nth-last-child(-n+3){border-bottom:1px solid var(--line)}
+    .tool:last-child{border-bottom:none}
+    .mrow{grid-template-columns:minmax(0,1fr) 40px}
+    .mrow .seg{grid-column:1 / -1;grid-row:2}
+    .mrow .gap{display:none}
+    .shots{grid-template-columns:1fr 1fr}
+    .t-id,.t-kb,.t-loc,.t-bl{display:none}
+    .tag{font-size:9.5px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">storytold / artcraft</span>
+    <nav aria-label="Primary">
+      <a href="https://getartcraft.com/">Download</a>
+      <a href="https://github.com/storytold/artcraft/releases">Releases</a>
+      <a href="https://github.com/storytold/artcraft">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">ArtCraft &middot; the IDE for artists</p>
+        <h1 class="up u1">Build the scene before you generate it.</h1>
+        <p class="lede up u2">ArtCraft is the IDE for interactive AI image and video creation. <b>Compose in 2D, stage scenes in 3D</b>, and choose the models that fit your work &mdash; visual tools for precise, repeatable results.</p>
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://getartcraft.com/">Download ArtCraft</a>
+          <a class="btn btn-line" href="https://github.com/storytold/artcraft/releases">GitHub releases</a>
+        </div>
+        <div class="check up u3" role="list" aria-label="Pre-generate checklist">
+          <div class="ck-h mono"><span>Pre-generate check</span><span>what artists need control over</span></div>
+          <div class="ck" role="listitem"><i class="box" aria-hidden="true"></i><div><b>Composition</b><span class="d">Backdrops, foregrounds and props layered in 3D.</span></div><span class="st mono">set</span></div>
+          <div class="ck" role="listitem"><i class="box" aria-hidden="true"></i><div><b>Character identity</b><span class="d">A posed mannequin guides your character.</span></div><span class="st mono">set</span></div>
+          <div class="ck" role="listitem"><i class="box" aria-hidden="true"></i><div><b>Camera placement</b><span class="d">Angle and framing set before the final shot.</span></div><span class="st mono">set</span></div>
+          <div class="ck open" role="listitem"><i class="box" aria-hidden="true"></i><div><b>Generate</b><span class="d">Now pick the model that fits the shot.</span></div><span class="st mono">ready</span></div>
+        </div>
+      </div>
+
+      <div class="up u3">
+        <div class="vf" role="img" aria-label="Illustrative viewfinder: a blocked-out room with two posed mannequins and a crate, framed by camera guides before generation.">
+          <svg viewBox="0 0 800 500" aria-hidden="true">
+            <rect x="0" y="0" width="800" height="250" fill="#161916"/>
+            <rect x="0" y="250" width="800" height="250" fill="#121512"/>
+            <g stroke="#2b3029" stroke-width="1">
+              <line x1="400" y1="250" x2="-400" y2="500"/><line x1="400" y1="250" x2="-100" y2="500"/>
+              <line x1="400" y1="250" x2="150" y2="500"/><line x1="400" y1="250" x2="400" y2="500"/>
+              <line x1="400" y1="250" x2="650" y2="500"/><line x1="400" y1="250" x2="900" y2="500"/>
+              <line x1="400" y1="250" x2="1200" y2="500"/>
+              <line x1="0" y1="268" x2="800" y2="268"/><line x1="0" y1="296" x2="800" y2="296"/>
+              <line x1="0" y1="342" x2="800" y2="342"/><line x1="0" y1="420" x2="800" y2="420"/>
+            </g>
+            <line x1="0" y1="250" x2="800" y2="250" stroke="#343a32" stroke-width="1.2"/>
+            <rect x="470" y="78" width="170" height="118" fill="#1b1f1a" stroke="#3b4239" stroke-width="2"/>
+            <line x1="555" y1="78" x2="555" y2="196" stroke="#3b4239" stroke-width="2"/>
+            <line x1="470" y1="137" x2="640" y2="137" stroke="#3b4239" stroke-width="2"/>
+            <polygon points="118,332 240,332 284,302 162,302" fill="#363c35" stroke="#4b5349" stroke-width="1.5"/>
+            <polygon points="240,332 284,302 284,410 240,444" fill="#252a24" stroke="#4b5349" stroke-width="1.5"/>
+            <rect x="118" y="332" width="122" height="112" fill="#2c312b" stroke="#4b5349" stroke-width="1.5"/>
+            <g stroke="#5f675e" stroke-linecap="round" fill="none">
+              <line x1="455" y1="262" x2="458" y2="330" stroke-width="22"/>
+              <line x1="448" y1="332" x2="436" y2="420" stroke-width="12"/>
+              <line x1="466" y1="332" x2="482" y2="418" stroke-width="12"/>
+              <line x1="445" y1="270" x2="418" y2="318" stroke-width="9"/>
+              <line x1="466" y1="268" x2="494" y2="236" stroke-width="9"/>
+            </g>
+            <circle cx="454" cy="236" r="15" fill="#6c746a"/>
+            <g stroke="#4d554c" stroke-linecap="round" fill="none">
+              <line x1="342" y1="290" x2="344" y2="334" stroke-width="15"/>
+              <line x1="337" y1="335" x2="330" y2="388" stroke-width="8"/>
+              <line x1="350" y1="335" x2="360" y2="387" stroke-width="8"/>
+              <line x1="336" y1="296" x2="322" y2="330" stroke-width="6"/>
+              <line x1="349" y1="296" x2="363" y2="328" stroke-width="6"/>
+            </g>
+            <circle cx="341" cy="273" r="10" fill="#566055"/>
+            <g stroke="#ffb648" stroke-width="1" stroke-dasharray="3 6" opacity=".38">
+              <line x1="266.7" y1="0" x2="266.7" y2="500"/><line x1="533.3" y1="0" x2="533.3" y2="500"/>
+              <line x1="0" y1="166.7" x2="800" y2="166.7"/><line x1="0" y1="333.3" x2="800" y2="333.3"/>
+            </g>
+            <g stroke="#ffb648" stroke-width="2.5" fill="none">
+              <path d="M40,74 V40 H74"/><path d="M726,40 H760 V74"/><path d="M40,426 V460 H74"/><path d="M726,460 H760 V426"/>
+            </g>
+            <g stroke="#ffb648" stroke-width="1.5"><line x1="392" y1="250" x2="408" y2="250"/><line x1="400" y1="242" x2="400" y2="258"/></g>
+            <g stroke="#ffb648" stroke-width="2" fill="none">
+              <path d="M410,214 V202 H422"/><path d="M490,202 H502 V214"/><path d="M410,416 V428 H422"/><path d="M490,428 H502 V416"/>
+            </g>
+            <rect x="108" y="292" width="186" height="162" fill="none" stroke="#ffb648" stroke-width="1.2" stroke-dasharray="5 5" opacity=".7"/>
+          </svg>
+          <span class="tag t-tl mono">Shot 03 &middot; cam A</span>
+          <span class="tag t-tr mono"><i class="dot"></i>Blocking</span>
+          <span class="tag t-bl mono num">35 mm &middot; 1.4 m &middot; tilt &minus;4&deg;</span>
+          <span class="tag t-br mono">illustrative</span>
+          <span class="tag box2 t-id mono">Identity &middot; posed</span>
+          <span class="tag box2 t-kb mono">Kitbash &middot; crate</span>
+          <span class="tag box2 t-loc mono">Location &middot; same room</span>
+        </div>
+        <p class="vcap mono">Blocked in grey first: the room, the props, the mannequins and the camera. Nothing has been generated yet.</p>
+        <div class="shots" aria-label="Three illustrative shots planned in the same room">
+          <figure class="shot">
+            <div class="fr"><svg viewBox="0 0 160 100" aria-hidden="true"><rect width="160" height="50" fill="#161916"/><rect y="50" width="160" height="50" fill="#121512"/><line x1="0" y1="50" x2="160" y2="50" stroke="#343a32"/><g stroke="#2b3029"><line x1="80" y1="50" x2="0" y2="100"/><line x1="80" y1="50" x2="50" y2="100"/><line x1="80" y1="50" x2="110" y2="100"/><line x1="80" y1="50" x2="160" y2="100"/></g><rect x="96" y="14" width="34" height="24" fill="#1b1f1a" stroke="#3b4239"/><rect x="22" y="60" width="24" height="20" fill="#2c312b" stroke="#4b5349"/><g stroke-linecap="round"><line x1="72" y1="57" x2="72" y2="71" stroke="#4d554c" stroke-width="3.5"/><line x1="101" y1="56" x2="101" y2="74" stroke="#5f675e" stroke-width="4.5"/></g><circle cx="72" cy="53" r="3" fill="#566055"/><circle cx="101" cy="51" r="3.6" fill="#6c746a"/></svg></div>
+            <figcaption class="mono">Shot 01 &middot; wide</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="fr"><svg viewBox="0 0 160 100" aria-hidden="true"><rect width="160" height="46" fill="#161916"/><rect y="46" width="160" height="54" fill="#121512"/><line x1="0" y1="46" x2="160" y2="46" stroke="#343a32"/><g stroke="#2b3029"><line x1="80" y1="46" x2="-40" y2="100"/><line x1="80" y1="46" x2="40" y2="100"/><line x1="80" y1="46" x2="120" y2="100"/><line x1="80" y1="46" x2="200" y2="100"/></g><rect x="112" y="4" width="44" height="30" fill="#1b1f1a" stroke="#3b4239"/><rect x="-6" y="62" width="26" height="30" fill="#2c312b" stroke="#4b5349"/><g stroke-linecap="round"><line x1="64" y1="44" x2="64" y2="80" stroke="#4d554c" stroke-width="8"/><line x1="98" y1="40" x2="99" y2="84" stroke="#5f675e" stroke-width="10"/></g><circle cx="64" cy="35" r="6" fill="#566055"/><circle cx="98" cy="29" r="7.5" fill="#6c746a"/></svg></div>
+            <figcaption class="mono">Shot 02 &middot; two-shot</figcaption>
+          </figure>
+          <figure class="shot on">
+            <div class="fr"><svg viewBox="0 0 160 100" aria-hidden="true"><rect width="160" height="50" fill="#161916"/><rect y="50" width="160" height="50" fill="#121512"/><line x1="0" y1="50" x2="160" y2="50" stroke="#343a32"/><rect x="94" y="10" width="40" height="28" fill="#1b1f1a" stroke="#3b4239"/><g stroke-linecap="round"><line x1="70" y1="54" x2="71" y2="98" stroke="#4d554c" stroke-width="10"/><line x1="91" y1="44" x2="92" y2="100" stroke="#5f675e" stroke-width="15"/><line x1="98" y1="50" x2="114" y2="34" stroke="#5f675e" stroke-width="6"/></g><circle cx="70" cy="44" r="7" fill="#566055"/><circle cx="90" cy="31" r="10" fill="#6c746a"/><g stroke="#ffb648" stroke-width="1.5" fill="none"><path d="M8,18 V8 H18"/><path d="M142,8 H152 V18"/><path d="M8,82 V92 H18"/><path d="M142,92 H152 V82"/></g></svg></div>
+            <figcaption class="mono">Shot 03 &middot; single</figcaption>
+          </figure>
+          <p class="shots-cap mono">Plan multiple shots in the same room, then generate each one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sh"><h2>Crafting tools</h2><span class="sub mono">from the README</span></div>
+      <div class="tools up u4">
+        <div class="tool"><span class="k mono">01</span><b>Image to Location</b><p>Place virtual actors in a consistent environment and plan multiple shots in the same room.</p></div>
+        <div class="tool"><span class="k mono">02</span><b>3D Image Compositing</b><p>Layer backdrops, foregrounds, and props in 3D to build compositions with depth.</p></div>
+        <div class="tool"><span class="k mono">03</span><b>2D Image Compositing</b><p>Compose a scene with image layers, background removal, and drawing tools.</p></div>
+        <div class="tool"><span class="k mono">04</span><b>Image to 3D Mesh</b><p>Turn an image into a 3D object you can position, rotate, and frame precisely.</p></div>
+        <div class="tool"><span class="k mono">05</span><b>Character Posing</b><p>Pose characters and set your camera before generating the final shot.</p></div>
+        <div class="tool"><span class="k mono">06</span><b>Scene Blocking with Kitbashing</b><p>Combine 3D asset kits to control camera angles, object placement, and depth.</p></div>
+        <div class="tool"><span class="k mono">07</span><b>Character Identity Transfer</b><p>Use a posed mannequin to guide the placement and pose of your character.</p></div>
+        <div class="tool"><span class="k mono">08</span><b>Background Removal</b><p>Isolate subjects to use as props, layers, or backdrops in 2D and 3D scenes.</p></div>
+        <div class="tool"><span class="k mono">09</span><b>Mixed Asset Crafting</b><p>Combine image cutouts, worlds, and 3D meshes in one scene.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap models">
+      <div>
+        <div class="sh"><h2>Models, by what they make</h2><span class="sub mono">the README&rsquo;s ArtCraft catalog</span></div>
+        <div class="mrow"><span class="l">Video</span><span class="seg" style="width:100%"></span><span class="v mono num">25</span></div>
+        <div class="mrow"><span class="l">Images</span><span class="seg" style="width:64%"></span><span class="v mono num">16</span></div>
+        <div class="mrow"><span class="l">3D meshes</span><span class="seg" style="width:44%"></span><span class="v mono num">11</span></div>
+        <div class="mrow"><span class="l">Music and sound</span><span class="seg" style="width:20%"></span><span class="v mono num">5</span></div>
+        <div class="mrow"><span class="l">Worlds and Gaussian splats</span><span class="seg" style="width:20%"></span><span class="v mono num">5</span></div>
+        <div class="mrow tot"><span class="l">Catalog</span><span class="gap"></span><span class="v mono num">62</span></div>
+      </div>
+      <div class="side">
+        <p>Start with a prompt to explore an idea quickly, then use <b>the canvas and scene tools to refine it</b>.</p>
+        <p>Beyond the catalog, ArtCraft also works with <b>Grok, Midjourney, Sora and World Labs</b>. The README marks some catalog models as disabled or restricted.</p>
+        <p>Stable releases for <b>Windows and macOS</b>; build from source on Linux.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README; the viewfinder scene and its readouts are illustrative.</span>
+    <span><a href="https://github.com/storytold/artcraft">github.com/storytold/artcraft</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

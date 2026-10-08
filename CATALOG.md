@@ -1,11 +1,14 @@
 ﻿# Catalog — every design rep
 
-Searchable master index. **348 mocks** across **116 days**. Newest first.
+Searchable master index. **351 mocks** across **117 days**. Newest first.
 
 Tip: press <kbd>t</kbd> in GitHub's file finder, or search e.g. `repo:NewGooseFactory/GooseDesigns blueprint` / a repo name / an idea keyword.
 
 | Date | Day | Repository | Style | Accent | Idea tested | Verdict | Preview | Page |
 |------|-----|------------|-------|--------|-------------|---------|---------|------|
+| 2026-10-08 | Thursday | [boykopovar/AnyPS5](https://github.com/boykopovar/AnyPS5) | data-viz | denominator-orange | Set the two progress bars side by side and draw their denominators differently, an open dashed end for the library total that grows and a hard wall for the fixed shader list | Two percentages that look alike read honestly only when the page shows what each one is divided by | [png](days/2026-10-08/01-anyps5.png) | [2026-10-08](days/2026-10-08/) |
+| 2026-10-08 | Thursday | [storytold/artcraft](https://github.com/storytold/artcraft) | hud | viewfinder-amber | Frame the hero as a camera viewfinder over a grey blocked-out scene, with a pre-generate checklist for composition, character identity and camera | A checklist in front of the generate button turns prompting into staging, which is the product's whole argument | [png](days/2026-10-08/02-artcraft.png) | [2026-10-08](days/2026-10-08/) |
+| 2026-10-08 | Thursday | [liquidslr/system-design-notes](https://github.com/liquidslr/system-design-notes) | constellation | atlas-gold | Map the 28 chapters as a star chart sized by note length, with gold fans out to each chapter's listed primary sources | The chart shows where the notes reach past the book and where they do not yet, with no commentary needed | [png](days/2026-10-08/03-system-design-notes.png) | [2026-10-08](days/2026-10-08/) |
 | 2026-10-07 | Wednesday | [morluto/rea](https://github.com/morluto/rea) | redline | evidence-vermilion | Mark up a finding like a proof, tying each claim to the REA tool that supports it and circling the one it could not resolve as unknown | Circling the one unknown builds more trust than a capability list, because it shows the tool will not guess | [png](days/2026-10-07/01-rea.png) | [2026-10-07](days/2026-10-07/) |
 | 2026-10-07 | Wednesday | [EpicGames/raddebugger](https://github.com/EpicGames/raddebugger) | waveform | lockstep-lime | Draw the README's lockstep sentence as a timing diagram, with the control layer and every attached process never high together | Drawn as two traces that are never high together, one architecture sentence becomes the hero | [png](days/2026-10-07/02-raddebugger.png) | [2026-10-07](days/2026-10-07/) |
 | 2026-10-07 | Wednesday | [manaflow-ai/cmux](https://github.com/manaflow-ai/cmux) | storyboard | ring-blue | Storyboard the interruption in four frames and give the ring frame the widest cel, so the stock alert and the lit tab sit side by side | Setting the stock banner beside the lit tab argues for context without a single adjective | [png](days/2026-10-07/03-cmux.png) | [2026-10-07](days/2026-10-07/) |

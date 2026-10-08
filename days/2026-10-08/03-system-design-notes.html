@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System design notes — read the notes, then the papers behind them</title>
+<style>
+  :root{
+    --sky:#0b1222;
+    --panel:#0f182d;
+    --line:#23314f;
+    --ink:#eef2f8;
+    --muted:#aab5ca;
+    --dim:#8e9bb4;
+    --gold:#e8c26a;
+    --gold-ink:#1b1405;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--sky);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--gold);border-bottom-color:var(--gold)}
+
+  .plate{padding:36px 0 18px;text-align:center}
+  .eyebrow{margin:0 0 14px;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  h1{margin:0 auto 14px;max-width:16em;font-size:clamp(32px,4.4vw,54px);line-height:1.06;letter-spacing:-.02em;font-weight:600;text-wrap:balance}
+  .lede{margin:0 auto 22px;max-width:44em;font-size:15.5px;color:var(--muted);line-height:1.62}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px;justify-content:center}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:3px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease,transform .17s ease}
+  .btn-lit{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#f2d58f;border-color:#f2d58f;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:var(--line)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+
+  .chart{margin:26px 0 0;border:1px solid var(--line);background:var(--panel)}
+  .ch-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .sky{position:relative;aspect-ratio:1000 / 360}
+  .sky svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .cn{position:absolute;transform:translate(-50%,-50%);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;color:var(--dim);letter-spacing:.04em}
+  .cn.g{color:var(--gold);font-weight:700}
+  .nm{position:absolute;transform:translate(-50%,-50%);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;color:var(--muted);white-space:nowrap;letter-spacing:.04em}
+  .nm.l{transform:translate(0,-50%)}
+  .nm.r{transform:translate(-100%,-50%)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 24px;padding:10px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--dim)}
+  .legend i{display:inline-block;vertical-align:-1px;margin-right:7px;border-radius:50%}
+  .legend .s1{width:6px;height:6px;background:#dfe6f2}
+  .legend .s2{width:12px;height:12px;background:#dfe6f2}
+  .legend .s3{width:10px;height:10px;background:var(--gold)}
+  .legend .s4{width:6px;height:6px;background:#f1d79a}
+
+  .read{padding:28px 0 46px}
+  .rgrid{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:40px;align-items:start}
+  .obs{border-left:2px solid var(--gold);padding:2px 0 2px 16px}
+  .obs h2{margin:0 0 8px;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+  .obs p{margin:0 0 10px;font-size:15px;line-height:1.6;color:var(--muted)}
+  .obs p b{color:var(--ink);font-weight:600}
+  .list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
+  .it{padding:12px 14px 14px 0;border-bottom:1px solid var(--line);min-width:0}
+  .it .k{font-size:10.5px;letter-spacing:.12em;color:var(--gold);font-weight:700}
+  .it b{display:block;font-size:14.5px;margin:2px 0 4px}
+  .it p{margin:0;font-size:12px;color:var(--muted);line-height:1.5}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer .wrap span:first-child{max-width:54em}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover,footer a:focus-visible{color:var(--gold);border-bottom-color:var(--gold)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .rgrid{grid-template-columns:1fr;gap:24px}
+    .list{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .cn,.nm{display:none}
+    .list{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">liquidslr / system-design-notes</span>
+    <nav aria-label="Primary">
+      <a href="https://bytebytego.com/courses/system-design-interview">The books</a>
+      <a href="https://github.com/liquidslr/system-design-notes">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="plate">
+    <div class="wrap">
+      <p class="eyebrow mono up u1">Plate I &middot; notes on System Design Interview, Vol 1 and 2</p>
+      <h1 class="serif up u1">Read the notes, then the papers behind them.</h1>
+      <p class="lede up u2">Chapter-by-chapter notes on the System Design Interview books &mdash; twenty-eight designs, from scaling to a stock exchange.
+        <b>Nine chapters point past the book to primary sources</b>: Amazon&rsquo;s Dynamo paper, Google&rsquo;s BigTable and Maglev, Twitter&rsquo;s Snowflake and more.</p>
+      <div class="cta up u2">
+        <a class="btn btn-lit" href="https://github.com/liquidslr/system-design-notes">Read the notes on GitHub</a>
+        <a class="btn btn-line" href="https://bytebytego.com/courses/system-design-interview">The books</a>
+      </div>
+
+      <div class="chart up u3">
+        <div class="ch-head mono"><span>01 scale from zero &rarr; 28 stock exchange, in reading order</span><span>note lengths read from the repo &middot; Oct 8, 2026</span></div>
+        <div class="sky" role="img" aria-label="Star chart of 28 chapters in reading order. Star size shows note length; nine gold stars in chapters 4 to 15 connect to 30 outside sources; the largest stars, chapters 16 to 28, have none listed.">
+          <svg viewBox="0 0 1000 360" aria-hidden="true"><circle cx="116" cy="0" r="1" fill="#7f8db0" opacity=".35"/><circle cx="200" cy="192" r="1" fill="#7f8db0" opacity=".35"/><circle cx="200" cy="176" r="1" fill="#7f8db0" opacity=".35"/><circle cx="176" cy="296" r="1" fill="#7f8db0" opacity=".35"/><circle cx="712" cy="176" r="1" fill="#7f8db0" opacity=".35"/><circle cx="216" cy="120" r="1" fill="#7f8db0" opacity=".35"/><circle cx="128" cy="64" r="1" fill="#7f8db0" opacity=".35"/><circle cx="160" cy="120" r="1" fill="#7f8db0" opacity=".35"/><circle cx="856" cy="40" r="1" fill="#7f8db0" opacity=".35"/><circle cx="872" cy="184" r="1" fill="#7f8db0" opacity=".35"/><circle cx="760" cy="208" r="1" fill="#7f8db0" opacity=".35"/><circle cx="744" cy="32" r="1" fill="#7f8db0" opacity=".35"/><circle cx="56" cy="48" r="1" fill="#7f8db0" opacity=".35"/><circle cx="760" cy="208" r="1" fill="#7f8db0" opacity=".35"/><circle cx="744" cy="40" r="1" fill="#7f8db0" opacity=".35"/><circle cx="904" cy="152" r="1" fill="#7f8db0" opacity=".35"/><circle cx="424" cy="128" r="1" fill="#7f8db0" opacity=".35"/><circle cx="304" cy="32" r="1" fill="#7f8db0" opacity=".35"/><circle cx="400" cy="272" r="1" fill="#7f8db0" opacity=".35"/><circle cx="784" cy="352" r="1" fill="#7f8db0" opacity=".35"/><circle cx="928" cy="288" r="1" fill="#7f8db0" opacity=".35"/><circle cx="360" cy="64" r="1" fill="#7f8db0" opacity=".35"/><circle cx="448" cy="8" r="1" fill="#7f8db0" opacity=".35"/><circle cx="688" cy="8" r="1" fill="#7f8db0" opacity=".35"/><circle cx="128" cy="216" r="1" fill="#7f8db0" opacity=".35"/><circle cx="512" cy="208" r="1" fill="#7f8db0" opacity=".35"/><circle cx="568" cy="232" r="1" fill="#7f8db0" opacity=".35"/><circle cx="72" cy="240" r="1" fill="#7f8db0" opacity=".35"/><circle cx="480" cy="304" r="1" fill="#7f8db0" opacity=".35"/><circle cx="392" cy="320" r="1" fill="#7f8db0" opacity=".35"/><circle cx="952" cy="280" r="1" fill="#7f8db0" opacity=".35"/><circle cx="40" cy="80" r="1" fill="#7f8db0" opacity=".35"/><circle cx="112" cy="32" r="1" fill="#7f8db0" opacity=".35"/><circle cx="192" cy="176" r="1" fill="#7f8db0" opacity=".35"/><circle cx="408" cy="112" r="1" fill="#7f8db0" opacity=".35"/><circle cx="696" cy="144" r="1" fill="#7f8db0" opacity=".35"/><circle cx="712" cy="336" r="1" fill="#7f8db0" opacity=".35"/><circle cx="960" cy="216" r="1" fill="#7f8db0" opacity=".35"/><circle cx="960" cy="320" r="1" fill="#7f8db0" opacity=".35"/><circle cx="336" cy="312" r="1" fill="#7f8db0" opacity=".35"/><polyline points="70,182 101.9,197.7 133.7,208.7 165.6,211.9 197.4,206.3 229.3,193.4 261.1,177.3 293,162.5 324.8,153.5 356.7,152.8 388.5,160.8 420.4,175.1 452.2,191.3 484.1,204.9 515.9,211.6 547.8,209.7 579.6,199.5 611.5,184.2 643.3,168.3 675.2,156.4 707,152 738.9,156.5 770.7,168.5 802.6,184.5 834.4,199.8 866.3,209.8 898.1,211.6 930,204.7" fill="none" stroke="#2a3a5e" stroke-width="1.2" stroke-dasharray="2 5"/><circle cx="70" cy="182" r="10.1" fill="#dfe6f2" opacity=".08"/><circle cx="70" cy="182" r="6.1" fill="#dfe6f2"/><circle cx="101.9" cy="197.7" r="8.5" fill="#dfe6f2" opacity=".08"/><circle cx="101.9" cy="197.7" r="4.5" fill="#dfe6f2"/><circle cx="133.7" cy="208.7" r="8.6" fill="#dfe6f2" opacity=".08"/><circle cx="133.7" cy="208.7" r="4.6" fill="#dfe6f2"/><line x1="165.6" y1="204" x2="156.8" y2="140.4" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="156.8" cy="140.4" r="2.8" fill="#f1d79a"/><line x1="165.6" y1="204" x2="175.8" y2="128.5" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="175.8" cy="128.5" r="2.8" fill="#f1d79a"/><circle cx="165.6" cy="211.9" r="9.9" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="165.6" cy="211.9" r="4.9" fill="#e8c26a"/><line x1="197.4" y1="214.1" x2="163.6" y2="269.8" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="163.6" cy="269.8" r="2.8" fill="#f1d79a"/><line x1="197.4" y1="214.1" x2="177.1" y2="287.8" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="177.1" cy="287.8" r="2.8" fill="#f1d79a"/><line x1="197.4" y1="214.1" x2="197.4" y2="278.3" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="197.4" cy="278.3" r="2.8" fill="#f1d79a"/><line x1="197.4" y1="214.1" x2="217.7" y2="287.8" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="217.7" cy="287.8" r="2.8" fill="#f1d79a"/><line x1="197.4" y1="214.1" x2="231.2" y2="269.8" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="231.2" cy="269.8" r="2.8" fill="#f1d79a"/><circle cx="197.4" cy="206.3" r="9.9" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="197.4" cy="206.3" r="4.9" fill="#e8c26a"/><line x1="229.3" y1="184" x2="188" y2="134.5" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="188" cy="134.5" r="2.8" fill="#f1d79a"/><line x1="229.3" y1="184" x2="199.2" y2="115" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="199.2" cy="115" r="2.8" fill="#f1d79a"/><line x1="229.3" y1="184" x2="220.5" y2="122" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="220.5" cy="122" r="2.8" fill="#f1d79a"/><line x1="229.3" y1="184" x2="239.5" y2="110.1" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="239.5" cy="110.1" r="2.8" fill="#f1d79a"/><line x1="229.3" y1="184" x2="255.1" y2="126.2" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="255.1" cy="126.2" r="2.8" fill="#f1d79a"/><line x1="229.3" y1="184" x2="277.4" y2="124.6" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="277.4" cy="124.6" r="2.8" fill="#f1d79a"/><circle cx="229.3" cy="193.4" r="11.4" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="229.3" cy="193.4" r="6.4" fill="#e8c26a"/><line x1="261.1" y1="184.9" x2="252.3" y2="248.7" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="252.3" cy="248.7" r="2.8" fill="#f1d79a"/><line x1="261.1" y1="184.9" x2="271.3" y2="260.6" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="271.3" cy="260.6" r="2.8" fill="#f1d79a"/><circle cx="261.1" cy="177.3" r="9.6" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="261.1" cy="177.3" r="4.6" fill="#e8c26a"/><circle cx="293" cy="162.5" r="8.9" fill="#dfe6f2" opacity=".08"/><circle cx="293" cy="162.5" r="4.9" fill="#dfe6f2"/><line x1="324.8" y1="145.1" x2="316" y2="82" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="316" cy="82" r="2.8" fill="#f1d79a"/><line x1="324.8" y1="145.1" x2="335.1" y2="70.1" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="335.1" cy="70.1" r="2.8" fill="#f1d79a"/><circle cx="324.8" cy="153.5" r="10.4" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="324.8" cy="153.5" r="5.4" fill="#e8c26a"/><circle cx="356.7" cy="152.8" r="9.1" fill="#dfe6f2" opacity=".08"/><circle cx="356.7" cy="152.8" r="5.1" fill="#dfe6f2"/><circle cx="388.5" cy="160.8" r="9.1" fill="#dfe6f2" opacity=".08"/><circle cx="388.5" cy="160.8" r="5.1" fill="#dfe6f2"/><line x1="420.4" y1="183.7" x2="411.6" y2="246.5" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="411.6" cy="246.5" r="2.8" fill="#f1d79a"/><line x1="420.4" y1="183.7" x2="430.6" y2="258.4" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="430.6" cy="258.4" r="2.8" fill="#f1d79a"/><circle cx="420.4" cy="175.1" r="10.7" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="420.4" cy="175.1" r="5.7" fill="#e8c26a"/><line x1="452.2" y1="182.9" x2="443.4" y2="119.9" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="443.4" cy="119.9" r="2.8" fill="#f1d79a"/><line x1="452.2" y1="182.9" x2="462.5" y2="108" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="462.5" cy="108" r="2.8" fill="#f1d79a"/><circle cx="452.2" cy="191.3" r="10.5" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="452.2" cy="191.3" r="5.5" fill="#e8c26a"/><line x1="484.1" y1="213.6" x2="442.8" y2="263.8" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="442.8" cy="263.8" r="2.8" fill="#f1d79a"/><line x1="484.1" y1="213.6" x2="454" y2="283.3" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="454" cy="283.3" r="2.8" fill="#f1d79a"/><line x1="484.1" y1="213.6" x2="475.3" y2="276.3" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="475.3" cy="276.3" r="2.8" fill="#f1d79a"/><line x1="484.1" y1="213.6" x2="494.3" y2="288.2" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="494.3" cy="288.2" r="2.8" fill="#f1d79a"/><line x1="484.1" y1="213.6" x2="509.9" y2="272.1" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="509.9" cy="272.1" r="2.8" fill="#f1d79a"/><line x1="484.1" y1="213.6" x2="532.3" y2="273.7" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="532.3" cy="273.7" r="2.8" fill="#f1d79a"/><circle cx="484.1" cy="204.9" r="10.7" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="484.1" cy="204.9" r="5.7" fill="#e8c26a"/><line x1="515.9" y1="202.8" x2="498.5" y2="141.8" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="498.5" cy="141.8" r="2.8" fill="#f1d79a"/><line x1="515.9" y1="202.8" x2="515.9" y2="127.6" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="515.9" cy="127.6" r="2.8" fill="#f1d79a"/><line x1="515.9" y1="202.8" x2="533.3" y2="141.8" stroke="#e8c26a" stroke-width="1" opacity=".55"/><circle cx="533.3" cy="141.8" r="2.8" fill="#f1d79a"/><circle cx="515.9" cy="211.6" r="10.9" fill="none" stroke="#e8c26a" stroke-width="1" opacity=".45"/><circle cx="515.9" cy="211.6" r="5.9" fill="#e8c26a"/><circle cx="547.8" cy="209.7" r="10.6" fill="#dfe6f2" opacity=".08"/><circle cx="547.8" cy="209.7" r="6.6" fill="#dfe6f2"/><circle cx="579.6" cy="199.5" r="10.8" fill="#dfe6f2" opacity=".08"/><circle cx="579.6" cy="199.5" r="6.8" fill="#dfe6f2"/><circle cx="611.5" cy="184.2" r="11.4" fill="#dfe6f2" opacity=".08"/><circle cx="611.5" cy="184.2" r="7.4" fill="#dfe6f2"/><circle cx="643.3" cy="168.3" r="12.9" fill="#dfe6f2" opacity=".08"/><circle cx="643.3" cy="168.3" r="8.9" fill="#dfe6f2"/><circle cx="675.2" cy="156.4" r="12.2" fill="#dfe6f2" opacity=".08"/><circle cx="675.2" cy="156.4" r="8.2" fill="#dfe6f2"/><circle cx="707" cy="152" r="12.5" fill="#dfe6f2" opacity=".08"/><circle cx="707" cy="152" r="8.5" fill="#dfe6f2"/><circle cx="738.9" cy="156.5" r="12" fill="#dfe6f2" opacity=".08"/><circle cx="738.9" cy="156.5" r="8" fill="#dfe6f2"/><circle cx="770.7" cy="168.5" r="11.2" fill="#dfe6f2" opacity=".08"/><circle cx="770.7" cy="168.5" r="7.2" fill="#dfe6f2"/><circle cx="802.6" cy="184.5" r="11.9" fill="#dfe6f2" opacity=".08"/><circle cx="802.6" cy="184.5" r="7.9" fill="#dfe6f2"/><circle cx="834.4" cy="199.8" r="11.4" fill="#dfe6f2" opacity=".08"/><circle cx="834.4" cy="199.8" r="7.4" fill="#dfe6f2"/><circle cx="866.3" cy="209.8" r="11.4" fill="#dfe6f2" opacity=".08"/><circle cx="866.3" cy="209.8" r="7.4" fill="#dfe6f2"/><circle cx="898.1" cy="211.6" r="12" fill="#dfe6f2" opacity=".08"/><circle cx="898.1" cy="211.6" r="8" fill="#dfe6f2"/><circle cx="930" cy="204.7" r="12.5" fill="#dfe6f2" opacity=".08"/><circle cx="930" cy="204.7" r="8.5" fill="#dfe6f2"/><line x1="643.3" y1="154.3" x2="643.3" y2="118.3" stroke="#8d9ab3" stroke-width="1"/></svg>
+          <span class="cn" style="left:7%;top:55.9%">01</span><span class="cn" style="left:10.2%;top:50%">02</span><span class="cn" style="left:13.4%;top:62.9%">03</span><span class="cn g" style="left:16.6%;top:64.1%">04</span><span class="cn g" style="left:19.7%;top:52.1%">05</span><span class="cn g" style="left:22.9%;top:59.4%">06</span><span class="cn g" style="left:26.1%;top:44.1%">07</span><span class="cn" style="left:29.3%;top:40.2%">08</span><span class="cn g" style="left:32.5%;top:48%">09</span><span class="cn" style="left:35.7%;top:37.4%">10</span><span class="cn" style="left:38.9%;top:49.7%">11</span><span class="cn g" style="left:42%;top:43.2%">12</span><span class="cn g" style="left:45.2%;top:58.6%">13</span><span class="cn g" style="left:48.4%;top:51.4%">14</span><span class="cn g" style="left:51.6%;top:64.3%">15</span><span class="cn" style="left:54.8%;top:52.8%">16</span><span class="cn" style="left:58%;top:60.9%">17</span><span class="cn" style="left:61.1%;top:45.5%">18</span><span class="cn" style="left:64.3%;top:52.8%">19</span><span class="cn" style="left:67.5%;top:37.6%">20</span><span class="cn" style="left:70.7%;top:48.2%">21</span><span class="cn" style="left:73.9%;top:37.6%">22</span><span class="cn" style="left:77.1%;top:52.4%">23</span><span class="cn" style="left:80.3%;top:45.4%">24</span><span class="cn" style="left:83.4%;top:61.2%">25</span><span class="cn" style="left:86.6%;top:52.6%">26</span><span class="cn" style="left:89.8%;top:64.6%">27</span><span class="cn" style="left:93%;top:50.9%">28</span><span class="nm" style="left:64.3%;top:29.5%">longest notes &middot; 28.6 KB</span>
+        </div>
+        <div class="legend mono">
+          <span><i class="s1"></i><i class="s2"></i>star size = length of the notes, 3.5 to 28.6 KB</span>
+          <span><i class="s3"></i>outside reading listed in the README</span>
+          <span><i class="s4"></i>one source</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="read">
+    <div class="wrap rgrid">
+      <div class="obs up u4">
+        <h2 class="mono">What the chart shows</h2>
+        <p>Every chapter with outside reading sits in the <b>first fifteen</b>: thirty sources across nine chapters.</p>
+        <p>The <b>longest notes</b> &mdash; chapters 19, 28 and 21 &mdash; list none yet. The README calls the notes a work in progress.</p>
+      </div>
+      <div class="list up u4">
+        <div class="it"><span class="k mono">04 &middot; 2</span><b>Rate Limiter</b><p>Circuit Breaker Algorithm &middot; Uber Rate Limiter</p></div>
+        <div class="it"><span class="k mono">05 &middot; 5</span><b>Consistent Hashing</b><p>Consistent Hashing &middot; Stanford CS168 &middot; Apache Cassandra &middot; Scaling Discord &middot; Google Maglev</p></div>
+        <div class="it"><span class="k mono">06 &middot; 6</span><b>Key-Value Store</b><p>Amazon Dynamo &middot; Cassandra Architecture &middot; Google BigTable &middot; Dynamo DB internals, design patterns and two talks</p></div>
+        <div class="it"><span class="k mono">07 &middot; 2</span><b>Unique ID Generator</b><p>Ticket Servers: Distributed Unique Primary Keys on the Cheap &middot; Snowflake</p></div>
+        <div class="it"><span class="k mono">09 &middot; 2</span><b>Web Crawler</b><p>Web Crawling &middot; Google Dynamic Rendering</p></div>
+        <div class="it"><span class="k mono">12 &middot; 2</span><b>Chat System</b><p>How Discord stores billions of messages &middot; Flannel, Slack&rsquo;s edge cache</p></div>
+        <div class="it"><span class="k mono">13 &middot; 2</span><b>Search Autocomplete</b><p>How We Built Prefixy &middot; Prefix Hash Tree</p></div>
+        <div class="it"><span class="k mono">14 &middot; 6</span><b>YouTube</b><p>YouTube Architecture &middot; YouTube scalability 2012 &middot; transcoding at scale &middot; Facebook live video &middot; two Netflix encoding posts</p></div>
+        <div class="it"><span class="k mono">15 &middot; 3</span><b>Google Drive</b><p>Differential Synchronization, paper and talk &middot; How We&rsquo;ve Scaled Dropbox</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated with the notes&rsquo; author or the books. Chapter titles and sources from the README; note lengths are the size of each chapter&rsquo;s notes file in the repository.</span>
+    <span><a href="https://github.com/liquidslr/system-design-notes">github.com/liquidslr/system-design-notes</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

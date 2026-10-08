@@ -1,9 +1,10 @@
 ﻿# Style — data-viz
 
-23 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+24 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-08](../days/2026-10-08/) | [boykopovar/AnyPS5](https://github.com/boykopovar/AnyPS5) | denominator-orange | Set the two progress bars side by side and draw their denominators differently, an open dashed end for the library total that grows and a hard wall for the fixed shader list | Two percentages that look alike read honestly only when the page shows what each one is divided by | [png](../days/2026-10-08/01-anyps5.png) |
 | [2026-09-30](../days/2026-09-30/) | [rakyll/hey](https://github.com/rakyll/hey) | percentile-blue | Build the whole page around a latency chart, then leave every result cell empty because the numbers are not mine to fill in | An empty result cell is the most honest thing a benchmarking tool landing page can show | [png](../days/2026-09-30/02-hey.png) |
 | [2026-09-23](../days/2026-09-23/) | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | indigo | Use the project own published token figures at true scale, and attribute them in the same breath | A bar drawn honestly at 0.83 percent is more persuasive than a rounded claim, because the caption says whose number it is | [png](../days/2026-09-23/03-codebase-memory.png) |
 | [2026-09-18](../days/2026-09-18/) | [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory) | magenta | Draw memory on a time axis so the superseded fact and the current one are visibly different lines | The crossing point makes contradiction handling legible; the caption keeps the curve from posing as data | [png](../days/2026-09-18/02-supermemory.png) |

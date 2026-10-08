@@ -1,9 +1,10 @@
 ﻿# Style — constellation
 
-7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-08](../days/2026-10-08/) | [liquidslr/system-design-notes](https://github.com/liquidslr/system-design-notes) | atlas-gold | Map the 28 chapters as a star chart sized by note length, with gold fans out to each chapter's listed primary sources | The chart shows where the notes reach past the book and where they do not yet, with no commentary needed | [png](../days/2026-10-08/03-system-design-notes.png) |
 | [2026-09-29](../days/2026-09-29/) | [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | node-teal | Put the two retrieval topologies side by side under one question, so traceability reads as a shape rather than a feature | Drawing the traversal as the citation is the clearest argument for reasoning-based retrieval yet | [png](../days/2026-09-29/02-pageindex.png) |
 | [2026-09-07](../days/2026-09-07/) | [aipoch/open-science](https://github.com/aipoch/open-science) | violet | sort the promises by when they can fail, install day versus months later | works, timing split is sharper than checkable versus unverifiable | [png](../days/2026-09-07/02-open-science.png) |
 | [2026-08-29](../days/2026-08-29/) | [abhigyanpatwari/GitNexus](https://github.com/abhigyanpatwari/GitNexus) | violet | draw the artifact but label it shape only with generic nodes | works, hub circle needed r=35 to hold its label | [png](../days/2026-08-29/01-gitnexus.png) |

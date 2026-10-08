@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AnyPS5 — no emulator, no separate runtime</title>
+<style>
+  :root{
+    --bg:#f4f4f1;
+    --card:#ffffff;
+    --rule:#d8dad5;
+    --soft:#e9eae6;
+    --ink:#16181b;
+    --muted:#474c54;
+    --faint:#5b616a;
+    --left:#cdd0d4;
+    --or:#b4470b;
+    --or-soft:rgba(180,71,11,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--ink)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--or);border-bottom-color:var(--or)}
+
+  .top{padding:42px 0 30px}
+  .topgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+  h1{margin:0 0 18px;font-size:clamp(36px,5vw,62px);line-height:1;letter-spacing:-.04em;font-weight:700}
+  .lede{margin:0 0 24px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:31em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:11px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:3px;font-size:13.5px;
+    font-weight:600;text-decoration:none;border:1.5px solid var(--ink);
+    transition:background-color .17s ease,color .17s ease,transform .17s ease,border-color .17s ease}
+  .btn-solid{background:var(--ink);color:#f7f7f4}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--or);border-color:var(--or);transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--or);color:var(--or);transform:translateY(-1px)}
+
+  /* the two denominators */
+  .chart{background:var(--card);border:1px solid var(--ink)}
+  .ch-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--rule);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .metric{padding:18px 18px 16px;border-bottom:1px solid var(--rule)}
+  .metric:last-of-type{border-bottom:none}
+  .m-top{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+  .m-top h2{margin:0;font-size:15px;font-weight:650;letter-spacing:-.01em}
+  .m-top .pct{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1}
+  .m-top .of{display:block;font-size:12px;color:var(--faint);text-align:right;margin-top:3px}
+  .row{display:flex;align-items:stretch;height:22px}
+  .track{flex:0 0 80%;display:flex;border:1px solid var(--ink);background:var(--left)}
+  .done{background:var(--ink)}
+  .tail{flex:1;border:1.5px dashed var(--or);border-left:none;margin:3px 0;
+    background:repeating-linear-gradient(90deg,var(--or-soft) 0 6px,transparent 6px 12px)}
+  .wall{flex:0 0 4px;background:var(--or)}
+  .scale{display:flex;justify-content:space-between;width:80%;font-size:10.5px;color:var(--faint);margin-top:5px}
+  .denom{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:12px;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .denom .k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--or);font-weight:700;padding-top:1px;white-space:nowrap}
+  .denom b{color:var(--ink);font-weight:600}
+  .ch-foot{margin:0;padding:12px 18px;border-top:1px solid var(--rule);background:#fafaf8;font-size:12px;color:var(--faint);line-height:1.5}
+
+  .sec{padding:30px 0 8px}
+  .sh{display:flex;align-items:baseline;gap:16px;margin:0 0 14px;flex-wrap:wrap}
+  .sh h2{margin:0;font-size:12.5px;letter-spacing:.15em;text-transform:uppercase}
+  .sh .sub{font-size:12px;color:var(--faint)}
+  .libs{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;border-top:1px solid var(--ink)}
+  .lib{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 84px;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid var(--rule)}
+  .lib .n{font-size:12.5px;overflow-wrap:anywhere}
+  .lib .b{height:9px;background:var(--left);position:relative}
+  .lib .b i{position:absolute;left:0;top:0;bottom:0;background:var(--ink)}
+  .lib .c{font-size:12px;color:var(--muted);text-align:right}
+  .note{margin:10px 0 0;font-size:12px;color:var(--faint)}
+
+  .flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--ink);background:var(--card)}
+  .step{padding:16px 18px;border-right:1px solid var(--rule);min-width:0}
+  .step:last-child{border-right:none}
+  .step .k{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+  .step b{display:block;font-size:16px;margin-bottom:6px;letter-spacing:-.01em}
+  .step p{margin:0;font-size:13px;color:var(--muted);line-height:1.55}
+  .step code{font-size:12px;color:var(--ink);overflow-wrap:anywhere}
+
+  .pair{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;padding-top:30px;padding-bottom:44px;align-items:start}
+  .loud{border-left:3px solid var(--or);padding:2px 0 2px 16px}
+  .loud h3,.compat h3{margin:0 0 8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .loud p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.6}
+  .loud code{font-size:13px;color:var(--ink)}
+  .compat table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12.5px;background:var(--card);border:1px solid var(--rule)}
+  .compat th{font-weight:600;text-align:left;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:bottom;letter-spacing:.04em}
+  .compat td{padding:9px 10px;color:var(--ink);vertical-align:top}
+  .compat td.q{color:var(--or);font-weight:700}
+  .compat p{margin:8px 0 0;font-size:12px;color:var(--faint)}
+
+  footer{border-top:1px solid var(--ink);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer .wrap span:first-child{max-width:52em}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--or);border-bottom-color:var(--or)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .topgrid,.pair{grid-template-columns:1fr;gap:28px}
+    .libs{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr}
+    .step{border-right:none;border-bottom:1px solid var(--rule)}
+    .step:last-child{border-bottom:none}
+    .top{padding:32px 0 22px}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .lib{grid-template-columns:minmax(0,1fr) 78px;gap:6px 12px}
+    .lib .b{grid-column:1 / -1;grid-row:2}
+    .compat{overflow:hidden}
+    .compat table{font-size:11.5px}
+    .compat th,.compat td{padding:7px 6px}
+    .compat .hw{display:none}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">boykopovar / AnyPS5</span>
+    <nav aria-label="Primary">
+      <a href="https://boykopovar.github.io/AnyPS5/">Progress</a>
+      <a href="https://github.com/boykopovar/AnyPS5/blob/main/docs/dev/ARCHITECTURE.md">Architecture</a>
+      <a href="https://github.com/boykopovar/AnyPS5">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap topgrid">
+      <div>
+        <p class="eyebrow mono up u1">Executable porting &middot; Linux and Windows</p>
+        <h1 class="up u1">No emulator.<br>No separate runtime.</h1>
+        <p class="lede up u2">AnyPS5 relinks an executable into the target system&rsquo;s native format and supplies implementations of the
+          system prx libraries for dynamic linking. <b>The converted program runs as a normal process</b> and calls those native libraries.</p>
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://github.com/boykopovar/AnyPS5/blob/main/docs/user/USAGE.md">Read the usage guide</a>
+          <a class="btn btn-line" href="https://github.com/boykopovar/AnyPS5">View source</a>
+        </div>
+      </div>
+
+      <div class="chart up u3" role="figure" aria-label="Progress against two different denominators">
+        <div class="ch-head mono"><span>Progress &middot; two denominators</span><span>progress.json &middot; Oct 8, 2026</span></div>
+
+        <div class="metric">
+          <div class="m-top">
+            <h2>System libraries</h2>
+            <div><span class="pct num">85.41%</span><span class="of mono num">2,564 of 3,002 functions</span></div>
+          </div>
+          <div class="row" aria-hidden="true"><div class="track"><div class="done" style="width:85.41%"></div></div><div class="tail"></div></div>
+          <div class="scale mono" aria-hidden="true"><span>0</span><span>3,002 declared</span></div>
+          <div class="denom"><span class="k mono">grows</span><span>Counts only functions <b>already declared in core/libs/prx</b>, not every function the firmware exports. The total rises as more are declared.</span></div>
+        </div>
+
+        <div class="metric">
+          <div class="m-top">
+            <h2>GPU shader instructions</h2>
+            <div><span class="pct num">98.03%</span><span class="of mono num">1,143 of 1,166 instructions</span></div>
+          </div>
+          <div class="row" aria-hidden="true"><div class="track"><div class="done" style="width:98.03%"></div></div><div class="wall"></div></div>
+          <div class="scale mono" aria-hidden="true"><span>0</span><span>1,166 in the list</span></div>
+          <div class="denom"><span class="k mono">fixed</span><span>Counts against <b>AMD&rsquo;s public RDNA 1 + RDNA 2 instruction list</b>. Eleven decoded opcodes outside that list are not counted.</span></div>
+        </div>
+
+        <p class="ch-foot">A function counts once it no longer calls <span class="mono">NotImplemented_nid_no_patch</span>; an instruction counts once the decoder recognizes it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sh"><h2>Library by library</h2><span class="sub mono">12 largest of 101 declared &middot; 44 complete &middot; 7 not started</span></div>
+      <div class="libs up u4">
+        <div class="lib"><span class="n mono">libc</span><span class="b"><i style="width:96.9%"></i></span><span class="c mono num">569 / 587</span></div>
+        <div class="lib"><span class="n mono">libSceAmpr</span><span class="b"><i style="width:100%"></i></span><span class="c mono num">113 / 113</span></div>
+        <div class="lib"><span class="n mono">libkernel</span><span class="b"><i style="width:95.1%"></i></span><span class="c mono num">425 / 447</span></div>
+        <div class="lib"><span class="n mono">libSceJson2</span><span class="b"><i style="width:97.8%"></i></span><span class="c mono num">91 / 93</span></div>
+        <div class="lib"><span class="n mono">libSceAgc</span><span class="b"><i style="width:85.3%"></i></span><span class="c mono num">198 / 232</span></div>
+        <div class="lib"><span class="n mono">libSceHttp</span><span class="b"><i style="width:98.2%"></i></span><span class="c mono num">56 / 57</span></div>
+        <div class="lib"><span class="n mono">libSceFont</span><span class="b"><i style="width:58.5%"></i></span><span class="c mono num">114 / 195</span></div>
+        <div class="lib"><span class="n mono">libSceAgcDriver</span><span class="b"><i style="width:76%"></i></span><span class="c mono num">38 / 50</span></div>
+        <div class="lib"><span class="n mono">libSceNet</span><span class="b"><i style="width:93.6%"></i></span><span class="c mono num">44 / 47</span></div>
+        <div class="lib"><span class="n mono">libSceNgs2.native</span><span class="b"><i style="width:86.4%"></i></span><span class="c mono num">38 / 44</span></div>
+        <div class="lib"><span class="n mono">libSceFontFt</span><span class="b"><i style="width:54.8%"></i></span><span class="c mono num">23 / 42</span></div>
+        <div class="lib"><span class="n mono">libSceNpUniversalDataSystem</span><span class="b"><i style="width:100%"></i></span><span class="c mono num">41 / 41</span></div>
+      </div>
+      <p class="note mono">Shared-source libraries are counted only at their source library. Generated by tools/progress.py on every push to main.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sh"><h2>How a program is ported</h2><span class="sub mono">from docs/dev/ARCHITECTURE.md</span></div>
+      <div class="flow">
+        <div class="step"><span class="k mono">01 &middot; relink</span><b>Native executable</b><p>The relinker reads imports by NID, checks syscalls, filters unused NIDs and builds a SysV dynamic section, then patches an ELF for Linux or a PE for Windows.</p></div>
+        <div class="step"><span class="k mono">02 &middot; link</span><b>Native libraries</b><p>Each library in <code class="mono">core/libs/prx</code> builds as a shared library with its exports renamed to their NIDs. The OS loader binds imports by NID.</p></div>
+        <div class="step"><span class="k mono">03 &middot; recompile</span><b>SPIR-V shaders</b><p>The shader recompiler produces SPIR-V, validated with SPIRV-Tools when built with <code class="mono">ANYPS5_ENABLE_SPIRV_TOOLS</code>.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap pair">
+      <div class="loud">
+        <h3 class="mono">Fails loudly</h3>
+        <p>Unsupported or unexpected states strictly throw <code class="mono">std::runtime_error</code>. <code class="mono">what()</code> is printed to stderr and the process terminates.</p>
+      </div>
+      <div class="compat">
+        <h3 class="mono">Tested compatibility</h3>
+        <table>
+          <thead><tr><th>Game</th><th>Windows</th><th>Linux</th><th class="hw">GTX 1050 Ti / i5-7500</th><th class="hw">HD Graphics 620 / i5-7200</th></tr></thead>
+          <tbody><tr><td>Dreaming Sarah</td><td>In game, playable</td><td class="q mono">?</td><td class="hw mono num">60 FPS</td><td class="hw mono num">36 FPS</td></tr></tbody>
+        </table>
+        <p>The project&rsquo;s own list, as published. The question mark is theirs.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. AnyPS5 is for interoperability, research, preservation and compatibility; it does not include, distribute, or require copyrighted software, firmware, cryptographic keys, or proprietary libraries. <span style="white-space:nowrap">GPL-2.0-only.</span></span>
+    <span><a href="https://github.com/boykopovar/AnyPS5">github.com/boykopovar/AnyPS5</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
