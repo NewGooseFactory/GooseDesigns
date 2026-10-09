@@ -1,9 +1,10 @@
 ﻿# Style — specimen
 
-9 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+10 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-09](../days/2026-10-09/) | [twostraws/SwiftUI-Agent-Skill](https://github.com/twostraws/SwiftUI-Agent-Skill) | fix-blue | Print six of the skill's own rules as a specimen sheet, the call a model tends to write struck through above the call the skill asks for | A struck-through specimen makes an invisible class of mistake visible, which is exactly what the skill sells | [png](../days/2026-10-09/02-swiftui-agent-skill.png) |
 | [2026-09-28](../days/2026-09-28/) | [cs341-illinois/coursebook](https://github.com/cs341-illinois/coursebook) | ink-crimson | Make the scholarly apparatus the hero, and prove it with the same paragraph printed twice | Printing the same sentence with and without its apparatus is a better argument for rigour than the word rigour | [png](../days/2026-09-28/03-coursebook.png) |
 | [2026-09-20](../days/2026-09-20/) | [BuilderIO/agent-native](https://github.com/BuilderIO/agent-native) | violet-ink | Show the same action being called two ways above the single definition underneath | Two call sites over one definition is the architecture; a feature list would have buried it | [png](../days/2026-09-20/01-agent-native.png) |
 | [2026-09-15](../days/2026-09-15/) | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | press-green | Show the command beside the principle it enforces, as a specimen sheet rather than a feature list | Command and principle on one row reads as a working contract, not marketing | [png](../days/2026-09-15/02-agent-skills.png) |

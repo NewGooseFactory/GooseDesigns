@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiteLLM — the route is the prefix</title>
+<style>
+  :root{
+    --bg:#0d0d0d;
+    --ink:#f2f2ef;
+    --muted:#b5b5af;
+    --dim:#9b9b95;
+    --rule:#2f2f2c;
+    --red:#ff3b2f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.45;
+    font-family:"Helvetica Neue",Helvetica,"Inter",Arial,-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+  .r{color:var(--red)}
+
+  .bar{border-bottom:1px solid var(--rule)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:13px;font-weight:700;letter-spacing:-.01em}
+  .bar nav{display:flex;gap:24px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--ink);border-bottom-color:var(--red)}
+
+  .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:20px}
+  .hero{padding:40px 0 20px}
+  .kicker{grid-column:1 / 4;font-size:12px;line-height:1.5;color:var(--muted);padding-top:14px;border-top:2px solid var(--ink)}
+  .kicker b{display:block;color:var(--ink);font-size:13px;margin-bottom:4px}
+  h1{grid-column:4 / 13;margin:0;font-size:clamp(46px,7.4vw,104px);line-height:.92;letter-spacing:-.045em;font-weight:700}
+  h1 span{color:var(--red)}
+
+  .routes{grid-column:1 / 13;margin:34px 0 0;border-top:1px solid var(--rule)}
+  .route{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .route .n{grid-column:1 / 2;font-size:12px;color:var(--dim)}
+  .route .s{grid-column:2 / 10;font-size:clamp(17px,2.55vw,33px);letter-spacing:-.02em;overflow-wrap:anywhere}
+  .route .s i{font-style:normal;color:var(--red)}
+  .route .w{grid-column:10 / 13;font-size:13px;color:var(--muted);line-height:1.45}
+  .route .w b{color:var(--ink);font-weight:700}
+  .cap{grid-column:2 / 10;margin:12px 0 0;font-size:13px;color:var(--dim)}
+
+  .lede{grid-column:2 / 8;margin:30px 0 0;font-size:17px;line-height:1.5;color:var(--muted)}
+  .lede b{color:var(--ink)}
+  .cta{grid-column:9 / 13;margin-top:30px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;font-size:14px;font-weight:700;text-decoration:none;border:2px solid var(--ink);
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+  .btn-solid{background:var(--ink);color:var(--bg)}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--red);border-color:var(--red);color:#120403;transform:translateY(-1px)}
+  .btn-line{color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--red);color:var(--red);transform:translateY(-1px)}
+
+  .sec{padding:44px 0 6px}
+  .sec .num{grid-column:1 / 2;font-size:44px;font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--red)}
+  .sec .head{grid-column:2 / 5}
+  .sec .head h2{margin:2px 0 8px;font-size:22px;letter-spacing:-.02em}
+  .sec .head p{margin:0;font-size:14px;color:var(--muted);line-height:1.55}
+  .sec pre{grid-column:5 / 13;margin:0;padding:16px 18px;border-left:2px solid var(--rule);font-size:13.5px;line-height:1.7;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}
+  .sec pre b{color:var(--ink);font-weight:400}
+  .sec pre i{font-style:normal;color:var(--red)}
+  .note{grid-column:5 / 13;margin:10px 0 0;font-size:13px;color:var(--dim)}
+
+  .facts{padding:44px 0 50px}
+  .facts .cell{border-top:2px solid var(--ink);padding-top:12px}
+  .facts .c1{grid-column:1 / 5}.facts .c2{grid-column:5 / 9}.facts .c3{grid-column:9 / 13}
+  .facts h3{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .facts p{margin:0;font-size:14px;color:var(--muted);line-height:1.6}
+  .facts code{color:var(--ink);font-size:13px}
+
+  footer{border-top:1px solid var(--rule);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--ink);border-bottom-color:var(--red)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .56s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .kicker{grid-column:1 / 13;margin-bottom:18px}
+    h1{grid-column:1 / 13}
+    .route .n{grid-column:1 / 13}
+    .route .s{grid-column:1 / 13}
+    .route .w{grid-column:1 / 13;margin-top:4px}
+    .cap,.lede{grid-column:1 / 13}
+    .cta{grid-column:1 / 13;flex-direction:row;flex-wrap:wrap}
+    .sec .num{grid-column:1 / 3}
+    .sec .head{grid-column:3 / 13}
+    .sec pre,.note{grid-column:1 / 13;margin-top:14px}
+    .facts .c1,.facts .c2,.facts .c3{grid-column:1 / 13;margin-bottom:22px}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .sec pre{font-size:12px;padding:12px 12px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id">BerriAI / litellm</span>
+    <nav aria-label="Primary">
+      <a href="https://docs.litellm.ai/docs/">Docs</a>
+      <a href="https://docs.litellm.ai/docs/simple_proxy">AI Gateway</a>
+      <a href="https://github.com/BerriAI/litellm">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap grid">
+      <p class="kicker up u1"><b>LiteLLM</b>Open source AI gateway for 100+ LLMs. Self-hosted. Call any LLM in the OpenAI format.</p>
+      <h1 class="up u1">The route is <span>the prefix.</span></h1>
+
+      <div class="routes up u2" role="list" aria-label="Model strings and where they route">
+        <div class="route" role="listitem"><span class="n mono">01</span><span class="s mono"><i>openai/</i>gpt-4o</span><span class="w"><b>Straight to OpenAI.</b> Same call shape as every other provider.</span></div>
+        <div class="route" role="listitem"><span class="n mono">02</span><span class="s mono"><i>anthropic/</i>claude-sonnet-4-20250514</span><span class="w"><b>Straight to Anthropic.</b> Swap providers without rewriting your code.</span></div>
+        <div class="route" role="listitem"><span class="n mono">03</span><span class="s mono"><i>litellm_proxy/</i>claude-sonnet-4-5</span><span class="w"><b>Through your AI Gateway.</b> A model group on your proxy; drop the prefix to call the provider directly.</span></div>
+      </div>
+      <p class="cap mono up u3">Model strings from the project&rsquo;s README examples.</p>
+
+      <p class="lede up u3">Use it as a <b>Python SDK</b>, or deploy the <b>AI Gateway</b> for your team with virtual keys, spend tracking, guardrails, load balancing and an admin dashboard. Models, MCP tools and agents can all go through the same gateway.</p>
+      <div class="cta up u3">
+        <a class="btn btn-solid" href="https://docs.litellm.ai/docs/simple_proxy">Run the AI Gateway</a>
+        <a class="btn btn-line" href="https://github.com/BerriAI/litellm">View source</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap grid">
+      <span class="num">01</span>
+      <div class="head"><h2>Models</h2><p>One interface for 100+ LLM providers, in the OpenAI format.</p></div>
+<pre class="mono"><b>from litellm import completion</b>
+
+<b>completion</b>(model="<i>openai/</i>gpt-4o", messages=[...])
+<b>completion</b>(model="<i>anthropic/</i>claude-sonnet-4-20250514", messages=[...])</pre>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap grid">
+      <span class="num">02</span>
+      <div class="head"><h2>Tools</h2><p>Add an MCP server to the gateway, then call its tools through <span class="mono">/chat/completions</span>.</p></div>
+<pre class="mono">"tools": [{
+  "type": "mcp",
+  "server_url": "<i>litellm_proxy/</i>mcp/github",
+  "server_label": "github_mcp"
+}]</pre>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap grid">
+      <span class="num">03</span>
+      <div class="head"><h2>Agents</h2><p>Run Claude Code, Codex, OpenCode or Deep Agents on any model.</p></div>
+<pre class="mono"><b>litellm.agent</b>(
+    Harness.CLAUDE_CODE,
+    "Find why tests/test_router.py is flaky and fix it.",
+    sandbox=sandbox.local("./repo"),
+    model="<i>litellm_proxy/</i>claude-sonnet-4-5",
+)</pre>
+      <p class="note">With the gateway set, every model call the agent makes goes through it, tagged <span class="mono">harness,claude_code</span>. A2A agents get their own route too: <span class="mono">/a2a/my-agent</span>.</p>
+    </div>
+  </section>
+
+  <section class="facts">
+    <div class="wrap grid">
+      <div class="cell c1 up u4"><h3>Endpoints</h3><p class="mono">/chat/completions /responses /embeddings /images /audio /batches /rerank /a2a /messages</p></div>
+      <div class="cell c2 up u4"><h3>SDK</h3><p><code class="mono">uv add litellm</code> &mdash; then call any provider with <code class="mono">completion()</code>.</p></div>
+      <div class="cell c3 up u4"><h3>Gateway</h3><p><code class="mono">uv tool install 'litellm[proxy]'</code> and <code class="mono">litellm --model gpt-4o</code>; point any OpenAI client at it.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Code and copy drawn from the project README.</span>
+    <span><a href="https://github.com/BerriAI/litellm">github.com/BerriAI/litellm</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

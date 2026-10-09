@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![351 mocks](https://img.shields.io/badge/mocks-351-1f6feb?style=flat-square) ![117 days](https://img.shields.io/badge/days-117-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![354 mocks](https://img.shields.io/badge/mocks-354-1f6feb?style=flat-square) ![118 days](https://img.shields.io/badge/days-118-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 351 mockups across 117 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 354 mockups across 118 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Thursday, October 8
+## Latest — Friday, October 9
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-10-08/"><img src="days/2026-10-08/01-anyps5.png" width="320" alt="boykopovar/AnyPS5"></a><br><sub><b>boykopovar/AnyPS5</b><br>data-viz</sub></td>
-<td align="center" width="33%"><a href="days/2026-10-08/"><img src="days/2026-10-08/02-artcraft.png" width="320" alt="storytold/artcraft"></a><br><sub><b>storytold/artcraft</b><br>hud</sub></td>
-<td align="center" width="33%"><a href="days/2026-10-08/"><img src="days/2026-10-08/03-system-design-notes.png" width="320" alt="liquidslr/system-design-notes"></a><br><sub><b>liquidslr/system-design-notes</b><br>constellation</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-09/"><img src="days/2026-10-09/01-litellm.png" width="320" alt="BerriAI/litellm"></a><br><sub><b>BerriAI/litellm</b><br>swiss</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-09/"><img src="days/2026-10-09/02-swiftui-agent-skill.png" width="320" alt="twostraws/SwiftUI-Agent-Skill"></a><br><sub><b>twostraws/SwiftUI-Agent-Skill</b><br>specimen</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-09/"><img src="days/2026-10-09/03-knowledge-work-plugins.png" width="320" alt="anthropics/knowledge-work-plugins"></a><br><sub><b>anthropics/knowledge-work-plugins</b><br>warm-minimal</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-10-08/)
+[See the full day →](days/2026-10-09/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-10-09 | Friday | 3 | swiss, specimen, warm-minimal | [open](days/2026-10-09/) |
 | 2026-10-08 | Thursday | 3 | data-viz, hud, constellation | [open](days/2026-10-08/) |
 | 2026-10-07 | Wednesday | 3 | redline, waveform, storyboard | [open](days/2026-10-07/) |
 | 2026-10-05 | Monday | 3 | cell-grid, ledger, blueprint | [open](days/2026-10-05/) |

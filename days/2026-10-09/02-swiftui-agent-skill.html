@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SwiftUI Pro — the deprecations Xcode stays quiet about</title>
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --card:#ffffff;
+    --rule:#dfddd7;
+    --ink:#1b1c1f;
+    --muted:#4a4d54;
+    --faint:#5e626a;
+    --old:#686c73;
+    --blue:#1f56c7;
+    --blue-soft:#eaf0fb;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.5;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:"SF Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--ink)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:12.5px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--blue);border-bottom-color:var(--blue)}
+
+  .top{padding:38px 0 22px}
+  .tgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:end}
+  .tgrid > div{min-width:0}
+  .eyebrow{margin:0 0 14px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+  h1{margin:0;font-size:clamp(34px,4.6vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:700;text-wrap:balance}
+  .lede{margin:0 0 16px;font-size:15px;color:var(--muted);line-height:1.6}
+  .lede code{font-size:13.5px;color:var(--ink);background:var(--blue-soft);padding:1px 5px;border-radius:3px}
+  .cmd{margin:0 0 14px;padding:10px 12px;background:var(--ink);color:#eef1f6;border-radius:6px;font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+  .cmd span{color:#9aa3b2}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:10px 17px;border-radius:6px;font-size:13.5px;font-weight:600;text-decoration:none;border:1.5px solid var(--ink);
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+  .btn-solid{background:var(--blue);border-color:var(--blue);color:#fff}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#16429c;border-color:#16429c;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);background:transparent}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+
+  /* specimen sheet */
+  .sheet{margin-top:28px;border:1px solid var(--ink);background:var(--card)}
+  .sh-h{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--ink);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+  .specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .spec{padding:16px 18px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-width:0}
+  .spec:nth-child(3n){border-right:none}
+  .spec:nth-last-child(-n+3){border-bottom:none}
+  .spec .k{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+  .spec .k .tag{color:var(--blue)}
+  .spec .was{display:block;font-size:clamp(15px,1.55vw,19px);color:var(--old);text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--ink);overflow-wrap:anywhere}
+  .spec .now{display:block;margin-top:6px;font-size:clamp(16px,1.6vw,20px);font-weight:600;color:var(--blue);overflow-wrap:anywhere}
+  .spec p{margin:12px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+
+  .sec{padding:34px 0 6px}
+  .sgrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:44px;align-items:start}
+  .sh2{margin:0 0 12px;font-size:12.5px;letter-spacing:.15em;text-transform:uppercase}
+  .finding{border:1px solid var(--rule);background:var(--card);border-radius:8px;overflow:hidden}
+  .finding .file{padding:10px 14px;border-bottom:1px solid var(--rule);font-size:12px;color:var(--faint)}
+  .finding .rule{padding:12px 14px 4px;font-size:14.5px;font-weight:600}
+  .finding pre{margin:8px 14px 14px;padding:12px 14px;background:#f4f3ef;border-radius:6px;font-size:12.5px;line-height:1.65;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+  .finding pre .c{color:var(--faint)}
+  .finding pre .b{color:var(--blue);font-weight:600}
+  .quote{margin:14px 0 0;font-size:14px;color:var(--muted)}
+  .quote b{color:var(--ink)}
+  .order{margin:0;padding:0;list-style:none;counter-reset:o;border-top:1px solid var(--ink)}
+  .order li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--muted)}
+  .order li::before{counter-increment:o;content:counter(o,decimal-leading-zero);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--blue);padding-top:2px}
+  .order li b{color:var(--ink);font-weight:600}
+  .use{padding:30px 0 44px}
+  .ugrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+  .u{border-top:2px solid var(--ink);padding-top:10px}
+  .u h3{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .u p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.55}
+  .u code{font-size:12.5px;color:var(--ink)}
+
+  footer{border-top:1px solid var(--ink);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--blue);border-bottom-color:var(--blue)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .56s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .tgrid,.sgrid{grid-template-columns:1fr;gap:22px}
+    .specs{grid-template-columns:1fr 1fr}
+    .spec:nth-child(3n){border-right:1px solid var(--rule)}
+    .spec:nth-child(2n){border-right:none}
+    .spec:nth-last-child(-n+3){border-bottom:1px solid var(--rule)}
+    .spec:nth-last-child(-n+2){border-bottom:none}
+    .ugrid{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .specs{grid-template-columns:1fr}
+    .spec{border-right:none !important;border-bottom:1px solid var(--rule) !important}
+    .spec:last-child{border-bottom:none !important}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">twostraws / SwiftUI-Agent-Skill</span>
+    <nav aria-label="Primary">
+      <a href="https://www.hackingwithswift.com/articles/282/swiftui-agent-skill-claude-codex-ai">Why it exists</a>
+      <a href="https://github.com/twostraws/SwiftUI-Agent-Skill">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap">
+      <div class="tgrid">
+        <div>
+          <p class="eyebrow mono up u1">SwiftUI Pro &middot; an agent skill for Claude Code, Codex, Gemini and more</p>
+          <h1 class="up u1">A warning-free build isn&rsquo;t proof of modern SwiftUI.</h1>
+        </div>
+        <div class="up u2">
+          <p class="lede">Many older SwiftUI declarations are marked <code class="mono">deprecated: 100000.0</code>. These soft deprecations keep Xcode quiet, so the skill reviews the source for the mistakes LLMs actually make.</p>
+          <pre class="cmd mono"><span>$</span> npx skills add https://github.com/twostraws/swiftui-agent-skill --skill swiftui-pro</pre>
+          <div class="cta">
+            <a class="btn btn-solid" href="https://github.com/twostraws/SwiftUI-Agent-Skill">Get SwiftUI Pro</a>
+            <a class="btn btn-line" href="https://www.hackingwithswift.com/articles/282/swiftui-agent-skill-claude-codex-ai">Read the article</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet up u3" role="list" aria-label="Six rules from the skill">
+        <div class="sh-h mono"><span>Specimen &middot; six rules from references/api.md</span><span>struck = what the model writes &middot; blue = what the skill asks for</span></div>
+        <div class="specs">
+          <div class="spec" role="listitem"><div class="k mono"><span>S-01</span><span class="tag">color</span></div><span class="was mono">.foregroundColor(.red)</span><span class="now mono">.foregroundStyle(.red)</span><p>The rule the skill uses as its own example of a finding.</p></div>
+          <div class="spec" role="listitem"><div class="k mono"><span>S-02</span><span class="tag">soft-deprecated</span></div><span class="was mono">.accentColor(.orange)</span><span class="now mono">.tint(.orange)</span><p>Set the asset catalog&rsquo;s accent color for an app-wide default.</p></div>
+          <div class="spec" role="listitem"><div class="k mono"><span>S-03</span><span class="tag">shape</span></div><span class="was mono">.cornerRadius(12)</span><span class="now mono">.clipShape(<wbr>.rect(cornerRadius: 12))</span><p>Always the clip shape, never the old modifier.</p></div>
+          <div class="spec" role="listitem"><div class="k mono"><span>S-04</span><span class="tag">tabs</span></div><span class="was mono">.tabItem { &hellip; }</span><span class="now mono">Tab(&hellip;) { &hellip; }</span><p>Always use the Tab API instead of tabItem().</p></div>
+          <div class="spec" role="listitem"><div class="k mono"><span>S-05</span><span class="tag">scroll</span></div><span class="was mono">showsIndicators: false</span><span class="now mono">.scrollIndicators(<wbr>.hidden)</span><p>Hide indicators with the modifier, not the initializer.</p></div>
+          <div class="spec" role="listitem"><div class="k mono"><span>S-06</span><span class="tag">localization</span></div><span class="was mono">Text("Folder: " + name)</span><span class="now mono">Text("Folder: \(name)")</span><p>Interpolation keeps a localization key; string addition does not.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap sgrid">
+      <div class="up u4">
+        <h2 class="sh2 mono">How a finding reads</h2>
+        <div class="finding">
+          <div class="file mono">ContentView.swift</div>
+          <div class="rule">Line 24: Give the button a descriptive label so VoiceOver explains its action.</div>
+<pre class="mono"><span class="c">// Before</span>
+Button(action: addUser) {
+    Image(systemName: "plus")
+}
+
+<span class="c">// After</span>
+<span class="b">Button("Add User", systemImage: "plus", action: addUser)</span></pre>
+        </div>
+        <p class="quote">Findings are organized by file, each naming the rule and showing a brief before and after. <b>Report only genuine problems &mdash; do not nitpick or invent issues.</b></p>
+      </div>
+      <div class="up u4">
+        <h2 class="sh2 mono">The review order</h2>
+        <ol class="order">
+          <li><span><b>api</b> &mdash; deprecated API</span></li>
+          <li><span><b>views</b> &mdash; views, modifiers, animations</span></li>
+          <li><span><b>data</b> &mdash; data flow</span></li>
+          <li><span><b>navigation</b></span></li>
+          <li><span><b>design</b> &mdash; Human Interface Guidelines</span></li>
+          <li><span><b>resizability</b> &mdash; windows, iPad multitasking</span></li>
+          <li><span><b>accessibility</b> &mdash; Dynamic Type, VoiceOver, Reduce Motion</span></li>
+          <li><span><b>localization</b></span></li>
+          <li><span><b>performance</b></span></li>
+          <li><span><b>swift</b></span></li>
+          <li><span><b>hygiene</b></span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="use">
+    <div class="wrap ugrid">
+      <div class="u"><h3 class="mono">Claude Code</h3><p><code class="mono">/swiftui-pro Check for deprecated API</code></p></div>
+      <div class="u"><h3 class="mono">Codex</h3><p><code class="mono">$swiftui-pro Focus on accessibility</code></p></div>
+      <div class="u"><h3 class="mono">Contributing</h3><p>Do not repeat things LLMs already know; it burns tokens for no benefit. Focus on edge cases, surprises and soft deprecations.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Rules quoted from the skill&rsquo;s SKILL.md and references; SwiftUI Pro is by Paul Hudson, MIT-licensed.</span>
+    <span><a href="https://github.com/twostraws/SwiftUI-Agent-Skill">github.com/twostraws/SwiftUI-Agent-Skill</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
