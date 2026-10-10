@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagram Design — fit the diagram to where it's going</title>
+<style>
+  :root{
+    --page:#ecebe7;
+    --paper:#fbfaf6;
+    --ink:#1d1b18;
+    --muted:#4b4740;
+    --faint:#5c5850;
+    --hair:#cfcbc2;
+    --acc:#a63a0b;
+    --acc-soft:#fbe9df;
+    --panel:#1b1c1f;
+    --engr:#dfe2e6;
+    --engr-dim:#a7adb5;
+    --dial:#ff8a3d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--page);color:var(--ink);line-height:1.55;
+    font-family:"Geist","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:"Instrument Serif","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+  .mono{font-family:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--hair)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--acc);border-bottom-color:var(--acc)}
+
+  .top{padding:36px 0 26px}
+  .tgrid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:40px;align-items:center}
+  .eyebrow{margin:0 0 16px;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--acc)}
+  h1{margin:0 0 16px;font-size:clamp(40px,5.2vw,68px);line-height:.98;letter-spacing:-.015em;font-weight:400;text-wrap:balance}
+  h1 i{color:var(--acc)}
+  .lede{margin:0 0 18px;font-size:15.5px;color:var(--muted);line-height:1.62;max-width:32em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cmd{margin:0 0 14px;padding:9px 12px;border:1px solid var(--hair);background:var(--paper);border-radius:4px;font-size:12.5px;overflow-wrap:anywhere}
+  .cmd span{color:var(--faint)}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;padding:10px 17px;border-radius:4px;font-size:13.5px;font-weight:600;text-decoration:none;border:1px solid var(--ink);
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+  .btn-solid{background:var(--ink);color:#fbfaf6}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--acc);border-color:var(--acc);transform:translateY(-1px)}
+  .btn-line{color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{color:var(--acc);border-color:var(--acc);transform:translateY(-1px)}
+
+  .out{background:var(--paper);border:1px solid var(--hair);border-radius:8px}
+  .out-h{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--hair);font-size:11px;color:var(--faint);letter-spacing:.06em}
+  .out-h b{color:var(--acc);font-weight:600}
+  .canvas{position:relative;aspect-ratio:560 / 300}
+  .canvas svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .out-f{margin:0;padding:10px 16px;border-top:1px solid var(--hair);font-size:12px;color:var(--faint)}
+
+  /* patch panel */
+  .panel{margin:0;background:var(--panel);border-radius:10px;padding:18px 20px 16px;color:var(--engr)}
+  .ph{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 12px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--engr-dim)}
+  .ph b{color:var(--engr);font-weight:600}
+  .dials{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .dial{border:1px solid #33363b;border-radius:8px;padding:12px 12px 12px;min-width:0}
+  .dial .nm{display:flex;justify-content:space-between;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--engr)}
+  .dial .nm span{color:var(--engr-dim);letter-spacing:.04em;text-transform:none}
+  .dial svg{display:block;width:104px;height:104px;margin:6px auto 4px}
+  .lcd{margin:0 auto 10px;width:max-content;max-width:100%;padding:3px 10px;border-radius:3px;background:#101113;border:1px solid #33363b;color:var(--dial);font-size:13px;letter-spacing:.04em}
+  .opts{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:4px 10px;justify-content:center;font-size:11px;color:var(--engr-dim)}
+  .opts li.on{color:var(--dial);font-weight:600}
+  .what{margin:10px 0 0;font-size:12px;color:var(--engr-dim);line-height:1.45;text-align:center}
+
+  .pair{padding:26px 0 8px}
+  .pgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:start}
+  .h2{margin:0 0 12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .aud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .card{background:var(--paper);border:1px solid var(--hair);border-radius:8px;padding:12px 14px}
+  .card .k{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+  .card.on{border-color:var(--acc);background:var(--acc-soft)}
+  .card.on .k{color:var(--acc)}
+  .node{border:1px solid var(--ink);border-radius:6px;padding:8px 10px;background:var(--paper)}
+  .node b{display:block;font-size:14px;font-weight:600}
+  .node span{display:block;font-size:11.5px;color:var(--muted)}
+  .aud p{margin:10px 0 0;font-size:12px;color:var(--faint)}
+  .receipt{background:var(--paper);border:1px solid var(--hair);border-radius:8px;padding:14px 16px;font-size:12px;line-height:1.75;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+  .receipt .k{color:var(--acc);font-weight:600}
+  .rnote{margin:8px 0 0;font-size:12px;color:var(--faint)}
+
+  .ladder{padding:26px 0 44px}
+  .lgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+  .step{padding:12px 16px 12px 0;border-right:1px solid var(--hair);margin-right:16px}
+  .step:last-child{border-right:none;margin-right:0}
+  .step .k{display:block;font-size:11px;color:var(--acc);margin-bottom:4px}
+  .step b{display:block;font-size:16px;font-weight:600}
+  .step span{display:block;font-size:12.5px;color:var(--faint)}
+  .honest{margin:22px 0 0;font-size:20px;line-height:1.45;max-width:46em}
+  .honest span{display:block;margin-top:6px;font-family:"Geist","Inter",-apple-system,"Segoe UI",sans-serif;font-size:12.5px;color:var(--faint)}
+
+  footer{border-top:1px solid var(--hair);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--hair)}
+  footer a:hover,footer a:focus-visible{color:var(--acc);border-bottom-color:var(--acc)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .58s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .tgrid,.pgrid{grid-template-columns:1fr;gap:24px}
+    .dials{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .lgrid{grid-template-columns:1fr 1fr}
+    .step:nth-child(2){border-right:none;margin-right:0}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .aud{grid-template-columns:1fr}
+    .dials{grid-template-columns:1fr 1fr;gap:10px}
+    .dial svg{width:84px;height:84px}
+    .lgrid{grid-template-columns:1fr}
+    .step{border-right:none;margin-right:0;border-bottom:1px solid var(--hair)}
+    .honest{font-size:18px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">cathrynlavery / diagram-design</span>
+    <nav aria-label="Primary">
+      <a href="https://cathrynlavery.github.io/diagram-design/">Gallery</a>
+      <a href="https://diagramdesign.dev">Site</a>
+      <a href="https://github.com/cathrynlavery/diagram-design">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap tgrid">
+      <div>
+        <p class="eyebrow mono up u1">Diagram Design &middot; an agent skill &middot; 44 diagram types</p>
+        <h1 class="serif up u1">Fit the diagram to <i>where it&rsquo;s going.</i></h1>
+        <p class="lede up u2">Same source, different diagrams. Four dials set the deliverable, the canvas and its type ramp, how much of the source survives, and the wording &mdash; and <b>every import ends with a fidelity ledger</b> of what got merged, collapsed or dropped.</p>
+        <pre class="cmd mono up u2"><span>$</span> npx skills add cathrynlavery/diagram-design</pre>
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://cathrynlavery.github.io/diagram-design/">Browse the gallery</a>
+          <a class="btn btn-line" href="https://github.com/cathrynlavery/diagram-design">View source</a>
+        </div>
+      </div>
+
+      <div class="out up u3" role="figure" aria-label="Illustrative output: an order request path drawn in the skill's editorial style">
+        <div class="out-h mono"><span>order-path.html &middot; illustrative</span><span>html &middot; doc-wide &middot; balanced &middot; <b>mixed</b></span></div>
+        <div class="canvas">
+          <svg viewBox="0 0 560 300" aria-hidden="true">
+            <defs><marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1b18"/></marker></defs>
+            <text x="20" y="40" font-family="Instrument Serif, Iowan Old Style, Palatino, Georgia, serif" font-size="22" font-style="italic" fill="#1d1b18">Placing an order</text>
+            <g fill="none" stroke="#1d1b18" stroke-width="1">
+              <rect x="16" y="96" width="104" height="52" rx="6" fill="#fbfaf6"/>
+              <rect x="164" y="96" width="104" height="52" rx="6" fill="#fbfaf6"/>
+              <rect x="312" y="96" width="96" height="52" rx="6" fill="#fbfaf6"/>
+              <rect x="452" y="96" width="92" height="52" rx="6" fill="#fbfaf6"/>
+              <line x1="120" y1="122" x2="160" y2="122" marker-end="url(#ar)"/>
+              <line x1="268" y1="122" x2="308" y2="122" marker-end="url(#ar)"/>
+              <line x1="408" y1="122" x2="448" y2="122" marker-end="url(#ar)"/>
+              <line x1="216" y1="148" x2="216" y2="208" marker-end="url(#ar)"/>
+            </g>
+            <rect x="148" y="212" width="136" height="56" rx="6" fill="#fbe9df" stroke="#c2410c" stroke-width="1.5"/>
+            <g font-family="Geist, Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1d1b18" text-anchor="middle">
+              <text x="68" y="127">Web / Mobile</text>
+              <text x="216" y="127">Gateway</text>
+              <text x="360" y="127">Orders</text>
+              <text x="498" y="127">Postgres</text>
+              <text x="216" y="236">Auth Service</text>
+            </g>
+            <text x="216" y="256" font-family="Geist Mono, ui-monospace, Menlo, Consolas, monospace" font-size="11.5" fill="#c2410c" text-anchor="middle">token check</text>
+            <text x="224" y="184" font-family="Instrument Serif, Iowan Old Style, Palatino, Georgia, serif" font-size="14" font-style="italic" fill="#4b4740">token valid?</text>
+          </svg>
+        </div>
+        <p class="out-f mono">One accent for the one thing to look at first &middot; 1px hairlines &middot; no shadows &middot; every coordinate on a 4px grid</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="panel up u3" role="group" aria-label="The four dials">
+        <div class="ph mono"><span><b>The four dials</b> &middot; same source file</span><span>set: html &middot; doc-wide &middot; balanced &middot; mixed</span></div>
+        <div class="dials">
+          <div class="dial"><div class="nm mono">Format<span>4</span></div><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="#3a3d43" stroke-width="1"/><line x1="28.89" y1="91.11" x2="25.35" y2="94.65" stroke="#ff8a3d" stroke-width="2.4" stroke-linecap="round"/><line x1="28.89" y1="28.89" x2="25.35" y2="25.35" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="91.11" y1="28.89" x2="94.65" y2="25.35" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="91.11" y1="91.11" x2="94.65" y2="94.65" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><circle cx="60" cy="60" r="40" fill="#26282c" stroke="#4a4e55" stroke-width="1.2"/><circle cx="60" cy="60" r="31" fill="#2e3136"/><line x1="60" y1="60" x2="35.96" y2="84.04" stroke="#ff8a3d" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="#ff8a3d"/></svg><div class="lcd mono">html</div><ul class="opts mono"><li class="on">html</li><li>svg</li><li>png</li><li>html+png</li></ul><p class="what">The deliverable</p></div>
+          <div class="dial"><div class="nm mono">Size<span>10</span></div><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="#3a3d43" stroke-width="1"/><line x1="28.89" y1="91.11" x2="25.35" y2="94.65" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="17.5" y1="71.39" x2="12.67" y2="72.68" stroke="#ff8a3d" stroke-width="2.4" stroke-linecap="round"/><line x1="17.5" y1="48.61" x2="12.67" y2="47.32" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="28.89" y1="28.89" x2="25.35" y2="25.35" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="48.61" y1="17.5" x2="47.32" y2="12.67" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="71.39" y1="17.5" x2="72.68" y2="12.67" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="91.11" y1="28.89" x2="94.65" y2="25.35" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="102.5" y1="48.61" x2="107.33" y2="47.32" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="102.5" y1="71.39" x2="107.33" y2="72.68" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="91.11" y1="91.11" x2="94.65" y2="94.65" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><circle cx="60" cy="60" r="40" fill="#26282c" stroke="#4a4e55" stroke-width="1.2"/><circle cx="60" cy="60" r="31" fill="#2e3136"/><line x1="60" y1="60" x2="27.16" y2="68.8" stroke="#ff8a3d" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="#ff8a3d"/></svg><div class="lcd mono">doc-wide</div><ul class="opts mono"><li>doc-inline</li><li class="on">doc-wide</li><li>slide-16x9</li><li>+ 7 more</li></ul><p class="what">The viewBox and the type ramp</p></div>
+          <div class="dial"><div class="nm mono">Detail<span>3</span></div><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="#3a3d43" stroke-width="1"/><line x1="28.89" y1="91.11" x2="25.35" y2="94.65" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="60" y1="16" x2="60" y2="11" stroke="#ff8a3d" stroke-width="2.4" stroke-linecap="round"/><line x1="91.11" y1="91.11" x2="94.65" y2="94.65" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><circle cx="60" cy="60" r="40" fill="#26282c" stroke="#4a4e55" stroke-width="1.2"/><circle cx="60" cy="60" r="31" fill="#2e3136"/><line x1="60" y1="60" x2="60" y2="26" stroke="#ff8a3d" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="#ff8a3d"/></svg><div class="lcd mono">balanced &le;12</div><ul class="opts mono"><li>faithful &le;24</li><li class="on">balanced &le;12</li><li>simplified &le;7</li></ul><p class="what">How much of the source survives</p></div>
+          <div class="dial"><div class="nm mono">Audience<span>3</span></div><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="#3a3d43" stroke-width="1"/><line x1="28.89" y1="91.11" x2="25.35" y2="94.65" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><line x1="60" y1="16" x2="60" y2="11" stroke="#ff8a3d" stroke-width="2.4" stroke-linecap="round"/><line x1="91.11" y1="91.11" x2="94.65" y2="94.65" stroke="#8d939b" stroke-width="1.4" stroke-linecap="round"/><circle cx="60" cy="60" r="40" fill="#26282c" stroke="#4a4e55" stroke-width="1.2"/><circle cx="60" cy="60" r="31" fill="#2e3136"/><line x1="60" y1="60" x2="60" y2="26" stroke="#ff8a3d" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="#ff8a3d"/></svg><div class="lcd mono">mixed</div><ul class="opts mono"><li>engineer</li><li class="on">mixed</li><li>executive</li></ul><p class="what">The wording, not the count</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pair">
+    <div class="wrap pgrid">
+      <div class="up u4">
+        <h2 class="h2 mono">One node, three audiences</h2>
+        <div class="aud">
+          <div class="card"><span class="k mono">engineer</span><div class="node"><b>Auth Service</b><span class="mono">JWT &middot; RS256 &middot; :8443</span></div></div>
+          <div class="card on"><span class="k mono">mixed</span><div class="node"><b>Auth Service</b><span class="mono">token check</span></div></div>
+          <div class="card"><span class="k mono">executive</span><div class="node"><b>Sign-in</b><span class="mono">&nbsp;</span></div></div>
+        </div>
+        <p class="rnote">The README&rsquo;s own example of the audience dial: the same node, worded three ways.</p>
+      </div>
+      <div class="up u4">
+        <h2 class="h2 mono">Fidelity ledger</h2>
+<pre class="receipt mono"><span class="k">Detail:</span> balanced &middot; 12 source nodes &rarr; 8 drawn
+<span class="k">Collapsed:</span> "Token valid?" decision &rarr; edge label on Gateway &rarr; Auth
+<span class="k">Dropped:</span>   1 sticky note ("legacy path, to be retired"), unconnected in source
+<span class="k">Kept in full:</span> the request path (Web/Mobile &rarr; Gateway &rarr; Orders &rarr; Postgres)</pre>
+        <p class="rnote">Verbatim from the README. You know the source; you&rsquo;d notice anyway.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ladder">
+    <div class="wrap">
+      <h2 class="h2 mono">What the detail dial removes first</h2>
+      <div class="lgrid">
+        <div class="step"><span class="k mono">01</span><b>Decorations</b><span>first to go</span></div>
+        <div class="step"><span class="k mono">02</span><b>Duplicates</b><span>then</span></div>
+        <div class="step"><span class="k mono">03</span><b>Leaf clusters</b><span>then</span></div>
+        <div class="step"><span class="k mono">04</span><b>Infrastructure</b><span>last</span></div>
+      </div>
+      <p class="honest serif">For docs that live in Git and change every sprint, Mermaid is still the better fit. Diagram Design is for the diagram you are going to publish.<span>From the README&rsquo;s own comparison</span></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Third take; earlier ones ran August 12 and September 5. The order-path diagram is illustrative.</span>
+    <span><a href="https://github.com/cathrynlavery/diagram-design">github.com/cathrynlavery/diagram-design</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

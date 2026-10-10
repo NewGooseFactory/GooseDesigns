@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LingBot-Map — three kinds of context, one compact stream</title>
+<style>
+  :root{
+    --paper:#f7f4ee;
+    --sheet:#fffdf9;
+    --rule:#ddd6c9;
+    --ink:#1d1b18;
+    --muted:#4c463e;
+    --faint:#5d574d;
+    --teal:#0f6e68;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.55;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 44px}
+
+  .bar{border-bottom:1px solid var(--ink)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--teal);border-bottom-color:var(--teal)}
+
+  .top{padding:44px 0 18px}
+  .kicker{margin:0 0 18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+  h1{margin:0 0 18px;max-width:17em;font-size:clamp(34px,4.6vw,60px);line-height:1.05;letter-spacing:-.02em;font-weight:500;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--teal)}
+  .dek{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:44px;align-items:start}
+  .dek p{margin:0;font-size:17px;line-height:1.62;color:var(--muted)}
+  .dek p b{color:var(--ink);font-weight:600}
+  .by{font-size:13px;color:var(--faint);border-left:1px solid var(--rule);padding-left:18px}
+  .by b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .btn{display:inline-flex;align-items:center;padding:10px 17px;border-radius:2px;font-size:13.5px;font-weight:600;text-decoration:none;border:1.5px solid var(--ink);
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+  .btn-solid{background:var(--ink);color:#fbf8f2}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--teal);border-color:var(--teal);transform:translateY(-1px)}
+  .btn-line{color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{color:var(--teal);border-color:var(--teal);transform:translateY(-1px)}
+
+  figure.fig{margin:30px 0 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);padding:16px 0 14px}
+  .fig .plot{position:relative;aspect-ratio:1000 / 300}
+  .fig svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .flab{position:absolute;transform:translate(-50%,0);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);white-space:nowrap;text-align:center;line-height:1.35}
+  .flab.t{color:var(--teal);font-weight:700}
+  .flab span{display:block;text-transform:none;letter-spacing:0;font-size:11px}
+  .key{display:none;margin:12px 0 0;padding:0 0 0 18px;font-size:13px;color:var(--muted)}
+  figcaption{margin:12px 0 0;font-size:13px;color:var(--faint);line-height:1.55;max-width:62em}
+  figcaption b{color:var(--ink);font-weight:600}
+
+  .three{padding:28px 0 8px}
+  .tgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px}
+  .col h2{margin:0 0 4px;font-size:22px;font-weight:500;letter-spacing:-.01em}
+  .col .role{display:block;margin:0 0 10px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:700}
+  .col p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.65}
+  .col p b{color:var(--ink);font-weight:600}
+
+  .slam{margin:34px 0 0;padding:20px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center}
+  .slam blockquote{margin:0;font-size:21px;line-height:1.45}
+  .slam blockquote span{display:block;margin-top:8px;font-family:"Inter",-apple-system,"Segoe UI",sans-serif;font-size:12.5px;color:var(--faint)}
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .facts div{border-left:2px solid var(--teal);padding-left:12px}
+  .facts b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
+  .facts span{display:block;font-size:12px;color:var(--faint);line-height:1.4}
+  .note{margin:10px 0 44px;font-size:12px;color:var(--faint)}
+
+  footer{border-top:1px solid var(--ink);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--teal);border-bottom-color:var(--teal)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1000px){
+    .wrap{padding:0 24px}
+    .dek,.slam{grid-template-columns:1fr;gap:20px}
+    .tgrid{grid-template-columns:1fr;gap:22px}
+    .flab{font-size:9.5px}
+    .flab span{font-size:9.5px}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .flab{display:none}
+    .key{display:block}
+    .facts{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">Robbyant / lingbot-map</span>
+    <nav aria-label="Primary">
+      <a href="https://arxiv.org/abs/2604.14141">Paper</a>
+      <a href="https://huggingface.co/robbyant/lingbot-map">Model</a>
+      <a href="https://github.com/Robbyant/lingbot-map">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap">
+      <p class="kicker mono up u1">ECCV 2026 Best Paper Award Candidate &middot; streaming 3D reconstruction</p>
+      <h1 class="serif up u1">Keep the first frames, the last few, and <em>six tokens</em> of everything between.</h1>
+      <div class="dek up u2">
+        <p>LingBot-Map is a feed-forward 3D foundation model that reconstructs scenes from a video stream. Its <b>Geometric Context Transformer</b> attends to three kinds of context &mdash; an anchor, a pose-reference window and a trajectory memory &mdash; so the streaming state stays compact over sequences longer than 10,000 frames.</p>
+        <div class="by">
+          <b>LingBot-Map: Geometric Context Transformer for Streaming 3D Reconstruction</b>
+          Robbyant Team &middot; Apache-2.0
+          <div class="cta">
+            <a class="btn btn-solid" href="https://arxiv.org/abs/2604.14141">Read the paper</a>
+            <a class="btn btn-line" href="https://huggingface.co/robbyant/lingbot-map">Get the model</a>
+          </div>
+        </div>
+      </div>
+
+      <figure class="fig up u3">
+        <div class="plot" role="img" aria-label="Schematic: a row of frames over time. The first frames and the most recent frames keep full image tokens; every frame in between keeps six tokens. A new frame attends to all three.">
+          <svg viewBox="0 0 1000 300" aria-hidden="true"><defs><pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="#1d1b18" stroke-width="1.1"/></pattern></defs><line x1="30" y1="233" x2="960" y2="233" stroke="#1d1b18" stroke-width="1"/><rect x="40" y="112" width="16" height="120" fill="#1d1b18"/><rect x="62" y="112" width="16" height="120" fill="#1d1b18"/><rect x="84" y="112" width="16" height="120" fill="#1d1b18"/><rect x="109" y="226" width="10" height="5" fill="#0f6e68"/><rect x="109" y="219" width="10" height="5" fill="#0f6e68"/><rect x="109" y="212" width="10" height="5" fill="#0f6e68"/><rect x="109" y="205" width="10" height="5" fill="#0f6e68"/><rect x="109" y="198" width="10" height="5" fill="#0f6e68"/><rect x="109" y="191" width="10" height="5" fill="#0f6e68"/><rect x="131" y="226" width="10" height="5" fill="#0f6e68"/><rect x="131" y="219" width="10" height="5" fill="#0f6e68"/><rect x="131" y="212" width="10" height="5" fill="#0f6e68"/><rect x="131" y="205" width="10" height="5" fill="#0f6e68"/><rect x="131" y="198" width="10" height="5" fill="#0f6e68"/><rect x="131" y="191" width="10" height="5" fill="#0f6e68"/><rect x="153" y="226" width="10" height="5" fill="#0f6e68"/><rect x="153" y="219" width="10" height="5" fill="#0f6e68"/><rect x="153" y="212" width="10" height="5" fill="#0f6e68"/><rect x="153" y="205" width="10" height="5" fill="#0f6e68"/><rect x="153" y="198" width="10" height="5" fill="#0f6e68"/><rect x="153" y="191" width="10" height="5" fill="#0f6e68"/><rect x="175" y="226" width="10" height="5" fill="#0f6e68"/><rect x="175" y="219" width="10" height="5" fill="#0f6e68"/><rect x="175" y="212" width="10" height="5" fill="#0f6e68"/><rect x="175" y="205" width="10" height="5" fill="#0f6e68"/><rect x="175" y="198" width="10" height="5" fill="#0f6e68"/><rect x="175" y="191" width="10" height="5" fill="#0f6e68"/><rect x="197" y="226" width="10" height="5" fill="#0f6e68"/><rect x="197" y="219" width="10" height="5" fill="#0f6e68"/><rect x="197" y="212" width="10" height="5" fill="#0f6e68"/><rect x="197" y="205" width="10" height="5" fill="#0f6e68"/><rect x="197" y="198" width="10" height="5" fill="#0f6e68"/><rect x="197" y="191" width="10" height="5" fill="#0f6e68"/><rect x="219" y="226" width="10" height="5" fill="#0f6e68"/><rect x="219" y="219" width="10" height="5" fill="#0f6e68"/><rect x="219" y="212" width="10" height="5" fill="#0f6e68"/><rect x="219" y="205" width="10" height="5" fill="#0f6e68"/><rect x="219" y="198" width="10" height="5" fill="#0f6e68"/><rect x="219" y="191" width="10" height="5" fill="#0f6e68"/><rect x="241" y="226" width="10" height="5" fill="#0f6e68"/><rect x="241" y="219" width="10" height="5" fill="#0f6e68"/><rect x="241" y="212" width="10" height="5" fill="#0f6e68"/><rect x="241" y="205" width="10" height="5" fill="#0f6e68"/><rect x="241" y="198" width="10" height="5" fill="#0f6e68"/><rect x="241" y="191" width="10" height="5" fill="#0f6e68"/><rect x="263" y="226" width="10" height="5" fill="#0f6e68"/><rect x="263" y="219" width="10" height="5" fill="#0f6e68"/><rect x="263" y="212" width="10" height="5" fill="#0f6e68"/><rect x="263" y="205" width="10" height="5" fill="#0f6e68"/><rect x="263" y="198" width="10" height="5" fill="#0f6e68"/><rect x="263" y="191" width="10" height="5" fill="#0f6e68"/><rect x="285" y="226" width="10" height="5" fill="#0f6e68"/><rect x="285" y="219" width="10" height="5" fill="#0f6e68"/><rect x="285" y="212" width="10" height="5" fill="#0f6e68"/><rect x="285" y="205" width="10" height="5" fill="#0f6e68"/><rect x="285" y="198" width="10" height="5" fill="#0f6e68"/><rect x="285" y="191" width="10" height="5" fill="#0f6e68"/><rect x="307" y="226" width="10" height="5" fill="#0f6e68"/><rect x="307" y="219" width="10" height="5" fill="#0f6e68"/><rect x="307" y="212" width="10" height="5" fill="#0f6e68"/><rect x="307" y="205" width="10" height="5" fill="#0f6e68"/><rect x="307" y="198" width="10" height="5" fill="#0f6e68"/><rect x="307" y="191" width="10" height="5" fill="#0f6e68"/><rect x="329" y="226" width="10" height="5" fill="#0f6e68"/><rect x="329" y="219" width="10" height="5" fill="#0f6e68"/><rect x="329" y="212" width="10" height="5" fill="#0f6e68"/><rect x="329" y="205" width="10" height="5" fill="#0f6e68"/><rect x="329" y="198" width="10" height="5" fill="#0f6e68"/><rect x="329" y="191" width="10" height="5" fill="#0f6e68"/><rect x="351" y="226" width="10" height="5" fill="#0f6e68"/><rect x="351" y="219" width="10" height="5" fill="#0f6e68"/><rect x="351" y="212" width="10" height="5" fill="#0f6e68"/><rect x="351" y="205" width="10" height="5" fill="#0f6e68"/><rect x="351" y="198" width="10" height="5" fill="#0f6e68"/><rect x="351" y="191" width="10" height="5" fill="#0f6e68"/><rect x="373" y="226" width="10" height="5" fill="#0f6e68"/><rect x="373" y="219" width="10" height="5" fill="#0f6e68"/><rect x="373" y="212" width="10" height="5" fill="#0f6e68"/><rect x="373" y="205" width="10" height="5" fill="#0f6e68"/><rect x="373" y="198" width="10" height="5" fill="#0f6e68"/><rect x="373" y="191" width="10" height="5" fill="#0f6e68"/><rect x="395" y="226" width="10" height="5" fill="#0f6e68"/><rect x="395" y="219" width="10" height="5" fill="#0f6e68"/><rect x="395" y="212" width="10" height="5" fill="#0f6e68"/><rect x="395" y="205" width="10" height="5" fill="#0f6e68"/><rect x="395" y="198" width="10" height="5" fill="#0f6e68"/><rect x="395" y="191" width="10" height="5" fill="#0f6e68"/><rect x="417" y="226" width="10" height="5" fill="#0f6e68"/><rect x="417" y="219" width="10" height="5" fill="#0f6e68"/><rect x="417" y="212" width="10" height="5" fill="#0f6e68"/><rect x="417" y="205" width="10" height="5" fill="#0f6e68"/><rect x="417" y="198" width="10" height="5" fill="#0f6e68"/><rect x="417" y="191" width="10" height="5" fill="#0f6e68"/><rect x="439" y="226" width="10" height="5" fill="#0f6e68"/><rect x="439" y="219" width="10" height="5" fill="#0f6e68"/><rect x="439" y="212" width="10" height="5" fill="#0f6e68"/><rect x="439" y="205" width="10" height="5" fill="#0f6e68"/><rect x="439" y="198" width="10" height="5" fill="#0f6e68"/><rect x="439" y="191" width="10" height="5" fill="#0f6e68"/><rect x="461" y="226" width="10" height="5" fill="#0f6e68"/><rect x="461" y="219" width="10" height="5" fill="#0f6e68"/><rect x="461" y="212" width="10" height="5" fill="#0f6e68"/><rect x="461" y="205" width="10" height="5" fill="#0f6e68"/><rect x="461" y="198" width="10" height="5" fill="#0f6e68"/><rect x="461" y="191" width="10" height="5" fill="#0f6e68"/><rect x="483" y="226" width="10" height="5" fill="#0f6e68"/><rect x="483" y="219" width="10" height="5" fill="#0f6e68"/><rect x="483" y="212" width="10" height="5" fill="#0f6e68"/><rect x="483" y="205" width="10" height="5" fill="#0f6e68"/><rect x="483" y="198" width="10" height="5" fill="#0f6e68"/><rect x="483" y="191" width="10" height="5" fill="#0f6e68"/><rect x="505" y="226" width="10" height="5" fill="#0f6e68"/><rect x="505" y="219" width="10" height="5" fill="#0f6e68"/><rect x="505" y="212" width="10" height="5" fill="#0f6e68"/><rect x="505" y="205" width="10" height="5" fill="#0f6e68"/><rect x="505" y="198" width="10" height="5" fill="#0f6e68"/><rect x="505" y="191" width="10" height="5" fill="#0f6e68"/><rect x="527" y="226" width="10" height="5" fill="#0f6e68"/><rect x="527" y="219" width="10" height="5" fill="#0f6e68"/><rect x="527" y="212" width="10" height="5" fill="#0f6e68"/><rect x="527" y="205" width="10" height="5" fill="#0f6e68"/><rect x="527" y="198" width="10" height="5" fill="#0f6e68"/><rect x="527" y="191" width="10" height="5" fill="#0f6e68"/><rect x="549" y="226" width="10" height="5" fill="#0f6e68"/><rect x="549" y="219" width="10" height="5" fill="#0f6e68"/><rect x="549" y="212" width="10" height="5" fill="#0f6e68"/><rect x="549" y="205" width="10" height="5" fill="#0f6e68"/><rect x="549" y="198" width="10" height="5" fill="#0f6e68"/><rect x="549" y="191" width="10" height="5" fill="#0f6e68"/><rect x="571" y="226" width="10" height="5" fill="#0f6e68"/><rect x="571" y="219" width="10" height="5" fill="#0f6e68"/><rect x="571" y="212" width="10" height="5" fill="#0f6e68"/><rect x="571" y="205" width="10" height="5" fill="#0f6e68"/><rect x="571" y="198" width="10" height="5" fill="#0f6e68"/><rect x="571" y="191" width="10" height="5" fill="#0f6e68"/><rect x="590.5" y="112.5" width="15" height="119" fill="url(#hatch)" stroke="#1d1b18" stroke-width="1"/><rect x="612.5" y="112.5" width="15" height="119" fill="url(#hatch)" stroke="#1d1b18" stroke-width="1"/><rect x="634.5" y="112.5" width="15" height="119" fill="url(#hatch)" stroke="#1d1b18" stroke-width="1"/><rect x="656.5" y="112.5" width="15" height="119" fill="url(#hatch)" stroke="#1d1b18" stroke-width="1"/><rect x="678.5" y="112.5" width="15" height="119" fill="url(#hatch)" stroke="#1d1b18" stroke-width="1"/><rect x="700.5" y="112.5" width="15" height="119" fill="url(#hatch)" stroke="#1d1b18" stroke-width="1"/><rect x="722.5" y="112.5" width="15" height="119" fill="url(#hatch)" stroke="#1d1b18" stroke-width="1"/><rect x="744.5" y="112.5" width="15" height="119" fill="url(#hatch)" stroke="#1d1b18" stroke-width="1"/><rect x="812" y="112" width="16" height="120" fill="#f7f4ee" stroke="#0f6e68" stroke-width="2.5"/><path d="M820,112 C 692,20 180,20 73,108" fill="none" stroke="#0f6e68" stroke-width="1.4"/><path d="M820,112 C 652,70 420,70 337,182" fill="none" stroke="#0f6e68" stroke-width="1.4" stroke-dasharray="4 4"/><path d="M820,112 C 772,70 720,70 677,108" fill="none" stroke="#0f6e68" stroke-width="1.4"/><path d="M40,242 V248 H104 V242" fill="none" stroke="#5d574d" stroke-width="1"/><path d="M106,242 V248 H588 V242" fill="none" stroke="#5d574d" stroke-width="1"/><path d="M590,242 V248 H764 V242" fill="none" stroke="#5d574d" stroke-width="1"/><path d="M812,242 V248 H828 V242" fill="none" stroke="#0f6e68" stroke-width="1.4"/></svg>
+          <span class="flab" style="left:7.2%;top:86%">Anchor<span>first n frames</span></span>
+          <span class="flab t" style="left:34.7%;top:86%">Trajectory memory<span>6 tokens per frame</span></span>
+          <span class="flab" style="left:67.7%;top:86%">Pose-reference window<span>last k frames</span></span>
+          <span class="flab t" style="left:82%;top:86%">New frame<span>attends to all three</span></span>
+          <span class="flab" style="left:94%;top:71%">time &rarr;</span>
+        </div>
+        <ol class="key">
+          <li><b>Anchor</b> &mdash; the first n frames, full tokens</li>
+          <li><b>Trajectory memory</b> &mdash; every middle frame, six tokens each</li>
+          <li><b>Pose-reference window</b> &mdash; the last k frames, full tokens</li>
+          <li><b>New frame</b> &mdash; attends to all three</li>
+        </ol>
+        <figcaption><b>Figure 1.</b> What a new frame attends to, drawn after Section 3 of the paper. Block height stands for retained tokens: anchor and window frames keep their image tokens; every other frame keeps six context tokens &mdash; camera, anchor and register &mdash; and drops the rest. Schematic; n, k and the frame count are illustrative.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="three">
+    <div class="wrap tgrid">
+      <div class="col up u4">
+        <span class="role mono">coordinate &amp; scale grounding</span>
+        <h2 class="serif">Anchor context</h2>
+        <p>Monocular reconstruction is scale-ambiguous, so the <b>first n frames</b> attend fully to each other and fix the scale. Every later frame attends to them as fixed references.</p>
+      </div>
+      <div class="col up u4">
+        <span class="role mono">dense local geometry</span>
+        <h2 class="serif">Pose-reference window</h2>
+        <p>A sliding window of the <b>k most recent frames</b> keeps full image tokens, so each new frame registers against dense, nearby views.</p>
+      </div>
+      <div class="col up u4">
+        <span class="role mono">long-range drift correction</span>
+        <h2 class="serif">Trajectory memory</h2>
+        <p>Every other frame keeps <b>six tokens</b> with temporal position encodings &mdash; a lightweight, ordered record of the whole trajectory that helps correct accumulated drift.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="slam">
+        <blockquote class="serif">A reference frame, a local window and a global map &mdash; the SLAM recipe, replaced with end-to-end learned attention.<span>Paraphrasing the paper&rsquo;s own motivation</span></blockquote>
+        <div class="facts">
+          <div><b class="num">~20 FPS</b><span>at 518 &times; 378 input</span></div>
+          <div><b class="num">10,000+</b><span>frames in one sequence</span></div>
+          <div><b class="num">~25,000</b><span>frames in the 13-minute indoor demo</span></div>
+        </div>
+      </div>
+      <p class="note">Figures as reported by the project&rsquo;s README and abstract.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Second take; the first ran July 18. Copy drawn from the README and the paper.</span>
+    <span><a href="https://github.com/Robbyant/lingbot-map">github.com/Robbyant/lingbot-map</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

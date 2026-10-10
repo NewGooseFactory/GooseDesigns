@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-36 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+37 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-10](../days/2026-10-10/) | [Robbyant/lingbot-map](https://github.com/Robbyant/lingbot-map) | memory-teal | Draw the paper's attention design as one row of frames, full height for the first and last frames and six small tokens for every frame between | Drawing token counts as block height makes compact streaming state something you can see rather than take on trust | [png](../days/2026-10-10/02-lingbot-map.png) |
 | [2026-10-01](../days/2026-10-01/) | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | stop-rust | Print the seven-rung ladder in full and highlight the rung that fires for the example beside it, so the mechanism and the outcome share one screen | Lighting the rung that fired turns a rule list into a trace, and a trace is what makes the example believable | [png](../days/2026-10-01/01-ponytail.png) |
 | [2026-09-24](../days/2026-09-24/) | [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight) | plum | Give the three published operations equal rows, then tint only the one that is not retrieval | Marking reflect as the odd verb out says more than any benchmark chart would have | [png](../days/2026-09-24/01-hindsight.png) |
 | [2026-09-20](../days/2026-09-20/) | [mihail911/modern-software-dev-assignments](https://github.com/mihail911/modern-software-dev-assignments) | crimson | Treat published coursework as a document, and print what the repository is not alongside what it is | Naming the absent lectures makes the four real setup commands more credible, not less | [png](../days/2026-09-20/03-cs146s.png) |

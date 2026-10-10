@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![354 mocks](https://img.shields.io/badge/mocks-354-1f6feb?style=flat-square) ![118 days](https://img.shields.io/badge/days-118-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![357 mocks](https://img.shields.io/badge/mocks-357-1f6feb?style=flat-square) ![119 days](https://img.shields.io/badge/days-119-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 354 mockups across 118 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 357 mockups across 119 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Friday, October 9
+## Latest — Saturday, October 10
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-10-09/"><img src="days/2026-10-09/01-litellm.png" width="320" alt="BerriAI/litellm"></a><br><sub><b>BerriAI/litellm</b><br>swiss</sub></td>
-<td align="center" width="33%"><a href="days/2026-10-09/"><img src="days/2026-10-09/02-swiftui-agent-skill.png" width="320" alt="twostraws/SwiftUI-Agent-Skill"></a><br><sub><b>twostraws/SwiftUI-Agent-Skill</b><br>specimen</sub></td>
-<td align="center" width="33%"><a href="days/2026-10-09/"><img src="days/2026-10-09/03-knowledge-work-plugins.png" width="320" alt="anthropics/knowledge-work-plugins"></a><br><sub><b>anthropics/knowledge-work-plugins</b><br>warm-minimal</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-10/"><img src="days/2026-10-10/01-rea.png" width="320" alt="morluto/rea"></a><br><sub><b>morluto/rea</b><br>mono-zine</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-10/"><img src="days/2026-10-10/02-lingbot-map.png" width="320" alt="Robbyant/lingbot-map"></a><br><sub><b>Robbyant/lingbot-map</b><br>editorial</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-10/"><img src="days/2026-10-10/03-diagram-design.png" width="320" alt="cathrynlavery/diagram-design"></a><br><sub><b>cathrynlavery/diagram-design</b><br>patchbay</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-10-09/)
+[See the full day →](days/2026-10-10/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-10-10 | Saturday | 3 | mono-zine, editorial, patchbay | [open](days/2026-10-10/) |
 | 2026-10-09 | Friday | 3 | swiss, specimen, warm-minimal | [open](days/2026-10-09/) |
 | 2026-10-08 | Thursday | 3 | data-viz, hud, constellation | [open](days/2026-10-08/) |
 | 2026-10-07 | Wednesday | 3 | redline, waveform, storyboard | [open](days/2026-10-07/) |
