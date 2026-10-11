@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apollo-11 — landed in 1969, still accepting pull requests</title>
+<style>
+  :root{
+    --bg:#070908;
+    --panel:#0d110f;
+    --line:#222a25;
+    --ink:#dde3de;
+    --muted:#a7b0aa;
+    --dim:#8f9992;
+    --el:#7dff9a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.55;
+    font-family:"IBM Plex Sans","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;
+    background:repeating-linear-gradient(to bottom,rgba(255,255,255,.022) 0 1px,transparent 1px 3px)}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--ink);border-bottom-color:var(--ink)}
+
+  .top{padding:46px 0 30px}
+  .tgrid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:44px;align-items:center}
+  .eyebrow{margin:0 0 18px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  h1{margin:0 0 20px;font-size:clamp(36px,4.9vw,64px);line-height:1.02;letter-spacing:-.03em;font-weight:600}
+  h1 .el{display:block;text-wrap:balance;color:var(--el);text-shadow:0 0 18px rgba(125,255,154,.38),0 0 2px rgba(125,255,154,.8)}
+  .lede{margin:0 0 24px;font-size:16px;color:var(--muted);line-height:1.62;max-width:33em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;padding:11px 18px;border-radius:2px;font-size:13.5px;font-weight:600;text-decoration:none;border:1px solid var(--ink);
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+  .btn-solid{background:var(--ink);color:var(--bg)}
+  .btn-solid:hover,.btn-solid:focus-visible{background:#fff;border-color:#fff;transform:translateY(-1px)}
+  .btn-line{color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:#fff;color:#fff;transform:translateY(-1px)}
+
+  .stamps{display:grid;gap:14px}
+  .stamp{border:1px solid var(--line);background:var(--panel);padding:16px 18px}
+  .stamp .k{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+  .stamp .k b{color:var(--ink);font-weight:600}
+  .stamp .print{margin:0;font-size:13.5px;line-height:1.7;color:var(--ink);overflow-wrap:anywhere}
+  .stamp .print span{display:block;color:var(--muted)}
+  .stamp .meta{margin:10px 0 0;font-size:12px;color:var(--dim)}
+
+  .split{padding:20px 0 10px}
+  .sh{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 16px}
+  .sh h2{margin:0;font-size:22px;font-weight:600;letter-spacing:-.01em}
+  .sh span{font-size:12.5px;color:var(--dim)}
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr);border:1px solid var(--line)}
+  .col{padding:16px 18px;border-right:1px solid var(--line);min-width:0}
+  .col:last-child{border-right:none}
+  .col .hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+  .col .hd b{font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .col .hd span{font-size:30px;font-weight:600;letter-spacing:-.02em}
+  .col.mid{background:var(--panel)}
+  .col ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+  .col li{font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+  .col li.more{color:var(--dim)}
+  .col p{margin:12px 0 0;font-size:12.5px;color:var(--dim);line-height:1.5}
+  .basis{margin:10px 0 0;font-size:12px;color:var(--dim)}
+
+  .sign{padding:34px 0 10px}
+  .sgrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;align-items:start}
+  .sub{border-left:2px solid var(--ink);padding:2px 0 2px 16px}
+  .sub .k{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  .sub b{display:block;font-size:24px;font-weight:600;letter-spacing:-.01em}
+  .sub span{display:block;font-size:14px;color:var(--muted)}
+  .sub .d{margin-top:8px;font-size:12.5px;color:var(--dim)}
+  .appr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+  .appr div{padding:10px 14px 10px 0;border-bottom:1px solid var(--line)}
+  .appr b{display:block;font-size:14px;font-weight:600}
+  .appr span{display:block;font-size:12px;color:var(--dim);line-height:1.45}
+  .src{margin:10px 0 0;font-size:12px;color:var(--dim)}
+
+  .attr{padding:30px 0 46px}
+  .agrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;border-top:1px solid var(--line);padding-top:16px}
+  .agrid b{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;font-weight:600}
+  .agrid span{display:block;font-size:13.5px;color:var(--ink);line-height:1.5}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover,footer a:focus-visible{color:var(--ink);border-bottom-color:var(--ink)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .tgrid,.sgrid{grid-template-columns:1fr;gap:28px}
+    .cols{grid-template-columns:1fr}
+    .col{border-right:none;border-bottom:1px solid var(--line)}
+    .col:last-child{border-bottom:none}
+    .agrid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .appr{grid-template-columns:1fr}
+    .agrid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">chrislgarry / Apollo-11</span>
+    <nav aria-label="Primary">
+      <a href="http://www.ibiblio.org/apollo/ScansForConversion/Luminary099/">Scans</a>
+      <a href="http://www.ibiblio.org/apollo/">Virtual AGC</a>
+      <a href="https://github.com/chrislgarry/Apollo-11">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap tgrid">
+      <div>
+        <p class="eyebrow mono up u1">Apollo 11 Guidance Computer &middot; original source</p>
+        <h1 class="up u1">Landed in 1969.<span class="el">Still accepting pull requests.</span></h1>
+        <p class="lede up u2">The original AGC source for the <b>Command Module</b> and the <b>Lunar Module</b>, transcribed from MIT Museum scans. Pull requests are welcome for one thing: any difference between this transcription and the original source scans.</p>
+        <div class="cta up u2">
+          <a class="btn btn-solid" href="https://github.com/chrislgarry/Apollo-11">Read the source</a>
+          <a class="btn btn-line" href="http://www.ibiblio.org/apollo/ScansForConversion/Luminary099/">Compare with the scans</a>
+        </div>
+      </div>
+
+      <div class="stamps up u3">
+        <div class="stamp">
+          <div class="k mono"><b>Comanche055</b><span>Command Module &middot; Colossus 2A</span></div>
+          <p class="print mono">Assemble revision 055 of AGC program Comanche by NASA<span>2021113-051. 10:28 APR. 1, 1969</span></p>
+          <p class="meta mono">85 source files &middot; 1.49 MB</p>
+        </div>
+        <div class="stamp">
+          <div class="k mono"><b>Luminary099</b><span>Lunar Module &middot; Luminary 1A</span></div>
+          <p class="print mono">Assemble revision 001 of AGC program LMY99 by NASA<span>2021112-061. 16:27 JUL. 14, 1969</span></p>
+          <p class="meta mono">90 source files &middot; 1.51 MB</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="split">
+    <div class="wrap">
+      <div class="sh"><h2>Two computers, one core</h2><span class="mono">source files, matched by exact name</span></div>
+      <div class="cols up u4">
+        <div class="col">
+          <div class="hd"><b class="mono">Command Module only</b><span class="mono">35</span></div>
+          <ul class="mono">
+            <li>CM_ENTRY_DIGITAL_AUTOPILOT</li><li>REENTRY_CONTROL</li><li>TVCEXECUTIVE</li><li>RCS-CSM_DIGITAL_AUTOPILOT</li><li>STAR_TABLES</li><li>SXTMARK</li><li>CONTRACT_AND_APPROVALS</li><li class="more">+ 28 more</li>
+          </ul>
+          <p>Flying the command ship: entry, re-entry control, thrust-vector control.</p>
+        </div>
+        <div class="col mid">
+          <div class="hd"><b class="mono">In both programs</b><span class="mono">50</span></div>
+          <ul class="mono">
+            <li>EXECUTIVE</li><li>WAITLIST</li><li>INTERPRETER</li><li>PINBALL_GAME_BUTTONS_AND_LIGHTS</li><li>ALARM_AND_ABORT</li><li>FRESH_START_AND_RESTART</li><li>DOWNLINK_LISTS</li><li class="more">+ 43 more</li>
+          </ul>
+          <p>The operating core: scheduling, the interpreter, the display keyboard, alarms and restarts.</p>
+        </div>
+        <div class="col">
+          <div class="hd"><b class="mono">Lunar Module only</b><span class="mono">40</span></div>
+          <ul class="mono">
+            <li>THE_LUNAR_LANDING</li><li>LUNAR_LANDING_GUIDANCE_EQUATIONS</li><li>BURN_BABY_BURN--MASTER_IGNITION_ROUTINE</li><li>THROTTLE_CONTROL_ROUTINES</li><li>LANDING_ANALOG_DISPLAYS</li><li>ASCENT_GUIDANCE</li><li>KALMAN_FILTER</li><li class="more">+ 33 more</li>
+          </ul>
+          <p>Getting down and back up: landing guidance, throttle, ignition, ascent.</p>
+        </div>
+      </div>
+      <p class="basis mono">Counted from the repository tree on October 11, 2026. A few files share a role under slightly different names, so the shared count is a floor.</p>
+    </div>
+  </section>
+
+  <section class="sign">
+    <div class="wrap sgrid">
+      <div class="sub">
+        <span class="k mono">Submitted by</span>
+        <b>Margaret H. Hamilton</b>
+        <span>Colossus Programming Leader, Apollo Guidance and Navigation</span>
+        <span class="d mono">28 Mar 69 &middot; from CONTRACT_AND_APPROVALS.agc</span>
+      </div>
+      <div>
+        <div class="appr">
+          <div><b>Daniel J. Lickly</b><span>Director, Mission Program Development</span></div>
+          <div><b>Fred H. Martin</b><span>Colossus Project Manager</span></div>
+          <div><b>Norman E. Sears</b><span>Director, Mission Development</span></div>
+          <div><b>Richard H. Battin</b><span>Director, Mission Development</span></div>
+          <div><b>David G. Hoag</b><span>Director, Apollo Guidance and Navigation Program</span></div>
+          <div><b>Ralph R. Ragan</b><span>Deputy Director, Instrumentation Laboratory</span></div>
+        </div>
+        <p class="src mono">Approved by &middot; 28 Mar 69 &middot; the approvals are part of the source.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="attr">
+    <div class="wrap">
+      <div class="agrid">
+        <div><b class="mono">Copyright</b><span>Public domain</span></div>
+        <div><b class="mono">Digitized</b><span>From an MIT Museum hardcopy, by Paul Fjeld, arranged by Deborah Douglas</span></div>
+        <div><b class="mono">Assembler</b><span class="mono">yaYUL</span></div>
+        <div><b class="mono">Compile it</b><span><a href="https://github.com/rburkey2005/virtualagc" style="color:inherit">Virtual AGC</a></span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy and dates drawn from the project README and repository tree.</span>
+    <span><a href="https://github.com/chrislgarry/Apollo-11">github.com/chrislgarry/Apollo-11</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PyTorch — record the forward pass, replay it backward</title>
+<style>
+  :root{
+    --paper:#f1ebde;
+    --ink:#121212;
+    --muted:#3f3b35;
+    --faint:#57524a;
+    --red:#c8261d;
+    --blue:#1b4a9c;
+    --yellow:#f3b51a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.5;
+    font-family:"Futura","Century Gothic","Avenir Next","Trebuchet MS",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:4px solid var(--ink)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px}
+  .id{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:13px;font-weight:700}
+  .bar nav a{color:var(--ink);text-decoration:none;padding-bottom:2px;border-bottom:3px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{border-bottom-color:var(--red)}
+
+  .top{padding:38px 0 26px}
+  .tgrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:44px;align-items:center}
+  .eyebrow{display:inline-block;margin:0 0 18px;padding:5px 10px;background:var(--ink);color:var(--paper);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+  h1{margin:0 0 18px;font-size:clamp(38px,5.2vw,70px);line-height:.98;letter-spacing:-.02em;font-weight:800;text-transform:uppercase}
+  h1 .r{color:var(--red)}
+  h1 .b{color:var(--blue)}
+  .lede{margin:0 0 22px;font-size:16px;line-height:1.6;color:var(--muted);max-width:30em}
+  .lede b{color:var(--ink)}
+  .cta{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;padding:12px 20px;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:3px solid var(--ink);
+    transition:background-color .15s ease,color .15s ease,transform .15s ease}
+  .btn-solid{background:var(--red);border-color:var(--red);color:#fff8f2}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--ink);border-color:var(--ink);transform:translate(-2px,-2px)}
+  .btn-line{color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--yellow);transform:translate(-2px,-2px)}
+
+  /* tape machine */
+  .machine{display:grid;grid-template-columns:120px minmax(0,1fr) 120px;align-items:center;gap:0}
+  .reel{width:120px;height:120px;border-radius:50%;position:relative;border:4px solid var(--ink)}
+  .reel::after{content:"";position:absolute;inset:38px;border-radius:50%;background:var(--paper);border:4px solid var(--ink)}
+  .reel.r{background:var(--red)}
+  .reel.b{background:var(--blue)}
+  .tape{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--ink);padding:10px 8px;gap:8px;margin:0 -4px}
+  .cell{background:var(--paper);height:74px;display:flex;align-items:center;justify-content:center}
+  .cell svg{width:36px;height:36px}
+  .rows{display:grid;grid-template-columns:120px minmax(0,1fr) 120px;margin-top:14px}
+  .rows .lab{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;align-self:center;line-height:1.3}
+  .rows .lab.r{color:var(--red)}
+  .rows .lab.b{color:var(--blue);text-align:right;grid-column:3}
+  .ops{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0 4px}
+  .ops span{font-size:13px;text-align:center;padding:6px 2px;overflow-wrap:anywhere}
+  .fwd span{border-top:4px solid var(--red)}
+  .bwd span{border-bottom:4px solid var(--blue);font-size:11.5px;line-height:1.35}
+  .rows.b2{margin-top:6px}
+  .rows.b2 .ops{grid-column:2}
+  .arrowline{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-top:12px}
+  .arrowline .r{color:var(--red)}
+  .arrowline .b{color:var(--blue)}
+
+  .code{margin:26px 0 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:4px solid var(--ink)}
+  .code pre{margin:0;padding:18px 20px;font-size:13.5px;line-height:1.7;background:#fbf7ef;overflow-wrap:anywhere;white-space:pre-wrap}
+  .code pre .k{color:var(--blue);font-weight:700}
+  .code pre .c{color:var(--faint)}
+  .code .note{padding:18px 20px;background:var(--yellow);border-left:4px solid var(--ink)}
+  .code .note b{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+  .code .note p{margin:0;font-size:15px;line-height:1.55}
+
+  .dyn{padding:34px 0 10px}
+  .sh{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 14px}
+  .sh h2{margin:0;font-size:24px;font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
+  .sh span{font-size:13px;color:var(--faint)}
+  .runs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:0;border:4px solid var(--ink)}
+  .runs pre{margin:0;padding:16px 18px;font-size:13px;line-height:1.7;background:#fbf7ef;border-right:4px solid var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+  .run{padding:16px 18px;border-right:4px solid var(--ink)}
+  .run:last-child{border-right:none}
+  .run h3{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips span{font-size:12px;padding:5px 8px;background:var(--ink);color:var(--paper)}
+  .chips span.hl{background:var(--red);color:#fff8f2}
+  .chips span.hl2{background:var(--blue);color:#fff8f2}
+  .run p{margin:10px 0 0;font-size:12.5px;color:var(--faint)}
+
+  .facts{padding:34px 0 46px}
+  .fgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:4px solid var(--ink)}
+  .f{padding:14px 16px 0 0}
+  .f b{display:block;font-size:14px;font-weight:800;margin-bottom:4px}
+  .f span{display:block;font-size:13px;color:var(--muted);line-height:1.5}
+  .quote{margin:26px 0 0;display:grid;grid-template-columns:60px minmax(0,1fr);gap:18px;align-items:start}
+  .quote i{display:block;width:60px;height:60px;background:var(--yellow);clip-path:polygon(50% 0,100% 100%,0 100%)}
+  .quote p{margin:0;font-size:22px;line-height:1.35;font-weight:700}
+  .quote p span{display:block;margin-top:8px;font-size:13px;font-weight:400;color:var(--faint)}
+
+  footer{border-top:4px solid var(--ink);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12.5px;color:var(--faint)}
+  footer a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--red)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .55s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .tgrid{grid-template-columns:1fr;gap:28px}
+    .fgrid{grid-template-columns:1fr 1fr}
+    .runs{grid-template-columns:1fr}
+    .runs pre,.run{border-right:none;border-bottom:4px solid var(--ink)}
+    .run:last-child{border-bottom:none}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .machine,.rows{grid-template-columns:56px minmax(0,1fr) 56px}
+    .reel{width:56px;height:56px;border-width:3px}
+    .reel::after{inset:16px;border-width:3px}
+    .cell{height:52px}
+    .cell svg{width:24px;height:24px}
+    .rows .lab{font-size:9.5px;letter-spacing:.06em}
+    .ops span{font-size:11px}
+    .bwd span{font-size:8.5px;white-space:nowrap;letter-spacing:-.02em}
+    .code pre .c{display:none}
+    .code{grid-template-columns:1fr}
+    .code .note{border-left:none;border-top:4px solid var(--ink)}
+    .fgrid{grid-template-columns:1fr}
+    .quote p{font-size:18px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id">pytorch / pytorch</span>
+    <nav aria-label="Primary">
+      <a href="https://pytorch.org/get-started/locally/">Get started</a>
+      <a href="https://pytorch.org/docs/stable/autograd.html">Autograd</a>
+      <a href="https://github.com/pytorch/pytorch">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap">
+      <div class="tgrid">
+        <div>
+          <p class="eyebrow up u1">Tensors &middot; dynamic neural networks</p>
+          <h1 class="up u1"><span class="r">Record</span> the forward pass. <span class="b">Replay</span> it backward.</h1>
+          <p class="lede up u2">PyTorch builds neural networks <b>using and replaying a tape recorder</b>. Tensors live on the CPU or the GPU; every differentiable operation you run is recorded, and <span class="mono">backward()</span> plays the tape in reverse.</p>
+          <div class="cta up u2">
+            <a class="btn btn-solid" href="https://pytorch.org/get-started/locally/">Get started</a>
+            <a class="btn btn-line" href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the basics</a>
+          </div>
+        </div>
+
+        <div class="up u3" role="figure" aria-label="A tape machine: the red reel records four operations during the forward pass; the blue reel replays their gradient functions in reverse.">
+          <div class="machine" aria-hidden="true">
+            <div class="reel r"></div>
+            <div class="tape">
+              <div class="cell"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#c8261d"/></svg></div>
+              <div class="cell"><svg viewBox="0 0 36 36"><rect x="3" y="3" width="30" height="30" fill="#1b4a9c"/></svg></div>
+              <div class="cell"><svg viewBox="0 0 36 36"><polygon points="18,2 34,34 2,34" fill="#f3b51a" stroke="#121212" stroke-width="2"/></svg></div>
+              <div class="cell"><svg viewBox="0 0 36 36"><rect x="2" y="13" width="32" height="10" fill="#121212"/></svg></div>
+            </div>
+            <div class="reel b"></div>
+          </div>
+          <div class="rows">
+            <span class="lab r">Forward<br>records</span>
+            <div class="ops fwd mono"><span>x @ w</span><span>+ b</span><span>.relu()</span><span>.sum()</span></div>
+          </div>
+          <div class="rows b2">
+            <div class="ops bwd mono"><span>Mm<br>Backward0</span><span>Add<br>Backward0</span><span>Relu<br>Backward0</span><span>Sum<br>Backward0</span></div>
+            <span class="lab b">Backward<br>replays</span>
+          </div>
+          <div class="arrowline"><span class="r">record &rarr;</span><span class="b">&larr; replay</span></div>
+        </div>
+      </div>
+
+      <div class="code up u4">
+<pre class="mono">x = torch.randn(4, 3)
+w = torch.randn(3, 2, <span class="k">requires_grad=True</span>)
+b = torch.zeros(2, <span class="k">requires_grad=True</span>)
+
+y = (x @ w + b).relu().sum()   <span class="c"># recorded as it runs</span>
+y.backward()                   <span class="c"># replayed in reverse</span>
+print(w.grad.shape)            <span class="c"># torch.Size([3, 2])</span></pre>
+        <div class="note"><b>Python first</b><p>When you execute a line of code, it gets executed. There isn&rsquo;t an asynchronous view of the world &mdash; and the stack trace points to exactly where your code was defined.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dyn">
+    <div class="wrap">
+      <div class="sh"><h2>A new tape every run</h2><span>Control flow decides what gets recorded &middot; runs illustrative</span></div>
+      <div class="runs">
+<pre class="mono">h = x @ w + b
+h = h.relu() if h.sum() &gt; 0 else h.tanh()
+loss = h.sum()
+loss.backward()</pre>
+        <div class="run">
+          <h3>Run 1 &middot; branch taken</h3>
+          <div class="chips mono"><span>Mm</span><span>Add</span><span class="hl">Relu</span><span>Sum</span></div>
+          <p>The tape holds ReluBackward0.</p>
+        </div>
+        <div class="run">
+          <h3>Run 2 &middot; other branch</h3>
+          <div class="chips mono"><span>Mm</span><span>Add</span><span class="hl2">Tanh</span><span>Sum</span></div>
+          <p>The tape holds TanhBackward0 instead &mdash; no graph to rebuild.</p>
+        </div>
+      </div>
+      <div class="quote">
+        <i aria-hidden="true"></i>
+        <p>Change the way your network behaves arbitrarily, with zero lag or overhead.<span>From the README, on reverse-mode auto-differentiation</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts">
+    <div class="wrap">
+      <div class="fgrid">
+        <div class="f"><b class="mono">torch</b><span>A tensor library like NumPy, with strong GPU support</span></div>
+        <div class="f"><b class="mono">torch.autograd</b><span>Tape-based automatic differentiation for every differentiable tensor operation</span></div>
+        <div class="f"><b class="mono">torch.nn</b><span>Neural networks, deeply integrated with autograd</span></div>
+        <div class="f"><b class="mono">torch.multiprocessing</b><span>Python multiprocessing with memory sharing of tensors</span></div>
+        <div class="f"><b class="mono">torch.utils</b><span>DataLoader and other utilities</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Copy drawn from the project README; gradient-function names are PyTorch&rsquo;s own.</span>
+    <span><a href="https://github.com/pytorch/pytorch">github.com/pytorch/pytorch</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,9 +1,10 @@
 ﻿# Style — poster
 
-19 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+20 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-11](../days/2026-10-11/) | [lyogavin/airllm](https://github.com/lyogavin/airllm) | layer-cobalt | Set the trick as the poster headline, then size each model's parameter count by scale while its VRAM chip stays the same size | When the labels grow and the chips do not, the claim reads before any explanation, and the disk cost sits right beside it | [png](../days/2026-10-11/03-airllm.png) |
 | [2026-10-04](../days/2026-10-04/) | [anthropics/claude-code](https://github.com/anthropics/claude-code) | clay | Set the single command as the poster headline, and strike through the install path the project has deprecated | When the whole entry point is one word, that word is the headline and everything else is setup | [png](../days/2026-10-04/01-claude-code.png) |
 | [2026-09-26](../days/2026-09-26/) | [mobile-next/mobile-mcp](https://github.com/mobile-next/mobile-mcp) | vermilion | Rank the two ways of reading a screen on the page itself, so the default and the fallback are never drawn as equals | A dashed, smaller fallback card is an honest way to say this path exists and you pay for it | [png](../days/2026-09-26/02-mobile-mcp.png) |
 | [2026-09-17](../days/2026-09-17/) | [alphaXiv/OpenResearch](https://github.com/alphaXiv/OpenResearch) | ink-blue | The tagline shortened to seven words overnight, so set it at poster scale and let the page carry nothing else | When a project sharpens its own sentence, the most honest design move is to get out of its way | [png](../days/2026-09-17/03-openresearch.png) |

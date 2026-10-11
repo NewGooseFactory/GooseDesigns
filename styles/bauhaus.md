@@ -1,9 +1,10 @@
 ﻿# Style — bauhaus
 
-17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-11](../days/2026-10-11/) | [pytorch/pytorch](https://github.com/pytorch/pytorch) | tape-red | Draw autograd as the README's own tape recorder, a red reel recording four operations forward and a blue reel replaying their gradient functions backward | A literal tape makes define-by-run legible at a glance, and a second run with a different tape explains dynamic graphs without the jargon | [png](../days/2026-10-11/01-pytorch.png) |
 | [2026-10-03](../days/2026-10-03/) | [Effect-TS/effect](https://github.com/Effect-TS/effect) | version-red | Set the version number huge and hang each API stability tier under the digit that is allowed to break it | Tying each tier to a digit turns a release policy into something you can read off the version number | [png](../days/2026-10-03/03-effect.png) |
 | [2026-09-25](../days/2026-09-25/) | [androoAGI/starnet](https://github.com/androoAGI/starnet) | station-blue | Publish the legend rather than the artwork, so each drawn element is bound to the permission it grants | A legend is the honest way to show a decorative-looking interface that claims not to be decorative | [png](../days/2026-09-25/03-starnet.png) |
 | [2026-09-21](../days/2026-09-21/) | [yynxxxxx/Codex-X](https://github.com/yynxxxxx/Codex-X) | primary-blue | Give each scattered configuration surface its own geometric mark so the scope is countable | Four shapes make a config manager legible in a glance and keep the scope honestly bounded | [png](../days/2026-09-21/03-codex-x.png) |

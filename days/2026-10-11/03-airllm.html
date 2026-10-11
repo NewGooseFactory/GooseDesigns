@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AirLLM — one layer at a time</title>
+<style>
+  :root{
+    --paper:#f2f0ea;
+    --ink:#0f0f10;
+    --muted:#3d3d42;
+    --faint:#56565c;
+    --rule:#cfccc3;
+    --cobalt:#2042c9;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.5;
+    font-family:"Helvetica Neue",Helvetica,"Inter",Arial,-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px;border-bottom:2px solid var(--ink)}
+  .id{font-size:13px;font-weight:700}
+  .bar nav{display:flex;gap:22px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:2px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--ink);border-bottom-color:var(--cobalt)}
+
+  .poster{padding:30px 0 10px}
+  .kicker{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .kicker b{color:var(--cobalt)}
+  h1{margin:0;font-size:clamp(64px,12.4vw,176px);line-height:.86;letter-spacing:-.055em;font-weight:800}
+  h1 span{display:block}
+  .claim{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:44px;align-items:end;margin-top:26px;padding-top:18px;border-top:2px solid var(--ink)}
+  .claim p{margin:0;font-size:19px;line-height:1.5;color:var(--muted)}
+  .claim p b{color:var(--ink)}
+  .act{display:grid;gap:10px;justify-items:start}
+  .cmd{margin:0;padding:10px 14px;background:var(--ink);color:#f2f0ea;font-size:13px;line-height:1.7;overflow-wrap:anywhere;width:100%}
+  .cmd span{color:#a9a9b0}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;padding:11px 18px;font-size:14px;font-weight:700;text-decoration:none;border:2px solid var(--ink);
+    transition:background-color .15s ease,color .15s ease,border-color .15s ease,transform .15s ease}
+  .btn-solid{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--ink);border-color:var(--ink);transform:translateY(-1px)}
+  .btn-line{color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--cobalt);color:var(--cobalt);transform:translateY(-1px)}
+
+  .ladder{padding:34px 0 8px}
+  .lh{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .rungs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;border-bottom:2px solid var(--ink)}
+  .rung{padding:0 10px 12px 0;min-width:0}
+  .rung .p{display:block;font-weight:800;letter-spacing:-.04em;line-height:.9;font-size:calc(var(--s) * 1px);white-space:nowrap}
+  .rung .m{display:block;margin-top:8px;font-size:12px;color:var(--faint);line-height:1.35;min-height:32px}
+  .vrams{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
+  .vram{padding:12px 10px 0 0}
+  .vram b{display:inline-block;padding:4px 9px;background:var(--cobalt);color:#fff;font-size:15px;font-weight:700}
+  .vram span{display:block;margin-top:6px;font-size:11.5px;color:var(--faint)}
+  .rowlab{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--faint)}
+
+  .cost{padding:36px 0 46px}
+  .cgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+  .c{border-top:2px solid var(--ink);padding-top:12px}
+  .c h2{margin:0 0 6px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .c p{margin:0;font-size:15px;line-height:1.55;color:var(--muted)}
+  .c p b{color:var(--ink)}
+  .c code{font-size:13px;color:var(--ink);overflow-wrap:anywhere}
+  .c.hl{border-top-color:var(--cobalt)}
+  .c.hl h2{color:var(--cobalt)}
+
+  footer{border-top:2px solid var(--ink);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12.5px;color:var(--faint)}
+  footer a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--cobalt)}
+
+  .up{opacity:0;transform:translateY(14px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.12s}.u3{animation-delay:.2s}.u4{animation-delay:.28s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .claim{grid-template-columns:1fr;gap:20px}
+    .cgrid{grid-template-columns:1fr;gap:20px}
+    .rungs,.vrams{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .rung{border-top:1px solid var(--rule);padding-top:10px}
+    .rung .p{font-size:calc(var(--s) * .85px)}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .claim p{font-size:17px}
+    .rungs,.vrams{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .rung .p{font-size:calc(var(--s) * .55px)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id">lyogavin / airllm</span>
+    <nav aria-label="Primary">
+      <a href="https://pypi.org/project/airllm/">PyPI</a>
+      <a href="https://github.com/lyogavin/airllm">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="poster">
+    <div class="wrap">
+      <p class="kicker mono up u1"><span>AirLLM &middot; huge models, small GPUs</span><b>second take</b></p>
+      <h1 class="up u1"><span>One layer</span><span>at a time.</span></h1>
+      <div class="claim up u2">
+        <p>AirLLM only ever keeps <b>one layer on the GPU at a time</b>, so the VRAM you need depends on the model&rsquo;s layer size &mdash; not its total size. No quantization, distillation or pruning required.</p>
+        <div class="act">
+          <pre class="cmd mono"><span>$</span> pip install airllm</pre>
+          <div class="cta">
+            <a class="btn btn-solid" href="https://github.com/lyogavin/airllm">Read the quickstart</a>
+            <a class="btn btn-line" href="https://pypi.org/project/airllm/">PyPI</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ladder">
+    <div class="wrap">
+      <div class="lh mono"><span>Parameter labels scale with model size</span><span>VRAM, as the README reports it</span></div>
+      <div class="rungs up u3" role="list" aria-label="Model sizes and the VRAM the project reports for each">
+        <div class="rung" role="listitem"><span class="p num" style="--s:28">27B</span><span class="m">Qwen3.8-27B<br>dense VL</span></div>
+        <div class="rung" role="listitem"><span class="p num" style="--s:34">70B</span><span class="m">Llama 3.x 70B<br>full precision</span></div>
+        <div class="rung" role="listitem"><span class="p num" style="--s:44">235B</span><span class="m">Qwen3-235B<br>MoE</span></div>
+        <div class="rung" role="listitem"><span class="p num" style="--s:52">405B</span><span class="m">Llama 3.1<br>405B</span></div>
+        <div class="rung" role="listitem"><span class="p num" style="--s:58">671B</span><span class="m">DeepSeek-V3</span></div>
+        <div class="rung" role="listitem"><span class="p num" style="--s:74">2.8T</span><span class="m">Kimi K3</span></div>
+      </div>
+      <div class="vrams up u3" aria-hidden="true">
+        <div class="vram"><b class="num">3.33 GB</b><span>measured, RTX 3090</span></div>
+        <div class="vram"><b class="num">~4 GB</b><span>README table</span></div>
+        <div class="vram"><b class="num">~3 GB</b><span>README table</span></div>
+        <div class="vram"><b class="num">~8 GB</b><span>README table</span></div>
+        <div class="vram"><b class="num">~12 GB</b><span>README table</span></div>
+        <div class="vram"><b class="num">3.72 GB</b><span>measured, RTX 6000 Ada</span></div>
+      </div>
+      <p class="rowlab mono"><span>A hundred times more parameters</span><span>about the same card</span></p>
+    </div>
+  </section>
+
+  <section class="cost">
+    <div class="wrap cgrid">
+      <div class="c up u4">
+        <h2>Same one line</h2>
+        <p>Pass a Hugging Face repo ID and go bigger with the exact same call: <code class="mono">AutoModel.from_pretrained("deepseek-ai/DeepSeek-V3")</code>.</p>
+      </div>
+      <div class="c hl up u4">
+        <h2>The weights move to disk</h2>
+        <p>The original model is first decomposed and <b>saved layer-wise</b>, so the cache needs the disk space. The README is plain about it: the bottleneck is mainly disk loading.</p>
+      </div>
+      <div class="c up u4">
+        <h2>Training, too</h2>
+        <p>Frozen base weights stream from disk one decoder layer at a time while only the adapters stay resident &mdash; <b>Qwen3.8-27B trains in ~2GB</b> at sequence length 512.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. VRAM figures are the project&rsquo;s own and were not independently measured. Second take; the first ran August 2.</span>
+    <span><a href="https://github.com/lyogavin/airllm">github.com/lyogavin/airllm</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
