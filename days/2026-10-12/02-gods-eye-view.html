@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>God's Eye View — the floor is low on purpose</title>
+<style>
+  :root{
+    --bg:#0e1013;
+    --ink:#eceae4;
+    --muted:#b9b5ab;
+    --dim:#9e998f;
+    --amber:#f0a63c;
+    --top:#1d2128;
+    --mid:#262420;
+    --floor:#33291d;
+    --line:#3a3a3a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.55;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--amber);border-bottom-color:var(--amber)}
+
+  .top{padding:42px 0 26px}
+  .tgrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:44px;align-items:end}
+  .eyebrow{margin:0 0 16px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+  h1{margin:0;font-size:clamp(40px,5.6vw,74px);line-height:.98;letter-spacing:-.035em;font-weight:700}
+  .lede{margin:0 0 18px;font-size:16px;color:var(--muted);line-height:1.62}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;padding:11px 18px;border-radius:3px;font-size:13.5px;font-weight:600;text-decoration:none;border:1.5px solid transparent;
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+  .btn-lit{background:var(--amber);border-color:var(--amber);color:#1a1205}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#f6bf6e;border-color:#f6bf6e;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:#55524c}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--amber);color:var(--amber);transform:translateY(-1px)}
+
+  /* strata */
+  .strata{margin:30px 0 0;border:1px solid var(--line)}
+  .sh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 18px;border-bottom:1px solid var(--line);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .band{display:grid;grid-template-columns:200px minmax(0,1fr) 230px;gap:24px;padding:18px;align-items:start;border-bottom:1px solid #000}
+  .band:last-child{border-bottom:none}
+  .band .tier b{display:block;font-size:20px;letter-spacing:-.01em}
+  .band .tier span{display:block;margin-top:4px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .band ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 8px}
+  .band li{font-size:12.5px;padding:3px 9px;border:1px solid rgba(236,234,228,.22);border-radius:2px;color:var(--ink);background:rgba(0,0,0,.18)}
+  .band .note{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .band .note b{color:var(--ink);font-weight:600}
+  .b-top{background:var(--top);min-height:96px}
+  .b-mid{background:var(--mid);min-height:150px}
+  .b-floor{background:var(--floor);min-height:210px;box-shadow:inset 0 3px 0 var(--amber)}
+  .b-floor .tier b{color:var(--amber)}
+  .count{display:inline-block;margin-top:10px;font-size:12px;color:var(--dim)}
+  .key{margin:10px 0 0;font-size:12px;color:var(--dim)}
+
+  .two{padding:30px 0 10px}
+  .twgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+  .card{border-top:1px solid var(--ink);padding-top:12px}
+  .card h2{margin:0 0 8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+  .card p{margin:0 0 10px;font-size:14.5px;color:var(--muted);line-height:1.6}
+  .card p b{color:var(--ink);font-weight:600}
+  .card.warn{border-top-color:var(--amber)}
+  .card.warn h2{color:var(--amber)}
+  .honest{padding:16px 0 46px}
+  .honest p{margin:0;max-width:62em;font-size:13px;color:var(--dim);border-top:1px solid var(--line);padding-top:14px}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover,footer a:focus-visible{color:var(--amber);border-bottom-color:var(--amber)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .tgrid,.twgrid{grid-template-columns:1fr;gap:22px}
+    .band{grid-template-columns:160px minmax(0,1fr)}
+    .band .note{grid-column:1 / -1}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .band{grid-template-columns:1fr;gap:12px}
+    .b-top,.b-mid,.b-floor{min-height:0}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">bilawalsidhu / gods-eye-view</span>
+    <nav aria-label="Primary">
+      <a href="https://pinokio.co/apps/github-com-bilawalsidhu-gods-eye-view">Pinokio</a>
+      <a href="https://github.com/bilawalsidhu/gods-eye-view/blob/main/DATA_SOURCES.md">Data sources</a>
+      <a href="https://github.com/bilawalsidhu/gods-eye-view">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap">
+      <div class="tgrid">
+        <div>
+          <p class="eyebrow mono up u1">God&rsquo;s Eye View &middot; keys &amp; costs</p>
+          <h1 class="up u1">The floor is low on purpose.</h1>
+        </div>
+        <div class="up u2">
+          <p class="lede">Start without an account or API keys. Flights, military traffic, satellites, earthquakes, public cameras, radio and launches all work keyless &mdash; <b>add keys inside the app</b> only when you want more.</p>
+          <div class="cta">
+            <a class="btn btn-lit" href="https://pinokio.co/apps/github-com-bilawalsidhu-gods-eye-view">Install with Pinokio</a>
+            <a class="btn btn-line" href="https://github.com/bilawalsidhu/gods-eye-view">Run it from source</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="strata up u3" role="list" aria-label="Three cost tiers, thickest at the bottom">
+        <div class="sh mono"><span>What it actually costs &middot; three strata</span><span>thicker bands name more sources</span></div>
+        <div class="band b-top" role="listitem">
+          <div class="tier"><b>Metered</b><span>2 named</span></div>
+          <ul class="mono"><li>Google 3D tiles &middot; direct key</li><li>OpenAI voice &middot; API key</li></ul>
+          <p class="note">Voice sessions show live spend, warn at <b>$2</b> and stop at a <b>$5 hard cap</b>. Google&rsquo;s first 1,000 3D Tiles sessions a month are currently free.</p>
+        </div>
+        <div class="band b-mid" role="listitem">
+          <div class="tier"><b>$0 with a signup</b><span>5 named</span></div>
+          <ul class="mono"><li>AISStream &middot; ships</li><li>NASA FIRMS &middot; fires</li><li>TomTom &middot; traffic flow</li><li>OpenSky &middot; more credits</li><li>Cesium ion &middot; eligible personal use</li></ul>
+          <p class="note">Free keys with quotas and eligibility rules. Add them through <b>POWER UP</b> in the app, not a config file.</p>
+        </div>
+        <div class="band b-floor" role="listitem">
+          <div class="tier"><b>$0, no signup</b><span>13 named</span></div>
+          <ul class="mono"><li>OpenSky anon</li><li>USGS</li><li>CelesTrak</li><li>adsb.lol</li><li>city CCTV</li><li>Radio Browser</li><li>GBFS</li><li>Launch Library 2</li><li>transit feeds</li><li>OSRM routing</li><li>NOAA &amp; ECMWF weather</li><li>OSM ALPR mapping</li><li>bundled datasets</li></ul>
+          <p class="note"><b>Most layers live here.</b> Enough to get a real taste of geospatial intelligence without ever talking to a sales team.</p>
+        </div>
+      </div>
+      <p class="key mono">Tiers and sources from the README&rsquo;s &ldquo;What it actually costs&rdquo;, roughly as of mid-2026; check provider pricing pages.</p>
+    </div>
+  </section>
+
+  <section class="two">
+    <div class="wrap twgrid">
+      <div class="card up u4">
+        <h2 class="mono">The ceiling, stated</h2>
+        <p>Terrestrial AIS goes quiet mid-ocean and satellite AIS costs real money; premium imagery, SAR and the deeper commercial feeds live behind enterprise contracts.</p>
+        <p><b>Not a limit of the architecture</b> &mdash; every layer is a pattern you can point at your own data sources.</p>
+      </div>
+      <div class="card warn up u4">
+        <h2 class="mono">Before you share it</h2>
+        <p>By default the server binds to localhost. Opt into LAN sharing and know this: <b>a LAN-visible server brokers your configured API keys to anyone who can reach it.</b></p>
+        <p>App-level throttles are not billing caps &mdash; set provider quotas and budget alerts first.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="honest">
+    <div class="wrap">
+      <p>Most feeds are live or regularly refreshed. Traffic is simulated along real roads using aggregate location data; CCTV camera poses and rocket launch trajectories are coarse estimates. &mdash; from the README</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Third take; earlier ones ran August 28 and September 11. Costs quoted from the project README.</span>
+    <span><a href="https://github.com/bilawalsidhu/gods-eye-view">github.com/bilawalsidhu/gods-eye-view</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

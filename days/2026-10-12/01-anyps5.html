@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AnyPS5 — progress, measured twice</title>
+<style>
+  :root{
+    --paper:#f6f3ea;
+    --sheet:#fffdf7;
+    --rule:#ddd6c6;
+    --ink:#1b1a17;
+    --muted:#4a463f;
+    --faint:#5e5950;
+    --green:#1f6b3a;
+    --green-soft:#e4efe6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--paper);color:var(--ink);line-height:1.5;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--ink)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--green);border-bottom-color:var(--green)}
+
+  .top{padding:40px 0 22px}
+  .eyebrow{margin:0 0 16px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+  h1{margin:0 0 18px;max-width:18em;font-size:clamp(32px,4.4vw,56px);line-height:1.06;letter-spacing:-.02em;font-weight:500;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--green)}
+  .lgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:start}
+  .lede{margin:0;font-size:16px;line-height:1.65;color:var(--muted)}
+  .lede b{color:var(--ink);font-weight:600}
+  .aside{border-left:2px solid var(--green);padding:2px 0 2px 16px;font-size:14px;color:var(--muted);line-height:1.6}
+  .aside b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .btn{display:inline-flex;align-items:center;padding:10px 17px;border-radius:2px;font-size:13.5px;font-weight:600;text-decoration:none;border:1.5px solid var(--ink);
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+  .btn-solid{background:var(--ink);color:#fbf8f0}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--green);border-color:var(--green);transform:translateY(-1px)}
+  .btn-line{color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{color:var(--green);border-color:var(--green);transform:translateY(-1px)}
+
+  .book{margin:28px 0 0;background:var(--sheet);border:1px solid var(--ink)}
+  .bh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--ink);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:11px 16px;text-align:right;border-bottom:1px solid var(--rule);font-size:15px;white-space:nowrap}
+  th{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);background:#faf6ec}
+  th:first-child,td:first-child{text-align:left;white-space:normal}
+  td:first-child{font-size:14.5px}
+  td:first-child span{display:block;font-size:12px;color:var(--faint)}
+  td.d{color:var(--green);font-weight:700}
+  tr.key td{background:var(--green-soft)}
+  tr.key td.d{font-size:17px}
+  tr.closed td{border-top:3px double var(--ink);border-bottom:none}
+  .stamp{display:inline-block;padding:1px 8px;border:1.5px solid var(--green);color:var(--green);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;transform:rotate(-2deg)}
+  .src{margin:0;padding:10px 16px;border-top:1px solid var(--rule);font-size:12px;color:var(--faint)}
+
+  .sec{padding:30px 0 6px}
+  .sh{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 12px}
+  .sh h2{margin:0;font-size:20px;font-weight:600;letter-spacing:-.01em}
+  .sh span{font-size:12.5px;color:var(--faint)}
+  .entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+  .e{padding:12px 16px 14px 0;border-bottom:1px solid var(--rule);min-width:0}
+  .e .n{font-size:13px;font-weight:700;overflow-wrap:anywhere}
+  .e .v{display:block;margin-top:3px;font-size:13px;color:var(--muted)}
+  .e .v b{color:var(--green)}
+  .e p{margin:6px 0 0;font-size:12.5px;color:var(--faint);line-height:1.45}
+  .e.flag p{color:var(--ink)}
+  .fresh{margin:14px 0 0;font-size:13px;color:var(--muted);line-height:1.6}
+  .fresh b{color:var(--ink)}
+
+  .moral{padding:28px 0 46px}
+  .moral blockquote{margin:0;max-width:40em;font-size:24px;line-height:1.4;border-top:1px solid var(--ink);padding-top:16px}
+  .moral blockquote span{display:block;margin-top:10px;font-family:"Inter",-apple-system,"Segoe UI",sans-serif;font-size:13px;color:var(--faint)}
+
+  footer{border-top:1px solid var(--ink);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--faint)}
+  footer .wrap span:first-child{max-width:54em}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer a:hover,footer a:focus-visible{color:var(--green);border-bottom-color:var(--green)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .lgrid{grid-template-columns:1fr;gap:22px}
+    .entries{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .entries{grid-template-columns:1fr}
+    th,td{padding:9px 8px;font-size:13px}
+    td:first-child{font-size:13px}
+    th:nth-child(2),td:nth-child(2){display:none}
+    table{table-layout:fixed}
+    th,td{white-space:normal;overflow-wrap:anywhere}
+    th:first-child{width:50%}
+    tr.key td.d{font-size:14px}
+    .stamp{font-size:10px;padding:1px 5px}
+    .moral blockquote{font-size:20px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">boykopovar / AnyPS5</span>
+    <nav aria-label="Primary">
+      <a href="https://boykopovar.github.io/AnyPS5/">Progress page</a>
+      <a href="https://boykopovar.github.io/AnyPS5/progress.json">progress.json</a>
+      <a href="https://github.com/boykopovar/AnyPS5">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap">
+      <p class="eyebrow mono up u1">AnyPS5 &middot; progress, measured twice</p>
+      <h1 class="serif up u1">475 functions later, the percentage moved <em>0.83 points.</em></h1>
+      <div class="lgrid up u2">
+        <p class="lede">Between October 8 and October 12 the project implemented <b>475 more system-library functions</b> &mdash; and declared <b>522 new ones</b>. The library total counts only functions already declared in <span class="mono">core/libs/prx</span>, so discovery and implementation race each other. The shader list is fixed, and it just closed.</p>
+        <div class="aside"><b>Same page, read on two days.</b>Both columns come from the project&rsquo;s own <span class="mono">progress.json</span>, generated on every push to main. Nothing here is estimated.
+          <div class="cta">
+            <a class="btn btn-solid" href="https://boykopovar.github.io/AnyPS5/">Open the progress page</a>
+            <a class="btn btn-line" href="https://github.com/boykopovar/AnyPS5">View source</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book up u3">
+        <div class="bh mono"><span>Ledger &middot; system libraries and shaders</span><span>Oct 8 &rarr; Oct 12, 2026</span></div>
+        <table>
+          <thead><tr><th>Account</th><th>Oct 8</th><th>Oct 12</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>Functions implemented<span>no longer call NotImplemented_nid_no_patch</span></td><td class="num">2,564</td><td class="num">3,039</td><td class="num d">+475</td></tr>
+            <tr><td>Functions declared<span>the denominator: already declared in core/libs/prx</span></td><td class="num">3,002</td><td class="num">3,524</td><td class="num d">+522</td></tr>
+            <tr class="key"><td>Share implemented<span>implemented &divide; declared</span></td><td class="num">85.41%</td><td class="num">86.24%</td><td class="num d">+0.83 pts</td></tr>
+            <tr><td>Libraries with declared functions<span>of which complete: 44 &rarr; 52</span></td><td class="num">101</td><td class="num">110</td><td class="num d">+9</td></tr>
+            <tr class="closed"><td>GPU shader instructions<span>against AMD&rsquo;s public RDNA 1 + 2 list</span></td><td class="num">1,143 / 1,166</td><td class="num">1,166 / 1,166</td><td><span class="stamp mono">closed</span></td></tr>
+          </tbody>
+        </table>
+        <p class="src mono">Source: progress.json, read October 8 and October 12, 2026. Decoded opcodes outside AMD&rsquo;s list, not counted: 11 &rarr; 24.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sh"><h2>Where the new entries landed</h2><span class="mono">implemented / declared, Oct 8 &rarr; Oct 12</span></div>
+      <div class="entries up u4">
+        <div class="e"><span class="n mono">libc</span><span class="v mono num">569/587 &rarr; 703/709 &middot; <b>+134</b> / +122</span><p>Implementation outpaced new declarations: 703 of 709 now.</p></div>
+        <div class="e"><span class="n mono">libkernel</span><span class="v mono num">425/447 &rarr; 521/571 &middot; <b>+96</b> / +124</span><p>More declared than implemented: the share fell even as work landed.</p></div>
+        <div class="e flag"><span class="n mono">libSceAmpr</span><span class="v mono num">113/113 &rarr; 131/147 &middot; <b>+18</b> / +34</span><p>Complete on October 8. Not complete now &mdash; because 34 more functions were found.</p></div>
+        <div class="e"><span class="n mono">libSceUsbd</span><span class="v mono num">0/0 &rarr; 30/30 &middot; <b>+30</b> / +30</span><p>Declared and finished inside the four days.</p></div>
+        <div class="e"><span class="n mono">libSceJson2</span><span class="v mono num">91/93 &rarr; 104/116 &middot; <b>+13</b> / +23</span><p>13 more implemented, 23 more declared: the share fell from 98% to 90%.</p></div>
+        <div class="e"><span class="n mono">libSceJobManager</span><span class="v mono num">new &rarr; 11/12 &middot; <b>+11</b> / +12</span><p>One of the libraries that appeared in the file for the first time.</p></div>
+      </div>
+      <p class="fresh">At least <b>100 commits</b> since October 8, including merged pull requests from many contributors. The project counts honestly: a library marked complete can stop being complete the moment more of it is discovered.</p>
+    </div>
+  </section>
+
+  <section class="moral">
+    <div class="wrap">
+      <blockquote class="serif">A percentage with a growing denominator reports scope as much as progress. Read the two columns, not the one number.<span>The design idea this page tests</span></blockquote>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Second take; the first ran October 8. AnyPS5 is for interoperability, research, preservation and compatibility; it does not include or require copyrighted software, firmware, keys, or proprietary libraries. GPL-2.0-only.</span>
+    <span><a href="https://github.com/boykopovar/AnyPS5">github.com/boykopovar/AnyPS5</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

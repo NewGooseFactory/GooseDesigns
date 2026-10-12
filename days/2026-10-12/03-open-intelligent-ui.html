@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Intelligent UI — answers you can interact with</title>
+<style>
+  :root{
+    --bg:#0b0b10;
+    --ink:#ecebf3;
+    --muted:#b6b4c4;
+    --dim:#9b98ab;
+    --line:rgba(236,235,243,.14);
+    --violet:#b9a2ff;
+    --violet-ink:#160f2c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  body{
+    background:var(--bg);color:var(--ink);line-height:1.55;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(900px 520px at 78% 30%,rgba(120,96,220,.16),transparent 70%);
+    background-repeat:no-repeat;
+  }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+  .bar{border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+  .id{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .bar nav{display:flex;gap:22px;font-size:13px}
+  .bar nav a{color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+  .bar nav a:hover,.bar nav a:focus-visible{color:var(--violet);border-bottom-color:var(--violet)}
+
+  .top{padding:40px 0 30px}
+  .tgrid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:44px;align-items:center}
+  .eyebrow{margin:0 0 16px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--violet)}
+  h1{margin:0 0 18px;font-size:clamp(38px,5vw,64px);line-height:1;letter-spacing:-.035em;font-weight:650;text-wrap:balance}
+  .lede{margin:0 0 22px;font-size:16px;color:var(--muted);line-height:1.62;max-width:31em}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;padding:11px 18px;border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;border:1px solid transparent;
+    transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+  .btn-lit{background:var(--violet);color:var(--violet-ink)}
+  .btn-lit:hover,.btn-lit:focus-visible{background:#d1c2ff;transform:translateY(-1px)}
+  .btn-line{color:var(--ink);border-color:rgba(236,235,243,.3)}
+  .btn-line:hover,.btn-line:focus-visible{border-color:var(--violet);color:var(--violet);transform:translateY(-1px)}
+
+  /* the one frosted panel */
+  .glass{position:relative;border-radius:18px;padding:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+    box-shadow:0 24px 60px rgba(0,0,0,.45);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+  .gh{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 2px 12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .turn{margin:0 0 12px}
+  .q{margin:0 0 6px auto;width:max-content;max-width:80%;padding:7px 12px;border-radius:12px 12px 2px 12px;background:rgba(185,162,255,.16);font-size:13px;color:var(--ink)}
+  .a{border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(10,10,16,.55);padding:10px 12px}
+  .route{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .route b{color:var(--violet);font-weight:700;letter-spacing:.08em}
+  .route i{flex:1;height:1px;background:rgba(255,255,255,.12)}
+  .txt{margin:0;font-size:13px;color:var(--muted);line-height:1.55}
+  .tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+  .tbl th,.tbl td{padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.1);text-align:right}
+  .tbl th:first-child,.tbl td:first-child{text-align:left}
+  .tbl th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:600}
+  .tool{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.1fr);gap:8px;align-items:end}
+  .f label{display:block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+  .f .in{display:block;padding:6px 8px;border-radius:7px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);font-size:13px}
+  .res{padding:6px 10px;border-radius:9px;background:var(--violet);color:var(--violet-ink)}
+  .res span{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+  .res b{font-size:18px}
+  .gf{margin:8px 2px 0;font-size:11px;color:var(--dim)}
+
+  .order{padding:12px 0 8px}
+  .oh{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 12px}
+  .oh h2{margin:0;font-size:20px;font-weight:600;letter-spacing:-.01em}
+  .oh span{font-size:12.5px;color:var(--dim)}
+  .seq{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .st{padding:14px 14px 16px;border-right:1px solid var(--line);min-width:0}
+  .st:last-child{border-right:none}
+  .st .k{display:block;font-size:11px;color:var(--violet);margin-bottom:6px}
+  .st b{display:block;font-size:14px;overflow-wrap:anywhere}
+  .st span{display:block;margin-top:4px;font-size:12px;color:var(--dim);line-height:1.4}
+
+  .facts{padding:26px 0 46px}
+  .fgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+  .fact{border-top:1px solid var(--line);padding-top:12px}
+  .fact h3{margin:0 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .fact p{margin:0;font-size:14px;color:var(--muted);line-height:1.6}
+  .fact p b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 34px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12px;color:var(--dim)}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover,footer a:focus-visible{color:var(--violet);border-bottom-color:var(--violet)}
+
+  .up{opacity:0;transform:translateY(12px);animation:up .6s cubic-bezier(.2,.72,.28,1) forwards}
+  .u1{animation-delay:.03s}.u2{animation-delay:.10s}.u3{animation-delay:.17s}.u4{animation-delay:.24s}
+  @keyframes up{to{opacity:1;transform:none}}
+
+  @media (max-width:1040px){
+    .wrap{padding:0 24px}
+    .tgrid{grid-template-columns:1fr;gap:28px}
+    .seq{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .st:nth-child(3){border-right:none}
+    .st:nth-child(-n+3){border-bottom:1px solid var(--line)}
+    .fgrid{grid-template-columns:1fr;gap:18px}
+  }
+  @media (max-width:640px){
+    .bar nav{display:none}
+    .tool{grid-template-columns:1fr 1fr}
+    .seq{grid-template-columns:1fr}
+    .st{border-right:none !important;border-bottom:1px solid var(--line)}
+    .st:last-child{border-bottom:none}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .up{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="id mono">CopilotKit / OpenIntelligentUI</span>
+    <nav aria-label="Primary">
+      <a href="https://opengenerativeui.copilotkit.ai/">Live app</a>
+      <a href="https://github.com/CopilotKit/OpenIntelligentUI/blob/main/docs/architecture.md">Architecture</a>
+      <a href="https://github.com/CopilotKit/OpenIntelligentUI">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="top">
+    <div class="wrap tgrid">
+      <div>
+        <p class="eyebrow mono up u1">Open Intelligent UI &middot; built with CopilotKit and AG-UI</p>
+        <h1 class="up u1">Answers you can interact with.</h1>
+        <p class="lede up u2">An open-source chat interface where the agent chooses the shape of each answer &mdash; <b>a direct text reply, a native component, or a custom interactive UI</b> streamed into a sandbox &mdash; depending on what helps you finish the task.</p>
+        <div class="cta up u2">
+          <a class="btn btn-lit" href="https://opengenerativeui.copilotkit.ai/">Try the live app</a>
+          <a class="btn btn-line" href="https://github.com/CopilotKit/OpenIntelligentUI">Clone the source</a>
+        </div>
+      </div>
+
+      <div class="glass up u3" role="figure" aria-label="An illustrative conversation where three questions get three answer shapes: text, a table component, and a generated calculator.">
+        <div class="gh mono"><span>One conversation &middot; three shapes</span><span>illustrative</span></div>
+        <div class="turn">
+          <p class="q">Why does the bill include a service charge?</p>
+          <div class="a"><div class="route mono"><span>shape</span><i></i><b>text</b></div><p class="txt">A direct answer is enough here, so the agent replies in prose.</p></div>
+        </div>
+        <div class="turn">
+          <p class="q">Compare the three plans side by side.</p>
+          <div class="a"><div class="route mono"><span>shape</span><i></i><b>A2UI &middot; table</b></div>
+            <table class="tbl mono num"><thead><tr><th>Plan</th><th>Seats</th><th>Per month</th></tr></thead>
+              <tbody><tr><td>Starter</td><td>5</td><td>$20</td></tr><tr><td>Team</td><td>25</td><td>$80</td></tr><tr><td>Studio</td><td>100</td><td>$240</td></tr></tbody></table>
+          </div>
+        </div>
+        <div class="turn">
+          <p class="q">Split $120 with an 18% tip between four of us.</p>
+          <div class="a"><div class="route mono"><span>shape</span><i></i><b>Open Generative UI &middot; sandboxed</b></div>
+            <div class="tool mono num">
+              <div class="f"><label>Total</label><span class="in">$120.00</span></div>
+              <div class="f"><label>Tip</label><span class="in">18%</span></div>
+              <div class="f"><label>People</label><span class="in">4</span></div>
+              <div class="res"><span>Each pays</span><b>$35.40</b></div>
+            </div>
+          </div>
+        </div>
+        <p class="gf mono">Plan names and prices are illustrative, as in the project&rsquo;s own demos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="order">
+    <div class="wrap">
+      <div class="oh"><h2>How a generated answer arrives</h2><span class="mono">custom UI parameters, in the order they must stream</span></div>
+      <div class="seq up u4">
+        <div class="st"><span class="k mono">01</span><b class="mono">initialHeight</b><span>Reserve the space first</span></div>
+        <div class="st"><span class="k mono">02</span><b class="mono">placeholderMessages</b><span>Something to read while it builds</span></div>
+        <div class="st"><span class="k mono">03</span><b class="mono">css</b><span>Styles before markup</span></div>
+        <div class="st"><span class="k mono">04</span><b class="mono">html</b><span>The structure</span></div>
+        <div class="st"><span class="k mono">05</span><b class="mono">jsFunctions</b><span>Behaviour</span></div>
+        <div class="st"><span class="k mono">06</span><b class="mono">jsExpressions</b><span>Last of all</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts">
+    <div class="wrap fgrid">
+      <div class="fact up u4"><h3 class="mono">Router, not guesswork</h3><p>Jev picks the renderer for each turn: <b>A2UI for basic tables, Open Generative UI</b> for charts, diagrams, calculators and maps. Provider failures are surfaced instead of silently swapped.</p></div>
+      <div class="fact up u4"><h3 class="mono">Sandboxed by design</h3><p>Generated HTML, CSS and JavaScript run in an <b>isolated iframe</b>. A follow-up you click goes through a validated host bridge and starts a new agent turn.</p></div>
+      <div class="fact up u4"><h3 class="mono">Your keys stay yours</h3><p>Keys live in <b>browser memory</b> until refresh or Clear keys &mdash; never in browser storage &mdash; and stay out of chat state and checkpoints.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Concept redesign &mdash; not affiliated. Picked from GitHub Trending&rsquo;s TypeScript list. Conversation and figures are illustrative. MIT-licensed.</span>
+    <span><a href="https://github.com/CopilotKit/OpenIntelligentUI">github.com/CopilotKit/OpenIntelligentUI</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

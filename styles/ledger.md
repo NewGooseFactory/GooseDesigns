@@ -1,9 +1,10 @@
 ﻿# Style — ledger
 
-7 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+8 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-12](../days/2026-10-12/) | [boykopovar/AnyPS5](https://github.com/boykopovar/AnyPS5) | close-green | Read the same progress file on two days and set it as a ledger, with the growing denominator on its own row beside the headline percentage | Two dated columns tell a truer story than one percentage, because the libraries that slipped did so when more of them was found | [png](../days/2026-10-12/01-anyps5.png) |
 | [2026-10-05](../days/2026-10-05/) | [michael-denyer/pstack-claude](https://github.com/michael-denyer/pstack-claude) | fork-oxblood | Print the fork register of the port as the hero, so its divergences from upstream read as a ledger rather than a changelog | A register beats a changelog for a port, because the reader sees what was changed on purpose, with a reason, before anything else | [png](../days/2026-10-05/02-pstack.png) |
 | [2026-09-27](../days/2026-09-27/) | [openbao/openbao](https://github.com/openbao/openbao) | seal-green | Give every secret a row with an expiry column, so the lease is a property of the record rather than a paragraph about it | An at-expiry column forces the page to answer a question a feature list never asks | [png](../days/2026-09-27/02-openbao.png) |
 | [2026-09-13](../days/2026-09-13/) | [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | verification-indigo | Publish the verification record as a ruled ledger instead of a trust badge | Rows with a timing column turn a trust claim into something a reader can interrogate | [png](../days/2026-09-13/03-agent-skills.png) |
