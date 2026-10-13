@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>xtool: iOS apps, built from a Linux shell (concept)</title>
+<meta name="description" content="Concept landing page for xtool, a cross-platform Xcode replacement that builds and deploys iOS apps with SwiftPM.">
+<style>
+  :root{
+    --sheet:#f2f0e9; --card:#f7f6f1; --ink:#14233a; --ink2:#3a4a63; --hair:rgba(20,35,58,.28);
+    --g1:rgba(20,35,58,.055); --g2:rgba(20,35,58,.11);
+    --or:#f05138; --or-ink:#a93a1c; --on-or:#0b1422;
+    --sans:"Segoe UI Variable Display","Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --ease:cubic-bezier(0.23,1,0.32,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;color:var(--ink);font:400 17px/1.55 var(--sans);background-color:var(--sheet);
+    background-image:linear-gradient(var(--g2) 1px,transparent 1px),linear-gradient(90deg,var(--g2) 1px,transparent 1px),linear-gradient(var(--g1) 1px,transparent 1px),linear-gradient(90deg,var(--g1) 1px,transparent 1px);
+    background-size:120px 120px,120px 120px,24px 24px,24px 24px}
+  a{color:inherit;text-underline-offset:3px}
+  code{font:500 .9em/1.4 var(--mono)}
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--sheet);padding:10px 14px;z-index:10;font:600 14px/1 var(--mono)}
+  .skip:focus{left:8px}
+  :focus-visible{outline:2px solid var(--or-ink);outline-offset:3px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  .anno{font:600 12px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+
+  .top{border-bottom:1px solid var(--ink)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:60px}
+  .brand{font:600 15px/1 var(--mono);text-decoration:none}
+  .brand span{color:var(--or-ink)}
+  .top ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+  .top nav a{font:500 14px/1 var(--mono);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;transition:border-color 160ms var(--ease)}
+
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:end;padding-top:64px;padding-bottom:56px}
+  .hero .anno{margin:0 0 20px}
+  h1{margin:0;font:650 clamp(44px,6vw,82px)/1 var(--sans);letter-spacing:-.03em;max-width:13ch}
+  h1 .u{background:linear-gradient(transparent 78%,rgba(240,81,56,.55) 78%,rgba(240,81,56,.55) 92%,transparent 92%)}
+  .sub{margin:24px 0 0;max-width:54ch;font-size:19px;line-height:1.55;color:var(--ink2)}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border:1.5px solid var(--ink);font:600 15px/1 var(--sans);text-decoration:none;color:var(--ink);background:var(--card);transition:transform 140ms var(--ease),background-color 160ms var(--ease),color 160ms var(--ease)}
+  .btn.primary{background:var(--ink);color:var(--sheet)}
+  .btn:active{transform:scale(.97)}
+
+  .run{border:1.5px solid var(--ink);background:var(--card)}
+  .run header{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--hair)}
+  .run ol{list-style:none;margin:0;padding:6px 16px 4px}
+  .run li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px dashed var(--hair)}
+  .run li:last-child{border-bottom:0}
+  .run code{font-size:15px;font-weight:600}
+  .run span{font-size:15px;line-height:1.45;color:var(--ink2)}
+  .run p{margin:0;padding:12px 16px 14px;border-top:1px solid var(--hair);font-size:14px;line-height:1.5;color:var(--ink2)}
+
+  section.sheet{border-top:1px solid var(--ink)}
+  section.sheet > .wrap{padding-top:56px;padding-bottom:56px}
+  .sh{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+  h2{margin:8px 0 0;font:650 clamp(28px,3.2vw,42px)/1.08 var(--sans);letter-spacing:-.02em;max-width:24ch}
+  .sh p{margin:0;max-width:46ch;color:var(--ink2)}
+
+  .drawing{position:relative;border:1.5px solid var(--ink);background:rgba(247,246,241,.72);padding:64px 28px 30px}
+  .dim{position:absolute;top:20px;height:18px;border-left:1.5px solid var(--ink);border-right:1.5px solid var(--ink)}
+  .dim::before{content:"";position:absolute;left:0;right:0;top:8px;border-top:1px solid var(--ink)}
+  .dim span{position:absolute;left:50%;top:-1px;transform:translateX(-50%);background:var(--card);padding:0 10px;font:600 13px/1.4 var(--mono);white-space:nowrap}
+  .stations{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:44px}
+  .st{position:relative;border:1.5px solid var(--ink);background:var(--card);padding:16px 16px 18px}
+  .st:not(:last-child)::after{content:"";position:absolute;top:50%;left:100%;width:44px;border-top:1.5px solid var(--ink);transform-origin:left center;animation:draw 420ms var(--ease) both}
+  .st:not(:last-child)::before{content:"";position:absolute;top:calc(50% - 5px);left:calc(100% + 34px);border-left:9px solid var(--ink);border-top:5px solid transparent;border-bottom:5px solid transparent}
+  .st:nth-child(2)::after{animation-delay:90ms}.st:nth-child(3)::after{animation-delay:180ms}.st:nth-child(4)::after{animation-delay:270ms}
+  .st .k{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .st h3{margin:0 0 6px;font:650 20px/1.15 var(--sans);letter-spacing:-.01em}
+  .st p{margin:0;font-size:14.5px;line-height:1.45;color:var(--ink2)}
+  .st .cmd{display:block;margin-top:12px;padding-top:10px;border-top:1px dashed var(--hair);font:600 13px/1.5 var(--mono);color:var(--ink)}
+  .bal{display:inline-flex;gap:4px}
+  .bal i{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--or);color:var(--on-or);font:700 12px/1 var(--mono);font-style:normal}
+  .drawing .note{margin:22px 0 0;font:500 13px/1.5 var(--mono);color:var(--ink2)}
+
+  .bom-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:start}
+  .table-scroll{overflow-x:auto}
+  table.bom{width:100%;border-collapse:collapse;border:1.5px solid var(--ink);background:var(--card)}
+  .bom th,.bom td{text-align:left;vertical-align:baseline;padding:12px 14px;border-bottom:1px solid var(--hair)}
+  .bom thead th{font:600 12px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);border-bottom:1.5px solid var(--ink)}
+  .bom td.n{width:52px}
+  .bom td.n i{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--or);color:var(--on-or);font:700 12px/1 var(--mono);font-style:normal}
+  .bom td.p{font-weight:600;min-width:150px}
+  .bom td.w{font:500 13px/1.4 var(--mono);color:var(--ink2);white-space:nowrap}
+  .bom td{font-size:15.5px}
+  .bom tr.apple{background:rgba(240,81,56,.08)}
+  .rev{border:1.5px solid var(--ink);border-left:6px solid var(--or);background:var(--card);padding:22px 24px}
+  .rev h3{margin:8px 0 10px;font:650 22px/1.2 var(--sans)}
+  .rev p{margin:0 0 12px;color:var(--ink2)}
+  .rev p:last-child{margin:0}
+  .rev .anno{color:var(--or-ink)}
+
+  .login{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1.5px solid var(--ink);background:var(--card)}
+  .login > div{padding:22px 24px}
+  .login > div + div{border-left:1.5px solid var(--ink)}
+  .login h3{margin:6px 0 8px;font:650 22px/1.2 var(--sans)}
+  .login p{margin:0;color:var(--ink2)}
+  .cred{margin:18px 0 0;font:500 14px/1.5 var(--mono);color:var(--ink2)}
+  .cred q{color:var(--ink)}
+
+  .legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1.5px solid var(--ink);background:var(--card)}
+  .legend > div{padding:18px 22px}
+  .legend > div + div{border-left:1.5px solid var(--ink)}
+  .legend dl{margin:12px 0 0;display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px 12px}
+  .legend dt{font:600 14px/1.45 var(--mono)}
+  .legend dd{margin:0;font-size:15px;line-height:1.45;color:var(--ink2)}
+
+  .titleblock{display:grid;grid-template-columns:1.2fr 1.6fr 1.3fr .8fr .8fr .8fr;border:1.5px solid var(--ink);background:var(--card);margin-top:40px}
+  .titleblock div{padding:10px 14px;border-left:1px solid var(--ink)}
+  .titleblock div:first-child{border-left:0}
+  .titleblock b{display:block;margin-top:4px;font:600 15px/1.3 var(--mono);color:var(--ink)}
+
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding-top:22px;padding-bottom:32px;font-size:14px;color:var(--ink2)}
+  footer{border-top:1px solid var(--ink)}
+  footer p{margin:0}
+
+  .rv{animation:rise 560ms var(--ease) both}
+  .d1{animation-delay:70ms}.d2{animation-delay:140ms}.d3{animation-delay:210ms}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @media (hover:hover) and (pointer:fine){
+    .top nav a:hover{border-bottom-color:var(--ink)}
+    .btn:hover{background:var(--ink);color:var(--sheet)}
+    .btn.primary:hover{background:var(--or-ink);border-color:var(--or-ink)}
+  }
+  @media (prefers-reduced-motion:reduce){.rv,.st::after{animation:none !important}.btn,.top nav a{transition:none}}
+
+  @media (max-width:1080px){
+    .stations{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    .st::after,.st::before{display:none}
+    .dim{display:none}
+    .drawing{padding-top:28px}
+    .bom-grid{grid-template-columns:1fr}
+    .titleblock{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .titleblock div:nth-child(4){border-left:0}
+    .titleblock div:nth-child(n+4){border-top:1px solid var(--ink)}
+  }
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;gap:36px}
+    .legend{grid-template-columns:1fr}
+    .legend > div + div{border-left:0;border-top:1.5px solid var(--ink)}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    .top .wrap{flex-direction:column;align-items:flex-start;gap:8px;padding-top:14px;padding-bottom:12px}
+    .hero .wrap{padding-top:40px;padding-bottom:44px}
+    .sub{font-size:17px}
+    .run li{grid-template-columns:1fr;gap:2px}
+    section.sheet > .wrap{padding-top:44px;padding-bottom:44px}
+    .stations{grid-template-columns:1fr}
+    .drawing{padding:20px 16px}
+    .login{grid-template-columns:1fr}
+    .login > div + div{border-left:0;border-top:1.5px solid var(--ink)}
+    .legend dl{grid-template-columns:84px minmax(0,1fr)}
+    .bom thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    .bom,.bom tbody{display:block}
+    .bom tr{display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 10px;padding:14px 12px;border-bottom:1px solid var(--hair)}
+    .bom tr:last-child{border-bottom:0}
+    .bom td{display:block;padding:0;border:0}
+    .bom td.n{grid-row:span 3;width:auto}
+    .bom td.w{white-space:normal}
+    .titleblock{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .titleblock div{border-left:1px solid var(--ink);border-top:1px solid var(--ink)}
+    .titleblock div:nth-child(odd){border-left:0}
+    .titleblock div:nth-child(-n+2){border-top:0}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://github.com/xtool-org/xtool">xtool-org <span>/</span> xtool</a>
+    <nav aria-label="Project"><ul>
+      <li><a href="https://xtool.sh/">Docs</a></li>
+      <li><a href="https://github.com/xtool-org/xtool/releases/latest">Releases</a></li>
+      <li><a href="https://github.com/xtool-org/xtool">Source</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div>
+        <p class="anno rv">Sheet 01 &middot; cross-platform Xcode replacement</p>
+        <h1 id="hero-h" class="rv d1">iOS apps, built from a <span class="u">Linux shell.</span></h1>
+        <p class="sub rv d2">xtool replicates Xcode's job with open standards. It builds a SwiftPM package into an iOS app, signs it, and installs it on your device, from Linux, Windows through WSL, or macOS.</p>
+        <div class="ctas rv d3">
+          <a class="btn primary" href="https://xtool.sh/documentation/xtooldocs/installation-linux">Read the install guide</a>
+          <a class="btn" href="https://github.com/xtool-org/xtool">View the source</a>
+        </div>
+      </div>
+      <div class="run rv d2" aria-labelledby="run-h">
+        <header><span class="anno" id="run-h">First run</span><span class="anno">from the docs</span></header>
+        <ol>
+          <li><code>xtool setup</code><span>Once: sign in, then point it at <code>Xcode.xip</code>.</span></li>
+          <li><code>xtool new</code><span>An iOS-capable Swift package.</span></li>
+          <li><code>xtool dev</code><span>Build, install and run on the device over USB.</span></li>
+        </ol>
+        <p>The first build compiles the iOS SDK's Swift modules, so it takes a few minutes. Later runs reuse SwiftPM's global cache.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" aria-labelledby="path-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="anno">Detail A</p><h2 id="path-h">The build path, part by part.</h2></div>
+        <p>Five stations from package to running app. Numbered balloons point to the parts list below.</p>
+      </div>
+      <div class="drawing">
+        <div class="dim" style="left:calc(28px + (100% - 56px - 176px) / 5 + 44px);right:28px" aria-hidden="true"><span>xtool dev covers B &rarr; E</span></div>
+        <ol class="stations">
+          <li class="st"><div class="k"><span class="anno">A</span></div><h3>Swift package</h3><p>A SwiftPM package plus an <code>xtool.yml</code>.</p><span class="cmd">xtool new</span></li>
+          <li class="st"><div class="k"><span class="anno">B</span><span class="bal"><i>1</i><i>4</i></span></div><h3>iOS app</h3><p>SwiftPM builds it against the <code>darwin</code> SDK.</p><span class="cmd">xtool dev</span></li>
+          <li class="st"><div class="k"><span class="anno">C</span><span class="bal"><i>5</i></span></div><h3>Signed</h3><p>Through Apple Developer Services, with your sign-in.</p><span class="cmd">xtool auth &middot; ds</span></li>
+          <li class="st"><div class="k"><span class="anno">D</span><span class="bal"><i>2</i><i>6</i></span></div><h3>On device</h3><p>Over USB, with usbmuxd doing the talking.</p><span class="cmd">xtool devices &middot; install</span></li>
+          <li class="st"><div class="k"><span class="anno">E</span></div><h3>Running</h3><p>First run: tap Trust, and enable Developer Mode if asked.</p><span class="cmd">xtool launch</span></li>
+        </ol>
+        <p class="note">Not to scale. Station E notes come from the first-app tutorial.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" aria-labelledby="bom-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="anno">Parts list</p><h2 id="bom-h">Six parts, and one of them is still Xcode.</h2></div>
+      </div>
+      <div class="bom-grid">
+        <div class="table-scroll">
+          <table class="bom">
+            <thead><tr><th scope="col">No.</th><th scope="col">Part</th><th scope="col">Comes from</th><th scope="col">When</th></tr></thead>
+            <tbody>
+              <tr><td class="n"><i>1</i></td><td class="p">Swift 6.4 toolchain</td><td>swift.org, for your Linux distribution</td><td class="w">Before setup</td></tr>
+              <tr><td class="n"><i>2</i></td><td class="p">usbmuxd</td><td>The libimobiledevice project; often preinstalled</td><td class="w">Before setup</td></tr>
+              <tr class="apple"><td class="n"><i>3</i></td><td class="p">Xcode.xip (Xcode 27)</td><td>Apple, downloaded in a browser with your Apple ID</td><td class="w">Once</td></tr>
+              <tr><td class="n"><i>4</i></td><td class="p">iOS Swift SDK, <code>darwin</code></td><td>Generated by <code>xtool setup</code> from part 3</td><td class="w">Once</td></tr>
+              <tr><td class="n"><i>5</i></td><td class="p">Apple sign-in</td><td>An API key or a password, chosen in <code>xtool setup</code></td><td class="w">Once</td></tr>
+              <tr><td class="n"><i>6</i></td><td class="p">USBIPD</td><td>Windows only: USB passthrough into WSL</td><td class="w">Windows</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <aside class="rev" aria-labelledby="rev-h">
+          <p class="anno">Revision note &middot; part 3</p>
+          <h3 id="rev-h">What changes is where you build, not whose SDK you build against.</h3>
+          <p>You still download Xcode once, in a browser, with your Apple ID. <code>xtool setup</code> extracts the XIP to generate and install an iOS Swift SDK, and <code>swift sdk list</code> then shows <code>darwin</code>.</p>
+          <p>From there the Mac and the IDE are optional; the README shows xtool driven from VS Code.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" aria-labelledby="login-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="anno">Part 5 &middot; sign-in</p><h2 id="login-h">Two ways to sign in, with the trade-off printed.</h2></div>
+      </div>
+      <div class="login">
+        <div><p class="anno">0 &middot; API key</p><h3>The recommended option</h3><p>Requires a paid Apple Developer Program membership and uses the public App Store Connect API, with a Team Key in the App Manager role.</p></div>
+        <div><p class="anno">1 &middot; Password</p><h3>Works with any Apple ID</h3><p>Uses private Apple APIs to authenticate, so the docs suggest a throwaway Apple ID if you want to be extra cautious.</p></div>
+      </div>
+      <p class="cred">From the install guide: <q>your credentials are only sent to Apple and nobody else</q>, and you can build xtool from source to check.</p>
+
+      <div class="legend" style="margin-top:40px" aria-label="Subcommands">
+        <div><p class="anno">Configuration</p><dl><dt>setup</dt><dd>Set up xtool for iOS development</dd><dt>auth</dt><dd>Manage Apple Developer Services authentication</dd><dt>sdk</dt><dd>Manage the Darwin Swift SDK</dd></dl></div>
+        <div><p class="anno">Development</p><dl><dt>new</dt><dd>Create a new xtool SwiftPM project</dd><dt>dev</dt><dd>Build and run an xtool SwiftPM project</dd><dt>ds</dt><dd>Interact with Apple Developer Services</dd></dl></div>
+        <div><p class="anno">Device</p><dl><dt>devices</dt><dd>List devices</dd><dt>install</dt><dd>Install an ipa file to your device</dd><dt>uninstall</dt><dd>Uninstall an installed app</dd><dt>launch</dt><dd>Launch an installed app</dd></dl></div>
+      </div>
+
+      <div class="titleblock" aria-label="Title block">
+        <div><span class="anno">Project</span><b>xtool</b></div>
+        <div><span class="anno">Drawing</span><b>iOS build path</b></div>
+        <div><span class="anno">Rev</span><b>1.21.0 &middot; Oct 5, 2026</b></div>
+        <div><span class="anno">Scale</span><b>NTS</b></div>
+        <div><span class="anno">License</span><b>MIT</b></div>
+        <div><span class="anno">Sheet</span><b>1 of 1</b></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Concept redesign, not affiliated. Parts, steps and commands from the xtool README and docs; Rev is the latest GitHub release.</p>
+    <p><a href="https://github.com/xtool-org/xtool">github.com/xtool-org/xtool</a></p>
+  </div>
+</footer>
+</body>
+</html>

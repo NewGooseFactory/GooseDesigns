@@ -2,10 +2,11 @@
 
 Top Gun aviation-instrument HUD. Amber/green readouts, subtle grid, restrained — never game-UI cheesy.
 
-37 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+38 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-13](../days/2026-10-13/) | [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio) | preflight-green | Set the install guide written for coding agents as a preflight, with verification as a ladder of API calls and one amber caution on the rung that looks finished early | Ending on a clip that plays gives the reader a promise they can check, and the amber rung marks where a hurried agent would stop too soon | [png](../days/2026-10-13/02-voicestudio.png) |
 | [2026-10-08](../days/2026-10-08/) | [storytold/artcraft](https://github.com/storytold/artcraft) | viewfinder-amber | Frame the hero as a camera viewfinder over a grey blocked-out scene, with a pre-generate checklist for composition, character identity and camera | A checklist in front of the generate button turns prompting into staging, which is the product's whole argument | [png](../days/2026-10-08/02-artcraft.png) |
 | [2026-10-02](../days/2026-10-02/) | [getsentry/sentry](https://github.com/getsentry/sentry) | phosphor-green | Draw the project tagline as a master caution light above an annunciator grid, so the clue and the answer become two different instruments | A caution light that can only say something is wrong is the clearest way to show what an answer adds | [png](../days/2026-10-02/02-sentry.png) |
 | [2026-09-27](../days/2026-09-27/) | [block/buzz](https://github.com/block/buzz) | instrument-amber | Print all three status columns as instrument readouts, including the one the project warns you not to rely on | An unlit third column is the most credible thing on a roadmap, because it is the one nobody had to publish | [png](../days/2026-09-27/01-buzz.png) |

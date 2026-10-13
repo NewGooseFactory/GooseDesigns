@@ -2,11 +2,11 @@
 
 ![GooseDesigns — a daily montage of hero and landing-page UI design mockups for trending GitHub repositories](assets/banner.png)
 
-![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![363 mocks](https://img.shields.io/badge/mocks-363-1f6feb?style=flat-square) ![121 days](https://img.shields.io/badge/days-121-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
+![Updated daily](https://img.shields.io/badge/updated-daily-5eead4?style=flat-square) ![366 mocks](https://img.shields.io/badge/mocks-366-1f6feb?style=flat-square) ![122 days](https://img.shields.io/badge/days-122-30363d?style=flat-square) [![Live site](https://img.shields.io/badge/live-GitHub%20Pages-2ea043?style=flat-square)](https://newgoosefactory.github.io/GooseDesigns/) ![License MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 
 **A fresh set of landing-page and hero-section design mockups every morning.** GooseDesigns is an automated design-practice gallery: each day it reads [GitHub Trending](https://github.com/trending), picks the most interesting repositories — AI, autonomous agents, developer tools, local LLMs, and PKM — and reimagines each project's **hero / landing-page UI** in a rotating visual style. Real product copy, accessible contrast, intentional motion, and no generic AI-gradient slop.
 
-Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 363 mockups across 121 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
+Use it for **UI inspiration, web-design examples, landing-page ideas, and front-end reference** — 366 mockups across 122 days and 22 style families, updated daily. See the **[full design catalog](CATALOG.md)** or the **[live gallery](https://newgoosefactory.github.io/GooseDesigns/)**.
 
 ## Browse
 
@@ -15,20 +15,21 @@ Use it for **UI inspiration, web-design examples, landing-page ideas, and front-
 - **[Design Taste Ledger](ledger.md)** · **[Concept: Design Taste](concept.md)**
 - **[Design system & discoverability spec](DESIGN.md)** — palette, type scale, the four style families, and how this repo is built for reach
 
-## Latest — Monday, October 12
+## Latest — Tuesday, October 13
 
 <table><tr>
-<td align="center" width="33%"><a href="days/2026-10-12/"><img src="days/2026-10-12/01-anyps5.png" width="320" alt="boykopovar/AnyPS5"></a><br><sub><b>boykopovar/AnyPS5</b><br>ledger</sub></td>
-<td align="center" width="33%"><a href="days/2026-10-12/"><img src="days/2026-10-12/02-gods-eye-view.png" width="320" alt="bilawalsidhu/gods-eye-view"></a><br><sub><b>bilawalsidhu/gods-eye-view</b><br>strata</sub></td>
-<td align="center" width="33%"><a href="days/2026-10-12/"><img src="days/2026-10-12/03-open-intelligent-ui.png" width="320" alt="CopilotKit/OpenIntelligentUI"></a><br><sub><b>CopilotKit/OpenIntelligentUI</b><br>glass</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-13/"><img src="days/2026-10-13/01-skills.png" width="320" alt="vercel-labs/skills"></a><br><sub><b>vercel-labs/skills</b><br>brutalist</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-13/"><img src="days/2026-10-13/02-voicestudio.png" width="320" alt="debpalash/VoiceStudio"></a><br><sub><b>debpalash/VoiceStudio</b><br>hud</sub></td>
+<td align="center" width="33%"><a href="days/2026-10-13/"><img src="days/2026-10-13/03-xtool.png" width="320" alt="xtool-org/xtool"></a><br><sub><b>xtool-org/xtool</b><br>blueprint</sub></td>
 </tr></table>
 
-[See the full day →](days/2026-10-12/)
+[See the full day →](days/2026-10-13/)
 
 ## All reps
 
 | Date | Day | Mocks | Styles | Page |
 |------|-----|-------|--------|------|
+| 2026-10-13 | Tuesday | 3 | brutalist, hud, blueprint | [open](days/2026-10-13/) |
 | 2026-10-12 | Monday | 3 | ledger, strata, glass | [open](days/2026-10-12/) |
 | 2026-10-11 | Sunday | 3 | bauhaus, neon-noir, poster | [open](days/2026-10-11/) |
 | 2026-10-10 | Saturday | 3 | mono-zine, editorial, patchbay | [open](days/2026-10-10/) |

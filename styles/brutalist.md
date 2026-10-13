@@ -1,9 +1,10 @@
 ﻿# Style — brutalist
 
-17 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+18 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-13](../days/2026-10-13/) | [vercel-labs/skills](https://github.com/vercel-labs/skills) | link-magenta | Set the README's agent table as 79 hard-bordered cells, the 24 that share .agents/skills/ filled in magenta, under a headline made of three counts | Counting the folders makes "works with every agent" concrete, and shows the work the CLI absorbs so you don't have to | [png](../days/2026-10-13/01-skills.png) |
 | [2026-10-02](../days/2026-10-02/) | [colbymchenry/codegraph](https://github.com/colbymchenry/codegraph) | hazard-yellow | Put the throughput savings and the session footprint on one scale with equal type, and give the accent to the cost column | Printing the cost the project discloses at the same size as the win is what makes the win believable | [png](../days/2026-10-02/01-codegraph.png) |
 | [2026-09-24](../days/2026-09-24/) | [superdesigndev/treg](https://github.com/superdesigndev/treg) | relay-red | Draw the request path as three hard boxes and let the reader watch the credential stay in the middle one | Sending a call and seeing the agent box still read no provider key is the whole security claim | [png](../days/2026-09-24/02-treg.png) |
 | [2026-09-17](../days/2026-09-17/) | [Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill) | signal-orange | Show two windows side by side and let the reader borrow exactly one tab, then return it | Returning the tab is the whole product; an interaction that reverses itself says so without a paragraph | [png](../days/2026-09-17/01-browserskill.png) |

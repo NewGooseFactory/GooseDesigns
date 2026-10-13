@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>skills: 79 agents, 53 folders, one copy (concept)</title>
+<meta name="description" content="Concept landing page for vercel-labs/skills, the CLI for the open agent skills ecosystem.">
+<style>
+  :root{
+    --paper:#ffffff; --ink:#0a0a0a; --mute:#3b3b3b; --soft:#f1f1f1; --mag:#ff2d95;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --ease:cubic-bezier(0.23,1,0.32,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--sans)}
+  a{color:inherit;text-underline-offset:3px;text-decoration-thickness:2px}
+  code{font:500 .9em/1 var(--mono)}
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--paper);padding:10px 14px;z-index:10;font:600 14px/1 var(--mono)}
+  .skip:focus{left:8px}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 7px var(--mag)}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+
+  .top{border-bottom:3px solid var(--ink)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:stretch;min-height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font:700 15px/1 var(--mono);text-decoration:none}
+  .brand b{background:var(--ink);color:var(--paper);padding:5px 7px;font-weight:700}
+  .top nav ul{display:flex;list-style:none;margin:0;padding:0;height:100%}
+  .top nav li{display:flex}
+  .top nav a{display:flex;align-items:center;padding:0 18px;border-left:3px solid var(--ink);font:600 14px/1 var(--mono);text-decoration:none}
+
+  .hero{border-bottom:3px solid var(--ink)}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:48px;align-items:end;padding-top:56px;padding-bottom:56px}
+  .kicker{margin:0 0 22px;font:700 13px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em}
+  h1{margin:0;font:800 clamp(52px,8.4vw,116px)/.92 var(--sans);letter-spacing:-.045em}
+  h1 span{display:block}
+  h1 .hl{display:inline-block;background:var(--mag);padding:0 .08em;margin-top:.06em;box-shadow:6px 6px 0 var(--ink)}
+  .side{border:3px solid var(--ink);padding:24px}
+  .lede{margin:0 0 20px;font-size:17px;line-height:1.55}
+  .cmd{display:flex;gap:10px;align-items:baseline;background:var(--ink);color:var(--paper);padding:14px 16px;font:500 15px/1.4 var(--mono);overflow-wrap:anywhere}
+  .cmd > span{color:#bdbdbd}
+  .nw{white-space:nowrap}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+  .btn{display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border:3px solid var(--ink);font:700 15px/1 var(--sans);text-decoration:none;background:var(--paper);color:var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform 120ms var(--ease),box-shadow 120ms var(--ease),background-color 120ms var(--ease)}
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+  @media (hover:hover) and (pointer:fine){
+    .btn:hover{background:var(--mag);color:var(--ink)}
+    .top nav a:hover{background:var(--ink);color:var(--paper)}
+  }
+
+  section.band{border-bottom:3px solid var(--ink)}
+  section.band > .wrap{padding-top:56px;padding-bottom:56px}
+  .head{display:grid;grid-template-columns:72px minmax(0,1fr);gap:0 24px;margin-bottom:32px}
+  .head .num{grid-row:span 2;margin:0;align-self:start;background:var(--ink);color:var(--paper);font:700 22px/1 var(--mono);padding:14px 0;text-align:center}
+  h2{margin:0 0 12px;font:800 clamp(30px,3.6vw,48px)/1.02 var(--sans);letter-spacing:-.03em;max-width:22ch}
+  .head p{margin:0;max-width:68ch;color:var(--mute)}
+
+  .cells{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:6px}
+  .c{border:2px solid var(--ink);padding:8px 8px 9px;font:500 12px/1.2 var(--mono);overflow-wrap:anywhere;min-height:36px}
+  .c.on{background:var(--mag);font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:12px 28px;margin:22px 0 0;font:600 14px/1.3 var(--mono)}
+  .legend span{display:inline-flex;align-items:center;gap:10px}
+  .sw{width:18px;height:18px;border:2px solid var(--ink);display:inline-block}
+  .sw.on{background:var(--mag)}
+  .src{margin:14px 0 0;font:400 13px/1.5 var(--mono);color:var(--mute)}
+
+  .feat{border-top:3px solid var(--ink)}
+  .frow{display:grid;grid-template-columns:200px auto 92px minmax(0,1fr);gap:20px;align-items:center;padding:16px 0;border-bottom:2px solid var(--ink)}
+  .fname{margin:0;font:700 16px/1.3 var(--sans)}
+  .sq{display:flex;gap:4px}
+  .q{width:16px;height:16px;border:2px solid var(--ink);display:block}
+  .q.y{background:var(--ink)}
+  .fcount{margin:0;font:700 26px/1 var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+  .fcount small{font-size:15px;font-weight:500}
+  .fnote{margin:0;color:var(--mute);font-size:15px}
+  .order{margin:14px 0 0;font:400 13px/1.5 var(--mono);color:var(--mute)}
+
+  .split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px}
+  table.verbs{width:100%;border-collapse:collapse;border-top:3px solid var(--ink)}
+  .verbs th,.verbs td{padding:12px 0;border-bottom:2px solid var(--ink);text-align:left;vertical-align:baseline}
+  .verbs th{width:110px;font:700 16px/1.3 var(--mono)}
+  .verbs td{font-size:16px}
+  .accepts{margin:18px 0 0;font-size:15px;color:var(--mute)}
+  .accepts code{color:var(--ink)}
+  pre.file{margin:0;border:3px solid var(--ink);padding:20px;background:var(--soft);font:500 14px/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+  .fm{font-weight:700}
+  .note{margin:16px 0 0;font-size:15px;color:var(--mute)}
+  .note code{color:var(--ink)}
+
+  footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;padding-top:28px;padding-bottom:36px;font-size:14px;color:var(--mute)}
+  footer p{margin:0}
+  footer code{color:var(--ink)}
+
+  .rv{animation:rise 520ms var(--ease) both}
+  .d1{animation-delay:60ms}.d2{animation-delay:120ms}.d3{animation-delay:180ms}.d4{animation-delay:260ms}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.rv{animation:none}.btn{transition:none}}
+
+  @media (max-width:980px){
+    .hero .wrap{grid-template-columns:1fr;gap:32px}
+    .frow{grid-template-columns:minmax(0,1fr) auto;gap:10px 16px}
+    .frow .sq{grid-column:1 / -1;order:3}
+    .frow .fnote{grid-column:1 / -1;order:4}
+    .split{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    .top .wrap{flex-direction:column;padding:0}
+    .brand{padding:16px}
+    .top nav ul{border-top:3px solid var(--ink)}
+    .top nav li{flex:1}
+    .top nav li:first-child a{border-left:0}
+    .top nav a{flex:1;justify-content:center;padding:14px 6px}
+    .hero .wrap{padding-top:36px;padding-bottom:40px}
+    .head{grid-template-columns:52px minmax(0,1fr);gap:0 14px}
+    .head .num{font-size:18px;padding:10px 0}
+    section.band > .wrap{padding-top:40px;padding-bottom:40px}
+    .cells{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .q{width:14px;height:14px}
+    .sq{gap:3px;flex-wrap:wrap}
+    footer .wrap{grid-template-columns:1fr;gap:14px}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://github.com/vercel-labs/skills"><b>npx</b>vercel-labs / skills</a>
+    <nav aria-label="Project"><ul>
+      <li><a href="https://skills.sh">skills.sh</a></li>
+      <li><a href="https://agentskills.io">Spec</a></li>
+      <li><a href="https://github.com/vercel-labs/skills">Source</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div>
+        <p class="kicker rv">The CLI for the open agent skills ecosystem</p>
+        <h1 id="hero-h"><span class="rv d1">79 agents.</span><span class="rv d2">53 folders.</span><span class="rv d3"><span class="hl">One copy.</span></span></h1>
+      </div>
+      <div class="side rv d4">
+        <p class="lede">skills finds the <code>SKILL.md</code> files in a repository and installs them for the coding agents you use, from Claude Code and Codex to Cursor and OpenCode. Choose the recommended symlink install and every agent's folder points back to one canonical copy.</p>
+        <div class="cmd"><span aria-hidden="true">$</span><code>npx skills add <span class="nw">vercel-labs/agent-skills</span></code></div>
+        <div class="ctas">
+          <a class="btn primary" href="https://skills.sh">Browse skills.sh</a>
+          <a class="btn" href="https://github.com/vercel-labs/skills">Read the source</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="lands-h">
+    <div class="wrap">
+      <div class="head">
+        <p class="num" aria-hidden="true">01</p>
+        <h2 id="lands-h">24 of 79 agents already share a folder.</h2>
+        <p>At project scope, 24 agent IDs read <code>.agents/skills/</code>. The other 55 read 52 folders of their own, from <code>.claude/skills/</code> and <code>.goose/skills/</code> to <code>.windsurf/skills/</code>. The CLI detects which agents you have installed and writes to each one, so the list is its problem, not yours.</p>
+      </div>
+      <ul class="cells" aria-label="Supported agent IDs, shared folder first">
+        <li class="c on" title=".agents/skills/">amp</li>
+        <li class="c on" title=".agents/skills/">replit</li>
+        <li class="c on" title=".agents/skills/">universal</li>
+        <li class="c on" title=".agents/skills/">antigravity</li>
+        <li class="c on" title=".agents/skills/">antigravity-cli</li>
+        <li class="c on" title=".agents/skills/">cline</li>
+        <li class="c on" title=".agents/skills/">codex</li>
+        <li class="c on" title=".agents/skills/">dexto</li>
+        <li class="c on" title=".agents/skills/">fx</li>
+        <li class="c on" title=".agents/skills/">kimi-code-cli</li>
+        <li class="c on" title=".agents/skills/">loaf</li>
+        <li class="c on" title=".agents/skills/">pi</li>
+        <li class="c on" title=".agents/skills/">sarvam-code</li>
+        <li class="c on" title=".agents/skills/">warp</li>
+        <li class="c on" title=".agents/skills/">zed</li>
+        <li class="c on" title=".agents/skills/">cursor</li>
+        <li class="c on" title=".agents/skills/">deepagents</li>
+        <li class="c on" title=".agents/skills/">droid</li>
+        <li class="c on" title=".agents/skills/">firebender</li>
+        <li class="c on" title=".agents/skills/">gemini-cli</li>
+        <li class="c on" title=".agents/skills/">github-copilot</li>
+        <li class="c on" title=".agents/skills/">kilo</li>
+        <li class="c on" title=".agents/skills/">opencode</li>
+        <li class="c on" title=".agents/skills/">promptscript</li>
+        <li class="c" title=".aider-desk/skills/">aider-desk</li>
+        <li class="c" title="data/skills/">astrbot</li>
+        <li class="c" title=".autohand/skills/">autohand-code</li>
+        <li class="c" title=".augment/skills/">augment</li>
+        <li class="c" title=".bob/skills/">bob</li>
+        <li class="c" title=".claude/skills/">claude-code</li>
+        <li class="c" title="skills/">openclaw</li>
+        <li class="c" title=".codeartsdoer/skills/">codearts-agent</li>
+        <li class="c" title=".codebuddy/skills/">codebuddy</li>
+        <li class="c" title=".codemaker/skills/">codemaker</li>
+        <li class="c" title=".codestudio/skills/">codestudio</li>
+        <li class="c" title=".commandcode/skills/">command-code</li>
+        <li class="c" title=".continue/skills/">continue</li>
+        <li class="c" title=".cortex/skills/">cortex</li>
+        <li class="c" title=".crush/skills/">crush</li>
+        <li class="c" title=".devin/skills/">devin</li>
+        <li class="c" title="agent/skills/">eve</li>
+        <li class="c" title=".forge/skills/">forgecode</li>
+        <li class="c" title=".goose/skills/">goose</li>
+        <li class="c" title=".grok/skills/">grok</li>
+        <li class="c" title=".hermes/skills/">hermes-agent</li>
+        <li class="c" title=".inferencesh/skills/">inference-sh</li>
+        <li class="c" title=".jazz/skills/">jazz</li>
+        <li class="c" title=".junie/skills/">junie</li>
+        <li class="c" title=".iflow/skills/">iflow-cli</li>
+        <li class="c" title=".kimchi/skills/">kimchi</li>
+        <li class="c" title=".kiro/skills/">kiro-cli</li>
+        <li class="c" title=".kode/skills/">kode</li>
+        <li class="c" title=".lingma/skills/">lingma</li>
+        <li class="c" title=".mcpjam/skills/">mcpjam</li>
+        <li class="c" title=".minimax/skills/">minimax-code</li>
+        <li class="c" title=".vibe/skills/">mistral-vibe</li>
+        <li class="c" title=".moxby/skills/">moxby</li>
+        <li class="c" title=".mux/skills/">mux</li>
+        <li class="c" title=".openhands/skills/">openhands</li>
+        <li class="c" title=".ona/skills/">ona</li>
+        <li class="c" title=".posit/assistant/skills/">posit-assistant</li>
+        <li class="c" title=".qoder/skills/">qoder</li>
+        <li class="c" title=".qoder/skills/">qoder-cn</li>
+        <li class="c" title=".qwen/skills/">qwen-code</li>
+        <li class="c" title=".reasonix/skills/">reasonix</li>
+        <li class="c" title=".rovodev/skills/">rovodev</li>
+        <li class="c" title=".roo/skills/">roo</li>
+        <li class="c" title=".tabnine/agent/skills/">tabnine-cli</li>
+        <li class="c" title=".terramind/skills/">terramind</li>
+        <li class="c" title=".tinycloud/skills/">tinycloud</li>
+        <li class="c" title=".trae/skills/">trae</li>
+        <li class="c" title=".trae/skills/">trae-cn</li>
+        <li class="c" title=".windsurf/skills/">windsurf</li>
+        <li class="c" title=".zcode/skills/">zcode</li>
+        <li class="c" title=".zencoder/skills/">zencoder</li>
+        <li class="c" title=".zencoder/skills/">zenflow</li>
+        <li class="c" title=".neovate/skills/">neovate</li>
+        <li class="c" title=".pochi/skills/">pochi</li>
+        <li class="c" title=".adal/skills/">adal</li>
+      </ul>
+      <div class="legend" aria-hidden="true">
+        <span><i class="sw on"></i>reads .agents/skills/ &mdash; 24</span>
+        <span><i class="sw"></i>uses a folder of its own &mdash; 55</span>
+      </div>
+      <p class="src">Source: the Supported Agents table in the README, read October 13, 2026. IDs as passed to <code>--agent</code>; hover a cell for its project folder.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="travel-h">
+    <div class="wrap">
+      <div class="head">
+        <p class="num" aria-hidden="true">02</p>
+        <h2 id="travel-h">The basics travel. The extras are agent-specific.</h2>
+        <p>Skills follow a shared Agent Skills specification, and the README tracks which features each agent honours. Of the 18 agents in its compatibility table:</p>
+      </div>
+      <div class="feat">
+        <div class="frow">
+          <p class="fname">Basic skills</p>
+          <div class="sq" aria-hidden="true"><i class="q y" title="OpenCode: yes"></i><i class="q y" title="OpenHands: yes"></i><i class="q y" title="Claude Code: yes"></i><i class="q y" title="Cline: yes"></i><i class="q y" title="CodeBuddy: yes"></i><i class="q y" title="Codex: yes"></i><i class="q y" title="Command Code: yes"></i><i class="q y" title="Kiro CLI: yes"></i><i class="q y" title="Cursor: yes"></i><i class="q y" title="Antigravity: yes"></i><i class="q y" title="Roo Code: yes"></i><i class="q y" title="Github Copilot: yes"></i><i class="q y" title="Amp: yes"></i><i class="q y" title="OpenClaw: yes"></i><i class="q y" title="Neovate: yes"></i><i class="q y" title="Pi: yes"></i><i class="q y" title="Qoder: yes"></i><i class="q y" title="Zencoder: yes"></i></div>
+          <p class="fcount">18<small>/18</small></p>
+          <p class="fnote">Every agent in the table.</p>
+        </div>
+        <div class="frow">
+          <p class="fname"><code>allowed-tools</code></p>
+          <div class="sq" aria-hidden="true"><i class="q y" title="OpenCode: yes"></i><i class="q y" title="OpenHands: yes"></i><i class="q y" title="Claude Code: yes"></i><i class="q y" title="Cline: yes"></i><i class="q y" title="CodeBuddy: yes"></i><i class="q y" title="Codex: yes"></i><i class="q y" title="Command Code: yes"></i><i class="q" title="Kiro CLI: no"></i><i class="q y" title="Cursor: yes"></i><i class="q y" title="Antigravity: yes"></i><i class="q y" title="Roo Code: yes"></i><i class="q y" title="Github Copilot: yes"></i><i class="q y" title="Amp: yes"></i><i class="q y" title="OpenClaw: yes"></i><i class="q y" title="Neovate: yes"></i><i class="q y" title="Pi: yes"></i><i class="q y" title="Qoder: yes"></i><i class="q" title="Zencoder: no"></i></div>
+          <p class="fcount">16<small>/18</small></p>
+          <p class="fnote">All but Kiro CLI and Zencoder.</p>
+        </div>
+        <div class="frow">
+          <p class="fname"><code>context: fork</code></p>
+          <div class="sq" aria-hidden="true"><i class="q" title="OpenCode: no"></i><i class="q" title="OpenHands: no"></i><i class="q y" title="Claude Code: yes"></i><i class="q" title="Cline: no"></i><i class="q" title="CodeBuddy: no"></i><i class="q" title="Codex: no"></i><i class="q" title="Command Code: no"></i><i class="q" title="Kiro CLI: no"></i><i class="q" title="Cursor: no"></i><i class="q" title="Antigravity: no"></i><i class="q" title="Roo Code: no"></i><i class="q" title="Github Copilot: no"></i><i class="q" title="Amp: no"></i><i class="q" title="OpenClaw: no"></i><i class="q" title="Neovate: no"></i><i class="q" title="Pi: no"></i><i class="q" title="Qoder: no"></i><i class="q" title="Zencoder: no"></i></div>
+          <p class="fcount">1<small>/18</small></p>
+          <p class="fnote">Claude Code only.</p>
+        </div>
+        <div class="frow">
+          <p class="fname">Hooks</p>
+          <div class="sq" aria-hidden="true"><i class="q" title="OpenCode: no"></i><i class="q" title="OpenHands: no"></i><i class="q y" title="Claude Code: yes"></i><i class="q y" title="Cline: yes"></i><i class="q" title="CodeBuddy: no"></i><i class="q" title="Codex: no"></i><i class="q" title="Command Code: no"></i><i class="q y" title="Kiro CLI: yes"></i><i class="q" title="Cursor: no"></i><i class="q" title="Antigravity: no"></i><i class="q" title="Roo Code: no"></i><i class="q" title="Github Copilot: no"></i><i class="q" title="Amp: no"></i><i class="q" title="OpenClaw: no"></i><i class="q" title="Neovate: no"></i><i class="q" title="Pi: no"></i><i class="q" title="Qoder: no"></i><i class="q" title="Zencoder: no"></i></div>
+          <p class="fcount">3<small>/18</small></p>
+          <p class="fnote">Claude Code, Cline and Kiro CLI.</p>
+        </div>
+      </div>
+      <p class="order">Squares follow the README's column order: OpenCode, OpenHands, Claude Code, Cline, CodeBuddy, Codex, Command Code, Kiro CLI, Cursor, Antigravity, Roo Code, GitHub Copilot, Amp, OpenClaw, Neovate, Pi, Qoder, Zencoder.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="verbs-h">
+    <div class="wrap split">
+      <div>
+        <div class="head">
+          <p class="num" aria-hidden="true">03</p>
+          <h2 id="verbs-h">Seven verbs.</h2>
+        </div>
+        <table class="verbs">
+          <tbody>
+            <tr><th scope="row">add</th><td>Install skills from a repository, URL or local path</td></tr>
+            <tr><th scope="row">use</th><td>Use one skill without installing</td></tr>
+            <tr><th scope="row">list</th><td>List installed skills (alias: <code>ls</code>)</td></tr>
+            <tr><th scope="row">find</th><td>Search for skills interactively or by keyword</td></tr>
+            <tr><th scope="row">update</th><td>Update installed skills to latest versions</td></tr>
+            <tr><th scope="row">remove</th><td>Remove installed skills from agents</td></tr>
+            <tr><th scope="row">init</th><td>Create a new <code>SKILL.md</code> template</td></tr>
+          </tbody>
+        </table>
+        <p class="accepts"><code>add</code> accepts <code>owner/repo</code>, GitHub, GitLab and Azure Repos URLs, any git URL, a local path, or a direct link to a <code>SKILL.md</code> or archive.</p>
+      </div>
+      <div>
+        <div class="head">
+          <p class="num" aria-hidden="true">04</p>
+          <h2 id="file-h">A skill is a folder with one file.</h2>
+        </div>
+<pre class="file" aria-labelledby="file-h"><code><span class="fm">---
+name: my-skill
+description: What this skill does and when to use it
+---</span>
+
+# My Skill
+
+Instructions for the agent to follow when this skill is activated.</code></pre>
+        <p class="note"><code>name</code> and <code>description</code> are required. Set <code>metadata.internal: true</code> to hide a work-in-progress skill from normal discovery.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>The CLI collects anonymous usage data. Set <code>DISABLE_TELEMETRY=1</code> or <code>DO_NOT_TRACK=1</code> to turn it off.</p>
+    <p>Concept redesign, not affiliated with Vercel. Counts taken from the README on October 13, 2026. MIT-licensed. <a href="https://github.com/vercel-labs/skills">github.com/vercel-labs/skills</a></p>
+  </div>
+</footer>
+</body>
+</html>

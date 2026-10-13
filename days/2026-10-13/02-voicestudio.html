@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoiceStudio: done is a clip that plays (concept)</title>
+<meta name="description" content="Concept landing page for VoiceStudio's agent-run install: inspect the device, ask before downloads, verify with a real clip.">
+<style>
+  :root{
+    --bg:#0a0e0b; --panel:#0d130f; --line:rgba(140,245,168,.22); --grid:rgba(140,245,168,.045);
+    --green:#8cf5a8; --text:#e3efe6; --dim:#a3b8a9; --amber:#ffb547; --amber-bg:rgba(255,181,71,.07);
+    --hud:"Bahnschrift","DIN Alternate","DIN 2014","Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --ease:cubic-bezier(0.23,1,0.32,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;color:var(--text);font:400 16px/1.6 var(--hud)}
+  a{color:inherit;text-underline-offset:3px}
+  code{font:500 .92em/1.4 var(--mono)}
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--green);color:#06130a;padding:10px 14px;z-index:10;font:600 14px/1 var(--mono)}
+  .skip:focus{left:8px}
+  :focus-visible{outline:2px solid var(--green);outline-offset:3px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  .lbl{font:600 12px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+  .top{border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:60px}
+  .brand{font:600 15px/1 var(--mono);text-decoration:none;display:flex;align-items:center;gap:10px}
+  .lamp{width:8px;height:8px;background:var(--green);display:inline-block;box-shadow:0 0 8px rgba(140,245,168,.55)}
+  .top ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+  .top nav a{display:block;padding:8px 12px;font:600 13px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--dim);border:1px solid transparent;transition:color 150ms var(--ease),border-color 150ms var(--ease)}
+
+  .frame{position:relative;border:1px solid var(--line);background:var(--panel)}
+  .frame::before,.frame::after{content:"";position:absolute;width:12px;height:12px;border:2px solid var(--green);pointer-events:none}
+  .frame::before{top:-2px;left:-2px;border-right:0;border-bottom:0}
+  .frame::after{bottom:-2px;right:-2px;border-left:0;border-top:0}
+
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:56px;align-items:center;padding-top:64px;padding-bottom:64px}
+  .kick{display:flex;gap:14px;align-items:center;margin:0 0 22px}
+  .kick .lbl{color:var(--green)}
+  h1{margin:0;font:600 clamp(46px,6.2vw,84px)/.98 var(--hud);letter-spacing:-.015em}
+  h1 em{font-style:normal;color:var(--green);white-space:nowrap}
+  .sub{margin:22px 0 0;max-width:54ch;font-size:19px;line-height:1.55;color:var(--text)}
+  .quote{margin:18px 0 0;padding-left:14px;border-left:2px solid var(--green);color:var(--dim);font-size:16px}
+  .quote q{color:var(--text)}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;font:600 14px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--green);color:var(--green);transition:transform 140ms var(--ease),background-color 160ms var(--ease),color 160ms var(--ease)}
+  .btn.primary{background:var(--green);color:#06130a}
+  .btn:active{transform:scale(.97)}
+  .prompt{padding:26px}
+  .prompt .lbl{display:flex;justify-content:space-between;margin-bottom:14px}
+  .prompt pre{margin:0;padding:18px;border:1px solid var(--line);background:#070b08;font:500 14px/1.65 var(--mono);color:var(--text);white-space:pre-wrap;overflow-wrap:anywhere}
+  .prompt p{margin:16px 0 0;font-size:15px;color:var(--dim)}
+  .prompt p code{color:var(--text)}
+
+  section.sec{border-top:1px solid var(--line)}
+  section.sec > .wrap{padding-top:56px;padding-bottom:56px}
+  .sh{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:28px;flex-wrap:wrap}
+  h2{margin:0;font:600 clamp(28px,3.2vw,40px)/1.08 var(--hud);letter-spacing:-.005em;max-width:26ch}
+  .sh p{margin:0;max-width:52ch;color:var(--dim)}
+
+  .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid var(--line);background:var(--panel)}
+  .steps li{padding:20px 18px 22px;border-left:1px solid var(--line)}
+  .steps li:first-child{border-left:0}
+  .steps .n{display:block;font:500 28px/1 var(--mono);color:var(--green);font-variant-numeric:tabular-nums}
+  .steps b{display:block;margin:12px 0 6px;font:600 14px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+  .steps span.t{display:block;font-size:15px;line-height:1.45;color:var(--dim)}
+
+  .verify{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:48px;align-items:start}
+  .ladder{list-style:none;margin:0;padding:0}
+  .rung{display:grid;grid-template-columns:34px minmax(0,1fr) 92px;gap:16px;align-items:start;padding:14px 18px;border:1px solid var(--line);border-top:0;background:var(--panel)}
+  .rung:first-child{border-top:1px solid var(--line)}
+  .rung .i{font:500 14px/1.5 var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
+  .rung .r{font:600 15px/1.5 var(--mono);color:var(--text)}
+  .rung .w{display:block;font:400 15px/1.45 var(--hud);color:var(--dim);margin-top:2px}
+  .tag{justify-self:end;font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:6px 7px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+  .rung.caution{background:var(--amber-bg);border-color:rgba(255,181,71,.45)}
+  .rung.caution .tag{border-color:var(--amber);color:var(--amber)}
+  .rung.caution .r{color:var(--amber)}
+  .rung.done .tag{background:var(--green);border-color:var(--green);color:#06130a}
+  .rung.done .r{color:var(--green)}
+  .aside p{margin:0 0 14px;color:var(--dim)}
+  .aside p strong{color:var(--text);font-weight:600}
+
+  .two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px}
+  .panel{padding:24px 26px}
+  .panel h3{margin:0 0 4px;font:600 22px/1.2 var(--hud)}
+  .panel .lbl{display:block;margin-bottom:16px}
+  table.ro{width:100%;border-collapse:collapse}
+  .ro th,.ro td{text-align:left;vertical-align:baseline;padding:11px 0;border-top:1px solid var(--line)}
+  .ro th{width:42%;padding-right:16px;font:600 15px/1.4 var(--hud);color:var(--text)}
+  .ro td{font:400 15px/1.45 var(--hud);color:var(--dim)}
+  .ro td b{color:var(--green);font-weight:600}
+  .limits{list-style:none;margin:0;padding:0;counter-reset:l}
+  .limits li{position:relative;padding:11px 0 11px 34px;border-top:1px solid var(--line);font-size:15px;line-height:1.45;color:var(--text)}
+  .limits li::before{counter-increment:l;content:"L" counter(l);position:absolute;left:0;top:12px;font:600 12px/1.3 var(--mono);color:var(--green)}
+
+  .debrief{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid var(--line);background:var(--panel)}
+  .debrief div{padding:16px 16px 20px;border-left:1px solid var(--line)}
+  .debrief div:first-child{border-left:0}
+  .debrief .lbl{display:block;margin-bottom:22px}
+  .debrief i{display:block;height:1px;background:var(--line)}
+
+  footer{border-top:1px solid var(--line)}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:24px;padding-bottom:32px;font-size:14px;color:var(--dim)}
+  footer p{margin:0}
+  footer strong{color:var(--text);font-weight:600}
+
+  .rv{animation:rise 560ms var(--ease) both}
+  .d1{animation-delay:70ms}.d2{animation-delay:140ms}.d3{animation-delay:210ms}.d4{animation-delay:280ms}
+  .ladder .rung{animation:rise 420ms var(--ease) both}
+  .ladder .rung:nth-child(2){animation-delay:60ms}.ladder .rung:nth-child(3){animation-delay:120ms}.ladder .rung:nth-child(4){animation-delay:180ms}.ladder .rung:nth-child(5){animation-delay:240ms}.ladder .rung:nth-child(6){animation-delay:300ms}.ladder .rung:nth-child(7){animation-delay:360ms}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media (hover:hover) and (pointer:fine){
+    .top nav a:hover{color:var(--green);border-color:var(--line)}
+    .btn:hover{background:var(--green);color:#06130a}
+    .btn.primary:hover{background:#b4ffc8}
+  }
+  @media (prefers-reduced-motion:reduce){.rv,.ladder .rung{animation:none}.btn,.top nav a{transition:none}}
+
+  @media (max-width:1040px){
+    .steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .steps li:nth-child(4){border-left:0}
+    .steps li:nth-child(n+4){border-top:1px solid var(--line)}
+    .verify,.two{grid-template-columns:1fr;gap:32px}
+    .debrief{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .debrief div:nth-child(4){border-left:0}
+    .debrief div:nth-child(n+4){border-top:1px solid var(--line)}
+  }
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;gap:36px}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    .top .wrap{flex-direction:column;align-items:flex-start;gap:6px;padding-top:14px;padding-bottom:10px}
+    .top nav a{padding:8px 10px 8px 0}
+    .hero .wrap{padding-top:40px;padding-bottom:44px}
+    .sub{font-size:17px}
+    .prompt{padding:20px}
+    .prompt .lbl span:last-child{display:none}
+    section.sec > .wrap{padding-top:44px;padding-bottom:44px}
+    .steps{grid-template-columns:1fr}
+    .steps li{border-left:0;border-top:1px solid var(--line)}
+    .steps li:first-child{border-top:0}
+    .rung{grid-template-columns:26px minmax(0,1fr);padding:14px}
+    .rung .tag{grid-column:2;justify-self:start;margin-top:4px}
+    .ro th{width:auto;display:block;padding-bottom:0}
+    .ro td{display:block;border-top:0;padding-top:4px}
+    .panel{padding:20px}
+    .debrief{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .debrief div{border-left:1px solid var(--line);border-top:1px solid var(--line)}
+    .debrief div:nth-child(odd){border-left:0}
+    .debrief div:nth-child(-n+2){border-top:0}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://github.com/debpalash/VoiceStudio"><i class="lamp" aria-hidden="true"></i>debpalash / VoiceStudio</a>
+    <nav aria-label="Project"><ul>
+      <li><a href="https://voicestudio.sh/">Website</a></li>
+      <li><a href="https://github.com/debpalash/VoiceStudio/blob/main/docs/install/agent.md">Agent guide</a></li>
+      <li><a href="https://github.com/debpalash/VoiceStudio">Source</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div>
+        <p class="kick rv"><span class="lbl">Install with prompt</span><span class="lbl">&middot; agent preflight</span></p>
+        <h1 id="hero-h" class="rv d1">Done is a clip <em>that plays.</em></h1>
+        <p class="sub rv d2">VoiceStudio ships an install guide written for coding agents. Paste one prompt, and your agent inspects the device, asks before every model download, and proves the install by generating a short clip.</p>
+        <p class="quote rv d2"><q>Complete the setup, not just a plan.</q> &mdash; the agent guide</p>
+        <div class="ctas rv d3">
+          <a class="btn primary" href="https://github.com/debpalash/VoiceStudio/blob/main/docs/install/agent.md">Read the agent guide</a>
+          <a class="btn" href="https://github.com/debpalash/VoiceStudio/releases/latest">Download a release</a>
+        </div>
+      </div>
+      <div class="frame prompt rv d4">
+        <p class="lbl"><span>Paste into your coding agent</span><span>README</span></p>
+<pre><code>Install the VoiceStudio Electron app on this device and verify it works, following
+https://github.com/debpalash/VoiceStudio/blob/main/docs/install/agent.md</code></pre>
+        <p>Agents that support skills can also run <code>npx skills add debpalash/VoiceStudio</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="steps-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 id="steps-h">Six steps, in order.</h2>
+        <p>The guide's procedure. The agent completes it and reports back, rather than handing you a to-do list.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="n">01</span><b>Load context</b><span class="t">The install guide for this OS, the performance notes and the voicestudio skill.</span></li>
+        <li><span class="n">02</span><b>Inspect</b><span class="t">OS, CPU architecture, GPU, RAM and VRAM, free disk, and any existing install or models.</span></li>
+        <li><span class="n">03</span><b>Install</b><span class="t">The latest VoiceStudio-Electron release for this OS and architecture.</span></li>
+        <li><span class="n">04</span><b>Configure</b><span class="t">A voice-cloning engine and acceleration that fit this device.</span></li>
+        <li><span class="n">05</span><b>Verify</b><span class="t">Health, models, consent, install, then a real clip.</span></li>
+        <li><span class="n">06</span><b>Report</b><span class="t">What was installed, where it lives and how to reopen it.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="verify-h">
+    <div class="wrap verify">
+      <div class="aside">
+        <p class="lbl">Step 05 &middot; verify</p>
+        <h2 id="verify-h">Every rung needs an answer before the next.</h2>
+        <p style="margin-top:18px">The backend listens on <code>http://localhost:3900</code> by default. The agent reads the API, asks before downloading, and polls until the model is really there.</p>
+        <p><strong>One rung looks finished before it is.</strong> An empty <code>jobs</code> array counts as done only once <code>GET /models</code> reports <code>"installed": true</code>.</p>
+      </div>
+      <ol class="ladder" aria-label="Verification sequence">
+        <li class="rung"><span class="i">1</span><span><span class="r">GET /health</span><span class="w">The backend answers.</span></span><span class="tag">gate</span></li>
+        <li class="rung"><span class="i">2</span><span><span class="r">GET /openapi.json</span><span class="w">Discover the API instead of guessing it.</span></span><span class="tag">read</span></li>
+        <li class="rung"><span class="i">3</span><span><span class="r">GET /models &rarr; "installed": false</span><span class="w">State the model's size and license, and get consent.</span></span><span class="tag">ask</span></li>
+        <li class="rung"><span class="i">4</span><span><span class="r">POST /models/install</span><span class="w">With that entry's <code>repo_id</code>.</span></span><span class="tag">act</span></li>
+        <li class="rung"><span class="i">5</span><span><span class="r">GET /models/install/status</span><span class="w">Poll; stop on a <code>failed</code> state.</span></span><span class="tag">poll</span></li>
+        <li class="rung caution"><span class="i">6</span><span><span class="r">"jobs": [] is not done yet</span><span class="w">Finished only once <code>GET /models</code> reports <code>"installed": true</code>.</span></span><span class="tag">caution</span></li>
+        <li class="rung done"><span class="i">7</span><span><span class="r">Generate a short clip</span><span class="w">With a bundled or authorized voice, and confirm the audio file plays.</span></span><span class="tag">done</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="compute-h">
+    <div class="wrap two">
+      <div class="frame panel">
+        <span class="lbl">Step 02 &middot; compute</span>
+        <h3 id="compute-h">Check the actual device. Never assume a GPU.</h3>
+        <table class="ro">
+          <tbody>
+            <tr><th scope="row">NVIDIA GPU, Windows or Linux</th><td><b>CUDA</b> acceleration</td></tr>
+            <tr><th scope="row">Apple Silicon</th><td><b>Metal (MPS)</b> acceleration</td></tr>
+            <tr><th scope="row">No dedicated GPU</th><td><b>CPU</b>, slower; a small CPU build of PyTorch, about 5 GB free disk</td></tr>
+            <tr><th scope="row">Windows on ARM</th><td><b>Experimental</b>: native ARM64 app, x64 Python backend under emulation, CPU only</td></tr>
+            <tr><th scope="row">Intel Mac</th><td><b>App UI only</b>; connect to a remote backend</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="frame panel">
+        <span class="lbl">Rules &middot; from the guide</span>
+        <h3>Limits the agent works within</h3>
+        <ol class="limits">
+          <li>Install the Electron app. Tauri is archived; never install or launch it.</li>
+          <li>Reuse existing data, settings and models.</li>
+          <li>Ask before downloading a model, and state its size and license.</li>
+          <li>Keep cloud services and analytics opt-in. Leave the analytics consent prompt to you.</li>
+          <li>Name any permission or manual step it cannot perform instead of skipping it.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="report-h">
+    <div class="wrap">
+      <div class="sh">
+        <h2 id="report-h">Step 06: the debrief you get back.</h2>
+        <p>Six fields from the guide, left blank here because only your device can fill them in.</p>
+      </div>
+      <div class="debrief">
+        <div><span class="lbl">Version</span><i aria-hidden="true"></i></div>
+        <div><span class="lbl">Engine</span><i aria-hidden="true"></i></div>
+        <div><span class="lbl">Actual device</span><i aria-hidden="true"></i></div>
+        <div><span class="lbl">Data location</span><i aria-hidden="true"></i></div>
+        <div><span class="lbl">Audio output</span><i aria-hidden="true"></i></div>
+        <div><span class="lbl">How to reopen</span><i aria-hidden="true"></i></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p><strong>Clone voices only with permission.</strong> AGPL-3.0 covers the app; model weights, voices and output conditions are separate.</p>
+    <p>Concept redesign, not affiliated. Second take; the first ran September 28. <a href="https://github.com/debpalash/VoiceStudio">github.com/debpalash/VoiceStudio</a></p>
+  </div>
+</footer>
+</body>
+</html>
