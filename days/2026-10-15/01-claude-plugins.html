@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Plugins Directory: 315 plugins, one trust decision each (concept)</title>
+<meta name="description" content="Concept landing page for anthropics/claude-plugins-official, the curated directory of Claude Code plugins.">
+<style>
+  :root{
+    --paper:#f6f4ef; --card:#fbfaf7; --ink:#1a1916; --mute:#4a4740; --hair:#d8d3c7; --line:#1a1916;
+    --clay:#c2582f; --clay-ink:#9c3f1c;
+    --sans:"Inter","Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --ease:cubic-bezier(0.23,1,0.32,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--sans)}
+  a{color:inherit;text-underline-offset:3px}
+  code{font:500 .88em/1.4 var(--mono)}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--paper);padding:10px 14px;z-index:10;font:600 14px/1 var(--mono)}
+  .skip:focus{left:8px}
+  :focus-visible{outline:2px solid var(--clay-ink);outline-offset:3px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+  .cap{font:600 12px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+
+  .top{border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font:600 15px/1 var(--mono);text-decoration:none}
+  .brand i{display:grid;grid-template-columns:repeat(2,6px);gap:2px}
+  .brand i b{width:6px;height:6px;background:var(--ink)}
+  .brand i b:first-child{background:var(--clay)}
+  .top ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+  .top nav a{font:500 14px/1 var(--mono);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;transition:border-color 160ms var(--ease)}
+
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0;padding-top:56px;padding-bottom:56px}
+  .hero .lead{padding-right:48px}
+  .hero .cap{margin:0 0 20px}
+  h1{margin:0;font:700 clamp(46px,6.4vw,88px)/.98 var(--sans);letter-spacing:-.04em}
+  h1 span{display:block;color:var(--clay-ink)}
+  .sub{margin:24px 0 0;max-width:52ch;font-size:19px;line-height:1.55;color:var(--mute)}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border:1px solid var(--ink);font:600 15px/1 var(--sans);text-decoration:none;background:var(--card);color:var(--ink);transition:transform 140ms var(--ease),background-color 160ms var(--ease),color 160ms var(--ease)}
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn:active{transform:scale(.97)}
+  .panel{border:1px solid var(--line);background:var(--card);align-self:start}
+  .panel > div{padding:20px 22px;border-top:1px solid var(--hair)}
+  .panel > div:first-child{border-top:0}
+  .panel .cmd{display:block;margin-top:10px;padding:14px 16px;background:var(--ink);color:var(--paper);font:500 14px/1.5 var(--mono);overflow-wrap:anywhere}
+  .panel p{margin:10px 0 0;font-size:15px;color:var(--mute)}
+  .nw{white-space:nowrap}
+  .warn{background:#f3e7dc}
+  .warn .cap{color:var(--clay-ink)}
+  .warn p{color:var(--ink)}
+
+  section.band{border-top:1px solid var(--line)}
+  section.band > .wrap{padding-top:56px;padding-bottom:56px}
+  .sh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:28px}
+  h2{margin:8px 0 0;font:700 clamp(28px,3.4vw,44px)/1.05 var(--sans);letter-spacing:-.025em}
+  .sh p{margin:0;color:var(--mute);max-width:56ch}
+
+  .grid{display:grid;grid-template-columns:repeat(35,minmax(0,1fr));gap:4px;padding:16px;border:1px solid var(--line);background:var(--card)}
+  .k{display:block;aspect-ratio:1;border:1.5px solid var(--ink);position:relative;animation:pop 360ms var(--ease) both}
+  .k.a{background:var(--clay);border-color:var(--clay)}
+  .k.r{background:var(--ink)}
+  .k.x::after{content:"";position:absolute;inset:0;margin:auto;width:28%;height:28%;background:var(--ink)}
+  .legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-top:0;background:var(--card)}
+  .legend > div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:start;padding:16px 18px;border-left:1px solid var(--hair)}
+  .legend > div:first-child{border-left:0}
+  .legend .k{width:22px;grid-row:span 2;animation:none;margin-top:4px}
+  .legend b{font:700 28px/1 var(--mono);font-variant-numeric:tabular-nums}
+  .legend span{font-size:15px;line-height:1.45;color:var(--mute)}
+  .legend code{color:var(--ink)}
+  .src{margin:14px 0 0;font:400 13px/1.5 var(--mono);color:var(--mute)}
+
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:1px solid var(--line);background:var(--card)}
+  .two > div{padding:26px 28px}
+  .two > div + div{border-left:1px solid var(--line)}
+  .two h3{margin:10px 0 10px;font:700 24px/1.15 var(--sans);letter-spacing:-.015em}
+  .two p{margin:0 0 12px;color:var(--mute)}
+  .two p code{color:var(--ink)}
+  ul.ren{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:1fr;border-top:1px solid var(--hair)}
+  ul.ren li{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);align-items:baseline;gap:8px;padding:8px 0;border-bottom:1px solid var(--hair);font-size:14px}
+  .old{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--clay);text-decoration-thickness:1.5px;overflow-wrap:anywhere}
+  .new{font-weight:600;overflow-wrap:anywhere}
+  .arr{color:var(--clay-ink);font:600 14px/1 var(--mono);text-align:center}
+
+  .anat{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--card)}
+  .anat > div{padding:18px 18px 20px;border-left:1px solid var(--hair);min-height:150px;display:flex;flex-direction:column}
+  .anat > div:first-child{border-left:0}
+  .anat .tag{align-self:flex-start;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:5px 7px;border:1px solid var(--hair);color:var(--mute)}
+  .anat .req .tag{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .anat code{display:block;margin:16px 0 8px;font-size:15px;font-weight:600;overflow-wrap:anywhere}
+  .anat span{font-size:14.5px;line-height:1.45;color:var(--mute)}
+
+  footer{border-top:1px solid var(--line)}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding-top:22px;padding-bottom:32px;font-size:14px;color:var(--mute)}
+  footer p{margin:0}
+
+  .rv{animation:rise 560ms var(--ease) both}
+  .d1{animation-delay:70ms}.d2{animation-delay:140ms}.d3{animation-delay:210ms}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+  .grid .k:nth-child(n+40){animation-delay:120ms}.grid .k:nth-child(n+54){animation-delay:220ms}
+  @media (hover:hover) and (pointer:fine){
+    .top nav a:hover{border-bottom-color:var(--ink)}
+    .btn:hover{background:var(--ink);color:var(--paper)}
+    .btn.primary:hover{background:var(--clay-ink);border-color:var(--clay-ink)}
+  }
+  @media (prefers-reduced-motion:reduce){.rv,.k{animation:none !important}.btn,.top nav a{transition:none}}
+
+  @media (max-width:1020px){
+    .hero .wrap{grid-template-columns:1fr;gap:36px}
+    .hero .lead{padding-right:0}
+    .grid{grid-template-columns:repeat(21,minmax(0,1fr))}
+    .anat{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .anat > div:nth-child(4){border-left:0}
+    .anat > div:nth-child(n+4){border-top:1px solid var(--hair)}
+  }
+  @media (max-width:760px){
+    .sh{grid-template-columns:1fr}
+    .two{grid-template-columns:1fr}
+    .two > div + div{border-left:0;border-top:1px solid var(--line)}
+    .legend{grid-template-columns:1fr}
+    .legend > div{border-left:0;border-top:1px solid var(--hair)}
+    .legend > div:first-child{border-top:0}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    .top .wrap{flex-direction:column;align-items:flex-start;gap:8px;padding-top:14px;padding-bottom:12px}
+    .hero .wrap{padding-top:40px;padding-bottom:44px}
+    .sub{font-size:17px}
+    section.band > .wrap{padding-top:44px;padding-bottom:44px}
+    .grid{grid-template-columns:repeat(15,minmax(0,1fr));gap:3px;padding:10px}
+    .k{border-width:1px}
+    .two > div{padding:20px}
+    .anat{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .anat > div{border-left:1px solid var(--hair);border-top:1px solid var(--hair);min-height:0}
+    .anat > div:nth-child(odd){border-left:0}
+    .anat > div:nth-child(-n+2){border-top:0}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://github.com/anthropics/claude-plugins-official"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i>claude-plugins-official</a>
+    <nav aria-label="Project"><ul>
+      <li><a href="https://code.claude.com/docs/en/plugins">Docs</a></li>
+      <li><a href="https://clau.de/plugin-directory-submission">Submit</a></li>
+      <li><a href="https://github.com/anthropics/claude-plugins-official">Source</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="lead">
+        <p class="cap rv">Claude Code plugins &middot; the official directory</p>
+        <h1 id="hero-h" class="rv d1">315 plugins. <span>One trust decision each.</span></h1>
+        <p class="sub rv d2">A curated directory of plugins for Claude Code: 39 built and maintained by Anthropic, the rest from partners and the community. Every one installs by name, and every one is a decision you make.</p>
+        <div class="ctas rv d3">
+          <a class="btn primary" href="https://code.claude.com/docs/en/plugins">Read the plugin docs</a>
+          <a class="btn" href="https://github.com/anthropics/claude-plugins-official">Browse the directory</a>
+        </div>
+      </div>
+      <div class="panel rv d2">
+        <div>
+          <span class="cap">Install</span>
+          <code class="cmd">/plugin install <span class="nw">{plugin-name}</span><wbr><span class="nw">@claude-plugins-official</span></code>
+          <p>Or browse in Claude Code under <code>/plugin</code> &rarr; Discover.</p>
+        </div>
+        <div class="warn">
+          <span class="cap">Read this first &middot; from the README</span>
+          <p>Make sure you trust a plugin before installing, updating, or using it. Anthropic does not control what MCP servers, files, or other software are included in plugins.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="where-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="cap">01 &middot; where the code lives</p><h2 id="where-h">53 plugins live in this repository. 262 live somewhere else.</h2></div>
+        <p>Each square is one entry in the directory's marketplace file. Every one of the 262 that point to another GitHub repository names an exact commit.</p>
+      </div>
+      <div class="grid" role="img" aria-label="315 plugins: 39 Anthropic plugins in /plugins, 14 third-party plugins in /external_plugins, and 262 third-party plugins in other GitHub repositories, each pinned to a commit.">
+        <i class="k a" title="agent-sdk-dev &middot; /plugins"></i>
+        <i class="k a" title="clangd-lsp &middot; /plugins"></i>
+        <i class="k a" title="claude-code-setup &middot; /plugins"></i>
+        <i class="k a" title="claude-md-management &middot; /plugins"></i>
+        <i class="k a" title="claude-security &middot; /plugins"></i>
+        <i class="k a" title="code-modernization &middot; /plugins"></i>
+        <i class="k a" title="code-review &middot; /plugins"></i>
+        <i class="k a" title="code-simplifier &middot; /plugins"></i>
+        <i class="k a" title="commit-commands &middot; /plugins"></i>
+        <i class="k a" title="csharp-lsp &middot; /plugins"></i>
+        <i class="k a" title="cwc-makers &middot; /plugins"></i>
+        <i class="k a" title="explanatory-output-style &middot; /plugins"></i>
+        <i class="k a" title="feature-dev &middot; /plugins"></i>
+        <i class="k a" title="frontend-design &middot; /plugins"></i>
+        <i class="k a" title="gopls-lsp &middot; /plugins"></i>
+        <i class="k a" title="hookify &middot; /plugins"></i>
+        <i class="k a" title="jdtls-lsp &middot; /plugins"></i>
+        <i class="k a" title="kotlin-lsp &middot; /plugins"></i>
+        <i class="k a" title="learning-output-style &middot; /plugins"></i>
+        <i class="k a" title="lua-lsp &middot; /plugins"></i>
+        <i class="k a" title="math-olympiad &middot; /plugins"></i>
+        <i class="k a" title="math-proof &middot; /plugins"></i>
+        <i class="k a" title="mcp-server-dev &middot; /plugins"></i>
+        <i class="k a" title="mcp-tunnels &middot; /plugins"></i>
+        <i class="k a" title="php-lsp &middot; /plugins"></i>
+        <i class="k a" title="playground &middot; /plugins"></i>
+        <i class="k a" title="plugin-dev &middot; /plugins"></i>
+        <i class="k a" title="pr-review-toolkit &middot; /plugins"></i>
+        <i class="k a" title="project-artifact &middot; /plugins"></i>
+        <i class="k a" title="pyright-lsp &middot; /plugins"></i>
+        <i class="k a" title="ralph-loop &middot; /plugins"></i>
+        <i class="k a" title="receipts &middot; /plugins"></i>
+        <i class="k a" title="ruby-lsp &middot; /plugins"></i>
+        <i class="k a" title="rust-analyzer-lsp &middot; /plugins"></i>
+        <i class="k a" title="security-guidance &middot; /plugins"></i>
+        <i class="k a" title="session-report &middot; /plugins"></i>
+        <i class="k a" title="skill-creator &middot; /plugins"></i>
+        <i class="k a" title="swift-lsp &middot; /plugins"></i>
+        <i class="k a" title="typescript-lsp &middot; /plugins"></i>
+        <i class="k r" title="asana &middot; /external_plugins"></i>
+        <i class="k r" title="context7 &middot; /external_plugins"></i>
+        <i class="k r" title="discord &middot; /external_plugins"></i>
+        <i class="k r" title="fakechat &middot; /external_plugins"></i>
+        <i class="k r" title="firebase &middot; /external_plugins"></i>
+        <i class="k r" title="github &middot; /external_plugins"></i>
+        <i class="k r" title="gitlab &middot; /external_plugins"></i>
+        <i class="k r" title="imessage &middot; /external_plugins"></i>
+        <i class="k r" title="laravel-boost &middot; /external_plugins"></i>
+        <i class="k r" title="linear &middot; /external_plugins"></i>
+        <i class="k r" title="playwright &middot; /external_plugins"></i>
+        <i class="k r" title="serena &middot; /external_plugins"></i>
+        <i class="k r" title="telegram &middot; /external_plugins"></i>
+        <i class="k r" title="terraform &middot; /external_plugins"></i>
+        <i class="k x" title="42crunch-api-security-testing &middot; git-subdir @ faf5305"></i>
+        <i class="k x" title="activecampaign &middot; url @ 0ff8587"></i>
+        <i class="k x" title="adobe-for-creativity &middot; git-subdir @ acb6d76"></i>
+        <i class="k x" title="agentforce-adlc &middot; url @ 09bf153"></i>
+        <i class="k x" title="ai-plugins &middot; url @ 2de0088"></i>
+        <i class="k x" title="aikido &middot; url @ 02f018a"></i>
+        <i class="k x" title="airtable &middot; git-subdir @ 812ee67"></i>
+        <i class="k x" title="airwallex-agentos &middot; git-subdir @ b418b99"></i>
+        <i class="k x" title="airwallex-dev &middot; git-subdir @ b418b99"></i>
+        <i class="k x" title="aiven &middot; url @ 634f41d"></i>
+        <i class="k x" title="alloydb &middot; url @ 00ee6ce"></i>
+        <i class="k x" title="alloydb-omni &middot; url @ ae7e42c"></i>
+        <i class="k x" title="altimate-code &middot; git-subdir @ b7c8f68"></i>
+        <i class="k x" title="amazon-location-service &middot; git-subdir @ 097fe8a"></i>
+        <i class="k x" title="amazon-selling-partner &middot; url @ 10573ba"></i>
+        <i class="k x" title="amd-skills &middot; git-subdir @ 6916fb3"></i>
+        <i class="k x" title="amplitude &middot; git-subdir @ 96fc7d4"></i>
+        <i class="k x" title="apollo &middot; url @ bd0513c"></i>
+        <i class="k x" title="apollo-skills &middot; url @ c288eb8"></i>
+        <i class="k x" title="appwrite &middot; url @ ab3c90b"></i>
+        <i class="k x" title="astronomer-data-agents &middot; url @ cbe1141"></i>
+        <i class="k x" title="atlan &middot; url @ 86bb1ad"></i>
+        <i class="k x" title="atlassian &middot; url @ eb9a595"></i>
+        <i class="k x" title="atlassian-twg-cli &middot; url @ b3336ef"></i>
+        <i class="k x" title="atomic-agents &middot; url @ 33d2ec9"></i>
+        <i class="k x" title="auth0 &middot; git-subdir @ ec20152"></i>
+        <i class="k x" title="aws-agents &middot; git-subdir @ 0d6167a"></i>
+        <i class="k x" title="aws-agents-for-devsecops &middot; git-subdir @ 7bde20f"></i>
+        <i class="k x" title="aws-amplify &middot; git-subdir @ 097fe8a"></i>
+        <i class="k x" title="aws-core &middot; git-subdir @ 34b3ecc"></i>
+        <i class="k x" title="aws-data-analytics &middot; git-subdir @ 0d6167a"></i>
+        <i class="k x" title="aws-serverless &middot; git-subdir @ 097fe8a"></i>
+        <i class="k x" title="aws-startup-advisor &middot; git-subdir @ 613dc21"></i>
+        <i class="k x" title="aws-transform &middot; git-subdir @ 097fe8a"></i>
+        <i class="k x" title="azure &middot; url @ 5b4f0c0"></i>
+        <i class="k x" title="azure-cosmos-db-assistant &middot; url @ f1e0498"></i>
+        <i class="k x" title="azure-sql-developer &middot; url @ c1e8167"></i>
+        <i class="k x" title="base44 &middot; url @ 8548a48"></i>
+        <i class="k x" title="bigdata-com &middot; git-subdir @ 2a52a00"></i>
+        <i class="k x" title="bigquery-data-analytics &middot; url @ 8475b9c"></i>
+        <i class="k x" title="blackrock-advisor-center-plugin &middot; url @ 591c758"></i>
+        <i class="k x" title="boltz &middot; git-subdir @ beafb3c"></i>
+        <i class="k x" title="box &middot; url @ 35567f9"></i>
+        <i class="k x" title="brightdata-plugin &middot; url @ e825f02"></i>
+        <i class="k x" title="browser-use &middot; git-subdir @ 4749bcb"></i>
+        <i class="k x" title="build-with-wordpress &middot; url @ 052ca97"></i>
+        <i class="k x" title="buildkite &middot; url @ 50c85f2"></i>
+        <i class="k x" title="canva &middot; git-subdir @ b56291e"></i>
+        <i class="k x" title="carbone-skill &middot; url @ 25207b3"></i>
+        <i class="k x" title="carta-cap-table &middot; git-subdir @ ea7fe1d"></i>
+        <i class="k x" title="carta-crm &middot; git-subdir @ ea7fe1d"></i>
+        <i class="k x" title="carta-investors &middot; git-subdir @ ea7fe1d"></i>
+        <i class="k x" title="catalyst-by-zoho &middot; url @ 9670b79"></i>
+        <i class="k x" title="cds-mcp &middot; url @ 129236c"></i>
+        <i class="k x" title="chrome-devtools-mcp &middot; url @ 1cec9cd"></i>
+        <i class="k x" title="chronograph-gp &middot; url @ 35cb3d1"></i>
+        <i class="k x" title="chronograph-lp &middot; url @ 322b2d3"></i>
+        <i class="k x" title="circle-skills &middot; git-subdir @ 58ab864"></i>
+        <i class="k x" title="circleback &middot; url @ a610634"></i>
+        <i class="k x" title="ckeditor &middot; url @ 261766a"></i>
+        <i class="k x" title="clay &middot; git-subdir @ 769514a"></i>
+        <i class="k x" title="clickhouse &middot; url @ e3229ed"></i>
+        <i class="k x" title="clickhouse-best-practices &middot; url @ 2f6ec4b"></i>
+        <i class="k x" title="cloud-sql-mysql &middot; url @ ed4fbfe"></i>
+        <i class="k x" title="cloud-sql-postgresql &middot; url @ 6191fb9"></i>
+        <i class="k x" title="cloud-sql-sqlserver &middot; url @ 8858b0f"></i>
+        <i class="k x" title="cloudflare &middot; url @ b052c32"></i>
+        <i class="k x" title="cloudinary &middot; url @ 86be534"></i>
+        <i class="k x" title="cockroachdb &middot; url @ 6c96c63"></i>
+        <i class="k x" title="coderabbit &middot; url @ 3e8763d"></i>
+        <i class="k x" title="codspeed &middot; url @ 59cfc90"></i>
+        <i class="k x" title="confidence &middot; url @ f416826"></i>
+        <i class="k x" title="convex &middot; url @ 6ca54f6"></i>
+        <i class="k x" title="crowdsec &middot; url @ 24488e0"></i>
+        <i class="k x" title="crowdstrike-falcon-foundry &middot; url @ 61572f3"></i>
+        <i class="k x" title="crowdstrike-falcon-fusion &middot; url @ 38527dc"></i>
+        <i class="k x" title="dash0 &middot; url @ 72a8417"></i>
+        <i class="k x" title="data &middot; url @ cbe1141"></i>
+        <i class="k x" title="data-agent-kit &middot; url @ 83c53b5"></i>
+        <i class="k x" title="data-engineering &middot; url @ cbe1141"></i>
+        <i class="k x" title="databases-on-aws &middot; git-subdir @ 097fe8a"></i>
+        <i class="k x" title="databricks &middot; git-subdir @ e77e37e"></i>
+        <i class="k x" title="datadog &middot; url @ 195f570"></i>
+        <i class="k x" title="datahub-skills &middot; url @ c6d0ded"></i>
+        <i class="k x" title="dataproc &middot; url @ afbd516"></i>
+        <i class="k x" title="datarobot-agent-skills &middot; url @ 44a57d3"></i>
+        <i class="k x" title="dataverse &middot; git-subdir @ 669e715"></i>
+        <i class="k x" title="deepeval &middot; url @ c144abb"></i>
+        <i class="k x" title="deploy-on-aws &middot; git-subdir @ 097fe8a"></i>
+        <i class="k x" title="desktop-commander &middot; git-subdir @ 7504827"></i>
+        <i class="k x" title="dominodatalab &middot; url @ d86698d"></i>
+        <i class="k x" title="dropbox &middot; git-subdir @ ec1a526"></i>
+        <i class="k x" title="duckdb-skills &middot; url @ 7feda8e"></i>
+        <i class="k x" title="duende-skills &middot; url @ fb32edc"></i>
+        <i class="k x" title="dynatrace &middot; url @ 9529e72"></i>
+        <i class="k x" title="exa &middot; url @ 15ffb50"></i>
+        <i class="k x" title="expo &middot; git-subdir @ cd75214"></i>
+        <i class="k x" title="fastly-agent-toolkit &middot; url @ abb9d42"></i>
+        <i class="k x" title="fiftyone &middot; url @ e28a9a3"></i>
+        <i class="k x" title="figma &middot; url @ f278942"></i>
+        <i class="k x" title="firecrawl &middot; url @ b310aa4"></i>
+        <i class="k x" title="firestore-native &middot; url @ 502ff19"></i>
+        <i class="k x" title="forge-skills &middot; url @ 4f04ae0"></i>
+        <i class="k x" title="fullstory &middot; url @ ca872d9"></i>
+        <i class="k x" title="gc-ai &middot; url @ efda779"></i>
+        <i class="k x" title="gitkraken &middot; url @ f7a53b2"></i>
+        <i class="k x" title="google-cloud-storage &middot; url @ c7e3eee"></i>
+        <i class="k x" title="govtribe &middot; url @ d3e0c82"></i>
+        <i class="k x" title="grafana-assistant &middot; git-subdir @ 12be563"></i>
+        <i class="k x" title="grafana-cloud-mcp &middot; git-subdir @ 12be563"></i>
+        <i class="k x" title="grafana-mcp &middot; git-subdir @ 12be563"></i>
+        <i class="k x" title="greptile &middot; git-subdir @ 6b725af"></i>
+        <i class="k x" title="growthbook &middot; url @ eb7960d"></i>
+        <i class="k x" title="honeycomb &middot; git-subdir @ b169d7d"></i>
+        <i class="k x" title="hostinger &middot; url @ 569880c"></i>
+        <i class="k x" title="hubspot-sales &middot; git-subdir @ a0c5960"></i>
+        <i class="k x" title="huggingface-skills &middot; url @ abc20ae"></i>
+        <i class="k x" title="hunter &middot; url @ 44f0f56"></i>
+        <i class="k x" title="hyperframes &middot; url @ 8d2b6e7"></i>
+        <i class="k x" title="idmp-plugin &middot; git-subdir @ bf51977"></i>
+        <i class="k x" title="incident-io &middot; git-subdir @ 6af50e2"></i>
+        <i class="k x" title="informatica-for-claude-platform &middot; git-subdir @ 554d02e"></i>
+        <i class="k x" title="intercom &middot; url @ 62773a7"></i>
+        <i class="k x" title="intuit-quickbooks &middot; url @ c8daa17"></i>
+        <i class="k x" title="jfrog &middot; url @ 188d59b"></i>
+        <i class="k x" title="knowledge-catalog &middot; url @ 6303975"></i>
+        <i class="k x" title="langfuse &middot; url @ b8cc05c"></i>
+        <i class="k x" title="langfuse-observability &middot; url @ b521100"></i>
+        <i class="k x" title="leadfeeder &middot; url @ cddf27f"></i>
+        <i class="k x" title="learn-with-coursera &middot; git-subdir @ ac28fd6"></i>
+        <i class="k x" title="legalzoom &middot; git-subdir @ f9fd8a0"></i>
+        <i class="k x" title="linq-alpha &middot; git-subdir @ 42202fd"></i>
+        <i class="k x" title="liquid-lsp &middot; git-subdir @ ae3e4cc"></i>
+        <i class="k x" title="liquid-skills &middot; git-subdir @ ae3e4cc"></i>
+        <i class="k x" title="logfire &middot; git-subdir @ 238d971"></i>
+        <i class="k x" title="logrocket &middot; git-subdir @ 2e44dbb"></i>
+        <i class="k x" title="looker &middot; url @ aacc003"></i>
+        <i class="k x" title="lovable &middot; url @ 0336e6d"></i>
+        <i class="k x" title="lumen &middot; url @ f60f9ec"></i>
+        <i class="k x" title="lusha &middot; url @ ed34947"></i>
+        <i class="k x" title="mapbox &middot; url @ aab3a6f"></i>
+        <i class="k x" title="mattpocock-skills &middot; url @ c55ee46"></i>
+        <i class="k x" title="mcp-apps &middot; git-subdir @ 6d9bdc7"></i>
+        <i class="k x" title="mercadopago &middot; git-subdir @ 755d337"></i>
+        <i class="k x" title="mergify &middot; url @ e7c1ebb"></i>
+        <i class="k x" title="microsoft-docs &middot; url @ f8ffde1"></i>
+        <i class="k x" title="migration-to-aws &middot; git-subdir @ ec681ba"></i>
+        <i class="k x" title="mintlify &middot; url @ acd6d2e"></i>
+        <i class="k x" title="miro &middot; git-subdir @ b6408e1"></i>
+        <i class="k x" title="mlflow &middot; url @ 0766761"></i>
+        <i class="k x" title="modern-web-guidance &middot; url @ 22ab18d"></i>
+        <i class="k x" title="monday-crm &middot; git-subdir @ 8fdc0b4"></i>
+        <i class="k x" title="mongodb &middot; git-subdir @ 1e72df2"></i>
+        <i class="k x" title="mongodb-atlas &middot; git-subdir @ 1e72df2"></i>
+        <i class="k x" title="neon &middot; git-subdir @ 8272497"></i>
+        <i class="k x" title="netlify-skills &middot; url @ 0830047"></i>
+        <i class="k x" title="netsuite-ai-companion &middot; git-subdir @ 23793a1"></i>
+        <i class="k x" title="netsuite-finance-analyst &middot; git-subdir @ 23793a1"></i>
+        <i class="k x" title="netsuite-suitecloud &middot; git-subdir @ 23793a1"></i>
+        <i class="k x" title="newrelic &middot; url @ f8e5f8b"></i>
+        <i class="k x" title="nightvision &middot; url @ 957db6b"></i>
+        <i class="k x" title="nimble &middot; url @ 2890fdf"></i>
+        <i class="k x" title="noibu &middot; git-subdir @ 9fa2edd"></i>
+        <i class="k x" title="notion &middot; url @ 9847f2a"></i>
+        <i class="k x" title="nvidia-skills &middot; git-subdir @ 8c2a4ca"></i>
+        <i class="k x" title="oracle-ai-data-platform-workbench-databricks-migrator &middot; git-subdir @ 90b42d6"></i>
+        <i class="k x" title="oracle-ai-data-platform-workbench-engineer-agent &middot; git-subdir @ 90b42d6"></i>
+        <i class="k x" title="oracle-ai-data-platform-workbench-spark-connectors &middot; git-subdir @ 90b42d6"></i>
+        <i class="k x" title="oracledb &middot; url @ f8606fe"></i>
+        <i class="k x" title="outputai &middot; git-subdir @ a4f6bd4"></i>
+        <i class="k x" title="pagerduty &middot; url @ 761cba7"></i>
+        <i class="k x" title="paypal &middot; url @ fb672f6"></i>
+        <i class="k x" title="pendo-analytics &middot; git-subdir @ 340d503"></i>
+        <i class="k x" title="pendo-guides &middot; git-subdir @ 340d503"></i>
+        <i class="k x" title="pendo-orchestrate &middot; git-subdir @ 340d503"></i>
+        <i class="k x" title="pigment &middot; url @ 6fec49f"></i>
+        <i class="k x" title="pinecone &middot; url @ c383d38"></i>
+        <i class="k x" title="pixeltable &middot; url @ c08f734"></i>
+        <i class="k x" title="planetscale &middot; url @ 95c80f9"></i>
+        <i class="k x" title="posthog &middot; url @ e0fbf5e"></i>
+        <i class="k x" title="postiz &middot; url @ 8d43174"></i>
+        <i class="k x" title="postman &middot; url @ c6352ef"></i>
+        <i class="k x" title="preset-cli-skills &middot; git-subdir @ 73d2674"></i>
+        <i class="k x" title="prisma &middot; url @ 815dbc4"></i>
+        <i class="k x" title="pydantic-ai &middot; git-subdir @ 238d971"></i>
+        <i class="k x" title="qdrant-skills &middot; url @ 6a03d0c"></i>
+        <i class="k x" title="qodo &middot; git-subdir @ 866d301"></i>
+        <i class="k x" title="qodo-standards &middot; git-subdir @ 866d301"></i>
+        <i class="k x" title="qt-development-skills &middot; url @ 71d6c10"></i>
+        <i class="k x" title="quarkus-agent &middot; url @ 599dd0d"></i>
+        <i class="k x" title="railway &middot; git-subdir @ a100f93"></i>
+        <i class="k x" title="rc &middot; url @ ac20d26"></i>
+        <i class="k x" title="redis-development &middot; git-subdir @ a84871d"></i>
+        <i class="k x" title="remember &middot; url @ a5cc87c"></i>
+        <i class="k x" title="render &middot; url @ e8f8893"></i>
+        <i class="k x" title="resend &middot; url @ 8fd369f"></i>
+        <i class="k x" title="revenuecat &middot; url @ ac20d26"></i>
+        <i class="k x" title="rill &middot; url @ a0a2116"></i>
+        <i class="k x" title="rootly &middot; url @ 65832aa"></i>
+        <i class="k x" title="runway-api &middot; url @ e3dffc1"></i>
+        <i class="k x" title="sagemaker-ai &middot; git-subdir @ 097fe8a"></i>
+        <i class="k x" title="salesforce-development &middot; git-subdir @ 3c15867"></i>
+        <i class="k x" title="sanity &middot; url @ 88d6cdf"></i>
+        <i class="k x" title="sap-cds-mcp &middot; url @ 129236c"></i>
+        <i class="k x" title="sap-fiori-mcp-server &middot; git-subdir @ 69e2c50"></i>
+        <i class="k x" title="sap-hana-cli &middot; url @ abadd0a"></i>
+        <i class="k x" title="sap-mdk-server &middot; url @ ce65cbf"></i>
+        <i class="k x" title="save-to-spotify &middot; git-subdir @ 9d05c8c"></i>
+        <i class="k x" title="scandit-sdk &middot; url @ 2f0731a"></i>
+        <i class="k x" title="semgrep &middot; git-subdir @ f97e1ce"></i>
+        <i class="k x" title="sentry &middot; url @ 73e5354"></i>
+        <i class="k x" title="sentry-cli &middot; git-subdir @ 488952e"></i>
+        <i class="k x" title="servicenow-sdk &middot; git-subdir @ 6f01c0e"></i>
+        <i class="k x" title="setup-agent-analytics &middot; git-subdir @ 340d503"></i>
+        <i class="k x" title="setup-mcp-agent-analytics &middot; git-subdir @ 340d503"></i>
+        <i class="k x" title="shippo &middot; git-subdir @ cf8e965"></i>
+        <i class="k x" title="shopify-ai-toolkit &middot; url @ 57e293b"></i>
+        <i class="k x" title="slack &middot; url @ b073ebc"></i>
+        <i class="k x" title="snowflake-cortex-code &middot; git-subdir @ e2a3cbb"></i>
+        <i class="k x" title="sonarqube &middot; url @ f194f77"></i>
+        <i class="k x" title="sonatype-guide &middot; url @ 1dae739"></i>
+        <i class="k x" title="sourcegraph &middot; url @ 674a05e"></i>
+        <i class="k x" title="spanner &middot; url @ a69b5f3"></i>
+        <i class="k x" title="spotify-ads-api &middot; url @ 532b47a"></i>
+        <i class="k x" title="stackhawk-api &middot; git-subdir @ 66cac9b"></i>
+        <i class="k x" title="stackhawk-hawkscan &middot; git-subdir @ 66cac9b"></i>
+        <i class="k x" title="streaming-skills-plugin &middot; url @ 914d95e"></i>
+        <i class="k x" title="stripe &middot; git-subdir @ 97b2164"></i>
+        <i class="k x" title="sumup &middot; url @ cb72003"></i>
+        <i class="k x" title="supabase &middot; url @ f3f332e"></i>
+        <i class="k x" title="superdesign &middot; url @ f9f05cd"></i>
+        <i class="k x" title="superpowers &middot; url @ 5bf4e78"></i>
+        <i class="k x" title="synthflow &middot; git-subdir @ 205871e"></i>
+        <i class="k x" title="tavily &middot; url @ 778122e"></i>
+        <i class="k x" title="teamcity-cli &middot; url @ ac6c1fd"></i>
+        <i class="k x" title="togetherai-skills &middot; url @ 644d382"></i>
+        <i class="k x" title="twilio-developer-kit &middot; url @ 8aba46f"></i>
+        <i class="k x" title="ui-theme-designer &middot; git-subdir @ 04a0a21"></i>
+        <i class="k x" title="ui5 &middot; git-subdir @ a99b882"></i>
+        <i class="k x" title="ui5-modernization &middot; git-subdir @ 2b8c4a9"></i>
+        <i class="k x" title="ui5-typescript-conversion &middot; git-subdir @ 2b8c4a9"></i>
+        <i class="k x" title="unity &middot; url @ ba48956"></i>
+        <i class="k x" title="unreal-engine-skills-for-claude-code &middot; url @ a6aa73a"></i>
+        <i class="k x" title="valtown &middot; git-subdir @ 2d3ec65"></i>
+        <i class="k x" title="vanguard-advisor-tools &middot; url @ 328fe9f"></i>
+        <i class="k x" title="vanta &middot; url @ 345d86b"></i>
+        <i class="k x" title="vanta-mcp-plugin &middot; url @ 345d86b"></i>
+        <i class="k x" title="vercel &middot; url @ 882e66c"></i>
+        <i class="k x" title="vibe-prospecting &middot; url @ 9b40674"></i>
+        <i class="k x" title="vsql-extension-builder &middot; url @ 18f7d68"></i>
+        <i class="k x" title="windsor-ai &middot; url @ d7ba1cb"></i>
+        <i class="k x" title="wingspan &middot; url @ 01f2b08"></i>
+        <i class="k x" title="wix &middot; url @ 8fc544d"></i>
+        <i class="k x" title="workos &middot; git-subdir @ e25141b"></i>
+        <i class="k x" title="youdotcom-agent-skills &middot; url @ a692b6f"></i>
+        <i class="k x" title="zapier &middot; git-subdir @ 5360f15"></i>
+        <i class="k x" title="zilliz &middot; url @ 35c86c0"></i>
+        <i class="k x" title="zocks-advisor &middot; url @ a3e445c"></i>
+        <i class="k x" title="zoom-plugin &middot; url @ 9311dd4"></i>
+        <i class="k x" title="zoominfo &middot; url @ d07402f"></i>
+        <i class="k x" title="zscaler &middot; url @ 809f68d"></i>
+        <i class="k x" title="zyte-web-data &middot; url @ d03e241"></i>
+      </div>
+      <div class="legend">
+        <div><i class="k a" aria-hidden="true"></i><b>39</b><span>Built by Anthropic, in <code>/plugins</code></span></div>
+        <div><i class="k r" aria-hidden="true"></i><b>14</b><span>Third-party, kept in <code>/external_plugins</code></span></div>
+        <div><i class="k x" aria-hidden="true"></i><b>262</b><span>Third-party, in their own GitHub repository at a named commit</span></div>
+      </div>
+      <p class="src">Source: <code>.claude-plugin/marketplace.json</code>, read October 15, 2026. Hover a square for the plugin's name.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="name-h">
+    <div class="wrap">
+      <div class="two">
+        <div>
+          <p class="cap">02 &middot; the slug</p>
+          <h3 id="name-h">A plugin's name never changes.</h3>
+          <p>The <code>name</code> in a marketplace entry is an immutable slug. People have the plugin installed under it, and renaming it breaks their install with a <code>plugin-not-found</code> error.</p>
+          <p>To change the label people see, set <code>displayName</code>. If a rename really cannot be avoided, add it to the <code>renames</code> map, and existing installs move over on their next sync.</p>
+        </div>
+        <div>
+          <p class="cap">The renames map today &middot; 10 entries</p>
+          <ul class="ren" aria-label="Renamed plugins">
+            <li><code class="old">adlc</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">agentforce-adlc</code></li>
+            <li><code class="old">airwallex</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">airwallex-agentos</code></li>
+            <li><code class="old">convex-backend</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">convex</code></li>
+            <li><code class="old">vals</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">valtown</code></li>
+            <li><code class="old">wordpress.com</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">build-with-wordpress</code></li>
+            <li><code class="old">qodo-skills</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">qodo</code></li>
+            <li><code class="old">atlassian-forge-skills</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">forge-skills</code></li>
+            <li><code class="old">azure-skills</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">azure</code></li>
+            <li><code class="old">sonarqube-agent-plugins</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">sonarqube</code></li>
+            <li><code class="old">data-agent-kit-starter-pack</code><span class="arr" aria-hidden="true">&rarr;</span><span class="sr">renamed to</span><code class="new">data-agent-kit</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="anat-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="cap">03 &middot; anatomy</p><h2 id="anat-h">One file is required. The rest is up to you.</h2></div>
+        <p>Every plugin follows the same folder structure. A source repository that ships only <code>SKILL.md</code> files can still be listed as a skill bundle, with its skills declared in the marketplace entry instead.</p>
+      </div>
+      <div class="anat">
+        <div class="req"><span class="tag">required</span><code>.claude-plugin/ plugin.json</code><span>Plugin metadata</span></div>
+        <div><span class="tag">optional</span><code>.mcp.json</code><span>MCP server configuration</span></div>
+        <div><span class="tag">optional</span><code>commands/</code><span>Slash commands</span></div>
+        <div><span class="tag">optional</span><code>agents/</code><span>Agent definitions</span></div>
+        <div><span class="tag">optional</span><code>skills/</code><span>Skill definitions</span></div>
+        <div><span class="tag">docs</span><code>README.md</code><span>Documentation</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Concept redesign, not affiliated with Anthropic. Counts from the marketplace file on October 15, 2026. Each plugin carries its own license.</p>
+    <p><a href="https://github.com/anthropics/claude-plugins-official">github.com/anthropics/claude-plugins-official</a></p>
+  </div>
+</footer>
+</body>
+</html>

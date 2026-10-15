@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TokenSpeed: control in C++, execution in Python (concept)</title>
+<meta name="description" content="Concept landing page for TokenSpeed, an LLM inference engine for agentic workloads with separate control and execution planes.">
+<style>
+  :root{
+    --paper:#ffffff; --ink:#111111; --mute:#4d4d4d; --hair:#d9d9d9; --red:#d7261e;
+    --sans:"Helvetica Neue",Helvetica,"Arial Nova",Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --ease:cubic-bezier(0.23,1,0.32,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.5 var(--sans)}
+  a{color:inherit;text-underline-offset:3px}
+  code{font:500 .88em/1.4 var(--mono)}
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--paper);padding:10px 14px;z-index:10;font:600 14px/1 var(--mono)}
+  .skip:focus{left:8px}
+  :focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+  .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px}
+  .lbl{font:700 13px/1.3 var(--sans);letter-spacing:.02em}
+  .lbl.red{color:var(--red)}
+
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:64px;border-bottom:2px solid var(--ink)}
+  .brand{font:700 17px/1 var(--sans);letter-spacing:-.01em;text-decoration:none;display:flex;align-items:center;gap:10px}
+  .brand i{width:12px;height:12px;background:var(--red);display:inline-block}
+  .top ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+  .top nav a{font:500 15px/1 var(--sans);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;transition:border-color 160ms var(--ease)}
+
+  .hero{padding:64px 0 72px}
+  .hero .lbl{grid-column:1 / 13;margin:0 0 28px}
+  h1{grid-column:1 / 10;margin:0;font:700 clamp(54px,8.8vw,128px)/.9 var(--sans);letter-spacing:-.055em}
+  h1 span{display:block}
+  h1 .rule{display:block;width:34%;height:12px;background:var(--red);margin:22px 0 20px}
+  .aside{grid-column:10 / 13;align-self:end;padding-top:24px;border-top:2px solid var(--ink)}
+  .aside p{margin:0 0 20px;font-size:17px;line-height:1.5}
+  .ctas{display:flex;flex-direction:column;gap:10px}
+  .btn{display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 16px;border:2px solid var(--ink);font:700 15px/1 var(--sans);text-decoration:none;background:var(--paper);color:var(--ink);transition:background-color 160ms var(--ease),color 160ms var(--ease),transform 140ms var(--ease)}
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn:active{transform:scale(.98)}
+  .btn span{font-family:var(--mono)}
+
+  section.s{border-top:2px solid var(--ink);padding:40px 0 64px}
+  .s h2{grid-column:1 / 5;margin:0;font:700 clamp(30px,3.4vw,46px)/1.02 var(--sans);letter-spacing:-.035em}
+  .s .intro{grid-column:7 / 13;margin:0;color:var(--mute);font-size:18px}
+  .planes{grid-column:1 / 13;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;margin-top:40px}
+  .plane{border-top:2px solid var(--ink);padding-top:16px}
+  .plane.c{grid-column:1 / 7}
+  .plane.e{grid-column:7 / 13}
+  .plane .big{display:block;margin:14px 0 18px;font:700 clamp(56px,7vw,104px)/.9 var(--sans);letter-spacing:-.05em}
+  .plane.c .big{color:var(--red)}
+  .plane p{margin:0;max-width:44ch;font-size:17px}
+  .plane .lbl{color:var(--mute)}
+  .sub2{grid-column:1 / 13;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;margin-top:40px}
+  .sub2 > div{grid-column:span 6;border-top:1px solid var(--ink);padding-top:14px}
+  .sub2 h3{margin:0 0 8px;font:700 20px/1.2 var(--sans)}
+  .sub2 p{margin:0;color:var(--mute);max-width:46ch}
+
+  .pull{grid-column:1 / 13;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px}
+  .pull blockquote{grid-column:3 / 12;margin:0;font:400 clamp(26px,3vw,40px)/1.18 var(--sans);letter-spacing:-.02em}
+  .pull blockquote::before{content:"";display:block;width:56px;height:8px;background:var(--red);margin-bottom:24px}
+  .pull cite{grid-column:3 / 12;display:block;margin-top:18px;font:700 14px/1.4 var(--sans);font-style:normal;color:var(--mute)}
+
+  .neutral h2{grid-column:1 / 6}
+  .neutral .body{grid-column:7 / 13}
+  .neutral .body p{margin:0 0 14px;font-size:18px}
+  .neutral .body .small{font-size:15px;color:var(--mute)}
+
+  table.log{grid-column:1 / 13;width:100%;border-collapse:collapse;margin-top:32px}
+  .log th,.log td{text-align:left;vertical-align:baseline;padding:13px 16px 13px 0;border-bottom:1px solid var(--hair)}
+  .log thead th{font:700 13px/1.3 var(--sans);border-bottom:2px solid var(--ink)}
+  .log td.d{width:110px;font:500 14px/1.4 var(--mono);font-variant-numeric:tabular-nums;color:var(--mute)}
+  .log td.hw{width:220px;color:var(--mute);font-size:15px}
+  .log tr.fig td.w{font-weight:700}
+  .log .n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .logsrc{grid-column:1 / 13;margin:14px 0 0;font-size:14px;color:var(--mute)}
+
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding-top:20px;padding-bottom:32px;border-top:2px solid var(--ink);font-size:14px;color:var(--mute)}
+  footer p{margin:0}
+
+  .rv{animation:rise 560ms var(--ease) both}
+  .d1{animation-delay:70ms}.d2{animation-delay:140ms}.d3{animation-delay:210ms}
+  h1 .rule{transform-origin:left center;animation:wipe 620ms var(--ease) 160ms both}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes wipe{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @media (hover:hover) and (pointer:fine){
+    .top nav a:hover{border-bottom-color:var(--red)}
+    .btn:hover{background:var(--red);border-color:var(--red);color:var(--paper)}
+  }
+  @media (prefers-reduced-motion:reduce){.rv,h1 .rule{animation:none !important}.btn,.top nav a{transition:none}}
+
+  @media (max-width:1020px){
+    h1{grid-column:1 / 13}
+    .aside{grid-column:1 / 9;margin-top:36px}
+    .ctas{flex-direction:row;flex-wrap:wrap}
+    .btn{min-width:200px}
+    .s h2,.neutral h2{grid-column:1 / 13}
+    .s .intro,.neutral .body{grid-column:1 / 13;margin-top:18px}
+    .pull blockquote,.pull cite{grid-column:1 / 13}
+  }
+  @media (max-width:720px){
+    .plane.c,.plane.e{grid-column:1 / 13}
+    .plane.e{margin-top:32px}
+    .sub2 > div{grid-column:1 / 13}
+    .sub2 > div + div{margin-top:24px}
+    .aside{grid-column:1 / 13}
+    .log td.hw{display:none}
+    .log thead th:nth-child(3){display:none}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    .top .wrap{flex-direction:column;align-items:flex-start;gap:8px;padding-top:14px;padding-bottom:12px}
+    .hero{padding:40px 0 48px}
+    h1 .rule{height:9px;margin:16px 0 14px}
+    .btn{min-width:0;width:100%}
+    section.s{padding:32px 0 48px}
+    .log td.d{width:84px}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://github.com/lightseekorg/tokenspeed"><i aria-hidden="true"></i>TokenSpeed</a>
+    <nav aria-label="Project"><ul>
+      <li><a href="https://lightseek.org/tokenspeed/">Docs</a></li>
+      <li><a href="https://lightseek.org/blog/">Blog</a></li>
+      <li><a href="https://github.com/lightseekorg/tokenspeed">Source</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap g">
+      <p class="lbl red rv">LLM inference engine for agentic workloads</p>
+      <h1 id="hero-h" class="rv d1"><span>Control in C++.</span><span class="rule" aria-hidden="true"></span><span>Execution in Python.</span></h1>
+      <div class="aside rv d2">
+        <p>TokenSpeed splits the engine in two. A C++ state machine owns request lifecycles and KV cache state, checked at compile time. A Python execution plane keeps iteration fast.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://lightseek.org/tokenspeed/guides/getting-started">Get started <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn" href="https://github.com/lightseekorg/tokenspeed">Read the source <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="planes-h">
+    <div class="wrap g">
+      <h2 id="planes-h">Two planes, one engine.</h2>
+      <p class="intro">Most inference engines mix scheduling and execution in one language. TokenSpeed gives each half the language that suits it: types where mistakes are expensive, Python where change is constant.</p>
+      <div class="planes">
+        <div class="plane c">
+          <span class="lbl">Control plane</span>
+          <span class="big">C++</span>
+          <p>A finite-state machine. Request lifecycle, KV cache ownership and overlap timing are encoded as states, and safe KV reuse is enforced by the type system at compile time, not at runtime.</p>
+        </div>
+        <div class="plane e">
+          <span class="lbl">Execution plane</span>
+          <span class="big">Python</span>
+          <p>The layer researchers and engineers change most. Writing it in Python keeps development fast and the cognitive load low.</p>
+        </div>
+      </div>
+      <div class="sub2">
+        <div><h3>Kernels as a subsystem</h3><p>Pluggable and layered: a portable public API, a central registry and selection model, and a plugin mechanism for different accelerators. The project counts its MLA kernel on Blackwell among the fastest.</p></div>
+        <div><h3>A lean entry point</h3><p>An SMG-integrated AsyncLLM handles requests on the CPU side with low overhead.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" aria-label="PyTorch Foundation on TokenSpeed">
+    <div class="wrap g pull">
+      <blockquote><p style="margin:0">&ldquo;TokenSpeed is an open source LLM inference engine and the first to separate the control plane from the execution plane.&rdquo;</p></blockquote>
+      <cite>The PyTorch Foundation, welcoming TokenSpeed to the <a href="https://pytorch.org/blog/pytorch-ecosystem-landscape-q3-update/">PyTorch Ecosystem Landscape</a></cite>
+    </div>
+  </section>
+
+  <section class="s neutral" aria-labelledby="neutral-h">
+    <div class="wrap g">
+      <h2 id="neutral-h">Neutral ground.</h2>
+      <div class="body">
+        <p>TokenSpeed is backed by the non-profit <a href="https://lightseek.org/">LightSeek Foundation</a>, not a commercial company, with hardware and engineering support from vendors including NVIDIA and AMD.</p>
+        <p class="small">The README calls it the Switzerland of open-source LLM inference engines.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="log-h">
+    <div class="wrap g">
+      <h2 id="log-h">Day-0 log.</h2>
+      <p class="intro">New models served on release day, and the numbers the project has published along the way.</p>
+      <table class="log">
+        <thead><tr><th scope="col">Date</th><th scope="col">What</th><th scope="col">Hardware</th></tr></thead>
+        <tbody>
+          <tr class="fig"><td class="d">2026/10</td><td class="w"><span class="n">685</span> tokens/s per user serving Qwen3.8-Flash-Next</td><td class="hw">NVIDIA GB300</td></tr>
+          <tr><td class="d">2026/10</td><td class="w">Kimi K3 inference</td><td class="hw">AMD Instinct MI355X</td></tr>
+          <tr><td class="d">2026/08</td><td class="w">Qwen3.8 at Day 0: 2.4T-scale inference</td><td class="hw">&mdash;</td></tr>
+          <tr><td class="d">2026/08</td><td class="w">Joins the PyTorch Ecosystem</td><td class="hw">&mdash;</td></tr>
+          <tr><td class="d">2026/07</td><td class="w">Kimi K3 at Day 0</td><td class="hw">&mdash;</td></tr>
+          <tr><td class="d">2026/07</td><td class="w">TML Inkling at Day 0, FP4</td><td class="hw">NVIDIA and AMD</td></tr>
+          <tr class="fig"><td class="d">2026/05</td><td class="w"><span class="n">580</span> TPS on Qwen3.5-397B-A17B for agentic workloads</td><td class="hw">&mdash;</td></tr>
+          <tr><td class="d">2026/05</td><td class="w">TokenSpeed announced</td><td class="hw">&mdash;</td></tr>
+        </tbody>
+      </table>
+      <p class="logsrc">Selected from the README's news list. Throughput figures are the project's own.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Concept redesign, not affiliated. Architecture and news from the README, read October 15, 2026. MIT-licensed.</p>
+    <p><a href="https://github.com/lightseekorg/tokenspeed">github.com/lightseekorg/tokenspeed</a></p>
+  </div>
+</footer>
+</body>
+</html>

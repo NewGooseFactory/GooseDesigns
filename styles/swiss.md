@@ -1,9 +1,10 @@
 ﻿# Style — swiss
 
-21 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+22 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-15](../days/2026-10-15/) | [lightseekorg/tokenspeed](https://github.com/lightseekorg/tokenspeed) | neutral-red | Split the hero and the grid along the engine's own seam, C++ control plane against Python execution plane, with red reserved for the control side | Letting the architecture set the grid explains the engine before any benchmark appears | [png](../days/2026-10-15/03-tokenspeed.png) |
 | [2026-10-09](../days/2026-10-09/) | [BerriAI/litellm](https://github.com/BerriAI/litellm) | prefix-red | Set every routing decision in red, the provider prefix on a model string and the litellm_proxy prefix on an agent model and an MCP server | When the only red on the page is the prefix, routing reads as a one-string decision rather than a migration | [png](../days/2026-10-09/01-litellm.png) |
 | [2026-10-02](../days/2026-10-02/) | [google/skills](https://github.com/google/skills) | index-red | Make the twelve-shelf index the hero, and give the only accent to the skill that finds the other skills | When the catalog is the product, the index is the interface, and the finder is the one row worth colouring | [png](../days/2026-10-02/03-google-skills.png) |
 | [2026-09-25](../days/2026-09-25/) | [mattpocock/skills](https://github.com/mattpocock/skills) | burnt-amber | Put the two install paths side by side with what each one costs you, because the project says you must pick one | A you give up row under each path turns a setup instruction into an actual decision | [png](../days/2026-09-25/02-skills.png) |

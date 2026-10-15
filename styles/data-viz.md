@@ -1,9 +1,10 @@
 ﻿# Style — data-viz
 
-24 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+25 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-15](../days/2026-10-15/) | [xerj-org/xerj](https://github.com/xerj-org/xerj) | passage-yellow | Hold the solve rate fixed and compare tokens only between runs that solved the same tasks, with the off-scale memory run marked as not comparable | Gating the comparison on equal outcomes makes 2.7x believable, and printing where it doesn't help makes it trustworthy | [png](../days/2026-10-15/02-xerj.png) |
 | [2026-10-08](../days/2026-10-08/) | [boykopovar/AnyPS5](https://github.com/boykopovar/AnyPS5) | denominator-orange | Set the two progress bars side by side and draw their denominators differently, an open dashed end for the library total that grows and a hard wall for the fixed shader list | Two percentages that look alike read honestly only when the page shows what each one is divided by | [png](../days/2026-10-08/01-anyps5.png) |
 | [2026-09-30](../days/2026-09-30/) | [rakyll/hey](https://github.com/rakyll/hey) | percentile-blue | Build the whole page around a latency chart, then leave every result cell empty because the numbers are not mine to fill in | An empty result cell is the most honest thing a benchmarking tool landing page can show | [png](../days/2026-09-30/02-hey.png) |
 | [2026-09-23](../days/2026-09-23/) | [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | indigo | Use the project own published token figures at true scale, and attribute them in the same breath | A bar drawn honestly at 0.83 percent is more persuasive than a rounded claim, because the caption says whose number it is | [png](../days/2026-09-23/03-codebase-memory.png) |

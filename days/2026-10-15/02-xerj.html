@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XERJ: same score, 2.7x fewer tokens (concept)</title>
+<meta name="description" content="Concept landing page for XERJ, local AI search that lets coding agents pull passages instead of reading whole files.">
+<style>
+  :root{
+    --bg:#0f1115; --panel:#151821; --ink:#ece9e1; --mute:#a9afba; --line:#2b303b; --grid:#232833;
+    --y:#ffd23f; --grep:#7b8494; --mem:#4a5161;
+    --sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --ease:cubic-bezier(0.23,1,0.32,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--sans)}
+  a{color:inherit;text-underline-offset:3px}
+  code{font:500 .9em/1.4 var(--mono)}
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--y);color:#111;padding:10px 14px;z-index:10;font:600 14px/1 var(--mono)}
+  .skip:focus{left:8px}
+  :focus-visible{outline:2px solid var(--y);outline-offset:3px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  .cap{font:600 12px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  .top{border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:60px}
+  .brand{font:700 16px/1 var(--mono);letter-spacing:.12em;text-decoration:none}
+  .brand span{color:var(--y)}
+  .top ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+  .top nav a{font:500 14px/1 var(--mono);text-decoration:none;color:var(--mute);padding:6px 0;border-bottom:1px solid transparent;transition:color 160ms var(--ease),border-color 160ms var(--ease)}
+
+  .hero .wrap{padding-top:60px;padding-bottom:56px}
+  .hgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:end}
+  .hero .cap{margin:0 0 18px;color:var(--y)}
+  h1{margin:0;font:700 clamp(44px,6vw,80px)/1 var(--sans);letter-spacing:-.035em}
+  h1 em{font-style:normal;color:var(--y)}
+  .sub{margin:0;font-size:19px;line-height:1.55;color:var(--mute);max-width:50ch}
+  .sub strong{color:var(--ink);font-weight:600}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+  .btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border:1px solid var(--line);border-radius:8px;font:600 15px/1 var(--sans);text-decoration:none;color:var(--ink);background:var(--panel);transition:transform 140ms var(--ease),background-color 160ms var(--ease),border-color 160ms var(--ease)}
+  .btn.primary{background:var(--y);border-color:var(--y);color:#141414}
+  .btn:active{transform:scale(.97)}
+
+  .chart{margin-top:44px;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:26px 28px 22px}
+  .chart header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .chart h2{margin:0;font:600 18px/1.3 var(--sans)}
+  .rows{display:grid;grid-template-columns:190px 80px minmax(0,1fr) 92px 72px;column-gap:20px}
+  .rows .hd{padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .rows .hd.rt{text-align:right}
+  .r .tok{flex-direction:column;align-items:flex-end;justify-content:center;font:600 15px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+  .r .tok small{font:500 11px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-top:4px}
+  .r.x .tok{color:var(--y)}
+  .r{display:contents}
+  .r > *{padding:16px 0;border-bottom:1px solid var(--grid);align-self:stretch;display:flex;align-items:center}
+  .r .name{font-weight:600}
+  .r .solved{font:600 15px/1 var(--mono)}
+  .r .cost{justify-content:flex-end;font:500 15px/1 var(--mono);font-variant-numeric:tabular-nums}
+  .ok{display:inline-flex;align-items:center;gap:8px}
+  .ok i{width:8px;height:8px;border-radius:50%;background:var(--ink)}
+  .r.off .name,.r.off .solved,.r.off .cost{color:var(--mute)}
+  .r.off .ok i{background:transparent;border:1.5px solid var(--mute)}
+  .track{position:relative;width:100%;height:30px}
+  .bar{position:absolute;left:0;top:3px;height:24px;border-radius:0 4px 4px 0;transform-origin:left center;animation:grow 700ms var(--ease) both}
+  .bar.g{background:var(--grep)}
+  .bar.x{background:var(--y);animation-delay:120ms}
+  .bar.m{background:repeating-linear-gradient(135deg,var(--mem) 0 6px,#3a404d 6px 12px);border-radius:0;animation-delay:60ms}
+  .brk{position:absolute;right:-2px;top:0;height:30px;width:14px;background:var(--panel);transform:skewX(-18deg);border-left:2px solid var(--mute);border-right:2px solid var(--mute)}
+  .val{position:absolute;top:50%;transform:translateY(-50%);font:600 14px/1 var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .val.in{left:12px;color:#141414}
+  .val.out{color:var(--ink)}
+  .axis{grid-column:3;display:flex;justify-content:space-between;padding-top:8px;font:500 12px/1 var(--mono);color:var(--mute)}
+  .note{margin:16px 0 0;font-size:14px;color:var(--mute);line-height:1.5}
+
+  section.band{border-top:1px solid var(--line)}
+  section.band > .wrap{padding-top:56px;padding-bottom:56px}
+  .sh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 48px;align-items:end;margin-bottom:28px}
+  .sh h2{margin:8px 0 0;font:700 clamp(28px,3.2vw,42px)/1.08 var(--sans);letter-spacing:-.025em}
+  .sh p{margin:0;color:var(--mute);max-width:56ch}
+
+  .gate{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .gate > div{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:24px 26px}
+  .gate .win{border-color:rgba(255,210,63,.55)}
+  .gate h3{margin:10px 0 12px;font:600 22px/1.25 var(--sans)}
+  .gate ul{margin:0;padding:0;list-style:none}
+  .gate li{padding:10px 0;border-top:1px solid var(--grid);color:var(--ink)}
+  .gate .win .cap{color:var(--y)}
+  .quote{margin:20px 0 0;font-size:15px;color:var(--mute)}
+
+  .split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px}
+  pre{margin:0;border:1px solid var(--line);border-radius:12px;background:#0a0c10;padding:20px 22px;font:500 14px/1.7 var(--mono);color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+  pre .c{color:var(--mute)}
+  pre .p{color:var(--y)}
+  .runlog{display:flex;flex-direction:column;gap:12px}
+  .runlog p{margin:0;font-size:15px;color:var(--mute)}
+  .boundary{margin-top:24px;border:1px solid var(--line);border-left:3px solid var(--y);border-radius:0 12px 12px 0;background:var(--panel);padding:20px 24px}
+  .boundary h3{margin:8px 0 8px;font:600 20px/1.3 var(--sans)}
+  .boundary p{margin:0;color:var(--mute)}
+  .boundary code{color:var(--ink)}
+
+  .join{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:26px 28px}
+  .join h3{margin:8px 0 8px;font:600 24px/1.25 var(--sans)}
+  .join p{margin:0;color:var(--mute);max-width:62ch}
+
+  footer{border-top:1px solid var(--line)}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding-top:22px;padding-bottom:32px;font-size:14px;color:var(--mute)}
+  footer p{margin:0;max-width:80ch}
+
+  .rv{animation:rise 560ms var(--ease) both}
+  .d1{animation-delay:70ms}.d2{animation-delay:140ms}.d3{animation-delay:210ms}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @media (hover:hover) and (pointer:fine){
+    .top nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+    .btn:hover{border-color:var(--mute)}
+    .btn.primary:hover{background:#ffe07a}
+  }
+  @media (prefers-reduced-motion:reduce){.rv,.bar{animation:none !important}.btn,.top nav a{transition:none}}
+
+  @media (max-width:980px){
+    .hgrid{grid-template-columns:1fr;gap:22px}
+    .rows{grid-template-columns:140px 64px minmax(0,1fr) 78px 60px;column-gap:14px}
+    .split{grid-template-columns:1fr}
+  }
+  @media (max-width:760px){
+    .sh,.gate{grid-template-columns:1fr}
+    .join{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    .top .wrap{flex-direction:column;align-items:flex-start;gap:8px;padding-top:14px;padding-bottom:12px}
+    .hero .wrap{padding-top:40px;padding-bottom:44px}
+    .sub{font-size:17px}
+    .chart{padding:18px 16px 16px}
+    .rows{grid-template-columns:minmax(0,1fr) auto;column-gap:12px}
+    .rows .hd{display:none}
+    .r .name{grid-column:1;border-bottom:0;padding-bottom:6px}
+    .r .solved{grid-column:2;justify-content:flex-end;border-bottom:0;padding-bottom:6px}
+    .r .bars{grid-column:1 / -1;border-bottom:0;padding:0 0 4px}
+    .r .tok{grid-column:1;flex-direction:row;align-items:baseline;justify-content:flex-start;gap:10px;padding-top:2px}
+    .r .cost{grid-column:2;padding-top:2px}
+    .axis{grid-column:1 / -1}
+    section.band > .wrap{padding-top:44px;padding-bottom:44px}
+    .gate > div,.join{padding:20px}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://github.com/xerj-org/xerj">XERJ<span>.</span></a>
+    <nav aria-label="Project"><ul>
+      <li><a href="https://xerj.org/case-studies/reference-coding.html">Case study</a></li>
+      <li><a href="https://xerj.org/llms.txt">llms.txt</a></li>
+      <li><a href="https://github.com/xerj-org/xerj">Source</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hgrid">
+        <div>
+          <p class="cap rv">Local AI search for coding agents</p>
+          <h1 id="hero-h" class="rv d1">Same score. <em>2.7x fewer tokens.</em></h1>
+        </div>
+        <div class="rv d2">
+          <p class="sub">XERJ indexes any folder so a coding agent pulls the passage it needs instead of reading files one by one. In the project's controlled study it matched a grep-driven agent's <strong>16 of 16</strong> solved runs on <strong>2.7x fewer output tokens</strong>.</p>
+          <div class="ctas">
+            <a class="btn primary" href="https://xerj.org/case-studies/reference-coding.html">Read the case study</a>
+            <a class="btn" href="https://github.com/xerj-org/xerj">View the source</a>
+          </div>
+        </div>
+      </div>
+
+      <figure class="chart rv d3" aria-labelledby="chart-h">
+        <header>
+          <h2 id="chart-h">Reference coding: output tokens, cost and solve rate</h2>
+          <span class="cap">8 tasks &middot; 4 languages &middot; 16 runs per arm</span>
+        </header>
+        <div class="rows">
+          <span class="cap hd">Approach</span><span class="cap hd">Solved</span><span class="cap hd">Output tokens, 0&ndash;30k</span><span class="cap hd rt">Tokens</span><span class="cap hd rt">Cost</span>
+          <div class="r off">
+            <span class="name">From memory only</span>
+            <span class="solved"><span class="ok"><i aria-hidden="true"></i>11/16</span></span>
+            <span class="bars"><span class="track"><span class="bar m" style="width:100%"></span><span class="brk" aria-hidden="true"></span></span></span>
+            <span class="tok">260,916<small>off scale</small></span>
+            <span class="cost">$11.18</span>
+          </div>
+          <div class="r">
+            <span class="name">Grep-driven agent</span>
+            <span class="solved"><span class="ok"><i aria-hidden="true"></i>16/16</span></span>
+            <span class="bars"><span class="track"><span class="bar g" style="width:88.26%"></span></span></span>
+            <span class="tok">26,477</span>
+            <span class="cost">$3.27</span>
+          </div>
+          <div class="r x">
+            <span class="name">XERJ</span>
+            <span class="solved"><span class="ok"><i aria-hidden="true"></i>16/16</span></span>
+            <span class="bars"><span class="track"><span class="bar x" style="width:33.27%"></span></span></span>
+            <span class="tok">9,982</span>
+            <span class="cost">$1.58</span>
+          </div>
+          <div class="axis" aria-hidden="true"><span>0</span><span>10k</span><span>20k</span><span>30k</span></div>
+        </div>
+        <figcaption class="note">Compare only the rows that solved the same tasks: against grep at 16 of 16, XERJ used 2.7x fewer output tokens. Memory alone solved 11 of 16 and used 26x the tokens XERJ did. Measured with real <code>claude -p</code> token counts; users report roughly 5x fewer tokens in everyday work.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="gate-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="cap">Where it helps</p><h2 id="gate-h">The gain depends on what the model already knows.</h2></div>
+        <p>XERJ helps most when the code is new to the model. The README states the limit as plainly as the win.</p>
+      </div>
+      <div class="gate">
+        <div class="win"><span class="cap">Wins on</span><h3>Code the model has not memorised</h3><ul><li>Private and internal code</li><li>Niche projects</li><li>Code written after the model's cutoff</li></ul></div>
+        <div><span class="cap">Neutral to harmful on</span><h3>Code it already knows</h3><ul><li>Popular public libraries the model has already seen</li></ul></div>
+      </div>
+      <p class="quote">&ldquo;The value is gated by memorisation.&rdquo; &mdash; the README</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="feed-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="cap">Feed it any folder</p><h2 id="feed-h">One command indexes code, docs, logs and PDFs.</h2></div>
+        <p>XERJ works out what each file is and builds one typed index per dataset, with code symbols and line numbers from tree-sitter. Any Elasticsearch client can query it.</p>
+      </div>
+      <div class="split">
+<pre aria-label="Commands from the README"><code><span class="p">$</span> xerj --insecure --data-dir ./data &amp;
+<span class="c"># wire XERJ into Claude Code/Cursor (MCP + skill)</span>
+<span class="p">$</span> xerj init
+<span class="p">$</span> xerj autoindex ~/my-project
+<span class="c"># ranked passages, file:line</span>
+<span class="p">$</span> xerj search "how do we rotate the WAL segment"
+<span class="c"># go-to-definition: file:line + signature</span>
+<span class="p">$</span> xerj def "euler_to_rotationmatrix"
+<span class="c"># what it did for you - counted, not estimated</span>
+<span class="p">$</span> xerj gain</code></pre>
+        <div class="runlog">
+<pre aria-label="Example indexing run from the README"><code>phase A: 593 datasets inferred, 1955 junk/skipped files
+phase B: indexing 25329 files with 8 workers
+done in 158.1s, 593 datasets, 83103 records live, 790 junk records</code></pre>
+          <p>An example indexing run from the README: one command, 593 datasets inferred, junk files set aside.</p>
+        </div>
+      </div>
+      <div class="boundary">
+        <span class="cap">Trust boundary</span>
+        <h3><code>--insecure</code> is for one person on one dev machine.</h3>
+        <p>It turns off TLS and API-key auth, so anyone who can reach the port can read and delete every index. A fresh node binds to <code>127.0.0.1</code> only and refuses a cleartext bind on any other interface unless you explicitly allow it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="join-h">
+    <div class="wrap">
+      <div class="join">
+        <div>
+          <span class="cap">Join the community</span>
+          <h3 id="join-h">Membership is one field report.</h3>
+          <p>Run it, then send back one short report: what you pointed it at, what you used it for, and your honest verdict. A negative verdict is a good report.</p>
+        </div>
+        <a class="btn" href="https://github.com/xerj-org/xerj#join-the-community">Read how to file one</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Concept redesign, not affiliated. Figures from the project's reference-coding case study and README, read October 15, 2026. Apache-2.0.</p>
+    <p><a href="https://github.com/xerj-org/xerj">github.com/xerj-org/xerj</a></p>
+  </div>
+</footer>
+</body>
+</html>
