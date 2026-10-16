@@ -2,10 +2,11 @@
 
 Near-black dev-tool aesthetic (Linear / Vercel / Raycast). One electric accent per mock, mono details.
 
-32 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+33 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-16](../days/2026-10-16/) | [android/skills](https://github.com/android/skills) | gap-green | Print the whole skill tree and mark in place the one area the README deprioritizes, basic Jetpack Compose | Showing the gap the library chose not to fill makes "eval-driven" concrete in a way a feature list cannot | [png](../days/2026-10-16/01-android-skills.png) |
 | [2026-10-03](../days/2026-10-03/) | [cloudflare/cloudflare-os](https://github.com/cloudflare/cloudflare-os) | workers-orange | Run the same task through synchronous approval and a Gatekeeper side by side, so the stall and the queue share one screen | A stalled lane beside a queued one explains deferred approval faster than the paragraph that describes it | [png](../days/2026-10-03/01-cloudflare-os.png) |
 | [2026-09-25](../days/2026-09-25/) | [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | sky | Make the review gate the interactive element, since the gate is where a human still matters | Approving one item and watching a blocked task unblock says more than any org-chart diagram | [png](../days/2026-09-25/01-paperclip.png) |
 | [2026-09-20](../days/2026-09-20/) | [vercel-labs/json-render](https://github.com/vercel-labs/json-render) | catalog-amber | Let the reader generate a view and watch only the declared components light up | Two cells lighting while two stay dark proves the guardrail the copy claims | [png](../days/2026-09-20/02-json-render.png) |

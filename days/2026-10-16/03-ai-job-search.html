@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Job Search: the job search that runs on your machine (concept)</title>
+<meta name="description" content="Concept landing page for MadsLorentzen/ai-job-search, a job application framework built on Claude Code.">
+<style>
+  :root{
+    --cream:#fbf7f0; --card:#fffdf9; --ink:#2a2420; --mute:#5f564e; --line:#e8dfd2; --soft:#f4ece1;
+    --coral:#e07a5f; --coral-ink:#b2432a; --coral-soft:#fbe9e2;
+    --sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --round:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --ease:cubic-bezier(0.23,1,0.32,1);
+    --shadow:0 1px 2px rgba(42,36,32,.06),0 8px 24px rgba(42,36,32,.06);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--cream);color:var(--ink);font:400 17px/1.6 var(--sans)}
+  a{color:inherit;text-underline-offset:3px}
+  code{font:500 .86em/1.4 var(--mono)}
+  code,pre{font-variant-ligatures:none;font-feature-settings:"calt" 0,"liga" 0}
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--cream);padding:10px 14px;z-index:10;border-radius:8px;font:600 14px/1 var(--sans)}
+  .skip:focus{left:8px}
+  :focus-visible{outline:2px solid var(--coral-ink);outline-offset:3px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+  .kick{font:600 13px/1.3 var(--sans);letter-spacing:.04em;color:var(--coral-ink)}
+
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font:650 16px/1 var(--round);text-decoration:none}
+  .brand i{width:22px;height:22px;border-radius:7px;background:var(--coral);display:inline-block}
+  .top ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+  .top nav a{display:block;padding:9px 14px;border-radius:999px;font:500 15px/1 var(--sans);text-decoration:none;color:var(--mute);transition:background-color 160ms var(--ease),color 160ms var(--ease)}
+
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:56px;align-items:center;padding-top:48px;padding-bottom:64px}
+  .hero .kick{margin:0 0 18px}
+  h1{margin:0;font:700 clamp(42px,5.4vw,72px)/1.04 var(--round);letter-spacing:-.03em}
+  h1 span{color:var(--coral-ink)}
+  .sub{margin:22px 0 0;max-width:50ch;font-size:19px;line-height:1.6;color:var(--mute)}
+  .doors{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:10px}
+  .door{display:block;border-radius:14px;padding:18px 18px 16px;text-decoration:none}
+  .door + .door{margin-top:8px}
+  .door.main{background:var(--coral-soft);border:1px solid #f1c7b8}
+  .door.alt{border:1px solid var(--line)}
+  .door .q{display:block;font:600 13px/1.3 var(--sans);color:var(--mute)}
+  .door.main .q{color:var(--coral-ink)}
+  .door b{display:block;margin:6px 0 10px;font:650 21px/1.25 var(--round)}
+  .door code{display:block;padding:10px 12px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+  .door.main code{border-color:#f1c7b8}
+  .why{margin:12px 8px 6px;font-size:14.5px;line-height:1.55;color:var(--mute)}
+  .why strong{color:var(--ink);font-weight:600}
+
+  section.s > .wrap{padding-top:64px;padding-bottom:64px}
+  section.s{border-top:1px solid var(--line)}
+  .sh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 56px;align-items:end;margin-bottom:34px}
+  h2{margin:10px 0 0;font:700 clamp(30px,3.4vw,46px)/1.08 var(--round);letter-spacing:-.025em}
+  .sh p{margin:0;color:var(--mute);max-width:54ch}
+
+  .funnel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:26px 26px 22px;position:relative}
+  .step .n{display:block;font:700 clamp(54px,6.4vw,88px)/1 var(--round);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+  .step:last-child .n{color:var(--coral-ink)}
+  .step span{display:block;margin-top:10px;font-size:16px;color:var(--mute)}
+  .step:not(:last-child)::after{content:"";position:absolute;right:-12px;top:50%;width:10px;height:10px;border-top:2px solid var(--coral);border-right:2px solid var(--coral);transform:translateY(-50%) rotate(45deg)}
+  .quote{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;margin-top:28px;max-width:860px}
+  .quote i{width:44px;height:44px;border-radius:50%;background:var(--coral-soft);border:1px solid #f1c7b8;display:grid;place-items:center;font:700 18px/1 var(--round);font-style:normal;color:var(--coral-ink)}
+  .quote p{margin:0;font:500 21px/1.45 var(--round)}
+  .quote small{display:block;margin-top:8px;font:400 15px/1.5 var(--sans);color:var(--mute)}
+
+  .flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .stage{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 20px 18px}
+  .stage code{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--soft);font-size:13.5px;font-weight:600}
+  .stage p{margin:12px 0 0;font-size:15.5px;line-height:1.5;color:var(--mute)}
+  .stage.apply{grid-column:span 2;background:var(--coral-soft);border-color:#f1c7b8}
+  .stage.apply ol{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:15px}
+  .stage.apply li{padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid #f1c7b8}
+  .stage.apply li.rv2{font-weight:600;color:var(--coral-ink)}
+  .stage.apply .arr{color:var(--coral-ink);font-weight:600;padding:0;border:0;background:none}
+
+  .guards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+  .guard{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+  .guard i{width:28px;height:28px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font:700 14px/1 var(--round);font-style:normal;color:var(--coral-ink)}
+  .guard b{display:block;font:650 17px/1.35 var(--round)}
+  .guard span{display:block;margin-top:4px;font-size:15px;line-height:1.5;color:var(--mute)}
+
+  .needs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .need{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+  .need b{display:block;font:650 17px/1.3 var(--round)}
+  .need span{display:block;margin-top:6px;font-size:15px;line-height:1.5;color:var(--mute)}
+  .market{margin:18px 0 0;color:var(--mute);font-size:15.5px;max-width:84ch}
+  .market strong{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line)}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding-top:24px;padding-bottom:36px;font-size:14px;color:var(--mute)}
+  footer p{margin:0;max-width:80ch}
+
+  .rv{animation:rise 600ms var(--ease) both}
+  .d1{animation-delay:80ms}.d2{animation-delay:160ms}.d3{animation-delay:240ms}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (hover:hover) and (pointer:fine){
+    .top nav a:hover{background:var(--soft);color:var(--ink)}
+    .door{transition:transform 180ms var(--ease),box-shadow 180ms var(--ease)}
+    .door:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(178,67,42,.10)}
+  }
+  .door:active{transform:scale(.99)}
+  @media (prefers-reduced-motion:reduce){.rv{animation:none}.door,.top nav a{transition:none}.door:hover{transform:none}}
+
+  @media (max-width:1000px){
+    .hero .wrap{grid-template-columns:1fr;gap:36px}
+    .flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .needs{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .sh{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    .funnel{grid-template-columns:1fr}
+    .step:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-12px;transform:translateX(-50%) rotate(135deg)}
+    .guards{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    .top .wrap{flex-direction:column;align-items:flex-start;gap:4px;padding-top:12px;padding-bottom:8px}
+    .top nav a{padding:8px 12px 8px 0}
+    .hero .wrap{padding-top:28px;padding-bottom:44px}
+    .sub{font-size:17px}
+    section.s > .wrap{padding-top:44px;padding-bottom:44px}
+    .flow,.needs{grid-template-columns:1fr}
+    .stage.apply{grid-column:auto}
+    .quote p{font-size:19px}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://github.com/MadsLorentzen/ai-job-search"><i aria-hidden="true"></i>AI Job Search</a>
+    <nav aria-label="Project"><ul>
+      <li><a href="https://github.com/MadsLorentzen/ai-job-search/blob/master/SETUP.md">Setup guide</a></li>
+      <li><a href="https://github.com/MadsLorentzen/ai-job-search">Source</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div>
+        <p class="kick rv">A job application framework built on Claude Code</p>
+        <h1 id="hero-h" class="rv d1">The job search that runs <span>on your machine.</span></h1>
+        <p class="sub rv d2">Fill in your profile once. Claude evaluates postings, tailors your CV, writes cover letters and preps you for interviews, and a second agent reviews every draft before you see it.</p>
+      </div>
+      <div class="doors rv d2" role="group" aria-labelledby="doors-h">
+        <p class="why" id="doors-h" style="margin-top:6px"><strong>Two ways to start,</strong> and the README is clear about which is which.</p>
+        <a class="door main" href="https://github.com/MadsLorentzen/ai-job-search/blob/master/SETUP.md">
+          <span class="q">Running your own search?</span>
+          <b>Use a private repository, with this one as upstream.</b>
+          <code>git remote add upstream https://github.com/MadsLorentzen/ai-job-search.git</code>
+        </a>
+        <a class="door alt" href="https://github.com/MadsLorentzen/ai-job-search">
+          <span class="q">Contributing changes back?</span>
+          <b>Fork it.</b>
+          <code>gh repo fork MadsLorentzen/ai-job-search --clone</code>
+        </a>
+        <p class="why"><strong>Why it matters:</strong> a fork of a public repository is always public, and <code>/setup</code> writes your profile, from contact details to salary expectations, into tracked files.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="works-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="kick">Does it actually work?</p><h2 id="works-h">One person&rsquo;s search, start to finish.</h2></div>
+        <p>The author built the framework when his position was cut in late 2025 and ran his own search with it every week. These are his numbers, from the README.</p>
+      </div>
+      <div class="funnel">
+        <div class="step"><span class="n">69</span><span>tailored applications</span></div>
+        <div class="step"><span class="n">20</span><span>first interviews</span></div>
+        <div class="step"><span class="n">1</span><span>signed contract, starting as an AI engineer in June 2026</span></div>
+      </div>
+      <div class="quote">
+        <i aria-hidden="true">M</i>
+        <p>&ldquo;It got me hired. Now it&rsquo;s yours.&rdquo;<small>Mads Lorentzen, geophysicist by training and the project&rsquo;s author. He told every employer he was using it; it usually sparked a technical conversation.</small></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="flow-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="kick">The workflow</p><h2 id="flow-h">It drafts. You send.</h2></div>
+        <p>The agent does the drafting and the checking; sending stays with you. At the core, a drafter and a reviewer work on the same application.</p>
+      </div>
+      <div class="flow">
+        <div class="stage"><code>/setup</code><p>Builds your profile from your documents folder, a pasted CV, or an interview.</p></div>
+        <div class="stage"><code>/scrape</code><p>Searches job portals, removes duplicates, and sorts matches by fit.</p></div>
+        <div class="stage apply">
+          <code>/apply &lt;url&gt;</code>
+          <ol aria-label="Apply pipeline">
+            <li>Evaluate fit</li><li class="arr" aria-hidden="true">&rarr;</li>
+            <li>Draft CV and cover letter</li><li class="arr" aria-hidden="true">&rarr;</li>
+            <li class="rv2">Reviewer agent critiques</li><li class="arr" aria-hidden="true">&rarr;</li>
+            <li>Revise</li>
+          </ol>
+        </div>
+      </div>
+      <div class="guards">
+        <div class="guard"><i aria-hidden="true">1</i><div><b>Postings are untrusted input.</b><span>The workflow follows no instructions embedded in a posting and fetches no links from its body.</span></div></div>
+        <div class="guard"><i aria-hidden="true">2</i><div><b>Follow-ups are drafts.</b><span><code>/outcome followup</code> drafts a short note for quiet applications. It never sends, and offers at most two per application.</span></div></div>
+        <div class="guard"><i aria-hidden="true">3</i><div><b>Gmail proposes; you approve.</b><span><code>/gmail-sync</code> batches status changes for your approval and cites the source email on every one.</span></div></div>
+        <div class="guard"><i aria-hidden="true">4</i><div><b>Hired is your call.</b><span>Offers stop short of being marked hired or declined. And the defences are instructions, not a sandbox, so skim before you hit send.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="need-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="kick">Before you start</p><h2 id="need-h">What you&rsquo;ll need.</h2></div>
+        <p>The README lists the costs plainly, including the one that isn&rsquo;t free.</p>
+      </div>
+      <div class="needs">
+        <div class="need"><b>Claude Code</b><span>No free tier: a Pro, Max or Team plan, or API credits.</span></div>
+        <div class="need"><b>Python 3.10+</b><span>For setup tools and checks.</span></div>
+        <div class="need"><b>Bun</b><span>Runs the job-portal search tools.</span></div>
+        <div class="need"><b>LaTeX</b><span><code>lualatex</code> for the CV, <code>xelatex</code> for the cover letter.</span></div>
+      </div>
+      <p class="market"><strong>Built in Denmark, made to travel.</strong> The portal skills target Danish job boards such as Jobindex, Jobnet and Akademikernes Jobbank. LinkedIn and freehire work across markets, and <code>/add-portal</code> generates a skill for a job board in yours.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Concept redesign, not affiliated. The project is independent and not affiliated with Anthropic. Facts from the README and SETUP guide, read October 16, 2026. Second take; the first ran August 26. MIT.</p>
+    <p><a href="https://github.com/MadsLorentzen/ai-job-search">github.com/MadsLorentzen/ai-job-search</a></p>
+  </div>
+</footer>
+</body>
+</html>

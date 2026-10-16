@@ -2,10 +2,11 @@
 
 Light, calm, technical-editorial. Strong serif headline + clean sans, generous whitespace (Stripe-essay).
 
-37 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+38 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-16](../days/2026-10-16/) | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | caveat-crimson | Lead with the paper's distinction between working code and a defensible analysis, chart its context-cost measurements, and give its stated missing evaluation the same weight | A research page that prints its own caveat earns more trust than one that opens on counts | [png](../days/2026-10-16/02-scientific-agent-skills.png) |
 | [2026-10-10](../days/2026-10-10/) | [Robbyant/lingbot-map](https://github.com/Robbyant/lingbot-map) | memory-teal | Draw the paper's attention design as one row of frames, full height for the first and last frames and six small tokens for every frame between | Drawing token counts as block height makes compact streaming state something you can see rather than take on trust | [png](../days/2026-10-10/02-lingbot-map.png) |
 | [2026-10-01](../days/2026-10-01/) | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | stop-rust | Print the seven-rung ladder in full and highlight the rung that fires for the example beside it, so the mechanism and the outcome share one screen | Lighting the rung that fired turns a rule list into a trace, and a trace is what makes the example believable | [png](../days/2026-10-01/01-ponytail.png) |
 | [2026-09-24](../days/2026-09-24/) | [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight) | plum | Give the three published operations equal rows, then tint only the one that is not retrieval | Marking reflect as the odd verb out says more than any benchmark chart would have | [png](../days/2026-09-24/01-hindsight.png) |

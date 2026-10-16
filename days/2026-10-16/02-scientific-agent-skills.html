@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scientific Agent Skills: working code is not a defensible analysis (concept)</title>
+<meta name="description" content="Concept landing page for K-Dense-AI/scientific-agent-skills and its paper, a library of procedural knowledge for research agents.">
+<style>
+  :root{
+    --paper:#f8f6f1; --card:#fdfcf9; --ink:#1b1a17; --mute:#55524b; --hair:#d9d4c9; --soft:#efebe2;
+    --crim:#9e1b32; --crim-soft:#f3e3e3;
+    --serif:"Iowan Old Style","Charter","Source Serif 4","Source Serif Pro",Georgia,"Times New Roman",serif;
+    --sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --ease:cubic-bezier(0.23,1,0.32,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--sans)}
+  a{color:inherit;text-underline-offset:3px}
+  code{font:500 .86em/1.4 var(--mono)}
+  code,pre,.tag,.ticks{font-variant-ligatures:none;font-feature-settings:"calt" 0,"liga" 0}
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--paper);padding:10px 14px;z-index:10;font:600 14px/1 var(--mono)}
+  .skip:focus{left:8px}
+  :focus-visible{outline:2px solid var(--crim);outline-offset:3px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+  .kick{font:600 12px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+  .kick.red{color:var(--crim)}
+
+  .top{border-bottom:1px solid var(--ink)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-top:18px;padding-bottom:14px}
+  .brand{font:600 21px/1.1 var(--serif);text-decoration:none;letter-spacing:-.01em}
+  .top ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+  .top nav a{font:500 14px/1 var(--sans);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;transition:border-color 160ms var(--ease)}
+
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:64px;padding-top:64px;padding-bottom:60px;align-items:end}
+  .hero .kick{margin:0 0 22px}
+  h1{margin:0;font:600 clamp(44px,5.8vw,78px)/1.03 var(--serif);letter-spacing:-.02em}
+  h1 em{font-style:italic;color:var(--crim)}
+  .dek{margin:28px 0 0;max-width:58ch;font:400 20px/1.55 var(--serif);color:var(--ink)}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border:1px solid var(--ink);font:600 15px/1 var(--sans);text-decoration:none;color:var(--ink);background:transparent;transition:background-color 160ms var(--ease),color 160ms var(--ease),transform 140ms var(--ease)}
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn:active{transform:scale(.97)}
+  .paper{border-top:2px solid var(--ink);padding-top:16px}
+  .paper p{margin:0 0 12px;font-size:15px;color:var(--mute)}
+  .paper .ttl{font:600 19px/1.35 var(--serif);color:var(--ink);margin-bottom:14px}
+  .paper dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 16px;margin:14px 0 0;font-size:14.5px}
+  .paper dt{color:var(--mute)}
+  .paper dd{margin:0}
+
+  section.s{border-top:1px solid var(--hair)}
+  section.s > .wrap{padding-top:60px;padding-bottom:60px}
+  .sh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 64px;align-items:end;margin-bottom:34px}
+  h2{margin:10px 0 0;font:600 clamp(30px,3.4vw,44px)/1.1 var(--serif);letter-spacing:-.015em}
+  .sh p{margin:0;color:var(--mute);max-width:56ch}
+
+  figure{margin:0;border:1px solid var(--hair);background:var(--card);padding:28px 30px 24px}
+  figure .fh{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+  figure .fh b{font:600 17px/1.3 var(--serif)}
+  .row{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:center;padding:14px 0;border-top:1px solid var(--soft)}
+  .row:first-of-type{border-top:0}
+  .rl{font-size:15px;line-height:1.4}
+  .rl small{display:block;color:var(--mute);font-size:13.5px}
+  .scale{position:relative;height:34px;background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),var(--hair) calc(25% - 1px) 25%);border-left:1px solid var(--ink);border-right:1px solid var(--hair)}
+  .fill{position:absolute;left:0;top:7px;height:20px;background:var(--crim);transform-origin:left center;animation:grow 760ms var(--ease) both}
+  .fill.h{background:repeating-linear-gradient(135deg,var(--crim) 0 3px,transparent 3px 7px);border:1.5px solid var(--crim);animation-delay:120ms}
+  .tag{position:absolute;top:50%;transform:translateY(-50%);font:600 14px/1 var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:10px}
+  .ticks{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;padding-top:6px}
+  .ticks div{display:flex;justify-content:space-between;font:500 12px/1 var(--mono);color:var(--mute)}
+  .wf{display:flex;flex-wrap:wrap;gap:5px}
+  .w{display:block;width:15px;height:15px;border:1.5px solid var(--ink)}
+  .w.o{background:var(--crim);border-color:var(--crim)}
+  figcaption{margin-top:18px;padding-top:14px;border-top:1px solid var(--hair);font-size:14px;color:var(--mute)}
+  .so{margin:22px 0 0;font:400 19px/1.5 var(--serif)}
+
+  .admit{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:64px;align-items:center}
+  blockquote{margin:0;padding-left:28px;border-left:4px solid var(--crim)}
+  blockquote p{margin:0;font:500 clamp(28px,3.2vw,42px)/1.22 var(--serif);letter-spacing:-.01em}
+  blockquote cite{display:block;margin-top:16px;font:500 14px/1.4 var(--sans);font-style:normal;color:var(--mute)}
+  .admit .note p{margin:0 0 14px;color:var(--mute)}
+  .admit .note strong{color:var(--ink);font-weight:600}
+
+  .ex{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:1px solid var(--hair);background:var(--card)}
+  .ex > div{padding:26px 28px}
+  .ex > div + div{border-left:1px solid var(--hair)}
+  .ex h3{margin:10px 0 10px;font:600 24px/1.2 var(--serif)}
+  .ex p{margin:0 0 12px;color:var(--mute)}
+  .ex .formats{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+  .ex .formats li{font:600 13px/1 var(--mono);padding:7px 9px;border:1px solid var(--hair);background:var(--paper)}
+  .tree{margin:12px 0 0;font:500 14.5px/1.9 var(--mono)}
+  .tree div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;border-top:1px solid var(--soft);padding:6px 0}
+  .tree div:first-child{border-top:0}
+  .tree span:last-child{font:400 14.5px/1.5 var(--sans);color:var(--mute)}
+  .tree b{font-weight:600}
+
+  .safe{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}
+  pre{margin:0;border:1px solid var(--hair);background:var(--card);padding:18px 20px;font:500 14px/1.75 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+  pre .c{color:var(--mute)}
+  .warn{border-left:4px solid var(--crim);background:var(--card);padding:20px 24px;border-top:1px solid var(--hair);border-right:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+  .warn p{margin:0 0 12px}
+  .warn ul{margin:0;padding-left:20px;color:var(--mute)}
+  .warn li{margin:4px 0}
+
+  footer{border-top:1px solid var(--ink)}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding-top:22px;padding-bottom:32px;font-size:14px;color:var(--mute)}
+  footer p{margin:0;max-width:78ch}
+
+  .rv{animation:rise 600ms var(--ease) both}
+  .d1{animation-delay:80ms}.d2{animation-delay:160ms}.d3{animation-delay:240ms}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @media (hover:hover) and (pointer:fine){
+    .top nav a:hover{border-bottom-color:var(--crim)}
+    .btn:hover{background:var(--ink);color:var(--paper)}
+    .btn.primary:hover{background:var(--crim);border-color:var(--crim)}
+  }
+  @media (prefers-reduced-motion:reduce){.rv,.fill{animation:none !important}.btn,.top nav a{transition:none}}
+
+  @media (max-width:980px){
+    .hero .wrap{grid-template-columns:1fr;gap:40px}
+    .sh,.admit,.safe{grid-template-columns:1fr;gap:28px}
+    .row,.ticks{grid-template-columns:180px minmax(0,1fr);gap:16px}
+  }
+  @media (max-width:720px){
+    .ex{grid-template-columns:1fr}
+    .ex > div + div{border-left:0;border-top:1px solid var(--hair)}
+    .row{grid-template-columns:1fr;gap:8px}
+    .ticks{grid-template-columns:1fr}
+    .ticks > span{display:none}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    .top .wrap{flex-direction:column;gap:8px}
+    .hero .wrap{padding-top:40px;padding-bottom:44px}
+    .dek{font-size:18px}
+    section.s > .wrap{padding-top:44px;padding-bottom:44px}
+    figure{padding:20px 16px 18px}
+    .ex > div{padding:20px}
+    .tree div{grid-template-columns:1fr;gap:2px}
+    blockquote{padding-left:18px}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://github.com/K-Dense-AI/scientific-agent-skills">Scientific Agent Skills</a>
+    <nav aria-label="Project"><ul>
+      <li><a href="https://arxiv.org/abs/2609.00065">Paper</a></li>
+      <li><a href="https://github.com/K-Dense-AI/scientific-agent-skills/blob/main/docs/skills.md">Catalog</a></li>
+      <li><a href="https://github.com/K-Dense-AI/scientific-agent-skills">Source</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div>
+        <p class="kick red rv">Procedural knowledge for research agents</p>
+        <h1 id="hero-h" class="rv d1">Working code is not a <em>defensible</em> analysis.</h1>
+        <p class="dek rv d2">An agent asked to analyse an experiment will usually return code that runs. Whether the analysis holds up depends on procedural choices: which test the field accepts, which identifier namespace is authoritative, and which caveats must accompany a result. This library writes those choices down.</p>
+        <div class="ctas rv d3">
+          <a class="btn primary" href="https://arxiv.org/abs/2609.00065">Read the paper</a>
+          <a class="btn" href="https://github.com/K-Dense-AI/scientific-agent-skills">Browse the skills</a>
+        </div>
+      </div>
+      <aside class="paper rv d2" aria-label="The paper">
+        <p class="kick">arXiv:2609.00065</p>
+        <p class="ttl">Scientific Agent Skills: A Library of Procedural Knowledge for Research Agents</p>
+        <p>Timothy Kassis, Vinayak Agarwal, Yuhuan He, Darshil Patel, Aubrey M. Brueckner</p>
+        <dl>
+          <dt>Posted</dt><dd>August 30, 2026</dd>
+          <dt>In the paper</dt><dd>163 skills in 16 areas of practice</dd>
+          <dt>In the repo today</dt><dd>177 skills, version 2.72.0</dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="fig-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="kick">What the paper measured</p><h2 id="fig-h">The cost of a library is paid in context.</h2></div>
+        <p>The paper measures two properties of the documentation itself, against a 200,000-token context window. Together they show why a skill's instructions load only when a task calls for them.</p>
+      </div>
+      <figure aria-labelledby="fig-cap">
+        <div class="fh"><b>Figure 1. Documentation cost against a 200,000-token window</b><span class="kick">163 skills, as measured</span></div>
+        <div class="row">
+          <div class="rl">Every skill's description<small>always resident</small></div>
+          <div class="scale"><span class="fill" style="width:7.1%"></span><span class="tag" style="left:7.1%">7.1%</span></div>
+        </div>
+        <div class="row">
+          <div class="rl">The median documented workflow<small>fits within</small></div>
+          <div class="scale"><span class="fill h" style="width:23.9%"></span><span class="tag" style="left:23.9%">23.9%</span></div>
+        </div>
+        <div class="ticks" aria-hidden="true"><span></span><div><span>0</span><span>50k</span><span>100k</span><span>150k</span><span>200k</span></div></div>
+        <div class="row" style="margin-top:14px;border-top:1px solid var(--soft)">
+          <div class="rl">Every reference file loaded at once<small>29 of 46 workflows overflow</small></div>
+          <div class="wf" role="img" aria-label="29 of 46 documented workflows would overflow the window if every reference file were loaded"><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w o"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i></div>
+        </div>
+        <figcaption id="fig-cap">Percentages and counts from the paper. The order of the 46 workflows is illustrative; the paper reports the count, not which ones.</figcaption>
+      </figure>
+      <p class="so">Descriptions stay small enough to keep resident. Full references do not, so they load on demand.</p>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="admit-h">
+    <div class="wrap admit">
+      <blockquote>
+        <p>&ldquo;We report no task-level evaluation and no host selection rate.&rdquo;</p>
+        <cite>From the paper&rsquo;s abstract</cite>
+      </blockquote>
+      <div class="note">
+        <p class="kick red" id="admit-h">The caveat, stated</p>
+        <p><strong>Both measurements describe the documentation, not the science.</strong> Whether agents produce better analyses with these skills, and how often a host actually selects a skill, are left unmeasured, and the paper says so in its abstract.</p>
+        <p>A library about caveats that opens with its own reads as a method, not a pitch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="ex-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="kick">One choice, written down</p><h2 id="ex-h">Code that runs, off by one.</h2></div>
+        <p>Genomic intervals come in several conventions, and code that mixes them still runs. The Genomic Coordinates skill exists to catch that before it reaches a result.</p>
+      </div>
+      <div class="ex">
+        <div>
+          <p class="kick">Genomic Coordinates</p>
+          <h3>Which identifier namespace is authoritative</h3>
+          <p>Converts intervals across conventions, normalises variant representations, and catches 0-based vs 1-based and assembly or contig-naming mismatches before they corrupt an analysis.</p>
+          <ul class="formats" aria-label="Formats covered"><li>BED</li><li>GFF</li><li>GTF</li><li>VCF</li><li>SAM</li><li>WIG</li></ul>
+        </div>
+        <div>
+          <p class="kick">Anatomy of a skill</p>
+          <h3>A directory around one instruction file</h3>
+          <div class="tree">
+            <div><span><b>SKILL.md</b></span><span>Versioned, human-readable instructions, loaded only when a task calls for it</span></div>
+            <div><span>reference material</span><span>Often included, loaded as needed</span></div>
+            <div><span><b>scripts/</b></span><span>Often included; runnable, and covered by a test suite</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" aria-labelledby="safe-h">
+    <div class="wrap">
+      <div class="sh">
+        <div><p class="kick">Install</p><h2 id="safe-h">Install what you need. Read it first.</h2></div>
+        <p>Skills can run code and steer your agent. The project asks you to install only the skills you need, not the whole collection.</p>
+      </div>
+      <div class="safe">
+<pre aria-label="Install commands from the README"><code><span class="c"># one skill, with the GitHub CLI</span>
+gh skill install K-Dense-AI/scientific-agent-skills scanpy
+
+<span class="c"># pin a release for reproducible installs</span>
+gh skill install K-Dense-AI/scientific-agent-skills --pin v2.71.0
+
+<span class="c"># scan a third-party skill before you install it</span>
+skill-scanner scan /path/to/skill --use-behavioral</code></pre>
+        <div class="warn">
+          <p class="kick red">Security disclaimer &middot; from the README</p>
+          <p>Skills can execute code and influence your coding agent&rsquo;s behavior. Review what you install.</p>
+          <ul>
+            <li>Do not install everything at once.</li>
+            <li>Read the <code>SKILL.md</code> before installing.</li>
+            <li>Check the contribution history: K-Dense-authored skills have been through internal review.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Concept redesign, not affiliated. Figures from the paper&rsquo;s abstract; skill counts and commands from the README, read October 16, 2026. Second take; the first ran August 27. MIT.</p>
+    <p><a href="https://github.com/K-Dense-AI/scientific-agent-skills">github.com/K-Dense-AI/scientific-agent-skills</a></p>
+  </div>
+</footer>
+</body>
+</html>

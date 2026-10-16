@@ -1,9 +1,10 @@
 ﻿# Style — warm-minimal
 
-21 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
+22 mocks in this family. [Back to home](../README.md) · [Catalog](../CATALOG.md)
 
 | Date | Repository | Accent | Idea tested | Verdict | Preview |
 |------|------------|--------|-------------|---------|---------|
+| [2026-10-16](../days/2026-10-16/) | [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search) | upstream-coral | Replace the fork button with the README's two doors, a private repository for your own search and a fork only to contribute, then show the author's own results | Putting the privacy advice where the fork button usually sits turns a footnote into the first decision | [png](../days/2026-10-16/03-ai-job-search.png) |
 | [2026-10-09](../days/2026-10-09/) | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | honey | Open one real skill file on the hero and highlight its guardrail sentences, so customizing a plugin reads as editing a document | Highlighted guardrail sentences make the case that a team can review an agent's policy the way it reviews a doc | [png](../days/2026-10-09/03-knowledge-work-plugins.png) |
 | [2026-09-29](../days/2026-09-29/) | [t8y2/dbx](https://github.com/t8y2/dbx) | clay | Lead with the size-to-reach ratio, then spend the second half on the three permission modes an agent inherits | Printing high_risk_write under the third card is the kind of self-labelling that earns trust in one glance | [png](../days/2026-09-29/03-dbx.png) |
 | [2026-09-21](../days/2026-09-21/) | [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | archive-teal | Draw the handoff as a baton that moves between two lanes and can only sit in one | Exactly one active lane is the protocol claim made visible; a paragraph would have made it sound optional | [png](../days/2026-09-21/01-ai-memory.png) |
